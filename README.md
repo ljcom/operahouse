@@ -8,11 +8,13 @@ Folder Structure:
 
 More Requirements
 * Visual Studio 2015 or later
-* SQL Server 2012 or later
 * IIS / IIS Express
+* SQL Server 2012 or later
 * oph_core database 
 * oph_model database
 
 IIS Express Setting:
-* see file iis-setting.md
+* see file iis-setting.txt
+
+
 
