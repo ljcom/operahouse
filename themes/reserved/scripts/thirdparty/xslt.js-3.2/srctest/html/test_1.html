@@ -1,0 +1,28 @@
+<html>
+<head>
+<title></title>
+<script type="text/javascript" src="../lib/jsunit/app/jsUnitCore.js"></script>
+<script type="text/javascript" src="../../src/javascript/xslt.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+function testBasics() {
+ var t = new Transformation();
+ assertUndefined(t.getXml());
+ assertUndefined(t.getXslt());
+ assertNotNull(t.getCallback());
+}
+
+function testSetterChaining() {
+ var t = new Transformation();
+ var x = t.setXml("roflcopter.xml");
+ assertTrue(t == x);
+ assertTrue("roflcopter.xml" == t.getXml());
+ x = t.setXslt("blob.xsl");
+ assertTrue(t == x);
+ assertTrue("blob.xsl" == t.getXslt());
+ assertTrue(t == t.setCallback(new Function("alert('e!')")));
+}
+</script>
+</body>
+</html>

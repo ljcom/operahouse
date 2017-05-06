@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<!-- ====================================================================== 
+     16.05.2007 13:38:32                                                        
+
+     xslt.js
+     Transform XML with XSLT
+                   
+     Johann                                                                
+     ====================================================================== -->
+<project name="xslt.js" default="all">
+
+	<property name="project" value="xslt.js" />
+	<property name="version" value="3.2" />
+
+	<property name="src" location="src" />
+	<property name="srcjavascript" location="${src}/javascript" />
+	<property name="srctest" location="srctest" />
+	<property name="srctestjavascript" location="${srctest}/javascript" />
+
+	<property name="srctestlib" location="${srctest}/lib" />
+
+	<property name="jsdoc" location="${srctestlib}/JSDoc-1.10.2/jsdoc.pl" />
+
+	<property name="yui" location="${srctestlib}/YUI Compressor/yuicompressor-2.3.6.jar" />
+	<property name="packer.js" location="${srctestlib}/packer.js" />
+
+	<target name="init">
+		<fileset dir="${srcjavascript}" id="srcjavascript.files">
+			<include name="**.js"/>
+		</fileset>
+		
+		<pathconvert pathsep='" "' property="srcjavascript.files.text" refid="srcjavascript.files"/>
+	</target>
+
+	<target name="clean" depends="init">
+		<delete dir="target" quiet="true" />
+		<mkdir dir="target" />
+		<mkdir dir="target/documentation" />
+
+		<copy todir="target">
+			<fileset dir="${srcjavascript}" id="srcjavascript.files">
+				<include name="**.js"/>
+			</fileset>
+			<fileset file="build.xml"/>
+			<fileset file="copying.txt"/>
+			<fileset file=".project"/>
+			<fileset file=".classpath"/>
+		</copy>
+
+		<delete quiet="true">
+			<fileset>
+				<filename name="${project}-${version}.zip" />
+				<filename name="${project}-${version}.tar" />
+				<filename name="${project}-${version}.tar.bz2" />
+				<filename name="${project}-${version}.tar.gz" />
+			</fileset>
+		</delete>
+
+	</target>
+
+	<target name="JSDoc" depends="clean">
+		<exec executable="perl">
+			<arg value="${jsdoc}" />
+			<arg value="-d" />
+			<arg value="target/documentation" />
+			<arg line='"${srcjavascript.files.text}"' />
+		</exec>
+	</target>
+
+	<target name="YUI" depends="init">
+		<apply executable="java" parallel="false" verbose="true" dest="target">
+			<arg value="-jar" />
+			<arg value="${yui}"/>
+			<arg value="-o"/>
+			<targetfile/>
+			<srcfile/>
+			<fileset refid="srcjavascript.files"/>
+			<mapper type="glob" from="*.js" to="*.yui.js"/>
+		</apply>
+	</target>
+
+	<target name="packer" depends="YUI">
+		<apply executable="java" parallel="false" verbose="true" dest="target">
+			<arg value="-jar"/>
+			<arg value="${packer.js}/js.jar"/>
+			<arg value="${packer.js}/packer.js"/>
+			<srcfile/>
+			<targetfile/>
+			<fileset dir="target">
+				<include name="*.yui.js"/>
+			</fileset>
+			<mapper type="glob" from="*.yui.js" to="*.pack.js"/>
+		</apply>
+	</target>
+
+	<target name="package" depends="packer">		
+		<zip destfile="${project}-${version}.zip">
+			<fileset dir="target" />
+			<zipfileset dir="src" prefix="src" />
+			<zipfileset dir="srctest" prefix="srctest">
+				<exclude name="lib/**" />
+			</zipfileset>
+		</zip>
+
+		<tar destfile="${project}-${version}.tar">
+			<tarfileset dir="target" />
+			<tarfileset dir="src" prefix="src" />
+			<tarfileset dir="srctest" prefix="srctest">
+				<exclude name="lib/**" />
+			</tarfileset>
+		</tar>
+
+		<bzip2 src="${project}-${version}.tar" destfile="${project}-${version}.tar.bz2" />
+		<gzip src="${project}-${version}.tar" destfile="${project}-${version}.tar.gz" />
+
+		<delete file="${project}-${version}.tar" />
+	</target>
+
+	<target name="all" depends="clean, JSDoc, package">
+	</target>
+
+</project>

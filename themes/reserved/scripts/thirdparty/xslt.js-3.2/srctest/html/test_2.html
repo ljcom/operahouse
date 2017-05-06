@@ -1,0 +1,29 @@
+<html>
+<head>
+<title></title>
+<script type="text/javascript" src="../lib/jsunit/app/jsUnitCore.js"></script>
+<script type="text/javascript" src="../../src/javascript/xslt.js"></script>
+</head>
+<body>
+<div id="bla"></div>
+<script type="text/javascript">
+function testCallback() {
+ callbackCalled = false;
+ new Transformation().setXml("../../data/doc.xml").setXslt("../../data/doc.xsl").setCallback(function(t) {
+  callbackCalled = true;
+  assertNotNull(t);
+ }).transform("bla");
+}
+
+function testCallbackDocument() {
+ new Transformation().setXml("../../data/doc.xml").setXslt("../../data/doc.xsl").setCallback(function(t) {
+  var xmlDoc = t.getXmlDocument();
+  var xsltDoc = t.getXsltDocument();
+  assertNotNull(xmlDoc);
+  assertNotNull(xsltDoc);
+  assertEquals(1, xmlDoc.getElementsByTagName('message').length);
+ }).transform("bla");
+}
+</script>
+</body>
+</html>

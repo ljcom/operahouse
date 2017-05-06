@@ -1,0 +1,381 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>JQuery MessageBox</title>
+	<link rel="stylesheet" href="styles/screen.css" type="text/css" media="screen, projection">	
+	<link type="text/css" rel="stylesheet" href="styles/shCoreDefault.css"/>
+	<script type="text/javascript" src="scripts/shCore.js"></script>
+
+	<script type="text/javascript" src="scripts/shAutoloader.js"></script>
+
+	<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+
+	<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+
+	<script type="text/javascript" src="scripts/shBrushPlain.js"></script>
+
+	<script type="text/javascript" src="scripts/shBrushCss.js"></script>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+	</style>
+</head>
+
+
+<body>
+	<div class="container">
+	
+		<h3 class="center alt">&ldquo;JQuery MessageBox&rdquo; Documentation &ldquo;&rdquo; v1.0.1</h3>
+		
+		<hr>
+		
+		<h1 class="center">&ldquo;JQuery MessageBox&rdquo;</h1>
+		
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Created: 20/09/2013<br>					
+					</strong>
+				</p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for using our script. If you have any questions that are beyond the scope of this help file, please feel free to email. Thanks so much!</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol class="alpha">
+			<li><a href="#htmlStructure">HTML Structure</a></li>
+			<li><a href="#cssFiles">CSS Files and Structure</a></li>
+			<li><a href="#javascript">JavaScript</a></li>			
+		</ol>
+		
+		<hr>
+		
+		<h3 id="htmlStructure"><strong>A) HTML Structure</strong> - <a href="#toc">top</a></h3>
+<p>We start of with a simple HTML5 document that will be the backbone of our example.</p>
+<pre class="brush: xml; toolbar: false; auto-links: false;">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;Message box&lt;/title&gt;
+		&lt;meta name="viewport" content="width=1024, initial-scale=1, maximum-scale=1"&gt;
+
+		<!-- Our stylesheet -->
+		&lt;link rel="stylesheet" type="text/css" href="includes/css/messagebox.css" /&gt;
+		
+		<!-- JavaScript includes -->
+		&lt;script src="includes/js/jquery-1.10.0.min.js"&gt;&lt;/script&gt;
+		&lt;script src="includes/js/jquery.messagebox.js"&gt;&lt;/script&gt;
+		
+		<!-- MessageBox script starter Section -->
+		&lt;script&gt;
+			$(document).ready(function(){
+				$('#messagebox').messagebox({
+					title:'Title for Message Box', 
+					messageText: 'Hello World',
+					messageSubType: 'warning',
+					messageType : 'alert',
+					OkCallback: function() {
+						alert('You pressed OK');
+					},
+					onClose: function() {
+						alert('You closed the message box');
+					},
+					onCancel: function() {
+						alert('You pressed cancel');
+					} 
+				});
+			});
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+
+		&lt;!-- BEGIN CONTAINER --&gt;
+		&lt;button id="messagebox"&gt;Alert&lt;/button&gt;
+		&lt;!-- END CONTAINER --&gt;
+
+	&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>Nothing unusual here. We have our main stylesheet (we will go back to it in the next section) and a number of JavaScript source files before the closing head tag.</p>
+
+<p>The #messagebox button will hold the Alert Box. The id is required in order to be recognized by MessageBox.js.</p>
+
+<pre class="brush: xml; toolbar: false; auto-links: false;">
+&lt;button id="messagebox"&gt;
+
+	&lt;!-- The Alert Message Triggered on Click of the button --&gt;
+
+&lt;/button&gt;
+</pre>
+
+		<hr>
+
+		<h3 id="cssFiles"><strong>B) CSS Files and Structure</strong> - <a href="#toc">top</a></h3>
+
+		<p>We are using CSS files in this sample. This will contain header style, footer style and button style. Keep in mind, that these values might be overridden somewhere else in the file.</p> 
+
+		<p>All these styles are customizable and can be change to different background and colors. </p>
+
+		
+
+<pre class="brush: css; toolbar: false;">
+/* === MessageBox Overlay Section === */
+	.msgboxOverlay{
+			
+	}
+	
+/* === MessageBox Container Section === */
+	
+	.msgcontainer{
+			
+	}
+	
+/* === Message Box Section === */
+
+	/* = MessageBox Header = */
+	.msgheader{
+			
+	}
+	/* = MessageBox Header = */
+	.msgfooter{
+			
+	}
+
+	/* = Message Box CloseButton = */
+	.msgclose{
+			
+	}
+
+	/* = Message Box Button = */
+	.alert-box .msgfooter button{
+			
+	}
+	
+/* === Message Box Option === */
+	/* = Information Message Box= */
+	.information .msgheader{
+			
+	}
+
+	/* = Error Message Box= */
+	.error .msgheader{
+			
+	}
+
+	/* = Success Message Box = */
+	.success .msgheader{
+			
+	}
+
+	/* = Warning Message Box = */
+	.warning .msgheader{
+			
+	}
+</pre>
+
+		<p>Any images that are placed within the Message section can be customizable. If you would like to display any other image, find the following section in the style sheet:</p>
+
+<pre class="brush: css; toolbar: false;">
+	.msg{
+			
+	}
+</pre>
+
+		<hr>
+		
+		<h3 id="javascript"><strong>C) JavaScript</strong> - <a href="#toc">top</a></h3>
+		
+		<p>This script imports Javascript files.</p>
+		
+		<ol>
+			<li>jQuery : jQuery is a Javascript library that greatly reduces the amount of code that you must write.</li>			
+			<li>MessageBox</li>
+		</ol>
+		  
+		<p>For start MessageBox add the following section in the javascript tag:</p>
+
+<pre class="brush: js; toolbar: false;">
+	$(document).ready(function(){
+		$('#messagebox').messagebox();
+	});
+</pre>
+
+		<p>Many options available to customize the MessageBox: Below are the scripts that helpful in making messagebox work.</p>
+
+<pre class="brush: js; toolbar: false;">
+			var html = '<div class="msgboxOverlay"><div class="alert-box msgwrapper"><div class="information"><div class="msgcontainer"><div class="msgheader"><a href="javascript:void(0);" class="msgclose">Close</a><span>Message Box Title</span></div><div class="msg">Text</div><div class="msgfooter"></div></div></div></div></div>';
+			
+			var buttonOk = '<button type="button" class="buttonOK">Ok</button>';
+			var buttonCancel = '<button type="button" class="buttonCancel">Cancel</button>';
+			
+			var settings = {
+				messageType: 'alert',
+				messageSubType: 'warning',
+				title: 'Message',
+				messageElementId: null,
+				messageText: '',
+				OkCallback : null,
+				onClose: null,
+				onCancel : null		
+			};
+			
+			
+			var pluginName = 'messagebox';
+			
+			function MessageBoxPlugin(element, options) {
+				
+				this.settings = settings;
+				
+				this.element = element;
+				
+				if (options) {
+				   this.options = options;
+				}
+				
+				var current = this;
+				
+				$(this.element).click(function() {
+					current.createMessageBox();
+					$('body').prepend(html);
+					current.intialize();
+				});
+				
+			} 
+			
+			MessageBoxPlugin.prototype.createMessageBox = function() {
+				$.extend(this.settings, this.options);
+				var temp = $(html);
+				if(settings.messageElementId) {
+					temp.find('.msg').html($(settings.messageElementId).html());
+				} else {
+					temp.find('.msg').html(settings.messageText); 			
+				}
+				temp.find('.msgheader span').html(settings.title);
+				var buttons = buttonOk;
+				if(settings.messageType === 'confirm') {
+					buttons = buttons + buttonCancel;
+				}
+				
+				temp.find('.msgfooter').html(buttons);
+				
+				html = $('<div>').append(temp.clone()).html();
+			}
+			
+			MessageBoxPlugin.prototype.intialize = function() {
+				$.extend(this.settings, this.options);
+				$('.msgboxOverlay .msgclose').off("click");
+				$('.msgboxOverlay .msgclose').on("click", function() {
+					$('.msgboxOverlay').remove();
+					if(settings.onClose) {
+						settings.onClose();
+					}
+				});
+				
+
+				$('.msgboxOverlay .buttonOK').off('click');
+				$('.msgboxOverlay .buttonOK').on('click', function() {
+					$('.msgboxOverlay').remove();
+					if(settings.OkCallback) {
+						settings.OkCallback();
+					}
+				});
+				
+				if(settings.messageType === 'confirm') {
+					$('.msgboxOverlay .buttonCancel').off('click');
+					$('.msgboxOverlay .buttonCancel').on('click', function() {
+						$('.msgboxOverlay').remove();
+						if(settings.onCancel) {
+							settings.onCancel();
+						}
+					});
+				}
+				if(settings.messageSubType === 'warning') { 			 			
+				
+					if($('.msgboxOverlay .msgwrapper').next().hasClass()===true){
+						$('')
+					}			
+						if(settings.messageSubType) {
+							settings.messageSubType();
+						}			
+				}
+					
+			}
+			
+		 
+			$.fn.messagebox = function(options) {
+				
+				return this.each(function () {
+					if (!$.data(this, 'plugin_' + pluginName)) {
+						$.data(this, 'plugin_' + pluginName, 
+						new MessageBoxPlugin( this, options ));
+					}
+				});   
+				
+			};
+</pre>
+		<h3>Some API</h3>
+		<p><b>Default Settings:</b></p>
+		
+<pre class="brush: js; toolbar: false; auto-links: false;">
+settings = {
+  messageType: 'alert',
+  messageSubType: 'information',
+  title: 'Message',
+  messageText: '',
+}
+</pre>
+		
+		<p><b>Options:</b></p>
+		
+<pre class="brush: js; toolbar: false; auto-links: false;">
+1.	messageType
+	a.	‘alert’ (default)
+	b.	‘confirm’ 
+2.	messageSubType
+	a.	‘information’ (default)
+	b.	‘success’
+	c.	‘error’
+	d.	‘warning’
+3.	title
+4.	messageElementId
+	ex: messageElementId : ‘#elementId’
+5.	messageText
+6.	height (numeric value)
+7.	width (numeric value)
+</pre>
+		
+		<p><b>Events:</b></p>
+		
+<pre class="brush: js; toolbar: false; auto-links: false;">
+1.	OkCallback
+	Ex:
+	OkCallback : function() {
+		  alert(‘You clicked Ok’);
+	}
+2.	onClose
+	Ex:
+	onClose: function() {
+		alert(‘You closed the message box’);
+	}
+3.	onCancel
+	Ex:
+	onCancel: function() {
+		alert(‘You clicked cancel’);
+	}
+</pre>		
+		<hr>
+		
+		<p>Once again, thank you so much for reading this script. We'd be glad to help you if you have any questions relating to this script.</p> 
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+	</div><!-- end div .container -->
+</body>
+</html>

@@ -1,0 +1,19 @@
+<html>
+<body>
+<div id="test"></div>
+<script type="text/javascript" src="../../src/javascript/xslt.js"></script>
+<script type="text/javascript">
+window.onload = function() {
+	for (var i = 0; i < 50; ++i) {
+		var now = new Date();
+		new Transformation().setXml("../data/doc.xml").setXslt("../data/doc.xsl").setCallback(function() {
+			document.getElementById('results').innerHTML += (new Date().getTime() - now.getTime()) + "<br />";
+		}).transform("test");
+	}
+}
+</script>
+<pre id="results">
+
+</pre>
+</body>
+</html>

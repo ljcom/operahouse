@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": ";;;;AAQA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;6BA8B6B;EAC3B,YAAY,EAnCC,OAAO;;;AAqCtB,iBAAiB;EAChB,gBAAgB,EAtCF,OAAO;;;AAwCtB;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;0DAmF0D;EACxD,gBAAgB,EA5HH,OAAO;;;AA8HtB;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;yCA0EyC;EACvC,KAAK,EAzMQ,OAAO;;;AA4MtB;;;;+BAI+B;EAC7B,KAAK,EAAE,kBAAyB;;;AAElC;;;;;;;kDAOkD;EACjD,gBAAgB,EAAE,uBAAwB;;;AAE3C,gDAAgD;EC5J9C,UAAU,EDhES,OAAO;ECiE1B,UAAU,EAAE,wGAAmE;EAC/E,UAAU,EAAE,8EAAyC;;;AD6JvD,wDAAwD;EC/JtD,UAAU,EDhES,OAAO;ECiE1B,UAAU,EAAE,qGAAmE;EAC/E,UAAU,EAAE,2EAAyC;;;ADgKvD,uDAAuD;EClKrD,UAAU,EDhES,OAAO;ECiE1B,UAAU,EAAE,qGAAmE;EAC/E,UAAU,EAAE,2EAAyC;;;ADoKtD,yBAAY;ECpMT,MAAM,EAAC,iCAAkB;;ADsM3B,+BAAO;EACN,gBAAgB,EA1OJ,OAAO;EA2OnB,YAAY,EA3OA,OAAO;;;AA+OtB,qCAAsC;EAClC,gBAAgB,EAhPL,OAAO;EAiPlB,YAAY,EAjPD,OAAO;;;AAoPtB;;;;;;;gEAOiE;EAC7D,KAAK,EA3PY,OAAO",
+"sources": ["../../scss/orange.scss","../../scss/partials/_mixins.scss"],
+"names": [],
+"file": "color-option2.css"
+}

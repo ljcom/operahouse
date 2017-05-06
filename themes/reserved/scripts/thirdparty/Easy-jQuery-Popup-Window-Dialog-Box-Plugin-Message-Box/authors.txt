@@ -1,0 +1,2 @@
+The jquery message box plugin Version: 1.0.3 (https://github.com/mpsiva89/jquery-messagebox) has
+Copyright (c) 2013 SivaKumar and Jeyadevan

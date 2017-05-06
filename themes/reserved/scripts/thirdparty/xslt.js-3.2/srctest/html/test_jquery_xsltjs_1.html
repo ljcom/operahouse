@@ -1,0 +1,18 @@
+<html>
+<head>
+<title></title>
+<script type="text/javascript" src="../lib/jsunit/app/jsUnitCore.js"></script>
+<script type="text/javascript" src="../lib/jquery-1.2.3.js"></script>
+<script type="text/javascript" src="../../src/javascript/jquery.xslt.js"></script>
+</head>
+<body>
+<div id="bla"></div>
+<script type="text/javascript">
+$('#bla').xslt("../data/doc.xml", "../data/doc.xsl");
+
+function testjQuery() {
+ $('#bla').xslt("../data/doc.xml", "../data/doc.xsl");
+}
+</script>
+</body>
+</html>

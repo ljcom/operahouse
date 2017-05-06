@@ -1,0 +1,107 @@
+Imports System.Data.SqlClient
+
+Partial Class OPH_welcome_menu_back
+    Inherits System.Web.UI.Page
+
+    Function runSQL(ByVal sqlstr As String, Optional ByVal sqlconstr As String = "") As Boolean
+        Dim myConnectionString As String
+        ' If the connection string is null, usse a default.
+        myConnectionString = Session("ODBC")
+        If myConnectionString = "" And sqlconstr = "" Then
+            Return False
+            Exit Function
+        End If
+
+
+        If sqlconstr <> "" Then
+            myConnectionString = sqlconstr
+        End If
+        Try
+            Dim myConnection As New SqlConnection(myConnectionString)
+            '        Dim myInsertQuery As String = "INSERT INTO Customers (CustomerID, CompanyName) Values('NWIND', 'Northwind Traders')"
+            Dim myInsertQuery As String = sqlstr
+            Dim myCommand As New SqlCommand(myInsertQuery)
+            myCommand.Connection = myConnection
+            myConnection.Open()
+            myCommand.ExecuteNonQuery()
+            myCommand.Connection.Close()
+            myConnection.Close()
+        Catch ex As SqlException
+            Response.Write(ex.Message)
+            Return False
+        Catch ex As Exception
+            Response.Write(ex.Message)
+            Return False
+        End Try
+        Return True
+
+    End Function
+    Function runSQLwithResult(ByVal sqlstr As String, Optional ByVal sqlconstr As String = "") As String
+        Dim result As String
+
+        Dim myConnectionString As String
+        ' If the connection string is null, usse a default.
+        myConnectionString = Session("ODBC")
+        If myConnectionString = "" And sqlconstr = "" Then
+            Return ""
+            Exit Function
+        End If
+
+
+        If sqlconstr <> "" Then
+            myConnectionString = sqlconstr
+        End If
+        Try
+            Dim myConnection As New SqlConnection(myConnectionString)
+            '        Dim myInsertQuery As String = "INSERT INTO Customers (CustomerID, CompanyName) Values('NWIND', 'Northwind Traders')"
+            Dim myInsertQuery As String = sqlstr
+            Dim myCommand As New SqlCommand(myInsertQuery)
+            Dim Reader As SqlDataReader
+
+            myCommand.Connection = myConnection
+            myConnection.Open()
+            Reader = myCommand.ExecuteReader()
+
+            'Dim Records As String
+            Reader.Read()
+            result = Reader.GetValue(0).ToString
+            myCommand.Connection.Close()
+            myConnection.Close()
+        Catch ex As SqlException
+            Response.Write(ex.Message)
+            Return ""
+        Catch ex As Exception
+            Response.Write(ex.Message)
+            Return ""
+        End Try
+        Return result
+    End Function
+    Sub LogOff()
+        If Request.ServerVariables("URL").Substring(Len(Request.ServerVariables("URL")) - 10) = "login.aspx" Then
+        Else
+            Session.Abandon()
+            Response.Redirect("../../../oph/welcome/account/login.aspx")
+        End If
+    End Sub
+
+    Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+
+        If Session("HostGUID") = "" Then
+            LogOff()
+        Else
+            Dim URL, sqlstr, dest As String
+            'Session("BackMenu") = "../../../OPH/welcome/menu/main.aspx"
+            URL = "Back.aspx"
+
+            sqlstr = "exec Sp_CaUSERHOSTPAGE_insert  '" & URL & "','" & URL & "','" & Session("hostguid") & "','2'"
+            dest = runSQLwithResult(sqlstr)
+            dest = Trim(dest)
+            If dest <> "" Then
+                Response.Redirect(dest)
+            Else
+                Response.Redirect(Session("BackMenu"))
+            End If
+        End If
+    End Sub
+
+End Class

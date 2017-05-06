@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>Autosuggest Example 2</title>
+        <script type="text/javascript" src="fn_autosuggest2.js"></script>
+        <script type="text/javascript" src="suggestions2.js"></script>
+        <link rel="stylesheet" type="text/css" href="../styles/autosuggest.css" />
+        <script type="text/javascript">
+            window.onload = function () {
+                var oTextbox = new AutoSuggestControl(document.getElementById("txt1"), new StateSuggestions());
+                var oTextbox2 = new AutoSuggestControl(document.getElementById("txt2"), new StateSuggestions2());
+            }
+            txt1.onfocus = 	function () {
+                var oTextbox = new AutoSuggestControl(document.getElementById("txt1"), new StateSuggestions());
+                var oTextbox2 = new AutoSuggestControl(document.getElementById("txt2"), new StateSuggestions2());
+            }
+        </script>
+    </head>
+    <body>
+        <p>This second example combines the &quot;type ahead&quot; functionality
+        with the autosuggest functionality, which drops down a list of suggestions
+        for each character the user types. This is the basic functionality shown in
+        Google Suggest (without the client-server interaction).</p>
+        <p>As with the previous example, type a state name into the textbox below.
+        Make sure the state name begins with a capital letter. The best example is still
+        &quot;Missouri&quot;.</p>
+        <p>Try it for yourself:</p>
+</script>
+        <p><input type="text" id="txt1" /></p>
+        <p><input type="text" id="txt2" /></p>
+    </body>
+</html>

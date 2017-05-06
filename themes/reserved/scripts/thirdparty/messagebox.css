@@ -1,0 +1,39 @@
+/*
+	Custom Message box plugin css for jQuery message box plugin
+	Copyright (c) 2013 SivaKumar and Jeyadevan
+	Licensed under the MIT license (http://opensource.org/licenses/mit-license.html)
+	Version: 1.0.3
+*/
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{border:0;outline:0;vertical-align:baseline;margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0;}
+address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:400;}
+li{list-style:none;}
+caption,th{text-align:left;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:400;}
+abbr,acronym{border:0;font-variant:normal;}
+sup{vertical-align:text-top;}
+sub{vertical-align:text-bottom;}
+legend{color:#000;}
+a,a:active,a:focus,a:hover,button:focus,button:active{outline:none;}
+/*MAIN STYLE*/
+html,body{width:100%;height:100%;}
+body{font-size:12px;font-family:calibri,arial;}
+/*//////////////MESSAGE BOX/////////////////*/
+.msgboxOverlay{background:url(../../images/msgoverlay.png) repeat 0 0;position:fixed;width:100%; height:100%;z-index:1000;text-align:center;}
+.msgwrapper{position:relative;z-index:1001;top:30%;}
+.msgcontainer{position:relative;min-width:300px;background:#fff;display:inline-block;border:1px solid #BBB;max-width:400px;}
+.msgheader{padding:5px;text-align:left;font-weight:700;color:#fff;font-size:13px;}
+.msg{padding:5px;text-align:left;}
+.msgclose{float:right;background:url(../../images/close.png) no-repeat center center;width:11px;height:11px;display:inline-block;text-indent:-999em;}
+.msgfooter{padding:5px;background:#ddd;border-top:1px solid #ccc;text-align:right;}
+.alert-box .msgfooter button{border:1px solid #777;background:#999;color:#fff;padding:3px 5px;font-weight:700;cursor:pointer;}
+/*////////////INFORMATION/////////////////*/
+.information .msgheader{background:#35BBE6;}
+/*////////////SUCCESS/////////////////*/
+.success .msgheader{background:#51CA64;}
+/*////////////ERROR/////////////////*/
+.error .msgheader{background:#F95C5C;}
+/*////////////WARNING/////////////////*/
+.warning .msgheader{background:#ECAF50;}
+/*////////////CONFIRM/////////////////*/

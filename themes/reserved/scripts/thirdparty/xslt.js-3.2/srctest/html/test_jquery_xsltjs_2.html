@@ -1,0 +1,22 @@
+<html>
+<head>
+<title></title>
+<script type="text/javascript" src="../lib/jsunit/app/jsUnitCore.js"></script>
+<script type="text/javascript" src="../lib/jquery-1.2.3.js"></script>
+<script type="text/javascript" src="../../src/javascript/jquery.xslt.js"></script>
+</head>
+<body>
+<div id="bla"></div>
+<div id="kek"></div>
+<div id="lol"></div>
+<script type="text/javascript">
+$('#bla').xslt("<conclusion><message>This works.</message></conclusion>", "../data/doc.xsl");
+$('#kek').xslt("../data/doc.xml", '<?xml version="1.0"?><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"><xsl:output method="html" omit-xml-declaration="yes"/><xsl:template match="conclusion"> <p>Here&#8217;s the bass: <xsl:value-of select="message/text()"/></p></xsl:template></xsl:stylesheet>');
+$('#lol').xslt("<conclusion><message>This works.</message></conclusion>", '<?xml version="1.0"?><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"><xsl:output method="html" omit-xml-declaration="yes"/><xsl:template match="conclusion"> <p>Here&#8217;s the bass: <xsl:value-of select="message/text()"/></p></xsl:template></xsl:stylesheet>');
+
+function testjQuery() {
+ $('#bla').xslt("<conclusion><message>This works.</message></conclusion>", "../data/doc.xsl");
+}
+</script>
+</body>
+</html>
