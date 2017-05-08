@@ -8,7 +8,12 @@
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
   
   <xsl:template match="/">
-
+    <script>
+      var c=getQueryVariable('code');
+      $($('.treeview').children().find('a[href$="'+c+'"]')[0].parentNode.parentNode.parentNode.parentNode.parentNode).addClass('active');
+      $($('.treeview').children().find('a[href$="'+c+'"]')[0].parentNode.parentNode.parentNode).addClass('active');
+      $($('.treeview').children().find('a[href$="'+c+'"]')[0].parentNode).addClass('active');
+    </script>
     <!-- search form -->
     <!--<form method="get" class="sidebar-form">-->
 
