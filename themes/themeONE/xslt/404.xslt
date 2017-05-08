@@ -48,7 +48,7 @@
 
     <header class="main-header">
       <!-- Logo -->
-      <a href="index.html" class="logo visible-phone" style="text-align:left;">
+      <a href="javascript:goHome();" class="logo visible-phone" style="text-align:left;">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini" style="font-size:9px; text-align:center">
           <img width="30" src="OPHContent/themes/{/sqroot/header/info/themeFolder}/images/oph4_logo.png" alt="Logo Image" />

@@ -50,7 +50,7 @@
   <!--slider1-->
   <xsl:template match="sqroot/header/menus/menu[@code='slider']/submenus/submenu">
    <li data-transition="slidehorizontal" data-slotamount="5" data-masterspeed="700"  data-title="Slide 3" class="homeslider" style="display:none;">
-      <img src="OPHContent/documents/{pageURL/.}" alt="slidebg1" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
+      <img src="OPHContent/documents/kitashop/{pageURL/.}" alt="slidebg1" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
       <div class="slider-caption slider-captionV4">
          <xsl:if test="link/. != ''">
             <div class="tp-caption rs-caption-4 sft"
@@ -83,7 +83,7 @@
       <div style=" background:#F1E39A; padding:10px" class="banner2">
         <div class="row">
           <div class="col-sm-6" style="text-align:center;">
-            <img src="OPHContent/documents/{pageURL/.}" />
+            <img src="OPHContent/documents/kitashop/{pageURL/.}" />
           </div>
           <div class="col-sm-6 col-xs-12" >
             <h3>

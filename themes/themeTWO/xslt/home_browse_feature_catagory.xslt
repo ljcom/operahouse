@@ -32,7 +32,7 @@
           <div class="productImage clearfix">
             <a href="single-product.html">
               <div style="height:150px; text-align:center;">
-                <img style="max-height:130px;; width:auto; margin:0 auto;" src="OPHContent/documents/{fields/field[@caption = 'productphotos']/.}" alt="Image" />
+                <img style="max-height:130px;; width:auto; margin:0 auto;" src="OPHContent/documents/kitashop/{fields/field[@caption = 'productphotos']/.}" alt="Image" />
               </div>
             </a>
             <div class="productMasking">

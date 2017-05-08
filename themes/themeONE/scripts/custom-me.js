@@ -67,3 +67,47 @@ function saveThemeONE(code, guid, location, formId) {
 
     })
 }
+
+function fillMobileItem(code, guid) {
+    var tx1 = $('#mandatory' + guid).val();
+    var tx2 = '<strong>'+tx1+'</strong> '+$('#summary' + guid).text();
+    //var tx1='HR<br />RC';
+    //var tx2='<b>RX16A002/RC16A004</b> 3 JAN 2016 POSITION: SALES MANAGER EXPECTED';
+    var tx3 = '<b>WAIT FOR APPROVAL</b><br /><b>USER 3 </b>';
+    var divname = 'collapse' + guid;
+
+    var x = '<div class="panel box browse-phone">#d1##d2#</div>';
+    x = x.replace('#d1#', '<div class="box-header with-border ellipsis">#h4#</div>');
+    x = x.replace('#h4#', '<h4 class="box-title">#a#</h4>');
+    x = x.replace('#a#', '<a data-toggle="collapse" data-parent="#accordion" href="#' + divname + '" style="color:black; text-transform: uppercase">#s##tx2#</a>');
+    //x=x.replace('#s#','<span class="pull-left" style="margin-right:10px; color:#3C8DBC; font-weight:bold">#tx1#</span>');
+    x = x.replace('#s#', '');
+    //x=x.replace('#tx1#',tx1);
+    x = x.replace('#tx2#', tx2);
+
+    x = x.replace('#d2#', '<div id="' + divname + '" class="panel-collapse collapse">#d21#</div>');
+    x = x.replace('#d21#', '<div class="box-body full-width-a">#d211##d212#</div>');
+    x = x.replace('#d211#', '<div class="browse-status" style="background:gray; color:white; padding:10px; position:relative;">#tx3##a2#</div>');
+    x = x.replace('#tx3#', tx3);
+    x = x.replace('#a2#', '<a href="#" style="color:white; text-decoration:underline">see more</a><br /><br /><b>LAST COMMENT</b><br />WAIT FOR USER3<br /><br /><b>REQUESTED ON</b><br />ESRA MARTLIANTY (3 JAN 2016) <br /><a href="javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'formView\')" title="edit" style="position:absolute; top:10px; right:10px; font-size:17px; color:white;">#ix#</a>');
+    x = x.replace('#ix#', '<ix class="fa fa-pencil"></ix>');
+
+    x = x.replace('#d212#', '<div style="text-align:center; display:block; background:gray; padding:10px 0;">#t#</div>');
+    x = x.replace('#t#', '<table style="width:100%">#tr#</table>');
+    x = x.replace('#tr#', '<tr><td>&#160;</td>#td#<td>&#160;</td></tr>');
+
+    bt = '<td width="1" style="padding:0 10px;">#a3#</td>#td#';
+    bt = bt.replace('#a3#', '<a href="#">#bt#</a>');
+    bt = bt.replace('#bt#', '<button type="button" class="btn btn-gray-a" style="background:#ccc; border:none;">#btname#</button>');
+
+    var btname = 'REJECT';
+    x = x.replace('#td#', bt.replace('#btname#', btname));
+
+    var btname = 'APPROVE';
+    x = x.replace('#td#', bt.replace('#btname#', btname));
+
+    //close
+    x = x.replace('#td#', '');
+
+    $(x).appendTo("#accordion");
+}

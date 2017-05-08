@@ -39,7 +39,6 @@
       <xsl:choose>
         <xsl:when test="(pageURL/.)!=''">
           <a href="{pageURL/.}">
-
             <xsl:if test="(icon/fa/.)!=''">
               <span>
                 <ix class="fa {icon/fa/.}"></ix>&#160;

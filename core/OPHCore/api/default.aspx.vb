@@ -180,7 +180,9 @@ Partial Class OPHCore_API_default
                     Dim fxn As String = path & "\" & path2 & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & GUID.Replace("'", "") & "_" & Request.Files(f).FileName
 
 
-                    Dim checkDir = path & "\" & path2 & "\" & code & "_" & curField & "\"
+                    Dim theDate As DateTime = DateTime.Now.ToString("yyyy-MM")
+
+                    Dim checkDir = path & "\" & path2 & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & theDate
                     If Not Directory.Exists(checkDir) Then Directory.CreateDirectory(checkDir)
                     If Directory.Exists(checkDir) Then
                         If fxn <> "" Then Request.Files(f).SaveAs(fxn)

@@ -65,10 +65,7 @@ Partial Class OPHCore_api_msg_rptDialog
 
             If dplx = 1 Then
                 Dim Parameters As ParameterDictionary = New ParameterDictionary
-                Dim pathDPLX As String = Server.MapPath(Session("DocumentFolder") & Session("reportFolder") & "\DPLX\" & reportName & ".dplx")
-                If Not File.Exists(pathDPLX) Then
-                    pathDPLX = Request.PhysicalApplicationPath() & Session("DocumentFolder") & "\" & Session("reportFolder") & "\DPLX\" & reportName & ".dplx"
-                End If
+                Dim pathDPLX As String = contentOfdocFolder & "\documents\" & contentOfaccountId & "\modl_attachment\" & reportName & ".dplx"
 
                 parameterid = parameterid.Replace(":", "=").Replace(":null", "=null").Replace("''", "")
                 parameterid = parameterid.Replace("/", "-")
@@ -94,8 +91,7 @@ Partial Class OPHCore_api_msg_rptDialog
                     Loop
 
                     Dim MyDocument As Document = reportDocument.Run(Parameters)
-
-                    Dim savesPath As String = Server.MapPath(Session("DocumentFolder") & "\temp\" & g & "_" & reportName & ".pdf")
+                    Dim savesPath As String = Request.PhysicalApplicationPath & "document\temp" & g & "_" & reportName & ".pdf"
                     If Request.QueryString("dontdelete") = 1 Then
                         Response.Write(savesPath)
                         MyDocument.Draw(savesPath)

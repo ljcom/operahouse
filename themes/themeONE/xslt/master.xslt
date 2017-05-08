@@ -54,7 +54,7 @@
       //loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/admin-LTE/js/demo.js');
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/custom-me.js');
 
-
+      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/jQuery.dotdotdot-master/src/jquery.dotdotdot.min.js');
 
 
       document.title='<xsl:value-of select="/sqroot/header/info/title"/>';
@@ -66,7 +66,7 @@
 
     <header class="main-header">
       <!-- Logo -->
-      <a href="index.aspx" class="logo visible-phone" style="text-align:left;">
+      <a href="javascript:goHome();" class="logo visible-phone" style="text-align:left;">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini" style="font-size:9px; text-align:center">
           <img width="30" src="OPHContent/themes/{/sqroot/header/info/themeFolder}/images/oph4_logo.png" alt="Logo Image" />
@@ -108,81 +108,6 @@
           </form>
           <div class="panel-group" id="accordion2">
             <xsl:apply-templates select="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu" />
-            <div class="panel top-menu-onphone" style="border-radius:0; margin-top:0;">
-              <a class="top-envi" data-toggle="collapse" data-parent="#accordion2" href="#collapse1a">
-                Inventory <span class="caret"></span>
-              </a>
-              <div id="collapse1a" class="panel-collapse collapse">
-                <ul>
-                  <li>
-                    <a href="browse.html">Consigment P &#038; D</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Direct P &#038; D</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">PR\PVL Purchase</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Product Request</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Product Return</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">PKSP</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Dumping of Stocks Authorization Form (DOSA)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Stock Adjustment</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="panel top-menu-onphone" style="border-radius:0; margin-top:0;">
-              <a class="top-envi" data-toggle="collapse" data-parent="#accordion2" href="#collapse2a">
-                HRD <span class="caret"></span>
-              </a>
-              <div id="collapse2a" class="panel-collapse collapse">
-                <ul>
-                  <li>
-                    <a href="browse.html">Request for Recruitment (HRRR)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Recruitment Confirmation Form (HRRC)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Employee Change Notice (HRCH)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Training Authorization Form (HRTR)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Employee Departure Approval Form (HRDP)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Personal Probationary Period Assessment Form (HRPA)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Personal Data Changes Form (HRDC)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Probationary Validate Form (HRVL)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Staff Sales Process (STAF)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Incentive Form (HRIC)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Contact Reminder (HRCR)</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
           </div>
         </div>
         <div class="navbar-custom-menu">
@@ -406,27 +331,30 @@ _________________________________________________________ -->
 
   <xsl:template match="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu">
     <div class="panel top-menu-onphone" style="border-radius:0; margin-top:0;">
-      <a class="top-envi" data-toggle="collapse" data-parent="#accordion2" href="#collapse{caption/.}">
+      <a class="top-envi" data-toggle="collapse" data-parent="#accordion2" href="#collapse{@GUID}">
         <xsl:value-of select="caption/." />&#160;<span class="caret"></span>
       </a>
-      <div id="collapse{caption/.}" class="panel-collapse collapse">
-        <ul>
+      <div id="collapse{@GUID}" class="panel-collapse collapse">
+        <ul class="panel-group" id="accordion{@GUID}">
           <xsl:if test="(@type)='treeroot'">
             <xsl:apply-templates select="submenus/submenu[@type='treeview']" />&#160;
             <xsl:apply-templates select="submenus/submenu[@type='label']" />&#160;
           </xsl:if>
-          <li>
-            <a href="browse.html">Request for Recruitment (HRRR)</a>
-          </li>
         </ul>
       </div>
     </div>
   </xsl:template>
   <xsl:template match="submenus/submenu[@type='treeview']">
     <li>
-      <a href="{pageURL/.}">
+      <a data-toggle="collapse" data-parent="#accordion{../../@GUID}" href="#collapse{@GUID}">
         <xsl:value-of select="caption/." />
       </a>
+      <div id="collapse{@GUID}" class="panel-collapse collapse">
+        <ul class="panel-group" id="accordion{@GUID}">
+          <xsl:apply-templates select="submenus/submenu[@type='treeview']" />&#160;
+          <xsl:apply-templates select="submenus/submenu[@type='label']" />&#160;
+        </ul>
+      </div>
     </li>
   </xsl:template>
   <xsl:template match="submenus/submenu[@type='label']">

@@ -15,9 +15,7 @@ Public Class cl_base
     Inherits System.Web.UI.Page
 
     Protected contentOfsequoiaCon As String
-
     Protected contentOfaccountId As String
-
     Protected contentOfaccountGUID As String
     Protected contentOfthemeCode As String
     Protected contentOfthemeFolder As String
@@ -25,6 +23,7 @@ Public Class cl_base
     Protected contentOfsqDB As String
     Protected contentOfsigninPage As String
     Protected contentOffrontPage As String
+    Protected contentOfdocFolder As String
 
     'Protected wordofHeadTitle As String = "Main"
     'Protected wordofHeadLinkHRef As String = "" '"OPHCore/styles/default.css"
@@ -1330,6 +1329,9 @@ Public Class cl_base
 
         sqlstr = "exec core.info_acct '" & contentOfaccountId & "', 'signinPage'"
         contentOfsigninPage = runSQLwithResult(sqlstr, contentOfsequoiaCon)
+
+        sqlstr = "exec core.info_acct '" & contentOfaccountId & "', 'documentFolder'"
+        contentOfdocFolder = runSQLwithResult(sqlstr, contentOfsequoiaCon)
 
         'dynamic account
         Dim ret As String = contentOfsequoiaCon.Replace(" ", "")

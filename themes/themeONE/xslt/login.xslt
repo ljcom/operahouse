@@ -44,7 +44,7 @@
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="index.html" class="logo visible-phone" style="text-align:left;">
+        <a href="javascript:goHome();" class="logo visible-phone" style="text-align:left;">
 
         </a>
         <!-- Header Navbar: style can be found in header.less -->

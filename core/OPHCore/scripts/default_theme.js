@@ -15,14 +15,17 @@
         else
             var xmldoc = 'OPHCore/api/default.aspx?mode=master&code=' + getCode() + '&stateid=' + getState() + '&unique=' + getUnique();
 
-        var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '.xslt';
+        var divname = ['frameMaster'];
+        var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '.xslt'];
 
-        showXML('frameMaster', xmldoc, xsldoc, true, true, function () {
-            if (typeof f == "function") f();
+        //showXML('frameMaster', xmldoc, xsldoc, true, true, function () {
+        //    if (typeof f == "function") f();
 
-            setCursorDefault();
+        //    setCursorDefault();
 
-        });
+        //});
+        pushTheme(divname, xmldoc, xsldoc, true);
+
     }
     catch (e) {
         //alert(e.Message);
@@ -90,26 +93,9 @@ function loadContent(nbpage, f) {
     var divname = ['contentWrapper'];
     var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
 
-    //showXML('contentWrapper', xmldoc, xsldoc, true, true, function () {
-    //    //run this to make the default value effect appear
-    //    //preview(1, vCode, vGUID);
-    //    if (typeof f == "function") f();
-    //    //if (isAdhoc) setCursorDefault();
-    //});
-
     //sidebar
     divname.push('sidebarWrapper');
     xsldoc.push('OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '_sidebar.xslt');
-    //michael version
-    //var xmldoc = 'OPHCore/api/default.aspx?mode=sidebar&code=' + getCode() + '&GUID=' + getGUID() + '&date=' + getUnique(); 
-    //var xmldoc = 'OPHCore/api/default.aspx?mode=' + getMode() + '&code=' + getCode() + '&GUID=' + getGUID() + '&date=' + getUnique();
-
-    //showXML('sidebarWrapper', xmldoc, xsldoc, true, true, function () {
-    //    //run this to make the default value effect appear
-    //    //preview(1, vCode, vGUID);
-    //    if (typeof f == "function") f();
-    //    //if (isAdhoc) setCursorDefault();
-    //});
 
     pushTheme(divname, xmldoc, xsldoc, true);
 }
@@ -3772,16 +3758,9 @@ function btn_function(code, GUID, action, page, location, formId, afterSuccess) 
     } else if (action == "save") {
         //location: 1 child 
         saveFunction(code, GUID, location, formId, afterSuccess);
-    } else if (action == "delete") {
-        //location: 1 - child; 2 - header
-        executeFunction(code, GUID, action, pg, location);
-    } else if (action == "force") {
-        executeFunction(code, GUID, action, pg);
-    } else if (action == "execute") {
-        executeFunction(code, GUID, action, pg);
-    } else if (action == "useractive") {
-        btn_useractive(code, GUID, action, pg);
-    } else { return; }
+    } else {
+        executeFunction(code, GUID, action, location);
+    }
 }
 
 //function btn_trash(code, GUID, action, page, isChild) {
@@ -3850,8 +3829,15 @@ function executeFunction(code, GUID, action, location) {
         successmsg = 'Approve Succesfully'
     } else if (action == 'force') {
         successmsg = 'Close Succesfully'
+    } else if (action == 'inactivate') {
+        action="delete"
+        successmsg = 'Inactivate Succesfully'
     } else if (action == 'delete') {
         successmsg = 'Delete Succesfully'
+    } else if (action == 'restore') {
+        successmsg = 'Restore Succesfully'
+    } else if (action == 'wipe') {
+        successmsg = 'Wipe Succesfully'
     }
 
     if (location == undefined || location == "") { location = 0 }
@@ -3859,25 +3845,16 @@ function executeFunction(code, GUID, action, location) {
     $.post(path, function (data) {
         var msg = $(data).find('message').text();
         if (msg == '' || msg == 'Approval Succesfully') {
-            //document.location.reload();
-            if (action == 'delete') {
-
-                if (location == 1) {
-                    $("#tr1_" + code + GUID).remove();
-                    $("#tr2_" + code + GUID).remove();
-                    //var pkfield = document.getElementById("PKSAVE" + code).value;
-                    //var pkvalue = document.getElementById("PK" + code).value;
-                    //var parentkey = document.getElementById("PKID").value.split('child').join('');
-
-                    //xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=browse&sqlFilter=" + pkfield + "='" + pkvalue + "'";
-                    //loadChild(code, pkfield, pkvalue, 1)
-                }
-                else {
-                    //showMessage(successmsg);
-                    loadContent(1);
-                    //window.location.reload();
-                }
-            } else { loadContent(1); }
+            if (location == 1) {
+                $("#tr1_" + code + GUID).remove();
+                $("#tr2_" + code + GUID).remove();
+            }
+            else {
+                //showMessage(successmsg);
+                loadContent(1);
+                showMessage(successmsg);
+                //window.location.reload();
+            }
         } else {
             showMessage(msg);
         }
@@ -3895,7 +3872,7 @@ function saveFunction(code, guid, location, formId, afterSuccess) {
     } else {
         result = 'good';
     }
-   
+
 
     //if (location == undefined || location == "") { location = 0 }
     //console.log(requiredname);
@@ -3976,7 +3953,7 @@ function saveFunction(code, guid, location, formId, afterSuccess) {
             //}
 
             if (typeof afterSuccess == "function") afterSuccess(data);
-            
+
         });
     }
     else
@@ -4182,3 +4159,6 @@ var fullDateString = new Date();
 
 //    }, 300, fullDateString.getTime())
 //});
+function goHome() {
+    window.location = '/?env=' + getQueryVariable('env');
+}

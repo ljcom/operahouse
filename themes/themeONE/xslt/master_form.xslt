@@ -50,7 +50,7 @@
       </h1>
       <ol class="breadcrumb">
         <li>
-          <a href="index.aspx">
+          <a href="javascript:goHome();">
             <span>
               <ix class="fa fa-home"></ix>
             </span>&#160;HOME

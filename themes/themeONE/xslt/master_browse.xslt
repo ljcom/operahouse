@@ -16,6 +16,11 @@
     <xsl:if test="/sqroot/header/info/isBrowsable = 0">
       <script>
         document.getElementById("contentWrapper").innerHTML = '<p style="padding:20px 0 0 20px; font-weight:bold;">Sorry, You Do Not Have Authority for This Module.</p><hr />';
+
+        $(".ellipsis").dotdotdot({
+        watch: "window"
+        });
+
       </script>
     </xsl:if>
 
@@ -27,7 +32,7 @@
       </h1>
       <ol class="breadcrumb">
         <li>
-          <a href="index.aspx">
+          <a href="javascript:goHome();">
             <span>
               <ix class="fa fa-home"></ix>
             </span>&#160;Home
@@ -144,117 +149,15 @@
       <!-- browse for pc/laptop -->
 
       <!-- browse for phone/tablet max width 768 -->
-      <!--
+
       <div class="row displayblock-phone">
         <div class="col-md-12 full-width-a">
           <div class="box box-solid" style="width:100%;">
             <div class="box-body full-width-a">
               <div class="box-group" id="accordion">
-                -->
-      <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-      <!--
-                <div class="panel box  browse-phone">
-                  <div class="box-header with-border">
-                    <h4 class="box-title">
-                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" style="color:black;">
-                        <span class="pull-left" style="margin-right:10px; color:#3C8DBC; font-weight:bold">
-                          HR<br />RC
-                        </span>
-                        <b>RX16A001/RC16A003</b> 3 JAN 2016 POSITION: SALES MANAGER EXPECTED
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="collapseOne" class="panel-collapse collapse">
-                    <div class="box-body full-width-a">
-                      <div class="browse-status" style="background:gray; color:white; padding:10px; position:relative;">
-                        <b>WAIT FOR APPROVAL</b>
-                        <br />
-                        <b>USER 3 </b>
-                        <a href="#" style="color:white; text-decoration:underline">see more</a>
-                        <br />
-                        <br />
-                        <b>LAST COMMENT</b>
-                        <br />
-                        WAIT FOR USER3<br />
-                        <br />
-                        <b>REQUESTED ON</b>
-                        <br />
-                        ESRA MARTLIANTY (3 JAN 2016) <br />
-                        <a href="javascript: loadForm('{sqroot/header/info/code/id}')', 'guid')" title="edit" style="position:absolute; top:10px; right:10px; font-size:17px; color:white;">
-                          <ix class="fa fa-pencil"></ix>
-                        </a>
-                      </div>
-                      <div style="text-align:center; display:block; background:gray; padding:10px 0;">
-                        <table style="width:100%">
-                          <tr>
-                            <td align="right" style="padding:0 10px;">
-                              <a href="#" >
-                                <button type="button" class="btn btn-gray-a" style="background:#ccc; border:none;">REJECT</button>
-                              </a>
-                            </td>
-                            <td align="left" style="padding:0 10px;">
-                              <a href="#">
-                                <button type="button" class="btn btn-orange-a" style="background:orange; border:none;">APPROVE</button>
-                              </a>
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
 
-                    </div>
-                  </div>
-                </div>
-                <div class="panel box  browse-phone">
-                  <div class="box-header with-border">
-                    <h4 class="box-title">
-                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" style="color:black;">
-                        <span class="pull-left" style="margin-right:10px; color:#3C8DBC; font-weight:bold">
-                          HR<br />RC
-                        </span>
-                        <b>RX16A002/RC16A004</b> 3 JAN 2016 POSITION: SALES MANAGER EXPECTED
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="collapse2" class="panel-collapse collapse">
-                    <div class="box-body full-width-a">
-                      <div class="browse-status" style="background:gray; color:white; padding:10px; position:relative;">
-                        <b>WAIT FOR APPROVAL</b>
-                        <br />
-                        <b>USER 3 </b>
-                        <a href="#" style="color:white; text-decoration:underline">see more</a>
-                        <br />
-                        <br />
-                        <b>LAST COMMENT</b>
-                        <br />
-                        WAIT FOR USER3<br />
-                        <br />
-                        <b>REQUESTED ON</b>
-                        <br />
-                        ESRA MARTLIANTY (3 JAN 2016) <br />
-                        <a href="view-disable.html" title="edit" style="position:absolute; top:10px; right:10px; font-size:17px; color:white;">
-                          <ix class="fa fa-pencil"></ix>
-                        </a>
-                      </div>
-                      <div style="text-align:center; display:block; background:gray; padding:10px 0;">
-                        <table style="width:100%">
-                          <tr>
-                            <td align="right" style="padding:0 10px;">
-                              <a href="#" >
-                                <button type="button" class="btn btn-gray-a" style="background:#ccc; border:none;">REJECT</button>
-                              </a>
-                            </td>
-                            <td align="left" style="padding:0 10px;">
-                              <a href="#">
-                                <button type="button" class="btn btn-orange-a" style="background:orange; border:none;">APPROVE</button>
-                              </a>
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
+                <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
 
-                    </div>
-                  </div>
-                </div>
               </div>
               <div class="box-footer clearfix">
                 <ul class="pagination pagination-sm no-margin pull-right">
@@ -276,19 +179,12 @@
                 </ul>
               </div>
             </div>
-            -->
-      <!-- /.box-body -->
-      <!--
+            <!-- /.box-body -->
           </div>
-          -->
-      <!-- /.box -->
-      <!--
+          <!-- /.box -->
         </div>
-        -->
-      <!-- /.col -->
-      <!--
+        <!-- /.col -->
       </div>
-      -->
       <!-- browse for phone/tablet max width 768 -->
 
     </section>
@@ -345,11 +241,9 @@
   </xsl:template>
 
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
-    <xsl:variable name="fieldSummary">
-      <xsl:apply-templates select="fields/field[@mandatory=0]" />
-    </xsl:variable>
 
     <tr class="odd-tr">
+      <input id="mandatory{@GUID}" type="hidden" value="" />
       <!--td class="browse-doc-title expand-td">
         &#160;
       </td-->
@@ -357,12 +251,18 @@
       <td class="expand-td" data-toggle="collapse" data-target="#{@GUID}" data-parent="#{@GUID}">
         <table class="fixed-table">
           <tr>
-            <td>
-              <xsl:value-of select="$fieldSummary"/>
+            <td id="summary{@GUID}">
+              <xsl:apply-templates select="fields/field[@mandatory=0]" />
             </td>
           </tr>
         </table>
       </td>
+
+      <script>
+        //put before mandatory section
+        fillMobileItem('<xsl:value-of select="@code"/>', '<xsl:value-of select="@GUID" />');
+      </script>
+
       <xsl:if test="/sqroot/header/info/code/settingMode='T'">
         <td class="expand-td" style="text-align:center" data-toggle="collapse" data-target="#{@GUID}" data-parent="#{@GUID}">
           <a href="#" data-toggle="tooltip" title="{docStatus/.}">
@@ -375,78 +275,98 @@
 
       <xsl:variable name="pageNo" select="/sqroot/body/bodyContent/browse/info/pageNo" />
       <td class="browse-action-button" style="white-space: nowrap;">
+        <!--approval icons-->
         <xsl:if test="/sqroot/header/info/code/settingMode='T'">
-          <xsl:if test="$state &lt; 400">
-            <a href="javascript:btn_function('{@code}', '{@GUID}', 'execute', '{$pageNo}')">
-              <ix class="fa fa-check" title="Approve"></ix>
-            </a>
-          </xsl:if>
-          <xsl:if test="$state = 400">
-            <a href="javascript:btn_function('{@code}', '{@GUID}', 'force', '{$pageNo}')">
-              <ix class="fa fa-archive" title="Close"></ix>
-            </a>
-          </xsl:if>
+          <xsl:choose>
+            <xsl:when test="$state &lt; 400">
+              <a href="javascript:btn_function('{@code}', '{@GUID}', 'execute', '{$pageNo}')">
+                <ix class="fa fa-check" title="Approve"></ix>
+              </a>
+            </xsl:when>
+            <xsl:when test="$state &lt; 500">
+              <a href="javascript:btn_function('{@code}', '{@GUID}', 'force', '{$pageNo}')">
+                <ix class="fa fa-archive" title="Close"></ix>
+              </a>
+            </xsl:when>
+            <xsl:otherwise>
+              <a href="javascript:btn_function('{@code}', '{@GUID}', 'force', '{$pageNo}')">
+                <ix class="fa fa-undo" title="Reopen"></ix>
+              </a>
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:if>
-        <xsl:if test="translate(@code, $uppercase, $smallcase) != 'causer'">
-          <xsl:if test="$state &lt; 500">
-            <xsl:choose>
-              <xsl:when test="@delete=1">
-                <a href="javascript:btn_function('{@code}', '{@GUID}', 'delete', '{$pageNo}')">
-                  <ix class="fa fa-trash" title="Delete"></ix>
-                </a>
-              </xsl:when>
-              <xsl:otherwise>
-                <a href="#">
-                  <ix class="fa fa-trash" title="Delete" style="color:LightGray"></ix>
-                </a>
-              </xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-              <xsl:when test="@edit=1">
-                <a id="edit_{@GUID}" href="javascript:btn_function('{@code}', '{@GUID}', 'formView', '{$pageNo}')">
-                  <ix class="fa fa-pencil" title="Edit"></ix>
-                </a>
-              </xsl:when>
-              <xsl:otherwise>
-                <a href="#">
-                  <ix class="fa fa-pencil" title="Edit" style="color:LightGray"></ix>
-                </a>
-              </xsl:otherwise>
-            </xsl:choose>
 
-          </xsl:if>
-        </xsl:if>
-        <!--add on for couser-->
-        <xsl:if test="translate(@code, $uppercase, $smallcase) = 'causer'">
-          <xsl:if test="(fields/field[@caption='userActive']/.) = '1' and $state &lt; 900">
-            <a href="javascript:btn_function('{@code}', '{@GUID}', 'useractive', '{$pageNo}')">
-              <ix class="fa fa-toggle-on" title="Active"></ix>
-            </a>
-            <a href="javascript:btn_function('{@code}', '{@GUID}', 'delete', '{$pageNo}')">
-              <ix class="fa fa-trash" title="Delete"></ix>
-            </a>
-          </xsl:if>
-          <xsl:if test="(fields/field[@caption='userActive']/.) = '0' and $state &lt; 900">
-            <a href="javascript:btn_function('{@code}', '{@GUID}', 'useractive', '{$pageNo}')">
+        <!--delete things-->
+        <xsl:choose>
+          <!--allow delete-->
+          <xsl:when test="@onOff=1 and @delete=1 and $state &lt; 500">
+            <a href="javascript:btn_function('{@code}', '{@GUID}', 'inactivate', '{$pageNo}')">
               <ix class="fa fa-toggle-off" title="Inactive"></ix>
             </a>
+          </xsl:when>
+          <xsl:when test="@onOff=0 and @delete=1 and $state &lt; 500">
             <a href="javascript:btn_function('{@code}', '{@GUID}', 'delete', '{$pageNo}')">
               <ix class="fa fa-trash" title="Delete"></ix>
             </a>
-          </xsl:if>
-        </xsl:if>
+          </xsl:when>
+          <xsl:when test="$state = 999">
+            <a href="javascript:btn_function('{@code}', '{@GUID}', 'restore', '{$pageNo}')">
+              <ix class="fa fa-toggle-on" title="Reactivate"></ix>
+            </a>
+            <a href="javascript:btn_function('{@code}', '{@GUID}', 'wipe', '{$pageNo}')">
+              <ix class="fa fa-trash" title="Delete"></ix>
+            </a>
+          </xsl:when>
+
+          <!--not allow delete-->
+          <xsl:when test="@onOff=1 and @delete=0 and $state &lt; 500">
+            <a href="#">
+              <ix class="fa fa-toggle-off" title="Inactive" style="color:LightGray"></ix>
+            </a>
+          </xsl:when>
+          <xsl:when test="@onOff=0 and @delete=1 and $state &lt; 500">
+            <a href="#">
+              <ix class="fa fa-trash" title="Delete" style="color:LightGray"></ix>
+            </a>
+          </xsl:when>
+          <xsl:when test="$state = 999">
+            <a href="#">
+              <ix class="fa fa-toggle-on" title="Reactivate" style="color:lightgray"></ix>
+            </a>
+            <a href="#">
+              <ix class="fa fa-trash" title="Delete" style="color:LightGray"></ix>
+            </a>
+          </xsl:when>
+        </xsl:choose>
+
+        <!--edit things-->
+        <xsl:choose>
+          <xsl:when test="@edit=1">
+            <a id="edit_{@GUID}" href="javascript:btn_function('{@code}', '{@GUID}', 'formView', '{$pageNo}')">
+              <ix class="fa fa-pencil" title="Edit"></ix>
+            </a>
+          </xsl:when>
+          <xsl:otherwise>
+            <a href="#">
+              <ix class="fa fa-pencil" title="Edit" style="color:LightGray"></ix>
+            </a>
+          </xsl:otherwise>
+        </xsl:choose>
 
         <xsl:if test="$state &gt; 900">
-          <a href="javascript:btn_function('{@code}', '{@GUID}', 'restore', '{$pageNo}')">
-            <ix class="fa fa-refresh" title="Restore"></ix>
-          </a>
         </xsl:if>
       </td>
     </tr>
   </xsl:template>
 
   <xsl:template match="fields/field[@mandatory=1]">
-    <td class="expand-td" data-toggle="collapse" data-target="#{../@GUID}" data-parent="#{../@GUID}">
+    <script>
+      var m=$('#mandatory<xsl:value-of select="../../@GUID"/>').val();
+      if (m!='' &#38;&#38; '<xsl:value-of select="." />'!='') m+='/';
+      m+='<xsl:value-of select="." />';
+      $('#mandatory<xsl:value-of select="../../@GUID"/>').val(m);
+    </script>
+    <td id="mandatory{../../@GUID}" class="expand-td" data-toggle="collapse" data-target="#{../@GUID}" data-parent="#{../@GUID}">
       <xsl:value-of select="." />
     </td>
   </xsl:template>
@@ -474,9 +394,11 @@
         </xsl:otherwise>
       </xsl:choose>&#160;
     </xsl:variable>
-    <xsl:value-of select="@title" />&#160;:&#160;<b>
-      <xsl:value-of select="$tbContent" />
-    </b>&#160;·&#160;
+    <span style="font-weight:bold;">
+      <xsl:value-of select="@title" />
+    </span>&#160;:&#160;
+    <xsl:value-of select="$tbContent" />
+    &#160;·&#160;
   </xsl:template>
 
 </xsl:stylesheet>
