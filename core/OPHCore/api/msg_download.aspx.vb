@@ -5,14 +5,22 @@ Partial Class OPHCore_api_msg_download
     Inherits cl_base
 
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+        loadAccount()
+
+        Dim curODBC = contentOfdbODBC
+
         Dim tGUID As String = Request.QueryString("GUID")
         Dim code As String = Request.QueryString("code")
         Dim fieldAttachment As String = Request.QueryString("fieldAttachment")
 
         'Dim fieldKey As String = Request.QueryString("fieldKey")
         Dim ocode = Left(code, 1) & "a" & code.Substring(2, Len(code) - 2)
+        Dim acctdbse = "select accountDBGUID from modl where ModuleId='" & code & "'"
+        acctdbse = runSQLwithResult(acctdbse, curODBC)
+        Dim con = "select odbc from acctdbse where accountDBGUID ='" & acctdbse & "'"
+        con = runSQLwithResult(con, contentOfsequoiaCon)
 
-        Dim con = runSQLwithResult("select ACCTDBSE.ODBC from MODL inner join ACCTDBSE on MODL.accountDBGUID=ACCTDBSE.accountDBGUID where MODL.ModuleId='" & code & "'")
+        'Dim curODBC = runSQLwithResult("select ACCTDBSE.ODBC from MODL inner join ACCTDBSE on MODL.accountDBGUID=ACCTDBSE.accountDBGUID where MODL.ModuleId='" & code & "'")
         'Dim con = runSQLwithResult("select ODBC from CoMODL where ModuleId='" & code & "'")
         Dim sqlstr1 = "select colname from gen.coTABLFIEL a inner join gen.coTABL b on a.tableGUID=b.TableGUID where tablename='" & ocode & "' and colorder=10"
         Dim fieldKey As String = runSQLwithResult(sqlstr1, con)
@@ -23,9 +31,10 @@ Partial Class OPHCore_api_msg_download
         'Else
         'Dim path As String = Session("document") & Session("documentFolder") & "/" & Left(code, 1) & "a" & Mid(code, 3, Len(code) - 2) & "_" & fieldAttachment & "/"
         Dim hostguid = Session("hostguid")
-        sqlstr1 = "select infovalue from acctinfo a 	inner join acct b 		on a.accountguid=b.accountguid	inner join [user] d		on d.accountguid = b.AccountGUID	inner join userhost c 		on c.UserGUID = d.userguid where infokey='documentFolder' and c.hostguid='" & hostguid & "'"
+        'sqlstr1 = "select infovalue from acctinfo a 	inner join acct b 		on a.accountguid=b.accountguid	inner join [user] d		on d.accountguid = b.AccountGUID	inner join userhost c 		on c.UserGUID = d.userguid where infokey='documentFolder' and c.hostguid='" & hostguid & "'"
 
-        Dim path As String = runSQLwithResult(sqlstr1)
+        'Dim path As String = runSQLwithResult(sqlstr1)
+        Dim path As String = Server.MapPath("~/OPHContent/documents") & "\" & contentOfaccountId & "\"
         'path=path & ocode & ""
         'End If
 
@@ -34,8 +43,14 @@ Partial Class OPHCore_api_msg_download
             'Dim con = Session("odbc")
             Dim sqlstr = "Select " & fieldAttachment & " From oph." & ocode & " Where " & fieldKey & " ='" & tGUID & "'"
             Dim dt = SelectSqlSrvRows(sqlstr, con)
-            path = path & "\" & ocode & "_" & fieldAttachment & "\"
-            download(path, dt.Tables(0).Rows(0)(fieldAttachment).ToString())
+            path = path
+            Dim filename = dt.Tables(0).Rows(0)(fieldAttachment).ToString()
+            Dim revfilename = StrReverse(filename)
+            Dim lengthfile = revfilename.IndexOf("\")
+            path = path & Left(filename, Len(filename) - lengthfile)
+            filename = Right(filename, lengthfile)
+
+            download(path, filename)
         Else
             Dim querysql As String = Request.QueryString("querysql")
             Dim sqlexec = "exec " & querysql & " '" & Session("hostGUID") & "', '" & tGUID & "' ,1"
@@ -51,26 +66,31 @@ Partial Class OPHCore_api_msg_download
         path = path '& filename
         If Directory.Exists(path) Then
             Dim f As String
-            f = filename
+            f = path & filename
             'Else
             'f = Server.MapPath(path) & LTrim(dt.Rows(0)(f1).ToString())
             'End If
             Dim fInfo As New FileInfo(f)
 
-            Dim numBytes As Long = fInfo.Length
-            Dim fStream As New FileStream(f, FileMode.Open, FileAccess.Read)
-            Dim br As New BinaryReader(fStream)
-            bytes = br.ReadBytes(CInt(numBytes))
-            If Request.QueryString("dontdelete") = 1 Then
-                Response.Write(f)
+            If fInfo.Exists = True Then
+                Dim numBytes As Long = fInfo.Length
+                Dim fStream As New FileStream(f, FileMode.Open, FileAccess.Read)
+                Dim br As New BinaryReader(fStream)
+                bytes = br.ReadBytes(CInt(numBytes))
+                If Request.QueryString("dontdelete") = 1 Then
+                    Response.Write(f)
+                Else
+                    Response.Buffer = True
+                    Response.Charset = ""
+                    Response.Cache.SetCacheability(HttpCacheability.NoCache)
+                    'Response.ContentType = dt.Rows(0)(f2).ToString()
+                    Response.AddHeader("content-disposition", "attachment;filename=" & filename)
+                    Response.BinaryWrite(bytes)
+                    Response.Flush()
+                    Response.End()
+                End If
             Else
-                Response.Buffer = True
-                Response.Charset = ""
-                Response.Cache.SetCacheability(HttpCacheability.NoCache)
-                'Response.ContentType = dt.Rows(0)(f2).ToString()
-                Response.AddHeader("content-disposition", "attachment;filename=" & filename)
-                Response.BinaryWrite(bytes)
-                Response.Flush()
+                Response.Write("File not found.")
                 Response.End()
             End If
         Else

@@ -24,13 +24,14 @@ Partial Class OPHCore_api_msg_autosuggest
         Dim wf1value = Request.QueryString("wf1value")
         Dim wf2 = Request.QueryString("wf2")
         Dim wf2value = Request.QueryString("wf2value")
+        wf1value = IIf(wf1value = "NULL", wf1value, "'" & wf1value & "'")
 
         If Request("code") <> "" Then
             Dim appSettings = ConfigurationManager.AppSettings
 
             Dim search = Request.QueryString("search") & " " & Request.QueryString("q")
 
-            Dim sqlstr = "exec api.autosuggest '" & contentOfaccountId & "', '" & contentOfsqDB & "', '" & Request.QueryString("code") & "','" & Request.QueryString("key") & "','" & Request.QueryString("id") & "','" & Request.QueryString("name") & "','" & search & "','" & wf1 & "','" & wf1value & "','" & wf2 & "','" & wf2value & "'"
+            Dim sqlstr = "exec api.autosuggest '" & contentOfaccountId & "', '" & contentOfsqDB & "', '" & Request.QueryString("code") & "','" & Request.QueryString("key") & "','" & Request.QueryString("id") & "','" & Request.QueryString("name") & "','" & search & "','" & wf1 & "'," & wf1value & ",'" & wf2 & "','" & wf2value & "'"
 
             Dim xmlstr = getXML(sqlstr)
             Dim json = ""

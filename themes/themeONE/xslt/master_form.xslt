@@ -534,8 +534,9 @@
     <script type="text/javascript">
 
       var sURL='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="code/."/>&amp;key=<xsl:value-of select="key"/>&amp;id=<xsl:value-of select="id"/>&amp;name=<xsl:value-of select="name"/>'
-      <xsl:if test="value">
-        var noPrepopulate=1;
+      var noPrepopulate=0;
+      <xsl:if test!="value">
+        noPrepopulate=1;
       </xsl:if>
       var cURL='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="code/."/>&amp;key=<xsl:value-of select="key"/>&amp;id=<xsl:value-of select="id"/>&amp;name=<xsl:value-of select="name"/>&amp;search=<xsl:value-of select="value"/>'
       

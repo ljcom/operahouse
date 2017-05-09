@@ -110,12 +110,12 @@ Partial Class index
         WindowOnLoad = "initTheme('" & code & "', '" & GUID & "');"
         Response.Cookies("themeFolder").Value = themeFolder
         Response.Cookies("page").Value = pageURL
-        writeLog(Server.MapPath("~/"))
-        writeLog(Server.MapPath("~/ophcontent/x"))
-        writeLog(Server.MapPath("~/ophcontent/temp"))
-        writeLog(Server.MapPath("~/ophcontent/live"))
-        writeLog(Request.PhysicalApplicationPath)
-        writeLog(Request.PhysicalPath)
+        'writeLog(Server.MapPath("~/"))
+        'writeLog(Server.MapPath("~/ophcontent/x"))
+        'writeLog(Server.MapPath("~/ophcontent/temp"))
+        'writeLog(Server.MapPath("~/ophcontent/live"))
+        'writeLog(Request.PhysicalApplicationPath)
+        'writeLog(Request.PhysicalPath)
 
     End Sub
     Sub checkCodeEnv(ByRef code As String, ByRef env As String, curODBC As String)

@@ -4,7 +4,9 @@ Folder Structure:
 * core/
 * themes/
 * documents/ (exclude from git)
-* scripts/  (exclude from git)
+* scripts/ (exclude from git)
+* reports/ (exclude from git)
+* log (exclude from git)
 
 More Requirements
 * Visual Studio 2015 or later
