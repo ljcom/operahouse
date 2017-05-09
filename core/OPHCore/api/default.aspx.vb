@@ -155,39 +155,48 @@ Partial Class OPHCore_API_default
             Case "save", "preview"
                 isSingle = False
                 Dim preview = Request.QueryString("flag")
-
-                sqlstr = populateSaveXML(1, code, preview)
-                sqlstr = sqlstr.Replace("#95#", "_")
-                sqlstr = sqlstr & ", @preview=" & IIf(preview = "", 0, preview)
-                xmlstr = runSQLwithResult(sqlstr, curODBC)
-                GUID = xmlstr
+                GUID = System.Guid.NewGuid().ToString()
 
                 'Dim attachmentFolder = Session("document") & Session("documentFolder") & "/temp/"
+                Dim fieldattachment As New List(Of String)
+                'lstOfStrings.Add(String1, String2, String3, String4)
                 Dim f As String
                 For Each f In Request.Files
-                    Dim sqlstr1 = "exec core.info_acct '" & contentOfaccountId & "', 'documentFolder'"
-                    Dim path2 As String = runSQLwithResult(sqlstr1, contentOfsequoiaCon)
-                    sqlstr1 = "exec core.info_acct '" & contentOfaccountId & "', 'uploadFolder'"
-                    Dim path As String = runSQLwithResult(sqlstr1, contentOfsequoiaCon)
+                    'Dim sqlstr1 = "exec core.info_acct '" & contentOfaccountId & "', 'documentFolder'"
+                    'Dim path2 As String = runSQLwithResult(sqlstr1, contentOfsequoiaCon)
+                    'sqlstr1 = "exec core.info_acct '" & contentOfaccountId & "', 'uploadFolder'"
+                    'Dim path As String = runSQLwithResult(sqlstr1, contentOfsequoiaCon)
+                    Dim path As String
+                    path = Server.MapPath("~/OPHContent/documents")
 
                     Dim curField = ""
+
                     For Each n In Request.Form
                         If Request.Form(n) = Request.Files(f).FileName Then
                             curField = n
+                            fieldattachment.Add(curField)
                             Exit For
                         End If
                     Next
-                    Dim fxn As String = path & "\" & path2 & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & GUID.Replace("'", "") & "_" & Request.Files(f).FileName
+                    Dim theDate As DateTime = DateTime.Now
 
-                    Dim theDate As DateTime = DateTime.Now.ToString("yyyy-MM")
+                    Dim szFilename = Year(theDate) & "\" & Month(theDate)
 
-                    Dim checkDir = path & "\" & path2 & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & theDate
+                    Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & GUID.Replace("'", "") & "_" & Request.Files(f).FileName
+
+                    Dim checkDir = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\"
                     If Not Directory.Exists(checkDir) Then Directory.CreateDirectory(checkDir)
                     If Directory.Exists(checkDir) Then
                         If fxn <> "" Then Request.Files(f).SaveAs(fxn)
                     End If
                 Next
-                If Not xmlstr.Contains("sqroot") Or xmlstr.Contains("root") Then
+
+                sqlstr = populateSaveXML(1, code, preview, fieldattachment, GUID, code)
+                sqlstr = sqlstr.Replace("#95#", "_")
+                sqlstr = sqlstr & ", @preview=" & IIf(preview = "", 0, preview)
+                xmlstr = runSQLwithResult(sqlstr, curODBC)
+
+                If Not xmlstr.Contains("<sqroot>") Or xmlstr.Contains("<root>") Then
                     xmlstr = xmlstr.Replace("<root>", "")
                     xmlstr = xmlstr.Replace("</root>", "")
                     xmlstr = xmlstr.Replace("<row>", "")

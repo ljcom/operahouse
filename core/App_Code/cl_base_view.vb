@@ -6,22 +6,30 @@ Public Class cl_base_view
     Inherits cl_base
     Protected contentofSaveString As String = ""
 
-    Function writeXMLFromRequestForm(root As String) As String
+    Function writeXMLFromRequestForm(root As String, Optional fieldattachment As List(Of String) = Nothing, Optional GUID As String = "", Optional code As String = "") As String
         Dim info = "<" & root & ">#element#</" & root & ">"
+        Dim theDate As DateTime = DateTime.Now
+        Dim szFilename = Year(theDate) & "\" & Month(theDate)
+
         For x = 0 To Request.Form.Count - 1
-            info = info.Replace("#element#", "<field id=""" & Request.Form.Keys(x) & """><value>" & Request.Form(x).Replace("'", "''").Replace("NULL", "") & "</value></field>#element#")
+            If fieldattachment.Contains(Request.Form.Keys(x)) Then
+                info = info.Replace("#element#", "<field id=""" & Request.Form.Keys(x) & """><value>" & code & "_" & Request.Form.Keys(x) & "\" & szFilename & "\" & GUID & "_" & Request.Form(x).Replace("'", "''").Replace("NULL", "") & "</value></field>#element#")
+            Else
+                info = info.Replace("#element#", "<field id=""" & Request.Form.Keys(x) & """><value>" & Request.Form(x).Replace("'", "''").Replace("NULL", "") & "</value></field>#element#")
+            End If
         Next
         info = info.Replace("#element#", "")
+
         Return info
 
     End Function
-    Function populateSaveXML(ByVal vp As Long, ByVal Tablename As String, Optional ispreview As Integer = 0, Optional ByVal connection As String = "") As String
+    Function populateSaveXML(ByVal vp As Long, ByVal Tablename As String, Optional ispreview As Integer = 0, Optional fieldattachment As List(Of String) = Nothing, Optional GUID As String = "", Optional code As String = "", Optional ByVal connection As String = "") As String
 
         loadAccount()
         Dim DBCore = contentOfsqDB
 
         'Tablename = Left(Tablename, 1) & "o" & Mid(Tablename, 3, Len(Tablename) - 2)
-        Dim saveXML = writeXMLFromRequestForm("sqroot")
+        Dim saveXML = writeXMLFromRequestForm("sqroot", fieldattachment, GUID, code)
         Dim contentofSaveString As String = ""
         Dim mainguid = Request.QueryString("cfunctionlist")
         Dim hostGUID As String

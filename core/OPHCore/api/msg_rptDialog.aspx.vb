@@ -65,7 +65,7 @@ Partial Class OPHCore_api_msg_rptDialog
 
             If dplx = 1 Then
                 Dim Parameters As ParameterDictionary = New ParameterDictionary
-                Dim pathDPLX As String = contentOfdocFolder & "\documents\" & contentOfaccountId & "\modl_attachment\" & reportName & ".dplx"
+                Dim pathDPLX As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/" & reportName & ".dplx")
 
                 parameterid = parameterid.Replace(":", "=").Replace(":null", "=null").Replace("''", "")
                 parameterid = parameterid.Replace("/", "-")
@@ -110,7 +110,7 @@ Partial Class OPHCore_api_msg_rptDialog
                 SpreadsheetInfo.SetLicense("ESWM-UQ6R-26SR-4WB1")
                 Dim Parameters As ParameterDictionary = New ParameterDictionary
                 Dim gfile As String = "", gext As String = ""
-                Dim gpath As String = Request.PhysicalApplicationPath & "document\temp"
+                Dim gpath As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp")
                 If Not Directory.Exists(gpath) Then Directory.CreateDirectory(gpath)
 
                 If outputType = 3 Then

@@ -61,7 +61,7 @@ function saveThemeONE(code, guid, location, formId) {
             } else {
                 xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=browse&sqlFilter=" + pkfield + "='" + pkvalue + "'";
                 //showXML(pkid, xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () { });
-                loadChild(code, parentkey, pkvalue, 1)
+                loadChild(code, pkfield, pkvalue, 1)
             }
         }
 

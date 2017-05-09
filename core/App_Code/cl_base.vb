@@ -23,7 +23,7 @@ Public Class cl_base
     Protected contentOfsqDB As String
     Protected contentOfsigninPage As String
     Protected contentOffrontPage As String
-    Protected contentOfdocFolder As String
+    'Protected contentOfdocFolder As String
 
     'Protected wordofHeadTitle As String = "Main"
     'Protected wordofHeadLinkHRef As String = "" '"OPHCore/styles/default.css"
@@ -1330,8 +1330,8 @@ Public Class cl_base
         sqlstr = "exec core.info_acct '" & contentOfaccountId & "', 'signinPage'"
         contentOfsigninPage = runSQLwithResult(sqlstr, contentOfsequoiaCon)
 
-        sqlstr = "exec core.info_acct '" & contentOfaccountId & "', 'documentFolder'"
-        contentOfdocFolder = runSQLwithResult(sqlstr, contentOfsequoiaCon)
+        'sqlstr = "exec core.info_acct '" & contentOfaccountId & "', 'documentFolder'"
+        'contentOfdocFolder = runSQLwithResult(sqlstr, contentOfsequoiaCon)
 
         'dynamic account
         Dim ret As String = contentOfsequoiaCon.Replace(" ", "")
@@ -1344,8 +1344,10 @@ Public Class cl_base
     End Sub
     Sub writeLog(logMessage As String)
         'Dim w As TextWriter
-        Dim logFilepath = "D:/vsonline/OPERAHOUSE/log/" & DateTime.Now().Year & "/" & DateTime.Now().Month & "/" & DateTime.Now().Day & ".txt"
-        Dim logPath = "D:/vsonline/OPERAHOUSE/log/" & DateTime.Now().Year & "/" & DateTime.Now().Month & "/"
+        Dim path = Server.MapPath("~/")
+        path = path.Substring(0, Len(path) - 5) & "log\"
+        Dim logFilepath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\" & Right("0" & DateTime.Now().Day, 2) & ".txt"
+        Dim logPath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\"
 
         If (Not System.IO.Directory.Exists(logPath)) Then
             System.IO.Directory.CreateDirectory(logPath)

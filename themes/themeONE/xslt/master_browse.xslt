@@ -252,7 +252,7 @@
         <table class="fixed-table">
           <tr>
             <td id="summary{@GUID}">
-              <xsl:apply-templates select="fields/field[@mandatory=0]" />
+              <xsl:apply-templates select="fields/field[@mandatory=0]" />&#160;
             </td>
           </tr>
         </table>
@@ -341,7 +341,7 @@
 
         <!--edit things-->
         <xsl:choose>
-          <xsl:when test="@edit=1">
+          <xsl:when test="@edit=1 and $state &lt; 500">
             <a id="edit_{@GUID}" href="javascript:btn_function('{@code}', '{@GUID}', 'formView', '{$pageNo}')">
               <ix class="fa fa-pencil" title="Edit"></ix>
             </a>

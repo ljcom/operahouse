@@ -534,13 +534,17 @@
     <script type="text/javascript">
 
       var sURL='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="code/."/>&amp;key=<xsl:value-of select="key"/>&amp;id=<xsl:value-of select="id"/>&amp;name=<xsl:value-of select="name"/>'
+      <xsl:if test="value">
+        var noPrepopulate=1;
+      </xsl:if>
       var cURL='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="code/."/>&amp;key=<xsl:value-of select="key"/>&amp;id=<xsl:value-of select="id"/>&amp;name=<xsl:value-of select="name"/>&amp;search=<xsl:value-of select="value"/>'
-
+      
       $(document).ready(function(){
       $.ajax({
       url: cURL,
       dataType: 'json',
       success: function(data){
+      if (noPrepopulate==1) data='';
       $("#<xsl:value-of select="../@fieldName"/>").tokenInput(
       sURL,
       {

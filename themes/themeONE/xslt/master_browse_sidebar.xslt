@@ -4,14 +4,16 @@
 >
   <xsl:output method="xml" indent="yes"/>
 
-  
+
   <xsl:template match="/">
     <script>
       $("#searchBox").val(getSearchText());
       var c=getQueryVariable('code');
+      try {
       $($('.treeview').children().find('a[href$="'+c+'"]')[0].parentNode.parentNode.parentNode.parentNode.parentNode).addClass('active');
       $($('.treeview').children().find('a[href$="'+c+'"]')[0].parentNode.parentNode.parentNode).addClass('active');
       $($('.treeview').children().find('a[href$="'+c+'"]')[0].parentNode).addClass('active');
+      } catch(e) {}
     </script>
     <!-- search form -->
     <!--<form method="get" class="sidebar-form">-->
@@ -69,7 +71,7 @@
         </xsl:otherwise>
       </xsl:choose>
     </li>
-    
+
   </xsl:template>
 
   <xsl:template match="submenus/submenu[@type='treeview']">
@@ -90,7 +92,7 @@
         <xsl:apply-templates select="submenus/submenu[@type='label']" />&#160;
       </ul>
     </li>
-    
+
   </xsl:template>
 
   <xsl:template match="submenus/submenu[@type='label']">
@@ -106,11 +108,11 @@
       </a>
     </li>
   </xsl:template>
-  
+
   <xsl:template match="sqroot/header/menus/menu[@code='newdocument']/submenus/submenu">
     <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
     <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
-    
+
     <li style="height:170px;text-align:center;">
       <a href="{pageURL/.}">
         <img src="OPHContent/themes/{/sqroot/header/info/themeFolder}/images/module.png" />
