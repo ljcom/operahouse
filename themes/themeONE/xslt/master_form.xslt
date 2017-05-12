@@ -524,12 +524,8 @@
         autosuggestSetValue('<xsl:value-of select="../@fieldName"/>',"<xsl:value-of select="code"/>","<xsl:value-of select="id"/>","<xsl:value-of select="name"/>","<xsl:value-of select='key'/>","<xsl:value-of select='value'/>")
         );
       </xsl:if>
-
     </script>
-
-
   </xsl:template>
-
 
   <xsl:template match="tokenBox">
     <script type="text/javascript">
