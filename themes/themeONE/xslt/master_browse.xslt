@@ -17,9 +17,9 @@
       <script>
         document.getElementById("contentWrapper").innerHTML = '<p style="padding:20px 0 0 20px; font-weight:bold;">Sorry, You Do Not Have Authority for This Module.</p><hr />';
 
-        $(".ellipsis").dotdotdot({
+        <!--$(".ellipsis").dotdotdot({
         watch: "window"
-        });
+        });-->
 
       </script>
     </xsl:if>
@@ -48,7 +48,10 @@
     <section class="content">
       <script>
         addpagenumber('pagenumbers', '<xsl:value-of select ="sqroot/body/bodyContent/browse/info/pageNo"/>', '<xsl:value-of select ="sqroot/body/bodyContent/browse/info/nbPages"/>')
+        addpagenumber('mobilepagenumbers', '<xsl:value-of select ="sqroot/body/bodyContent/browse/info/pageNo"/>', '<xsl:value-of select ="sqroot/body/bodyContent/browse/info/nbPages"/>')
+
       </script>
+
 
       <div class="col-md-12 full-width-a">
         <div class="box-header full-width-a">
@@ -132,9 +135,20 @@
                   </th>
                 </tr>
               </thead>
-              <tbody>
-                <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row" />
-              </tbody>
+                <xsl:choose>
+                  <xsl:when test="sqroot/body/bodyContent/browse/info/permission/allowBrowse/.=1">
+                    <tbody>
+                      <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row" />
+                    </tbody>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <tr>
+                      <td colspan="100" align="center">
+                        <div class="alert alert-warning">You don't have any access to see this list. Please ask the administrator for more information.</div>
+                      </td>
+                    </tr>
+                  </xsl:otherwise>
+                </xsl:choose>
             </table>
             <!-- /.box-body -->
             <div class="box-footer clearfix">
@@ -157,27 +171,35 @@
               <div class="box-group" id="accordion">
 
                 <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                <xsl:if test="sqroot/body/bodyContent/browse/info/permission/allowBrowse/.=0">
+                  <div class="alert alert-warning" align="center">
+                    You don't have any access to see this list. Please ask the administrator for more information.
+                  </div>
+                </xsl:if>
+              </div>
+            </div>
+            <div class="box-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right" id="mobilepagenumbers">
+                &#160;
+              </ul>
 
-              </div>
-              <div class="box-footer clearfix">
-                <ul class="pagination pagination-sm no-margin pull-right">
-                  <li>
-                    <a href="#">&#171;</a>
-                  </li>
-                  <li>
-                    <a href="#">1</a>
-                  </li>
-                  <li>
-                    <a href="#">2</a>
-                  </li>
-                  <li>
-                    <a href="#">3</a>
-                  </li>
-                  <li>
-                    <a href="#">&#187;</a>
-                  </li>
-                </ul>
-              </div>
+              <!--<ul class="pagination pagination-sm no-margin pull-right">
+                <li>
+                  <a href="#">&#171;</a>
+                </li>
+                <li>
+                  <a href="#">1</a>
+                </li>
+                <li>
+                  <a href="#">2</a>
+                </li>
+                <li>
+                  <a href="#">3</a>
+                </li>
+                <li>
+                  <a href="#">&#187;</a>
+                </li>
+              </ul>-->
             </div>
             <!-- /.box-body -->
           </div>
@@ -260,7 +282,7 @@
 
       <script>
         //put before mandatory section
-        fillMobileItem('<xsl:value-of select="@code"/>', '<xsl:value-of select="@GUID" />');
+        fillMobileItem('<xsl:value-of select="@code"/>', '<xsl:value-of select="@GUID" />', '<xsl:value-of select="$state" />', '<xsl:value-of select="@edit" />', '<xsl:value-of select="@delete" />', '<xsl:value-of select="@wipe" />', '<xsl:value-of select="@force" />');
       </script>
 
       <xsl:if test="/sqroot/header/info/code/settingMode='T'">
@@ -283,7 +305,7 @@
                 <ix class="fa fa-check" title="Approve"></ix>
               </a>
             </xsl:when>
-            <xsl:when test="$state &lt; 500">
+            <xsl:when test="@force=1 and $state &lt; 500">
               <a href="javascript:btn_function('{@code}', '{@GUID}', 'force', '{$pageNo}')">
                 <ix class="fa fa-archive" title="Close"></ix>
               </a>
@@ -301,7 +323,7 @@
           <!--allow delete-->
           <xsl:when test="@onOff=1 and @delete=1 and $state &lt; 500">
             <a href="javascript:btn_function('{@code}', '{@GUID}', 'inactivate', '{$pageNo}')">
-              <ix class="fa fa-toggle-off" title="Inactive"></ix>
+              <ix class="fa fa-trash" title="Inactive"></ix>
             </a>
           </xsl:when>
           <xsl:when test="@onOff=0 and @delete=1 and $state &lt; 500">
@@ -313,15 +335,17 @@
             <a href="javascript:btn_function('{@code}', '{@GUID}', 'restore', '{$pageNo}')">
               <ix class="fa fa-toggle-on" title="Reactivate"></ix>
             </a>
-            <a href="javascript:btn_function('{@code}', '{@GUID}', 'wipe', '{$pageNo}')">
-              <ix class="fa fa-trash" title="Delete"></ix>
-            </a>
+            <xsl:if test="@wipe=1">
+              <a href="javascript:btn_function('{@code}', '{@GUID}', 'wipe', '{$pageNo}')">
+                <ix class="fa fa-trash" title="Delete"></ix>
+              </a>
+            </xsl:if>
           </xsl:when>
 
           <!--not allow delete-->
           <xsl:when test="@onOff=1 and @delete=0 and $state &lt; 500">
             <a href="#">
-              <ix class="fa fa-toggle-off" title="Inactive" style="color:LightGray"></ix>
+              <ix class="fa fa-trash" title="Inactive" style="color:LightGray"></ix>
             </a>
           </xsl:when>
           <xsl:when test="@onOff=0 and @delete=1 and $state &lt; 500">
@@ -331,7 +355,7 @@
           </xsl:when>
           <xsl:when test="$state = 999">
             <a href="#">
-              <ix class="fa fa-toggle-on" title="Reactivate" style="color:lightgray"></ix>
+              <ix class="fa fa-undo" title="Recover" style="color:lightgray"></ix>
             </a>
             <a href="#">
               <ix class="fa fa-trash" title="Delete" style="color:LightGray"></ix>

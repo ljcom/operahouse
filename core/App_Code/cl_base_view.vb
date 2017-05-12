@@ -12,10 +12,17 @@ Public Class cl_base_view
         Dim szFilename = Year(theDate) & "\" & Month(theDate)
 
         For x = 0 To Request.Form.Count - 1
+            Dim colName As String = Request.Form.Keys(x)
+            Dim ix As Integer
+
+            'for Radio Button
+            ix = colName.ToLower().IndexOf("_radio")
+            If ix > 0 Then colName = Left(colName, ix)
+
             If fieldattachment.Contains(Request.Form.Keys(x)) Then
-                info = info.Replace("#element#", "<field id=""" & Request.Form.Keys(x) & """><value>" & code & "_" & Request.Form.Keys(x) & "\" & szFilename & "\" & GUID & "_" & Request.Form(x).Replace("'", "''").Replace("NULL", "") & "</value></field>#element#")
+                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & code & "_" & colName & "\" & szFilename & "\" & GUID & "_" & Request.Form(x).Replace("'", "''").Replace("NULL", "") & "</value></field>#element#")
             Else
-                info = info.Replace("#element#", "<field id=""" & Request.Form.Keys(x) & """><value>" & Request.Form(x).Replace("'", "''").Replace("NULL", "") & "</value></field>#element#")
+                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & Request.Form(x).Replace("'", "''").Replace("NULL", "") & "</value></field>#element#")
             End If
         Next
         info = info.Replace("#element#", "")
