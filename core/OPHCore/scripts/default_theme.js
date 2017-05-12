@@ -3521,13 +3521,15 @@ function autosuggestSetValue(SelectID, Code, CaptionID, CaptionName, CaptionKey,
 }
 
 function checkCB(checkboxname) {
-    if ($("input[name='" + checkboxname + "'][type='checkbox']").is(":checked")) {
-        $("input[name='" + checkboxname + "'][type='checkbox']").val(1);
-        $("#hidden" + checkboxname).attr("name", "")
+    if ($("input[name='cb" + checkboxname + "'][type='checkbox']").is(":checked")) {
+        $("input[name='cb" + checkboxname + "'][type='checkbox']").val(1);
+        $("#" + checkboxname + "").val(1);
+        //$("#" + checkboxname).attr("name", "")
     }
     else {
-        $("input[name='" + checkboxname + "'][type='checkbox']").val(0);
-        $("#hidden" + checkboxname).attr("name", checkboxname)
+        $("input[name='cb" + checkboxname + "'][type='checkbox']").val(0);
+        $("#" + checkboxname + "").val(0);
+        //$("#" + checkboxname).attr("name", checkboxname)
     }
 }
 

@@ -84,8 +84,8 @@
         </div>
       </div>
       <!-- button view header -->
-        <xsl:apply-templates select="sqroot/body/bodyContent/form/children/child"/>
-        <!-- /.col -->
+      <xsl:apply-templates select="sqroot/body/bodyContent/form/children/child"/>
+      <!-- /.col -->
 
       <!-- browse for phone/tablet max width 768 -->
     </section>
@@ -293,11 +293,10 @@
 
   <xsl:template match="checkBox">
     <!--Supaya bisa di serialize-->
-    <input type="hidden" name="{../@fieldName}" value="0"/>
+    <input type="hidden" id="{../@fieldName}" name="{../@fieldName}" value="{value}"/>
     <!--Supaya bisa di serialize-->
-
-
-    <input type="checkbox"  value="{value}" id ="{../@fieldName}"  name="{../@fieldName}" onchange="checkCB('{../@fieldName}');preview('preview/.',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','form'+code, this);">
+    <input type="checkbox"  value="{value}" id ="cb{../@fieldName}"  name="cb{../@fieldName}"
+           onchange="checkCB('{../@fieldName}');preview({preview/.},getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','form'+code, this);">
       <xsl:if test="value=1">
         <xsl:attribute name="checked">checked</xsl:attribute>
       </xsl:if>
@@ -465,6 +464,47 @@
   </xsl:template>
 
   <xsl:template match="tokenBox">
+    <script type="text/javascript">
+
+      var sURL<xsl:value-of select="key"/><xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="code/."/>&amp;key=<xsl:value-of select="key"/>&amp;id=<xsl:value-of select="id"/>&amp;name=<xsl:value-of select="name"/>'
+      var noPrepopulate<xsl:value-of select="key"/>=1;
+      <xsl:if test="value">
+        noPrepopulate<xsl:value-of select="key"/><xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>=0;
+      </xsl:if>
+      var cURL<xsl:value-of select="key"/><xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="code/."/>&amp;key=<xsl:value-of select="key"/>&amp;id=<xsl:value-of select="id"/>&amp;name=<xsl:value-of select="name"/>&amp;search=<xsl:value-of select="value"/>'
+
+      $(document).ready(function(){
+      $.ajax({
+      url: cURL<xsl:value-of select="key"/><xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>,
+      dataType: 'json',
+      success: function(data){
+      if (noPrepopulate<xsl:value-of select="key"/><xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>==1) data='';
+      $("#<xsl:value-of select="../@fieldName"/>").tokenInput(
+      sURL<xsl:value-of select="key"/><xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>,
+      {
+      hintText: "please type...",
+      searchingText: "Searching...",
+      preventDuplicates: true,
+      allowCustomEntry: true,
+      highlightDuplicates: false,
+      tokenDelimiter: "*",
+      theme:"facebook",
+      prePopulate: data,
+      onReady: function(x) {
+      },
+      onAdd: function(x) {
+      preview('<xsl:value-of select="preview/."/>', getCode(), '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','formheader', this);
+      },
+      onDelete: function(x) {
+      preview('<xsl:value-of select="preview/."/>', getCode(), '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','formheader', this);
+      }
+      }
+      );
+      }
+      });
+      });
+    </script>
+
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
@@ -486,16 +526,21 @@
       </xsl:choose>
     </xsl:variable>
 
-    <input type="text" class="form-control" Value="{$thisvalue}" name="{../@fieldName}" data-old="{value/.}" data-child="Y" onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','form'+code, this);" id ="{../@fieldName}">
+
+    <input type="text" class="form-control" Value="{$thisvalue}" data-type="tokenBox" data-old="{$thisvalue}" data-newJSON=""
+           data-code="{code/.}"
+      data-key="{key}" data-id="{id}" data-name="{name}"
+      name="{../@fieldName}" id ="{../@fieldName}">
+
       <xsl:if test="../@isEditable=0">
         <xsl:attribute name="disabled">disabled</xsl:attribute>
       </xsl:if>
     </input>
   </xsl:template>
-  
+
   <xsl:template match="sqroot/body/bodyContent/form/children">
     <div class="offser1">
-    <xsl:apply-templates select="child"/>&#160;
+      <xsl:apply-templates select="child"/>&#160;
     </div>
   </xsl:template>
 
