@@ -523,31 +523,27 @@
         autosuggestSetValue('<xsl:value-of select="../@fieldName"/>',"<xsl:value-of select="code"/>","<xsl:value-of select="id"/>","<xsl:value-of select="name"/>","<xsl:value-of select='key'/>","<xsl:value-of select='value'/>")
         );
       </xsl:if>
-
     </script>
-
-
   </xsl:template>
-
 
   <xsl:template match="tokenBox">
     <script type="text/javascript">
 
-      var sURL='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="code/."/>&amp;key=<xsl:value-of select="key"/>&amp;id=<xsl:value-of select="id"/>&amp;name=<xsl:value-of select="name"/>'
-      var noPrepopulate=0;
-      <xsl:if test!="value">
-        noPrepopulate=1;
+      var sURL<xsl:value-of select="key"/>='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="code/."/>&amp;key=<xsl:value-of select="key"/>&amp;id=<xsl:value-of select="id"/>&amp;name=<xsl:value-of select="name"/>'
+      var noPrepopulate<xsl:value-of select="key"/>=1;
+      <xsl:if test="value">
+        noPrepopulate<xsl:value-of select="key"/>=0;
       </xsl:if>
-      var cURL='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="code/."/>&amp;key=<xsl:value-of select="key"/>&amp;id=<xsl:value-of select="id"/>&amp;name=<xsl:value-of select="name"/>&amp;search=<xsl:value-of select="value"/>'
+      var cURL<xsl:value-of select="key"/>='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="code/."/>&amp;key=<xsl:value-of select="key"/>&amp;id=<xsl:value-of select="id"/>&amp;name=<xsl:value-of select="name"/>&amp;search=<xsl:value-of select="value"/>'
       
       $(document).ready(function(){
       $.ajax({
-      url: cURL,
+      url: cURL<xsl:value-of select="key"/>,
       dataType: 'json',
       success: function(data){
-      if (noPrepopulate==1) data='';
+      if (noPrepopulate<xsl:value-of select="key"/>==1) data='';
       $("#<xsl:value-of select="../@fieldName"/>").tokenInput(
-      sURL,
+      sURL<xsl:value-of select="key"/>,
       {
       hintText: "please type...",
       searchingText: "Searching...",
