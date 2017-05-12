@@ -54,7 +54,7 @@
       //loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/admin-LTE/js/demo.js');
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/custom-me.js');
 
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/jQuery.dotdotdot-master/src/jquery.dotdotdot.min.js');
+      //loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/jQuery.dotdotdot-master/src/jquery.dotdotdot.min.js');
 
 
       document.title='<xsl:value-of select="/sqroot/header/info/title"/>';

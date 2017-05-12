@@ -22,7 +22,7 @@
       
       loadScript('OPHContent/themes/themeTWO/scripts/custom-me.js');
       
-      LoadNewPart('home_browse', 'contentWrapper', 'maHome', '','');
+      LoadNewPart('home_browse', 'contentWrapper', 'Home', '','');
       changeColorMenuFront();
     </script>
     <!-- Page script -->
