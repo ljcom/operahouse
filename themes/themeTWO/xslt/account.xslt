@@ -256,15 +256,15 @@
   <xsl:template match="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu">
     <li class="dropdown">
       <xsl:choose>
-        <xsl:when test="(@mode)='treeroot'">
+        <xsl:when test="(@type)='treeroot'">
           <a href="{pageURL/.}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="prim-{caption/.}">
             <xsl:value-of select="caption/." />
           </a>
           <ul class="dropdown-menu dropdown-menu-right">
-            <xsl:apply-templates select="submenus/submenu[@mode='treeview']" />
+            <xsl:apply-templates select="submenus/submenu[@type='treeview']" />
           </ul>
         </xsl:when>
-        <xsl:when test="(@mode)='label'">
+        <xsl:when test="(@type)='label'">
           <a href="{pageURL/.}" id="prim-{caption/.}">
             <xsl:value-of select="caption/." />
           </a>
@@ -274,7 +274,7 @@
   </xsl:template>
   
   <!--treeview-->
-  <xsl:template match="submenus/submenu[@mode='treeview']">
+  <xsl:template match="submenus/submenu[@type='treeview']">
     <li>
       <a href="{pageURL/.}">
         <xsl:value-of select="caption/." />
@@ -285,15 +285,15 @@
   <!--secondary menu-->
   <xsl:template match="sqroot/header/menus/menu[@code='Account']/submenus/submenu">
       <xsl:choose>
-        <xsl:when test="(@mode)='treeroot'">
+        <xsl:when test="(@type)='treeroot'">
           
         </xsl:when>
-        <xsl:when test="(@mode)='label' and (caption/.)='Profile'">
+        <xsl:when test="(@type)='label' and (caption/.)='Profile'">
           <a href="{pageURL/.}{../../../../info/user/userGUID/.}" class="btn btn-default {@active}">
             <span style="margin-right:10px;"><ix class="{icon/fa/.}" aria-hidden="true"></ix></span> <xsl:value-of select="caption/." />
           </a>
         </xsl:when>
-        <xsl:when test="(@mode)='label' and (caption/.)!='Profile'">
+        <xsl:when test="(@type)='label' and (caption/.)!='Profile'">
           <a href="{pageURL/.}" class="btn btn-default {@active}">
             <span style="margin-right:10px;">
               <ix class="{icon/fa/.}" aria-hidden="true"></ix>
