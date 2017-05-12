@@ -221,21 +221,21 @@
   <xsl:template match="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu">
     <li class="dropdown">
       <xsl:choose>
-        <xsl:when test="(@mode)='treeroot'">
+        <xsl:when test="(@type)='treeroot'">
           <a href="{pageURL/.}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="prim-{caption/.}">
             <xsl:value-of select="caption/." />
           </a>
           <ul class="dropdown-menu dropdown-menu-right">
-            <xsl:apply-templates select="submenus/submenu[@mode='treeview']" />
+            <xsl:apply-templates select="submenus/submenu[@type='treeview']" />
           </ul>
         </xsl:when>
-        <xsl:when test="(@mode)='label'"><a href="{pageURL/.}" id="prim-{caption/.}"><xsl:value-of select="caption/." /></a></xsl:when>
+        <xsl:when test="(@type)='label'"><a href="{pageURL/.}" id="prim-{caption/.}"><xsl:value-of select="caption/." /></a></xsl:when>
       </xsl:choose>
     </li>
   </xsl:template>
   
 
-  <xsl:template match="submenus/submenu[@mode='treeview']">
+  <xsl:template match="submenus/submenu[@type='treeview']">
     <li>
       <a  class="needlogin" data-toggle="modal" href="{pageURL/.}"><xsl:value-of select="caption/." /></a>
     </li>

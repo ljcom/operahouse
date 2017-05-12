@@ -379,6 +379,7 @@
       <xsl:apply-templates select="textBox"/>
       <xsl:apply-templates select="dateBox"/>
       <xsl:apply-templates select="checkBox"/>
+      <xsl:apply-templates select="mediaBox"/>
       <xsl:apply-templates select="autoSuggestBox"/>
       <xsl:apply-templates select="tokenBox"/>
       <xsl:apply-templates select="radio"/>
@@ -388,10 +389,10 @@
 
   <xsl:template match="checkBox">
     <!--Supaya bisa di serialize-->
-    <!--input type="hidden" name="{../@fieldName}" id="hidden{../@fieldName}" value="0"/-->
+    <input type="hidden" name="{../@fieldName}" id="{../@fieldName}" value="{value}"/>
     <!--Supaya bisa di serialize-->
 
-    <input type="checkbox" value="{value}" id ="{../@fieldName}"  name="{../@fieldName}" data-type="checkBox" data-old="{value}"
+    <input type="checkbox" value="{value}" id ="cb{../@fieldName}"  name="cb{../@fieldName}" data-type="checkBox" data-old="{value}"
       onchange="checkCB('{../@fieldName}');preview('{preview/.}', getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);">
       <xsl:if test="value=1">
         <xsl:attribute name="checked">checked</xsl:attribute>
@@ -599,6 +600,37 @@
         <xsl:attribute name="disabled">disabled</xsl:attribute>
       </xsl:if>
     </input>
+  </xsl:template>
+  <xsl:template match="mediaBox">
+    <label id="{../@fieldName}caption">
+      <xsl:value-of select="titlecaption"/>
+    </label>
+
+    <!--default value-->
+    <xsl:variable name="thisvalue">
+      <xsl:choose>
+        <xsl:when  test="/sqroot/body/bodyContent/form/info/GUID/. = '00000000-0000-0000-0000-000000000000' and defaultvalue != ''">
+          <xsl:value-of select="defaultvalue/." />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="value"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <div class="input-group">
+      <label class="input-group-btn">
+        <span class="btn btn-primary">
+          Browse <input id ="{../@fieldName}_hidden" name="{../@fieldName}_hidden" type="file" style="display: none;" multiple="" />
+        </span>
+      </label>
+      <input id ="{../@fieldName}" name="{../@fieldName}" Value="{value}" type="text" class="form-control" readonly="" />
+      <span class="input-group-btn">
+        <button class="btn btn-secondary" type="button" onclick="javascript:popTo('OPHcore/api/msg_download.aspx?fieldAttachment={../@fieldName}&#38;code={/sqroot/body/bodyContent/form/info/code/.}&#38;GUID={/sqroot/body/bodyContent/form/info/GUID/.}');">
+          <ix class="fa fa-paperclip"></ix>&#160;
+        </button>
+      </span>
+    </div>
   </xsl:template>
 
   <xsl:template match="radio">
