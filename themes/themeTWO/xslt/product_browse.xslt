@@ -37,7 +37,7 @@
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
     <!--image src-->
     <xsl:variable name="imageprod">
-      OPHContent/documents/<xsl:value-of select="fields/field[@caption = 'productphotos']/." />
+      OPHContent/documents/<xsl:value-of select="/sqroot/header/info/account/."/>/<xsl:value-of select="fields/field[@caption = 'productphotos']/." />
     </xsl:variable>
     
     <div class="col-sm-4 col-xs-12">

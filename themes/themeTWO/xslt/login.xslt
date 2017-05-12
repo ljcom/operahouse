@@ -103,7 +103,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index-v1.html">
+            <a class="navbar-brand" href="javascript:goHome()">
               <img src="OPHContent/themes/themeTWO/images/logo2.png" style="width:200px;" alt="logo" />
             </a>
           </div>

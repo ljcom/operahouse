@@ -105,6 +105,8 @@ Partial Class OPHCore_API_default
                 xmlstr = getXML(sqlstr, curODBC)
                 If xmlstr <> "" Then
                     xmlstr1 = xmlstr.Substring(1, 6)
+                Else
+                    Stop
                 End If
                 '"You dont have authority!!!"
                 If xmlstr1 <> "sqroot" Then

@@ -43,21 +43,21 @@
     <xsl:choose>
       <xsl:when test="(fields/field[@caption = 'isPP']/.) = '1'">
         <div class="item active" data-thumb="0" style="text-align:center !important; height:400px;">
-          <img style="margin:0 auto;  height:100%;  width: auto;" src="OPHContent/documents/{fields/field[@caption = 'Attachment']/.}" />
+          <img style="margin:0 auto;  height:100%;  width: auto;" src="OPHContent/documents/{/sqroot/header/info/account/.}/{fields/field[@caption = 'Attachment']/.}" />
         </div>
         <script>
           document.getElementById('tempr').innerHTML = document.getElementById('tempr').innerHTML + '<div style="height:100px;" data-target="#carousel" data-slide-to="{fields/field[@caption = 'FotoID']/.}" class="thumb">
-            <img style="margin:0 auto; height:100%; width: auto;"  src="OPHContent/documents/{fields/field[@caption = 'Attachment']/.}" />
+            <img style="margin:0 auto; height:100%; width: auto;"  src="OPHContent/documents/{/sqroot/header/info/account/.}/{fields/field[@caption = 'Attachment']/.}" />
           </div>';
         </script>
       </xsl:when>
       <xsl:otherwise>
         <div class="item" data-thumb="1"  style="height:400px;">
-          <img  style="margin:0 auto; height:100%; width: auto;" src="OPHContent/documents/{fields/field[@caption = 'Attachment']/.}" />
+          <img  style="margin:0 auto; height:100%; width: auto;" src="OPHContent/documents/{/sqroot/header/info/account/.}/{fields/field[@caption = 'Attachment']/.}" />
         </div>
         <script>
           document.getElementById('tempr').innerHTML = document.getElementById('tempr').innerHTML + '<div style="height:100px;"> data-target="#carousel" data-slide-to="{fields/field[@caption = 'FotoID']/.}" class="thumb">
-            <img style="margin:0 auto; height:100%; width: auto;"  src="OPHContent/documents/{fields/field[@caption = 'Attachment']/.}" />
+            <img style="margin:0 auto; height:100%; width: auto;"  src="OPHContent/documents/{/sqroot/header/info/account/.}/{fields/field[@caption = 'Attachment']/.}" />
           </div>';
         </script>
       </xsl:otherwise>

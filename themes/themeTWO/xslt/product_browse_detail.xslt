@@ -53,7 +53,7 @@
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
     <!--image src-->
     <xsl:variable name="imageprod">
-      OPHContent/documents/<xsl:value-of select="fields/field[@caption = 'productphotos']/." />
+      OPHContent/documents/<xsl:value-of select="sqroot/header/info/account/." />/<xsl:value-of select="fields/field[@caption = 'productphotos']/." />
     </xsl:variable>
     <input type="hidden" id="EVENPSKUGUID" name="EVENPSKUGUID" value="{@GUID}" />
     <input type="hidden" id="cartID" name="cartID" value="" />

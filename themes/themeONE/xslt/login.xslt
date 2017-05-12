@@ -98,7 +98,7 @@
             <div class="col-md-6">
               <h1 style="font-size:40px; font-weight:bold">
                 WELCOME TO <br/>
-                <xsl:value-of select="sqroot/header/info/company"/>&#160;<xsl:value-of select="sqroot/header/info/account"/>
+                <xsl:value-of select="sqroot/header/info/company"/>&#160;<xsl:value-of select="sqroot/header/info/account/."/>
               </h1>
 
               <h3>SIGN IN</h3>

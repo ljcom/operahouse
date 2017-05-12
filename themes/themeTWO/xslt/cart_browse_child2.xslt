@@ -80,7 +80,7 @@
         <xsl:when test="(@caption)='productphotos'">
           <td class="col-xs-2">
             <span class="cartImage" style="height:70px;" >
-              <img src="OPHContent/documents/{.}" alt="image" style="height:100%; width:auto; margin:0 auto;" />
+              <img src="OPHContent/documents/{/sqroot/header/info/account/.}/{.}" alt="image" style="height:100%; width:auto; margin:0 auto;" />
             </span>
           </td>
         </xsl:when>

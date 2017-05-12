@@ -58,7 +58,7 @@
           <div class="pull-left" style="margin-right:10px;">
             <img width="30" style="margin-top:-9px;" src="OPHContent/themes/{/sqroot/header/info/themeFolder}/images/oph4_logo.png" alt="Logo Image" />
           </div>
-          <xsl:value-of select="sqroot/header/info/account" />
+          <xsl:value-of select="sqroot/header/info/account/." />
         </span>
       </a>
       <!-- Header Navbar: style can be found in header.less -->
