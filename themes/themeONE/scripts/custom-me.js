@@ -68,7 +68,7 @@ function saveThemeONE(code, guid, location, formId) {
     })
 }
 
-function fillMobileItem(code, guid) {
+function fillMobileItem(code, guid, Status, allowedit, allowDelete, allowWipe, allowForce) {
     var tx1 = $('#mandatory' + guid).val();
     var tx2 = '<strong>'+tx1+'</strong> '+$('#summary' + guid).text();
     //var tx1='HR<br />RC';
@@ -89,9 +89,15 @@ function fillMobileItem(code, guid) {
     x = x.replace('#d21#', '<div class="box-body full-width-a">#d211##d212#</div>');
     x = x.replace('#d211#', '<div class="browse-status" style="background:gray; color:white; padding:10px; position:relative;">#tx3##a2#</div>');
     x = x.replace('#tx3#', tx3);
-    x = x.replace('#a2#', '<a href="#" style="color:white; text-decoration:underline">see more</a><br /><br /><b>LAST COMMENT</b><br />WAIT FOR USER3<br /><br /><b>REQUESTED ON</b><br />ESRA MARTLIANTY (3 JAN 2016) <br /><a href="javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'formView\')" title="edit" style="position:absolute; top:10px; right:10px; font-size:17px; color:white;">#ix#</a>');
-    x = x.replace('#ix#', '<ix class="fa fa-pencil"></ix>');
-
+    x = x.replace('#a2#', '<a href="#" style="color:white; text-decoration:underline">see more</a><br /><br /><b>LAST COMMENT</b><br />WAIT FOR USER3<br /><br /><b>REQUESTED ON</b><br />ESRA MARTLIANTY (3 JAN 2016) <br /><a href="#a4#" title="edit" style="position:absolute; top:10px; right:10px; font-size:17px; color:white;">#ix#</a>');
+    if (allowedit == 1) {
+        x = x.replace('#ix#', '<ix class="fa fa-pencil"></ix>');
+        x = x.replace('#a4#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'formView\')');
+    }
+    else {
+        x = x.replace('#ix#', '<ix class="fa fa-pencil" style="color:LightGray"></ix>');
+        x = x.replace('#a4#', '#');
+    }
     x = x.replace('#d212#', '<div style="text-align:center; display:block; background:gray; padding:10px 0;">#t#</div>');
     x = x.replace('#t#', '<table style="width:100%">#tr#</table>');
     x = x.replace('#tr#', '<tr><td>&#160;</td>#td#<td>&#160;</td></tr>');
@@ -100,8 +106,14 @@ function fillMobileItem(code, guid) {
     bt = bt.replace('#a3#', '<a href="#">#bt#</a>');
     bt = bt.replace('#bt#', '<button type="button" class="btn btn-gray-a" style="background:#ccc; border:none;">#btname#</button>');
 
-    var btname = 'REJECT';
-    x = x.replace('#td#', bt.replace('#btname#', btname));
+    var btname = 'DELETE';
+    if (status<500 && allowDelete == 1) x = x.replace('#td#', bt.replace('#btname#', btname));
+
+    var btname = 'WIPE';
+    if (status==999 && allowWipe == 1) x = x.replace('#td#', bt.replace('#btname#', btname));
+
+    var btname = 'ARCHIEVE';
+    if (status <500 && status >=400 && allowForce == 1) x = x.replace('#td#', bt.replace('#btname#', btname));
 
     var btname = 'APPROVE';
     x = x.replace('#td#', bt.replace('#btname#', btname));
@@ -110,4 +122,45 @@ function fillMobileItem(code, guid) {
     x = x.replace('#td#', '');
 
     $(x).appendTo("#accordion");
+}
+function addpagenumber(pageid, currentpage, totalpages) {
+    cp = parseInt(currentpage);
+    tp = parseInt(totalpages);
+    var result = "";
+    if (tp > 1) {
+        if (cp != 1) result += "<li><a href='javascript:loadContent(" + (cp - 1) + ")'>&#171;</a></li>";
+
+        var before = "";
+        var after = "";
+
+        if (cp - 2 > 0)
+            result += "<li><a href='javascript:loadContent(" + (cp - 2) + ")'>" + (cp - 2) + "</a></li>";
+
+        if (cp - 1 > 0)
+            result += "<li><a href='javascript:loadContent(" + (cp - 1) + ")'>" + (cp - 1) + "</a></li>";
+
+        result += "<li><a style ='background-color:#3c8dbc;color:white;'href='javascript:loadContent(" + cp + ")'>" + cp + "</a></li>";
+
+        if (cp + 1 <= tp)
+            result += "<li><a href='javascript:loadContent(" + (cp + 1) + ")'>" + (cp + 1) + "</a></li>";
+        if (cp + 2 <= tp)
+            result += "<li><a href='javascript:loadContent(" + (cp + 2) + ")'>" + (cp + 2) + "</a></li>";
+
+        if (cp != tp) result += "<li><a href='javascript:loadContent(" + (cp + 1) + ")'>&#187;</a></li>";
+
+        result += "<li>&nbsp;&nbsp;&nbsp;</li>"
+
+
+        var combo = "<li><select style ='background:#fafafa;color:#666;border:1px solid #ddd;height:30px;'onchange='loadContent(this.value)'>";
+        for (var i = 1 ; i <= parseInt(tp) ; i++) {
+            combo += "<option value =" + i + " " + (cp == i ? "selected" : "") + ">" + i + "</option>";
+        };
+
+        combo += '</select></li>';
+
+        result += combo;
+
+
+        $('#' + pageid).html(result);
+    }
 }

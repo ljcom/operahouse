@@ -110,7 +110,7 @@
               <form id="formlogin" onsubmit ="return signIn();">
                 <div class="form-group enabled-input">
                   <label>User Name</label>
-                  <input type="text" class="form-control" name ="userid" id ="userid" onkeypress="return checkenter(event)"/>
+                  <input type="text" class="form-control" name ="userid" id ="userid" autofocus="autofocus" onkeypress="return checkenter(event)"/>
                 </div>
                 <div class="form-group enabled-input">
                   <label>Password</label>

@@ -24,7 +24,9 @@ Partial Class OPHCore_api_msg_autosuggest
         Dim wf1value = Request.QueryString("wf1value")
         Dim wf2 = Request.QueryString("wf2")
         Dim wf2value = Request.QueryString("wf2value")
+        If wf2 = "0" Then wf2 = ""
         wf1value = IIf(wf1value = "NULL", wf1value, "'" & wf1value & "'")
+        wf2value = IIf(wf2value = "NULL", wf2value, "'" & wf2value & "'")
 
         If Request("code") <> "" Then
             Dim appSettings = ConfigurationManager.AppSettings

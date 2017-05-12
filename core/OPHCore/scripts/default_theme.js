@@ -3531,47 +3531,6 @@ function checkCB(checkboxname) {
     }
 }
 
-function addpagenumber(pageid, currentpage, totalpages) {
-    cp = parseInt(currentpage);
-    tp = parseInt(totalpages);
-    var result = "";
-    if (tp > 1) {
-        if (cp != 1) result += "<li><a href='javascript:loadContent(" + (cp - 1) + ")'>&#171;</a></li>";
-
-        var before = "";
-        var after = "";
-
-        if (cp - 2 > 0)
-            result += "<li><a href='javascript:loadContent(" + (cp - 2) + ")'>" + (cp - 2) + "</a></li>";
-
-        if (cp - 1 > 0)
-            result += "<li><a href='javascript:loadContent(" + (cp - 1) + ")'>" + (cp - 1) + "</a></li>";
-
-        result += "<li><a style ='background-color:#3c8dbc;color:white;'href='javascript:loadContent(" + cp + ")'>" + cp + "</a></li>";
-
-        if (cp + 1 <= tp)
-            result += "<li><a href='javascript:loadContent(" + (cp + 1) + ")'>" + (cp + 1) + "</a></li>";
-        if (cp + 2 <= tp)
-            result += "<li><a href='javascript:loadContent(" + (cp + 2) + ")'>" + (cp + 2) + "</a></li>";
-
-        if (cp != tp) result += "<li><a href='javascript:loadContent(" + (cp + 1) + ")'>&#187;</a></li>";
-
-        result += "<li>&nbsp;&nbsp;&nbsp;</li>"
-
-
-        var combo = "<li><select style ='background:#fafafa;color:#666;border:1px solid #ddd;height:30px;'onchange='loadContent(this.value)'>";
-        for (var i = 1 ; i <= parseInt(tp) ; i++) {
-            combo += "<option value =" + i + " " + (cp == i ? "selected" : "") + ">" + i + "</option>";
-        };
-
-        combo += '</select></li>';
-
-        result += combo;
-
-
-        $('#' + pageid).html(result);
-    }
-}
 
 function changestateid(stateid) {
     setCookie('stateid', stateid, 0, 1, 0);
@@ -4160,5 +4119,5 @@ var fullDateString = new Date();
 //    }, 300, fullDateString.getTime())
 //});
 function goHome() {
-    window.location = '/?env=' + getQueryVariable('env');
+    window.location = 'index.aspx?env=' + getQueryVariable('env');
 }

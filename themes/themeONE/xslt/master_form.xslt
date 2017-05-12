@@ -388,7 +388,7 @@
 
   <xsl:template match="checkBox">
     <!--Supaya bisa di serialize-->
-    <input type="hidden" name="{../@fieldName}" id="hidden{../@fieldName}" value="0"/>
+    <!--input type="hidden" name="{../@fieldName}" id="hidden{../@fieldName}" value="0"/-->
     <!--Supaya bisa di serialize-->
 
     <input type="checkbox" value="{value}" id ="{../@fieldName}"  name="{../@fieldName}" data-type="checkBox" data-old="{value}"
