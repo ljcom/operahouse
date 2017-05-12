@@ -1,4 +1,4 @@
-		<site name="MAXFOUR" id="2">
+ 	    <site name="MAXFOUR" id="2">
                 <application path="/" applicationPool="Clr4IntegratedAppPool">
                     <virtualDirectory path="/" physicalPath="D:\vsonline\OPERAHOUSE\core" />
                 </application>
@@ -103,4 +103,4 @@
             </siteDefaults>
             <applicationDefaults applicationPool="Clr4IntegratedAppPool" />
             <virtualDirectoryDefaults allowSubDirConfig="true" />
-        </sites>
+
