@@ -293,21 +293,25 @@
 
   <xsl:template match="checkBox">
     <!--Supaya bisa di serialize-->
-    <input type="hidden" id="{../@fieldName}" name="{../@fieldName}" value="{value}"/>
+    <input type="hidden" name="{../@fieldName}" id="{../@fieldName}" value="{value}"/>
     <!--Supaya bisa di serialize-->
-    <input type="checkbox"  value="{value}" id ="cb{../@fieldName}"  name="cb{../@fieldName}"
-           onchange="checkCB('{../@fieldName}');preview({preview/.},getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','form'+code, this);">
+    
+    <input type="checkbox" value="{value}" id ="cb{../@fieldName}"  name="cb{../@fieldName}" data-type="checkBox" data-old="{value}"
+      onchange="checkCB('{../@fieldName}');preview('{preview/.}', getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','form'+code, this);">
       <xsl:if test="value=1">
         <xsl:attribute name="checked">checked</xsl:attribute>
       </xsl:if>
       <xsl:if test="../@isEditable=0">
         <xsl:attribute name="disabled">disabled</xsl:attribute>
       </xsl:if>
-
     </input>
 
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
+    </label>
+
+    <label id="{../@fieldName}suffixCaption">
+      <xsl:value-of select="suffixCaption"/>
     </label>
 
   </xsl:template>
