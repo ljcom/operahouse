@@ -944,7 +944,7 @@ Public Class cl_base
         'Dim Connection = getODBC(accountid)
         'If Connection = "" Then
         '    Dim account As String = ""
-        '    If Not Request.QueryString("account") Is Nothing Then account = Request.QueryString("account").ToString
+        '    If Not getQueryVar("account") Is Nothing Then account = getQueryVar("account").ToString
         '    If Not account Is Nothing Then
         '        Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
         '        'static account
@@ -1352,14 +1352,35 @@ Public Class cl_base
         If (Not System.IO.Directory.Exists(logPath)) Then
             System.IO.Directory.CreateDirectory(logPath)
         End If
+        Try
+            Using w As StreamWriter = File.AppendText(logFilepath)
+                w.Write(vbCrLf + "Log Entry : ")
+                w.WriteLine("{0} {1}: " + vbCrLf + "{2}", DateTime.Now.ToLongTimeString(), DateTime.Now.ToLongDateString(), logMessage)
+                'w.WriteLine("  :{0}", logMessage)
+            End Using
 
-        Using w As StreamWriter = File.AppendText(logFilepath)
-            w.Write(vbCrLf + "Log Entry : ")
-            w.WriteLine("{0} {1}: " + vbCrLf + "{2}", DateTime.Now.ToLongTimeString(), DateTime.Now.ToLongDateString(), logMessage)
-            'w.WriteLine("  :{0}", logMessage)
-        End Using
+        Catch ex As Exception
+
+        End Try
     End Sub
+    Function getQueryVar(key As String) As String
+        Dim r = ""
+        'replace this:' " ( ) ; , | < > - \ + & $ @
+        If Not IsNothing(Request.QueryString(key)) Then
+            If key.ToLower = "sqlfilter" Then
+                r = Request.QueryString(key).Replace("--", "").Replace("+", "").Replace(";", "").Replace("<", "").Replace(">", "")
+            Else
+                r = Request.QueryString(key).Replace(" Then ", "").Replace("'", "").Replace("--", "").Replace("+", "").Replace(";", "").Replace("""", "").Replace("<", "").Replace(">", "")
+                If Request.QueryString(key) <> r Then
+                    writeLog(key & ":" & r)
+                End If
+                'Else
+                '    writeLog(key & ":" & "nothing")
+            End If
+        End If
 
+        Return r
+    End Function
 #End Region
 
     'Private Sub Page_Init(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Init
@@ -1376,4 +1397,5 @@ Public Class cl_base
         'End If
 
     End Sub
+
 End Class

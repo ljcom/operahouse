@@ -20,10 +20,10 @@ Partial Class OPHCore_api_msg_autosuggest
         'Dim curODBC = getODBC(accountid)
         'Dim DBCore = getDBCore(accountid)
 
-        Dim wf1 = Request.QueryString("wf1")
-        Dim wf1value = Request.QueryString("wf1value")
-        Dim wf2 = Request.QueryString("wf2")
-        Dim wf2value = Request.QueryString("wf2value")
+        Dim wf1 = getQueryVar("wf1")
+        Dim wf1value = getQueryVar("wf1value")
+        Dim wf2 = getQueryVar("wf2")
+        Dim wf2value = getQueryVar("wf2value")
         If wf2 = "0" Then wf2 = ""
         wf1value = IIf(wf1value = "NULL", wf1value, "'" & wf1value & "'")
         wf2value = IIf(wf2value = "NULL", wf2value, "'" & wf2value & "'")
@@ -31,14 +31,17 @@ Partial Class OPHCore_api_msg_autosuggest
         If Request("code") <> "" Then
             Dim appSettings = ConfigurationManager.AppSettings
 
-            Dim search = Request.QueryString("search") & " " & Request.QueryString("q")
+            Dim search = getQueryVar("search") & " " & getQueryVar("q")
 
-            Dim sqlstr = "exec api.autosuggest '" & contentOfaccountId & "', '" & contentOfsqDB & "', '" & Request.QueryString("code") & "','" & Request.QueryString("key") & "','" & Request.QueryString("id") & "','" & Request.QueryString("name") & "','" & search & "','" & wf1 & "'," & wf1value & ",'" & wf2 & "','" & wf2value & "'"
+            Dim sqlstr = "exec api.autosuggest '" & contentOfaccountId & "', '" & contentOfsqDB & "', '" & getQueryVar("code") & "','" & getQueryVar("key") & "','" & getQueryVar("id") & "','" & getQueryVar("name") & "','" & search & "','" & wf1 & "'," & wf1value & ",'" & wf2 & "','" & wf2value & "'"
 
             Dim xmlstr = getXML(sqlstr)
             Dim json = ""
+            If xmlstr = "" Then
+                writeLog(xmlstr)
+            End If
 
-            If Request.QueryString("mode") = "token" Then
+            If getQueryVar("mode") = "token" Then
                 Dim OptionList As New List(Of optiToken)
 
 

@@ -9,11 +9,11 @@ Partial Class OPHCore_api_msg_download
 
         Dim curODBC = contentOfdbODBC
 
-        Dim tGUID As String = Request.QueryString("GUID")
-        Dim code As String = Request.QueryString("code")
-        Dim fieldAttachment As String = Request.QueryString("fieldAttachment")
+        Dim tGUID As String = getQueryVar("GUID")
+        Dim code As String = getQueryVar("code")
+        Dim fieldAttachment As String = getQueryVar("fieldAttachment")
 
-        'Dim fieldKey As String = Request.QueryString("fieldKey")
+        'Dim fieldKey As String = getQueryVar("fieldKey")
         Dim ocode = Left(code, 1) & "a" & code.Substring(2, Len(code) - 2)
         Dim acctdbse = "select accountDBGUID from modl where ModuleId='" & code & "'"
         acctdbse = runSQLwithResult(acctdbse, curODBC)
@@ -25,8 +25,8 @@ Partial Class OPHCore_api_msg_download
         Dim sqlstr1 = "select colname from gen.coTABLFIEL a inner join gen.coTABL b on a.tableGUID=b.TableGUID where tablename='" & ocode & "' and colorder=10"
         Dim fieldKey As String = runSQLwithResult(sqlstr1, con)
 
-        'Dim path As String = Request.QueryString("path")
-        'If Request.QueryString("dontdelete") = 1 Then
+        'Dim path As String = getQueryVar("path")
+        'If getQueryVar("dontdelete") = 1 Then
         'Dim path As String = Server.MapPath(Session("DocumentFolder") & "\temp\").ToString
         'Else
         'Dim path As String = Session("document") & Session("documentFolder") & "/" & Left(code, 1) & "a" & Mid(code, 3, Len(code) - 2) & "_" & fieldAttachment & "/"
@@ -52,7 +52,7 @@ Partial Class OPHCore_api_msg_download
 
             download(path, filename)
         Else
-            Dim querysql As String = Request.QueryString("querysql")
+            Dim querysql As String = getQueryVar("querysql")
             Dim sqlexec = "exec " & querysql & " '" & Session("hostGUID") & "', '" & tGUID & "' ,1"
             runSQL(sqlexec, con)
             Dim sqlTXT = "exec gen.downloadTXT '" & tGUID & "_" & code & "'"
@@ -77,7 +77,7 @@ Partial Class OPHCore_api_msg_download
                 Dim fStream As New FileStream(f, FileMode.Open, FileAccess.Read)
                 Dim br As New BinaryReader(fStream)
                 bytes = br.ReadBytes(CInt(numBytes))
-                If Request.QueryString("dontdelete") = 1 Then
+                If getQueryVar("dontdelete") = 1 Then
                     Response.Write(f)
                 Else
                     Response.Buffer = True

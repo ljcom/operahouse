@@ -19,8 +19,8 @@ Partial Class index
         'check env if exists 
         Dim env As String = ""
         'If Not Session("env") Is Nothing Then env = Session("env")
-        If Not Request.QueryString("env") Is Nothing Or env = "" Then
-            env = Request.QueryString("env")
+        If Not getQueryVar("env") = "" Or env = "" Then
+            env = getQueryVar("env")
             sqlstr = "select modulegroupid from modg a where " & IIf(env = "", "isDefault=1", "modulegroupid='" & env & "'")
             env = runSQLwithResult(sqlstr, curODBC)
             Session("env") = env
@@ -38,22 +38,22 @@ Partial Class index
         loginPage = runSQLwithResult(sqlstr, curODBC)
         If loginPage = "" Then loginPage = contentOfsigninPage
 
-        Dim code = IIf(Request.QueryString("code") = "", frontPage, Request.QueryString("code"))
+        Dim code = IIf(getQueryVar("code") = "", frontPage, getQueryVar("code"))
 
         'check code and env, must be sync
         checkCodeEnv(code, env, curODBC)
 
-        If Request.QueryString("code") = "" Or Request.QueryString("env") = "" Or Request.QueryString("code") <> code Or Request.QueryString("env") <> env Then
-            If Request.QueryString("env") = "" Then
+        If getQueryVar("code") = "" Or getQueryVar("env") = "" Or getQueryVar("code") <> code Or getQueryVar("env") <> env Then
+            If getQueryVar("env") = "" Then
                 reloadStr &= "env=" & env & "&"
             Else
-                reloadStr = reloadStr.replace(Request.QueryString("env"), env)
+                reloadStr = reloadStr.replace(getQueryVar("env"), env)
             End If
 
-            If Request.QueryString("code") = "" Then
+            If getQueryVar("code") = "" Then
                 reloadStr &= "code=" & code & "&"
             Else
-                reloadStr = reloadStr.replace(Request.QueryString("code"), code)
+                reloadStr = reloadStr.replace(getQueryVar("code"), code)
             End If
             reloadURL(reloadStr)
             'Stop

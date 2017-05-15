@@ -172,7 +172,7 @@
       }
       }
 
-      function checklogin()
+      <!--function checklogin()
       {
       var uid = document.getElementById("userid").value;
       var pwd = document.getElementById("pwd").value;
@@ -212,7 +212,7 @@
       }
       });
 
-      }
+      }-->
 
 
       function goToALL(name){

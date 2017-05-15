@@ -401,6 +401,7 @@
         <xsl:attribute name="disabled">disabled</xsl:attribute>
       </xsl:if>
     </input>
+    
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>

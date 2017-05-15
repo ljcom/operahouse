@@ -30,13 +30,13 @@ Public Class cl_base_view
         Return info
 
     End Function
-    Function populateSaveXML(ByVal vp As Long, ByVal Tablename As String, Optional ispreview As Integer = 0, Optional fieldattachment As List(Of String) = Nothing, Optional GUID As String = "", Optional code As String = "", Optional ByVal connection As String = "") As String
+    Function populateSaveXML(ByVal vp As Long, ByVal Tablename As String, Optional ispreview As String = "", Optional fieldattachment As List(Of String) = Nothing, Optional GUID As String = "", Optional ByVal connection As String = "") As String
 
         loadAccount()
         Dim DBCore = contentOfsqDB
 
         'Tablename = Left(Tablename, 1) & "o" & Mid(Tablename, 3, Len(Tablename) - 2)
-        Dim saveXML = writeXMLFromRequestForm("sqroot", fieldattachment, GUID, code)
+        Dim saveXML = writeXMLFromRequestForm("sqroot", fieldattachment, GUID, Tablename)
         Dim contentofSaveString As String = ""
         Dim mainguid = Request.QueryString("cfunctionlist")
         Dim hostGUID As String

@@ -114,53 +114,59 @@ function loadChild(code, parentKey, GUID, pageNo) {
 }
 
 function signIn() {
-    var uid = document.getElementById("userid").value;
-    var pwd = document.getElementById("pwd").value;
+    //if (top.document.domain == window.location.hostname) {
+        var uid = document.getElementById("userid").value;
+        var pwd = document.getElementById("pwd").value;
 
-    var dataForm = $('#signinForm').serialize() //.split('_').join('');
+        var dataForm = $('#signinForm').serialize() //.split('_').join('');
 
-    var dfLength = dataForm.length;
-    dataForm = dataForm.substring(2, dfLength);
-    dataForm = dataForm.split('%3C').join('%26lt%3B');
-    path = "OPHCore/api/default.aspx?mode=signin&userid=" + uid + "&pwd=" + pwd;
+        var dfLength = dataForm.length;
+        dataForm = dataForm.substring(2, dfLength);
+        dataForm = dataForm.split('%3C').join('%26lt%3B');
+        path = "OPHCore/api/default.aspx?mode=signin&userid=" + uid + "&pwd=" + pwd;
 
-    $.ajax({
-        url: path,
-        data: dataForm,
-        type: 'POST',
-        dataType: "xml",
-        timeout: 80000,
-        beforeSend: function () {
-            //setCursorWait(this);
-        },
-        success: function (data) {
-            var x = $(data).find("sqroot").children().each(function () {
-                var msg = $(this).text();
-                //why env=back?
-                var landingPage = (getCookie('lastPar') == null || getCookie('lastPar') == '') ? '?env=back' : getCookie('lastPar');
-                //var env = getQueryVariable("env");
-                //var str1 = landingPage
-                //var nFront = str1.indexOf("env=front");
-                //var nBack = str1.indexOf("env=back");
-                //if (env.toLowerCase() == 'back' && nFront != '-1') {
-                //    landingPage = 'index.aspx?env=back'
-                //}else if(env.toLowerCase() == 'front' && nBack != '-1'){ 
-                //    landingPage = 'index.aspx?env=front'
-                //}else {
-                //    landingPage = landingPage                
-                //}
-                if (msg != '') {
-                    if ($(this)[0].nodeName == "hostGUID") window.location = landingPage;
-                    if ($(this)[0].nodeName == "message") showMessage(msg, 4);
-                }
-                else {
+        $.ajax({
+            url: path,
+            data: dataForm,
+            type: 'POST',
+            dataType: "xml",
+            timeout: 80000,
+            beforeSend: function () {
+                //setCursorWait(this);
+            },
+            success: function (data) {
+                var x = $(data).find("sqroot").children().each(function () {
+                    var msg = $(this).text();
+                    //why env=back?
+                    var landingPage = (getCookie('lastPar') == null || getCookie('lastPar') == '') ? '?env=back' : getCookie('lastPar');
+                    //var env = getQueryVariable("env");
+                    //var str1 = landingPage
+                    //var nFront = str1.indexOf("env=front");
+                    //var nBack = str1.indexOf("env=back");
+                    //if (env.toLowerCase() == 'back' && nFront != '-1') {
+                    //    landingPage = 'index.aspx?env=back'
+                    //}else if(env.toLowerCase() == 'front' && nBack != '-1'){ 
+                    //    landingPage = 'index.aspx?env=front'
+                    //}else {
+                    //    landingPage = landingPage                
+                    //}
+                    if (msg != '') {
+                        if ($(this)[0].nodeName == "hostGUID") window.location = landingPage;
+                        if ($(this)[0].nodeName == "message") showMessage(msg, 4);
+                    }
+                    else {
 
-                }
-            });
+                    }
+                });
 
 
-        }
-    });
+            }
+        });
+    //}
+    //else {
+    //    alert(top.document.domain);
+    //    top.document = window.location;
+    //}
 }
 
 
@@ -3791,7 +3797,7 @@ function executeFunction(code, GUID, action, location) {
     } else if (action == 'force') {
         successmsg = 'Close Succesfully'
     } else if (action == 'inactivate') {
-        action="delete"
+        action = "delete"
         successmsg = 'Inactivate Succesfully'
     } else if (action == 'delete') {
         successmsg = 'Delete Succesfully'
