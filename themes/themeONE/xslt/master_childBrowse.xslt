@@ -7,13 +7,16 @@
   <xsl:decimal-format name="dot-dec" decimal-separator="." grouping-separator=","/>
 
   <xsl:template match="/">
-    <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-12">
         <div class="box-header with-border" style="background:none" data-toggle="collapse" data-target="#content_{/sqroot/body/bodyContent/browse/info/code}">
           <h3 class="dashboard-title">
             <xsl:value-of select="sqroot/body/bodyContent/browse/info/description"/>
           </h3>
         </div>
-
+        <span>
+          <input style="width:200px; position:absolute; right:15px; top:5px" type="text" id="searchBox_{sqroot/body/bodyContent/browse/info/code}" name="searchBox_{sqroot/body/bodyContent/browse/info/code}" class="form-control" placeholder="Search..." onkeypress="return searchTextChild(event,this.value, '{sqroot/body/bodyContent/browse/info/code}');" value="" />
+        </span>
         <div class="row visible-phone">
           <div class="col-md-12">
             <div style="border:0px none white;box-shadow:none;" id="content_{/sqroot/body/bodyContent/browse/info/code}" class="box collapse in">
@@ -58,6 +61,7 @@
             </div>
           </div>
         </div>
+    </div>
     </div>
   </xsl:template>
 
