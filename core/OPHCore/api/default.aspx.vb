@@ -104,7 +104,7 @@ Partial Class OPHCore_API_default
                 If xmlstr <> "" Then
                     xmlstr1 = xmlstr.Substring(1, 6)
                 Else
-                    writeLog(sqlstr)
+                    writeLog("browse : " & sqlstr)
                     'Stop
                 End If
                 '"You dont have authority!!!"
@@ -326,7 +326,7 @@ Partial Class OPHCore_API_default
                 Response.Write("<?xml version=""1.0"" encoding=""utf-8""?>")
                 Response.Write(xmlstr)
             Else
-                writeLog(sqlstr & ":")
+                writeLog("mode " & mode & " : " & sqlstr)
             End If
         Else
                 Response.Write("ok")

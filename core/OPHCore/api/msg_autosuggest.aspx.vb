@@ -38,7 +38,7 @@ Partial Class OPHCore_api_msg_autosuggest
             Dim xmlstr = getXML(sqlstr)
             Dim json = ""
             If xmlstr = "" Then
-                writeLog(xmlstr)
+                writeLog("autosuggest:" & sqlstr)
             End If
 
             If getQueryVar("mode") = "token" Then
