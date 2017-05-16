@@ -301,17 +301,17 @@
         <xsl:if test="/sqroot/header/info/code/settingMode='T'">
           <xsl:choose>
             <xsl:when test="$state &lt; 400">
-              <a href="javascript:btn_function('{@code}', '{@GUID}', 'execute', '{$pageNo}')">
+              <a href="javascript:btn_function('{@code}', '{@GUID}', 'execute', '{$pageNo}', 2)">
                 <ix class="fa fa-check" title="Approve"></ix>
               </a>
             </xsl:when>
             <xsl:when test="@force=1 and $state &lt; 500">
-              <a href="javascript:btn_function('{@code}', '{@GUID}', 'force', '{$pageNo}')">
+              <a href="javascript:btn_function('{@code}', '{@GUID}', 'force', '{$pageNo}', 2)">
                 <ix class="fa fa-archive" title="Close"></ix>
               </a>
             </xsl:when>
             <xsl:otherwise>
-              <a href="javascript:btn_function('{@code}', '{@GUID}', 'force', '{$pageNo}')">
+              <a href="javascript:btn_function('{@code}', '{@GUID}', 'force', '{$pageNo}', 2)">
                 <ix class="fa fa-undo" title="Reopen"></ix>
               </a>
             </xsl:otherwise>
@@ -322,21 +322,21 @@
         <xsl:choose>
           <!--allow delete-->
           <xsl:when test="@onOff=1 and @delete=1 and $state &lt; 500">
-            <a href="javascript:btn_function('{@code}', '{@GUID}', 'inactivate', '{$pageNo}')">
+            <a href="javascript:btn_function('{@code}', '{@GUID}', 'inactivate', '{$pageNo}', 2)">
               <ix class="fa fa-trash" title="Inactive"></ix>
             </a>
           </xsl:when>
           <xsl:when test="@onOff=0 and @delete=1 and $state &lt; 500">
-            <a href="javascript:btn_function('{@code}', '{@GUID}', 'delete', '{$pageNo}')">
+            <a href="javascript:btn_function('{@code}', '{@GUID}', 'delete', '{$pageNo}', 2)">
               <ix class="fa fa-trash" title="Delete"></ix>
             </a>
           </xsl:when>
           <xsl:when test="$state = 999">
-            <a href="javascript:btn_function('{@code}', '{@GUID}', 'restore', '{$pageNo}')">
+            <a href="javascript:btn_function('{@code}', '{@GUID}', 'restore', '{$pageNo}', 2)">
               <ix class="fa fa-toggle-on" title="Reactivate"></ix>
             </a>
             <xsl:if test="@wipe=1">
-              <a href="javascript:btn_function('{@code}', '{@GUID}', 'wipe', '{$pageNo}')">
+              <a href="javascript:btn_function('{@code}', '{@GUID}', 'wipe', '{$pageNo}', 2)">
                 <ix class="fa fa-trash" title="Delete"></ix>
               </a>
             </xsl:if>
@@ -366,7 +366,7 @@
         <!--edit things-->
         <xsl:choose>
           <xsl:when test="@edit=1 and $state &lt; 500">
-            <a id="edit_{@GUID}" href="javascript:btn_function('{@code}', '{@GUID}', 'formView', '{$pageNo}')">
+            <a id="edit_{@GUID}" href="javascript:btn_function('{@code}', '{@GUID}', 'formView', '{$pageNo}', 2)">
               <ix class="fa fa-pencil" title="Edit"></ix>
             </a>
           </xsl:when>

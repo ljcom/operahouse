@@ -115,53 +115,53 @@ function loadChild(code, parentKey, GUID, pageNo) {
 
 function signIn() {
     //if (top.document.domain == window.location.hostname) {
-        var uid = document.getElementById("userid").value;
-        var pwd = document.getElementById("pwd").value;
+    var uid = document.getElementById("userid").value;
+    var pwd = document.getElementById("pwd").value;
 
-        var dataForm = $('#signinForm').serialize() //.split('_').join('');
+    var dataForm = $('#signinForm').serialize() //.split('_').join('');
 
-        var dfLength = dataForm.length;
-        dataForm = dataForm.substring(2, dfLength);
-        dataForm = dataForm.split('%3C').join('%26lt%3B');
-        path = "OPHCore/api/default.aspx?mode=signin&userid=" + uid + "&pwd=" + pwd;
+    var dfLength = dataForm.length;
+    dataForm = dataForm.substring(2, dfLength);
+    dataForm = dataForm.split('%3C').join('%26lt%3B');
+    path = "OPHCore/api/default.aspx?mode=signin&userid=" + uid + "&pwd=" + pwd;
 
-        $.ajax({
-            url: path,
-            data: dataForm,
-            type: 'POST',
-            dataType: "xml",
-            timeout: 80000,
-            beforeSend: function () {
-                //setCursorWait(this);
-            },
-            success: function (data) {
-                var x = $(data).find("sqroot").children().each(function () {
-                    var msg = $(this).text();
-                    //why env=back?
-                    var landingPage = (getCookie('lastPar') == null || getCookie('lastPar') == '') ? '?env=back' : getCookie('lastPar');
-                    //var env = getQueryVariable("env");
-                    //var str1 = landingPage
-                    //var nFront = str1.indexOf("env=front");
-                    //var nBack = str1.indexOf("env=back");
-                    //if (env.toLowerCase() == 'back' && nFront != '-1') {
-                    //    landingPage = 'index.aspx?env=back'
-                    //}else if(env.toLowerCase() == 'front' && nBack != '-1'){ 
-                    //    landingPage = 'index.aspx?env=front'
-                    //}else {
-                    //    landingPage = landingPage                
-                    //}
-                    if (msg != '') {
-                        if ($(this)[0].nodeName == "hostGUID") window.location = landingPage;
-                        if ($(this)[0].nodeName == "message") showMessage(msg, 4);
-                    }
-                    else {
+    $.ajax({
+        url: path,
+        data: dataForm,
+        type: 'POST',
+        dataType: "xml",
+        timeout: 80000,
+        beforeSend: function () {
+            //setCursorWait(this);
+        },
+        success: function (data) {
+            var x = $(data).find("sqroot").children().each(function () {
+                var msg = $(this).text();
+                //why env=back?
+                var landingPage = (getCookie('lastPar') == null || getCookie('lastPar') == '') ? '?env=back' : getCookie('lastPar');
+                //var env = getQueryVariable("env");
+                //var str1 = landingPage
+                //var nFront = str1.indexOf("env=front");
+                //var nBack = str1.indexOf("env=back");
+                //if (env.toLowerCase() == 'back' && nFront != '-1') {
+                //    landingPage = 'index.aspx?env=back'
+                //}else if(env.toLowerCase() == 'front' && nBack != '-1'){ 
+                //    landingPage = 'index.aspx?env=front'
+                //}else {
+                //    landingPage = landingPage                
+                //}
+                if (msg != '') {
+                    if ($(this)[0].nodeName == "hostGUID") window.location = landingPage;
+                    if ($(this)[0].nodeName == "message") showMessage(msg, 4);
+                }
+                else {
 
-                    }
-                });
+                }
+            });
 
 
-            }
-        });
+        }
+    });
     //}
     //else {
     //    alert(top.document.domain);
@@ -2346,7 +2346,7 @@ function doSubViewFunction(functiontext, caption, strGUID, needConfirm, subBrows
             document.forms(0).submit();
         }
     }
-        //if not valid show message
+    //if not valid show message
     else {
         confirmed = 0;
         showMessage(validation);
@@ -3273,7 +3273,7 @@ function ShowMap(reportName, parameter, n, t) {
                         mapTypeId: google.maps.MapTypeId.ROADMAP
                     }
                     map = new google.maps.Map(document.getElementById("map_canvas"),
-                                    myOptions);
+                        myOptions);
 
                     google.maps.event.addListener(map, 'click', function () {
                         infowindow.close();
@@ -3392,7 +3392,7 @@ function saveCancel() {
             if ($(this).data("old") != undefined) {
 
                 if ((t.prop("type") == "text" || t.prop("type") == "checkbox") && ($(this).val() != $(this).data("old")) ||
-                                    ((t.prop("type") == "select-one") && ($(this).data("value") != $(this).data("old")))) {
+                    ((t.prop("type") == "select-one") && ($(this).data("value") != $(this).data("old")))) {
 
                     if (t.prop("type") == "text") $(this).val($(this).data("old"));
                     if (t.prop("type") == "checkbox") t.prop('checked', $(this).data("old"));
@@ -3451,7 +3451,7 @@ function saveConfirm() {
         if ($(this).data("old") != undefined) {
 
             if ((t.prop("type") == "text" || t.prop("type") == "checkbox") && ($(this).val() != $(this).data("old")) ||
-                                ((t.prop("type") == "select-one") && ($(this).data("value") != $(this).data("old")))) {
+                ((t.prop("type") == "select-one") && ($(this).data("value") != $(this).data("old")))) {
 
                 if (t.prop("type") == "text" || t.prop("type") == "checkbox") $(this).data("old", $(this).val());
                 if (t.prop("type") == "select-one") {
@@ -3738,7 +3738,7 @@ function btn_function(code, GUID, action, page, location, formId, afterSuccess) 
     if (action == "formView") {
         loadForm(code, GUID);
     } else if (action == "save") {
-        //location: 1 child 
+        //location: 0 header; 1 child; 2 browse 
         saveFunction(code, GUID, location, formId, afterSuccess);
     } else {
         executeFunction(code, GUID, action, location);
@@ -3805,7 +3805,6 @@ function btn_useractive(code, GUID, action, page) {
 //    }
 //}
 function executeFunction(code, GUID, action, location) {
-    var path = 'OPHCore/api/default.aspx?code=' + code + '&mode=function&cfunction=' + action + '&cfunctionlist=' + GUID + '&comment&unique=' + getUnique()
     var successmsg = ''
     if (action == 'execute') {
         successmsg = 'Approve Succesfully'
@@ -3816,31 +3815,41 @@ function executeFunction(code, GUID, action, location) {
         successmsg = 'Inactivate Succesfully'
     } else if (action == 'delete') {
         successmsg = 'Delete Succesfully'
+
     } else if (action == 'restore') {
         successmsg = 'Restore Succesfully'
     } else if (action == 'wipe') {
         successmsg = 'Wipe Succesfully'
     }
 
-    if (location == undefined || location == "") { location = 0 }
+    var path = 'OPHCore/api/default.aspx?code=' + code + '&mode=function&cfunction=' + action + '&cfunctionlist=' + GUID + '&comment&unique=' + getUnique()
 
-    $.post(path, function (data) {
-        var msg = $(data).find('message').text();
-        if (msg == '' || msg == 'Approval Succesfully') {
-            if (location == 1) {
-                $("#tr1_" + code + GUID).remove();
-                $("#tr2_" + code + GUID).remove();
+    if (location == undefined || location == "") { location = 0 }
+    if (action=='delete' && confirm("You are about to delete this record. Are you sure?") == 1) {
+        $.post(path, function (data) {
+            var msg = $(data).find('message').text();
+            if (msg == '' || msg == 'Approval Succesfully') {
+                if (location == 1) {
+                    $("#tr1_" + code + GUID).remove();
+                    $("#tr2_" + code + GUID).remove();
+                }
+                else {
+                    if (action = 'delete' && location == 0) {
+                        window.location = 'index.aspx?code=' + getQueryVariable("code");
+                    }
+                    else {
+                        //showMessage(successmsg);
+                        loadContent(1);
+                        showMessage(successmsg);
+                    }
+
+                    //window.location.reload();
+                }
+            } else {
+                showMessage(msg);
             }
-            else {
-                //showMessage(successmsg);
-                loadContent(1);
-                showMessage(successmsg);
-                //window.location.reload();
-            }
-        } else {
-            showMessage(msg);
-        }
-    });
+        });
+    }
 }
 //SaveData('taPCS1','cartForm', 'index.aspx?code=tapcs3')
 function saveFunction(code, guid, location, formId, afterSuccess) {
@@ -4065,7 +4074,7 @@ function childPageNo(pageid, code, currentpage, totalpages) {
     result += "<li>&nbsp;&nbsp;&nbsp;</li>"
 
     var combo = "<li><select style ='background:#fafafa;color:#666;border:1px solid #ddd;height:30px;'onchange='loadChild(" + code + "," + parentKey + "," + guid + ",this.value)'>";
-    for (var i = 1 ; i <= totalpages; i++) {
+    for (var i = 1; i <= totalpages; i++) {
         combo += "<option value =" + i + " " + (currentpage == i ? "selected" : "") + ">" + i + "</option>";
     };
 
