@@ -28,13 +28,13 @@ Partial Class index
 
         'frontpage
         Dim frontPage As String = ""
-        sqlstr = "select e.infovalue from modg d inner join modginfo e on d.ModuleGroupGUID=e.envGUID where modulegroupid='" & env & "' and e.InfoKey='frontpage'"
+        sqlstr = "select e.infovalue from modg d inner join modginfo e on d.ModuleGroupGUID=e.ModuleGroupGUID where modulegroupid='" & env & "' and e.InfoKey='frontpage'"
         frontPage = runSQLwithResult(sqlstr, curODBC)
         If frontPage = "" Then frontPage = contentOffrontPage
 
         'signinpage
         Dim loginPage As String
-        sqlstr = "select e.infovalue from modg d inner join modginfo e on d.ModuleGroupGUID=e.envGUID where modulegroupid='" & env & "' and e.InfoKey='signinPage'"
+        sqlstr = "select e.infovalue from modg d inner join modginfo e on d.ModuleGroupGUID=e.ModuleGroupGUID where modulegroupid='" & env & "' and e.InfoKey='signinPage'"
         loginPage = runSQLwithResult(sqlstr, curODBC)
         If loginPage = "" Then loginPage = contentOfsigninPage
 
@@ -102,7 +102,7 @@ Partial Class index
 
         'themeFolder
         Dim themeFolder As String
-        sqlstr = "select d.ThemeFolder from modg a inner join modginfo b on a.ModuleGroupGUID= b.EnvGUID and b.InfoKey = 'themeCode' inner join thme d on d.themecode=b.infovalue where a.modulegroupid='" & env & "'"
+        sqlstr = "select d.ThemeFolder from modg a inner join modginfo b on a.ModuleGroupGUID= b.ModuleGroupGUID and b.InfoKey = 'themeCode' inner join thme d on d.themecode=b.infovalue where a.modulegroupid='" & env & "'"
         themeFolder = runSQLwithResult(sqlstr, curODBC)
         If themeFolder = "" Then themeFolder = contentOfthemeFolder
         'Session("themeFolder") = themeFolder
