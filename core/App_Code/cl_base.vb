@@ -1372,7 +1372,7 @@ Public Class cl_base
             Else
                 r = Request.QueryString(key).Replace(" Then ", "").Replace("'", "").Replace("--", "").Replace("+", "").Replace(";", "").Replace("""", "").Replace("<", "").Replace(">", "")
                 If Request.QueryString(key) <> r Then
-                    writeLog(key & ":" & r)
+                    writeLog(key & "from :" & Request.QueryString(key) & "to :" & r)
                 End If
                 'Else
                 '    writeLog(key & ":" & "nothing")

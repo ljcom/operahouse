@@ -3559,6 +3559,21 @@ function searchText(e, searchvalue) {
         loadContent(1);
     }
 }
+function searchTextChild(e, searchvalue, code) {
+    if (e.keyCode == 13) {
+        var bSearchText = searchvalue;
+
+        var sqlfilter = document.getElementById("filter" + code.toLowerCase()).value;
+        pageNo = (pageNo == undefined) ? 1 : pageNo;
+
+        var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + sqlfilter + '&bPageNo=' + pageNo + '&bSearchText=' + bSearchText + '&date=' + getUnique();
+        var divName = ['child' + String(code).toLowerCase()];
+        var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
+
+        pushTheme(divName, xmldoc, xsldoc, true);
+
+    }
+}
 
 
 function preview(flag, code, GUID, formid, t) {
