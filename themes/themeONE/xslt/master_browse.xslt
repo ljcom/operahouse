@@ -323,7 +323,7 @@
           <!--allow delete-->
           <xsl:when test="@onOff=1 and @delete=1 and $state &lt; 500">
             <a href="javascript:btn_function('{@code}', '{@GUID}', 'inactivate', '{$pageNo}', 2)">
-              <ix class="fa fa-trash" title="Inactive"></ix>
+              <ix class="fa fa-toggle-off" title="Inactive"></ix>
             </a>
           </xsl:when>
           <xsl:when test="@onOff=0 and @delete=1 and $state &lt; 500">
@@ -365,7 +365,7 @@
 
         <!--edit things-->
         <xsl:choose>
-          <xsl:when test="@edit=1 and $state &lt; 500">
+          <xsl:when test="@edit=1 and $state &lt; 999">
             <a id="edit_{@GUID}" href="javascript:btn_function('{@code}', '{@GUID}', 'formView', '{$pageNo}', 2)">
               <ix class="fa fa-pencil" title="Edit"></ix>
             </a>

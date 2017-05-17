@@ -3806,26 +3806,31 @@ function btn_useractive(code, GUID, action, page) {
 //}
 function executeFunction(code, GUID, action, location) {
     var successmsg = ''
+    var isAction = 1;
+
     if (action == 'execute') {
         successmsg = 'Approve Succesfully'
     } else if (action == 'force') {
         successmsg = 'Close Succesfully'
     } else if (action == 'inactivate') {
-        action = "delete"
         successmsg = 'Inactivate Succesfully'
+        if ((confirm("You are about to " + action + " this record. Are you sure?") == 0)) { isAction = 0; }
+        action = "delete"
     } else if (action == 'delete') {
         successmsg = 'Delete Succesfully'
-
+        if ((confirm("You are about to " + action + " this record. Are you sure?") == 0)) { isAction = 0; }
     } else if (action == 'restore') {
         successmsg = 'Restore Succesfully'
     } else if (action == 'wipe') {
         successmsg = 'Wipe Succesfully'
+        if ((confirm("You are about to " + action + " this record. Are you sure?") == 0)) { isAction = 0; }
     }
 
     var path = 'OPHCore/api/default.aspx?code=' + code + '&mode=function&cfunction=' + action + '&cfunctionlist=' + GUID + '&comment&unique=' + getUnique()
 
     if (location == undefined || location == "") { location = 0 }
-    if (action=='delete' && confirm("You are about to delete this record. Are you sure?") == 1) {
+
+    if (isAction ==1) {
         $.post(path, function (data) {
             var msg = $(data).find('message').text();
             if (msg == '' || msg == 'Approval Succesfully') {
