@@ -101,7 +101,7 @@ Partial Class OPHCore_API_default
                 If showpage <> "" Then
                     rpp = showpage
                 End If
-                sqlstr = "exec [api].[theme_browse] '" & contentOfaccountId & "', '" & DBCore & "', " & curHostGUID & ", '" & code & "', '" & sqlfilter.Replace("'", "''") & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", " & rpp & ", '" & sortOrder & "', " & stateid & ""
+                sqlstr = "exec [api].[theme_browse] '" & contentOfaccountId & "', '" & DBCore & "', " & curHostGUID & ", '" & code & "', '" & sqlfilter.Replace("'", "''") & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", " & rpp & ", '" & sortOrder & "', '" & stateid & "'"
 
                 isSingle = False
                 xmlstr = getXML(sqlstr, curODBC)
@@ -233,10 +233,10 @@ Partial Class OPHCore_API_default
             Case "report"
                 sqlstr = "exec [api].[theme_report] '" & contentOfaccountId & "', '" & DBCore & "', " & curHostGUID & ", '" & code & "'"
                 xmlstr &= runSQLwithResult(sqlstr, curODBC)
-            Case "date"
-                Dim field = getQueryVar("FieldName")
-                sqlstr = "select '" & field & "' from '" & code & "'"
-                xmlstr &= runSQLwithResult(sqlstr, curODBC)
+            'Case "date"
+            '    Dim field = getQueryVar("FieldName")
+            '    sqlstr = "select '" & field & "' from '" & code & "'"
+            '    xmlstr &= runSQLwithResult(sqlstr, curODBC)
                 'Case "uploader"
                 '    Dim QueryCode = getQueryVar("QueryCode")
                 '    If QueryCode = "" Then
@@ -267,6 +267,8 @@ Partial Class OPHCore_API_default
                 Session.Clear()
                 Session.RemoveAll()
                 Session.Abandon()
+                noxml = True
+                isSingle = False
                 'Response.Cookies("isLogin").Value = 0
                 'reloadURL("../../index.aspx")
             Case "forgotpwd"

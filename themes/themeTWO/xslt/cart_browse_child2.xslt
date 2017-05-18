@@ -29,15 +29,16 @@
   </xsl:template>
 
   <xsl:template match="sqroot/body/bodyContent/browse/header/column">
-    
-      <xsl:choose>
-        <xsl:when test="(@fieldname)!='TotalSales' and (@fieldname)!='TotalQty' and (@fieldname)!='EVENPSKUGUID'">
-          <th style="width:{@width}px">
-            <xsl:value-of select="translate(., $smallcase, $uppercase)" />
-          </th>
-        </xsl:when>
-      </xsl:choose>
-   
+
+    <xsl:choose>
+      <xsl:when test="(@fieldName)!='TotalSales' and (@fieldName)!='TotalQty' and (@fieldName)!='EVENPSKUGUID'">
+        <th style="width:{@width}px">
+          <xsl:value-of select="translate(titleCaption/., $smallcase, $uppercase)" />
+        </th>
+      </xsl:when>
+    </xsl:choose>
+
+
   </xsl:template>
   
   <!--Data Content-->
