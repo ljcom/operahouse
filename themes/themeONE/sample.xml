@@ -373,6 +373,12 @@
               <field caption="Purpose Description">THIS IS COMMENT</field>
             </fields>
             <docStatus labelColor="success" title="RELEASE">Open/Draft. You cannot generate any Vendor since you don't have any approval level above you. Please make sure y</docStatus>
+            <approvals>
+              <approval name="" date="" level="" status="" />
+              <approval name="" date="" level="" status="" />
+              <approval name="" date="" level="" status="" />
+              <approval name="" date="" level="" status="" />
+            </approvals>
             <talks>
               <talk GUID="555209CB-E2E4-47C1-8B09-4025D8DE2349">
                 <Message>88</Message>
