@@ -4133,7 +4133,7 @@ function SaveData(code, formid, locations, GUID) {
 function signOut(f) {
 
     var path = 'OPHCore/api/default.aspx?mode=signout' + '&unique=' + getUnique();
-    $.post().done(function () {
+    $.post(path).done(function () {
         setCookie("cartID", "", 0, 0, 0);
         setCookie("isLogin", "0", 0, 1, 0);
         if (typeof f == "function") f();        
