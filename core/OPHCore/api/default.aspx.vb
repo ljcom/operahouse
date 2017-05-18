@@ -87,7 +87,11 @@ Partial Class OPHCore_API_default
 
                 'If sqlfilter = "" Then sqlfilter = ""
                 If sortOrder = "" Or sortOrder = "," Then sortOrder = ""
-                If stateid = "" Or stateid = "" Or stateid = "," Then stateid = "null"
+                If stateid = "" Or stateid = "" Or stateid = "," Then
+                    sqlstr = "select c.StateID from modl a inner join msta b on a.ModuleStatusGUID=b.ModuleStatusGUID inner join mstastat c on b.ModuleStatusGUID=c.ModuleStatusGUID and c.isDefault=1 where moduleid='" & code & "'"
+                    stateid = runSQLwithResult(sqlstr, curODBC)
+                    'stateid = "null"
+                End If
                 If searchText = "" Or searchText = "search" Then searchText = ""
                 If bpage = "" Then bpage = 1
 

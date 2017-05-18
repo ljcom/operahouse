@@ -23,7 +23,6 @@
 
       </script>
     </xsl:if>
-
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -135,20 +134,40 @@
                   </th>
                 </tr>
               </thead>
-                <xsl:choose>
-                  <xsl:when test="sqroot/body/bodyContent/browse/info/permission/allowBrowse/.=1">
-                    <tbody>
-                      <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row" />
-                    </tbody>
-                  </xsl:when>
-                  <xsl:otherwise>
-                    <tr>
-                      <td colspan="100" align="center">
-                        <div class="alert alert-warning">You don't have any access to see this list. Please ask the administrator for more information.</div>
-                      </td>
-                    </tr>
-                  </xsl:otherwise>
-                </xsl:choose>
+              <xsl:choose>
+                <xsl:when test="sqroot/body/bodyContent/browse/info/permission/allowBrowse/.=1">
+                  <tbody id="browseContent">
+                    <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row" />
+                  </tbody>
+                </xsl:when>
+                <xsl:otherwise>
+                  <tr>
+                    <td colspan="100" align="center">
+                      <div class="alert alert-warning">You don't have any access to see this list. Please ask the administrator for more information.</div>
+                    </td>
+                  </tr>
+                </xsl:otherwise>
+              </xsl:choose>
+              <xsl:choose>
+                <xsl:when test="not(sqroot/body/bodyContent/browse/content/row) and $state=0">
+                  <tr>
+                    <td colspan="100" align="center">
+                      <div class="alert alert-warning">There is no data available. Create a new one?</div>
+                    </td>
+                  </tr>
+                </xsl:when>
+                <xsl:when test="not(sqroot/body/bodyContent/browse/content/row) and $state>0">
+                  <tr>
+                    <td colspan="100" align="center">
+                      <div class="alert alert-warning">There is no data available.</div>
+                    </td>
+                  </tr>
+                </xsl:when>
+                <xsl:otherwise>
+
+                </xsl:otherwise>
+              </xsl:choose>
+
             </table>
             <!-- /.box-body -->
             <div class="box-footer clearfix">
