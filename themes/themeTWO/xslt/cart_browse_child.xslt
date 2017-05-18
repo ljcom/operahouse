@@ -31,9 +31,9 @@
   <xsl:template match="sqroot/body/bodyContent/browse/header/column">
     
       <xsl:choose>
-        <xsl:when test="(@fieldname)!='TotalSales' and (@fieldname)!='TotalQty' and (@fieldname)!='EVENPSKUGUID'">
+        <xsl:when test="(@fieldName)!='TotalSales' and (@fieldName)!='TotalQty' and (@fieldName)!='EVENPSKUGUID'">
           <th style="width:{@width}px">
-            <xsl:value-of select="translate(., $smallcase, $uppercase)" />
+            <xsl:value-of select="translate(titleCaption/., $smallcase, $uppercase)" />
           </th>
         </xsl:when>
       </xsl:choose>
