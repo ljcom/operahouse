@@ -263,10 +263,8 @@ Partial Class OPHCore_API_default
                 Session.Clear()
                 Session.RemoveAll()
                 Session.Abandon()
-                Response.Cookies("isLogin").Value = 0
+                'Response.Cookies("isLogin").Value = 0
                 'reloadURL("../../index.aspx")
-                Response.Redirect("../../?")
-                Response.Write("<script>top.window.location='../../?';</script>")
             Case "forgotpwd"
                 code = getQueryVar("code")
                 Dim steps = getQueryVar("step")

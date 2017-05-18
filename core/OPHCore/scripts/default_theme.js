@@ -3830,7 +3830,7 @@ function executeFunction(code, GUID, action, location) {
 
     if (location == undefined || location == "") { location = 0 }
 
-    if (isAction ==1) {
+    if (isAction == 1) {
         $.post(path, function (data) {
             var msg = $(data).find('message').text();
             if (msg == '' || msg == 'Approval Succesfully') {
@@ -4130,12 +4130,15 @@ function SaveData(code, formid, locations, GUID) {
 
 }
 
-function SignOut() {
+function signOut(f) {
 
-    var path = 'OPHCore/api/default.aspx?mode=signout' + '&date=' + getUnique();
-    setCookie("cartID", "", 0, 0, 0);
-    setCookie("isLogin", "0", 0, 1, 0);
-    $.post(path).done(window.location.reload());
+    var path = 'OPHCore/api/default.aspx?mode=signout' + '&unique=' + getUnique();
+    $.post().done(function () {
+        setCookie("cartID", "", 0, 0, 0);
+        setCookie("isLogin", "0", 0, 1, 0);
+        if (typeof f == "function") f();        
+        goHome()
+    });
 
 }
 

@@ -152,7 +152,7 @@
                   <li>
                     <!-- start message -->
                     <!--<span style="color:white">Act as :</span>-->
-                    <a href="ophcore/api/?mode=signout">
+                    <a href="javascript:signOut()">
                       <span>
                         <ix class="fa fa-user"></ix>
                       </span> Sign out
