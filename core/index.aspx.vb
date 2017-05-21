@@ -6,6 +6,8 @@ Partial Class index
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         Dim sqlstr As String, pageURL As String = "", GUID As String = ""
 
+        'contentofScripts = "<script type=""text/javascript"" src=""OPHCore/scripts/thirdparty/jquery-2.2.3.min.js"" ></script>"
+
         loadAccount()
         Dim curODBC = contentOfdbODBC
         'Dim DBCore = getDBCore(accountid)
@@ -109,6 +111,7 @@ Partial Class index
 
         WindowOnLoad = "initTheme('" & code & "', '" & GUID & "');"
         Response.Cookies("themeFolder").Value = themeFolder
+        loadManifest(themeFolder)
         Response.Cookies("page").Value = pageURL
         'writeLog(Server.MapPath("~/"))
         'writeLog(Server.MapPath("~/ophcontent/x"))

@@ -8,7 +8,7 @@
   
   <xsl:template match="/">
     <script>
-      loadStyle('OPHContent/themes/themeTWO/scripts/jquery-ui/jquery-ui.css');
+      <!--loadStyle('OPHContent/themes/themeTWO/scripts/jquery-ui/jquery-ui.css');
       loadStyle('OPHContent/themes/themeTWO/scripts/bootstrap/css/bootstrap.min.css');
       loadStyle('OPHContent/themes/themeTWO/scripts/font-awesome/css/font-awesome.min.css');
       loadStyle('OPHContent/themes/themeTWO/scripts/selectbox/select_option1.css');
@@ -28,7 +28,7 @@
       loadScript('OPHContent/themes/themeTWO/scripts/selectbox/jquery.selectbox-0.1.3.min.js');
       loadScript('OPHContent/themes/themeTWO/scripts/countdown/jquery.syotimer.js');
       loadScript('OPHContent/themes/themeTWO/scripts/js/custom.js');
-      loadScript('OPHContent/themes/themeTWO/scripts/custom-me.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/custom-me.js');-->
 
 
       var bpageno = getCookie("bpageno");

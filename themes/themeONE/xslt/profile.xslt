@@ -8,7 +8,7 @@
 
   <xsl:template match="/">
     <script>
-      loadStyle('OPHContent/themes/themeONE/scripts/bootstrap/css/bootstrap.min.css');
+      <!--loadStyle('OPHContent/themes/themeONE/scripts/bootstrap/css/bootstrap.min.css');
       loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/styles/font-awesome-4.7.0/css/font-awesome.min.css');
 
       //loadStyle('https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css');
@@ -37,7 +37,7 @@
       loadScript('OPHContent/themes/themeONE/scripts/iCheck/icheck.min.js');
       loadScript('OPHContent/themes/themeONE/scripts/fastclick/fastclick.js');
       loadScript('OPHContent/themes/themeONE/scripts/admin-LTE/js/app.min.js');
-      loadScript('OPHContent/themes/themeONE/scripts/admin-LTE/js/demo.js');
+      loadScript('OPHContent/themes/themeONE/scripts/admin-LTE/js/demo.js');-->
 
       loadContent();
     </script>

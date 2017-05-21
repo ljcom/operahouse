@@ -102,7 +102,9 @@
               <xsl:when test="($documentstatus) = 0 or ($documentstatus) = ''">
                 <button id="button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', '');">SAVE</button>&#160;
                 <button id="button_cancel" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
+                <xsl:if test="(/sqroot/body/bodyContent/form/info/permission/allowDelete/.)=1">
                 <button id="button_save" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 'delete');">DELETE</button>&#160;
+                </xsl:if>
                 <xsl:if test="($settingmode)='T' and ($documentstatus) &lt; 400 ">
                   <button id="button_submit" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'execute')">SUBMIT</button>
                 </xsl:if>
@@ -367,7 +369,7 @@
     </xsl:variable>
 
     <xsl:choose>
-      <xsl:when test ="@isEditable=0 or (@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000'))">
+      <xsl:when test ="@isEditable=0 or (@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000')) or (/sqroot/body/bodyContent/form/info/permission/allowEdit/.)!='1'">
         <script>
           $('#<xsl:value-of select="@fieldName"/>').attr('disabled', true);
         </script>
@@ -378,6 +380,7 @@
     <div class="form-group {$fieldEnabled}-input">
       <xsl:apply-templates select="textBox"/>
       <xsl:apply-templates select="dateBox"/>
+      <xsl:apply-templates select="passwordBox"/>
       <xsl:apply-templates select="checkBox"/>
       <xsl:apply-templates select="mediaBox"/>
       <xsl:apply-templates select="autoSuggestBox"/>
@@ -397,7 +400,7 @@
       <xsl:if test="value=1">
         <xsl:attribute name="checked">checked</xsl:attribute>
       </xsl:if>
-      <xsl:if test="../@isEditable=0">
+      <xsl:if test="../@isEditable='0' or (../@isEditable='2' and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000')) or (/sqroot/body/bodyContent/form/info/permission/allowEdit/.)!='1'">
         <xsl:attribute name="disabled">disabled</xsl:attribute>
       </xsl:if>
     </input>
@@ -415,7 +418,6 @@
   <xsl:template match="textBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
-
     </label>
 
     <!--digit-->
@@ -456,7 +458,7 @@
 
 
     <input type="text" class="form-control" Value="{$thisvalue}" data-type="textBox" data-old="{$thisvalue}" name="{../@fieldName}" onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" id ="{../@fieldName}">
-      <xsl:if test="../@isEditable=0">
+      <xsl:if test="../@isEditable=0 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000')) or (/sqroot/body/bodyContent/form/info/permission/allowEdit/.)!='1'">
         <xsl:attribute name="disabled">disabled</xsl:attribute>
       </xsl:if>
     </input>
@@ -478,7 +480,20 @@
       </input>
     </div>
   </xsl:template>
+<xsl:template match="passwordBox">
+      <label id="{../@fieldName}caption">
+      <xsl:value-of select="titlecaption"/>
+    </label>
 
+    <input type="text" class="form-control" Value="********" data-type="textBox" data-old="" name="{../@fieldName}" 
+      onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" id ="{../@fieldName}">
+      <xsl:if test="../@isEditable=0 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000')) or (/sqroot/body/bodyContent/form/info/permission/allowEdit/.)!='1'">
+        <xsl:attribute name="disabled">disabled</xsl:attribute>
+      </xsl:if>
+    </input>
+
+  </xsl:template>
+  
   <xsl:template match="autoSuggestBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>

@@ -384,7 +384,7 @@
 
         <!--edit things-->
         <xsl:choose>
-          <xsl:when test="@edit=1 and $state &lt; 999">
+          <xsl:when test="$state &lt; 999">
             <a id="edit_{@GUID}" href="javascript:btn_function('{@code}', '{@GUID}', 'formView', '{$pageNo}', 2)">
               <ix class="fa fa-pencil" title="Edit"></ix>
             </a>

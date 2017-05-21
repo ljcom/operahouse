@@ -69,7 +69,7 @@
           <div style="text-align:left">
             <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}',1);">SAVE</button>&#160;
             <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm()">CANCEL</button>&#160;
-            <xsl:if test="/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000'">
+            <xsl:if test="(/sqroot/body/bodyContent/form/info/GUID/.)!='00000000-0000-0000-0000-000000000000' or (/sqroot/body/bodyContent/form/info/permission/allowDelete/.)=1" >
               <button id="child_button_delete"  class="btn btn-gray-a"
                       onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'delete', 1)">DELETE</button>
             </xsl:if>
@@ -296,8 +296,8 @@
     <input type="hidden" name="{../@fieldName}" id="{../@fieldName}" value="{value}"/>
     <!--Supaya bisa di serialize-->
     
-    <input type="checkbox" value="{value}" id ="cb{../@fieldName}"  name="cb{../@fieldName}" data-type="checkBox" data-old="{value}"
-      onchange="checkCB('{../@fieldName}');preview('{preview/.}', getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','form'+code, this);">
+    <input type="checkbox" value="{value}" id ="cb{../@fieldName}"  name="cb{../@fieldName}" data-type="checkBox" data-old="{value}" data-child="Y"
+      onchange="checkCB('{../@fieldName}');preview('{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);">
       <xsl:if test="value=1">
         <xsl:attribute name="checked">checked</xsl:attribute>
       </xsl:if>
@@ -357,7 +357,7 @@
       </xsl:choose>
     </xsl:variable>
 
-    <input type="text" class="form-control" Value="{$thisvalue}" name="{../@fieldName}" data-old="{value/.}" data-child="Y" onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','form'+code, this);" id ="{../@fieldName}">
+    <input type="text" class="form-control" Value="{$thisvalue}" name="{../@fieldName}" data-old="{value/.}" data-child="Y" onblur="preview('{preview/.}', 'sqroot/body/bodyContent/form/info/code/.', '{/sqroot/body/bodyContent/form/info/GUID/.}','formsqroot/body/bodyContent/form/info/code/.', this);" id ="{../@fieldName}">
       <xsl:if test="../@isEditable=0">
         <xsl:attribute name="disabled">disabled</xsl:attribute>
       </xsl:if>
@@ -373,8 +373,8 @@
         <ix class="fa fa-calendar"></ix>
       </div>
       <input type="text" class="form-control pull-right datepicker" id ="{../@fieldName}" name="{../@fieldName}"
-             data-old="{value}" Value="{value}"
-             onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','form'+code, this);" >
+             data-old="{value}" Value="{value}" data-child="Y"
+             onblur="preview('{preview/.}','{/sqroot/body/bodyContent/form/code/id}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/code/id}', this);" >
         <xsl:if test="../@isEditable=0">
           <xsl:attribute name="disabled">disabled</xsl:attribute>
         </xsl:if>
@@ -420,7 +420,7 @@
     </label>
     <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}"
             data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}" data-child="Y"
-            onchange="preview('{preview/.}', code, '{/sqroot/body/bodyContent/form/info/GUID/.}','form'+code, this);">
+            onchange="preview('{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);">
       <xsl:if test="../@isEditable=0">
         <xsl:attribute name="disabled">disabled</xsl:attribute>
       </xsl:if>
@@ -497,10 +497,10 @@
       onReady: function(x) {
       },
       onAdd: function(x) {
-      preview('<xsl:value-of select="preview/."/>', getCode(), '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','formheader', this);
+      preview('<xsl:value-of select="preview/."/>', '<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>', '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','form<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>', this);
       },
       onDelete: function(x) {
-      preview('<xsl:value-of select="preview/."/>', getCode(), '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','formheader', this);
+      preview('<xsl:value-of select="preview/."/>', '<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>', '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','form<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>', this);
       }
       }
       );
@@ -532,7 +532,7 @@
 
 
     <input type="text" class="form-control" Value="{$thisvalue}" data-type="tokenBox" data-old="{$thisvalue}" data-newJSON=""
-           data-code="{code/.}"
+           data-code="{code/.}" data-child="Y"
       data-key="{key}" data-id="{id}" data-name="{name}"
       name="{../@fieldName}" id ="{../@fieldName}">
 

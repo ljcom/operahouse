@@ -1,0 +1,7 @@
+<sqroot>
+  <manifest>
+    <jsFile>OPHCore/scripts/fn_general.js</jsFile>
+    <jsFile>OPHCore/scripts/fn_theme.js</jsFile>
+    <jsFile>OPHCore/scripts/default_theme.js</jsFile>
+  </manifest>
+</sqroot>

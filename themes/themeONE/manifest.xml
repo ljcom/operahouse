@@ -1,0 +1,36 @@
+<sqroot>
+  <manifest>
+    <cssFile>OPHContent/themes/themeONE/scripts/bootstrap/css/bootstrap.min.css</cssFile>
+    <cssFile>OPHContent/themes/themeONE/styles/font-awesome-4.7.0/css/font-awesome.min.css</cssFile>
+    <cssFile>OPHContent/themes/themeONE/scripts/daterangepicker/daterangepicker.css</cssFile>
+    <cssFile>OPHContent/themes/themeONE/scripts/datepicker/datepicker3.css</cssFile>
+    <cssFile>OPHContent/themes/themeONE/scripts/iCheck/all.css</cssFile>
+    <cssFile>OPHContent/themes/themeONE/scripts/colorpicker/bootstrap-colorpicker.min.css</cssFile>
+    <cssFile>OPHContent/themes/themeONE/scripts/loopj-jquery-tokeninput/styles/token-input-facebook.css</cssFile>
+    <cssFile>OPHContent/themes/themeONE/scripts/loopj-jquery-tokeninput/styles/token-input-mac.css</cssFile>
+    <cssFile>OPHContent/themes/themeONE/scripts/timepicker/bootstrap-timepicker.min.css</cssFile>
+    <cssFile>OPHContent/themes/themeONE/scripts/select2/select2.min.css</cssFile>
+    <cssFile>OPHContent/themes/themeONE/scripts/admin-LTE/css/AdminLTE.min.css</cssFile>
+    <cssFile>OPHContent/themes/themeONE/scripts/admin-LTE/css/skins/_all-skins.min.css</cssFile>
+    <cssFile>OPHContent/themes/themeONE/styles/custom-me.css</cssFile>
+
+    <jsFile>OPHContent/themes/themeONE/scripts/jQuery/jquery-2.2.3.min.js</jsFile>
+    <jsFile>OPHContent/themes/themeONE/scripts/bootstrap/js/bootstrap.min.js</jsFile>
+    <jsFile>OPHContent/themes/themeONE/scripts/input-mask/jquery.inputmask.js</jsFile>
+    <jsFile>OPHContent/themes/themeONE/scripts/input-mask/jquery.inputmask.date.extensions.js</jsFile>
+    <jsFile>OPHContent/themes/themeONE/scripts/input-mask/jquery.inputmask.extensions.js</jsFile>
+    <jsFile>https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js</jsFile>
+    <jsFile>OPHContent/themes/themeONE/scripts/datepicker/bootstrap-datepicker.js</jsFile>
+    <jsFile>OPHContent/themes/themeONE/scripts/colorpicker/bootstrap-colorpicker.min.js</jsFile>
+    <jsFile>OPHContent/themes/themeONE/scripts/timepicker/bootstrap-timepicker.min.js</jsFile>
+    <jsFile>OPHContent/themes/themeONE/scripts/loopj-jquery-tokeninput/src/jquery.tokeninput.js</jsFile>
+    <jsFile>OPHContent/themes/themeONE/scripts/slimScroll/jquery.slimscroll.min.js</jsFile>
+    <jsFile>OPHContent/themes/themeONE/scripts/iCheck/icheck.min.js</jsFile>
+    <jsFile>OPHContent/themes/themeONE/scripts/fastclick/fastclick.js</jsFile>
+    <jsFile>OPHContent/themes/themeONE/scripts/upclick/upclick-min.js</jsFile>
+    <jsFile>OPHContent/themes/themeONE/scripts/admin-LTE/js/app.min.js</jsFile>
+    <jsFile>OPHContent/themes/themeONE/scripts/admin-LTE/js/demo.js</jsFile>
+    <jsFile>OPHContent/themes/themeONE/scripts/custom-me.js</jsFile>
+
+  </manifest>
+</sqroot>

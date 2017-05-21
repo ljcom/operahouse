@@ -566,7 +566,7 @@ function changePwd() {
 }
 function topbutton(username) {
     if (getCookie("isLogin") == '1' && username != '') {
-        document.getElementById("loginbuttons").innerHTML = '<span><a class="resize-font480-10px" href="#">Welcome, <span class="resize-font480-10px" style="color:#47BAC1; font-weight:bold; font-size:14px;">' + username + '</a> </span> <span> | <a class="resize-font480-10px" data-toggle="modal" href="#" onClick="SignOut()">Log Out</a> </span>';
+        document.getElementById("loginbuttons").innerHTML = '<span><a class="resize-font480-10px" href="#">Welcome, <span class="resize-font480-10px" style="color:#47BAC1; font-weight:bold; font-size:14px;">' + username + '</a> </span> <span> | <a class="resize-font480-10px" data-toggle="modal" href="#" onClick="signOut()">Log Out</a> </span>';
     } else {
         document.getElementById("loginbuttons").innerHTML = '<span><a data-toggle="modal" href=".login-modal">Log in</a></span>';
     }

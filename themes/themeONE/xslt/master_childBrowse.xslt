@@ -42,7 +42,7 @@
 
               <!-- /.box-body -->
               <div class="box-footer clearfix">
-                <xsl:if test="/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500">
+                <xsl:if test="/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 and (/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)='1'">
                   <button class="btn btn-orange-a accordion-toggle" data-toggle="collapse"
                           data-target="#{/sqroot/body/bodyContent/browse/info/code}00000000-0000-0000-0000-000000000000"
                           onclick="showChildForm('{/sqroot/body/bodyContent/browse/info/code}','00000000-0000-0000-0000-000000000000')">ADD</button>&#160;

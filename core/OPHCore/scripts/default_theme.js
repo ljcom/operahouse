@@ -3494,9 +3494,11 @@ function showChildForm(code, guid) {
     //clear other childform
     $(".browse-data").html("Please Wait...");
 
-    var xsldoc = "OPHContent/themes/" + loadThemeFolder() + "/xslt/" + getPage() + "_childForm.xslt";
     var xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=view&GUID=" + guid
-    showXML(code + guid, xmldoc, xsldoc, true, true, function () { });
+
+    var xsldoc = ["OPHContent/themes/" + loadThemeFolder() + "/xslt/" + getPage() + "_childForm.xslt"];
+    var divnm = [code + guid]
+    pushTheme(divnm, xmldoc, xsldoc, true);
     //setCookie("currentChild", code + guid);
 }
 function closeChildForm() {

@@ -141,8 +141,61 @@
         <!--</xsl:if>-->
       </xsl:for-each>
 
-      <xsl:if test="substring(sqroot/body/bodyContent/form/info/code, 1, 1) = 't'">
+      <!--Approvals-->
+      <xsl:if test="sqroot/body/bodyContent/form/approvals/approval" >
+        <li class="treeview">
+          <a href="#">
+            <span>
+              <ix class="fa fa-users"></ix>
+            </span>
+            <span>&#160;APPROVALS</span>
+            <span class="pull-right-container">
+              <ix class="fa fa-angle-left pull-right"></ix>
+            </span>
+          </a>
+          <ul class="treeview-menu view-left-sidebar">
+            <li>
+              <dl id="approval-info">
+                <xsl:for-each select="sqroot/body/bodyContent/form/approvals/approval/.">
+                  <dt style="margin: 10px 0 0 0;">
+                    <xsl:choose>
+                      <xsl:when test="@status = 400">
+                        <ix class="fa fa-check-circle"></ix>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <ix class="fa fa-minus-circle"></ix>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                    &#160;<xsl:value-of select="name"/><!--(Lv. <xsl:value-of select="@level"/>)-->
+                  </dt>
+                  <dd style="margin-left:15px;">
+                    <xsl:value-of select="date"/>
+                  </dd>
 
+                  <!--<xsl:choose>
+                    <xsl:when test="@status = 400">
+                      <dt>
+                        <ix class="fa fa-check-circle"></ix> 
+                          <xsl:value-of select="name"/> (Lv. <xsl:value-of select="@level"/>)
+                      </dt>
+                      <dd style="margin-left:15px;"><xsl:value-of select="date"/></dd>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <dt>
+                        <ix class="fa fa-minus-circle"></ix>
+                          <xsl:value-of select="name"/> (Lv. <xsl:value-of select="@level"/>)
+                      </dt>
+                      <dd style="margin-left:15px;"><xsl:value-of select="date"/></dd>
+                    </xsl:otherwise>
+                  </xsl:choose>-->
+                </xsl:for-each>
+              </dl>
+            </li>
+          </ul>
+        </li>
+      </xsl:if>
+
+      <!--<xsl:if test="substring(sqroot/body/bodyContent/form/info/code, 1, 1) = 't'">
         <li class="treeview">
           <a href="#">
             <span>
@@ -173,8 +226,8 @@
             </li>
           </ul>
         </li>
+      </xsl:if>-->
 
-      </xsl:if>
       <li class="treeview">
         <a href="#">
           <span>
@@ -203,26 +256,39 @@
   <xsl:template match="sqroot/body/bodyContent/form/info">
     <ul class="treeview-menu view-left-sidebar">
       <li>
+        <xsl:if test="docNo/.">
         <dl>
-          <dl>Doc No</dl>
+          <dt>Doc No</dt>
+          <dt>
+            <xsl:value-of select="docNo"/>
+          </dt>
+        </dl>
+        </xsl:if>
+        <xsl:if test="refNo/.">
+          <dl>
+            <dt>Ref No</dt>
 
-          <dt>
-            <xsl:apply-templates select="docNo"/>
-          </dt>
-        </dl>
-        <dl>
-          <dl>Ref No</dl>
-
-          <dt>
-            <xsl:apply-templates select="refNo"/>
-          </dt>
-        </dl>
-        <dl>
-          <dl>Doc Date</dl>
-          <dt>
-            <xsl:apply-templates select="docDate"/>
-          </dt>
-        </dl>
+            <dt>
+              <xsl:value-of select="refNo"/>
+            </dt>
+          </dl>
+        </xsl:if>
+        <xsl:if test="docDate/.">
+          <dl>
+            <dt>Doc Date</dt>
+            <dt>
+              <xsl:value-of select="docDate"/>
+            </dt>
+          </dl>
+        </xsl:if>
+        <xsl:if test="id/.">
+          <dl>
+            <dt>ID</dt>
+            <dd>
+              <xsl:value-of select="id"/>
+            </dd>
+          </dl>
+        </xsl:if>
       </li>
     </ul>
   </xsl:template>

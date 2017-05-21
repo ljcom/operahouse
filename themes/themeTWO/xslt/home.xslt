@@ -8,7 +8,7 @@
 
   <xsl:template match="/">
     <script>
-      loadStyle('OPHContent/themes/themeTWO/scripts/jquery-ui/jquery-ui.css');
+      <!--loadStyle('OPHContent/themes/themeTWO/scripts/jquery-ui/jquery-ui.css');
       loadStyle('OPHContent/themes/themeTWO/scripts/bootstrap/css/bootstrap.min.css');
       loadStyle('OPHContent/themes/themeTWO/scripts/font-awesome/css/font-awesome.min.css');
       loadStyle('OPHContent/themes/themeTWO/scripts/selectbox/select_option1.css');
@@ -20,7 +20,7 @@
       loadStyle('OPHContent/themes/themeTWO/styles/style.css');
       loadStyle('OPHContent/themes/themeTWO/styles/default.css');
       
-      loadScript('OPHContent/themes/themeTWO/scripts/custom-me.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/custom-me.js');-->
       
       LoadNewPart('home_browse', 'contentWrapper', 'home', '','');
       changeColorMenuFront();
