@@ -329,11 +329,11 @@
                 <ix class="fa fa-archive" title="Close"></ix>
               </a>
             </xsl:when>
-            <xsl:otherwise>
-              <a href="javascript:btn_function('{@code}', '{@GUID}', 'force', '{$pageNo}', 2)">
+            <xsl:when test="@force=1 and $state &lt; 600">
+              <a href="javascript:btn_function('{@code}', '{@GUID}', 'reopen', '{$pageNo}', 2)">
                 <ix class="fa fa-undo" title="Reopen"></ix>
               </a>
-            </xsl:otherwise>
+            </xsl:when>
           </xsl:choose>
         </xsl:if>
 
@@ -364,10 +364,10 @@
           <!--not allow delete-->
           <xsl:when test="@onOff=1 and @delete=0 and $state &lt; 500">
             <a href="#">
-              <ix class="fa fa-trash" title="Inactive" style="color:LightGray"></ix>
+              <ix class="fa fa-toggle-off" title="Inactive" style="color:LightGray"></ix>
             </a>
           </xsl:when>
-          <xsl:when test="@onOff=0 and @delete=1 and $state &lt; 500">
+          <xsl:when test="@onOff=0 and @delete=0 and $state &lt; 500">
             <a href="#">
               <ix class="fa fa-trash" title="Delete" style="color:LightGray"></ix>
             </a>

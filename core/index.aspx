@@ -2,7 +2,8 @@
     Inherits="index" %>
 
 <!DOCTYPE html>
-<html manifest="manifest.aspx">
+<html>
+<!--html manifest="manifest.aspx"-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,4 +27,4 @@
         <div id="frameBrowse"></div>
     </form>--%>
 </body>
-</html>
+</!--html>

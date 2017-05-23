@@ -103,7 +103,7 @@
                 <button id="button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', '');">SAVE</button>&#160;
                 <button id="button_cancel" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
                 <xsl:if test="(/sqroot/body/bodyContent/form/info/permission/allowDelete/.)=1">
-                <button id="button_save" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 'delete');">DELETE</button>&#160;
+                  <button id="button_save" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 'delete');">DELETE</button>&#160;
                 </xsl:if>
                 <xsl:if test="($settingmode)='T' and ($documentstatus) &lt; 400 ">
                   <button id="button_submit" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'execute')">SUBMIT</button>
@@ -404,7 +404,7 @@
         <xsl:attribute name="disabled">disabled</xsl:attribute>
       </xsl:if>
     </input>
-    
+
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
@@ -480,12 +480,12 @@
       </input>
     </div>
   </xsl:template>
-<xsl:template match="passwordBox">
-      <label id="{../@fieldName}caption">
+  <xsl:template match="passwordBox">
+    <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
 
-    <input type="text" class="form-control" Value="********" data-type="textBox" data-old="" name="{../@fieldName}" 
+    <input type="text" class="form-control" Value="********" data-type="textBox" data-old="" name="{../@fieldName}"
       onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" id ="{../@fieldName}">
       <xsl:if test="../@isEditable=0 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000')) or (/sqroot/body/bodyContent/form/info/permission/allowEdit/.)!='1'">
         <xsl:attribute name="disabled">disabled</xsl:attribute>
@@ -493,7 +493,7 @@
     </input>
 
   </xsl:template>
-  
+
   <xsl:template match="autoSuggestBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
@@ -552,7 +552,7 @@
         noPrepopulate<xsl:value-of select="key"/>=0;
       </xsl:if>
       var cURL<xsl:value-of select="key"/>='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="code/."/>&amp;key=<xsl:value-of select="key"/>&amp;id=<xsl:value-of select="id"/>&amp;name=<xsl:value-of select="name"/>&amp;search=<xsl:value-of select="value"/>'
-      
+
       $(document).ready(function(){
       $.ajax({
       url: cURL<xsl:value-of select="key"/>,
@@ -643,6 +643,9 @@
       <input id ="{../@fieldName}" name="{../@fieldName}" Value="{value}" type="text" class="form-control" readonly="" />
       <span class="input-group-btn">
         <button class="btn btn-secondary" type="button" onclick="javascript:popTo('OPHcore/api/msg_download.aspx?fieldAttachment={../@fieldName}&#38;code={/sqroot/body/bodyContent/form/info/code/.}&#38;GUID={/sqroot/body/bodyContent/form/info/GUID/.}');">
+          <xsl:if test="/sqroot/body/bodyContent/form/info/GUID='00000000-0000-0000-0000-000000000000'">
+            <xsl:attribute name="disabled">disabled</xsl:attribute>
+          </xsl:if>
           <ix class="fa fa-paperclip"></ix>&#160;
         </button>
       </span>

@@ -295,7 +295,7 @@
     <!--Supaya bisa di serialize-->
     <input type="hidden" name="{../@fieldName}" id="{../@fieldName}" value="{value}"/>
     <!--Supaya bisa di serialize-->
-    
+
     <input type="checkbox" value="{value}" id ="cb{../@fieldName}"  name="cb{../@fieldName}" data-type="checkBox" data-old="{value}" data-child="Y"
       onchange="checkCB('{../@fieldName}');preview('{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);">
       <xsl:if test="value=1">
@@ -408,6 +408,9 @@
       <input id ="{../@fieldName}" name="{../@fieldName}" Value="{value}" type="text" class="form-control" readonly="" />
       <span class="input-group-btn">
         <button class="btn btn-secondary" type="button" onclick="javascript:popTo('OPHcore/api/msg_download.aspx?fieldAttachment={../@fieldName}&#38;code={/sqroot/body/bodyContent/form/info/code/.}&#38;GUID={/sqroot/body/bodyContent/form/info/GUID/.}');">
+          <xsl:if test="/sqroot/body/bodyContent/form/info/GUID='00000000-0000-0000-0000-000000000000'">
+            <xsl:attribute name="disabled">disabled</xsl:attribute>
+          </xsl:if>
           <ix class="fa fa-paperclip"></ix>&#160;
         </button>
       </span>

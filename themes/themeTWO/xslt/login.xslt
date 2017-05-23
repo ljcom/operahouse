@@ -22,7 +22,7 @@
       loadStyle('OPHContent/themes/themeTWO/styles/style.css');
       loadStyle('OPHContent/themes/themeTWO/styles/default.css')
 
-      loadScript('OPHContent/themes/themeTWO/scripts/jquery.1.11.3.jquery.min.js');-->
+      loadScript('OPHContent/themes/themeTWO/scripts/jquery.1.11.3.jquery.min.js');
       
 	  loadScript('OPHContent/themes/themeTWO/scripts/jquery-ui/jquery-ui.js');
       loadScript('OPHContent/themes/themeTWO/scripts/bootstrap/js/bootstrap.min.js');
@@ -32,18 +32,9 @@
       loadScript('OPHContent/themes/themeTWO/scripts/selectbox/jquery.selectbox-0.1.3.min.js');
       loadScript('OPHContent/themes/themeTWO/scripts/countdown/jquery.syotimer.js');
       loadScript('OPHContent/themes/themeTWO/scripts/js/custom.js');
-      loadScript('OPHContent/themes/themeTWO/scripts/custom-me.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/custom-me.js');-->
 
-      if (getCookie("isLogin")==1) window.location='?';
-
-
-
-
-
-
-
-
-
+      //if (getCookie("isLogin")==1) window.location='?';
 
     </script>
     <!-- Page script -->

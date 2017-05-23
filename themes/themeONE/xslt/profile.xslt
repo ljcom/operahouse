@@ -36,8 +36,8 @@
       loadScript('OPHContent/themes/themeONE/scripts/slimScroll/jquery.slimscroll.min.js');
       loadScript('OPHContent/themes/themeONE/scripts/iCheck/icheck.min.js');
       loadScript('OPHContent/themes/themeONE/scripts/fastclick/fastclick.js');
-      loadScript('OPHContent/themes/themeONE/scripts/admin-LTE/js/app.min.js');
       loadScript('OPHContent/themes/themeONE/scripts/admin-LTE/js/demo.js');-->
+      loadScript('OPHContent/themes/themeONE/scripts/admin-LTE/js/app.min.js');
 
       loadContent();
     </script>

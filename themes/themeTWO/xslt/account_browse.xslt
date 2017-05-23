@@ -10,10 +10,10 @@
     
     <div class="col-xs-12">
       <div class="innerWrapper">
-        <div class="alert alert-warning alert-dismissible" role="alert">
+        <!--div class="alert alert-warning alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button>
           <strong>Warning!</strong> You have one unpaid order. 
-        </div>
+        </div-->
         <h3>Welcome <span id="userLogins">-</span></h3>
         <script>
           document.getElementById("userLogins").innerHTML = document.getElementById("hiddenUsrName").value;

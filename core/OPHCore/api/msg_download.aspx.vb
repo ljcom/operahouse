@@ -44,15 +44,17 @@ Partial Class OPHCore_api_msg_download
             Dim sqlstr = "Select " & fieldAttachment & " From oph." & ocode & " Where " & fieldKey & " ='" & tGUID & "'"
             Dim dt = SelectSqlSrvRows(sqlstr, con)
             path = path
-            Dim filename = dt.Tables(0).Rows(0)(fieldAttachment).ToString()
-            Dim revfilename = StrReverse(filename)
-            Dim lengthfile = revfilename.IndexOf("\")
-            path = path & Left(filename, Len(filename) - lengthfile)
-            filename = Right(filename, lengthfile)
+            If dt.Tables(0).Rows.Count > 0 Then
+                Dim filename = dt.Tables(0).Rows(0)(fieldAttachment).ToString()
+                Dim revfilename = StrReverse(filename)
+                Dim lengthfile = revfilename.IndexOf("\")
+                path = path & Left(filename, Len(filename) - lengthfile)
+                filename = Right(filename, lengthfile)
 
-            download(path, filename)
+                download(path, filename)
+            End If
         Else
-            Dim querysql As String = getQueryVar("querysql")
+                Dim querysql As String = getQueryVar("querysql")
             Dim sqlexec = "exec " & querysql & " '" & Session("hostGUID") & "', '" & tGUID & "' ,1"
             runSQL(sqlexec, con)
             Dim sqlTXT = "exec gen.downloadTXT '" & tGUID & "_" & code & "'"
@@ -77,7 +79,7 @@ Partial Class OPHCore_api_msg_download
                 Dim fStream As New FileStream(f, FileMode.Open, FileAccess.Read)
                 Dim br As New BinaryReader(fStream)
                 bytes = br.ReadBytes(CInt(numBytes))
-                If getQueryVar("dontdelete") = 1 Then
+                If getQueryVar("dontdelete") = "1" Then
                     Response.Write(f)
                 Else
                     Response.Buffer = True

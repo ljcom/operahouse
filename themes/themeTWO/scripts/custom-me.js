@@ -104,7 +104,8 @@ function signInFrontEnd() {
             var result = $(data).find("hostGUID").text();
             if (result) {
                 if (remember.checked == true) { setCookie("userID", uid, 30, 0, 0); }
-                window.location.reload();
+                var landingPage = (getCookie('lastPar') == null || getCookie('lastPar') == '') ? '?' : getCookie('lastPar');
+                window.location=landingPage;
             } else {
                 //alert('Invalid User or password!');
                 document.getElementById("loginNotifMsg").innerHTML = 'Invalid User ID or password!';

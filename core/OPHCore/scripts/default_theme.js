@@ -138,7 +138,7 @@ function signIn() {
             var x = $(data).find("sqroot").children().each(function () {
                 var msg = $(this).text();
                 //why env=back?
-                var landingPage = (getCookie('lastPar') == null || getCookie('lastPar') == '') ? '?env=back' : getCookie('lastPar');
+                var landingPage = (getCookie('lastPar') == null || getCookie('lastPar') == '') ? '?' : getCookie('lastPar');
                 //var env = getQueryVariable("env");
                 //var str1 = landingPage
                 //var nFront = str1.indexOf("env=front");
@@ -3812,8 +3812,11 @@ function executeFunction(code, GUID, action, location) {
 
     if (action == 'execute') {
         successmsg = 'Approve Succesfully'
+        if ((confirm("You are about to " + action + " this record. Are you sure?") == 0)) { isAction = 0; }
     } else if (action == 'force') {
         successmsg = 'Close Succesfully'
+    } else if (action == 'reopen') {
+        successmsg = 'Reopen Succesfully'
     } else if (action == 'inactivate') {
         successmsg = 'Inactivate Succesfully'
         if ((confirm("You are about to " + action + " this record. Are you sure?") == 0)) { isAction = 0; }
