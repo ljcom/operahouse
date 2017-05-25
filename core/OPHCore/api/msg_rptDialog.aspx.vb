@@ -22,11 +22,12 @@ Partial Class OPHCore_api_msg_rptDialog
     Dim hostGUID As String = "NULL"
 
     Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        If Request.QueryString("code") Is Nothing Or Session("hostGUID") Is Nothing Then
+        loadAccount()
+        If Request.QueryString("code") Is Nothing Then
             'SignOff()
             'Response.Write("<script>" & contentofSignOff & "</script>")
         Else
-            loadAccount()
+
 
             isPrintOnly = Request.QueryString("isPrintOnly")
             Dim code = Request.QueryString("code")
@@ -40,6 +41,9 @@ Partial Class OPHCore_api_msg_rptDialog
                 hostGUID = "''" & Session("hostGUID") & "''"
             End If
 
+            If hostGUID = "NULL" Then
+                hostGUID = System.Guid.NewGuid().ToString()
+            End If
             Dim g = System.Guid.NewGuid().ToString
             Dim Connections As String = contentOfdbODBC
             If runSQLwithResult("select OBJECT_ID('" & query & "')", Connections) = "" Then

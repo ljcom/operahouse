@@ -327,6 +327,11 @@ td.expand-table-an {
         width: 100px;
     }
 
+    /*.expand-table-an table .colname-an tr:hover {
+        cursor:default;
+        background-color:white;
+    }*/
+
     .expand-table-an table .colname-an2 {
         width: 10px;
     }
@@ -344,10 +349,22 @@ td.expand-table-an {
 }
 
 .browse-table-an tbody tr:hover {
-    cursor: default;
+    cursor: pointer;
+    /*color: White;
+    background-color: #db9215;*/
+}
+
+/*.hoho :hover {
+    cursor: pointer;
     color: White;
     background-color: #db9215;
-}
+}*/
+
+/*.tr-detail :hover {
+    cursor: default;
+    background-color: #808080;
+}*/
+
 /*.browse-table-an thead {
 	font-size: 15px;
 	font-weight: bold;
@@ -371,7 +388,7 @@ tr.odd-tr {
     background: white;
 }
 
-    tr.odd-tr:nth-child(2n+1) {
+    tr.odd-tr:nth-child(4n+1) {
         background: #c7e3fc; /*strip color*/
     }
 

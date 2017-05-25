@@ -92,7 +92,7 @@ function fillMobileItem(code, guid, Status, allowedit, allowDelete, allowWipe, a
     x = x.replace('#a2#', '<a href="#" style="color:white; text-decoration:underline">see more</a><br /><br /><b>LAST COMMENT</b><br />WAIT FOR USER3<br /><br /><b>REQUESTED ON</b><br />ESRA MARTLIANTY (3 JAN 2016) <br /><a href="#a4#" title="edit" style="position:absolute; top:10px; right:10px; font-size:17px; color:white;">#ix#</a>');
     if (allowedit == 1) {
         x = x.replace('#ix#', '<ix class="fa fa-pencil"></ix>');
-        x = x.replace('#a4#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'formView\')');
+        x = x.replace('#a4#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'formView\', 1, 2)');
     }
     else {
         x = x.replace('#ix#', '<ix class="fa fa-pencil" style="color:LightGray"></ix>');

@@ -282,14 +282,10 @@
   </xsl:template>
 
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
-
     <tr class="odd-tr">
       <input id="mandatory{@GUID}" type="hidden" value="" />
-      <!--td class="browse-doc-title expand-td">
-        &#160;
-      </td-->
       <xsl:apply-templates select="fields/field[@mandatory=1]" />
-      <td class="expand-td" data-toggle="collapse" data-target="#{@GUID}" data-parent="#{@GUID}">
+      <td class="expand-td" data-toggle="collapse" data-target="#brodeta-{@GUID}" data-parent="#brodeta-{@GUID}">
         <table class="fixed-table">
           <tr>
             <td id="summary{@GUID}">
@@ -400,6 +396,131 @@
         </xsl:if>
       </td>
     </tr>
+    <tr class="tr-detail">
+      <td colspan="7" style="padding:0;">
+        <div class="browse-data accordian-body collapse" id="brodeta-{@GUID}" style="cursor:default;">
+          <table class="table" style="background:gray; color:white">
+            <thead>
+              <tr>
+                <td>STATUS</td>
+                <td>DOCUMENT</td>
+                <td>CHAT TALK</td>
+              </tr>
+              <tr>
+                <td class="expand-table-an" style="width:40%">                  
+                  <xsl:if test="approvals/approval">
+                  <table>
+                    <tr>
+                      <td class="colname-an">
+                        <p  class="title-subbrowse">REQUESTED BY</p>
+                        <p>
+                          <xsl:if test="approvals/approval/@level = 0" >
+                            <xsl:value-of select="approvals/approval/name"/>
+                          </xsl:if>
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="colname-an">&#160;</td>
+                    </tr>
+                    <tr>
+                      <td class="colname-an">
+                        <p class="title-subbrowse">STATUS COMMENT</p>
+                        <p><xsl:value-of select="docStatus"/></p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="colname-an">&#160;</td>
+                    </tr>
+                    <tr>
+                      <td class="colname-an">
+                        <p class="title-subbrowse">
+                          <i class="fa fa-clock-o">&#160;</i>WAITING FOR YOUR APPROVAL
+                        </p>
+                        <p>
+                          <i class="fa fa-list" aria-hidden="true">&#160;</i>
+                          <span id="more-aprv{@GUID}" onclick="show_aprvList('{@GUID}');" style="color:blue; cursor:pointer;">Show Approval List</span>
+                        </p>
+                        <div id="aprv-list{@GUID}" style="display:none;">
+                          <ul>
+                            <xsl:for-each select="approvals/approval">
+                              <li>
+                                <xsl:value-of select="name"/>&#160;
+                                <xsl:choose>
+                                  <xsl:when test="date">
+                                    Approved On (<xsl:value-of select="date"/>)
+                                  </xsl:when>
+                                  <xsl:otherwise>
+                                    Not Approved Yet
+                                  </xsl:otherwise>
+                                </xsl:choose>
+                              </li>
+                            </xsl:for-each>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                  </xsl:if>
+                </td>
+                <td class="expand-table-an" style="width:25%">
+                  &#160;                
+                </td>
+                <td class="expand-table-an" style="width:35%">&#160;                
+                  <table>
+                    <tr style="padding:10px;">
+                      <td colspan="2" class="title-subbrowse">DOC TALK</td>
+                    </tr>
+                    <tr>
+                      <td valign="top" style="padding-right:10px">
+                        <img src="OPHContent/themes/{/sqroot/header/info/themeFolder}/images/doc-talk-icon2.png" class="img-circle" alt="User Image" style="width:20px; border:solid 2px white;" />
+                      </td>
+                      <td>
+                        <span style="font-weight:bold">USER 1</span>
+                        <br />
+                        <span>XXXXXX XXXXXX XXXXXXX</span>
+                        <br />
+                        <span style="font-size:10px;">1 hours ago</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top" style="padding-right:10px">
+                        <img src="OPHContent/themes/{/sqroot/header/info/themeFolder}/images/doc-talk-icon2.png" class="img-circle" alt="User Image" style="width:20px; border:solid 2px white;" />
+                      </td>
+                      <td>
+                        <span style="font-weight:bold">USER 2</span>
+                        <br />
+                        <span>XXXXXX XXXXXX XXXXXXX</span>
+                        <br />
+                        <span style="font-size:10px;">1 hours ago</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top" style="padding-right:10px">
+                        <img src="OPHContent/themes/{/sqroot/header/info/themeFolder}/images/doc-talk-icon2.png" class="img-circle" alt="User Image" style="width:20px; border:solid 2px white;" />
+                      </td>
+                      <td>
+                        <span style="font-weight:bold">USER 3</span>
+                        <br />
+                        <span>XXXXXX XXXXXX XXXXXXX</span>
+                        <br />
+                        <span style="font-size:10px;">2 hours ago</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>
+                        <input type="text" class="form-control input-sm" placeholder="enter to post" />
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </td>
+    </tr>
   </xsl:template>
 
   <xsl:template match="fields/field[@mandatory=1]">
@@ -443,5 +564,4 @@
     <xsl:value-of select="$tbContent" />
     &#160;·&#160;
   </xsl:template>
-
 </xsl:stylesheet>

@@ -18,10 +18,21 @@
       loadStyle('OPHContent/themes/themeTWO/styles/font-oxygen.css');
       loadStyle('OPHContent/themes/themeTWO/styles/icon-font.min.css');
       loadStyle('OPHContent/themes/themeTWO/styles/style.css');
-      loadStyle('OPHContent/themes/themeTWO/styles/default.css');
-      
+      loadStyle('OPHContent/themes/themeTWO/styles/default.css');-->
+
+      <!--loadScript('OPHContent/themes/themeTWO/scripts/jquery.1.11.3.jquery.min.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/jquery-ui/jquery-ui.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/rs-plugin/js/jquery.themepunch.tools.min.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/rs-plugin/js/jquery.themepunch.revolution.min.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/selectbox/jquery.selectbox-0.1.3.min.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/countdown/jquery.syotimer.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/bootstrap/js/bootstrap.min.js');
+
+      //ada di home_browse_feature
+      loadScript('OPHContent/themes/themeTWO/scripts/owl-carousel/owl.carousel.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/js/custom.js');
       loadScript('OPHContent/themes/themeTWO/scripts/custom-me.js');-->
-      
+
       LoadNewPart('home_browse', 'contentWrapper', 'home', '','');
       changeColorMenuFront();
     </script>
@@ -135,7 +146,7 @@
               </span>
             </div>
           </div>
-          <div class="dropdown cart-dropdown" id="carttop" onclick="changePopUpToLogin()" style="margin-left:5px">
+          <div class="dropdown cart-dropdown" id="carttop" style="margin-left:5px">
             Loading Please Wait...
             <script>
               var filterkey = "pcsoGUID = '" +  getCookie("cartID") + "'";
@@ -176,7 +187,7 @@
             <ul class="nav navbar-nav">
               <xsl:apply-templates select="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu" />
               <script type="text/javascript">
-                if (getCookie("isLogin") == "0"){
+                if (getCookie("isLogin") == "0"){   
                     $('.needlogin').attr('href','.login-modal')
                 }
               </script>

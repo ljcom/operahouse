@@ -34,6 +34,10 @@
       loadScript('OPHContent/themes/themeTWO/scripts/js/custom.js');
       loadScript('OPHContent/themes/themeTWO/scripts/custom-me.js');-->
 
+      loadScript('OPHContent/themes/themeTWO/scripts/bootstrap/js/bootstrap.min.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/owl-carousel/owl.carousel.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/js/custom.js');
+
       //if (getCookie("isLogin")==1) window.location='?';
 
     </script>

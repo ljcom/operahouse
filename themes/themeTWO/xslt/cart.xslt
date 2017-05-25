@@ -22,15 +22,15 @@
 
       loadScript('OPHContent/themes/themeTWO/scripts/jquery.1.11.3.jquery.min.js');
       loadScript('OPHContent/themes/themeTWO/scripts/jquery-ui/jquery-ui.js');
-      loadScript('OPHContent/themes/themeTWO/scripts/bootstrap/js/bootstrap.min.js');
       loadScript('OPHContent/themes/themeTWO/scripts/rs-plugin/js/jquery.themepunch.tools.min.js');
       loadScript('OPHContent/themes/themeTWO/scripts/rs-plugin/js/jquery.themepunch.revolution.min.js');
-      loadScript('OPHContent/themes/themeTWO/scripts/owl-carousel/owl.carousel.js');
       loadScript('OPHContent/themes/themeTWO/scripts/selectbox/jquery.selectbox-0.1.3.min.js');
       loadScript('OPHContent/themes/themeTWO/scripts/countdown/jquery.syotimer.js');
-      loadScript('OPHContent/themes/themeTWO/scripts/js/custom.js');
       loadScript('OPHContent/themes/themeTWO/scripts/custom-me.js');-->
 
+      loadScript('OPHContent/themes/themeTWO/scripts/bootstrap/js/bootstrap.min.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/owl-carousel/owl.carousel.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/js/custom.js');
 
       if (getQueryVariable("GUID") != undefined &amp;&amp; getQueryVariable("GUID")){
         if(getQueryVariable("code").toLowerCase() == "tapcs1"){

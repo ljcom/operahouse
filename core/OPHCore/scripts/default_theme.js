@@ -3839,7 +3839,8 @@ function executeFunction(code, GUID, action, location) {
         $.post(path, function (data) {
             var msg = $(data).find('message').text();
             if (msg == '' || msg == 'Approval Succesfully') {
-                if (location == 1) {
+                //location: 0 header; 1 child; 2 browse 
+                if ($("#tr1_" + code + GUID) && location!='2' && action=="delete") {
                     $("#tr1_" + code + GUID).remove();
                     $("#tr2_" + code + GUID).remove();
                 }
@@ -4165,4 +4166,22 @@ var fullDateString = new Date();
 //});
 function goHome() {
     window.location = 'index.aspx?env=' + getQueryVariable('env');
+}
+
+function show_aprvList(guid) {
+    try {
+        var a = document.getElementById('more-aprv' + guid)
+        var l = document.getElementById('aprv-list' + guid)
+
+        if (l.style.display === 'none') {
+            l.style.display = 'block';
+            a.innerHTML = 'Hide Approval List';
+        } else {
+            l.style.display = 'none';
+            a.innerHTML = 'Show Approval List';
+        }
+    }
+    catch (e) {
+
+    }
 }
