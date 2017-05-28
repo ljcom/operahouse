@@ -75,7 +75,7 @@ Partial Class OPHCore_API_default
         Select Case mode
             Case "master"
                 Dim stateid = getQueryVar("stateid")
-                sqlstr = "exec [api].[theme] '" & contentOfaccountId & "', '" & DBCore & "', " & curHostGUID & ", '" & code & "', " & GUID & ", '" & Session("env") & "'"
+                sqlstr = "exec [api].[theme] '" & contentOfaccountId & "', '" & DBCore & "', " & curHostGUID & ", '" & code & "', " & GUID
             Case "browse"
                 Dim sqlfilter = getQueryVar("sqlFilter")
                 Dim sortOrder = getQueryVar("sortOrder")
