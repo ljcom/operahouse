@@ -44,7 +44,7 @@
       <div class="productBox">
         <div class="productImage clearfix">
           <div style="height:250px; text-align:center">
-            <img style="max-height:200px;  width: auto;" src="{$imageprod}" alt="products-img" class="productgridimage"/>
+            <img style="max-height:200px;  width: auto;" src="{$imageprod}" onerror="this.src='ophcontent/themes/themeTWO/images/white.png'" alt="products-img" class="productgridimage"/>
           </div>
           <div class="productMasking">
             <ul class="list-inline btn-group" role="group" style="text-align:center">
@@ -104,6 +104,12 @@
                   <span style="font-size:12px; color:white; padding:5px; margin-top:-30px !important; margin-left:10px; background:#47bac1;"><xsl:value-of select="fields/field[@caption = 'discount']/." />%</span><br />
                 </span>
               </xsl:when>
+              <!--<xsl:when test="(fields/field[@caption = 'discount']/.)!= '0'">
+                <span style="text-decoration:line-through; font-size:12px;">Rp. <xsl:value-of select="format-number(fields/field[@caption = 'price']/., '#,##0', 'dot-dec')" /></span><br />
+                 <span style="font-size:20px; ">
+                  Rp. <xsl:value-of select="format-number(fields/field[@caption = 'priceDiscount']/., '#,##0', 'dot-dec')" />
+                </span>
+              </xsl:when>-->
               <xsl:otherwise>
                 <span style="font-size:20px;">Rp. <xsl:value-of select="format-number(fields/field[@caption = 'price']/., '#,##0', 'dot-dec')" /></span><br />
               </xsl:otherwise>

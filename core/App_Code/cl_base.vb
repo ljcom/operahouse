@@ -157,7 +157,8 @@ Public Class cl_base
     Sub reloadURL(url As String)
         Dim x = Request.ApplicationPath
         writeLog(x)
-        Dim newURL = url.Replace(Request.ApplicationPath, "").Replace("/", "").Replace("?", "").Replace("index.aspx", "")
+        writeLog(url)
+        Dim newURL = url.Replace(x, "").Replace("/", "").Replace("?", "").Replace("index.aspx", "")
 
         Dim par = newURL.Split("&")
         Dim env As String = "", code As String = "", guid As String = "", otherpars As String = ""

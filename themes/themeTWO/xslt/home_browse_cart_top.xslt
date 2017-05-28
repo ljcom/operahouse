@@ -75,7 +75,7 @@
       <a href="?code=maprodfron&amp;GUID={fields/field[@caption = 'EVENPSKUGUID']/.}">
         <div class="media">
           <div style="height:50px; width:50px; float:left; margin-right:10px; overflow:hidden; text-align:center; background:white; border:2px solid #37acb2; ">
-            <img style="max-height:35px; margin-top:5px; width: auto;" src="OPHContent/documents/{/sqroot/header/info/account/.}/{fields/field[@caption = 'productphotos']}" alt="products-img" />
+            <img style="max-height:35px; margin-top:5px; width: auto;" src="OPHContent/documents/{/sqroot/header/info/account/.}/{fields/field[@caption = 'productphotos']}" onerror="this.src='ophcontent/themes/themeTWO/images/white.png'" alt="products-img" />
           </div>
           <div class="media-body">
             <h5 class="media-heading itemincart" style="width:200px; overflow-wrap: break-word;">

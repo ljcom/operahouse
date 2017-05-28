@@ -16,7 +16,7 @@
     <jsFile>OPHContent/themes/themeTWO/scripts/rs-plugin/js/jquery.themepunch.revolution.min.js</jsFile>
     <jsFile>OPHContent/themes/themeTWO/scripts/selectbox/jquery.selectbox-0.1.3.min.js</jsFile>
     <jsFile>OPHContent/themes/themeTWO/scripts/countdown/jquery.syotimer.js</jsFile>
-
+    <jsFile>OPHContent/themes/themeTWO/scripts/lazyload/lazyload.js</jsFile>
     <jsFile>OPHContent/themes/themeTWO/scripts/custom-me.js</jsFile>
 
   </manifest>

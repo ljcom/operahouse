@@ -9,7 +9,7 @@ Public Class cl_base_view
     Function writeXMLFromRequestForm(root As String, Optional fieldattachment As List(Of String) = Nothing, Optional GUID As String = "", Optional code As String = "") As String
         Dim info = "<" & root & ">#element#</" & root & ">"
         Dim theDate As DateTime = DateTime.Now
-        Dim szFilename = Year(theDate) & "\" & Month(theDate)
+        Dim szFilename = Year(theDate) & "/" & Month(theDate)
 
         For x = 0 To Request.Form.Count - 1
             Dim colName As String = Request.Form.Keys(x)
@@ -20,9 +20,9 @@ Public Class cl_base_view
             If ix > 0 Then colName = Left(colName, ix)
 
             If fieldattachment.Contains(Request.Form.Keys(x)) Then
-                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & code & "_" & colName & "\" & szFilename & "\" & GUID & "_" & Request.Form(x).Replace("'", "''").Replace("NULL", "") & "</value></field>#element#")
+                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & code & "_" & colName & "/" & szFilename & "/" & GUID & "_" & Request.Form(x).Replace("'", "''").Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
             Else
-                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & Request.Form(x).Replace("'", "''").Replace("NULL", "") & "</value></field>#element#")
+                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & Request.Form(x).Replace("'", "''").Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
             End If
         Next
         info = info.Replace("#element#", "")

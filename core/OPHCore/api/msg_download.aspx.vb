@@ -46,7 +46,7 @@ Partial Class OPHCore_api_msg_download
             path = path
             If dt.Tables(0).Rows.Count > 0 Then
                 Dim filename = dt.Tables(0).Rows(0)(fieldAttachment).ToString()
-                Dim revfilename = StrReverse(filename)
+                Dim revfilename = StrReverse(filename).Replace("/", "\")
                 Dim lengthfile = revfilename.IndexOf("\")
                 path = path & Left(filename, Len(filename) - lengthfile)
                 filename = Right(filename, lengthfile)

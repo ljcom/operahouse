@@ -13,7 +13,7 @@
     <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
       <span style="margin-right:5px; font-size:18px;">
         <ix class="fa fa-shopping-cart">
-          <span id="totalcart" style="position:absolute; top:2px; background:red; left:30px; font-size:10px; width:10px; text-align:center; padding:2px;">0</span>
+          <span id="totalcart" style="position:absolute; top:2px; background:red; left:30px; font-size:10px; width:10px; text-align:center; padding:2px; display:none;">0</span>
         </ix>
         
       </span>
@@ -66,8 +66,10 @@
             }
             var totalrows = '<xsl:value-of select="sqroot/body/bodyContent/browse/info/TotalRows/." />';
             if (totalrows != '0') {
+            $('#totalcart').css('display', 'block');
             document.getElementById("totalcart").innerHTML = totalrows;
             }
+            else {$('#totalcart').css('display', 'none');}
           </script>
           <!--<button type="button" class="btn btn-default" onclick="location.href='index.aspx?env=front&amp;code=pcs1=GUID={sqroot/body/bodyContent/browse/content/row[@GUID]}';">Shopping Cart</button>
         <button type="button" class="btn btn-default" onclick="location.href='checkout-step-1.html';">Checkout</button>-->

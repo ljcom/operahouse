@@ -32,7 +32,7 @@
           <div class="productImage clearfix">
             <a href="single-product.html">
               <div style="height:150px; text-align:center;">
-                <img style="max-height:130px;; width:auto; margin:0 auto;" src="{fields/field[@caption = 'productphotos']/.}" alt="Image" />
+                <img style="max-height:130px;; width:auto; margin:0 auto;" src="{fields/field[@caption = 'productphotos']/.}" onerror="this.src='ophcontent/themes/themeTWO/images/white.png'" alt="Image" />
               </div>
             </a>
             <div class="productMasking">

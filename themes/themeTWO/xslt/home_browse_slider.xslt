@@ -12,7 +12,7 @@
   
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
    <li data-transition="slidehorizontal" data-slotamount="5" data-masterspeed="700"  data-title="Slide 3" class="homeslider" style="display:none;">
-      <img src="{fields/field[@caption = 'Attachment']/.}" alt="slidebg1" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
+      <img src="{fields/field[@caption = 'Attachment']/.}" onerror="this.src='ophcontent/themes/themeTWO/images/white.png'" alt="slidebg1" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
       <div class="slider-caption slider-captionV4">
         <div class="tp-caption rs-caption-3 sft"
           data-hoffset="0"
@@ -59,7 +59,7 @@
       <div class="slide">
         <div class="productImage" style="background:#F1E39A">
           <div style="width:100px; height:100px;">
-            <img src="{pageURL/.}" />
+            <img src="{pageURL/.}" onerror="this.src='ophcontent/themes/themeTWO/images/white.png'" />
           </div>
         </div>
         <div class="productCaption clearfix text-right">
