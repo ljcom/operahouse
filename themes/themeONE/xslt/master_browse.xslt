@@ -48,23 +48,17 @@
       <script>
         addpagenumber('pagenumbers', '<xsl:value-of select ="sqroot/body/bodyContent/browse/info/pageNo"/>', '<xsl:value-of select ="sqroot/body/bodyContent/browse/info/nbPages"/>')
         addpagenumber('mobilepagenumbers', '<xsl:value-of select ="sqroot/body/bodyContent/browse/info/pageNo"/>', '<xsl:value-of select ="sqroot/body/bodyContent/browse/info/nbPages"/>')
-
       </script>
-
 
       <div class="col-md-12 full-width-a">
         <div class="box-header full-width-a">
-          <!-- <h3 class="box-title title-browse">On Approval<span class="caret"></span> </h3> -->
-
           <div class=" browse-dropdown-status">
-
             <div class="dropdown">
               <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" >
                 <xsl:value-of select="translate(sqroot/body/bodyContent/browse/info/curState/@substateName, $smallcase, $uppercase)"/>
                 &#160;
                 <span class="caret"></span>
               </button>
-
               <ul class="dropdown-menu browse-dropdown-content">
                 <xsl:apply-templates select="sqroot/body/bodyContent/browse/info/states/state/substate" />
               </ul>
@@ -72,8 +66,7 @@
           </div>
           <div class="box-tools">
             <!-- <button type="button" class="btn btn-info btn-lg" style="background:#ccc; border:none;">CLEAR</button> -->
-            <!-- 
-                <button type="button" class="btn btn-info btn-lg" style="background:orange; border:none;">DONE</button> -->
+            <!-- <button type="button" class="btn btn-info btn-lg" style="background:orange; border:none;">DONE</button> -->
             <button type="button" style="margin-top:10px;" class="btn btn-orange-a" id="newdoc" onclick="window.location='?code={sqroot/header/info/code/id}&amp;guid=00000000-0000-0000-0000-000000000000'">
               NEW <span class="visible-phone">DOCUMENT</span>
             </button>
@@ -102,7 +95,6 @@
             <table class="table table-condensed strip-table-browse browse-table-an" style="border-collapse:collapse; margin:auto;">
               <thead>
                 <tr>
-                  <!--th width="30"></th-->
                   <xsl:apply-templates select="sqroot/body/bodyContent/browse/header/column[@mandatory=1]" />
                   <th>SUMMARY</th>
                   <xsl:if test="/sqroot/header/info/code/settingMode='T'">
@@ -110,10 +102,8 @@
                       <xsl:apply-templates select="sqroot/body/bodyContent/browse/header/column[@docStatus=1]" />&#160;
                     </th>
                   </xsl:if>
-                  <th width="10">
-                    ACTION&#160;
-                    <!--
-                      <xsl:if test="/sqroot/header/info/code/settingMode!='M'">
+                  <th width="10">ACTION&#160;
+                      <!--<xsl:if test="/sqroot/header/info/code/settingMode!='M'">
                         <xsl:if test="$state &lt; 400">
                           <a href="#">
                             <ix class="fa fa-check" title="Approve All"></ix>
@@ -129,8 +119,7 @@
                         <a href="#">
                           <ix class="fa fa-trash" title="Delete All"></ix>
                         </a>
-                      </xsl:if>
-                      -->
+                      </xsl:if>-->
                   </th>
                 </tr>
               </thead>
@@ -167,12 +156,10 @@
 
                 </xsl:otherwise>
               </xsl:choose>
-
             </table>
             <!-- /.box-body -->
             <div class="box-footer clearfix">
-              <ul class="pagination pagination-sm no-margin pull-right" id="pagenumbers">
-              </ul>
+              <ul class="pagination pagination-sm no-margin pull-right" id="pagenumbers"></ul>
             </div>
           </div>
           <!-- /.box -->
@@ -182,13 +169,11 @@
       <!-- browse for pc/laptop -->
 
       <!-- browse for phone/tablet max width 768 -->
-
       <div class="row displayblock-phone">
         <div class="col-md-12 full-width-a">
           <div class="box box-solid" style="width:100%;">
             <div class="box-body full-width-a">
               <div class="box-group" id="accordion">
-
                 <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
                 <xsl:if test="sqroot/body/bodyContent/browse/info/permission/allowBrowse/.=0">
                   <div class="alert alert-warning" align="center">
@@ -198,27 +183,7 @@
               </div>
             </div>
             <div class="box-footer clearfix">
-              <ul class="pagination pagination-sm no-margin pull-right" id="mobilepagenumbers">
-                &#160;
-              </ul>
-
-              <!--<ul class="pagination pagination-sm no-margin pull-right">
-                <li>
-                  <a href="#">&#171;</a>
-                </li>
-                <li>
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">&#187;</a>
-                </li>
-              </ul>-->
+              <ul class="pagination pagination-sm no-margin pull-right" id="mobilepagenumbers"></ul>
             </div>
             <!-- /.box-body -->
           </div>
@@ -295,10 +260,10 @@
         </table>
       </td>
 
-      <script>
+      <!--<script>
         //put before mandatory section
         fillMobileItem('<xsl:value-of select="@code"/>', '<xsl:value-of select="@GUID" />', '<xsl:value-of select="$state" />', '<xsl:value-of select="@edit" />', '<xsl:value-of select="@delete" />', '<xsl:value-of select="@wipe" />', '<xsl:value-of select="@force" />');
-      </script>
+      </script>-->
 
       <xsl:if test="/sqroot/header/info/code/settingMode='T'">
         <td class="expand-td" style="text-align:center" data-toggle="collapse" data-target="#{@GUID}" data-parent="#{@GUID}">
@@ -316,17 +281,19 @@
         <xsl:if test="/sqroot/header/info/code/settingMode='T'">
           <xsl:choose>
             <xsl:when test="$state &lt; 400">
-              <a href="javascript:btn_function('{@code}', '{@GUID}', 'execute', '{$pageNo}', 2)">
+              <!--location: 0 header; 1 child; 2 browse
+              location: browse:10, header form:20, browse anak:30, browse form:40-->
+              <a href="javascript:btn_function('{@code}', '{@GUID}', 'execute', '{$pageNo}', 10)">
                 <ix class="fa fa-check" title="Approve"></ix>
               </a>
             </xsl:when>
             <xsl:when test="@force=1 and $state &lt; 500">
-              <a href="javascript:btn_function('{@code}', '{@GUID}', 'force', '{$pageNo}', 2)">
+              <a href="javascript:btn_function('{@code}', '{@GUID}', 'force', '{$pageNo}', 10)">
                 <ix class="fa fa-archive" title="Close"></ix>
               </a>
             </xsl:when>
             <xsl:when test="@force=1 and $state &lt; 600">
-              <a href="javascript:btn_function('{@code}', '{@GUID}', 'reopen', '{$pageNo}', 2)">
+              <a href="javascript:btn_function('{@code}', '{@GUID}', 'reopen', '{$pageNo}', 10)">
                 <ix class="fa fa-undo" title="Reopen"></ix>
               </a>
             </xsl:when>
@@ -337,21 +304,21 @@
         <xsl:choose>
           <!--allow delete-->
           <xsl:when test="@onOff=1 and @delete=1 and $state &lt; 500">
-            <a href="javascript:btn_function('{@code}', '{@GUID}', 'inactivate', '{$pageNo}', 2)">
+            <a href="javascript:btn_function('{@code}', '{@GUID}', 'inactivate', '{$pageNo}', 10)">
               <ix class="fa fa-toggle-off" title="Inactive"></ix>
             </a>
           </xsl:when>
           <xsl:when test="@onOff=0 and @delete=1 and $state &lt; 500">
-            <a href="javascript:btn_function('{@code}', '{@GUID}', 'delete', '{$pageNo}', 2)">
+            <a href="javascript:btn_function('{@code}', '{@GUID}', 'delete', '{$pageNo}', 10)">
               <ix class="fa fa-trash" title="Delete"></ix>
             </a>
           </xsl:when>
           <xsl:when test="$state = 999">
-            <a href="javascript:btn_function('{@code}', '{@GUID}', 'restore', '{$pageNo}', 2)">
+            <a href="javascript:btn_function('{@code}', '{@GUID}', 'restore', '{$pageNo}', 10)">
               <ix class="fa fa-toggle-on" title="Reactivate"></ix>
             </a>
             <xsl:if test="@wipe=1">
-              <a href="javascript:btn_function('{@code}', '{@GUID}', 'wipe', '{$pageNo}', 2)">
+              <a href="javascript:btn_function('{@code}', '{@GUID}', 'wipe', '{$pageNo}', 10)">
                 <ix class="fa fa-trash" title="Delete"></ix>
               </a>
             </xsl:if>
@@ -381,7 +348,7 @@
         <!--edit things-->
         <xsl:choose>
           <xsl:when test="$state &lt; 999">
-            <a id="edit_{@GUID}" href="javascript:btn_function('{@code}', '{@GUID}', 'formView', '{$pageNo}', 2)">
+            <a id="edit_{@GUID}" href="javascript:btn_function('{@code}', '{@GUID}', 'formView', '{$pageNo}', 10)">
               <ix class="fa fa-pencil" title="Edit"></ix>
             </a>
           </xsl:when>

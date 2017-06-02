@@ -209,7 +209,7 @@
                   <!--<span style="color:white">Act as :</span>-->
                   <a href="ophcore/api/default.aspx?mode=signout">
                     <span>
-                      <ix class="fa fa-user"></ix>
+                      <ix class="fa fa-power-off"></ix>
                     </span> Sign out
                   </a>
                 </li>
@@ -284,11 +284,56 @@ _________________________________________________________ -->
     </aside>
     <!-- Content Wrapper. Contains page content -->
     <div id="contentWrapper" class="content-wrapper" style="background:white">
-      <div style="padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px">
-        <span>
-          <ix class="fa fa-binoculars pull-left"></ix>
-        </span> Sorry! Page not found. Click here to <a href="?">Main</a>
-      </div>
+      <section class="content-header">
+        <h1>
+          404 Error Page
+        </h1>
+        <ol class="breadcrumb">
+          <li>
+            <a href="#">
+              <ix class="fa fa-dashboard"></ix> Home
+            </a>
+          </li>
+          <li>
+            <a href="#">Examples</a>
+          </li>
+          <li class="active">404 error</li>
+        </ol>
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="error-page">
+          <h2 class="headline text-yellow"> 404</h2>
+
+          <div class="error-content">
+            <h3>
+              <span><ix class="fa fa-warning text-yellow"></ix>
+              </span> Oops! Page not found.
+            </h3>
+
+            <p>
+              We could not find the page you were looking for.
+              Meanwhile, you may <a href="javascript:goHome()">return to dashboard</a> or try using the search form.
+            </p>
+
+            <form class="search-form">
+              <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search"/>
+
+                  <div class="input-group-btn">
+                    <button type="submit" name="submit" class="btn btn-warning btn-flat">
+                      <ix class="fa fa-search"></ix>
+                    </button>
+                  </div>
+                </div>
+              <!-- /.input-group -->
+            </form>
+          </div>
+          <!-- /.error-content -->
+        </div>
+        <!-- /.error-page -->
+      </section>
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">

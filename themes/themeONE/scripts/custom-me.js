@@ -1,4 +1,6 @@
 
+
+
 function LoadNewPart(filename, id, code, sqlfilter, searchText, bpageno, showpage, sortOrder) {
     if (filename == 'product') {
         filename = filename + '_' + getCookie('browsetype');
@@ -18,6 +20,7 @@ function LoadNewPart(filename, id, code, sqlfilter, searchText, bpageno, showpag
     });
 }
 function saveThemeONE(code, guid, location, formId) {
+    //location: browse:10, header form:20, browse anak:30, browse form:40
 
     saveFunction(code, guid, location, formId, function (data) {
         var msg = $(data).children().find("message").text();
@@ -25,43 +28,48 @@ function saveThemeONE(code, guid, location, formId) {
         //if (retguid == "" && isGuid(msg)) {
         //    retguid = msg;
         //}
-        if (location == 1) {
-            var pkfield = document.getElementById("PKSAVE" + code).value;
+        //location: browse:10, header form:20, browse anak:30, browse form:40
+        if (location == 40) {
+            //var pkfield = document.getElementById("PKSAVE" + code).value;
             var pkvalue = document.getElementById("PK" + code).value;
             var parentkey = document.getElementById("PKID").value.split('child').join('');
+            var pkey = $('#parent' + code).val();
         }
-        if (retguid != "" && retguid != guid && location == 0) window.location = 'index.aspx?env=back&code=' + getCode() + '&guid=' + retguid;
-        else if (retguid != "" && retguid != guid && location == 1) {
-            xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=browse&sqlFilter=" + pkfield + "='" + pkvalue + "'";
+        //insert new form
+        if (retguid != "" && retguid != guid && location == 20) window.location = 'index.aspx?env=back&code=' + getCode() + '&guid=' + retguid;
+            //insert child
+        else if (retguid != "" && retguid != guid && location == 40) {
+            //xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=browse&sqlFilter=" + pkey + "='" + pkvalue + "'";
             preview(1, code, guid, formId + code);
             //showXML(pkid, xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () { });
-            loadChild(code, pkfield, pkvalue, 1)
+            loadChild(code, pkey, pkvalue, 1)
 
         }
         else if (msg != "") {
             //compatible with load version
-            if (isGuid(msg) && location == 0) {
+
+            if (isGuid(msg) && location == 20) {
                 window.location = 'index.aspx?env=back&code=' + getCode() + '&guid=' + msg;
             }
                 //compatible with load version
-            else if (isGuid(msg) && location == 1) {
-                xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=browse&sqlFilter=" + pkfield + "='" + pkvalue + "'";
+            else if (isGuid(msg) && location == 40) {
+                //xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=browse&sqlFilter=" + pkey + "='" + pkvalue + "'";
                 preview(1, code, msg, formId + code);
                 //showXML(pkid, xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () { });
-                loadChild(code, pkfield, pkvalue, 1)
+                loadChild(code, pkey, pkvalue, 1)
             }
             else {
                 showMessage(msg);
             }
         }
         else {
-            if (location == 0) {
+            if (location == 20) {
                 //location.reload();
                 saveConfirm();
             } else {
-                xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=browse&sqlFilter=" + pkfield + "='" + pkvalue + "'";
+                //xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=browse&sqlFilter=" + pkfield + "='" + pkvalue + "'";
                 //showXML(pkid, xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () { });
-                loadChild(code, pkfield, pkvalue, 1)
+                loadChild(code, pkey, pkvalue, 1)
             }
         }
 
@@ -92,7 +100,7 @@ function fillMobileItem(code, guid, Status, allowedit, allowDelete, allowWipe, a
     x = x.replace('#a2#', '<a href="#" style="color:white; text-decoration:underline">see more</a><br /><br /><b>LAST COMMENT</b><br />WAIT FOR USER3<br /><br /><b>REQUESTED ON</b><br />ESRA MARTLIANTY (3 JAN 2016) <br /><a href="#a4#" title="edit" style="position:absolute; top:10px; right:10px; font-size:17px; color:white;">#ix#</a>');
     if (allowedit == 1) {
         x = x.replace('#ix#', '<ix class="fa fa-pencil"></ix>');
-        x = x.replace('#a4#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'formView\', 1, 2)');
+        x = x.replace('#a4#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'formView\', 1, 10)');
     }
     else {
         x = x.replace('#ix#', '<ix class="fa fa-pencil" style="color:LightGray"></ix>');
@@ -164,3 +172,10 @@ function addpagenumber(pageid, currentpage, totalpages) {
         $('#' + pageid).html(result);
     }
 }
+function timeIsUp()
+{
+    //lastPar = window.location;
+    //setCookie('lastPar', lastPar);
+    window.location = 'index.aspx?env=acct&code=lockscreen';
+}
+setTimeout(function () { timeIsUp(); }, 1000 * 60 * 60);

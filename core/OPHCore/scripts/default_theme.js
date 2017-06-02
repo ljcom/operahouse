@@ -2346,7 +2346,7 @@ function doSubViewFunction(functiontext, caption, strGUID, needConfirm, subBrows
             document.forms(0).submit();
         }
     }
-    //if not valid show message
+        //if not valid show message
     else {
         confirmed = 0;
         showMessage(validation);
@@ -3733,14 +3733,18 @@ function preview(flag, code, GUID, formid, t) {
 }
 
 function btn_function(code, GUID, action, page, location, formId, afterSuccess) {
+    //location: 0 header; 1 child; 2 browse 
+    //location: browse:10, header form:20, browse anak:30, browse form:40
+
     var pg = (page == "" || isNaN(page)) ? 0 : parseInt(page);
 
-    if (location == undefined || location == "") { location = 0 }
+    if (location == undefined || location == "") { location = 20 }
 
     if (action == "formView") {
         loadForm(code, GUID);
     } else if (action == "save") {
         //location: 0 header; 1 child; 2 browse 
+        //location: browse:10, header form:20, browse anak:30, browse form:40
         saveFunction(code, GUID, location, formId, afterSuccess);
     } else {
         executeFunction(code, GUID, action, location);
@@ -3807,6 +3811,7 @@ function btn_useractive(code, GUID, action, page) {
 //    }
 //}
 function executeFunction(code, GUID, action, location) {
+    //location: browse:10, header form:20, browse anak:30, browse form:40
     var successmsg = ''
     var isAction = 1;
 
@@ -3833,19 +3838,26 @@ function executeFunction(code, GUID, action, location) {
 
     var path = 'OPHCore/api/default.aspx?code=' + code + '&mode=function&cfunction=' + action + '&cfunctionlist=' + GUID + '&comment&unique=' + getUnique()
 
-    if (location == undefined || location == "") { location = 0 }
+    if (location == undefined || location == "") { location = 20 }
+    //location: 0 header; 1 child; 2 browse 
+    //location: browse:10, header form:20, browse anak:30, browse form:40
 
     if (isAction == 1) {
         $.post(path, function (data) {
             var msg = $(data).find('message').text();
             if (msg == '' || msg == 'Approval Succesfully') {
                 //location: 0 header; 1 child; 2 browse 
-                if ($("#tr1_" + code + GUID) && location!='2' && action=="delete") {
+                //location: browse:10, header form:20, browse anak:30, browse form:40
+                //if ($("#tr1_" + code + GUID) && location != '10' && action == "delete") {
+                if (action == "delete" && (location == 30 || location == 40)) {
                     $("#tr1_" + code + GUID).remove();
                     $("#tr2_" + code + GUID).remove();
                 }
                 else {
-                    if (action = 'delete' && location == 0) {
+                    if (action = 'delete' && location == 20) {
+                        //location: 0 header; 1 child; 2 browse 
+                        //location: browse:10, header form:20, browse anak:30, browse form:40
+
                         window.location = 'index.aspx?code=' + getQueryVariable("code");
                     }
                     else {
@@ -4142,7 +4154,7 @@ function signOut(f) {
     $.post(path).done(function () {
         setCookie("cartID", "", 0, 0, 0);
         setCookie("isLogin", "0", 0, 1, 0);
-        if (typeof f == "function") f();        
+        if (typeof f == "function") f();
         goHome()
     });
 

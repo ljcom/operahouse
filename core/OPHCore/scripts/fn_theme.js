@@ -1,9 +1,10 @@
 ﻿/*xml*/
 function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
     var req = [];
-    req.push($.ajax(xmldoc));
+    req.push($.ajax({ url: xmldoc, error: function () { } }));
+    //$.ajax({ url: 'somefile.dat', type: 'HEAD', error: do_something });
     xltdoc.forEach(function (item, index) {
-        req.push($.ajax(item))
+        req.push($.ajax({ url: item, error: function () {alert('x') } }))
     })
     var callback = function (divnm, xml, xsl) {
         // code for IE
@@ -43,9 +44,9 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
                 var cleanedT = stripScript(ex);
                 document.getElementById(divnm).innerHTML = cleanedT;
                 ExecuteScript(ex, true);
-
             }
         }
+        if (typeof f == "function") f();
     }
 
     $.when.apply(this, req).then(function (xml, xsl1, xsl2, xsl3, xsl4, xsl5) {

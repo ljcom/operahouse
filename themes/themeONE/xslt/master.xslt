@@ -5,7 +5,14 @@
 
   <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
-
+  <xsl:variable name="nbAccountMenu">
+    <xsl:choose>
+      <xsl:when test="count(sqroot/header/menus/menu[@code='primaryback']/submenus/submenu)>0">
+        <xsl:value-of select="12 div count(sqroot/header/menus/menu[@code='primaryback']/submenus/submenu)" />
+      </xsl:when>
+      <xsl:otherwise>0</xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
   <xsl:template match="/">
     <div style="display:none" id="pageName">&#xA0;</div>
     <div style="display:none" id="themeName">&#xA0;</div>
@@ -55,6 +62,7 @@
 
       resetBrowseCookies();
       loadContent(1);
+      
     </script>
     <!-- Page script -->
 
@@ -114,48 +122,73 @@
             <div class="collapse top-menu-div" id="right-menu-phone"
             style="color:white; position:absolute; background:#222D32; z-index:90; width:100%; right:0px; top:50px; ">
               <ul>
-                <xsl:apply-templates select="sqroot/header/menus/menu[@code='primaryback']/submenus/submenu" />
               </ul>
             </div>
             <!-- Dashboard -->
-
-            <xsl:if test="count(sqroot/header/info/user/userName)=0">
-              <li>
-                <a href="#" data-toggle="modal" data-target="#login-modal">
-                  <span>
-                    <ix class="fa fa-sign-in"></ix>&#160;
-                  </span>
-                  <span>Sign in</span>
-                </a>
-              </li>
-            </xsl:if>
-
-            <li class="dropdown messages-menu visible-phone" style="margin-right:20px;">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="User Setting">
-                Welcome, <b>
-                  <xsl:value-of select="sqroot/header/info/user/userName" />
-                </b><span style="margin-right:10px;"></span>&#160;<ix class="fa fa-user"></ix>
-                <!-- <span class="label label-success">4</span> -->
-              </a>
-              <ul class="dropdown-menu" style="border:none; border-radius:0px;" id="dropdown-top">
-                <!-- <li class="header" style="background:#367FAA; color:white; text-align:right; border-radius:0; padding:10px 10px;">Welcome, <b>Administrator</b></li>
-              <li> -->
-                <!-- inner menu: contains the actual data -->
-                <ul class="user-setting-menu" id="right-menu-phone1">
-                  <xsl:apply-templates select="sqroot/header/menus/menu[@code='primaryback']/submenus/submenu" />
-                  <li>
-                    <!-- start message -->
-                    <!--<span style="color:white">Act as :</span>-->
-                    <a href="javascript:signOut()">
-                      <span>
-                        <ix class="fa fa-user"></ix>
-                      </span> Sign out
-                    </a>
-                  </li>
-                  <!--<xsl:apply-templates select="sqroot/header/menus/menu[@code='primary']" />-->
-                </ul>
-              </ul>
-            </li>
+            <xsl:choose>
+              <xsl:when test="sqroot/header/info/user/userId=''">
+                <li>
+                  <a href="#" data-toggle="modal" data-target="#login-modal">
+                    <span>
+                      <ix class="fa fa-sign-in"></ix>&#160;
+                    </span>
+                    <span>Sign in</span>
+                  </a>
+                </li>
+              </xsl:when>
+              <xsl:otherwise>
+                <li class="dropdown user user-menu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <img src="OPHContent/themes/themeONE/images/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                    <span class="hidden-xs">
+                      <xsl:value-of select="sqroot/header/info/user/userName"/>
+                    </span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <!-- User image -->
+                    <li class="user-header">
+                      <img src="OPHContent/themes/themeONE/images/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                      <p>
+                        <xsl:value-of select="sqroot/header/info/user/userName"/> - Web Developer
+                        <small>Member since Nov. 2012</small>
+                      </p>
+                    </li>
+                      <!-- Menu Body -->
+                      <li class="user-body">
+                        <div class="row">
+                          <div class="col-xs-4 text-center">
+                            <a href="?code=dashboard">Dashboard</a>
+                          </div>
+                          <div class="col-xs-4 text-center">
+                            <a href="?env=acct">Account</a>
+                          </div>
+                          <div class="col-xs-4 text-center">
+                            <a href="?env=dev">Dev</a>
+                          </div>
+                        </div>
+                        <!-- /.row -->
+                      </li>
+                    <!-- Menu Footer-->
+                    <li class="user-footer">
+                      <div class="pull-left">
+                        <a href="?code=profile" class="btn btn-default btn-flat">
+                          <span>
+                            <ix class="fa fa-user"></ix>
+                          </span>&#160;Profile
+                        </a>
+                      </div>
+                      <div class="pull-right">
+                        <a href="javascript:signOut()" class="btn btn-default btn-flat">
+                          <span>
+                            <ix class="fa fa-power-off"></ix>
+                          </span>&#160;Sign out
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </xsl:otherwise>
+            </xsl:choose>
             <!-- Control Sidebar Toggle Button -->
 
           </ul>
@@ -243,7 +276,7 @@ _________________________________________________________ -->
       <!-- /.sidebar -->
     </aside>
     <!-- Content Wrapper. Contains page content -->
-    <div id="contentWrapper" class="content-wrapper" style="background:white">
+    <div id="contentWrapper" class="content-wrapper">
       <div style="padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px">
         <span>
           <ix class="fa fa-clock-o pull-left"></ix>
@@ -315,13 +348,12 @@ _________________________________________________________ -->
   </xsl:template>
 
   <xsl:template match="sqroot/header/menus/menu[@code='primaryback']/submenus/submenu">
-    <li>
+    <div class="col-xs-4 text-center">
       <a href="{pageURL/.}">
-        <xsl:value-of select="caption/." />
+        <xsl:value-of select="caption/." />&#160;
       </a>
-    </li>
+    </div>
   </xsl:template>
-
 
   <xsl:template match="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu">
     <div class="panel top-menu-onphone" style="border-radius:0; margin-top:0;">

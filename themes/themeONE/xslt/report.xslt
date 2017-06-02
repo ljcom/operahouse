@@ -137,7 +137,7 @@
                     <!--<span style="color:white">Act as :</span>-->
                     <a href="javascript:signOut()">
                       <span>
-                        <ix class="fa fa-user"></ix>
+                        <ix class="fa fa-power-off"></ix>
                       </span> Sign out
                     </a>
                   </li>

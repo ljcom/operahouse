@@ -67,18 +67,24 @@
       <div class="box" style="box-shadow:0px;border:none;">
         <div class="col-md-12" style="margin-bottom:50px;">
           <div style="text-align:left">
-            <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}',1);">SAVE</button>&#160;
+            <!--location: 0 header; 1 child; 2 browse
+              location: browse:10, header form:20, browse anak:30, browse form:40-->
+
+            <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}',40);">SAVE</button>&#160;
             <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm()">CANCEL</button>&#160;
             <xsl:if test="(/sqroot/body/bodyContent/form/info/GUID/.)!='00000000-0000-0000-0000-000000000000' or (/sqroot/body/bodyContent/form/info/permission/allowDelete/.)=1" >
               <button id="child_button_delete"  class="btn btn-gray-a"
-                      onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'delete', 1, 0)">DELETE</button>
+                      onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'delete', 1, 40)">DELETE</button>
+              <!--location: 0 header; 1 child; 2 browse
+              location: browse:10, header form:20, browse anak:30, browse form:40-->
+
             </xsl:if>
           </div>
         </div>
 
         <div class="col-md-12 displayblock-phone" style="margin-bottom:20px;">
           <div style="text-align:center">
-            <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}',1);">SAVE</button>&#160;
+            <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}',40);">SAVE</button>&#160;
             <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm()">CANCEL</button>
           </div>
         </div>
@@ -180,7 +186,7 @@
     </script>
     <input type="hidden" name ="{info/code/.}requiredname"/>
     <input type="hidden" name ="{info/code/.}requiredtblvalue"/>
-    <input type="hidden" id="PKSAVE{info/code/.}" value="{info/parentKey/.}"/>
+    <!--<input type="hidden" id="PKSAVE{info/code/.}" value="{info/parentKey/.}"/>-->
     <div class="col-md-12" id="child">
       <form role="form" id="form{info/code/.}">
         <!--<input type="hidden" name="mode" value="save"/>
@@ -271,6 +277,7 @@
       <xsl:apply-templates select="checkBox"/>
       <xsl:apply-templates select="autoSuggestBox"/>
       <xsl:apply-templates select="tokenBox"/>
+      <xsl:apply-templates select="radio"/>
     </div>
   </xsl:template>
 
@@ -288,6 +295,7 @@
       <xsl:apply-templates select="checkBox"/>
       <xsl:apply-templates select="autoSuggestBox"/>
       <xsl:apply-templates select="tokenBox"/>
+      <xsl:apply-templates select="radio"/>
     </div>
   </xsl:template>
 
@@ -301,9 +309,12 @@
       <xsl:if test="value=1">
         <xsl:attribute name="checked">checked</xsl:attribute>
       </xsl:if>
-      <xsl:if test="../@isEditable=0">
-        <xsl:attribute name="disabled">disabled</xsl:attribute>
-      </xsl:if>
+      <xsl:choose>
+        <xsl:when test ="../@isEditable=1 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. = '00000000-0000-0000-0000-000000000000'))"></xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="disabled">disabled</xsl:attribute>
+        </xsl:otherwise>
+      </xsl:choose>
     </input>
 
     <label id="{../@fieldName}caption">
@@ -319,7 +330,6 @@
   <xsl:template match="textBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
-
     </label>
     <!--digit-->
     <xsl:variable name="tbContent">
@@ -358,9 +368,13 @@
     </xsl:variable>
 
     <input type="text" class="form-control" Value="{$thisvalue}" name="{../@fieldName}" data-old="{value/.}" data-child="Y" onblur="preview('{preview/.}', 'sqroot/body/bodyContent/form/info/code/.', '{/sqroot/body/bodyContent/form/info/GUID/.}','formsqroot/body/bodyContent/form/info/code/.', this);" id ="{../@fieldName}">
-      <xsl:if test="../@isEditable=0">
-        <xsl:attribute name="disabled">disabled</xsl:attribute>
-      </xsl:if>
+      <xsl:choose>
+        <xsl:when test ="../@isEditable=1 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. = '00000000-0000-0000-0000-000000000000'))">
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="disabled">disabled</xsl:attribute>
+        </xsl:otherwise>
+      </xsl:choose>
     </input>
   </xsl:template>
 
@@ -375,9 +389,12 @@
       <input type="text" class="form-control pull-right datepicker" id ="{../@fieldName}" name="{../@fieldName}"
              data-old="{value}" Value="{value}" data-child="Y"
              onblur="preview('{preview/.}','{/sqroot/body/bodyContent/form/code/id}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/code/id}', this);" >
-        <xsl:if test="../@isEditable=0">
-          <xsl:attribute name="disabled">disabled</xsl:attribute>
-        </xsl:if>
+        <xsl:choose>
+          <xsl:when test ="../@isEditable=1 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. = '00000000-0000-0000-0000-000000000000'))"></xsl:when>
+          <xsl:otherwise>
+            <xsl:attribute name="disabled">disabled</xsl:attribute>
+          </xsl:otherwise>
+        </xsl:choose>
       </input>
     </div>
   </xsl:template>
@@ -424,9 +441,12 @@
     <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}"
             data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}" data-child="Y"
             onchange="preview('{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);">
-      <xsl:if test="../@isEditable=0">
-        <xsl:attribute name="disabled">disabled</xsl:attribute>
-      </xsl:if>
+      <xsl:choose>
+        <xsl:when test ="../@isEditable=1 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. = '00000000-0000-0000-0000-000000000000'))"></xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="disabled">disabled</xsl:attribute>
+        </xsl:otherwise>
+      </xsl:choose>
 
       <option value="NULL">-----Select-----</option>
     </select>
@@ -539,10 +559,74 @@
       data-key="{key}" data-id="{id}" data-name="{name}"
       name="{../@fieldName}" id ="{../@fieldName}">
 
-      <xsl:if test="../@isEditable=0">
-        <xsl:attribute name="disabled">disabled</xsl:attribute>
-      </xsl:if>
+      <xsl:choose>
+        <xsl:when test ="../@isEditable=1 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. = '00000000-0000-0000-0000-000000000000'))"></xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="disabled">disabled</xsl:attribute>
+        </xsl:otherwise>
+      </xsl:choose>
     </input>
+  </xsl:template>
+
+  <xsl:template match="radio">
+    <script>
+      function <xsl:value-of select="../@fieldName" />_hide(shownId) {
+      $('#accordion_<xsl:value-of select="../@fieldName" />').children().each(function(){
+      if ($(this).hasClass('in') &#38;&#38; this.id!=shownId) {
+      $(this).collapse('toggle');
+      }
+      });
+      }
+    </script>
+    <input type="hidden" id="{../@fieldName}" value="{value/.}" />
+    <div>
+      <label id="{../@fieldName}caption">
+        <xsl:value-of select="titlecaption"/>
+      </label>
+    </div>
+    <div class = "btn-group" data-toggle = "buttons">
+      <xsl:apply-templates select="radioSections/radioSection"/>
+    </div>
+    <xsl:if test="radioSections/radioSection/radioRows">
+      <div class="panel-body" id="accordion_{../@fieldName}" style="box-shadow:none;border:none;">
+        <xsl:for-each select="radioSections/radioSection">
+          <!--<xsl:if test="radioSections/radioSection/radioRows/radioRow">-->
+          <div id="panel_{../../../@fieldName}_{@radioNo}" class="box collapse" style="box-shadow:none;border:none;">
+            <xsl:apply-templates select="radioRows/radioRow/fields" />&#160;
+          </div>
+          <!--</xsl:if>-->
+        </xsl:for-each>
+      </div>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="radioSections/radioSection">
+    <label class="radio-inline">
+      <xsl:choose>
+        <xsl:when test="@fieldName=../../value/.">
+          <input type="radio" name="{../../../@fieldName}_radio" id="{../../../@fieldName}_radio_{@radioNo}" value="{@fieldName}" checked="checked" />
+          <script>
+            $('#panel_<xsl:value-of select="../../../@fieldName" />_<xsl:value-of select="@radioNo" />').collapse('show');
+          </script>
+        </xsl:when>
+        <xsl:otherwise>
+          <input type="radio" name="{../../../@fieldName}_radio" id="{../../../@fieldName}_radio_{@radioNo}" value="{@fieldName}" />
+        </xsl:otherwise>
+      </xsl:choose>
+      <xsl:value-of select="@radioRowTitle"/>
+    </label>
+    <script>
+      $('#<xsl:value-of select="../../../@fieldName" />_radio_<xsl:value-of select="@radioNo" />').click(function(){
+      <xsl:value-of select="../../../@fieldName" />_hide('panel_<xsl:value-of select="../../../@fieldName" />_<xsl:value-of select="@radioNo" />');
+      $('#panel_<xsl:value-of select="../../../@fieldName" />_<xsl:value-of select="@radioNo" />').collapse('show');
+      var x=$('input[name=<xsl:value-of select="../../../@fieldName" />_radio]:checked').val();
+      $('#<xsl:value-of select="../../../@fieldName" />').val(x);
+      });
+    </script>
+  </xsl:template>
+
+  <xsl:template match="radioRow/fields">
+    <xsl:apply-templates select="field" />
   </xsl:template>
 
   <xsl:template match="sqroot/body/bodyContent/form/children">
