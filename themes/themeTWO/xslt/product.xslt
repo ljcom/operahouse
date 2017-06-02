@@ -58,6 +58,7 @@
       setCookie("showpage", "21", 0, 1, 0);
       setCookie("bSearchText", "", 0, 1, 0);
       setCookie("sortOrder", "", 0, 1, 0);
+      setCookie("sortorder", "name asc", 0, 1, 0);
        changeColorMenuFront();
     </script>
     <!-- Page script -->
