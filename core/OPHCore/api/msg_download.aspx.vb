@@ -8,6 +8,8 @@ Partial Class OPHCore_api_msg_download
         loadAccount()
 
         Dim curODBC = contentOfdbODBC
+        Dim curHostGUID = Session("hostGUID")
+        Dim curUserGUID = Session("userGUID")
 
         Dim tGUID As String = getQueryVar("GUID")
         Dim code As String = getQueryVar("code")
@@ -30,7 +32,7 @@ Partial Class OPHCore_api_msg_download
         'Dim path As String = Server.MapPath(Session("DocumentFolder") & "\temp\").ToString
         'Else
         'Dim path As String = Session("document") & Session("documentFolder") & "/" & Left(code, 1) & "a" & Mid(code, 3, Len(code) - 2) & "_" & fieldAttachment & "/"
-        Dim hostguid = Session("hostguid")
+        'Dim hostguid = Session("hostguid")
         'sqlstr1 = "select infovalue from acctinfo a 	inner join acct b 		on a.accountguid=b.accountguid	inner join [user] d		on d.accountguid = b.AccountGUID	inner join userhost c 		on c.UserGUID = d.userguid where infokey='documentFolder' and c.hostguid='" & hostguid & "'"
 
         'Dim path As String = runSQLwithResult(sqlstr1)
@@ -55,7 +57,7 @@ Partial Class OPHCore_api_msg_download
             End If
         Else
                 Dim querysql As String = getQueryVar("querysql")
-            Dim sqlexec = "exec " & querysql & " '" & Session("hostGUID") & "', '" & tGUID & "' ,1"
+            Dim sqlexec = "exec " & querysql & " '" & curHostGUID & "', '" & tGUID & "' ,1"
             runSQL(sqlexec, con)
             Dim sqlTXT = "exec gen.downloadTXT '" & tGUID & "_" & code & "'"
             Dim dt = SelectSqlSrvRows(con, sqlTXT) 'hasil harus tXTFIle berupa filepath dan BLOB 

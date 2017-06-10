@@ -10,10 +10,13 @@
     <script>
       $("body").removeClass("skin-blue");
       $("body").addClass("lockscreen");
-      var lastPar=getCookie('lastPar');
+      //var lastPar=getCookie('lastPar');
       //if (lastPar=='') lastPar='index.aspx';
       //if (getCookie('lockScreen')=='1') window.location=lastPar;
-      setCookie('lockScreen',1);
+      //setCookie('lockScreen',1);
+      uid=getCookie('userId');
+      if(uid == undefined) window.location='index.aspx';
+
     </script>
     <!-- Automatic element centering -->
     <div class="lockscreen-wrapper">
@@ -34,14 +37,13 @@
       <div class="lockscreen-item">
         <!-- lockscreen image -->
         <div class="lockscreen-image">
-          <img src="OPHContent/themes/themeONE/images/user2-160x160.jpg" alt="User Image"/>
+          <img src="OPHContent/{sqroot/header/info/user/userURL}" alt="User Image"/>
         </div>
         <!-- /.lockscreen-image -->
 
         <!-- lockscreen credentials (contains the form) -->
         <div class="input-group">
           <form id="signInForm" class="lockscreen-credentials">
-            <input type="hidden" class="form-control" name ="userid" id ="userid" value="{sqroot/header/info/userId}"/>
             <input type="password" class="form-control" name ="pwd" id ="pwd" placeholder="password"/>
           </form>
           <div class="input-group-btn">

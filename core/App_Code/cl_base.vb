@@ -55,6 +55,8 @@ Public Class cl_base
     'Protected ExtraCombo(10) As String
     'Protected digitmode, languagemode As String
     Protected isOnDelegation As Boolean = False
+    Protected contentofHostGUID As String = ""
+    Protected contentofUserGUID As String = ""
 
 #Region "Properties Section"
     'Public Property headTitle() As String
@@ -158,7 +160,7 @@ Public Class cl_base
         Dim x = Request.ApplicationPath
         writeLog(x)
         writeLog(url)
-        Dim newURL = url.Replace(x, "").Replace("/", "").Replace("?", "").Replace("index.aspx", "")
+        Dim newURL = url.Substring(InStr(url, "?"))
 
         Dim par = newURL.Split("&")
         Dim env As String = "", code As String = "", guid As String = "", otherpars As String = ""
@@ -1356,7 +1358,7 @@ Public Class cl_base
 
 
 
-        Dim sqlstr = "select accountid from acctinfo a inner join acct b on a.accountguid=b.accountguid where infokey='address' and infovalue like '%" & x & "%'"
+        Dim sqlstr = "select accountid from acctinfo a inner join acct b on a.accountguid=b.accountguid where infokey='address' and lower(infovalue) like '%" & x.ToLower() & "%'"
         contentOfaccountId = runSQLwithResult(sqlstr, Session("sequoia"))
         'If accountid <> "" Then accountid = ConfigurationManager.AppSettings.Item("accountid")
 
@@ -1382,6 +1384,35 @@ Public Class cl_base
         contentOfsqDB = ret
         'End If
 
+        'prepare curHostGUID, curUserGUID
+        Dim hGUID = IIf(IsNothing(Response.Cookies("guestID").Value), Session("hostGUID"), Response.Cookies("guestID").Value)
+
+        If hGUID <> "" Then
+            sqlstr = "exec api.verifyhost '" & hGUID & "'"
+            Dim r = runSQLwithResult(sqlstr, contentOfdbODBC)
+            If r = 0 Then hGUID = ""
+            If r = 1 Then Session("userGUID") = ""
+        End If
+
+        If hGUID Is Nothing Or hGUID = "" Then
+            sqlstr = "exec gen.createGuestID '" & contentOfaccountId & "', '" & contentOfsqDB & "'"
+            hGUID = runSQLwithResult(sqlstr, contentOfdbODBC)
+            'Session("hostGUID") = hGUID
+            'Response.Cookies("hostGUID").Value = hGUID
+            'setCookie("hostGUID", hGUID, 7)
+            Session("hostGUID") = hGUID
+            'Else
+            'sqlstr = "exec api.verifyhost '" & hGUID & "'"
+            'Session("userGUID") = runSQLwithResult(sqlstr, contentOfdbODBC)
+            'If userGUID = "" And Not Session("hostGUID") Is Nothing Then
+            '    'Response.Cookies("lastPar").Value = Request.Url.PathAndQuery
+            '    Session("hostGUID") = Nothing
+            '    Response.Write("<script>window.location='" & Session("lastPar") & "';</script>")
+            '    Exit Sub
+            'End If
+        End If
+
+        Dim curHostGUID = "'" & Session("hostGUID") & "'"
         'Return accountid
     End Sub
     Sub writeLog(logMessage As String)

@@ -24,6 +24,86 @@
       </xsl:if>
 
       var deferreds = [];
+
+      $(function () {
+
+      <!--//Datemask dd/mm/yyyy--><!--
+    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+    --><!--//Datemask2 mm/dd/yyyy--><!--
+    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+    --><!--//Money Euro--><!--
+    $("[data-mask]").inputmask();
+
+    --><!--//Date range picker--><!--
+    $('#reservation').daterangepicker();
+    --><!--//Date range picker with time picker--><!--
+    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+    --><!--//Date range as a button--><!--
+    $('#daterange-btn').daterangepicker(
+        {
+          ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+          },
+          startDate: moment().subtract(29, 'days'),
+          endDate: moment()
+        },
+        function (start, end) {
+          $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+    );-->
+
+      <!--//Date picker-->
+      $('.datepicker').datepicker({
+      autoclose: true
+      });
+
+      $(".timepicker").timepicker({
+      minuteStep: 15,
+      template: 'modal',
+      appendWidgetTo: 'body',
+      showSeconds: false,
+      showMeridian: false,
+      defaultTime: false
+      });
+
+      <!--//iCheck for checkbox and radio inputs-->
+      $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+      checkboxClass: 'icheckbox_minimal-blue',
+      radioClass: 'iradio_minimal-blue'
+      });
+      <!--//Red color scheme for iCheck-->
+      $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+      checkboxClass: 'icheckbox_minimal-red',
+      radioClass: 'iradio_minimal-red'
+      });
+      <!--//Flat red color scheme for iCheck-->
+      $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-green',
+      radioClass: 'iradio_flat-green'
+      });
+
+      <!--//Colorpicker--><!--
+    $(".my-colorpicker1").colorpicker();
+    --><!--//color picker with addon--><!--
+    $(".my-colorpicker2").colorpicker();
+
+    --><!--//Timepicker--><!--
+    $(".timepicker").timepicker({
+    showInputs: false
+    });-->
+      });
+
+      $.when.apply($, deferreds).done(function() {
+      preview('1', getCode(), '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','formheader', this);
+      });
+
+
+
     </script>
 
     <xsl:variable name="settingmode">
@@ -96,7 +176,7 @@
           <div style="text-align:left">
             <xsl:choose>
               <xsl:when test="(/sqroot/body/bodyContent/form/info/GUID/.) = '00000000-0000-0000-0000-000000000000'">
-                              <!--location: 0 header; 1 child; 2 browse
+                <!--location: 0 header; 1 child; 2 browse
               location: browse:10, header form:20, browse anak:30, browse form:40-->
 
                 <button id="button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 20);">SAVE</button>&#160;
@@ -192,83 +272,15 @@
     <!-- /.content -->
 
 
-    <script>
-      $(function () {
-
-      <!--//Datemask dd/mm/yyyy--><!--
-    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-    --><!--//Datemask2 mm/dd/yyyy--><!--
-    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-    --><!--//Money Euro--><!--
-    $("[data-mask]").inputmask();
-
-    --><!--//Date range picker--><!--
-    $('#reservation').daterangepicker();
-    --><!--//Date range picker with time picker--><!--
-    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-    --><!--//Date range as a button--><!--
-    $('#daterange-btn').daterangepicker(
-        {
-          ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-          },
-          startDate: moment().subtract(29, 'days'),
-          endDate: moment()
-        },
-        function (start, end) {
-          $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        }
-    );-->
-
-      <!--//Date picker-->
-      $('.datepicker').datepicker({
-      autoclose: true
-      });
-
-      <!--//iCheck for checkbox and radio inputs-->
-      $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass: 'iradio_minimal-blue'
-      });
-      <!--//Red color scheme for iCheck-->
-      $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass: 'iradio_minimal-red'
-      });
-      <!--//Flat red color scheme for iCheck-->
-      $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass: 'iradio_flat-green'
-      });
-
-      <!--//Colorpicker--><!--
-    $(".my-colorpicker1").colorpicker();
-    --><!--//color picker with addon--><!--
-    $(".my-colorpicker2").colorpicker();
-
-    --><!--//Timepicker--><!--
-    $(".timepicker").timepicker({
-    showInputs: false
-    });-->
-      });
-
-      $.when.apply($, deferreds).done(function() {
-      preview('1', getCode(), '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','formheader', this);
-      });
-
-
-
-    </script>
 
   </xsl:template>
 
   <xsl:template match="sqroot/body/bodyContent">
-    <xsl:apply-templates select="form"/>
+    <div class="col-md-12">
+      <!--<div class="box box-primary">-->
+      <xsl:apply-templates select="form"/>
+      <!--</div>-->
+    </div>
   </xsl:template>
 
   <xsl:template match="form">
@@ -278,20 +290,20 @@
     </script>
 
 
-    <div class="row collapse in" id="header" >
-      <div class="col-md-12">
-        <form role="form" id="formheader" enctype="multipart/form-data">
-          <input type="hidden" id="cid" name="cid" value="{/sqroot/body/bodyContent/form/info/GUID/.}" />
-          <input type="hidden" name ="{info/code/.}requiredname"/>
-          <input type="hidden" name ="{info/code/.}requiredtblvalue"/>
+    <!--<div class="row collapse in" id="header" >-->
+    <!--<div class="col-md-12">-->
+    <form role="form" id="formheader" enctype="multipart/form-data">
+      <input type="hidden" id="cid" name="cid" value="{/sqroot/body/bodyContent/form/info/GUID/.}" />
+      <input type="hidden" name ="{info/code/.}requiredname"/>
+      <input type="hidden" name ="{info/code/.}requiredtblvalue"/>
 
-          <!--<input type="hidden" name="mode" value="save"/>
+      <!--<input type="hidden" name="mode" value="save"/>
       <input type="hidden" name="code" value="{info/code/.}"/>-->
 
-          <xsl:apply-templates select="formPages/formPage[@pageNo&lt;9]"/>
-        </form>
-      </div>
-    </div>
+      <xsl:apply-templates select="formPages/formPage[@pageNo&lt;9]"/>
+    </form>
+    <!--</div>-->
+    <!--</div>-->
   </xsl:template>
 
   <xsl:template match="formPages/formPage[@pageNo&lt;9]">
@@ -303,49 +315,42 @@
   </xsl:template>
 
   <xsl:template match="formSection ">
-
-    <div class="row">
-      <xsl:choose>
-        <xsl:when test="@rowTitle/.!=''">
-          <div class="col-md-12" data-toggle="collapse" data-target="#section_{@sectionNo}">
-            <h3>
-              <xsl:value-of select="@rowTitle/."/>&#160;
-            </h3>
-          </div>
-        </xsl:when>
-        <xsl:otherwise>
-          <div class="col-md-12" data-toggle="collapse" data-target="#section_{@sectionNo}">&#160;</div>
-        </xsl:otherwise>
-      </xsl:choose>
-      <div class="col-md-12 collapse in" id="section_{@sectionNo}">
-        <xsl:apply-templates select="formCols"/>
-      </div>
+    <xsl:choose>
+      <xsl:when test="@rowTitle/.!=''">
+        <div class="col-md-12" data-toggle="collapse" data-target="#section_{@sectionNo}">
+          <h3>
+            <xsl:value-of select="@rowTitle/."/>&#160;
+          </h3>
+        </div>
+      </xsl:when>
+    </xsl:choose>
+    <div class="col-md-12 collapse in" id="section_{@sectionNo}">
+      <xsl:apply-templates select="formCols"/>
     </div>
   </xsl:template>
 
   <xsl:template match="formCols">
+
     <xsl:apply-templates select="formCol"/>
   </xsl:template>
 
   <xsl:template match="formCol">
-
-    <xsl:if test="@colNo='1'">
-
-      <div class="col-md-6">
+    <div class="col-md-6">
+      <xsl:if test="@colNo='1'">
         <xsl:apply-templates select="formRows"/>
-      </div>
-    </xsl:if>
-    <xsl:if test="@colNo='2'">
-      <div class="col-md-6">
+      </xsl:if>
+      <xsl:if test="@colNo='2'">
         <xsl:apply-templates select="formRows"/>
-      </div>
-    </xsl:if>
+      </xsl:if>
+    </div>
   </xsl:template>
 
   <xsl:template match="formRows">
-
-    <xsl:apply-templates select="formRow"/>
-
+    <div class="box">
+      <div class="box-body">
+        <xsl:apply-templates select="formRow"/>
+      </div>
+    </div>
   </xsl:template>
 
   <xsl:template match="formRow ">
@@ -386,6 +391,7 @@
     <div class="form-group {$fieldEnabled}-input">
       <xsl:apply-templates select="textBox"/>
       <xsl:apply-templates select="dateBox"/>
+      <xsl:apply-templates select="timeBox"/>
       <xsl:apply-templates select="passwordBox"/>
       <xsl:apply-templates select="checkBox"/>
       <xsl:apply-templates select="mediaBox"/>
@@ -463,7 +469,9 @@
     </xsl:variable>
 
 
-    <input type="text" class="form-control" Value="{$thisvalue}" data-type="textBox" data-old="{$thisvalue}" name="{../@fieldName}" onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" id ="{../@fieldName}">
+    <input type="text" class="form-control" Value="{$thisvalue}" data-type="textBox" data-old="{$thisvalue}" name="{../@fieldName}" 
+           onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" id ="{../@fieldName}"
+           oninput="javascript:checkChanges(this)">
       <xsl:if test="../@isEditable=0 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000')) or (/sqroot/body/bodyContent/form/info/permission/allowEdit/.)!='1'">
         <xsl:attribute name="disabled">disabled</xsl:attribute>
       </xsl:if>
@@ -499,6 +507,30 @@
     </input>
 
   </xsl:template>
+
+
+  <xsl:template match="timeBox">
+    <script>//timebox</script>
+    <label id="{../@fieldName}caption">
+      <xsl:value-of select="titlecaption"/>
+    </label>
+    <div class="input-group date">
+      <div class="input-group-addon">
+        <ix class="fa fa-clock-o"></ix>
+      </div>
+      <input type="text" class="form-control pull-right timepicker" id ="{../@fieldName}" name="{../@fieldName}"
+             data-type="timeBox" data-old="{value}" Value="{value}"
+             onblur="preview('{preview/.}','{/sqroot/body/bodyContent/form/code/id}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/code/id}', this);" >
+        <xsl:choose>
+          <xsl:when test ="../@isEditable=1 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. = '00000000-0000-0000-0000-000000000000'))"></xsl:when>
+          <xsl:otherwise>
+            <xsl:attribute name="disabled">disabled</xsl:attribute>
+          </xsl:otherwise>
+        </xsl:choose>
+      </input>
+    </div>
+  </xsl:template>
+
 
   <xsl:template match="autoSuggestBox">
     <label id="{../@fieldName}caption">
@@ -674,11 +706,11 @@
         <xsl:value-of select="titlecaption"/>
       </label>
     </div>
-    <div class = "btn-group" data-toggle = "buttons">
+    <div class = "btn-group" data-toggle = "radios">
       <xsl:apply-templates select="radioSections/radioSection"/>
     </div>
     <xsl:if test="radioSections/radioSection/radioRows">
-      <div class="panel-body" id="accordion_{../@fieldName}" style="box-shadow:none;border:none;">
+      <div class="panel-body" id="accordion_{../@fieldName}" style="box-shadow:none;border:none;display:none;">
         <xsl:for-each select="radioSections/radioSection">
           <!--<xsl:if test="radioSections/radioSection/radioRows/radioRow">-->
           <div id="panel_{../../../@fieldName}_{@radioNo}" class="box collapse" style="box-shadow:none;border:none;">
@@ -691,20 +723,47 @@
   </xsl:template>
 
   <xsl:template match="radioSections/radioSection">
-    <label class="radio-inline">
-      <xsl:choose>
-        <xsl:when test="@fieldName=../../value/.">
-          <input type="radio" name="{../../../@fieldName}_radio" id="{../../../@fieldName}_radio_{@radioNo}" value="{@fieldName}" checked="checked" />
-          <script>
-            $('#panel_<xsl:value-of select="../../../@fieldName" />_<xsl:value-of select="@radioNo" />').collapse('show');
-          </script>
-        </xsl:when>
-        <xsl:otherwise>
-          <input type="radio" name="{../../../@fieldName}_radio" id="{../../../@fieldName}_radio_{@radioNo}" value="{@fieldName}" />
-        </xsl:otherwise>
-      </xsl:choose>
-      <xsl:value-of select="@radioRowTitle"/>
-    </label>
+
+    <xsl:variable name="pandis" select="count(radioRows)"/>
+
+    <xsl:choose>
+      <xsl:when test="@fieldName=../../value/.">
+        <xsl:choose>
+          <xsl:when test="radioRows">
+            <label class="radio-inline" for="{../../../@fieldName}_radio_{@radioNo}" onclick="panel_display('accordion_{../../../@fieldName}', 1)" >
+              <input type="radio" name="{../../../@fieldName}_radio" id="{../../../@fieldName}_radio_{@radioNo}" value="{@fieldName}" checked="checked" />
+              <xsl:value-of select="@radioRowTitle"/>
+            </label>
+          </xsl:when>
+          <xsl:otherwise>
+            <label class="radio-inline" for="{../../../@fieldName}_radio_{@radioNo}" onclick="panel_display('accordion_{../../../@fieldName}', 0)" >
+              <input type="radio" name="{../../../@fieldName}_radio" id="{../../../@fieldName}_radio_{@radioNo}" value="{@fieldName}" checked="checked" />
+              <xsl:value-of select="@radioRowTitle"/>
+            </label>
+          </xsl:otherwise>
+        </xsl:choose>
+        <script>
+          $('#panel_<xsl:value-of select="../../../@fieldName" />_<xsl:value-of select="@radioNo" />').collapse('show');
+        </script>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:choose>
+          <xsl:when test="radioRows">
+            <label class="radio-inline" for="{../../../@fieldName}_radio_{@radioNo}" onclick="panel_display('accordion_{../../../@fieldName}', 1)" >
+              <input type="radio" name="{../../../@fieldName}_radio" id="{../../../@fieldName}_radio_{@radioNo}" value="{@fieldName}" />
+              <xsl:value-of select="@radioRowTitle"/>
+            </label>
+          </xsl:when>
+          <xsl:otherwise>
+            <label class="radio-inline" for="{../../../@fieldName}_radio_{@radioNo}" onclick="panel_display('accordion_{../../../@fieldName}', 0)" >
+              <input type="radio" name="{../../../@fieldName}_radio" id="{../../../@fieldName}_radio_{@radioNo}" value="{@fieldName}" />
+              <xsl:value-of select="@radioRowTitle"/>
+            </label>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:otherwise>
+    </xsl:choose>
+
     <script>
       $('#<xsl:value-of select="../../../@fieldName" />_radio_<xsl:value-of select="@radioNo" />').click(function(){
       <xsl:value-of select="../../../@fieldName" />_hide('panel_<xsl:value-of select="../../../@fieldName" />_<xsl:value-of select="@radioNo" />');
@@ -748,7 +807,7 @@
           </h3>
         </div>
       </div-->
-    <div class="box visible-phone" style="box-shadow:0px;border:none" id="child{code/.}">
+    <div class="box box-warning visible-phone" style="box-shadow:0px;border:none" id="child{code/.}">
       &#160;
     </div>
     <!--/div-->

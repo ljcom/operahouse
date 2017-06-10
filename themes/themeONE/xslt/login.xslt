@@ -31,7 +31,7 @@
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/iCheck/icheck.min.js');
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/fastclick/fastclick.js');
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/admin-LTE/js/demo.js');-->
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/admin-LTE/js/app.min.js');
+      loadScript('OPHContent/themes/themeONE/scripts/admin-LTE/js/app.min.js');
 
       document.title='<xsl:value-of select="/sqroot/header/info/title"/>';
       <!--loadContent();-->
@@ -95,7 +95,7 @@
             <div class="col-md-6">
               <h1 style="font-size:40px; font-weight:bold">
                 WELCOME TO <br/>
-                <xsl:value-of select="sqroot/header/info/company"/>&#160;<xsl:value-of select="sqroot/header/info/account/."/>
+                <xsl:value-of select="sqroot/header/info/company"/>&#160;
               </h1>
 
               <h3>SIGN IN</h3>

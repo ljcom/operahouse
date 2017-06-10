@@ -11,12 +11,25 @@
   <xsl:template match="/">
     <!-- Content Header (Page header) -->
     <script>
-      loadScript('OPHContent/themes/<xsl:value-of select="sqroot/header/info/themeFolder"/>/scripts/daterangepicker/daterangepicker.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="sqroot/header/info/themeFolder"/>/scripts/select2/select2.full.min.js');
-      var xmldoc = ""
-      var xsldoc = "OPHContent/themes/<xsl:value-of select="sqroot/header/info/themeFolder"/>/xslt/" + getPage();
+      <!--loadScript('OPHContent/themes/<xsl:value-of select="sqroot/header/info/themeFolder"/>/scripts/daterangepicker/daterangepicker.js');
+      loadScript('OPHContent/themes/<xsl:value-of select="sqroot/header/info/themeFolder"/>/scripts/select2/select2.full.min.js');-->
 
+      <!--var xmldoc = ""
+      var--> <!--xsldoc = "OPHContent/themes/<xsl:value-of select="sqroot/header/info/themeFolder"/>/xslt/" + getPage();-->
 
+      $('.datepicker').datepicker({
+      autoclose: true
+      });
+      
+      $(".timepicker").timepicker({
+      minuteStep: 15,
+      template: 'modal',
+      appendWidgetTo: 'body',
+      showSeconds: false,
+      showMeridian: false,
+      defaultTime: false
+      });
+      
       $(function() {
 
       // We can attach the `fileselect` event to all file inputs on the page
@@ -50,69 +63,21 @@
 
       });
 
-      $('#child_button_save').hide();
-      $('#child_button_cancel').hide();
 
-    </script>
-
-
-    <!-- Main content -->
-    <section class="content">
-
-      <!-- title -->
-
-      <xsl:apply-templates select="sqroot/body/bodyContent"/>
-
-      <!-- view header -->
-      <div class="box" style="box-shadow:0px;border:none;">
-        <div class="col-md-12" style="margin-bottom:50px;">
-          <div style="text-align:left">
-            <!--location: 0 header; 1 child; 2 browse
-              location: browse:10, header form:20, browse anak:30, browse form:40-->
-
-            <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}',40);">SAVE</button>&#160;
-            <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm()">CANCEL</button>&#160;
-            <xsl:if test="(/sqroot/body/bodyContent/form/info/GUID/.)!='00000000-0000-0000-0000-000000000000' or (/sqroot/body/bodyContent/form/info/permission/allowDelete/.)=1" >
-              <button id="child_button_delete"  class="btn btn-gray-a"
-                      onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'delete', 1, 40)">DELETE</button>
-              <!--location: 0 header; 1 child; 2 browse
-              location: browse:10, header form:20, browse anak:30, browse form:40-->
-
-            </xsl:if>
-          </div>
-        </div>
-
-        <div class="col-md-12 displayblock-phone" style="margin-bottom:20px;">
-          <div style="text-align:center">
-            <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}',40);">SAVE</button>&#160;
-            <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm()">CANCEL</button>
-          </div>
-        </div>
-      </div>
-      <!-- button view header -->
-      <xsl:apply-templates select="sqroot/body/bodyContent/form/children/child"/>
-      <!-- /.col -->
-
-      <!-- browse for phone/tablet max width 768 -->
-    </section>
-    <!-- /.content -->
-
-
-    <script>
       $(function () {
 
-      <!--//Datemask dd/mm/yyyy-->
+      <!--//Datemask dd/mm/yyyy--><!--
       $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-      <!--//Datemask2 mm/dd/yyyy-->
+      --><!--//Datemask2 mm/dd/yyyy--><!--
       $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-      <!--//Money Euro-->
+      --><!--//Money Euro--><!--
       $("[data-mask]").inputmask();
 
-      <!--//Date range picker-->
+      --><!--//Date range picker--><!--
       $('#reservation').daterangepicker();
-      <!--//Date range picker with time picker-->
+      --><!--//Date range picker with time picker--><!--
       $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-      <!--//Date range as a button-->
+      --><!--//Date range as a button--><!--
       $('#daterange-btn').daterangepicker(
       {
       ranges: {
@@ -129,12 +94,12 @@
       function (start, end) {
       $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
       }
-      );
+      );-->
 
       <!--//Date picker-->
-      $('#datepicker').datepicker({
+      <!--$('#datepicker').datepicker({
       autoclose: true
-      });
+      });-->
 
       <!--//iCheck for checkbox and radio inputs-->
       $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
@@ -158,14 +123,61 @@
       $(".my-colorpicker2").colorpicker();
 
       <!--//Timepicker-->
-      $(".timepicker").timepicker({
-      showInputs: false
-      });
+
       });
 
       preview(1, '<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>', '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','form<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>', this);
 
     </script>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- title -->
+
+      <xsl:apply-templates select="sqroot/body/bodyContent"/>
+
+      <!-- view header -->
+      <div class="box" style="box-shadow:0px;border:none;">
+        <div class="col-md-12" style="margin-bottom:50px;">
+          <div style="text-align:left">
+            <!--location: 0 header; 1 child; 2 browse
+              location: browse:10, header form:20, browse anak:30, browse form:40-->
+
+            <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}',40);">SAVE</button>&#160;
+            <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm()">CANCEL</button>&#160;
+            <xsl:if test="(/sqroot/body/bodyContent/form/info/GUID/.)!='00000000-0000-0000-0000-000000000000' or (/sqroot/body/bodyContent/form/info/permission/allowDelete/.)=1" >
+              <button id="child_button_delete" class="btn btn-gray-a"
+                      onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'delete', 1, 40)">DELETE</button>
+              <!--location: 0 header; 1 child; 2 browse
+              location: browse:10, header form:20, browse anak:30, browse form:40-->
+            </xsl:if>
+            <xsl:if test="(/sqroot/body/bodyContent/form/info/GUID/.)!='00000000-0000-0000-0000-000000000000'">
+              <script>
+                $('#child_button_save').hide();
+                $('#child_button_cancel').hide();
+              </script>
+            </xsl:if>
+          </div>
+        </div>
+
+        <div class="col-md-12 displayblock-phone" style="margin-bottom:20px;">
+          <div style="text-align:center">
+            <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}',40);">SAVE</button>&#160;
+            <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm()">CANCEL</button>
+          </div>
+        </div>
+      </div>
+      <!-- button view header -->
+      <xsl:apply-templates select="sqroot/body/bodyContent/form/children/child"/>
+      <!-- /.col -->
+
+      <!-- browse for phone/tablet max width 768 -->
+    </section>
+    <!-- /.content -->
+
+
+
 
 
   </xsl:template>
@@ -273,6 +285,7 @@
     <div class="form-group enabled-input">
       <xsl:apply-templates select="textBox"/>
       <xsl:apply-templates select="dateBox"/>
+      <xsl:apply-templates select="timeBox"/>
       <xsl:apply-templates select="mediaBox"/>
       <xsl:apply-templates select="checkBox"/>
       <xsl:apply-templates select="autoSuggestBox"/>
@@ -291,6 +304,7 @@
     <div class="form-group disabled-input">
       <xsl:apply-templates select="textBox"/>
       <xsl:apply-templates select="dateBox"/>
+      <xsl:apply-templates select="timeBox"/>
       <xsl:apply-templates select="mediaBox"/>
       <xsl:apply-templates select="checkBox"/>
       <xsl:apply-templates select="autoSuggestBox"/>
@@ -367,7 +381,11 @@
       </xsl:choose>
     </xsl:variable>
 
-    <input type="text" class="form-control" Value="{$thisvalue}" name="{../@fieldName}" data-old="{value/.}" data-child="Y" onblur="preview('{preview/.}', 'sqroot/body/bodyContent/form/info/code/.', '{/sqroot/body/bodyContent/form/info/GUID/.}','formsqroot/body/bodyContent/form/info/code/.', this);" id ="{../@fieldName}">
+    <input type="text" class="form-control" Value="{$thisvalue}" name="{../@fieldName}"
+           data-old="{value/.}" data-child="Y" 
+           onblur="preview('{preview/.}', 'sqroot/body/bodyContent/form/info/code/.', '{/sqroot/body/bodyContent/form/info/GUID/.}','formsqroot/body/bodyContent/form/info/code/.', this);" 
+           oninput="javascript:checkChanges(this)"
+           id ="{../@fieldName}">
       <xsl:choose>
         <xsl:when test ="../@isEditable=1 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. = '00000000-0000-0000-0000-000000000000'))">
         </xsl:when>
@@ -387,7 +405,29 @@
         <ix class="fa fa-calendar"></ix>
       </div>
       <input type="text" class="form-control pull-right datepicker" id ="{../@fieldName}" name="{../@fieldName}"
-             data-old="{value}" Value="{value}" data-child="Y"
+             data-type="dateBox" data-old="{value}" Value="{value}" data-child="Y"
+             onblur="preview('{preview/.}','{/sqroot/body/bodyContent/form/code/id}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/code/id}', this);" >
+        <xsl:choose>
+          <xsl:when test ="../@isEditable=1 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. = '00000000-0000-0000-0000-000000000000'))"></xsl:when>
+          <xsl:otherwise>
+            <xsl:attribute name="disabled">disabled</xsl:attribute>
+          </xsl:otherwise>
+        </xsl:choose>
+      </input>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="timeBox">
+    <script>//timebox</script>
+    <label id="{../@fieldName}caption">
+      <xsl:value-of select="titlecaption"/>
+    </label>
+    <div class="input-group date">
+      <div class="input-group-addon">
+        <ix class="fa fa-clock-o"></ix>
+      </div>
+      <input type="text" class="form-control pull-right timepicker" id ="{../@fieldName}" name="{../@fieldName}"
+             data-type="timeBox" data-old="{value}" Value="{value}" data-child="Y"
              onblur="preview('{preview/.}','{/sqroot/body/bodyContent/form/code/id}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/code/id}', this);" >
         <xsl:choose>
           <xsl:when test ="../@isEditable=1 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. = '00000000-0000-0000-0000-000000000000'))"></xsl:when>
@@ -438,8 +478,9 @@
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
+
     <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}"
-            data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}" data-child="Y"
+            data-type="selectBox" data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}" data-child="Y"
             onchange="preview('{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);">
       <xsl:choose>
         <xsl:when test ="../@isEditable=1 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. = '00000000-0000-0000-0000-000000000000'))"></xsl:when>

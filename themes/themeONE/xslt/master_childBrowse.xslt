@@ -7,15 +7,50 @@
   <xsl:decimal-format name="dot-dec" decimal-separator="." grouping-separator=","/>
 
   <xsl:template match="/">
+    <script>
+
+      $(function() {
+
+      // We can attach the `fileselect` event to all file inputs on the page
+      $(document).on('change', ':file', function() {
+      var input = $(this),
+      numFiles = input.get(0).files ? input.get(0).files.length : 1,
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+      input.trigger('fileselect', [numFiles, label]);
+
+      //var file = this.files[0];
+      //if (file.size > 1024 {
+      //alert('max upload size is 1k')
+      //}
+      });
+
+      // We can watch for our custom `fileselect` event like this
+      $(document).ready( function() {
+      $(':file').on('fileselect', function(event, numFiles, label) {
+
+      var input = $(this).parents('.input-group').find(':text'),
+      //log = numFiles > 1 ? numFiles + ' files selected' : label;
+      log = label;
+      if( input.length ) {
+      input.val(log);
+      } else {
+      //if( log ) alert(log);
+      }
+
+      });
+      });
+
+      });
+    </script>
     <div class="row">
       <div class="col-md-12">
-        <div class="box-header with-border" style="background:none" data-toggle="collapse" data-target="#content_{/sqroot/body/bodyContent/browse/info/code}">
+        <div class="box-header with-border" style="background:white" data-toggle="collapse" data-target="#content_{/sqroot/body/bodyContent/browse/info/code}">
           <h3 class="dashboard-title">
             <xsl:value-of select="sqroot/body/bodyContent/browse/info/description"/>
           </h3>
         </div>
         <span>
-          <input style="width:200px; position:absolute; right:15px; top:5px" type="text" id="searchBox_{sqroot/body/bodyContent/browse/info/code}" name="searchBox_{sqroot/body/bodyContent/browse/info/code}" class="form-control" placeholder="Search..." onkeypress="return searchTextChild(event,this.value, '{sqroot/body/bodyContent/browse/info/code}');" value="" />
+          <input style="width:200px; position:absolute; right:25px; top:5px" type="text" id="searchBox_{sqroot/body/bodyContent/browse/info/code}" name="searchBox_{sqroot/body/bodyContent/browse/info/code}" class="form-control" placeholder="Search..." onkeypress="return searchTextChild(event,this.value, '{sqroot/body/bodyContent/browse/info/code}');" value="" />
         </span>
         <div class="row visible-phone">
           <div class="col-md-12">
@@ -47,7 +82,15 @@
                           data-target="#{/sqroot/body/bodyContent/browse/info/code}00000000-0000-0000-0000-000000000000"
                           onclick="showChildForm('{/sqroot/body/bodyContent/browse/info/code}','00000000-0000-0000-0000-000000000000')">ADD</button>&#160;
                 </xsl:if>
+                <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)=1 and (/sqroot/body/bodyContent/browse/info/permission/allowExport/.)=1" >
+                  <button class="btn btn-gray-a" 
+                          onclick="downloadChild('{/sqroot/body/bodyContent/browse/info/code}', '')">DOWNLOAD</button>&#160;
+                  <button class="btn btn-gray-a" onclick="javascript:$('#import_hidden').click();">UPLOAD...</button>&#160;
 
+                  <!--<button type="button" class="buttonCream" id="download" name="download" onclick="javascript:PrintDirect('{/sqroot/body/bodyContent/browse/info/code}', '', 3, '', '', '');">DOWNLOAD</button>
+                  <button type="button" class="buttonCream" id="upload" name="upload" onclick="javascript:showSubBrowseView('{/sqroot/body/bodyContent/browse/info/code}','',1,'');">UPLOAD</button>-->
+                  <input id ="import_hidden" name="import_hidden" type="file" style="visibility: hidden; width: 0; height: 0;;" multiple="" />
+                </xsl:if>
                 <xsl:if test="/sqroot/body/bodyContent/browse/info/nbPages > 1">
                   <ul class="pagination pagination-sm no-margin pull-right" id="childPageNo"></ul>
                   <script>
@@ -61,7 +104,7 @@
             </div>
           </div>
         </div>
-    </div>
+      </div>
     </div>
   </xsl:template>
 

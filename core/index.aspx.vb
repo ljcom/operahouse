@@ -11,11 +11,11 @@ Partial Class index
         loadAccount()
         Dim curODBC = contentOfdbODBC
         'Dim DBCore = getDBCore(accountid)
+        Dim curHostGUID = Session("hostGUID")
+        Dim curUserGUID = Session("userGUID")
 
-        'check expired session
-        sqlstr = "exec gen.verifyhost '" & Session("hostGUID") & "'"
-        Dim hGUID = runSQLwithResult(sqlstr, curODBC)
-
+        'Dim x = Request.Url.Authority & Request.ApplicationPath
+        'If x.Substring(Len(x) - 1, 1) = "/" Then x = x.Substring(0, Len(x) - 1)
         Dim reloadStr = Request.RawUrl & IIf(InStr(Request.RawUrl, "?") = 0, "?", IIf(Right(Request.RawUrl, 1) = "&", "", "&"))
 
         'check env if exists 
@@ -44,8 +44,9 @@ Partial Class index
 
         'check code and env, must be sync
         checkCodeEnv(code, env, curODBC)
-
-        If getQueryVar("code") = "" Or getQueryVar("env") = "" Or getQueryVar("code") <> code Or getQueryVar("env") <> env Then
+        If code = "" Then
+            reloadURL("index.aspx?code=404&env=" & env)
+        ElseIf getQueryVar("code") = "" Or getQueryVar("env") = "" Or getQueryVar("code").ToLower() <> code.tolower() Or getQueryVar("env").ToLower() <> env.ToLower() Then
             If getQueryVar("env") = "" Then
                 reloadStr &= "env=" & env & "&"
             Else
@@ -73,7 +74,7 @@ Partial Class index
                 'Response.Cookies("lastPar").Value = 
             End If
 
-            If needlogin And Session("hostGUID") Is Nothing Then    'And userInfo = "" Then
+            If needlogin And (curUserGUID = "" Or curHostGUID = "") Then    'And userInfo = "" Then
                 reloadURL("index.aspx?env=" & env & "&code=" & loginPage)
             End If
 
@@ -85,7 +86,7 @@ Partial Class index
             End If
         Else
 
-            reloadURL("index.aspx?code=404&env=" & env)
+
         End If
 
         '--!
@@ -93,12 +94,14 @@ Partial Class index
         If Not Request.Cookies("cartID") Is Nothing Then
             cartID = Request.Cookies("cartID").Value
         Else
-            Response.Cookies("cartID").Value = ""
+            setCookie("cartID", "", 0)
+            'Response.Cookies("cartID").Value = ""
         End If
         If cartID = "" Then
-            Response.Cookies("cartID").Value = runSQLwithResult("exec api.createNewid")
+            'Response.Cookies("cartID").Value = runSQLwithResult("exec api.createNewid")
+            setCookie("cartID", runSQLwithResult("exec api.createNewid"), 7)
         Else
-            Response.Cookies("cartID").Value = Request.Cookies("cartID").Value
+            'Response.Cookies("cartID").Value = Request.Cookies("cartID").Value
         End If
         '-- !
 
@@ -109,7 +112,7 @@ Partial Class index
         If themeFolder = "" Then themeFolder = contentOfthemeFolder
         'Session("themeFolder") = themeFolder
 
-        WindowOnLoad = "initTheme('" & code & "', '" & GUID & "');"
+        WindowOnLoad = "initTheme('" & code & "', '" & GUID & "', '" & curHostGUID & "');"
         Response.Cookies("themeFolder").Value = themeFolder
         loadManifest(themeFolder)
         Response.Cookies("page").Value = pageURL
@@ -122,14 +125,14 @@ Partial Class index
 
     End Sub
     Sub checkCodeEnv(ByRef code As String, ByRef env As String, curODBC As String)
-        Dim sqlstr = "select moduleid from modl c where moduleid='" & code & "'"
+        Dim sqlstr = "select moduleid from modl c where lower(moduleid)='" & code.ToLower() & "'"
         code = runSQLwithResult(sqlstr, curODBC)
         If code <> "" Then
             'check env
-            sqlstr = "select e.ModuleGroupID from modl a inner join modgmodl b on b.moduleGUID=a.moduleGUID inner join modg e on e.moduleGroupGUID=b.moduleGroupGUID where a.moduleid='" & code & "'"
+            sqlstr = "select e.ModuleGroupID from modl a inner join modg e on e.moduleGroupGUID=a.moduleGroupGUID where lower(a.moduleid)='" & code.ToLower() & "'"
             Dim e = runSQLwithResult(sqlstr, curODBC)
             If e = "" Then
-                sqlstr = "select e.ModuleGroupID from modl a inner join modg e on e.AccountDBGUID=a.AccountDBGUID where a.moduleid='" & code & "'"
+                sqlstr = "select e.ModuleGroupID from modl a inner join modg e on e.AccountDBGUID=a.AccountDBGUID where lower(a.moduleid)='" & code.ToLower() & "'"
                 Dim ex = runSQLwithResult(sqlstr, curODBC)
                 If ex <> "" Then env = ex
             Else

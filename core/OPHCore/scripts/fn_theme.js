@@ -4,7 +4,7 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
     req.push($.ajax({ url: xmldoc, error: function () { } }));
     //$.ajax({ url: 'somefile.dat', type: 'HEAD', error: do_something });
     xltdoc.forEach(function (item, index) {
-        req.push($.ajax({ url: item, error: function () {alert('x') } }))
+        req.push($.ajax({ url: item, error: function () {alert('error push') } }))
     })
     var callback = function (divnm, xml, xsl) {
         // code for IE

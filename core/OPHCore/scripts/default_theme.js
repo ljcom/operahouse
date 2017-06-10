@@ -1,8 +1,8 @@
-﻿function initTheme(bCode, bGUID, f) { //bmode, bcode, bguid hanya dipakai kalau mau pindah lokasi saja
+﻿function initTheme(bCode, bGUID, guestID, f) { //bmode, bcode, bguid hanya dipakai kalau mau pindah lokasi saja
 
     if (bCode != undefined) setCookie('code', bCode, 0, 1, 0);
     if (bGUID != undefined) setCookie('GUID', bGUID, 0, 1, 0);
-
+    setCookie('guestID', guestID, 7, 0, 0)
     //if (getCode() != bCode || getMode() != bMode
     //    || (bCode == 'view' && getGUID() != bGUID)) {
     //    document.location.href = document.location.href.replace(document.location.search, '') + '?mode=' + bMode + '&code=' + bCode;
@@ -115,8 +115,9 @@ function loadChild(code, parentKey, GUID, pageNo) {
 
 function signIn() {
     //if (top.document.domain == window.location.hostname) {
-    var uid = document.getElementById("userid").value;
-    var pwd = document.getElementById("pwd").value;
+    var uid = getCookie('userId');
+    if ($("#userid")) uid = $("#userid").val();
+    var pwd = $("#pwd").val();
 
     var dataForm = $('#signinForm').serialize() //.split('_').join('');
 
@@ -151,7 +152,10 @@ function signIn() {
                 //    landingPage = landingPage                
                 //}
                 if (msg != '') {
-                    if ($(this)[0].nodeName == "hostGUID") window.location = landingPage;
+                    if ($(this)[0].nodeName == "userGUID") {
+                        setCookie('userId', $("#userid").val(), 7);
+                        window.location = landingPage;
+                    }
                     if ($(this)[0].nodeName == "message") showMessage(msg, 4);
                 }
                 else {
@@ -893,163 +897,163 @@ function doSort(nb, mode, fieldname, tableName) {
     catch (e) { }
 }
 
-function doFunction(functiontext, nbRec, caption, tableName, block, bGUID) {
-    var c;
-    var sAction = "";
-    window.status = "Looking for records... "
-    var tableName1 = tableName.length;
-    var tableName2 = tableName.substring(0, 1).toLowerCase();
-    //if (tableName1 >= 6 && tableName2 == 't' || tableName2 == 'c') {
-    if (bGUID == '' || bGUID == undefined) {
-        $('.hiddenCheckbox').each(function (index) {
-            if (this.checked)
-                sAction = sAction + this.id.split('check_').join('') + ',';
-        });
+//function doFunction(functiontext, nbRec, caption, tableName, block, bGUID) {
+//    var c;
+//    var sAction = "";
+//    window.status = "Looking for records... "
+//    var tableName1 = tableName.length;
+//    var tableName2 = tableName.substring(0, 1).toLowerCase();
+//    //if (tableName1 >= 6 && tableName2 == 't' || tableName2 == 'c') {
+//    if (bGUID == '' || bGUID == undefined) {
+//        $('.hiddenCheckbox').each(function (index) {
+//            if (this.checked)
+//                sAction = sAction + this.id.split('check_').join('') + ',';
+//        });
 
-        if (tableName1 >= 6) {
-            nbRec = document.getElementsByName("CheckRecord" + tableName).length;
-            if (nbRec > 1) {
-                for (c = 1; c <= nbRec; c++) {
-                    if ((c == 1 && document.getElementsByName("CheckGUID" + tableName)) || document.getElementsByName("CheckGUID" + tableName)[c - 1]) {
-                        if (c == 1 && document.getElementsByName("CheckGUID" + tableName) && !document.getElementsByName("CheckGUID" + tableName)[1]) {
-                            var cGUID = document.getElementsByName("CheckGUID" + tableName).value;
-                            var isChecked = document.getElementsByName("CheckRecord" + tableName).checked;
-                        }
-                        if (document.getElementsByName("CheckGUID" + tableName)[c - 1]) {
-                            var cGUID = document.getElementsByName("CheckGUID" + tableName)[c - 1].value;
-                            var isChecked = document.getElementsByName("CheckRecord" + tableName)[c - 1].checked;
-                        }
-                        if (isChecked) {
-                            if (sAction == '')
-                                sAction = cGUID;
-                            else
-                                sAction = sAction + ',' + cGUID;
-                            window.status = "Looking for records. Found " + cGUID + "...";
-                        }
-                    }
-                }
-            }
-            else if (nbRec == 1) {
-                if (document.getElementsByName("CheckRecord" + tableName)[0].checked) {
-                    if (sAction == '')
-                        sAction = document.getElementsByName("CheckGUID" + tableName)[0].value;
-                    else
-                        sAction = sAction + ',' + document.getElementsByName("CheckGUID" + tableName)[0].value;
-                }
-            }
-        } else {
-            if (nbRec > 1) {
-                for (c = 1; c <= nbRec; c++) {
-                    if ((c == 1 && document.forms(0).CheckGUID) || document.forms(0).CheckGUID[c - 1]) {
-                        if (c == 1 && document.forms(0).CheckGUID && !document.forms(0).CheckGUID[1]) {
-                            var cGUID = document.forms(0).CheckGUID.value;
-                            var isChecked = document.forms(0).CheckRecord.checked;
-                        }
-                        if (document.forms(0).CheckGUID[c - 1]) {
-                            var cGUID = document.forms(0).CheckGUID[c - 1].value;
-                            var isChecked = document.forms(0).CheckRecord[c - 1].checked;
-                        }
-                        if (isChecked) {
-                            if (sAction == '')
-                                sAction = cGUID;
-                            else
-                                sAction = sAction + ',' + cGUID;
-                            window.status = "Looking for records. Found " + cGUID + "...";
-                        }
-                    }
-                }
-            }
-            else if (nbRec == 1) {
-                if (document.forms(0).CheckRecord[0].checked) {
-                    if (sAction == '')
-                        sAction = document.forms(0).CheckGUID.value;
-                    else
-                        sAction = sAction + ',' + document.forms(0).CheckGUID.value;
-                }
-            }
-        }
-    }
-    else
-        sAction = bGUID;
+//        if (tableName1 >= 6) {
+//            nbRec = document.getElementsByName("CheckRecord" + tableName).length;
+//            if (nbRec > 1) {
+//                for (c = 1; c <= nbRec; c++) {
+//                    if ((c == 1 && document.getElementsByName("CheckGUID" + tableName)) || document.getElementsByName("CheckGUID" + tableName)[c - 1]) {
+//                        if (c == 1 && document.getElementsByName("CheckGUID" + tableName) && !document.getElementsByName("CheckGUID" + tableName)[1]) {
+//                            var cGUID = document.getElementsByName("CheckGUID" + tableName).value;
+//                            var isChecked = document.getElementsByName("CheckRecord" + tableName).checked;
+//                        }
+//                        if (document.getElementsByName("CheckGUID" + tableName)[c - 1]) {
+//                            var cGUID = document.getElementsByName("CheckGUID" + tableName)[c - 1].value;
+//                            var isChecked = document.getElementsByName("CheckRecord" + tableName)[c - 1].checked;
+//                        }
+//                        if (isChecked) {
+//                            if (sAction == '')
+//                                sAction = cGUID;
+//                            else
+//                                sAction = sAction + ',' + cGUID;
+//                            window.status = "Looking for records. Found " + cGUID + "...";
+//                        }
+//                    }
+//                }
+//            }
+//            else if (nbRec == 1) {
+//                if (document.getElementsByName("CheckRecord" + tableName)[0].checked) {
+//                    if (sAction == '')
+//                        sAction = document.getElementsByName("CheckGUID" + tableName)[0].value;
+//                    else
+//                        sAction = sAction + ',' + document.getElementsByName("CheckGUID" + tableName)[0].value;
+//                }
+//            }
+//        } else {
+//            if (nbRec > 1) {
+//                for (c = 1; c <= nbRec; c++) {
+//                    if ((c == 1 && document.forms(0).CheckGUID) || document.forms(0).CheckGUID[c - 1]) {
+//                        if (c == 1 && document.forms(0).CheckGUID && !document.forms(0).CheckGUID[1]) {
+//                            var cGUID = document.forms(0).CheckGUID.value;
+//                            var isChecked = document.forms(0).CheckRecord.checked;
+//                        }
+//                        if (document.forms(0).CheckGUID[c - 1]) {
+//                            var cGUID = document.forms(0).CheckGUID[c - 1].value;
+//                            var isChecked = document.forms(0).CheckRecord[c - 1].checked;
+//                        }
+//                        if (isChecked) {
+//                            if (sAction == '')
+//                                sAction = cGUID;
+//                            else
+//                                sAction = sAction + ',' + cGUID;
+//                            window.status = "Looking for records. Found " + cGUID + "...";
+//                        }
+//                    }
+//                }
+//            }
+//            else if (nbRec == 1) {
+//                if (document.forms(0).CheckRecord[0].checked) {
+//                    if (sAction == '')
+//                        sAction = document.forms(0).CheckGUID.value;
+//                    else
+//                        sAction = sAction + ',' + document.forms(0).CheckGUID.value;
+//                }
+//            }
+//        }
+//    }
+//    else
+//        sAction = bGUID;
 
 
-    window.status = "";
-    if (sAction == "") {
-        var msg = 'Please select at least one record before continue.';
-        //alert(msg);
-        showMessage(msg, 3);
-    }
-    else
-        if (confirm("Do you want to " + caption + "?") == 1) {
-            //var serverAddress = document.getElementById("serverAddress").value;
-            //serverAddress = '../../../';
-            //document.forms(0).cfunctionlist.value = sAction;
-            //document.forms(0).cfunction.value = functiontext;
-            if (sAction == '') {
-                document.getElementById('cfunctionlist').value = bGUID;
-            } else {
-                document.getElementById('cfunctionlist').value = sAction;
-            }
-            document.getElementById('cfunction').value = functiontext;
-            if (tableName)
-                var vCode = tableName;
-            else
-                var vCode = document.getElementById('curCode').value;
+//    window.status = "";
+//    if (sAction == "") {
+//        var msg = 'Please select at least one record before continue.';
+//        //alert(msg);
+//        showMessage(msg, 3);
+//    }
+//    else
+//        if (confirm("Do you want to " + caption + "?") == 1) {
+//            //var serverAddress = document.getElementById("serverAddress").value;
+//            //serverAddress = '../../../';
+//            //document.forms(0).cfunctionlist.value = sAction;
+//            //document.forms(0).cfunction.value = functiontext;
+//            if (sAction == '') {
+//                document.getElementById('cfunctionlist').value = bGUID;
+//            } else {
+//                document.getElementById('cfunctionlist').value = sAction;
+//            }
+//            document.getElementById('cfunction').value = functiontext;
+//            if (tableName)
+//                var vCode = tableName;
+//            else
+//                var vCode = document.getElementById('curCode').value;
 
-            //var path = 'OPHCore/api/default.aspx?mode=function&tableName=' + vCode;
-            var path = 'OPHCore/api/default.aspx?mode=function&tableName=' + vCode;
+//            //var path = 'OPHCore/api/default.aspx?mode=function&tableName=' + vCode;
+//            var path = 'OPHCore/api/default.aspx?mode=function&tableName=' + vCode;
 
-            var dataForm = $('#aspnetForm').serialize().split('_').join('');
+//            var dataForm = $('#aspnetForm').serialize().split('_').join('');
 
-            $.ajax({
-                url: path,
-                data: dataForm,
-                type: 'POST',
-                dataType: "xml",
-                timeout: 80000,
-                beforeSend: function () {
-                    setCursorWait(this);
-                },
-                success: function (data) {
-                    var result = $(data).find("message").text();
-                    if (result) {
-                        //alert(result);
-                        var captions = result.substring(1, 100)
-                        var msgType = result.substring(0, 1);
-                        if (!(msgType >= 1 && msgType <= 4)) msgType = 1
-                        showMessage(captions, msgType);
-                    }
-                    else {
-                        showMessage(caption + ' successfully', 2);
-                    }
-                    if (tableName1 > 6 && document.getElementById("parentKey")) {
-                        var bCode = tableName;
-                        var parentKey = document.getElementById("parentKey").value;
-                        var parentGUID = document.getElementById("cid").value;
-                        var bFilter = parentKey + "='" + parentGUID + "'";
-                        refreshSubBrowse(bCode, bFilter, '', '', 1);
-                        //showMessage(caption + " successfully", 2);
-                        //refreshLog(parentKey, bFilter, 1);
-                    }
-                    else {
-                        var bCode = document.getElementById('curCode').value;
-                        var bPageNo = document.getElementById("curPage").value;
-                        if (bPageNo == "") bPageNo = "1";
-                        document.getElementById("bSearchText").value = "";
-                        var stateid = '';
-                        initTheme('master', vCode);
-                        refreshBrowse(bCode, '', '', '', bPageNo, block, stateid);
-                    }
+//            $.ajax({
+//                url: path,
+//                data: dataForm,
+//                type: 'POST',
+//                dataType: "xml",
+//                timeout: 80000,
+//                beforeSend: function () {
+//                    setCursorWait(this);
+//                },
+//                success: function (data) {
+//                    var result = $(data).find("message").text();
+//                    if (result) {
+//                        //alert(result);
+//                        var captions = result.substring(1, 100)
+//                        var msgType = result.substring(0, 1);
+//                        if (!(msgType >= 1 && msgType <= 4)) msgType = 1
+//                        showMessage(captions, msgType);
+//                    }
+//                    else {
+//                        showMessage(caption + ' successfully', 2);
+//                    }
+//                    if (tableName1 > 6 && document.getElementById("parentKey")) {
+//                        var bCode = tableName;
+//                        var parentKey = document.getElementById("parentKey").value;
+//                        var parentGUID = document.getElementById("cid").value;
+//                        var bFilter = parentKey + "='" + parentGUID + "'";
+//                        refreshSubBrowse(bCode, bFilter, '', '', 1);
+//                        //showMessage(caption + " successfully", 2);
+//                        //refreshLog(parentKey, bFilter, 1);
+//                    }
+//                    else {
+//                        var bCode = document.getElementById('curCode').value;
+//                        var bPageNo = document.getElementById("curPage").value;
+//                        if (bPageNo == "") bPageNo = "1";
+//                        document.getElementById("bSearchText").value = "";
+//                        var stateid = '';
+//                        initTheme('master', vCode);
+//                        refreshBrowse(bCode, '', '', '', bPageNo, block, stateid);
+//                    }
 
-                    setCursorDefault(this);
-                },
-                error: function (j, e, t) {
-                    showMessage(t.message, 4);
-                    setCursorDefault(this);
-                }
-            });
-        }
-}
+//                    setCursorDefault(this);
+//                },
+//                error: function (j, e, t) {
+//                    showMessage(t.message, 4);
+//                    setCursorDefault(this);
+//                }
+//            });
+//        }
+//}
 
 function goPage(x, childTable) {
     var bCode = document.getElementById("curCode").value;
@@ -3702,33 +3706,36 @@ function preview(flag, code, GUID, formid, t) {
         });
     }
     else {
-        if (t) {
-            if (($("#" + t.id).prop("type") == "select-one") && (t.options[t.selectedIndex].value != $("#" + t.id).data("value"))) {
-                $("#" + t.id).data("value", t.options[t.selectedIndex].value);
-            }
-            $("input[type='text'], input[type='checkbox'], select").each(function () {
-                var tx = $(this);
-                if ($(this).data("old") != undefined) {
+        checkChanges();
+    }
+}
+function checkChanges(t) {
+    if (t) {
+        if (($("#" + t.id).prop("type") == "select-one") && (t.options[t.selectedIndex].value != $("#" + t.id).data("value"))) {
+            $("#" + t.id).data("value", t.options[t.selectedIndex].value);
+        }
+        $("input[type='text'], input[type='checkbox'], select").each(function () {
+            var tx = $(this);
+            if ($(this).data("old") != undefined) {
 
-                    if (((tx.prop("type") == "text" || tx.prop("type") == "checkbox") && ($(this).val() != $(this).data("old")) && !tx[0].disabled) ||
-                        ((tx.prop("type") == "select-one") && ($(this).data("value") != $(this).data("old")))) {
-                        if ($(this).data("child") == 'Y') {
-                            $('#child_button_save').show();
-                            $('#child_button_cancel').show();
-                            $('#child_button_save2').show();
-                            $('#child_button_cancel2').show();
+                if (((tx.prop("type") == "text" || tx.prop("type") == "checkbox") && ($(this).val() != $(this).data("old")) && !tx[0].disabled) ||
+                    ((tx.prop("type") == "select-one") && ($(this).data("value") != $(this).data("old")))) {
+                    if ($(this).data("child") == 'Y') {
+                        $('#child_button_save').show();
+                        $('#child_button_cancel').show();
+                        $('#child_button_save2').show();
+                        $('#child_button_cancel2').show();
 
-                        }
-                        else {
-                            $('#button_save').show();
-                            $('#button_cancel').show();
-                            $('#button_save2').show();
-                            $('#button_cancel2').show();
-                        }
+                    }
+                    else {
+                        $('#button_save').show();
+                        $('#button_cancel').show();
+                        $('#button_save2').show();
+                        $('#button_cancel2').show();
                     }
                 }
-            })
-        }
+            }
+        })
     }
 }
 
@@ -3974,6 +3981,7 @@ function saveFunction(code, guid, location, formId, afterSuccess) {
         showMessage(result);
 
 }
+
 function loadReport(qCode, f) {
     qCode = (qCode == "") ? getCode() : qCode;
     var xmldoc = 'OPHCore/api/default.aspx?mode=report' + '&code=' + qCode;
@@ -4196,4 +4204,25 @@ function show_aprvList(guid) {
     catch (e) {
 
     }
+}
+
+function panel_display(flag, val) {
+    if (val == 1) {
+        try {
+            document.getElementById(flag).style.display = 'block';
+        } catch (e) { }
+    } else {
+        try {
+            document.getElementById(flag).style.display = 'none';
+        } catch (e) { }
+    }
+
+}
+
+function downloadChild(code, sqlFilter) {
+    var titleName = '';
+    var subtitleName = '';
+    ParentGUID = '&parentGUID=' + getQueryVariable('GUID');
+    window.open('OPHCore/api/msg_rptDialog.aspx?gbox=1&code=' + code + '&parameter=&outputType=3&' + ParentGUID + '&titleName=' + titleName + '&subtitleName=' + subtitleName + ' ' + Date());
+
 }

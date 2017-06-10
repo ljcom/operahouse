@@ -169,7 +169,7 @@
             </div>
             <!-- Dashboard -->
             <xsl:choose>
-              <xsl:when test="count(sqroot/header/menus/menu[@code='primaryback']/submenus/submenu)=0">
+              <xsl:when test="sqroot/header/info/user/userId=''">
                 <li>
                   <a href="#" data-toggle="modal" data-target="#login-modal">
                     <span>
@@ -182,7 +182,7 @@
               <xsl:otherwise>
                 <li class="dropdown user user-menu">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="OPHContent/themes/themeONE/images/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                    <img src="OPHContent/{sqroot/header/info/user/userURL}" class="user-image" alt="User Image"/>
                     <span class="hidden-xs">
                       <xsl:value-of select="sqroot/header/info/user/userName"/>
                     </span>
@@ -190,7 +190,7 @@
                   <ul class="dropdown-menu">
                     <!-- User image -->
                     <li class="user-header">
-                      <img src="OPHContent/themes/themeONE/images/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                      <img src="OPHContent/{sqroot/header/info/user/userURL}" class="img-circle" alt="User Image"/>
 
                       <p>
                         <xsl:value-of select="sqroot/header/info/user/userName"/> - Web Developer
@@ -326,7 +326,7 @@ _________________________________________________________ -->
         <!--<form method="get" class="sidebar-form">-->
         <div class="user-panel">
           <div class="pull-left image">
-            <img src="OPHContent/themes/themeONE/images/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            <img src="OPHContent/{sqroot/header/info/user/userURL}" class="img-circle" alt="User Image" />
           </div>
           <div class="pull-left info">
             <p>

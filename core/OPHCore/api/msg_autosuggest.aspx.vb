@@ -19,6 +19,11 @@ Partial Class OPHCore_api_msg_autosuggest
         'Dim accountid = getAccount()
         'Dim curODBC = getODBC(accountid)
         'Dim DBCore = getDBCore(accountid)
+        Dim curHostGUID = Session("hostGUID")
+        Dim curUserGUID = Session("userGUID")
+
+        'Dim curHostGUID = "null"
+        'If Not IsNothing(Session("hostGUID")) Then curHostGUID = "'" & Session("hostGUID") & "'"
 
         Dim wf1 = getQueryVar("wf1")
         Dim wf1value = getQueryVar("wf1value")
@@ -33,7 +38,7 @@ Partial Class OPHCore_api_msg_autosuggest
 
             Dim search = getQueryVar("search") & " " & getQueryVar("q")
 
-            Dim sqlstr = "exec api.autosuggest '" & contentOfaccountId & "', '" & contentOfsqDB & "', '" & getQueryVar("code") & "','" & getQueryVar("key") & "','" & getQueryVar("id") & "','" & getQueryVar("name") & "','" & search & "','" & wf1 & "'," & wf1value & ",'" & wf2 & "','" & wf2value & "'"
+            Dim sqlstr = "exec api.autosuggest '" & curHostGUID & "', '" & getQueryVar("code") & "','" & getQueryVar("key") & "','" & getQueryVar("id") & "','" & getQueryVar("name") & "','" & search & "','" & wf1 & "'," & wf1value & ",'" & wf2 & "','" & wf2value & "'"
 
             Dim xmlstr = getXML(sqlstr)
             Dim json = ""

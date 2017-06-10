@@ -19,7 +19,7 @@
     <xsl:choose>
       <xsl:when test="((fields/field[@caption = 'PARNCTGRGUID']/.) !='' or (fields/field[@caption = 'PARNBRANGUID']/.) !='') and (fields/field[@caption = 'isParent']/.) ='1' ">
         <li>
-          <a data-toggle="collapse" href="#{@GUID}_menu" class="top-envi-lv2"  onclick="LoadNewPart('catagory', '{@GUID}_menus', '{$code}', '', '{@GUID}');  changePlusMinus(this);">
+          <a data-toggle="collapse" href="#{@GUID}_menu" class="top-envi-lv2"  onclick="LoadNewPart('catagory', '{@GUID}_menus', '{$code}', '', '{@GUID}', '1', '200');  changePlusMinus(this);">
             <!--<span style="margin-right:10px; font-size:9px; ">➤</span>-->
             <span style="width:70%; display:inline-table; line-height:14px;" onclick="goToAnotherPage('index.aspx?code=maprodfron&amp;bSearchText={@GUID}')">
               <xsl:value-of select="fields/field[@caption = 'Name']/." />
@@ -57,7 +57,7 @@
       <xsl:otherwise>
         <div class="panel top-menu-onphone" style="border-radius:0; margin-top:0;" >
           <!--<a class="top-envi" data-toggle="collapse" data-parent="#accordion2" href="{pageURL/.}">-->
-          <a class="top-envi" data-toggle="collapse" href="#{@GUID}_menu" data-parent="#accordion2"  onclick="LoadNewPart('catagory', '{@GUID}_menus', '{$code}', '', '{@GUID}');  changePlusMinus(this);">
+          <a class="top-envi" data-toggle="collapse" href="#{@GUID}_menu" data-parent="#accordion2"  onclick="LoadNewPart('catagory', '{@GUID}_menus', '{$code}', '', '{@GUID}', '1', '200');  changePlusMinus(this);">
             <!--<ix>
               <img src="{icon/img/.}" style="width:15px; margin-right:8px;" />
             </ix>-->

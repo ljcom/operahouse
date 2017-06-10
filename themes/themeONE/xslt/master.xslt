@@ -5,14 +5,6 @@
 
   <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
-  <xsl:variable name="nbAccountMenu">
-    <xsl:choose>
-      <xsl:when test="count(sqroot/header/menus/menu[@code='primaryback']/submenus/submenu)>0">
-        <xsl:value-of select="12 div count(sqroot/header/menus/menu[@code='primaryback']/submenus/submenu)" />
-      </xsl:when>
-      <xsl:otherwise>0</xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
   <xsl:template match="/">
     <div style="display:none" id="pageName">&#xA0;</div>
     <div style="display:none" id="themeName">&#xA0;</div>
@@ -62,7 +54,8 @@
 
       resetBrowseCookies();
       loadContent(1);
-      
+      setCookie('userURL', '<xsl:value-of select="sqroot/header/info/user/userURL"/>', 7);
+
     </script>
     <!-- Page script -->
 
@@ -139,7 +132,7 @@
               <xsl:otherwise>
                 <li class="dropdown user user-menu">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="OPHContent/themes/themeONE/images/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                    <img src="OPHContent/{sqroot/header/info/user/userURL}" class="user-image" alt="User Image"/>
                     <span class="hidden-xs">
                       <xsl:value-of select="sqroot/header/info/user/userName"/>
                     </span>
@@ -147,27 +140,19 @@
                   <ul class="dropdown-menu">
                     <!-- User image -->
                     <li class="user-header">
-                      <img src="OPHContent/themes/themeONE/images/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                      <img src="OPHContent/{sqroot/header/info/user/userURL}" class="img-circle" alt="User Image"/>
                       <p>
                         <xsl:value-of select="sqroot/header/info/user/userName"/> - Web Developer
                         <small>Member since Nov. 2012</small>
                       </p>
                     </li>
-                      <!-- Menu Body -->
-                      <li class="user-body">
-                        <div class="row">
-                          <div class="col-xs-4 text-center">
-                            <a href="?code=dashboard">Dashboard</a>
-                          </div>
-                          <div class="col-xs-4 text-center">
-                            <a href="?env=acct">Account</a>
-                          </div>
-                          <div class="col-xs-4 text-center">
-                            <a href="?env=dev">Dev</a>
-                          </div>
-                        </div>
-                        <!-- /.row -->
-                      </li>
+                    <!-- Menu Body -->
+                    <li class="user-body">
+                      <div class="row">
+                        <xsl:apply-templates select="sqroot/header/menus/menu[@code='primaryback']/submenus/submenu" />
+                      </div>
+                      <!-- /.row -->
+                    </li>
                     <!-- Menu Footer-->
                     <li class="user-footer">
                       <div class="pull-left">
@@ -370,7 +355,7 @@ _________________________________________________________ -->
       </div>
     </div>
   </xsl:template>
-  <xsl:template match="submenus/submenu[@type='treeview']">
+  <xsl:template match="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu[@type='treeview']">
     <li>
       <a data-toggle="collapse" data-parent="#accordion{../../@GUID}" href="#collapse{@GUID}">
         <xsl:value-of select="caption/." />
@@ -383,7 +368,7 @@ _________________________________________________________ -->
       </div>
     </li>
   </xsl:template>
-  <xsl:template match="submenus/submenu[@type='label']">
+  <xsl:template match="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu[@type='label']">
     <li>
       <a href="{pageURL/.}">
         <xsl:value-of select="caption/." />

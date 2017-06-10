@@ -39,10 +39,10 @@
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/admin-LTE/js/demo.js');-->
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/admin-LTE/js/app.min.js');
 
-      document.title='<xsl:value-of select="/sqroot/header/info/title"/>';
+      document.title='Page Not Found';
 
       resetBrowseCookies();
-      loadContent(1);
+      //loadContent(1);
     </script>
     <!-- Page script -->
 

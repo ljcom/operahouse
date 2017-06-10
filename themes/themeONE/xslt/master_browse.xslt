@@ -55,7 +55,10 @@
           <div class=" browse-dropdown-status">
             <div class="dropdown">
               <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" >
-                <xsl:value-of select="translate(sqroot/body/bodyContent/browse/info/curState/@substateName, $smallcase, $uppercase)"/>
+                <ix class="icon-doc-draft">
+                <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span><span class="path15"></span>
+                </ix>&#160;
+                <span><xsl:value-of select="translate(sqroot/body/bodyContent/browse/info/curState/@substateName, $smallcase, $uppercase)"/></span>
                 &#160;
                 <span class="caret"></span>
               </button>
@@ -348,7 +351,7 @@
         <!--edit things-->
         <xsl:choose>
           <xsl:when test="$state &lt; 999">
-            <a id="edit_{@GUID}" href="javascript:btn_function('{@code}', '{@GUID}', 'formView', '{$pageNo}', 10)">
+            <a id="edit_{@GUID}" href="index.aspx?code={@code}&#38;guid={@GUID}">
               <ix class="fa fa-pencil" title="Edit"></ix>
             </a>
           </xsl:when>

@@ -34,6 +34,8 @@ Public Class cl_base_view
 
         loadAccount()
         Dim DBCore = contentOfsqDB
+        Dim curHostGUID = Session("hostGUID")
+        Dim curUserGUID = Session("userGUID")
 
         'Tablename = Left(Tablename, 1) & "o" & Mid(Tablename, 3, Len(Tablename) - 2)
         Dim saveXML = writeXMLFromRequestForm("sqroot", fieldattachment, GUID, Tablename)
@@ -41,15 +43,9 @@ Public Class cl_base_view
         Dim mainguid = Request.QueryString("cfunctionlist")
         Dim hostGUID As String
 
-        If Not Session("HostGUID") Is Nothing Then
-            hostGUID = "'" & Session("HostGUID").ToString & "'"
-        Else
-            hostGUID = "null"
-        End If
-
         If mainguid = "" Or Request.Form("gen_newid") = "1" Then
             'contentofSaveString = " exec api.[save] '" & Session("HostGUID").ToString & "', '" & Tablename & "', null, '" & saveXML & "'"
-            contentofSaveString = " exec api.[save] '" & contentOfaccountId & "', '" & DBCore & "', " & hostGUID & ", '" & Tablename & "', null, '" & saveXML & "'"
+            contentofSaveString = " exec api.[save] '" & curHostGUID & "', '" & Tablename & "', null, '" & saveXML & "'"
         Else
             If mainguid.IndexOf(",") > 0 Then
                 Stop
@@ -58,7 +54,7 @@ Public Class cl_base_view
                 'mainguid = mainguid.Substring(mainguid.IndexOf(",") + 1, mainguid.Length - (mainguid.IndexOf(",") + 1))
             Else
                 'contentofSaveString &= " exec api.[save] '" & Session("HostGUID").ToString & "', '" & Tablename & "', '" & mainguid & "', '" & saveXML & "'"
-                contentofSaveString &= " exec api.[save] '" & contentOfaccountId & "', '" & DBCore & "', " & hostGUID & ", '" & Tablename & "', '" & mainguid & "', '" & saveXML & "'"
+                contentofSaveString &= " exec api.[save] '" & curHostGUID & "', '" & Tablename & "', '" & mainguid & "', '" & saveXML & "'"
             End If
         End If
 

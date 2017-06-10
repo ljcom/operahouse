@@ -178,7 +178,7 @@
                   <ul class="dropdown-menu">
                     <!-- User image -->
                     <li class="user-header">
-                      <img src="OPHContent/themes/themeONE/images/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                      <img src="OPHContent/{sqroot/header/info/user/userURL}" class="img-circle" alt="User Image"/>
 
                       <p>
                         <xsl:value-of select="sqroot/header/info/user/userName"/> - Web Developer
@@ -293,7 +293,7 @@ _________________________________________________________ -->
         <!--<form method="get" class="sidebar-form">-->
         <div class="user-panel">
           <div class="pull-left image">
-            <img src="OPHContent/themes/themeONE/images/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            <img src="OPHContent/{sqroot/header/info/user/userURL}" class="img-circle" alt="User Image" />
           </div>
           <div class="pull-left info">
             <p>
@@ -353,7 +353,7 @@ _________________________________________________________ -->
             <!-- Profile Image -->
             <div class="box box-primary">
               <div class="box-body box-profile">
-                <img class="profile-user-img img-responsive img-circle" src="OPHContent/themes/themeONE/images/user2-160x160.jpg" alt="User profile picture"/>
+                <img class="profile-user-img img-responsive img-circle" src="OPHContent/{sqroot/header/info/user/userURL}" alt="User profile picture"/>
 
                 <h3 class="profile-username text-center">
                   <xsl:value-of select="sqroot/header/info/user/userName"/>

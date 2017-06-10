@@ -4,45 +4,34 @@ Partial Class OPHCore_API_default
     Inherits cl_base_view
 
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        Dim sqlstr = ""
+
         loadAccount()
         Dim curODBC = contentOfdbODBC
         Dim DBCore = contentOfsqDB
+        Dim curHostGUID = Session("hostGUID")
+        Dim curUserGUID = Session("userGUID")
 
+        Dim sqlstr = ""
         Dim noxml = False
-        Dim hGUID = Session("hostGUID")
-        Dim isValid = False
+        'Dim isValid = False
         Dim appSettings = ConfigurationManager.AppSettings
 
-        If (getQueryVar("login") = "true") Then
-            Dim acct = getQueryVar("acct")
-            Dim uid = getQueryVar("uid")
-            Dim ups = getQueryVar("ups")
-            Dim conn = appSettings.Item("Connection")
+        'If (getQueryVar("login") = "true") Then
+        '    Dim acct = getQueryVar("acct")
+        '    Dim uid = getQueryVar("uid")
+        '    Dim ups = getQueryVar("ups")
+        '    Dim conn = appSettings.Item("Connection")
 
-            If (acct <> "" And uid <> "" And ups <> "") Then
-                isValid = GetConnect(acct, acct, uid, ups, "", conn)
-            End If
+        '    If (acct <> "" And uid <> "" And ups <> "") Then
+        '        isValid = GetConnect(acct, acct, uid, ups, "", conn)
+        '    End If
 
-            If isValid Then
-                hGUID = getQueryVar("hostGUID")
-                reloadURL("../index.aspx?mode=view&tablename=caUPWD&GUID=" & Session("UserGUID"))
-            End If
-        End If
+        '    If isValid Then
+        '        hGUID = getQueryVar("hostGUID")
+        '        reloadURL("../index.aspx?mode=view&tablename=caUPWD&GUID=" & Session("UserGUID"))
+        '    End If
+        'End If
 
-        If hGUID Is Nothing Then
-            hGUID = ""
-            'Exit Sub
-        Else
-            sqlstr = "exec api.verifyhost '" & Session("hostGUID") & "'"
-            hGUID = runSQLwithResult(sqlstr, curODBC)
-            If hGUID = "" And Not Session("hostGUID") Is Nothing Then
-                'Response.Cookies("lastPar").Value = Request.Url.PathAndQuery
-                Session("hostGUID") = Nothing
-                Response.Write("<script>window.location='" & Session("lastPar") & "';</script>")
-                Exit Sub
-            End If
-        End If
 
         'If hGUID = "" Then
         'SignOff()
@@ -58,9 +47,6 @@ Partial Class OPHCore_API_default
             mode = Request.Form("mode")
         End If
 
-        Dim curHostGUID = "null"
-        If Not IsNothing(Session("hostGUID")) Then curHostGUID = "'" & Session("hostGUID") & "'"
-
         Dim code = ""
         If getQueryVar("code") <> "" Then code = "" & getQueryVar("code") & ""
         If code = "" Then
@@ -68,14 +54,14 @@ Partial Class OPHCore_API_default
         End If
         'Dim pathpage = getQueryVar("firstpage") + "&tablename=" & code & ""
         'If pathpage Is Nothing Then pathpage = ""
-
         Dim GUID = "null"
         If getQueryVar("GUID") <> "" And getQueryVar("GUID") <> "undefined" Then GUID = "'" & getQueryVar("GUID") & "'"
 
         Select Case mode
             Case "master"
                 Dim stateid = getQueryVar("stateid")
-                sqlstr = "exec [api].[theme] '" & contentOfaccountId & "', '" & DBCore & "', " & curHostGUID & ", '" & code & "', " & GUID
+
+                sqlstr = "exec [api].[theme] '" & curHostGUID & "', '" & code & "', " & GUID
             Case "browse"
                 Dim sqlfilter = getQueryVar("sqlFilter")
                 Dim sortOrder = getQueryVar("sortOrder")
@@ -101,7 +87,7 @@ Partial Class OPHCore_API_default
                 If showpage <> "" Then
                     rpp = showpage
                 End If
-                sqlstr = "exec [api].[theme_browse] '" & contentOfaccountId & "', '" & DBCore & "', " & curHostGUID & ", '" & code & "', '" & sqlfilter.Replace("'", "''") & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", " & rpp & ", '" & sortOrder & "', '" & stateid & "'"
+                sqlstr = "exec [api].[theme_browse] '" & curHostGUID & "', '" & code & "', '" & sqlfilter.Replace("'", "''") & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", " & rpp & ", '" & sortOrder & "', '" & stateid & "'"
 
                 isSingle = False
                 xmlstr = getXML(sqlstr, curODBC)
@@ -119,7 +105,7 @@ Partial Class OPHCore_API_default
                 End If
             Case "view", "form"
                 'editmode=getQueryVar("editmode")
-                sqlstr = "exec [api].[theme_form] '" & contentOfaccountId & "', '" & DBCore & "', " & curHostGUID & ", '" & code & "', " & GUID '& ", " & editMode
+                sqlstr = "exec [api].[theme_form] '" & curHostGUID & "', '" & code & "', " & GUID '& ", " & editMode
             'Case "approval"
             '    sqlstr = "exec [xml].[view_approval] " & curHostGUID & ", '" & code & "', " & GUID '& ", " & editMode
             'Case "doctalk"
@@ -196,7 +182,7 @@ Partial Class OPHCore_API_default
                     f.Item(nx).SaveAs(fxn)
                     If flag = "isUpload" Then
                         Dim sqlstr1 As String
-                        sqlstr1 = "exec CaUPLD_save '" & Id.Replace("'", "") & "', " & curHostGUID & ",'" & Id.Replace("'", "") & "','" & fxn & "','" & QueryCode & "'"
+                        sqlstr1 = "exec CaUPLD_save '" & Id.Replace("'", "") & "', '" & curHostGUID & "','" & Id.Replace("'", "") & "','" & fxn & "','" & QueryCode & "'"
                         runSQL(sqlstr1, curODBC)
 
                         Dim odbc = runSQLwithResult("select c.odbc from coQURY a inner join comodg b on a.modulegroupguid=b.modulegroupguid inner join coacctdbse c on b.accountdbguid=c.accountdbguid where a.queryCode='" & QueryCode & "'", curODBC)
@@ -208,7 +194,7 @@ Partial Class OPHCore_API_default
                         Dim filename As String = GUID.Replace("'", "") & "_" & GetFileName
                         Dim fullpath As String = "" & filepath & " " & filename & ""
                         If code <> "" Then
-                            sqlstr = "exec gen.upload_select '" & GUID.Replace("'", "") & "', " & curHostGUID & ", '" & code & "', '" & filename & "', '" & filepath & "'"
+                            sqlstr = "exec gen.upload_select '" & GUID.Replace("'", "") & "', '" & curHostGUID & "', '" & code & "', '" & filename & "', '" & filepath & "'"
                             runSQL(sqlstr, curODBC)
                         End If
                     End If
@@ -224,14 +210,14 @@ Partial Class OPHCore_API_default
                 Dim fl = functionlist.Split(",")
                 For Each f In fl
                     If f = "" Then f = "null" Else f = "'" & f & "'"
-                    sqlstr = "exec api.[function] @accountid='" & contentOfaccountId & "',  @dbcore='" & DBCore & "', @hostGUID='" & Session("HostGUID").ToString & "', @mode='" & functionName & "', @code='" & code & "', @GUID=" & f & ", @comment='" & comment & "'"
+                    sqlstr = "exec api.[function] @hostGUID='" & curHostGUID & "', @mode='" & functionName & "', @code='" & code & "', @GUID=" & f & ", @comment='" & comment & "'"
                     xmlstr &= runSQLwithResult(sqlstr, curODBC)
                 Next
                 Dim msg = xmlstr
                 xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
                 isSingle = False
             Case "report"
-                sqlstr = "exec [api].[theme_report] '" & contentOfaccountId & "', '" & DBCore & "', " & curHostGUID & ", '" & code & "'"
+                sqlstr = "exec [api].[theme_report] '" & curHostGUID & "', '" & code & "'"
                 xmlstr &= runSQLwithResult(sqlstr, curODBC)
             'Case "date"
             '    Dim field = getQueryVar("FieldName")
@@ -263,7 +249,7 @@ Partial Class OPHCore_API_default
             'Case "sidebar"
             '    sqlstr = "exec [api].[sidebar] " & curHostGUID & ", '" & code & "', " & GUID
             Case "signout"
-                Response.Cookies("hostGUID").Value = ""
+                Response.Cookies("guestID").Value = ""
                 Session.Clear()
                 Session.RemoveAll()
                 Session.Abandon()
@@ -297,15 +283,15 @@ Partial Class OPHCore_API_default
                     If checkWinLogin(userid, pwd) Then
                         bypass = 1
                         sqlstr = "select infovalue from acctinfo a inner join acct b on a.accountguid=b.accountguid where infokey='masterPassword' and accountid='" & contentOfaccountId & "'"
-                        pwd = runSQLwithResult(sqlstr, curODBC)
+                        pwd = runSQLwithResult(sqlstr, contentOfsequoiaCon)
                     End If
-                    sqlstr = "exec api.verifyPassword '" & contentOfaccountId & "', '" & DBCore & "', '" & userid & "', '" & pwd & "', " & bypass
+                    sqlstr = "exec api.verifyPassword '" & curHostGUID & "', '" & userid & "', '" & pwd & "', " & bypass
                     xmlstr = getXML(sqlstr, curODBC)
 
                     If xmlstr IsNot Nothing And xmlstr <> "" Then
-                        curHostGUID = XDocument.Parse(xmlstr).Element("sqroot").Element("hostGUID").Value
-                        Session("hostGUID") = curHostGUID
-                        Response.Cookies("hostGUID").Value = curHostGUID
+                        curUserGUID = XDocument.Parse(xmlstr).Element("sqroot").Element("userGUID").Value
+                        Session("userGUID") = curUserGUID
+                        'Response.Cookies("hostGUID").Value = curHostGUID
                         Response.Cookies("isLogin").Value = 1
                     Else
                         xmlstr = "<sqroot><message>Incorrect Password!</message></sqroot>"
@@ -333,7 +319,7 @@ Partial Class OPHCore_API_default
                 writeLog("mode " & mode & " : " & sqlstr)
             End If
         Else
-                Response.Write("ok")
+            Response.Write("ok")
         End If
     End Sub
 

@@ -176,6 +176,7 @@ function timeIsUp()
 {
     //lastPar = window.location;
     //setCookie('lastPar', lastPar);
+    //setCookie("userId", "", 0, 0, 0);
     window.location = 'index.aspx?env=acct&code=lockscreen';
 }
 setTimeout(function () { timeIsUp(); }, 1000 * 60 * 60);
