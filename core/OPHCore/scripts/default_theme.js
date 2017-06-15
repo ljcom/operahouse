@@ -2057,45 +2057,50 @@ function doViewNew(tblName) {
     }
     document.location.href = document.location.href.replace(document.location.search, '') + '?mode=new&code=' + bCode + '&';
 }
-//syawal 2013-07-01  
-function submitTalk(guid, e, type) {
+function enterTalk(guid, e, location) {
     if (e.keyCode == 13) {
-        //var cguid = document.forms[0].cid.value;
-        var comment = e.srcElement.value;
-        var divname = 'talk' + guid;
-        if (guid == '') guid = document.forms[0].cid.value;
-        if (e.srcElement.value) {
-            //alert(guid);
-            //var ThemeFolder = '', serverAddress = '';
-            //if (document.getElementById("serverAddress")) serverAddress = document.getElementById("serverAddress").value;
-            //if (serverAddress == '') //serverAddress = '../../../';
-            //if (serverAddress.substring(serverAddress.length, serverAddress.length - 1) != '/') serverAddress += '/';
-            //if (ThemeFolder == '') ThemeFolder = document.getElementById("curTheme").value;
+        submitTalk(guid, location)
+    }
+}
 
-            var xmldoc = 'OPHCore/api/default.aspx?mode=talk&guid=' + guid + "&comment=" + comment + "&code=CaTALK";
-            var xsldoc
-            if (type == undefined || type == 'browse') {
-                xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_browse_block_talk.xslt';
-            }
-            else {
-                xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_view_vdoctalk.xslt';
-                divname = 'frameViewDocTalk'
-            }
+function submitTalk(guid, location) {
+    var comment = $('#message').val();
+    if (guid == '') guid = $('#cid').val();
+    //location: 0 header; 1 child; 2 browse 
+    //location: browse:10, header form:20, browse anak:30, browse form:40
+    if (comment) {
+        refreshTalk(guid, comment, location, function () {
+            $('#message').val('');
+            $('#message').focus();
+        });
+    }
+    else {
+        showMessage('Please put your comment before press enter');
+    }
+}
 
-            //alert(comment);
-            //result = loadXMLDoc(path);
-
-            showXML(divname, xmldoc, xsldoc, true, true)
-
-            //e.srcElement.focus();
-        }
-        else {
-            showMessage('Please put your comment before press enter');
-
-        }
+function refreshTalk(guid, comment, location, f) {
+    divname = 'chatMessages';
+    var xmldoc = 'OPHCore/api/default.aspx?mode=talk&guid=' + guid + "&comment=" + comment + "";
+    var xsldoc
+    if (location == '10') {
+        xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_browse_talk.xslt';
+    }
+    else {
+        xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_form_talk.xslt';
     }
 
+    showXML(divname, xmldoc, xsldoc, true, true, function () {
+        var d = $('#' + divname);
+        d.scrollTop(d.prop("scrollHeight"));
+
+        if (typeof f == "function") f();
+    });
+    setTimeout(function () { refreshTalk(guid, '', location); }, 1000 * 60);
+    //e.srcElement.focus();
 }
+
+
 
 function setAsWelcomePages(curPage) {
     curPage = curPage.replace('&', '*').replace('&', '*').replace('&', '*').replace('&', '*');
@@ -3496,17 +3501,18 @@ function checkrequired(Names) {
 
 function showChildForm(code, guid) {
     //clear other childform
-    $(".browse-data").html("Please Wait...");
+    var divnm = [code + guid];
+    $("#"+divnm).html("Please Wait...");
 
-    var xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=view&GUID=" + guid
+    var xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=form&GUID=" + guid
 
     var xsldoc = ["OPHContent/themes/" + loadThemeFolder() + "/xslt/" + getPage() + "_childForm.xslt"];
-    var divnm = [code + guid]
     pushTheme(divnm, xmldoc, xsldoc, true);
     //setCookie("currentChild", code + guid);
 }
-function closeChildForm() {
-    $('.browse-data').collapse("hide");
+function closeChildForm(code, guid) {
+    var divnm = [code + guid];
+    $('#'+divnm).collapse("hide");
 }
 
 function autosuggestSetValue(SelectID, Code, CaptionID, CaptionName, CaptionKey, InitialValue) {

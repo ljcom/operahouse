@@ -4,8 +4,8 @@ Partial Class OPHCore_API_default
     Inherits cl_base_view
 
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-
         loadAccount()
+
         Dim curODBC = contentOfdbODBC
         Dim DBCore = contentOfsqDB
         Dim curHostGUID = Session("hostGUID")
@@ -16,31 +16,9 @@ Partial Class OPHCore_API_default
         'Dim isValid = False
         Dim appSettings = ConfigurationManager.AppSettings
 
-        'If (getQueryVar("login") = "true") Then
-        '    Dim acct = getQueryVar("acct")
-        '    Dim uid = getQueryVar("uid")
-        '    Dim ups = getQueryVar("ups")
-        '    Dim conn = appSettings.Item("Connection")
-
-        '    If (acct <> "" And uid <> "" And ups <> "") Then
-        '        isValid = GetConnect(acct, acct, uid, ups, "", conn)
-        '    End If
-
-        '    If isValid Then
-        '        hGUID = getQueryVar("hostGUID")
-        '        reloadURL("../index.aspx?mode=view&tablename=caUPWD&GUID=" & Session("UserGUID"))
-        '    End If
-        'End If
-
-
-        'If hGUID = "" Then
-        'SignOff()
-        'Response.Write("<script>" & contentofSignOff & "</script>")
-        'Else
         Dim isSingle = True
         Dim xmlstr = ""
         Dim xmlstr1 = ""
-        'End If
 
         Dim mode = getQueryVar("mode")
         If mode = "" Then
@@ -52,15 +30,13 @@ Partial Class OPHCore_API_default
         If code = "" Then
             code = Request.Form("code")
         End If
-        'Dim pathpage = getQueryVar("firstpage") + "&tablename=" & code & ""
-        'If pathpage Is Nothing Then pathpage = ""
+
         Dim GUID = "null"
         If getQueryVar("GUID") <> "" And getQueryVar("GUID") <> "undefined" Then GUID = "'" & getQueryVar("GUID") & "'"
 
         Select Case mode
             Case "master"
                 Dim stateid = getQueryVar("stateid")
-
                 sqlstr = "exec [api].[theme] '" & curHostGUID & "', '" & code & "', " & GUID
             Case "browse"
                 Dim sqlfilter = getQueryVar("sqlFilter")
@@ -68,15 +44,12 @@ Partial Class OPHCore_API_default
                 Dim stateid = getQueryVar("stateid")
                 Dim bpage = getQueryVar("bPageNo")
                 Dim searchText = getQueryVar("bSearchText")
-                'Dim initialT As String
-                'initialT = code.Substring(0, 1).ToUpper
 
-                'If sqlfilter = "" Then sqlfilter = ""
                 If sortOrder = "" Or sortOrder = "," Then sortOrder = ""
                 If stateid = "" Or stateid = "" Or stateid = "," Then
                     sqlstr = "select c.StateID from modl a inner join msta b on a.ModuleStatusGUID=b.ModuleStatusGUID inner join mstastat c on b.ModuleStatusGUID=c.ModuleStatusGUID and c.isDefault=1 where moduleid='" & code & "'"
                     stateid = runSQLwithResult(sqlstr, curODBC)
-                    'stateid = "null"
+
                 End If
                 If searchText = "" Or searchText = "search" Then searchText = ""
                 If bpage = "" Then bpage = 1
@@ -104,17 +77,14 @@ Partial Class OPHCore_API_default
                     isSingle = False
                 End If
             Case "view", "form"
-                'editmode=getQueryVar("editmode")
                 sqlstr = "exec [api].[theme_form] '" & curHostGUID & "', '" & code & "', " & GUID '& ", " & editMode
             'Case "approval"
             '    sqlstr = "exec [xml].[view_approval] " & curHostGUID & ", '" & code & "', " & GUID '& ", " & editMode
             'Case "doctalk"
             '    sqlstr = "exec gen.xml_browse_block_talk " & curHostGUID & ", " & GUID '& ""
-            'Case "talk"
-            '    Dim comment = getQueryVar("comment")
-            '    sqlstr = "exec oph.caTALK_save NULL, " & curHostGUID & ", " & GUID & ", '" & comment & "'"
-            '    runSQLwithResult(sqlstr, curODBC)
-            '    sqlstr = "exec gen.xml_browse_block_talk " & curHostGUID & ", " & GUID & ""
+            Case "talk"
+                Dim comment = getQueryVar("comment")
+                sqlstr = "exec gen.submitTalk '" & curHostGUID & "', " & GUID & ", '" & comment & "'"
             Case "save", "preview"
                 isSingle = False
                 Dim preview = getQueryVar("flag")
@@ -273,7 +243,6 @@ Partial Class OPHCore_API_default
                     isSingle = False
                 End If
             Case Else 'signin
-                'Dim ACCOUNTID = appSettings.Item("accountid")
                 Dim userid = getQueryVar("userid")
                 Dim pwd = getQueryVar("pwd")
                 If userid = "" And pwd = "" Then

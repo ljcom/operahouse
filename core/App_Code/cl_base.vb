@@ -16,12 +16,20 @@ Public Class cl_base
     Protected contentOfsequoiaCon As String
     Protected contentOfaccountId As String
     Protected contentOfaccountGUID As String
-    Protected contentOfthemeCode As String
+    'Protected contentOfthemeCode As String
     Protected contentOfthemeFolder As String
+    Protected contentOfthemePage As String
     Protected contentOfdbODBC As String
     Protected contentOfsqDB As String
-    Protected contentOfsigninPage As String
-    Protected contentOffrontPage As String
+    Protected contentOfCode As String
+    Protected contentOfEnv As String
+    Protected contentofNeedLogin As Boolean
+    Protected contentofsignInPage As String
+
+    'Protected contentOfE As String
+
+    'Protected contentOfsigninPage As String
+    'Protected contentOffrontPage As String
     'Protected contentOfdocFolder As String
 
     'Protected wordofHeadTitle As String = "Main"
@@ -984,7 +992,6 @@ Public Class cl_base
     'End Function
 
     Private Sub Page_Init(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Init
-        loadAccount()
         'Dim Connection = getODBC(accountid)
         'If Connection = "" Then
         '    Dim account As String = ""
@@ -1342,7 +1349,12 @@ Public Class cl_base
         Return dataSet
 
     End Function
-    Sub loadAccount()
+    Sub loadAccount(Optional env As String = "", Optional code As String = "")
+
+        'prepare curHostGUID, curUserGUID
+        Dim hGUID = IIf(IsNothing(Response.Cookies("guestID").Value), Session("hostGUID"), Response.Cookies("guestID").Value)
+        If hGUID = "" Then hGUID = "null" Else hGUID = "'" & hGUID & "'"
+
         'If Session("sequoia") = "" Then
         Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
         'dynamic account
@@ -1351,69 +1363,26 @@ Public Class cl_base
 
         Dim x = Request.Url.Authority & Request.ApplicationPath
         If x.Substring(Len(x) - 1, 1) = "/" Then x = x.Substring(0, Len(x) - 1)
-        'Dim q = x.IndexOf("?")
-        'If q >= 0 Then x = x.Substring(0, x.IndexOf("?"))
-        'x = x.Substring(x.IndexOf("//") + 2)
-        'x = x.Substring(0, x.IndexOf("/"))
 
-
-
-        Dim sqlstr = "select accountid from acctinfo a inner join acct b on a.accountguid=b.accountguid where infokey='address' and lower(infovalue) like '%" & x.ToLower() & "%'"
-        contentOfaccountId = runSQLwithResult(sqlstr, Session("sequoia"))
-        'If accountid <> "" Then accountid = ConfigurationManager.AppSettings.Item("accountid")
-
-        sqlstr = "exec core.info_acct '" & contentOfaccountId & "', 'ODBC'"
-        contentOfdbODBC = runSQLwithResult(sqlstr, contentOfsequoiaCon)
-
-        sqlstr = "exec core.info_acct '" & contentOfaccountId & "', 'themeCode'"
-        contentOfthemeFolder = runSQLwithResult(sqlstr, contentOfsequoiaCon)
-
-        sqlstr = "exec core.info_acct '" & contentOfaccountId & "', 'frontPage'"
-        contentOffrontPage = runSQLwithResult(sqlstr, contentOfsequoiaCon)
-
-        sqlstr = "exec core.info_acct '" & contentOfaccountId & "', 'signinPage'"
-        contentOfsigninPage = runSQLwithResult(sqlstr, contentOfsequoiaCon)
-
-        'sqlstr = "exec core.info_acct '" & contentOfaccountId & "', 'documentFolder'"
-        'contentOfdocFolder = runSQLwithResult(sqlstr, contentOfsequoiaCon)
-
-        'dynamic account
-        Dim ret As String = contentOfsequoiaCon.Replace(" ", "")
-        ret = ret.Substring(ret.Replace(" ", "").IndexOf("atalog") + 7)
-        ret = ret.Substring(0, ret.IndexOf(";"))
-        contentOfsqDB = ret
-        'End If
-
-        'prepare curHostGUID, curUserGUID
-        Dim hGUID = IIf(IsNothing(Response.Cookies("guestID").Value), Session("hostGUID"), Response.Cookies("guestID").Value)
-
-        If hGUID <> "" Then
-            sqlstr = "exec api.verifyhost '" & hGUID & "'"
-            Dim r = runSQLwithResult(sqlstr, contentOfdbODBC)
-            If r = 0 Then hGUID = ""
-            If r = 1 Then Session("userGUID") = ""
+        If env = "" Then env = "null" Else env = "'" & env & "'"
+        If code = "" Then code = "null" Else code = "'" & code & "'"
+        Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "', " & env & ", " & code & ""
+        Dim r1 As DataSet = SelectSqlSrvRows(sqlstr, contentOfsequoiaCon)
+        If r1.Tables.Count > 0 AndAlso r1.Tables(0).Rows.Count > 0 Then
+            contentOfaccountId = r1.Tables(0).Rows(0).Item(0).ToString
+            contentOfsqDB = r1.Tables(0).Rows(0).Item(1).ToString
+            contentOfdbODBC = r1.Tables(0).Rows(0).Item(2).ToString
+            contentOfthemeFolder = r1.Tables(0).Rows(0).Item(3).ToString
+            contentOfthemePage = r1.Tables(0).Rows(0).Item(4).ToString
+            contentOfEnv = r1.Tables(0).Rows(0).Item(5).ToString
+            contentOfCode = r1.Tables(0).Rows(0).Item(6).ToString
+            Session("hostGUID") = r1.Tables(0).Rows(0).Item(7).ToString
+            Session("userGUID") = r1.Tables(0).Rows(0).Item(8).ToString
+            contentofNeedLogin = r1.Tables(0).Rows(0).Item(9).ToString
+            contentofsignInPage = r1.Tables(0).Rows(0).Item(10).ToString
+            'Session("lastPar") = r1.Tables(0).Rows(0).Item(8).ToString
         End If
 
-        If hGUID Is Nothing Or hGUID = "" Then
-            sqlstr = "exec gen.createGuestID '" & contentOfaccountId & "', '" & contentOfsqDB & "'"
-            hGUID = runSQLwithResult(sqlstr, contentOfdbODBC)
-            'Session("hostGUID") = hGUID
-            'Response.Cookies("hostGUID").Value = hGUID
-            'setCookie("hostGUID", hGUID, 7)
-            Session("hostGUID") = hGUID
-            'Else
-            'sqlstr = "exec api.verifyhost '" & hGUID & "'"
-            'Session("userGUID") = runSQLwithResult(sqlstr, contentOfdbODBC)
-            'If userGUID = "" And Not Session("hostGUID") Is Nothing Then
-            '    'Response.Cookies("lastPar").Value = Request.Url.PathAndQuery
-            '    Session("hostGUID") = Nothing
-            '    Response.Write("<script>window.location='" & Session("lastPar") & "';</script>")
-            '    Exit Sub
-            'End If
-        End If
-
-        Dim curHostGUID = "'" & Session("hostGUID") & "'"
-        'Return accountid
     End Sub
     Sub writeLog(logMessage As String)
         'Dim w As TextWriter
