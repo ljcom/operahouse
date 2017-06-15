@@ -12,6 +12,11 @@
     <xsl:variable name="settingmode">
       <xsl:value-of select="/sqroot/body/bodyContent/form/info/settingMode/."/>
     </xsl:variable>
+    <xsl:variable name="gotoActive"></xsl:variable>
+    <xsl:if test="count(sqroot/body/bodyContent/form/talks/talk)=0">active</xsl:if>
+    <xsl:variable name="chatActive">
+      <xsl:if test="count(sqroot/body/bodyContent/form/talks/talk)>0">active</xsl:if>
+    </xsl:variable>
 
     <div class="user-panel">
       <div class="pull-left image image-envi data-logo" style="padding:0;  margin-left:7px; margin-top:2px;">
@@ -36,14 +41,21 @@
           </span>
           <br />
           <span style="font-size:14pt;">
-            <xsl:choose>
-              <xsl:when test="$settingmode='T'">
-                <xsl:value-of select="sqroot/body/bodyContent/form/info/refNo/."/>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:value-of select="sqroot/body/bodyContent/form/info/id/."/>
-              </xsl:otherwise>
-            </xsl:choose>
+            <table class="fixed-table">
+              <tr>
+                <td id="summary{@GUID}">
+                  <xsl:choose>
+                    <xsl:when test="$settingmode='T'">
+                      <xsl:value-of select="sqroot/body/bodyContent/form/info/refNo/."/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:value-of select="sqroot/body/bodyContent/form/info/id/."/>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </td>
+              </tr>
+            </table>
+
             <!--xsl:value-of select="sqroot/body/bodyContent/form/info/Description/."/-->
           </span>
 
@@ -66,7 +78,7 @@
     <ul class="sidebar-menu">
       <!-- <li class="header">MAIN NAVIGATION</li> -->
       <xsl:if test="(sqroot/body/bodyContent/form/children) and (sqroot/body/bodyContent/form/info/GUID)!='00000000-0000-0000-0000-000000000000'">
-        <li class="treeview active">
+        <li class="treeview {$gotoActive}">
           <a href="#">
             <span>
               <ix class="fa  fa-arrow-circle-right"></ix>
@@ -228,41 +240,83 @@
         </li>
       </xsl:if>-->
 
-      <li class="treeview">
-        <a href="#">
-          <span>
-            <ix class="fa fa-wechat"></ix>
-          </span>
-          <span>&#160;DOCUMENT TALK</span>
-          <span class="pull-right-container">
-            <ix class="fa fa-angle-left pull-right"></ix>
-          </span>
-        </a>
-        <ul class="treeview-menu view-left-sidebar">
-          <li>
-            <dl>
-              <dl id="doctalk-info">
-                <xsl:apply-templates select="sqroot/docTalks"/>
-              </dl>
-              <input type="text" class="form-control" placeholder="Press Enter to Comment" style="max-width:200px;"/>
-            </dl>
-          </li>
-        </ul>
-      </li>
+      <xsl:if test="$settingmode!='C'">
+        <script>
+          setTimeout(function () { refreshTalk('<xsl:value-of select="sqroot/body/bodyContent/form/info/GUID" />', '', 20); }, 1000 * 60);
+
+        </script>
+
+        <li class="treeview {$chatActive}">
+          <a href="#">
+            <span>
+              <ix class="fa fa-comments"></ix>
+            </span>
+            <span>&#160;DOC TALK</span>
+            <span class="pull-right-container">
+              <ix class="fa fa-angle-left pull-right"></ix>
+            </span>
+          </a>
+
+          <ul class="treeview-menu view-left-sidebar">
+            <li>
+              <div id="chatMessages" class="direct-chat-messages">
+                <xsl:apply-templates select="sqroot/body/bodyContent/form/talks/talk"/>
+                <script>
+                  var d = $('.direct-chat-messages');
+                  d.scrollTop(d.prop("scrollHeight"));
+                </script>
+                <!-- /.direct-chat-msg -->
+              </div>
+            </li>
+            <li>
+              <div class="input-group">
+                <input type="text" id="message" name="message" placeholder="Type Message ..." class="form-control" onkeypress="javascript:enterTalk('{@GUID}', event, '20')"/>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-primary btn-flat" onclick="javascript:submitTalk('{@GUID}', '20')">Send</button>
+                </span>
+              </div>
+
+            </li>
+          </ul>
+        </li>
+      </xsl:if>
     </ul>
   </xsl:template>
 
+  <xsl:template match="sqroot/body/bodyContent/form/talks/talk">
+    <xsl:variable name="chatRight">
+      <xsl:if test="@itsMe=1">right</xsl:if>
+    </xsl:variable>
+    <div class="direct-chat-msg {$chatRight}">
+      <div class="direct-chat-info clearfix">
+        <span class="direct-chat-name pull-right">
+          <xsl:value-of select="@talkUser"/>
+        </span>
+        <span class="direct-chat-timestamp pull-left" title="{@talkDate}">
+          <xsl:value-of select="@talkDateCaption"/>
+        </span>
+      </div>
+      <!-- /.direct-chat-info -->
+      <img class="direct-chat-img" src="OPHContent/{@talkUserProfile}" alt="{talkUser}"/>
+      <!-- /.direct-chat-img -->
+      <div class="direct-chat-text">
+        <xsl:value-of select="@comment"/>
+      </div>
+      <!-- /.direct-chat-text -->
+    </div>
+
+  </xsl:template>
 
   <xsl:template match="sqroot/body/bodyContent/form/info">
     <ul class="treeview-menu view-left-sidebar">
       <li>
         <xsl:if test="docNo/.">
-        <dl>
-          <dt>Doc No</dt>
-          <dt>
-            <xsl:value-of select="docNo"/>
-          </dt>
-        </dl>
+          <dl>
+            <dt>Doc No</dt>
+            <dt>
+              <xsl:value-of select="docNo"/>
+            </dt>
+          </dl>
         </xsl:if>
         <xsl:if test="refNo/.">
           <dl>
@@ -287,6 +341,23 @@
             <dd>
               <xsl:value-of select="id"/>
             </dd>
+          </dl>
+        </xsl:if>
+        <hr />
+        <xsl:if test="state/status/.">
+          <dl>
+            <dt>Status</dt>
+            <dt>
+              <xsl:value-of select="state/status"/>
+            </dt>
+          </dl>
+        </xsl:if>
+        <xsl:if test="state/statuscomment/.">
+          <dl>
+            <dt>Comment</dt>
+            <dt>
+              <xsl:value-of select="state/statuscomment"/>
+            </dt>
           </dl>
         </xsl:if>
       </li>
