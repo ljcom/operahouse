@@ -1,0 +1,18 @@
+SETTING MODLCOLMINFO
+• Untuk dapat diakses di browse: isBrowsable=1
+• Untuk dapat diakses di form: isViewable=1
+• Untuk boleh diedit di form: isEditable=1
+• Untuk menandakan harus di isi (mandatory)=isNullable=0
+• Urutan Tampilan di form: pageNo, sectionNo, columnNo, rowNo, fieldNo
+• Untuk Sebagai Textbox: colType=11
+• Untuk Sebagai Password: colType=12, passwordChar=* (default)
+• Untuk Sebagai Checkbox: colType=31
+• Untuk sebagai Autosuggest Box (Table): colType=32, ComboTable=nama table, ComboFieldKey=primaryKey Field, ComboFieldId=field Id, ComboFieldName=field name
+• Untuk sebagai Autosuggest Box (Parameter): colType=32, ComboTable=par(nama par)
+• Untuk sebagai Autosuggest Box (Document): colType=32, ComboTable=doc(nama doc), ComboFieldKey=primaryKey Field (jika kosong ambil dari docGUID), ComboFieldId=field Id, ComboFieldName=field name
+• Untuk sebagai Token Box (table): colType=33, ComboTable=nama table, ComboFieldKey=primaryKey Field, ComboFieldId=field Id, ComboFieldName=field name
+• Untuk sebagai Autosuggest Box (Document): colType=33, ComboTable=doc(nama doc), ComboFieldKey=primaryKey Field (jika kosong ambil dari docGUID), ComboFieldId=field Id, ComboFieldName=field name
+• Untuk sebagai Radio Button: colType=44
+• Untuk sebagai Date: colType=41
+• Untuk sebagai Time: colType=42
+• Untuk sebagai Media Attachment: colType=51
