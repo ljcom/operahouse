@@ -10,7 +10,12 @@
   <xsl:decimal-format name="dot-dec" decimal-separator="." grouping-separator=","/>
 
   <xsl:variable name="state" select="/sqroot/body/bodyContent/browse/info/curState/@substateCode" />
-
+  <xsl:variable name="allowAccess" select="/sqroot/body/bodyContent/browse/info/permission/allowAccess" />
+  <xsl:variable name="allowForce" select="/sqroot/body/bodyContent/browse/info/permission/allowForce" />
+  <xsl:variable name="allowDelete" select="/sqroot/body/bodyContent/browse/info/permission/allowDelete" />
+  <xsl:variable name="allowWipe" select="/sqroot/body/bodyContent/browse/info/permission/allowWipe" />
+  <xsl:variable name="allowOnOff" select="/sqroot/body/bodyContent/browse/info/permission/allowOnOff" />
+  
   <xsl:template match="/">
 
     <xsl:if test="/sqroot/header/info/isBrowsable = 0">
@@ -56,9 +61,25 @@
             <div class="dropdown">
               <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" >
                 <ix class="icon-doc-draft">
-                <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span><span class="path15"></span>
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                  <span class="path3"></span>
+                  <span class="path4"></span>
+                  <span class="path5"></span>
+                  <span class="path6"></span>
+                  <span class="path7"></span>
+                  <span class="path8"></span>
+                  <span class="path9"></span>
+                  <span class="path10"></span>
+                  <span class="path11"></span>
+                  <span class="path12"></span>
+                  <span class="path13"></span>
+                  <span class="path14"></span>
+                  <span class="path15"></span>
                 </ix>&#160;
-                <span><xsl:value-of select="translate(sqroot/body/bodyContent/browse/info/curState/@substateName, $smallcase, $uppercase)"/></span>
+                <span>
+                  <xsl:value-of select="translate(sqroot/body/bodyContent/browse/info/curState/@substateName, $smallcase, $uppercase)"/>
+                </span>
                 &#160;
                 <span class="caret"></span>
               </button>
@@ -105,8 +126,9 @@
                       <xsl:apply-templates select="sqroot/body/bodyContent/browse/header/column[@docStatus=1]" />&#160;
                     </th>
                   </xsl:if>
-                  <th width="10">ACTION&#160;
-                      <!--<xsl:if test="/sqroot/header/info/code/settingMode!='M'">
+                  <th width="10">
+                    ACTION&#160;
+                    <!--<xsl:if test="/sqroot/header/info/code/settingMode!='M'">
                         <xsl:if test="$state &lt; 400">
                           <a href="#">
                             <ix class="fa fa-check" title="Approve All"></ix>
@@ -127,7 +149,7 @@
                 </tr>
               </thead>
               <xsl:choose>
-                <xsl:when test="sqroot/body/bodyContent/browse/info/permission/allowBrowse/.=1">
+                <xsl:when test="sqroot/body/bodyContent/browse/info/permission/allowAccess/.=1">
                   <tbody id="browseContent">
                     <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row" />
                   </tbody>
@@ -178,7 +200,7 @@
             <div class="box-body full-width-a">
               <div class="box-group" id="accordion">
                 <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-                <xsl:if test="sqroot/body/bodyContent/browse/info/permission/allowBrowse/.=0">
+                <xsl:if test="sqroot/body/bodyContent/browse/info/permission/allowAccess/.=0">
                   <div class="alert alert-warning" align="center">
                     You don't have any access to see this list. Please ask the administrator for more information.
                   </div>
@@ -280,8 +302,9 @@
 
       <xsl:variable name="pageNo" select="/sqroot/body/bodyContent/browse/info/pageNo" />
       <td class="browse-action-button" style="white-space: nowrap;">
+        
         <!--approval icons-->
-        <xsl:if test="/sqroot/header/info/code/settingMode='T'">
+        <xsl:if test="substring(/sqroot/header/info/code/id, 1, 1) = 'T'">
           <xsl:choose>
             <xsl:when test="$state &lt; 400">
               <!--location: 0 header; 1 child; 2 browse
@@ -290,12 +313,12 @@
                 <ix class="fa fa-check" title="Approve"></ix>
               </a>
             </xsl:when>
-            <xsl:when test="@force=1 and $state &lt; 500">
+            <xsl:when test="$allowForce = 1 and $state &lt; 500">
               <a href="javascript:btn_function('{@code}', '{@GUID}', 'force', '{$pageNo}', 10)">
                 <ix class="fa fa-archive" title="Close"></ix>
               </a>
             </xsl:when>
-            <xsl:when test="@force=1 and $state &lt; 600">
+            <xsl:when test="$allowForce = 1 and $state &lt; 600">
               <a href="javascript:btn_function('{@code}', '{@GUID}', 'reopen', '{$pageNo}', 10)">
                 <ix class="fa fa-undo" title="Reopen"></ix>
               </a>
@@ -306,12 +329,12 @@
         <!--delete things-->
         <xsl:choose>
           <!--allow delete-->
-          <xsl:when test="@onOff=1 and @delete=1 and $state &lt; 500">
+          <xsl:when test="$allowOnOff = 1 and $allowDelete = 1 and $state &lt; 500">
             <a href="javascript:btn_function('{@code}', '{@GUID}', 'inactivate', '{$pageNo}', 10)">
               <ix class="fa fa-toggle-off" title="Inactive"></ix>
             </a>
           </xsl:when>
-          <xsl:when test="@onOff=0 and @delete=1 and $state &lt; 500">
+          <xsl:when test="$allowOnOff = 0 and $allowDelete = 1 and $state &lt; 500">
             <a href="javascript:btn_function('{@code}', '{@GUID}', 'delete', '{$pageNo}', 10)">
               <ix class="fa fa-trash" title="Delete"></ix>
             </a>
@@ -320,7 +343,7 @@
             <a href="javascript:btn_function('{@code}', '{@GUID}', 'restore', '{$pageNo}', 10)">
               <ix class="fa fa-toggle-on" title="Reactivate"></ix>
             </a>
-            <xsl:if test="@wipe=1">
+            <xsl:if test="$allowWipe = 1">
               <a href="javascript:btn_function('{@code}', '{@GUID}', 'wipe', '{$pageNo}', 10)">
                 <ix class="fa fa-trash" title="Delete"></ix>
               </a>
@@ -328,12 +351,12 @@
           </xsl:when>
 
           <!--not allow delete-->
-          <xsl:when test="@onOff=1 and @delete=0 and $state &lt; 500">
+          <xsl:when test="$allowOnOff = 1 and $allowDelete = 0 and $state &lt; 500">
             <a href="#">
               <ix class="fa fa-toggle-off" title="Inactive" style="color:LightGray"></ix>
             </a>
           </xsl:when>
-          <xsl:when test="@onOff=0 and @delete=0 and $state &lt; 500">
+          <xsl:when test="$allowOnOff = 0 and $allowDelete = 0 and $state &lt; 500">
             <a href="#">
               <ix class="fa fa-trash" title="Delete" style="color:LightGray"></ix>
             </a>
@@ -361,133 +384,200 @@
             </a>
           </xsl:otherwise>
         </xsl:choose>
-
-        <xsl:if test="$state &gt; 900">
-        </xsl:if>
       </td>
     </tr>
     <tr class="tr-detail">
       <td colspan="7" style="padding:0;">
         <div class="browse-data accordian-body collapse" id="brodeta-{@GUID}" style="cursor:default;">
-          <table class="table" style="background:gray; color:white">
-            <thead>
-              <tr>
-                <td>STATUS</td>
-                <td>DOCUMENT</td>
-                <td>CHAT TALK</td>
-              </tr>
-              <tr>
-                <td class="expand-table-an" style="width:40%">                  
-                  <xsl:if test="approvals/approval">
-                  <table>
-                    <tr>
-                      <td class="colname-an">
-                        <p  class="title-subbrowse">REQUESTED BY</p>
-                        <p>
-                          <xsl:if test="approvals/approval/@level = 0" >
-                            <xsl:value-of select="approvals/approval/name"/>
-                          </xsl:if>
-                        </p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="colname-an">&#160;</td>
-                    </tr>
-                    <tr>
-                      <td class="colname-an">
-                        <p class="title-subbrowse">STATUS COMMENT</p>
-                        <p><xsl:value-of select="docStatus"/></p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="colname-an">&#160;</td>
-                    </tr>
-                    <tr>
-                      <td class="colname-an">
-                        <p class="title-subbrowse">
-                          <i class="fa fa-clock-o">&#160;</i>WAITING FOR YOUR APPROVAL
-                        </p>
-                        <p>
-                          <i class="fa fa-list" aria-hidden="true">&#160;</i>
-                          <span id="more-aprv{@GUID}" onclick="show_aprvList('{@GUID}');" style="color:blue; cursor:pointer;">Show Approval List</span>
-                        </p>
-                        <div id="aprv-list{@GUID}" style="display:none;">
-                          <ul>
-                            <xsl:for-each select="approvals/approval">
-                              <li>
-                                <xsl:value-of select="name"/>&#160;
-                                <xsl:choose>
-                                  <xsl:when test="date">
-                                    Approved On (<xsl:value-of select="date"/>)
-                                  </xsl:when>
-                                  <xsl:otherwise>
-                                    Not Approved Yet
-                                  </xsl:otherwise>
-                                </xsl:choose>
-                              </li>
-                            </xsl:for-each>
-                          </ul>
-                        </div>
-                      </td>
-                    </tr>
-                  </table>
-                  </xsl:if>
-                </td>
-                <td class="expand-table-an" style="width:25%">
-                  &#160;                
-                </td>
-                <td class="expand-table-an" style="width:35%">&#160;                
-                  <table>
-                    <tr style="padding:10px;">
-                      <td colspan="2" class="title-subbrowse">DOC TALK</td>
-                    </tr>
-                    <tr>
-                      <td valign="top" style="padding-right:10px">
-                        <img src="OPHContent/themes/{/sqroot/header/info/themeFolder}/images/doc-talk-icon2.png" class="img-circle" alt="User Image" style="width:20px; border:solid 2px white;" />
-                      </td>
-                      <td>
-                        <span style="font-weight:bold">USER 1</span>
-                        <br />
-                        <span>XXXXXX XXXXXX XXXXXXX</span>
-                        <br />
-                        <span style="font-size:10px;">1 hours ago</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td valign="top" style="padding-right:10px">
-                        <img src="OPHContent/themes/{/sqroot/header/info/themeFolder}/images/doc-talk-icon2.png" class="img-circle" alt="User Image" style="width:20px; border:solid 2px white;" />
-                      </td>
-                      <td>
-                        <span style="font-weight:bold">USER 2</span>
-                        <br />
-                        <span>XXXXXX XXXXXX XXXXXXX</span>
-                        <br />
-                        <span style="font-size:10px;">1 hours ago</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td valign="top" style="padding-right:10px">
-                        <img src="OPHContent/themes/{/sqroot/header/info/themeFolder}/images/doc-talk-icon2.png" class="img-circle" alt="User Image" style="width:20px; border:solid 2px white;" />
-                      </td>
-                      <td>
-                        <span style="font-weight:bold">USER 3</span>
-                        <br />
-                        <span>XXXXXX XXXXXX XXXXXXX</span>
-                        <br />
-                        <span style="font-size:10px;">2 hours ago</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>
-                        <input type="text" class="form-control input-sm" placeholder="enter to post" />
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </thead>
-          </table>
+          <div class="row">
+            <div class="col-md-12 full-width-a">
+              <div class="box box-primary box-solid" style="max-width:600px;float:left;margin: 10px 10px 10px 10px;">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Content Summary</h3>
+                  <div class="box-tools pull-right">
+                    <span data-toggle="tooltip" title="3 New Messages" class="badge bg-red">3</span>
+                    <button class="btn btn-box-tool" data-widget="collapse">
+                      <ix class="fa fa-minus"></ix>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <!-- Conversations are loaded here -->
+                  <div class="direct-chat-messages">
+                    <!-- Message. Default to the left -->
+                    <div class="direct-chat-msg">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-left">Alexander Pierce</span>
+                        <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+                      </div>
+                      <!-- /.direct-chat-info -->
+                      <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image"/>
+                      <!-- /.direct-chat-img -->
+                      <div class="direct-chat-text">
+                        Is this template really for free? That's unbelievable!
+                      </div>
+                      <!-- /.direct-chat-text -->
+                    </div>
+                    <!-- /.direct-chat-msg -->
+
+                    <!-- Message to the right -->
+                    <div class="direct-chat-msg right">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-right">Sarah Bullock</span>
+                        <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+                      </div>
+                      <!-- /.direct-chat-info -->
+                      <img class="direct-chat-img" src="../dist/img/user3-128x128.jpg" alt="message user image"/>
+                      <!-- /.direct-chat-img -->
+                      <div class="direct-chat-text">
+                        You better believe it!
+                      </div>
+                      <!-- /.direct-chat-text -->
+                    </div>
+                    <!-- /.direct-chat-msg -->
+                  </div>
+                  <!--/.direct-chat-messages-->
+
+                  
+                  <!-- /.direct-chat-pane -->
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                  <div class="input-group">
+                    <input type="text" name="message" placeholder="Type Message ..." class="form-control"/>
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-danger btn-flat">Send</button>
+                    </span>
+                  </div>
+                </div>
+                <!-- /.box-footer-->
+              </div>
+              <!--/.direct-chat -->
+              <div class="box box-warning box-solid" style="max-width:300px;float:left;margin: 10px 10px 10px 10px;">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Document Status</h3>
+                  <div class="box-tools pull-right">
+                    <span data-toggle="tooltip" title="3 New Messages" class="badge bg-red">3</span>
+                    <button class="btn btn-box-tool" data-widget="collapse">
+                      <ix class="fa fa-minus"></ix>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <!-- Conversations are loaded here -->
+                  <div class="row">
+                    <!-- Message. Default to the left -->
+                    <div class="col-xs-12">
+                      <!-- /.direct-chat-info -->
+                      <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image"/>
+                      <!-- /.direct-chat-img -->
+                      <div class="direct-chat-text">
+                        Is this template really for free? That's unbelievable!
+                      </div>
+                      <!-- /.direct-chat-text -->
+                    </div>
+                    <!-- /.direct-chat-msg -->
+
+                    <!-- Message to the right -->
+                    <div class="direct-chat-msg right">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-right">Sarah Bullock</span>
+                        <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+                      </div>
+                      <!-- /.direct-chat-info -->
+                      <img class="direct-chat-img" src="../dist/img/user3-128x128.jpg" alt="message user image"/>
+                      <!-- /.direct-chat-img -->
+                      <div class="direct-chat-text">
+                        You better believe it!
+                      </div>
+                      <!-- /.direct-chat-text -->
+                    </div>
+                    <!-- /.direct-chat-msg -->
+                  </div>
+                  <!--/.direct-chat-messages-->
+
+                  
+                  <!-- /.direct-chat-pane -->
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                  <div class="input-group">
+                    <input type="text" name="message" placeholder="Type Message ..." class="form-control"/>
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-danger btn-flat">Send</button>
+                    </span>
+                  </div>
+                </div>
+                <!-- /.box-footer-->
+              </div>
+              <!--/.direct-chat -->
+              <div class="box box-danger box-solid direct-chat direct-chat-danger" style="max-width:300px;float:left;margin: 10px 10px 10px 10px;">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Document Talk</h3>
+                  <div class="box-tools pull-right">
+                    <span data-toggle="tooltip" title="3 New Messages" class="badge bg-red">3</span>
+                    <button class="btn btn-box-tool" data-widget="collapse">
+                      <ix class="fa fa-minus"></ix>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <!-- Conversations are loaded here -->
+                  <div class="direct-chat-messages">
+                    <!-- Message. Default to the left -->
+                    <div class="direct-chat-msg">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-left">Alexander Pierce</span>
+                        <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+                      </div>
+                      <!-- /.direct-chat-info -->
+                      <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image"/>
+                      <!-- /.direct-chat-img -->
+                      <div class="direct-chat-text">
+                        Is this template really for free? That's unbelievable!
+                      </div>
+                      <!-- /.direct-chat-text -->
+                    </div>
+                    <!-- /.direct-chat-msg -->
+
+                    <!-- Message to the right -->
+                    <div class="direct-chat-msg right">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-right">Sarah Bullock</span>
+                        <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+                      </div>
+                      <!-- /.direct-chat-info -->
+                      <img class="direct-chat-img" src="../dist/img/user3-128x128.jpg" alt="message user image"/>
+                      <!-- /.direct-chat-img -->
+                      <div class="direct-chat-text">
+                        You better believe it!
+                      </div>
+                      <!-- /.direct-chat-text -->
+                    </div>
+                    <!-- /.direct-chat-msg -->
+                  </div>
+                  <!--/.direct-chat-messages-->
+
+                 
+                  <!-- /.direct-chat-pane -->
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                  <div class="input-group">
+                    <input type="text" name="message" placeholder="Type Message ..." class="form-control"/>
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-danger btn-flat">Send</button>
+                    </span>
+                  </div>
+                </div>
+                <!-- /.box-footer-->
+              </div>
+              <!--/.direct-chat -->
+            </div>
+          </div>
         </div>
       </td>
     </tr>
