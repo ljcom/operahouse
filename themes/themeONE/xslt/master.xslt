@@ -71,7 +71,7 @@
           <div class="pull-left" style="margin-right:10px;">
             <img width="30" style="margin-top:-9px;" src="OPHContent/themes/{/sqroot/header/info/themeFolder}/images/oph4_logo.png" alt="Logo Image" />
           </div>
-          <xsl:value-of select="sqroot/header/info/account" />
+          <xsl:value-of select="sqroot/header/info/company" />
         </span>
       </a>
       <!-- Header Navbar: style can be found in header.less -->
@@ -254,7 +254,9 @@ _________________________________________________________ -->
     <aside  class="main-sidebar">
       <!-- sidebar: style can be found in sidebar.less -->
       <section id="sidebarWrapper" class="sidebar">
-
+        <div class="overlay">
+          <ix class="fa fa-refresh fa-spin"></ix>
+        </div>
 
       </section>
 
@@ -263,9 +265,9 @@ _________________________________________________________ -->
     <!-- Content Wrapper. Contains page content -->
     <div id="contentWrapper" class="content-wrapper">
       <div style="padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px">
-        <span>
-          <ix class="fa fa-clock-o pull-left"></ix>
-        </span> Please wait...
+        <div class="overlay">
+          <ix class="fa fa-refresh fa-spin"></ix>
+        </div>
       </div>
     </div>
     <!-- /.content-wrapper -->
