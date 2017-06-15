@@ -420,6 +420,9 @@
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
+    <xsl:if test="../@isNullable = 0">
+      <span style="color:red;float:right;">required field</span>
+    </xsl:if>
 
     <label id="{../@fieldName}suffixCaption">
       <xsl:value-of select="suffixCaption"/>
@@ -429,8 +432,11 @@
 
   <xsl:template match="textBox">
     <label id="{../@fieldName}caption">
-      <xsl:value-of select="titlecaption"/>
+      <xsl:value-of select="titlecaption"/>&#160;
     </label>
+    <xsl:if test="../@isNullable = 0">
+      <span style="color:red;float:right;">required field</span>
+    </xsl:if>
 
     <!--digit-->
     <xsl:variable name="tbContent">
@@ -482,6 +488,9 @@
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
+    <xsl:if test="../@isNullable = 0">
+      <span style="color:red;float:right;">required field</span>
+    </xsl:if>
     <div class="input-group date">
       <div class="input-group-addon">
         <ix class="fa fa-calendar"></ix>
@@ -498,6 +507,9 @@
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
+    <xsl:if test="../@isNullable = 0">
+      <span style="color:red;float:right;">required field</span>
+    </xsl:if>
 
     <input type="text" class="form-control" Value="********" data-type="textBox" data-old="" name="{../@fieldName}"
       onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" id ="{../@fieldName}">
@@ -514,6 +526,10 @@
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
+    <xsl:if test="../@isNullable = 0">
+      <span style="color:red;float:right;">required field</span>
+    </xsl:if>
+    
     <div class="input-group date">
       <div class="input-group-addon">
         <ix class="fa fa-clock-o"></ix>
@@ -536,6 +552,9 @@
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
+    <xsl:if test="../@isNullable = 0">
+      <span style="color:red;float:right;">required field</span>
+    </xsl:if>
     <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}"
             data-type="selectBox" data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}"
       onchange="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" >
@@ -580,7 +599,6 @@
       </xsl:if>
     </script>
   </xsl:template>
-
   <xsl:template match="tokenBox">
     <script type="text/javascript">
 
@@ -626,6 +644,9 @@
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
+    <xsl:if test="../@isNullable = 0">
+      <span style="color:red;float:right;">required field</span>
+    </xsl:if>
 
     <!--digit-->
     <xsl:variable name="tbContent">
@@ -659,6 +680,9 @@
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
+    <xsl:if test="../@isNullable = 0">
+      <span style="color:red;float:right;">required field</span>
+    </xsl:if>
 
     <!--default value-->
     <xsl:variable name="thisvalue">
@@ -705,7 +729,10 @@
       <label id="{../@fieldName}caption">
         <xsl:value-of select="titlecaption"/>
       </label>
-    </div>
+     <xsl:if test="../@isNullable = 0">
+      <span style="color:red;float:right;">required field</span>
+    </xsl:if>
+   </div>
     <div class = "btn-group" data-toggle = "radios">
       <xsl:apply-templates select="radioSections/radioSection"/>
     </div>
