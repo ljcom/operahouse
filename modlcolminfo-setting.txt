@@ -12,7 +12,8 @@ SETTING MODLCOLMINFO
 • Untuk sebagai Autosuggest Box (Document): colType=32, ComboTable=doc(nama doc), ComboFieldKey=primaryKey Field (jika kosong ambil dari docGUID), ComboFieldId=field Id, ComboFieldName=field name
 • Untuk sebagai Token Box (table): colType=33, ComboTable=nama table, ComboFieldKey=primaryKey Field, ComboFieldId=field Id, ComboFieldName=field name
 • Untuk sebagai Autosuggest Box (Document): colType=33, ComboTable=doc(nama doc), ComboFieldKey=primaryKey Field (jika kosong ambil dari docGUID), ComboFieldId=field Id, ComboFieldName=field name
-• Untuk sebagai Radio Button: colType=44
+• Untuk sebagai Radio Button: colType=44, viewRowType>0
+• Untuk sebagai element di dalam radio button, viewRowType sama dengan radio buttonnya, viewRowTypeOrder >0 urutan berdasarkan nomornya
 • Untuk sebagai Date: colType=41
 • Untuk sebagai Time: colType=42
 • Untuk sebagai Media Attachment: colType=51

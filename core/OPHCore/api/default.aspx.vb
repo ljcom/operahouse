@@ -78,13 +78,12 @@ Partial Class OPHCore_API_default
                 End If
             Case "view", "form"
                 sqlstr = "exec [api].[theme_form] '" & curHostGUID & "', '" & code & "', " & GUID '& ", " & editMode
-            'Case "approval"
-            '    sqlstr = "exec [xml].[view_approval] " & curHostGUID & ", '" & code & "', " & GUID '& ", " & editMode
-            'Case "doctalk"
-            '    sqlstr = "exec gen.xml_browse_block_talk " & curHostGUID & ", " & GUID '& ""
             Case "talk"
                 Dim comment = getQueryVar("comment")
                 sqlstr = "exec gen.submitTalk '" & curHostGUID & "', " & GUID & ", '" & comment & "'"
+            Case "widget"
+                Dim stateid = getQueryVar("stateid")
+                sqlstr = "exec [api].[theme_widget] '" & curHostGUID & "', '" & code & "'"
             Case "save", "preview"
                 isSingle = False
                 Dim preview = getQueryVar("flag")
@@ -218,6 +217,14 @@ Partial Class OPHCore_API_default
             '    sqlstr = "exec [xml].[countnew]  " & curHostGUID & ",'" & getQueryVar("caption") & "','" & getQueryVar("formnow") & "'"
             'Case "sidebar"
             '    sqlstr = "exec [api].[sidebar] " & curHostGUID & ", '" & code & "', " & GUID
+            'Case "widget"
+            '    sqlstr = "exec [api].[theme_widget] '" & curHostGUID & "', '" & code & "'"
+            '    xmlstr = runSQLwithResult(sqlstr, curODBC)
+            Case "data"
+                Dim data = getQueryVar("data")
+                Dim sqlFilter = getQueryVar("sqlFilter")
+                sqlstr = "exec [api].[getData] '" & curHostGUID & "', '" & data & "', '" & sqlFilter & "'"
+                xmlstr = runSQLwithResult(sqlstr, curODBC)
             Case "signout"
                 Response.Cookies("guestID").Value = ""
                 Session.Clear()
@@ -227,6 +234,14 @@ Partial Class OPHCore_API_default
                 isSingle = False
                 'Response.Cookies("isLogin").Value = 0
                 'reloadURL("../../index.aspx")
+            Case "changePassword"
+                Dim curPass = getQueryVar("curpass")
+                Dim newPass = getQueryVar("newpass")
+
+                sqlstr = "exec api.changePassword '" & curHostGUID & "', '" & curPass & "', '" & newPass & "'"
+                xmlstr = runSQLwithResult(sqlstr, curODBC)
+                xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
+                isSingle = False
             Case "forgotpwd"
                 code = getQueryVar("code")
                 Dim steps = getQueryVar("step")

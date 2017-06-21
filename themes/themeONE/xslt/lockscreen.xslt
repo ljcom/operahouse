@@ -16,6 +16,8 @@
       //setCookie('lockScreen',1);
       uid=getCookie('userId');
       if(uid == undefined) window.location='index.aspx';
+      $('#userImage').attr('src', 'OPHContent/'+getCookie('userURL'));
+      $('#userName').html(getCookie('userName')+' ');
 
     </script>
     <!-- Automatic element centering -->
@@ -30,20 +32,21 @@
       </div>
       <!-- User name -->
       <div class="lockscreen-name">
-        <xsl:value-of select="sqroot/header/info/user/userName"/>
+        <p id="userName"><xsl:value-of select="sqroot/header/info/user/userName"/></p>
       </div>
 
       <!-- START LOCK SCREEN ITEM -->
       <div class="lockscreen-item">
         <!-- lockscreen image -->
         <div class="lockscreen-image">
-          <img src="OPHContent/{sqroot/header/info/user/userURL}" alt="User Image"/>
+          <img id="userImage" src="OPHContent/{sqroot/header/info/user/userURL}" alt="User Image"/>
         </div>
         <!-- /.lockscreen-image -->
 
         <!-- lockscreen credentials (contains the form) -->
         <div class="input-group">
           <form id="signInForm" class="lockscreen-credentials">
+            <input type="text" class="form-control" name ="userid" id ="userid" value="" style="display:none"/>
             <input type="password" class="form-control" name ="pwd" id ="pwd" placeholder="password"/>
           </form>
           <div class="input-group-btn">

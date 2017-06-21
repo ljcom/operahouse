@@ -1,4 +1,13 @@
- 	    <site name="MAXFOUR" id="2">
+ <sites>
+            <site name="WebSite1" id="1" serverAutoStart="true">
+                <application path="/">
+                    <virtualDirectory path="/" physicalPath="%IIS_SITES_HOME%\WebSite1" />
+                </application>
+                <bindings>
+                    <binding protocol="http" bindingInformation=":8080:localhost" />
+                </bindings>
+            </site>
+            <site name="MAXFOUR" id="2">
                 <application path="/" applicationPool="Clr4IntegratedAppPool">
                     <virtualDirectory path="/" physicalPath="D:\vsonline\OPERAHOUSE\core" />
                 </application>
@@ -35,6 +44,9 @@
                 </application>
                 <application path="/OPHContent/documents" applicationPool="Clr4IntegratedAppPool">
                     <virtualDirectory path="/" physicalPath="d:\vsonline\operahouse\documents" />
+                </application>
+                <application path="/OPHContent/X" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="c:\sap" />
                 </application>
                 <bindings>
                     <binding protocol="http" bindingInformation="*:50364:localhost" />
@@ -97,10 +109,41 @@
                     <binding protocol="http" bindingInformation="*:50368:localhost" />
                 </bindings>
             </site>
+	    <site name="LIBERTYPT" id="9">
+                <application path="/" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="D:\vsonline\OPERAHOUSE\core" />
+
+                </application>
+                <application path="/OPHContent/themes" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="D:\vsonline\OPERAHOUSE\themes" />
+                </application>
+                <application path="/OPHContent/documents" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="d:\vsonline\operahouse\documents" />
+                </application>
+                <bindings>
+                    <binding protocol="http" bindingInformation="*:50369:localhost" />
+                </bindings>
+            </site>
+	    <site name="LIBERTYTK" id="10">
+                <application path="/" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="D:\vsonline\OPERAHOUSE\core" />
+
+                </application>
+                <application path="/OPHContent/themes" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="D:\vsonline\OPERAHOUSE\themes" />
+                </application>
+                <application path="/OPHContent/documents" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="d:\vsonline\operahouse\documents" />
+                </application>
+                <bindings>
+                    <binding protocol="http" bindingInformation="*:50370:localhost" />
+                </bindings>
+            </site>
+			
             <siteDefaults>
                 <logFile logFormat="W3C" directory="%IIS_USER_HOME%\Logs" />
                 <traceFailedRequestsLogging directory="%IIS_USER_HOME%\TraceLogFiles" enabled="true" maxLogFileSizeKB="1024" />
             </siteDefaults>
             <applicationDefaults applicationPool="Clr4IntegratedAppPool" />
             <virtualDirectoryDefaults allowSubDirConfig="true" />
-
+        </sites>

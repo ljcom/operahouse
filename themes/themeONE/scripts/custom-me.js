@@ -19,6 +19,7 @@ function LoadNewPart(filename, id, code, sqlfilter, searchText, bpageno, showpag
         if (typeof f == "function") f();
     });
 }
+
 function saveThemeONE(code, guid, location, formId) {
     //location: browse:10, header form:20, browse anak:30, browse form:40
 
@@ -78,7 +79,7 @@ function saveThemeONE(code, guid, location, formId) {
 
 function fillMobileItem(code, guid, Status, allowedit, allowDelete, allowWipe, allowForce) {
     var tx1 = $('#mandatory' + guid).val();
-    var tx2 = '<strong>'+tx1+'</strong> '+$('#summary' + guid).text();
+    var tx2 = '<strong>' + tx1 + '</strong> ' + $('#summary' + guid).text();
     //var tx1='HR<br />RC';
     //var tx2='<b>RX16A002/RC16A004</b> 3 JAN 2016 POSITION: SALES MANAGER EXPECTED';
     var tx3 = '<b>WAIT FOR APPROVAL</b><br /><b>USER 3 </b>';
@@ -115,13 +116,13 @@ function fillMobileItem(code, guid, Status, allowedit, allowDelete, allowWipe, a
     bt = bt.replace('#bt#', '<button type="button" class="btn btn-gray-a" style="background:#ccc; border:none;">#btname#</button>');
 
     var btname = 'DELETE';
-    if (status<500 && allowDelete == 1) x = x.replace('#td#', bt.replace('#btname#', btname));
+    if (status < 500 && allowDelete == 1) x = x.replace('#td#', bt.replace('#btname#', btname));
 
     var btname = 'WIPE';
-    if (status==999 && allowWipe == 1) x = x.replace('#td#', bt.replace('#btname#', btname));
+    if (status == 999 && allowWipe == 1) x = x.replace('#td#', bt.replace('#btname#', btname));
 
     var btname = 'ARCHIEVE';
-    if (status <500 && status >=400 && allowForce == 1) x = x.replace('#td#', bt.replace('#btname#', btname));
+    if (status < 500 && status >= 400 && allowForce == 1) x = x.replace('#td#', bt.replace('#btname#', btname));
 
     var btname = 'APPROVE';
     x = x.replace('#td#', bt.replace('#btname#', btname));
@@ -172,11 +173,89 @@ function addpagenumber(pageid, currentpage, totalpages) {
         $('#' + pageid).html(result);
     }
 }
-function timeIsUp()
-{
+function timeIsUp() {
     //lastPar = window.location;
     //setCookie('lastPar', lastPar);
     //setCookie("userId", "", 0, 0, 0);
     window.location = 'index.aspx?env=acct&code=lockscreen';
 }
 setTimeout(function () { timeIsUp(); }, 1000 * 60 * 60);
+
+
+function checkPassProfile(id) {
+    var pass = (document.getElementById(id).value == undefined) ? "" : document.getElementById(id).value;
+
+    if (pass != "") {
+        var msg = "";
+        if (pass.length < 6) {
+            msg = "Minimum Password Requirement is 6 Characters!";
+            document.getElementById("e" + id).style.display = "block";
+            document.getElementById("e" + id).innerHTML = msg;
+
+            document.getElementById("btn_pass").disabled = true;
+        } else {
+            if (id == "conPass") {
+                var conPass = document.getElementById("newPass").value;
+                msg = (pass == conPass) ? "" : "Password does not matches!";
+
+                if (msg != "") {
+                    document.getElementById("e" + id).style.display = "block";
+                    document.getElementById("e" + id).innerHTML = msg;
+
+                    document.getElementById("enewPass").style.display = "block";
+                    document.getElementById("enewPass").innerHTML = msg;
+
+                    document.getElementById("btn_pass").disabled = true;
+                } else {
+                    document.getElementById('e' + id).style.display = 'none';
+                    document.getElementById('enewPass').style.display = 'none';
+                }
+            } else {
+                document.getElementById('e' + id).style.display = 'none';
+            }
+        }
+    } else if (id == "conPass" && document.getElementById("newPass").value != "" && pass == "") {
+        msg = "You have to fill this!";
+        document.getElementById("e" + id).style.display = "block";
+        document.getElementById("e" + id).innerHTML = msg;
+        document.getElementById("btn_pass").disabled = true;
+    }
+    else {
+        document.getElementById('e' + id).style.display = 'none';
+    }
+
+    if (msg == "") {
+        var curPass = document.getElementById('curPass').value;
+        var newPass = document.getElementById('newPass').value;
+        var conPass = document.getElementById('conPass').value;
+
+        if (curPass != "" && newPass != "" && conPass != "") {
+            document.getElementById("btn_pass").disabled = false;
+        }
+    }
+
+
+}
+
+function changePassProfile() {
+    var curPass = document.getElementById('curPass').value;
+    var newPass = document.getElementById('newPass').value;
+
+    var urlPath = "OPHCore/api/default.aspx?code=profile&mode=changePassword&curpass=" + curPass + "&newpass=" + newPass + "&unique=" + getUnique();
+
+    $.post(urlPath, function (data) {
+        var msg = $(data).find('messages').text();
+        if (msg == '') {
+            alert("You have successfully change your password.");
+            location.reload();
+        } else {
+            alert(msg);
+        }
+    });
+}
+
+
+function saveProfile(fid) {
+    var formpara = $('#' + fid).serialize();
+    $("#results").text(formpara);
+}

@@ -5,6 +5,15 @@
 
   <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
+  <xsl:variable name="colMenu">
+    <xsl:choose>
+      <xsl:when test="count(sqroot/header/menus/menu[@code='primaryback']/submenus/submenu)=0">12</xsl:when>
+      <xsl:when test="count(sqroot/header/menus/menu[@code='primaryback']/submenus/submenu)=1">12</xsl:when>
+      <xsl:when test="count(sqroot/header/menus/menu[@code='primaryback']/submenus/submenu)=2">6</xsl:when>
+      <xsl:otherwise>4</xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
   <xsl:template match="/">
     <div style="display:none" id="pageName">&#xA0;</div>
     <div style="display:none" id="themeName">&#xA0;</div>
@@ -54,7 +63,11 @@
 
       resetBrowseCookies();
       loadContent(1);
+
       setCookie('userURL', '<xsl:value-of select="sqroot/header/info/user/userURL"/>', 7);
+      setCookie('userName', '<xsl:value-of select="sqroot/header/info/user/userName"/>', 7);
+      setCookie('userId', '<xsl:value-of select="sqroot/header/info/user/userId"/>', 7);
+
 
     </script>
     <!-- Page script -->
@@ -335,7 +348,7 @@ _________________________________________________________ -->
   </xsl:template>
 
   <xsl:template match="sqroot/header/menus/menu[@code='primaryback']/submenus/submenu">
-    <div class="col-xs-4 text-center">
+    <div class="col-xs-{$colMenu} text-center">
       <a href="{pageURL/.}">
         <xsl:value-of select="caption/." />&#160;
       </a>

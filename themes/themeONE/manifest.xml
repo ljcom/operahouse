@@ -28,7 +28,6 @@
     <jsFile>OPHContent/themes/themeONE/scripts/iCheck/icheck.min.js</jsFile>
     <jsFile>OPHContent/themes/themeONE/scripts/fastclick/fastclick.js</jsFile>
     <jsFile>OPHContent/themes/themeONE/scripts/upclick/upclick-min.js</jsFile>
-    <jsFile>OPHContent/themes/themeONE/scripts/admin-LTE/js/demo.js</jsFile>
     <jsFile>OPHContent/themes/themeONE/scripts/custom-me.js</jsFile>
 
   </manifest>

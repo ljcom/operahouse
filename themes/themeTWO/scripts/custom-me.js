@@ -422,11 +422,11 @@ function changePlusMinus(e) {
 function changeColorMenuFront() {
     var code = getCode().toLowerCase();
     if (code == 'home') {
-        document.getElementById("prim-Home").style.color = '#47BAC1';
+        if (document.getElementById("prim-Home")) document.getElementById("prim-Home").style.color = '#47BAC1';
     } else if (code == 'maprodfron') {
-        document.getElementById("prim-Shop").style.color = '#47BAC1';
+        if (document.getElementById("prim-Shop")) document.getElementById("prim-Shop").style.color = '#47BAC1';
     } else if (code == 'maprodfron' || code == 'account' || code == 'causerfron' || code == 'tapcs3') {
-        document.getElementById("prim-My Account").style.color = '#47BAC1';
+        if (document.getElementById("prim-My Account")) document.getElementById("prim-My Account").style.color = '#47BAC1';
     }
 }
 function waitUntil(isready, success, error, count, interval) {
