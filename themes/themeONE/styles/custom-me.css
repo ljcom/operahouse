@@ -604,7 +604,7 @@ ul.view-form-toggle {
 .sidebar-menu, .top-menu-div {
     overflow: hidden !important;
     overflow-y: scroll !important;
-    max-height: 1000px !important;
+    max-height: 500px !important;
     -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
@@ -627,7 +627,7 @@ ul.view-form-toggle {
     .sidebar-menu {
         overflow: hidden !important;
         overflow-y: scroll !important;
-        max-height: 1000px !important;
+        max-height: 500px !important;
     }
 }
 

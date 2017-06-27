@@ -131,44 +131,36 @@ Partial Class OPHCore_API_default
                 End If
 
             Case "upload"
-                Dim flag = getQueryVar("flag")
-                Dim UploadFolder = Server.MapPath(Replace(getQueryVar("UploadFolder"), "|", "\"))
-                Dim QuerySQL = getQueryVar("QuerySQL")
-                Dim Separation = getQueryVar("Separation")
-                Dim Id = getQueryVar("Id")
-                Dim QueryCode = getQueryVar("QueryCode")
+                Dim fieldattachment As New List(Of String)
+                Dim f As String
+                For Each f In Request.Files
+                    Dim path As String
+                    path = Server.MapPath("~/OPHContent/documents/temp")
 
-                Dim f = Request.Files
-                For nx = 0 To f.Count - 1
-                    Dim slashindex As Integer = f.Item(nx).FileName.LastIndexOf("\")
-                    Dim dotindex As Integer = f.Item(nx).FileName.LastIndexOf(".")
-                    Dim GetFileName As String = f.Item(nx).FileName.Substring(slashindex + 1, Len(f.Item(nx).FileName) - slashindex - 1)
-                    If GUID = "null" Then
-                        GUID = Id
-                    End If
-                    'Dim fxn As String = Server.MapPath("../../../document/temp") & "\" & GUID.Replace("'", "") & "_" & f.Item(nx).FileName
-                    Dim fxn As String = Server.MapPath("../../../document/temp") & "\" & GUID.Replace("'", "") & "_" & GetFileName
-                    f.Item(nx).SaveAs(fxn)
-                    If flag = "isUpload" Then
-                        Dim sqlstr1 As String
-                        sqlstr1 = "exec CaUPLD_save '" & Id.Replace("'", "") & "', '" & curHostGUID & "','" & Id.Replace("'", "") & "','" & fxn & "','" & QueryCode & "'"
-                        runSQL(sqlstr1, curODBC)
+                    'Dim curField = ""
 
-                        Dim odbc = runSQLwithResult("select c.odbc from coQURY a inner join comodg b on a.modulegroupguid=b.modulegroupguid inner join coacctdbse c on b.accountdbguid=c.accountdbguid where a.queryCode='" & QueryCode & "'", curODBC)
-                        'FileCopy(Server.MapPath("../../../document/temp") & "\" & GUID.Replace("'", "") & "_" & GetFileName, UploadFolder & "\" & GUID.Replace("'", "") & "_" & GetFileName)
-                        sqlstr = "exec " & QuerySQL & " '" & fxn & "'" & "," & "'" & Separation & "'" & "," & "'" & Id.Replace("'", "") & "'"
-                        runSQL(sqlstr, odbc)
-                    Else
-                        Dim filepath As String = Server.MapPath("../../../document/temp") & "\"
-                        Dim filename As String = GUID.Replace("'", "") & "_" & GetFileName
-                        Dim fullpath As String = "" & filepath & " " & filename & ""
-                        If code <> "" Then
-                            sqlstr = "exec gen.upload_select '" & GUID.Replace("'", "") & "', '" & curHostGUID & "', '" & code & "', '" & filename & "', '" & filepath & "'"
-                            runSQL(sqlstr, curODBC)
-                        End If
+                    'For Each n In Request.Form
+                    '    If Request.Form(n) = Request.Files(f).FileName Then
+                    '        curField = n
+                    '        fieldattachment.Add(curField)
+                    '        Exit For
+                    '    End If
+                    'Next
+                    'Dim theDate As DateTime = DateTime.Now
+                    Dim ranGUID = System.Guid.NewGuid().ToString()
+
+
+                    Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & ranGUID.Replace("'", "") & "_" & Request.Files(f).FileName
+
+                    Dim checkDir = path & "\" & contentOfaccountId & "\"
+                    If Not Directory.Exists(checkDir) Then Directory.CreateDirectory(checkDir)
+                    If Directory.Exists(checkDir) Then
+                        If fxn <> "" Then Request.Files(f).SaveAs(fxn)
                     End If
+                    sqlstr = "exec gen.uploadChild '" & curHostGUID & "', '" & code & "', '" & GUID.Replace("'", "") & "', '" & fxn & "'"
+                    xmlstr = getXML(sqlstr, curODBC)
                 Next
-                noxml = True
+
                 isSingle = False
 
             Case "function"
@@ -234,6 +226,42 @@ Partial Class OPHCore_API_default
                 isSingle = False
                 'Response.Cookies("isLogin").Value = 0
                 'reloadURL("../../index.aspx")
+            Case "saveProfile"
+                Dim fieldattachment As New List(Of String)
+                Dim f As String
+                For Each f In Request.Files
+                    Dim path As String
+                    path = Server.MapPath("~/OPHContent/documents")
+
+                    Dim curField = ""
+                    For Each n In Request.Form
+                        If Request.Form(n) = Request.Files(f).FileName Then
+                            curField = n
+                            fieldattachment.Add(curField)
+                            Exit For
+                        End If
+                    Next
+                    Dim theDate As DateTime = DateTime.Now
+
+                    Dim szFilename = Year(theDate) & "\" & Month(theDate)
+                    GUID = System.Guid.NewGuid().ToString()
+                    GUID = Left(GUID, 8)
+                    Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & GUID.Replace("'", "") & "_" & Request.Files(f).FileName
+
+                    Dim checkDir = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\"
+                    If Not Directory.Exists(checkDir) Then Directory.CreateDirectory(checkDir)
+                    If Directory.Exists(checkDir) Then
+                        If fxn <> "" Then Request.Files(f).SaveAs(fxn)
+                    End If
+                Next
+
+                sqlstr = populateSaveXML(1, code, 0, fieldattachment, GUID)
+                sqlstr = sqlstr.Replace("#95#", "_")
+                sqlstr = sqlstr.Replace("[save]", "[save_profile]")
+                xmlstr = runSQLwithResult(sqlstr, curODBC)
+
+                xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
+                isSingle = False
             Case "changePassword"
                 Dim curPass = getQueryVar("curpass")
                 Dim newPass = getQueryVar("newpass")

@@ -198,7 +198,7 @@
         <div class="col-md-12 full-width-a">
           <div class="box box-solid" style="width:100%;">
             <div class="box-body full-width-a">
-              <div class="box-group" id="accordion">
+              <div class="box-group" id="accordionBrowse">
                 <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
                 <xsl:if test="sqroot/body/bodyContent/browse/info/permission/allowAccess/.=0">
                   <div class="alert alert-warning" align="center">
@@ -285,10 +285,10 @@
         </table>
       </td>
 
-      <!--<script>
+      <script>
         //put before mandatory section
         fillMobileItem('<xsl:value-of select="@code"/>', '<xsl:value-of select="@GUID" />', '<xsl:value-of select="$state" />', '<xsl:value-of select="@edit" />', '<xsl:value-of select="@delete" />', '<xsl:value-of select="@wipe" />', '<xsl:value-of select="@force" />');
-      </script>-->
+      </script>
 
       <xsl:if test="/sqroot/header/info/code/settingMode='T'">
         <td class="expand-td" style="text-align:center" data-toggle="collapse" data-target="#{@GUID}" data-parent="#{@GUID}">
@@ -391,7 +391,8 @@
         <div class="browse-data accordian-body collapse" id="brodeta-{@GUID}" style="cursor:default;">
           <div class="row">
             <div class="col-md-12 full-width-a">
-              <div class="box box-primary box-solid" style="max-width:600px;float:left;margin: 10px 10px 10px 10px;">
+              
+              <!--<div class="box box-primary box-solid" style="max-width:600px;float:left;margin: 10px 10px 10px 10px;">
                 <div class="box-header with-border">
                   <h3 class="box-title">Content Summary</h3>
                   <div class="box-tools pull-right">
@@ -401,48 +402,48 @@
                     </button>
                   </div>
                 </div>
-                <!-- /.box-header -->
+                --><!-- /.box-header --><!--
                 <div class="box-body">
-                  <!-- Conversations are loaded here -->
+                  --><!-- Conversations are loaded here --><!--
                   <div class="direct-chat-messages">
-                    <!-- Message. Default to the left -->
+                    --><!-- Message. Default to the left --><!--
                     <div class="direct-chat-msg">
                       <div class="direct-chat-info clearfix">
                         <span class="direct-chat-name pull-left">Alexander Pierce</span>
                         <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
                       </div>
-                      <!-- /.direct-chat-info -->
+                      --><!-- /.direct-chat-info --><!--
                       <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image"/>
-                      <!-- /.direct-chat-img -->
+                      --><!-- /.direct-chat-img --><!--
                       <div class="direct-chat-text">
                         Is this template really for free? That's unbelievable!
                       </div>
-                      <!-- /.direct-chat-text -->
+                      --><!-- /.direct-chat-text --><!--
                     </div>
-                    <!-- /.direct-chat-msg -->
+                    --><!-- /.direct-chat-msg --><!--
 
-                    <!-- Message to the right -->
+                    --><!-- Message to the right --><!--
                     <div class="direct-chat-msg right">
                       <div class="direct-chat-info clearfix">
                         <span class="direct-chat-name pull-right">Sarah Bullock</span>
                         <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
                       </div>
-                      <!-- /.direct-chat-info -->
+                      --><!-- /.direct-chat-info --><!--
                       <img class="direct-chat-img" src="../dist/img/user3-128x128.jpg" alt="message user image"/>
-                      <!-- /.direct-chat-img -->
+                      --><!-- /.direct-chat-img --><!--
                       <div class="direct-chat-text">
                         You better believe it!
                       </div>
-                      <!-- /.direct-chat-text -->
+                      --><!-- /.direct-chat-text --><!--
                     </div>
-                    <!-- /.direct-chat-msg -->
+                    --><!-- /.direct-chat-msg --><!--
                   </div>
-                  <!--/.direct-chat-messages-->
+                  --><!--/.direct-chat-messages--><!--
 
                   
-                  <!-- /.direct-chat-pane -->
+                  --><!-- /.direct-chat-pane --><!--
                 </div>
-                <!-- /.box-body -->
+                --><!-- /.box-body --><!--
                 <div class="box-footer">
                   <div class="input-group">
                     <input type="text" name="message" placeholder="Type Message ..." class="form-control"/>
@@ -451,9 +452,9 @@
                     </span>
                   </div>
                 </div>
-                <!-- /.box-footer-->
+                --><!-- /.box-footer--><!--
               </div>
-              <!--/.direct-chat -->
+              --><!--/.direct-chat -->
               <div class="box box-warning box-solid" style="max-width:300px;float:left;margin: 10px 10px 10px 10px;">
                 <div class="box-header with-border">
                   <h3 class="box-title">Document Status</h3>
@@ -471,7 +472,7 @@
                     <!-- Message. Default to the left -->
                     <div class="col-xs-12">
                       <!-- /.direct-chat-info -->
-                      <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image"/>
+                      <img class="direct-chat-img" src="" alt="message user image"/>
                       <!-- /.direct-chat-img -->
                       <div class="direct-chat-text">
                         Is this template really for free? That's unbelievable!
@@ -487,7 +488,7 @@
                         <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
                       </div>
                       <!-- /.direct-chat-info -->
-                      <img class="direct-chat-img" src="../dist/img/user3-128x128.jpg" alt="message user image"/>
+                      <img class="direct-chat-img" src="" alt="message user image"/>
                       <!-- /.direct-chat-img -->
                       <div class="direct-chat-text">
                         You better believe it!

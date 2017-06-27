@@ -88,7 +88,7 @@ function fillMobileItem(code, guid, Status, allowedit, allowDelete, allowWipe, a
     var x = '<div class="panel box browse-phone">#d1##d2#</div>';
     x = x.replace('#d1#', '<div class="box-header with-border ellipsis">#h4#</div>');
     x = x.replace('#h4#', '<h4 class="box-title">#a#</h4>');
-    x = x.replace('#a#', '<a data-toggle="collapse" data-parent="#accordion" href="#' + divname + '" style="color:black; text-transform: uppercase">#s##tx2#</a>');
+    x = x.replace('#a#', '<a data-toggle="collapse" data-parent="#accordionBrowse" href="#' + divname + '" style="color:black; text-transform: uppercase">#s##tx2#</a>');
     //x=x.replace('#s#','<span class="pull-left" style="margin-right:10px; color:#3C8DBC; font-weight:bold">#tx1#</span>');
     x = x.replace('#s#', '');
     //x=x.replace('#tx1#',tx1);
@@ -130,7 +130,7 @@ function fillMobileItem(code, guid, Status, allowedit, allowDelete, allowWipe, a
     //close
     x = x.replace('#td#', '');
 
-    $(x).appendTo("#accordion");
+    $(x).appendTo("#accordionBrowse");
 }
 function addpagenumber(pageid, currentpage, totalpages) {
     cp = parseInt(currentpage);
@@ -233,8 +233,10 @@ function checkPassProfile(id) {
             document.getElementById("btn_pass").disabled = false;
         }
     }
+}
 
-
+function profileOnChange(id) {
+    document.getElementById("save_profile").disabled = false;
 }
 
 function changePassProfile() {
@@ -255,7 +257,86 @@ function changePassProfile() {
 }
 
 
-function saveProfile(fid) {
-    var formpara = $('#' + fid).serialize();
-    $("#results").text(formpara);
+function saveProfile(formId, code, guid) {
+    //var formpara = $('#formProfile').serialize();
+    
+    var data = new FormData();
+    if ($(':file').length > 0) {
+        $.each($(':file')[0].files, function (key, value) {
+            data.append(key, value);
+        });
+    }
+    var thisForm = 'form';
+    if (formId != undefined) thisForm = '#' + formId;
+
+    var other_data = $(thisForm).serializeArray();
+    $.each(other_data, function (key, input) {
+        data.append(input.name, input.value);
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "OPHCore/api/default.aspx?code=" + code + "&mode=saveProfile&cfunctionlist=" + guid + "&",
+        enctype: 'multipart/form-data',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: data,
+        success: function () {
+        }
+    }).done(function (data) {
+        var msg = $(data).find('messages').text();
+        if (msg == '') {
+            alert("You have successfully change your profile.");
+            location.reload();
+        } else {
+            alert(msg);
+        }
+    });
+}
+
+function showUploadBox(divID, act) {
+    if (act == 1)
+        document.getElementById(divID).style.display = "block";
+    else
+        document.getElementById(divID).style.display = "none";
+}
+
+function uploadBox(id, formId, code, guid) {
+
+    //browse a file
+    $('#' + id + "_file").click();
+
+    // We can attach the `fileselect` event to all file inputs on the page
+    $(document).on('change', ':file', function () {
+        var input = $('#' + id + "_file"),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+
+        var file = this.files[0];
+        if (file.size > 1000000) {
+            alert('Maximum file size is 1 Mb')
+        }
+    });
+
+    // We can watch for our custom `fileselect` event like this
+    $(document).ready(function () {
+        $(':file').on('fileselect', function (event, numFiles, label) {
+
+            var input = $('#' + id + "_file").parents('.input-group').find(':text'),
+                //log = numFiles > 1 ? numFiles + ' files selected' : label;
+                log = label;
+            if (input.length) {
+                input.val(log);
+            } else {
+                //if( log ) alert(log);
+                if (log) {
+                    document.getElementById(id).value = log;
+                    saveProfile(formId, code, guid);
+                } 
+            }
+        });
+    });
+
 }

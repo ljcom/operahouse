@@ -15,11 +15,15 @@
   </xsl:variable>
   <xsl:template match="/">
     <script>
-      
       loadScript('OPHContent/themes/themeONE/scripts/admin-LTE/js/app.min.js');
 
       //loadContent();
+
+      setCookie('userURL', '<xsl:value-of select="sqroot/header/info/user/userURL"/>', 7);
+      setCookie('userName', '<xsl:value-of select="sqroot/header/info/user/userName"/>', 7);
+      setCookie('userId', '<xsl:value-of select="sqroot/header/info/user/userId"/>', 7);
     </script>
+
     <!-- Page script -->
 
     <header class="main-header">
@@ -74,27 +78,6 @@
                   <li>
                     <a href="browse.html">Consigment P &#038; D</a>
                   </li>
-                  <li>
-                    <a href="browse.html">Direct P &#038; D</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">PR\PVL Purchase</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Product Request</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Product Return</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">PKSP</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Dumping of Stocks Authorization Form (DOSA)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Stock Adjustment</a>
-                  </li>
                 </ul>
               </div>
             </div>
@@ -106,36 +89,6 @@
                 <ul>
                   <li>
                     <a href="browse.html">Request for Recruitment (HRRR)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Recruitment Confirmation Form (HRRC)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Employee Change Notice (HRCH)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Training Authorization Form (HRTR)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Employee Departure Approval Form (HRDP)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Personal Probationary Period Assessment Form (HRPA)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Personal Data Changes Form (HRDC)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Probationary Validate Form (HRVL)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Staff Sales Process (STAF)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Incentive Form (HRIC)</a>
-                  </li>
-                  <li>
-                    <a href="browse.html">Contact Reminder (HRCR)</a>
                   </li>
                 </ul>
               </div>
@@ -170,7 +123,7 @@
               <xsl:otherwise>
                 <li class="dropdown user user-menu">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="OPHContent/themes/themeONE/images/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                    <img src="OPHContent/documents/{sqroot/header/info/account}/{sqroot/header/info/user/userURL}" class="user-image" alt="User Image"/>
                     <span class="hidden-xs">
                       <xsl:value-of select="sqroot/header/info/user/userName"/>
                     </span>
@@ -178,11 +131,13 @@
                   <ul class="dropdown-menu">
                     <!-- User image -->
                     <li class="user-header">
-                      <img src="OPHContent/{sqroot/header/info/user/userURL}" class="img-circle" alt="User Image"/>
+                      <img src="OPHContent/documents/{sqroot/header/info/account}/{sqroot/header/info/user/userURL}" class="img-circle" alt="User Image"/>
 
                       <p>
-                        <xsl:value-of select="sqroot/header/info/user/userName"/> - Web Developer
-                        <small>Member since Nov. 2012</small>
+                        <xsl:value-of select="sqroot/header/info/user/userName"/>
+                        <small>
+                          Active since <xsl:value-of select="sqroot/header/info/user/dateCreate"/>
+                        </small>
                       </p>
                     </li>
                     <!-- Menu Body -->
@@ -293,7 +248,7 @@ _________________________________________________________ -->
         <!--<form method="get" class="sidebar-form">-->
         <div class="user-panel">
           <div class="pull-left image">
-            <img src="OPHContent/{sqroot/header/info/user/userURL}" class="img-circle" alt="User Image" />
+            <img src="OPHContent/documents/{sqroot/header/info/account}/{sqroot/header/info/user/userURL}" class="img-circle" alt="User Image" />
           </div>
           <div class="pull-left info">
             <p>
@@ -352,35 +307,27 @@ _________________________________________________________ -->
 
             <!-- Profile Image -->
             <div class="box box-primary">
-              <div class="box-body box-profile">
-                <img class="profile-user-img img-responsive img-circle" src="OPHContent/{sqroot/header/info/user/userURL}" alt="User profile picture"/>
-
+              <xsl:for-each select="sqroot/body/bodyContent/profile/row">
+                <xsl:if test="type = 'file'">
+                  <div style="float:right;position:inherit;display:none;" id="uploadBox" onmouseover="showUploadBox('uploadBox', 1);">
+                    <button onclick="uploadBox('{@key}', 'formProfile', 'profile', '{/sqroot/body/bodyContent/info/GUID}' )" style="position:absolute;top:10px;right:15px;background:none;border:none; color:blue;" title="upload your poto profile" >
+                      <ix class="fa fa-upload fa-lg"></ix>
+                    </button>
+                  </div>
+                </xsl:if>              
+              </xsl:for-each>
+              <div class="box-body box-profile" onmouseover="showUploadBox('uploadBox', 1);" onmouseout="showUploadBox('uploadBox', 0);">
+                <img class="profile-user-img img-responsive img-circle" src="OPHContent/documents/{sqroot/header/info/account}/{sqroot/body/bodyContent/info/foto}" alt="User profile picture"/>
                 <h3 class="profile-username text-center">
-                  <xsl:value-of select="sqroot/header/info/user/userName"/>
+                  <xsl:value-of select="sqroot/body/bodyContent/info/name"/>
                 </h3>
-
-                <p class="text-muted text-center">Software Engineer</p>
-
-                <ul class="list-group list-group-unbordered">
-                  <li class="list-group-item">
-                    <b>Followers</b>
-                    <a class="pull-right">1,322</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Following</b>
-                    <a class="pull-right">543</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Friends</b>
-                    <a class="pull-right">13,287</a>
-                  </li>
-                </ul>
-
-                <a href="#" class="btn btn-primary btn-block">
-                  <b>Follow</b>
-                </a>
+                <p class="text-muted text-center">
+                  <xsl:value-of select="sqroot/body/bodyContent/info/id"/>
+                </p>
+                <p class="text-muted text-center">
+                  <xsl:value-of select="sqroot/body/bodyContent/info/carolid"/>
+                </p>
               </div>
-              <!-- /.box-body -->
             </div>
             <!-- /.box -->
 
@@ -393,408 +340,211 @@ _________________________________________________________ -->
               <div class="box-body">
                 <strong>
                   <span>
-                    <ix class="fa fa-book margin-r-5"></ix>
-                  </span> Education
+                    <ix class="fa fa-briefcase"></ix>
+                  </span> position
                 </strong>
-
                 <p class="text-muted">
-                  B.S. in Computer Science from the University of Tennessee at Knoxville
+                  <xsl:value-of select="sqroot/body/bodyContent/info/position"/>
                 </p>
-
                 <hr/>
-
                 <strong>
                   <span>
-                    <ix class="fa fa-map-marker margin-r-5"></ix>
-                  </span> Location
+                    <ix class="fa fa-envelope"></ix>
+                  </span> e-mail
                 </strong>
-
-                <p class="text-muted">Malibu, California</p>
-
-                <hr/>
-
-                <strong>
-                  <span>
-                    <ix class="fa fa-pencil margin-r-5"></ix>
-                  </span> Skills
-                </strong>
-
-                <p>
-                  <span class="label label-danger">UI Design</span>
-                  <span class="label label-success">Coding</span>
-                  <span class="label label-info">Javascript</span>
-                  <span class="label label-warning">PHP</span>
-                  <span class="label label-primary">Node.js</span>
+                <p class="text-muted">
+                  <xsl:value-of select="sqroot/body/bodyContent/info/email"/>
                 </p>
-
                 <hr/>
-
                 <strong>
                   <span>
-                    <ix class="fa fa-file-text-o margin-r-5"></ix>
-                  </span> Notes
+                    <ix class="fa fa-phone-square"></ix>
+                  </span> home phone
                 </strong>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                <p class="text-muted">
+                  <xsl:value-of select="sqroot/body/bodyContent/info/homephone"/>
+                </p>
+                <hr/>
+                <strong>
+                  <span>
+                    <ix class="fa fa-mobile-phone"></ix>
+                  </span> mobile phone
+                </strong>
+                <p class="text-muted">
+                  <xsl:value-of select="sqroot/body/bodyContent/info/mobilephone"/>
+                </p>
               </div>
-              <!-- /.box-body -->
             </div>
-            <!-- /.box -->
           </div>
-          <!-- /.col -->
+
           <div class="col-md-9">
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs">
                 <li class="active">
-                  <a href="#activity" data-toggle="tab">Activity</a>
+                  <a href="#journal" data-toggle="tab">Journal</a>
                 </li>
                 <li>
-                  <a href="#timeline" data-toggle="tab">Timeline</a>
+                  <a href="#profile" data-toggle="tab">Profile</a>
                 </li>
                 <li>
-                  <a href="#settings" data-toggle="tab">Settings</a>
+                  <a href="#password" data-toggle="tab">Change Password</a>
                 </li>
               </ul>
               <div class="tab-content">
-                <div class="active tab-pane" id="activity">
-                  <!-- Post -->
-                  <div class="post">
-                    <div class="user-block">
-                      <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image"/>
-                      <span class="username">
-                        <a href="#">Jonathan Burke Jr.</a>
-                        <a href="#" class="pull-right btn-box-tool">
-                          <ix class="fa fa-times"></ix>
-                        </a>
-                      </span>
-                      <span class="description">Shared publicly - 7:30 PM today</span>
-                    </div>
-                    <!-- /.user-block -->
-                    <p>
-                      Lorem ipsum represents a long-held tradition for designers,
-                      typographers and the like. Some people hate it and argue for
-                      its demise, but others ignore the hate as they create awesome
-                      tools to help create filler text for everyone from bacon lovers
-                      to Charlie Sheen fans.
-                    </p>
-                    <ul class="list-inline">
-                      <li>
-                        <a href="#" class="link-black text-sm">
-                          <span>
-                            <ix class="fa fa-share margin-r-5"></ix>
-                          </span> Share
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" class="link-black text-sm">
-                          <span>
-                            <ix class="fa fa-thumbs-o-up margin-r-5"></ix>
-                          </span> Like
-                        </a>
-                      </li>
-                      <li class="pull-right">
-                        <a href="#" class="link-black text-sm">
-                          <span>
-                            <ix class="fa fa-comments-o margin-r-5"></ix>
-                          </span> Comments
-                          (5)
-                        </a>
-                      </li>
-                    </ul>
-
-                    <input class="form-control input-sm" type="text" placeholder="Type a comment"/>
-                  </div>
-                  <!-- /.post -->
-
-                  <!-- Post -->
-                  <div class="post clearfix">
-                    <div class="user-block">
-                      <img class="img-circle img-bordered-sm" src="../../dist/img/user7-128x128.jpg" alt="User Image"/>
-                      <span class="username">
-                        <a href="#">Sarah Ross</a>
-                        <a href="#" class="pull-right btn-box-tool">
-                          <ix class="fa fa-times"></ix>
-                        </a>
-                      </span>
-                      <span class="description">Sent you a message - 3 days ago</span>
-                    </div>
-                    <!-- /.user-block -->
-                    <p>
-                      Lorem ipsum represents a long-held tradition for designers,
-                      typographers and the like. Some people hate it and argue for
-                      its demise, but others ignore the hate as they create awesome
-                      tools to help create filler text for everyone from bacon lovers
-                      to Charlie Sheen fans.
-                    </p>
-
-                    <form class="form-horizontal">
-                      <div class="form-group margin-bottom-none">
-                        <div class="col-sm-9">
-                          <input class="form-control input-sm" placeholder="Response"/>
-                        </div>
-                        <div class="col-sm-3">
-                          <button type="submit" class="btn btn-danger pull-right btn-block btn-sm">Send</button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <!-- /.post -->
-
-                  <!-- Post -->
-                  <div class="post">
-                    <div class="user-block">
-                      <img class="img-circle img-bordered-sm" src="../../dist/img/user6-128x128.jpg" alt="User Image"/>
-                      <span class="username">
-                        <a href="#">Adam Jones</a>
-                        <a href="#" class="pull-right btn-box-tool">
-                          <ix class="fa fa-times"></ix>
-                        </a>
-                      </span>
-                      <span class="description">Posted 5 photos - 5 days ago</span>
-                    </div>
-                    <!-- /.user-block -->
-                    <div class="row margin-bottom">
-                      <div class="col-sm-6">
-                        <img class="img-responsive" src="../../dist/img/photo1.png" alt="Photo"/>
-                      </div>
-                      <!-- /.col -->
-                      <div class="col-sm-6">
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <img class="img-responsive" src="../../dist/img/photo2.png" alt="Photo"/>
-                            <br/>
-                            <img class="img-responsive" src="../../dist/img/photo3.jpg" alt="Photo"/>
-                          </div>
-                          <!-- /.col -->
-                          <div class="col-sm-6">
-                            <img class="img-responsive" src="../../dist/img/photo4.jpg" alt="Photo"/>
-                            <br/>
-                            <img class="img-responsive" src="../../dist/img/photo1.png" alt="Photo"/>
-                          </div>
-                          <!-- /.col -->
-                        </div>
-                        <!-- /.row -->
-                      </div>
-                      <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-
-                    <ul class="list-inline">
-                      <li>
-                        <a href="#" class="link-black text-sm">
-                          <span>
-                            <ix class="fa fa-share margin-r-5"></ix>
-                          </span> Share
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" class="link-black text-sm">
-                          <span>
-                            <ix class="fa fa-thumbs-o-up margin-r-5"></ix>
-                          </span> Like
-                        </a>
-                      </li>
-                      <li class="pull-right">
-                        <a href="#" class="link-black text-sm">
-                          <span>
-                            <ix class="fa fa-comments-o margin-r-5"></ix>
-                          </span> Comments
-                          (5)
-                        </a>
-                      </li>
-                    </ul>
-
-                    <input class="form-control input-sm" type="text" placeholder="Type a comment"/>
-                  </div>
-                  <!-- /.post -->
-                </div>
-                <!-- /.tab-pane -->
-                <div class="tab-pane" id="timeline">
-                  <!-- The timeline -->
+                <div class="active tab-pane" id="journal">
                   <ul class="timeline timeline-inverse">
-                    <!-- timeline time label -->
-                    <li class="time-label">
-                      <span class="bg-red">
-                        10 Feb. 2014
-                      </span>
-                    </li>
-                    <!-- /.timeline-label -->
-                    <!-- timeline item -->
-                    <li>
-                      <ix class="fa fa-envelope bg-blue"></ix>
-                    </li>
-                    <li>
-                      <div class="timeline-item">
-                        <span class="time">
-                          <span>
-                            <ix class="fa fa-clock-o"></ix>
-                          </span> 12:05
-                        </span>
+                    <xsl:for-each select="sqroot/body/bodyContent/journal/item">
+                      <xsl:choose>
+                        <xsl:when test="@label = 1 and @no = 1">
+                          <li class="time-label">
+                            <span class="bg-blue">
+                              <xsl:value-of select="@date"/>
+                            </span>
+                          </li>
+                        </xsl:when>
+                        <xsl:when test="@label = 1 and @no &gt; 1">
+                          <li class="time-label">
+                            <span class="bg-gray">
+                              <xsl:value-of select="@date"/>
+                            </span>
+                          </li>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          
+                        </xsl:otherwise>
+                      </xsl:choose>
 
-                        <h3 class="timeline-header">
-                          <a href="#">Support Team</a> sent you an email
-                        </h3>
+                      <xsl:choose>
+                        <xsl:when test="@no = 1">
+                          <li>
+                            <ix class="fa fa-bell bg-blue"></ix>
+                          </li>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <li>
+                            <ix class="fa fa-bell bg-gray"></ix>
+                          </li>
+                        </xsl:otherwise>
+                      </xsl:choose>
 
-                        <div class="timeline-body">
-                          Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                          weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                          jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                          quora plaxo ideeli hulu weebly balihoo...
-                        </div>
-                        <div class="timeline-footer">
-                          <a class="btn btn-primary btn-xs">Read more</a>
-                          <a class="btn btn-danger btn-xs">Delete</a>
-                        </div>
-                      </div>
-                    </li>
-                    <!-- END timeline item -->
-                    <!-- timeline item -->
-                    <li>
-                      <ix class="fa fa-user bg-aqua"></ix>
-                    </li>
-                    <li>
-                      <div class="timeline-item">
-                        <span class="time">
-                          <span>
-                            <ix class="fa fa-clock-o"></ix>
-                          </span> 5 mins ago
-                        </span>
-                        <span>
-
-                        </span>
-
-                        <h3 class="timeline-header no-border">
-                          <a href="#">Sarah Young</a> accepted your friend request
-                        </h3>
-                      </div>
-                    </li>
-                    <!-- END timeline item -->
-                    <!-- timeline item -->
-                    <li>
-                      <ix class="fa fa-comments bg-yellow"></ix>
-                    </li>
-                    <li>
-                      <div class="timeline-item">
-                        <span class="time">
-                          <span>
-                            <ix class="fa fa-clock-o"></ix>
-                          </span> 27 mins ago
-                        </span>
-                        <span>
-
-                        </span>
-
-                        <h3 class="timeline-header">
-                          <a href="#">Jay White</a> commented on your post
-                        </h3>
-
-                        <div class="timeline-body">
-                          Take me to your leader!
-                          Switzerland is small and neutral!
-                          We are more like Germany, ambitious and misunderstood!
-                        </div>
-                        <div class="timeline-footer">
-                          <a class="btn btn-warning btn-flat btn-xs">View comment</a>
-                        </div>
-                      </div>
-                    </li>
-                    <!-- END timeline item -->
-                    <!-- timeline time label -->
-                    <li class="time-label">
-                      <span class="bg-green">
-                        3 Jan. 2014
-                      </span>
-                    </li>
-                    <!-- /.timeline-label -->
-                    <!-- timeline item -->
-                    <li>
-                      <ix class="fa fa-camera bg-purple"></ix>
-                    </li>
-                    <li>
-                      <div class="timeline-item">
-                        <span class="time">
-                          <span>
+                      <li>
+                        <div class="timeline-item">
+                          <span class="time">
                             <span>
                               <ix class="fa fa-clock-o"></ix>
-                            </span> 2 days ago
+                            </span>
+                            <xsl:value-of select="@time"/>
                           </span>
-                        </span>
-
-
-                        <h3 class="timeline-header">
-                          <a href="#">Mina Lee</a> uploaded new photos
-                        </h3>
-
-                        <div class="timeline-body">
-                          <img src="http://placehold.it/150x100" alt="..." class="margin"/>
-                          <img src="http://placehold.it/150x100" alt="..." class="margin"/>
-                          <img src="http://placehold.it/150x100" alt="..." class="margin"/>
-                          <img src="http://placehold.it/150x100" alt="..." class="margin"/>
+                          <h3 class="timeline-header" id="id_{@no}">
+                            <xsl:value-of select="comment"/>
+                          </h3>
                         </div>
-                      </div>
-                    </li>
-                    <!-- END timeline item -->
+                      </li>                      
+                    </xsl:for-each>
                     <li>
                       <ix class="fa fa-clock-o bg-gray"></ix>
                     </li>
                   </ul>
                 </div>
-                <!-- /.tab-pane -->
+                
+                <div class="tab-pane" id="profile">
+                  <form class="form-horizontal" id="formProfile">
+                    <xsl:for-each select="sqroot/body/bodyContent/profile/row">
+                      <xsl:choose>
+                        <xsl:when test="@isViewable=1">
+                          <div class="form-group">
+                            <label for="{@key}" class="col-sm-2 control-label">
+                              <xsl:value-of select="caption"/>
+                            </label>
 
-                <div class="tab-pane" id="settings">
-                  <form class="form-horizontal">
-                    <div class="form-group">
-                      <label for="inputName" class="col-sm-2 control-label">Name</label>
+                            <div class="col-sm-10">
+                              <xsl:choose>
+                                <xsl:when test="type = 'number'">
+                                  <input type="{type}" min="0" class="form-control" id="{@key}" name="{@key}" placeholder="{caption}" value="{value}" onchange="profileOnChange('{@key}')" />                                
+                                </xsl:when>
+                                <xsl:when test="type = 'textarea'">
+                                  <xsl:choose>
+                                    <xsl:when test="value != ''">
+                                      <textarea class="form-control" id="{@key}" name="{@key}" placeholder="{caption}" onchange="profileOnChange('{@key}')" > 
+                                        <xsl:value-of select="value"/>                                    
+                                      </textarea>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                      <textarea class="form-control" id="{@key}" name="{@key}" placeholder="{caption}" onchange="profileOnChange('{@key}')" >&#160;</textarea>
+                                    </xsl:otherwise>                                    
+                                  </xsl:choose>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                  <input type="{type}" class="form-control" id="{@key}" name="{@key}" placeholder="{caption}" value="{value}" onchange="profileOnChange('{@key}')" />                                
+                              </xsl:otherwise>                              
+                              </xsl:choose>
+                            </div>
+                          </div>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <div class="form-group">
+                            <div class="col-sm-10">
+                              <xsl:choose>
+                                <xsl:when test="type = 'file'">
+                                  <input type="file" class="form-control" id ="{@key}_file" style="visibility: hidden; width: 0; height: 0;" />
+                                  <input type="hidden" class="form-control" id="{@key}" name="{@key}" value="{value}"/>                                
+                                </xsl:when>
+                                <xsl:otherwise>
+                                  <input type="hidden" class="form-control" id="{@key}" name="{@key}" value="{value}"/>
+                                </xsl:otherwise>
+                              </xsl:choose>
+                            </div>
+                          </div>
+                        </xsl:otherwise>                      
+                      </xsl:choose>
+                    </xsl:for-each>                 
 
-                      <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputName" placeholder="Name"/>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="inputEmail" class="col-sm-2 control-label">Email</label>
-
-                      <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Email"/>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="inputName" class="col-sm-2 control-label">Name</label>
-
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputName" placeholder="Name"/>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
-
-                      <div class="col-sm-10">
-                        <textarea class="form-control" id="inputExperience" placeholder="Experience">&#160;</textarea>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
-
-                      <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputSkills" placeholder="Skills"/>
-                      </div>
-                    </div>
                     <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox"/>
-                            I agree to the <a href="#">terms and conditions</a>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-danger">Submit</button>
+                        <button type="button" class="btn btn-danger" id="save_profile" onclick="saveProfile('formProfile', 'profile', '{sqroot/body/bodyContent/info/GUID}' )" disabled="disabled">
+                          Save Profile
+                        </button>
                       </div>
                     </div>
                   </form>
                 </div>
+
+                <div class="tab-pane" id="password">
+                  <form class="form-horizontal" id="formPass">
+                    <div class="form-group">
+                      <label for="curPass" class="col-sm-2 control-label">Current Password</label>
+                      <div class="col-sm-10">
+                        <span id="ecurPass" style="color:red;display:none;">&#160;</span>
+                        <input type="password" class="form-control" id="curPass" value="" onblur="checkPassProfile('curPass')" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="newPass" class="col-sm-2 control-label">New Password</label>
+                      <div class="col-sm-10">
+                        <span id="enewPass" style="color:red;display:none;">&#160;</span>
+                        <input type="password" class="form-control" id="newPass" value="" onblur="checkPassProfile('newPass')" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="conPass" class="col-sm-2 control-label">Confirm Password</label>
+                      <div class="col-sm-10">
+                        <span id="econPass" style="color:red;display:none;">&#160;</span>
+                        <input type="password" class="form-control" id="conPass" value="" onblur="checkPassProfile('conPass')" />
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-sm-10">
+                        <span style="font-size:12px; margin-left:15px;">*) This action is only change your eform password, not your windows password.</span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-danger" id="btn_pass" onclick="changePassProfile()" disabled="disabled">Submit</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
                 <!-- /.tab-pane -->
               </div>
               <!-- /.tab-content -->
@@ -879,6 +629,7 @@ _________________________________________________________ -->
       </a>
     </div>
   </xsl:template>
+  
   <xsl:template match="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu">
     <xsl:variable name="className">
       <xsl:choose>

@@ -20,7 +20,10 @@
       $('.datepicker').datepicker({
       autoclose: true
       });
-      
+      <!--//Date time picker-->
+      $('.datetimepicker').datetimepicker({
+
+      });
       $(".timepicker").timepicker({
       minuteStep: 15,
       template: 'modal',
@@ -29,7 +32,7 @@
       showMeridian: false,
       defaultTime: false
       });
-      
+
       $(function() {
 
       // We can attach the `fileselect` event to all file inputs on the page
@@ -138,14 +141,14 @@
       <xsl:apply-templates select="sqroot/body/bodyContent"/>
 
       <!-- view header -->
-      <div class="box" style="box-shadow:0px;border:none;">
+      <div class="box" style="box-shadow:0px;border:0;">
         <div class="col-md-12" style="margin-bottom:50px;">
           <div style="text-align:left">
             <!--location: 0 header; 1 child; 2 browse
               location: browse:10, header form:20, browse anak:30, browse form:40-->
 
             <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}',40);">SAVE</button>&#160;
-            <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm()">CANCEL</button>&#160;
+            <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}')">CANCEL</button>&#160;
             <xsl:if test="(/sqroot/body/bodyContent/form/info/GUID/.)!='00000000-0000-0000-0000-000000000000' or (/sqroot/body/bodyContent/form/info/permission/allowDelete/.)=1" >
               <button id="child_button_delete" class="btn btn-gray-a"
                       onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'delete', 1, 40)">DELETE</button>
@@ -164,7 +167,7 @@
         <div class="col-md-12 displayblock-phone" style="margin-bottom:20px;">
           <div style="text-align:center">
             <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}',40);">SAVE</button>&#160;
-            <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm()">CANCEL</button>
+            <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}')">CANCEL</button>
           </div>
         </div>
       </div>
@@ -285,6 +288,7 @@
     <div class="form-group enabled-input">
       <xsl:apply-templates select="textBox"/>
       <xsl:apply-templates select="dateBox"/>
+      <xsl:apply-templates select="dateTimeBox"/>
       <xsl:apply-templates select="timeBox"/>
       <xsl:apply-templates select="mediaBox"/>
       <xsl:apply-templates select="checkBox"/>
@@ -417,6 +421,22 @@
     </div>
   </xsl:template>
 
+  <xsl:template match="dateTimeBox">
+    <label id="{../@fieldName}caption">
+      <xsl:value-of select="titlecaption"/>
+    </label>
+    <div class="input-group date">
+      <div class="input-group-addon">
+        <ix class="fa fa-calendar"></ix>
+      </div>
+      <input type="text" class="form-control pull-right datetimepicker" id ="{../@fieldName}" name="{../@fieldName}" Value="{value}" data-type="dateTimeBox" data-old="{value}"
+        onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" >
+        <xsl:if test="../@isEditable=0">
+          <xsl:attribute name="disabled">disabled</xsl:attribute>
+        </xsl:if>
+      </input>
+    </div>
+  </xsl:template>
   <xsl:template match="timeBox">
     <script>//timebox</script>
     <label id="{../@fieldName}caption">

@@ -3,11 +3,7 @@
     if (bCode != undefined) setCookie('code', bCode, 0, 1, 0);
     if (bGUID != undefined) setCookie('GUID', bGUID, 0, 1, 0);
     setCookie('guestID', guestID, 7, 0, 0)
-    //if (getCode() != bCode || getMode() != bMode
-    //    || (bCode == 'view' && getGUID() != bGUID)) {
-    //    document.location.href = document.location.href.replace(document.location.search, '') + '?mode=' + bMode + '&code=' + bCode;
-    //}
-    //else {
+
     try {
         var pathPage = 'index.aspx?mode=' + getMode();
         if (getCode().toLowerCase() == 'dumy' || getCode().toLowerCase() == '404') // || getCode().toLowerCase() == 'login')
@@ -18,20 +14,15 @@
         var divname = ['frameMaster'];
         var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '.xslt'];
 
-        //showXML('frameMaster', xmldoc, xsldoc, true, true, function () {
-        //    if (typeof f == "function") f();
 
-        //    setCursorDefault();
-
-        //});
         pushTheme(divname, xmldoc, xsldoc, true);
 
     }
     catch (e) {
-        //alert(e.Message);
+
         showMessage(e.Message, 4, true);
     }
-    //}
+
 }
 
 function loadThemeFolder() {
@@ -82,9 +73,6 @@ function getUnique() {
 
 function loadContent(nbpage, f) {
     //main content
-    //if (mode.toLowerCase() == 'm' && getMode().toLowerCase() == 'browse')
-    //    var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_child' + getMode() + '.xslt';
-    //else
     if (getCode().toLowerCase() == 'dumy')
         var xmldoc = 'OPHContent/themes/' + loadThemeFolder() + '/sample.xml';
     else
@@ -138,19 +126,9 @@ function signIn() {
         success: function (data) {
             var x = $(data).find("sqroot").children().each(function () {
                 var msg = $(this).text();
-                //why env=back?
+
                 var landingPage = (getCookie('lastPar') == null || getCookie('lastPar') == '') ? '?' : getCookie('lastPar');
-                //var env = getQueryVariable("env");
-                //var str1 = landingPage
-                //var nFront = str1.indexOf("env=front");
-                //var nBack = str1.indexOf("env=back");
-                //if (env.toLowerCase() == 'back' && nFront != '-1') {
-                //    landingPage = 'index.aspx?env=back'
-                //}else if(env.toLowerCase() == 'front' && nBack != '-1'){ 
-                //    landingPage = 'index.aspx?env=front'
-                //}else {
-                //    landingPage = landingPage                
-                //}
+
                 if (msg != '') {
                     if ($(this)[0].nodeName == "userGUID") {
                         setCookie('userId', $("#userid").val(), 7);
@@ -166,11 +144,7 @@ function signIn() {
 
         }
     });
-    //}
-    //else {
-    //    alert(top.document.domain);
-    //    top.document = window.location;
-    //}
+
 }
 
 
@@ -179,14 +153,6 @@ function clearLoginText() {
     $("#pwd").val('');
 }
 
-//-----------------------DUMY
-//function topbutton(username) {
-//    if (getCookie("isLogin") == '0' || getCookie("isLogin") == undefined) {
-//        document.getElementById("loginbuttons").innerHTML = '<span><a data-toggle="modal" href=".login-modal">Log in</a></span>';
-//    } else {
-//        document.getElementById("loginbuttons").innerHTML = '<span><a href="#">Welcome, <span style="color:#47BAC1; font-weight:bold; font-size:14px;">' + username + '</a> </span> <span><a data-toggle="modal" href="#" onClick="SignOut()"> | Log Out</a> </span>';
-//    }
-//}
 function loadForm(bCode, bGUID, f) {
     //OPH4 --refreshHeader
     var url = "index.aspx?code=" + bCode + '&guid=' + bGUID;
@@ -277,569 +243,36 @@ function inside_master(title) {
 
 }
 
-function refreshNextPage(startPageOne, block) {
-    $('#nextPage').css("display", "none");
-    var lastPage = 0;
-    if (document.getElementById("lastPageNo")) var lastPage = document.getElementById("lastPageNo").value;
+//function refreshNextPage(startPageOne, block) {
+//    $('#nextPage').css("display", "none");
+//    var lastPage = 0;
+//    if (document.getElementById("lastPageNo")) var lastPage = document.getElementById("lastPageNo").value;
 
-    var cpage = parseInt(document.getElementById("curPage").value);
-    var oldBlock = getCookie("block");
-    if (!(block == 0 || block == 1)) {
-        block = oldBlock ? oldBlock : 1;
-        cpage += 1;
-    }
-    setCookie("block", block, 30, 0, 0);
-    if (startPageOne) cpage = 1
+//    var cpage = parseInt(document.getElementById("curPage").value);
+//    var oldBlock = getCookie("block");
+//    if (!(block == 0 || block == 1)) {
+//        block = oldBlock ? oldBlock : 1;
+//        cpage += 1;
+//    }
+//    setCookie("block", block, 30, 0, 0);
+//    if (startPageOne) cpage = 1
 
-    if (cpage <= lastPage || lastPage == 0) {
-        var oldSearch = getCookie("search" + getCode());
-        var bSearchText = document.getElementById("bSearchText").value;
-        if (oldSearch && bSearchText == 'search') {
-            document.getElementById("bSearchText").value = oldSearch;
-            bSearchText = oldSearch;
-        }
-        refreshBrowse(getCode(), '', bSearchText, '', cpage, block, '', function () {
-            if (document.getElementById("lastPageNo")) {
-                var lastPage = document.getElementById("lastPageNo").value;
-                if (lastPage == 0 || cpage == lastPage || getCode().substr(0, 1) != 't' || block == 0)
-                    $('#nextPage').css("display", "none");
-                else
-                    $('#nextPage').css("display", "block");
-            }
-        });
-    }
-}
-
-//function refreshBrowse(bCode, bGUID, bsearchText, bSortOrder, bpageNo, block, stateid, f) {
-//    stateid = getState();
-//    try {
-//        //haris
-//        if (block = undefined) {
-//            block = 1;
+//    if (cpage <= lastPage || lastPage == 0) {
+//        var oldSearch = getCookie("search" + getCode());
+//        var bSearchText = document.getElementById("bSearchText").value;
+//        if (oldSearch && bSearchText == 'search') {
+//            document.getElementById("bSearchText").value = oldSearch;
+//            bSearchText = oldSearch;
 //        }
-//        var ndb = getQueryVariable("ndb")
-//        var mg = getQueryVariable("mg")
-//        var acc = getQueryVariable("acc")
-//        var ndb1 = ''
-
-//        if (ndb == 0 || ndb == '' || ndb == undefined) {
-//            ndb == '';
-//        }
-//        else {
-//            ndb1 = '&ndb=1&mg=' + mg + '&acc=' + acc + '&Ui=' + getCookie("OPH_UserId");
-//            var cc = getCookie("OPH_UserId")
-//        }
-//        if (bGUID == '') {
-//            if (document.getElementById("lastPageNo"))
+//        refreshBrowse(getCode(), '', bSearchText, '', cpage, block, '', function () {
+//            if (document.getElementById("lastPageNo")) {
 //                var lastPage = document.getElementById("lastPageNo").value;
-//            else
-//                var lastPage = 0;
-//        }
-//        else {
-//            lastPage = 0;
-//            stateid = "";
-//            bpageNo = 1;
-//            bSortOrder = '';
-//        }
-//        if (bpageNo <= lastPage || lastPage == 0) {
-//            var oldSearch = getCookie("search" + getCode());
-//            bsearchText = document.getElementById("bSearchText").value;
-//            if (oldSearch && bsearchText == 'search') {
-//                document.getElementById("bSearchText").value = oldSearch;
-//                bsearchText = oldSearch;
-//            }
-
-//            var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + bCode + ndb1 + '&GUID=' + bGUID + '&bSearchText=' + bsearchText + '&block=' + block + '&SortOrder=' + bSortOrder + '&bPageNo=' + bpageNo + '&stateid=' + stateid + '&date=' + getUnique();
-
-//            var xsldoc, initial;
-//            initial = ((bCode.substring(0, 1)).toUpperCase());
-//            if (bCode.substring(0, 1).toLowerCase() == 't') {//(block == 1) {
-//                if (bGUID == '')
-//                    xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_browse_block.xslt';
+//                if (lastPage == 0 || cpage == lastPage || getCode().substr(0, 1) != 't' || block == 0)
+//                    $('#nextPage').css("display", "none");
 //                else
-//                    xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_browse_block_each.xslt';
+//                    $('#nextPage').css("display", "block");
 //            }
-//            else {
-//                xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_browse_list.xslt';
-//            }
-//            //
-//            var browseLoc;
-
-//            if (bGUID == '')
-//                if (bpageNo == 1 || bCode.substring(0, 1).toLowerCase() != 't' || block != 1) {
-//                    browseLoc = 'frameBrowse';
-//                }
-//                else {
-//                    browseLoc = 'tmpBrowse' + bpageNo;
-//                    document.getElementById("tmpBrowse" + bpageNo).innerHTML = '';
-//                }
-//            else
-//                browseLoc = 'td_' + bGUID;
-
-//            showXML(browseLoc, xmldoc, xsldoc, true, false, function () {
-//                if (browseLoc == ('tmpBrowse' + bpageNo)) {
-//                    var ntd = $('#tmpBrowse' + bpageNo).find('#contentBrowse').html();
-//                    if (document.getElementById("frameBrowse").innerHTML.search("browsepage" + bpageNo) == -1) {
-//                        ntd = "<TABLE id='browsepage" + bpageNo + "' style='width:100%'>" + ntd + "</TABLE>";
-//                        document.getElementById("frameBrowse").innerHTML = document.getElementById("frameBrowse").innerHTML + ntd;
-
-//                    }
-//                }
-
-//                if (typeof f == "function") f();
-//                //recalculate(bCode, serverAddress, ThemeFolder);
-//                setCursorDefault();
-
-//            });
-
-
-//        }
-//    }
-//    catch (e) { }
-//}
-
-//function refreshReport(bCode, QueryCode, bpageNo, mode, caption, f) {
-//    try {
-
-//        var xmldoc
-//        var xsldoc
-//        if (mode == 'report') {
-//            xmldoc = 'OPHCore/api/default.aspx?mode=report&code=' + bCode + '&queryCode=' + QueryCode + '&titleName=' + caption + '&date=' + getUnique();
-//            xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_report.xslt';
-//        }
-//        else if (mode == 'result') {
-//            xmldoc = 'OPHCore/api/default.aspx?mode=uploader&code=' + bCode + '&queryCode=' + QueryCode + '&date=' + Date();
-//            xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_uploader_result.xslt';
-//        }
-//        else {
-//            xmldoc = 'OPHCore/api/default.aspx?mode=uploader&code=' + bCode + '&queryCode=' + QueryCode + '&date=' + Date();
-//            xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_uploader.xslt';
-
-//        }
-
-//        showXML('frameReport', xmldoc, xsldoc, true, false, function () {
-
-//            if (typeof f == "function") f();
-
-//            setCursorDefault();
-
 //        });
-
-//    }
-//    catch (e) { }
-//}
-//function refreshReport1(bCode, QueryCode, bpageNo, f) {
-//    try {
-//        if (document.getElementById("lastPageNo"))
-//            var lastPage = document.getElementById("lastPageNo").value;
-//        else
-//            var lastPage = 0;
-//        if (bpageNo <= lastPage || lastPage == 0) {
-
-//            var xmldoc = 'OPHCore/api/default.aspx?mode=report&code=' + bCode + '&queryCode=' + QueryCode + '&date=' + Date();
-//            var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_report'
-//            document.getElementById("tmpReport").innerHTML = '';
-//            showXML('tmpReport', xmldoc, xsldoc, true, false, function () {
-//                if (bpageNo == 1) {
-//                    document.getElementById("frameReport").innerHTML = document.getElementById("tmpReport").innerHTML;
-//                }
-//                else {
-
-//                    var ntd = $('#tmpReport').find('#contentReport').html();
-//                    ntd = "<TABLE style='width:800px'>" + ntd + "</TABLE>";
-
-//                    document.getElementById("frameReport").innerHTML = document.getElementById("frameReport").innerHTML + ntd;
-
-
-//                }
-
-
-//                if (typeof f == "function") f();
-
-//                setCursorDefault();
-
-//            });
-
-//        }
-//    }
-//    catch (e) { }
-//}
-//function refreshSubBrowse(bCode, bFilter, bsearchText, bSortOrder, bpageNo, f) {
-//    var bFilter = document.getElementById("parentKey").value + "='" + document.getElementById("cid").value + "'";
-
-//    if (bFilter == "") {
-//        var bFilter = document.getElementById("parentKey").value + "='" + document.getElementById("cid").value + "'";
-//    }
-
-//    try {
-
-//        var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + bCode + '&sqlfilter=' + bFilter + '&bSearchText=' + bsearchText + '&sortOrder=' + bSortOrder + '&bPageNo=' + bpageNo + '&block=' + 0 + '&date=' + Date();
-//        var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_view_vchild_subbrowse.xslt';
-//        showXML('subViewPage_' + bCode, xmldoc, xsldoc, true, true, function () {
-
-//            if (typeof f == "function") f();
-
-//            setCursorDefault();
-
-//        });
-//    }
-//    catch (e) { }
-
-
-//}
-//function refreshAll(vCode, vGUID, editMode) {
-//    setCursorWait(this);
-//    if (vGUID != '') {
-//        var time1 = (new Date()).getTime();
-//        refreshHeader(vCode, vGUID, editMode, false, function () {
-//            if (document.getElementById("cid").value.toUpperCase() != vGUID.toUpperCase())
-//                initTheme('browse', vCode);
-//            else {
-//                refreshStatus(vCode, vGUID, editMode, false);
-
-//                refreshApproval(vCode, vGUID, editMode, false);
-
-//                refreshDocTalk(vCode, vGUID, editMode, false);
-
-//                refreshChild(vCode, vGUID, editMode, false);
-//            }
-
-//        });
-//    }
-//    else {
-//        //var time1 = (new Date()).getTime();
-//        refreshHeader(vCode, vGUID, 2, false);
-
-//        //var time2 = (new Date()).getTime() - time1;
-//        refreshStatus(vCode, vGUID, editMode, false);
-
-//        document.getElementById('frameViewChildren').innerHTML = '';
-//        document.getElementById('frameViewApproval').innerHTML = '';
-//        document.getElementById('frameViewDocTalk').innerHTML = '';
-
-//    }
-//    setCursorDefault();
-
-
-//}
-
-//function refreshHeader(vCode, vGUID, editMode, isAdhoc, f) {
-
-//    if (isAdhoc) setCursorWait(this);
-//    try {
-
-//        var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_view_vhead.xslt';
-//        var xmldoc = 'OPHCore/api/default.aspx?mode=header&code=' + vCode + '&GUID=' + vGUID + '&editMode=' + editMode + '&date=' + Date();
-//        showXML('frameViewHeader', xmldoc, xsldoc, true, true, function () {
-//            //run this to make the default value effect appear
-
-//            preview(1, vCode, vGUID);
-
-//            if (typeof f == "function") f();
-
-//            if (isAdhoc) setCursorDefault();
-
-//        });
-
-//    }
-//    catch (e) {
-
-//        showMessage(e.Message, 4, true);
-
-//    }
-//}
-
-
-
-
-//function refreshStatus(vCode, vGUID, isAdhoc) {
-
-//    var editMode = 0;
-//    if (isAdhoc) setCursorWait(this);
-//    try {
-
-//        var xmldoc = 'OPHCore/api/default.aspx?mode=status&code=' + vCode + '&GUID=' + vGUID + '&editMode=' + editMode + '&date=' + Date();
-//        var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_view_vstatus.xslt';
-//        showXML('frameViewStatus', xmldoc, xsldoc, true, true, function () {
-//            if (isAdhoc) setCursorDefault();
-
-//        });
-
-//    } catch (e) {
-
-//    }
-
-//}
-
-//function refreshApproval(vCode, vGUID, editMode, isAdhoc) {
-
-//    if (isAdhoc) setCursorWait(this);
-//    try {
-
-//        var xmldoc = 'OPHCore/api/default.aspx?mode=approval&code=' + vCode + '&GUID=' + vGUID + '&editMode=' + editMode + '&date=' + Date();
-//        var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_view_vapproval.xslt';
-//        showXML('frameViewApproval', xmldoc, xsldoc, true, true, function () {
-//            if (isAdhoc) setCursorDefault();
-//        });
-
-//    } catch (e) { }
-
-//}
-
-//function refreshDocTalk(vCode, vGUID, editMode, isAdhoc) {
-//    if (vCode.substring(0, 1).toLowerCase() == 't') {
-
-
-//        if (isAdhoc) setCursorWait(this);
-//        try {
-
-//            var xmldoc = 'OPHCore/api/default.aspx?mode=doctalk&code=' + vCode + '&GUID=' + vGUID + '&editMode=' + editMode + '&date=' + Date();
-//            var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_view_vdoctalk.xslt';
-//            showXML('frameViewDocTalk', xmldoc, xsldoc, true, true, function () {
-//                if (isAdhoc) setCursorDefault();
-
-//            });
-
-//        } catch (e) {
-
-//        }
-//    }
-//}
-
-//function refreshChild(vCode, vGUID, editMode, isAdhoc) {
-
-//    if (isAdhoc) setCursorWait(this);
-//    try {
-
-//        var xmldoc = 'OPHCore/api/default.aspx?mode=child&code=' + vCode + '&GUID=' + vGUID + '&editMode=' + editMode + '&date=' + Date();
-//        var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_view_vchild.xslt';
-//        showXML('frameViewChildren', xmldoc, xsldoc, true, true, function () {
-//            if (isAdhoc) setCursorDefault();
-
-//        });
-
-//    } catch (e) {
-
-//    }
-
-//}
-
-//function refreshChildView(vCode, vGUID, editMode, isAdhoc) {
-
-//    if (isAdhoc) setCursorWait(this);
-//    try {
-
-//        var xmldoc = 'OPHCore/api/default.aspx?mode=childheader&code=' + vCode + '&GUID=' + vGUID + '&editMode=' + editMode + '&date=' + Date();
-//        var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_view_vhead.xslt';
-//        if (vGUID == '') vGUID = 'new';
-
-//        showXML('sbv_' + vCode + '_' + vGUID, xmldoc, xsldoc, true, true, function () {
-//            if (isAdhoc) setCursorDefault();
-
-//        });
-//    }
-//    catch (e) {
-
-//        showMessage(e.Message, 4, true);
-//    }
-//}
-//function refreshChildViewUpload(vCode, vGUID, editMode, isAdhoc, isUpload, QuerySQL) {
-
-//    if (isAdhoc) setCursorWait(this);
-//    try {
-
-//        var xmldoc = 'OPHCore/api/default.aspx?mode=childheader&code=' + vCode + '&isUpload=' + isUpload + '&GUID=' + vGUID + '&editMode=' + editMode + '&date=' + Date();
-//        var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_view_vUpload.xslt';
-//        if (vGUID == '') vGUID = 'new';
-//        showXML('sbv_' + vCode + '_' + vGUID, xmldoc, xsldoc, true, true, function () {
-//            if (isAdhoc) setCursorDefault();
-
-//        });
-//    }
-//    catch (e) {
-//        showMessage(e.Message, 4, true);
-//    }
-//}
-
-//function refreshFilter(bCode, bsearchText, bpageNo) {
-//    try {
-
-//        var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + bCode + '&bSearchText=' + bsearchText + '&bPageNo=' + bpageNo + '&date=' + Date();
-//        var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_browse_list.xslt';
-//        showXML('frameBrowse', xmldoc, xsldoc, false, true, function () {
-//            setCursorDefault();
-//        });
-
-//    }
-//    catch (e) { }
-//}
-//function refreshQuery(queryCode, par) {
-
-//}
-//function showReport(vCode, vQueryCode, mode, caption) {
-//    //modif by haris
-//    document.getElementById("browseSection").style.display = "none";
-//    document.getElementById("viewSection").style.display = "none";
-//    document.getElementById("reportSection").style.display = "inline";
-//    var time1 = (new Date()).getTime();
-//    refreshReport(vCode, vQueryCode, 1, mode, caption);
-
-//}
-//function showView(vCode, vGUID, docNo) {
-//    if (docNo) {
-//        document.location.href = document.location.href.replace(document.location.search, '') + '?mode=view&docNo=' + docNo;
-//    }
-//    else if (getMode() != 'view') {
-//        document.location.href = document.location.href.replace(document.location.search, '') + '?mode=view&code=' + vCode + '&GUID=' + vGUID;
-//    }
-//    else {
-//        //$("#browseDiv").hide("slide", { direction: "down" }, 1000);
-//        document.getElementById("browseSection").style.display = "none";
-//        document.getElementById("viewSection").style.display = "inline";
-//        //$("#viewDiv").show("slide", { direction: "down" }, 1000);
-//        refreshAll(vCode, vGUID, 0, true);
-//    }
-//}
-//function newView(tblName) {
-//    var vCode = tblName;
-//    if (!vCode) vCode = document.getElementById('curCode').value;
-//    if (getMode() != 'new') {
-//        document.location.href = document.location.href.replace(document.location.search, '') + '?mode=new&code=' + vCode;
-//    }
-//    else {
-//        document.getElementById("browseSection").style.display = "none";
-//        document.getElementById("viewSection").style.display = "inline";
-//        document.getElementById("newFlag").value = "1";
-//        refreshAll(vCode, '', 2, true);
-//    }
-//}
-//function backToBrowse(tblName) {
-//    var bCode = tblName;
-//    if (!bCode) bCode = document.getElementById('curCode').value;
-//    initTheme('browse', bCode);
-
-//}
-
-//function showSubBrowseView(tableName, GUID, isUpload, QuerySQL) {
-//    if (isUpload == 1) {
-//        if (!GUID) {
-//            document.getElementById('tr_' + tableName + '_new').style.display = 'inline';
-//            refreshChildViewUpload(tableName, GUID, 2, true, isUpload, QuerySQL);
-//        }
-
-//    } else {
-//        if (GUID.length == 0) {
-//            document.getElementById('tr_' + tableName + '_new').style.display = 'inline';
-//            refreshChildView(tableName, '', 2, true);
-//        }
-//        else {
-//            for (c = 0; c < document.getElementById('tb_' + tableName).rows.length; c++) {
-//                if ((GUID.length != 0) && document.getElementById('tb_' + tableName).rows[c].id == 'tr_' + tableName + '_' + GUID) {
-//                    //alert('xx');
-//                    if (document.getElementById('tr_' + tableName + '_' + GUID).style.display == 'inline') {
-//                        document.getElementById('tr_' + tableName + '_' + GUID).style.display = 'none';
-//                        document.getElementById('sbv_' + tableName + '_' + GUID).innerHTML = '';
-//                    }
-//                    else {
-//                        document.getElementById('tr_' + tableName + '_' + GUID).style.display = 'inline';
-//                        refreshChildView(tableName, GUID, 0, true);
-//                    }
-//                }
-//                else if (document.getElementById('tb_' + tableName).rows[c].id.match(/tr.*/)
-//            && document.getElementById('tb_' + tableName).rows[c].style.display == 'inline') {
-//                    document.getElementById('tb_' + tableName).rows[c].style.display = 'none';
-//                    var x = document.getElementById('tb_' + tableName).rows[c].id.match(/tr.*/)[0];
-//                    x = x.replace('tr', 'sbv');
-//                    document.getElementById(x).innerHTML = '';
-//                }
-//            }
-//        }
-
-
-//    }
-
-//}
-//function DownloadSubBrowseView(tableName, GUID) {
-//    for (c = 0; c < document.getElementById('tb_' + tableName).rows.length; c++) {
-
-//        if ((GUID) && document.getElementById('tb_' + tableName).rows[c].id == 'tr_' + tableName + '_' + GUID) {
-//            if (document.getElementById('tr_' + tableName + '_' + GUID).style.display == 'inline') {
-//                document.getElementById('tr_' + tableName + '_' + GUID).style.display = 'none';
-//                document.getElementById('sbv_' + tableName + '_' + GUID).innerHTML = '';
-//            }
-//            else {
-//                document.getElementById('tr_' + tableName + '_' + GUID).style.display = 'inline';
-//                refreshChildView(tableName, GUID, 0, true);
-//            }
-//        }
-//        else if (document.getElementById('tb_' + tableName).rows[c].id.match(/tr.*/)
-//            && document.getElementById('tb_' + tableName).rows[c].style.display == 'inline') {
-//            document.getElementById('tb_' + tableName).rows[c].style.display = 'none';
-//            var x = document.getElementById('tb_' + tableName).rows[c].id.match(/tr.*/)[0];
-//            x = x.replace('tr', 'sbv');
-//            document.getElementById(x).innerHTML = '';
-//        }
-//    }
-//    if (!GUID) {
-//        document.getElementById('tr_' + tableName + '_new').style.display = 'inline';
-//        refreshChildView(tableName, '', 2, true);
-//    }
-//}
-
-//function UploadSubBrowseView(tableName, GUID) {
-//    for (c = 0; c < document.getElementById('tb_' + tableName).rows.length; c++) {
-
-//        if ((GUID) && document.getElementById('tb_' + tableName).rows[c].id == 'tr_' + tableName + '_' + GUID) {
-//            if (document.getElementById('tr_' + tableName + '_' + GUID).style.display == 'inline') {
-//                document.getElementById('tr_' + tableName + '_' + GUID).style.display = 'none';
-//                document.getElementById('sbv_' + tableName + '_' + GUID).innerHTML = '';
-//            }
-//            else {
-//                document.getElementById('tr_' + tableName + '_' + GUID).style.display = 'inline';
-//                refreshChildView(tableName, GUID, 0, true);
-//            }
-//        }
-//        else if (document.getElementById('tb_' + tableName).rows[c].id.match(/tr.*/)
-//            && document.getElementById('tb_' + tableName).rows[c].style.display == 'inline') {
-//            document.getElementById('tb_' + tableName).rows[c].style.display = 'none';
-//            var x = document.getElementById('tb_' + tableName).rows[c].id.match(/tr.*/)[0];
-//            x = x.replace('tr', 'sbv');
-//            document.getElementById(x).innerHTML = '';
-//        }
-//    }
-//    if (!GUID) {
-//        document.getElementById('tr_' + tableName + '_new').style.display = 'inline';
-//        refreshChildView(tableName, '', 2, true);
-//    }
-//}
-/*browse*/
-//function doSearch(text, childTable) {
-//    setCursorWait();
-//    var bSearchText = text;
-//    if (childTable) {
-//        setCookie("search" + childTable, text, 0, 0, 5);
-//        var bFilter = document.getElementById("parentKey").value + "='" + document.getElementById("cid").value + "'";
-//        var bSortOrder = document.getElementsByName("csort" + childTable)[0].value //+ ', ' + document.getElementsByName("csortDesc" + tableName)[0].value;
-//        refreshSubBrowse(childTable, bFilter, bSearchText, bSortOrder, 1);
-//    }
-//    else {
-//        if (bSearchText.substr(0, 1) == '*') {
-//            var code = bSearchText.substr(1, bSearchText.length - 1);
-//            doViewNew(code);
-//        }
-//        else if (bSearchText.substr(0, 1) == '@') {
-//            var code = bSearchText.substr(1, bSearchText.length - 1);
-//            backToBrowse(code);
-//        }
-//        else if (bSearchText.substr(0, 1) == '#') {
-//            var docNo = bSearchText.substr(1, bSearchText.length - 1);
-//            //newView(code);
-//            showView('', '', docNo);
-//        }
-//        else {
-//            setCookie("search" + getCode(), text, 0, 0, 1);
-//            refreshNextPage(1);
-//        }
 //    }
 //}
 
@@ -897,164 +330,6 @@ function doSort(nb, mode, fieldname, tableName) {
     catch (e) { }
 }
 
-//function doFunction(functiontext, nbRec, caption, tableName, block, bGUID) {
-//    var c;
-//    var sAction = "";
-//    window.status = "Looking for records... "
-//    var tableName1 = tableName.length;
-//    var tableName2 = tableName.substring(0, 1).toLowerCase();
-//    //if (tableName1 >= 6 && tableName2 == 't' || tableName2 == 'c') {
-//    if (bGUID == '' || bGUID == undefined) {
-//        $('.hiddenCheckbox').each(function (index) {
-//            if (this.checked)
-//                sAction = sAction + this.id.split('check_').join('') + ',';
-//        });
-
-//        if (tableName1 >= 6) {
-//            nbRec = document.getElementsByName("CheckRecord" + tableName).length;
-//            if (nbRec > 1) {
-//                for (c = 1; c <= nbRec; c++) {
-//                    if ((c == 1 && document.getElementsByName("CheckGUID" + tableName)) || document.getElementsByName("CheckGUID" + tableName)[c - 1]) {
-//                        if (c == 1 && document.getElementsByName("CheckGUID" + tableName) && !document.getElementsByName("CheckGUID" + tableName)[1]) {
-//                            var cGUID = document.getElementsByName("CheckGUID" + tableName).value;
-//                            var isChecked = document.getElementsByName("CheckRecord" + tableName).checked;
-//                        }
-//                        if (document.getElementsByName("CheckGUID" + tableName)[c - 1]) {
-//                            var cGUID = document.getElementsByName("CheckGUID" + tableName)[c - 1].value;
-//                            var isChecked = document.getElementsByName("CheckRecord" + tableName)[c - 1].checked;
-//                        }
-//                        if (isChecked) {
-//                            if (sAction == '')
-//                                sAction = cGUID;
-//                            else
-//                                sAction = sAction + ',' + cGUID;
-//                            window.status = "Looking for records. Found " + cGUID + "...";
-//                        }
-//                    }
-//                }
-//            }
-//            else if (nbRec == 1) {
-//                if (document.getElementsByName("CheckRecord" + tableName)[0].checked) {
-//                    if (sAction == '')
-//                        sAction = document.getElementsByName("CheckGUID" + tableName)[0].value;
-//                    else
-//                        sAction = sAction + ',' + document.getElementsByName("CheckGUID" + tableName)[0].value;
-//                }
-//            }
-//        } else {
-//            if (nbRec > 1) {
-//                for (c = 1; c <= nbRec; c++) {
-//                    if ((c == 1 && document.forms(0).CheckGUID) || document.forms(0).CheckGUID[c - 1]) {
-//                        if (c == 1 && document.forms(0).CheckGUID && !document.forms(0).CheckGUID[1]) {
-//                            var cGUID = document.forms(0).CheckGUID.value;
-//                            var isChecked = document.forms(0).CheckRecord.checked;
-//                        }
-//                        if (document.forms(0).CheckGUID[c - 1]) {
-//                            var cGUID = document.forms(0).CheckGUID[c - 1].value;
-//                            var isChecked = document.forms(0).CheckRecord[c - 1].checked;
-//                        }
-//                        if (isChecked) {
-//                            if (sAction == '')
-//                                sAction = cGUID;
-//                            else
-//                                sAction = sAction + ',' + cGUID;
-//                            window.status = "Looking for records. Found " + cGUID + "...";
-//                        }
-//                    }
-//                }
-//            }
-//            else if (nbRec == 1) {
-//                if (document.forms(0).CheckRecord[0].checked) {
-//                    if (sAction == '')
-//                        sAction = document.forms(0).CheckGUID.value;
-//                    else
-//                        sAction = sAction + ',' + document.forms(0).CheckGUID.value;
-//                }
-//            }
-//        }
-//    }
-//    else
-//        sAction = bGUID;
-
-
-//    window.status = "";
-//    if (sAction == "") {
-//        var msg = 'Please select at least one record before continue.';
-//        //alert(msg);
-//        showMessage(msg, 3);
-//    }
-//    else
-//        if (confirm("Do you want to " + caption + "?") == 1) {
-//            //var serverAddress = document.getElementById("serverAddress").value;
-//            //serverAddress = '../../../';
-//            //document.forms(0).cfunctionlist.value = sAction;
-//            //document.forms(0).cfunction.value = functiontext;
-//            if (sAction == '') {
-//                document.getElementById('cfunctionlist').value = bGUID;
-//            } else {
-//                document.getElementById('cfunctionlist').value = sAction;
-//            }
-//            document.getElementById('cfunction').value = functiontext;
-//            if (tableName)
-//                var vCode = tableName;
-//            else
-//                var vCode = document.getElementById('curCode').value;
-
-//            //var path = 'OPHCore/api/default.aspx?mode=function&tableName=' + vCode;
-//            var path = 'OPHCore/api/default.aspx?mode=function&tableName=' + vCode;
-
-//            var dataForm = $('#aspnetForm').serialize().split('_').join('');
-
-//            $.ajax({
-//                url: path,
-//                data: dataForm,
-//                type: 'POST',
-//                dataType: "xml",
-//                timeout: 80000,
-//                beforeSend: function () {
-//                    setCursorWait(this);
-//                },
-//                success: function (data) {
-//                    var result = $(data).find("message").text();
-//                    if (result) {
-//                        //alert(result);
-//                        var captions = result.substring(1, 100)
-//                        var msgType = result.substring(0, 1);
-//                        if (!(msgType >= 1 && msgType <= 4)) msgType = 1
-//                        showMessage(captions, msgType);
-//                    }
-//                    else {
-//                        showMessage(caption + ' successfully', 2);
-//                    }
-//                    if (tableName1 > 6 && document.getElementById("parentKey")) {
-//                        var bCode = tableName;
-//                        var parentKey = document.getElementById("parentKey").value;
-//                        var parentGUID = document.getElementById("cid").value;
-//                        var bFilter = parentKey + "='" + parentGUID + "'";
-//                        refreshSubBrowse(bCode, bFilter, '', '', 1);
-//                        //showMessage(caption + " successfully", 2);
-//                        //refreshLog(parentKey, bFilter, 1);
-//                    }
-//                    else {
-//                        var bCode = document.getElementById('curCode').value;
-//                        var bPageNo = document.getElementById("curPage").value;
-//                        if (bPageNo == "") bPageNo = "1";
-//                        document.getElementById("bSearchText").value = "";
-//                        var stateid = '';
-//                        initTheme('master', vCode);
-//                        refreshBrowse(bCode, '', '', '', bPageNo, block, stateid);
-//                    }
-
-//                    setCursorDefault(this);
-//                },
-//                error: function (j, e, t) {
-//                    showMessage(t.message, 4);
-//                    setCursorDefault(this);
-//                }
-//            });
-//        }
-//}
-
 function goPage(x, childTable) {
     var bCode = document.getElementById("curCode").value;
     var bPageNo = x;
@@ -1108,323 +383,8 @@ function selectAll(x, nbRec, code) {
 
     window.status = ""
 }
-//function doFilter(GUID) {
-//}
 
-//function doViewFunction(functiontext, caption, strGUID, needConfirm, titleforextrafield, tableName, isheader, browse) {
-//    //var serverAddress = document.getElementById("serverAddress").value;
-//    //serverAddress = '../../../';
-//    if (tableName)
-//        var vCode = tableName;
-//    else
-//        var vCode = document.getElementById('curCode').value;
-//    var confirmed = 1;
-//    var requiredname, requiredtblvalue, validation, index;
-//    validation = '';
-//    requiredname = '';
-//    requiredtblvalue = '';
-//    try {
-//        if (titleforextrafield) {
-//            var x
-//            x = prompt(titleforextrafield + ':', '');
-//            document.all.rejectReason.value = x;
-//            if (x == '') {
-//                validation = 'You have to input ' + titleforextrafield + '...'
-//                //alert('You have to input reject reason...');
-//                //break;
-//            }
-//            else {
-//                document.getElementById("extraField").value = x;
-//            }
-//        }
 
-//        var tblnm = 'HRRRrequiredname'; document.getElementsByName(tblnm).value = document.getElementsByName(tblnm).value + ', PositionGUID'
-
-//        if (//document.forms[0].first.value == 1 && 
-//            functiontext == 'save') {
-//            //popupReject();
-//            //required field
-//            //document.forms[0].cid.value
-//            requiredname = document.getElementsByName(tableName + "requiredname")[0].value;
-//            requiredtblvalue = document.getElementsByName(tableName + "requiredtblvalue")[0].value;
-
-//            //search UnValid input
-//            do {
-//                //if (document.getElementById(requiredtblvalue.substring(0,requiredtblvalue.indexOf(','))).tagName=='INPUT') {
-//                //    alert(requiredtblvalue.substring(0, requiredtblvalue.indexOf(',')));
-//                //}
-//                //if (document.getElementById(requiredtblvalue.substring(0, requiredtblvalue.indexOf(','))).length>=1) {
-//                //    alert('radio');
-//                //}
-//                if (requiredtblvalue.indexOf(',') <= 0) break;
-//                var v = requiredname.substring(0, requiredname.indexOf(',')).split(' ').join('').split('\n').join('').split('\r').join('');
-//                if (document.getElementsByName(v)[0]) {
-//                    if (document.getElementsByName(v)[0].type != 'radio') {
-//                        if (document.getElementsByName(v)[0].value == '') {
-//                            if (validation == '')
-//                                validation = 'You have to fill ' + requiredtblvalue.substring(0, requiredtblvalue.indexOf(','));
-//                            else validation += ', ' + requiredtblvalue.substring(0, requiredtblvalue.indexOf(','));
-//                        }
-//                    } else { //radio
-//                        var r = false;
-//                        for (c = 0; c < document.getElementsByName(v).length; c++) {
-//                            if (document.getElementsByName(v)[c].checked) { r = true; break; }
-//                        }
-//                        if (!r) {
-//                            if (validation == '')
-//                                validation = 'You have to fill ' + requiredtblvalue.substring(0, requiredtblvalue.indexOf(','));
-//                            else validation += ', ' + requiredtblvalue.substring(0, requiredtblvalue.indexOf(','));
-//                        }
-//                    }
-
-//                    requiredtblvalue = requiredtblvalue.substring(requiredtblvalue.indexOf(',') + 1, requiredtblvalue.length);
-//                    requiredname = requiredname.substring(requiredname.indexOf(',') + 1, requiredname.length);
-//                }
-//            }
-//            while (requiredtblvalue.indexOf(',') > 0)
-//        }
-//    }
-//    catch (e) { showMessage(e.message, 4, true); }
-
-//    //checkbox required
-//    var nbcb = 0;
-//    $("input[type='checkbox']").each(
-//        function (index) {
-//            el = $(this);
-//            if (el.prop('indeterminate')) {
-//                appear = true;
-//                $(this).parents().each(
-//                    function (i) {
-//                        p = $(this);
-//                        if (p.css('display') == 'none') appear = false;
-//                    });
-
-//                if (appear) nbcb++;
-//            }
-//        });
-//    if (nbcb > 0) {
-//        if (validation == '') { validation = 'You have to fill ' + nbcb + ' checkboxes'; }
-//        else { validation += ' and ' + nbcb + ' checkboxes'; }
-
-//    }
-//    if (validation == '')
-//        validation += manualvalidation();
-//    else
-//        validation += ',' + manualvalidation();
-
-//    if (validation == '')//if valid then submit
-//    {
-//        if (needConfirm && !(functiontext == 'edit')) {
-//            if (confirm("Do you want to " + caption + "?") == 1)
-//                confirmed = 1;
-//            else
-//                confirmed = 0;
-//        }
-
-//        if (confirmed == 1) {
-//            if (functiontext == 'add' && vCode.toLowerCase() == document.getElementById('curCode').value.toLowerCase()) {
-//                var vCode = document.getElementById('curCode').value;
-//                //var vGUID = getQueryVariable('GUID');
-//                refreshAll(vCode, getQueryVariable('GUID'), 2, true);
-//            }
-//            else if (functiontext == 'edit' && vCode.toLowerCase() == document.getElementById('curCode').value.toLowerCase()) {
-//                var vCode = document.getElementById('curCode').value;
-//                //var vGUID = document.getElementById('cid').value;
-//                //var vGUID = getQueryVariable('GUID');
-//                refreshHeader(vCode, getQueryVariable('GUID'), 1, true);
-//                //document.getElementById('frameViewChildren').innerHTML = '';
-//            }
-//            else if (functiontext == 'edit') {
-//                preview(1, tableName, strGUID);
-//                refreshChildView(tableName, strGUID, 1, true);
-//                //document.getElementById('frameViewChildren').innerHTML = '';
-//            }
-//            else if (functiontext == 'cancel' && vCode.toLowerCase() == document.getElementById('curCode').value.toLowerCase()) {
-//                var newFlag = document.getElementById("newFlag").value;
-//                var vCode = document.getElementById('curCode').value;
-//                var vGUID = document.getElementById("cid").value;
-//                if (newFlag == '0') showView(vCode, vGUID);
-//                else top.document.location = "OPHCore/back.aspx";
-//                showMessage(caption + " successfully", 2);
-//            }
-//            else {
-//                document.getElementById("cfunction").value = functiontext;
-//                //if (!subBrowse) {
-//                document.getElementById("cfunctionlist").value = strGUID;
-//                //document.forms(0).elements("cid").value = strGUID;
-//                //}
-//                if (functiontext == 'save')
-//                    var mode = 'save';
-//                else
-//                    var mode = 'function';
-
-//                if (functiontext == 'force') {
-//                    if (document.getElementById("rmessage")) {
-//                        var comment = document.getElementById("rmessage").value;
-//                    } else var comment = ''
-//                }
-
-//                var path = 'OPHCore/api/default.aspx?mode=' + mode + '&tableName=' + vCode + '&comment=' + comment;
-//                var dataForm = $('#aspnetForm').serialize() //dataForm = dataForm.split('_').join('#95#');
-//                //ModifiedBy eLs    =>  Allowing save using '<' && '_'
-//                var dfLength = dataForm.length;
-//                dataForm = dataForm.substring(2, dfLength);
-//                dataForm = dataForm.split('%3C').join('%26lt%3B');
-
-//                //endeLs
-//                var bCode = tableName.length;
-//                var vInit = (tableName.substring(0, 1)).toLowerCase();
-
-//                $.ajax({
-//                    url: path,
-//                    data: dataForm,
-//                    //new FormData($('form')[0])
-//                    type: 'POST',
-//                    dataType: "xml",
-
-//                    cache: false,
-//                    contentType: false,
-//                    processData: false,
-
-//                    //timeout: 80000,
-//                    beforeSend: function () {
-//                        setCursorWait(this);
-//                    },
-//                    success: function (data) {
-//                        var result = $(data).find("message").text();
-//                        //alert(result);
-//                        var modes = result.substring(0, 1);
-//                        var captions = result;
-
-//                        if (modes == 1 || modes == 2 || modes == 3 || modes == 4)
-//                            captions = result.substring(1, 100);
-
-//                        if (result) //{
-//                            //alert(result);
-//                            showMessage(captions, modes);
-//                        //}
-//                        //else
-//                        if (modes <= 2) {    //modes=status error: 1,2: ok, 3: warning, 4: error
-//                            if (document.getElementById("newFlag").value == "1") {
-//                                //if (modes < 2) { //?? kenapa mode lebih kecil dari 2 yang boleh?
-//                                var vCode = document.getElementById('curCode').value;
-//                                var vGUID = document.getElementById("cid").value;
-//                                var newFlag = document.getElementById("newFlag").value;
-//                                document.location.href = document.location.href.replace(document.location.search, '') + '?mode=view&code=' + vCode + '&GUID=' + vGUID;
-//                                refreshAll(vCode, vGUID, 0, true);
-//                                //showMessage(caption + " successfully", 2);
-//                            }
-//                            else
-//                                if (tableName) {
-//                                    // if (bCode > 6 && tableName != "maSIGNBRAN" && tableName != "caUGRPMODL" && tableName != "maPRODISKU") {
-//                                    if (bCode > 6 && isheader != 1) {
-//                                        var parentKey = document.getElementById("parentKey").value;
-//                                        var vCode = document.getElementById('curCode').value;
-//                                        var parentGUID = document.getElementById("cid").value;
-//                                        var bFilter = parentKey + "='" + parentGUID + "'";
-//                                        refreshSubBrowse(tableName, bFilter, '', '', 1);
-//                                        preview(1, tableName, strGUID);                 // harus aktif untuk merefresh header
-//                                        //refreshLog(parentKey, bFilter, 1);
-//                                        //showMessage(caption + " successfully", 2);
-//                                        //document.getElementById("statusSection").style.display = "inline";
-//                                    }
-
-//                                    else if (functiontext) {
-//                                        var bCode = document.getElementById('curCode').value;
-//                                        var vGUID = strGUID;
-
-//                                        if (browse) {
-//                                            refreshBrowse(bCode, '', '', '', 1, 1, stateid);
-
-//                                        } else if (functiontext == "execute" || functiontext == "force" || functiontext == "delete" || functiontext == "wipe" || functiontext == "reopen") {
-//                                            initTheme('browse', bCode);
-//                                            //showView(bCode, vGUID)
-//                                        } else if (functiontext) {
-//                                            showView(bCode, vGUID)
-
-//                                        }
-
-//                                        else {
-//                                            refreshHeader(bCode, vGUID, 0, true);
-//                                            refreshStatus(bCode, vGUID, 0, true);
-//                                            refreshDocTalk(bCode, vGUID, 0, true);
-//                                            refreshApproval(bCode, vGUID, 0, true);
-//                                        }
-//                                        if (document.getElementById("parentKey")) {
-//                                            var parentKey = document.getElementById("parentKey").value;
-//                                            var parentGUID = document.getElementById("cid").value;
-//                                            var bFilter = parentKey + "='" + parentGUID + "'";
-//                                            //refreshLog(parentKey, bFilter, 1);
-//                                        }
-//                                    } else {
-//                                        var vCode = document.getElementById('curCode').value;
-//                                        var vGUID = document.getElementById("cid").value;
-//                                        refreshHeader(vCode, vGUID, 0, true);
-//                                    }
-//                                }
-//                                else {
-//                                    var vCode = document.getElementById('curCode').value;
-//                                    //var vGUID = document.getElementById("cid").value;
-//                                    var vGUID = strGUID;
-//                                    var newFlag = document.getElementById("newFlag").value;
-//                                    //setCookie("postMessage", caption + " successfully", 0, 1, 0);
-//                                    top.document.location = document.location.href.replace(document.location.search, '') + '?mode=view&code=' + vCode + '&GUID=' + vGUID;
-//                                }
-//                        }
-//                        setCursorDefault(this);
-//                    },
-//                    error: function (j, e, t) {
-//                        //alert(t);
-//                        showMessage(t.message, 4);
-//                        setCursorDefault(this);
-//                    }
-//                });
-
-//                /* branch:xml
-//                document.forms(0).cfunction.value = functiontext;
-//                if (!subBrowse)
-//                document.forms(0).cfunctionlist.value = strGUID;
-//                document.forms(0).submit();
-//                */
-//                //document.forms(0).style.cursor = 'wait';
-//                //this.style.cursor = 'wait';
-//                /*
-//                var options = {
-//                iframe: true,
-//                iframeTarget: "frmMessage",
-//                beforeSubmit: function() {
-
-//                $.blockUI({ css: { backgroundColor: '#888888', color: '#fff' }, message: '<h1>Just a moment...</h1>' });
-//                },
-//                success: function() {
-//                //refreshSubview(vp);
-//                $.unblockUI();
-//                document.forms(0).style.cursor = 'default';
-//                //alert('done!');
-//                $().toastmessage('showSuccessToast', "Save Record is done successfully.");
-
-//                }
-//                };
-//                $("#aspnetForm").ajaxSubmit(options);
-//                */
-//                //save header
-
-//            }
-//        }
-//        else setCursorDefault(this);
-//    }
-//        //if not valid show message
-//    else {
-//        confirmed = 0;
-//        validation = validation.substring(0, validation.length - 1) + validation.substring(validation.length - 1).replace(",", ".");
-//        //alert(validation);
-//        showMessage(validation, 3);
-
-//        setCursorDefault(this);
-//    }
-//}
-
-//var myToast;
 function showMessage(msg, mode) {
     var msgType;
     if (mode == 1) msgType = 'notice';
@@ -1434,16 +394,7 @@ function showMessage(msg, mode) {
     else msgType = 'notice';
 
     if (msg == '' && (mode == 4 || mode == 3)) msg = 'Time out.';
-    //if (myToast) $().toastmessage('removeToast', myToast);
 
-    //myToast = $().toastmessage('showToast', {
-    //    stayTime: 500,
-    //    text: text,
-    //    sticky: sticky,
-    //    position: 'top-right',
-    //    type: msgType,
-    //    closeText: ''
-    //});
     $("#notiTitle").text(msgType);
     $("#notiContent").text(msg);
     $("#notiModal").modal();
@@ -1456,6 +407,8 @@ function selectFilter(text) {
     str = str.replace("'", "''");
     refreshFilter(getCode(), str, 1);
 }
+
+
 function createUploader2(s, qcode, f, qsql, id) {
     if (qcode) {
         var url = "OPHCore/api/default.aspx?mode=upload&flag=isUpload&Separation=" + s + "&UploadFolder=" + f + "&QuerySQL=" + qsql + "&QueryCode=" + qcode + "&Id=" + id + '&date=' + Date();
@@ -1603,460 +556,458 @@ function menuBack() {
     else
         showForm(false);
 }
-function showDropMenu(x, caption, parent, mode, code) {
-    //var serverAddress = document.getElementById("serverAddress").value;
-    //serverAddress = '../../../';
-    //var ThemeFolder = document.getElementById("curTheme").value;
+//function showDropMenu(x, caption, parent, mode, code) {
+//    try {
+//        if (x || x == null) {
+
+//            var child = document.getElementById("dropMenu");
+//            if (child) {
+//                child.parentNode.removeChild(child);
+//            }
+
+//            var d1 = document.createElement("div");
+//            //d1.innerHTML = "test";
+//            d1.setAttribute("id", "dropMenu");
+//            d1.setAttribute("class", "shadow");
+//            d1.setAttribute("onblur", "removeDropMenu();");
+//            var offset = GetTopLeft(parent);
+//            if (mode == 0) {
+//                var oLeft = offset.Left;
+//                d1.setAttribute("style", "position:absolute; background-color:#5AD5FC; min-width:100px; width:auto; padding: 5px 5px 5px 5px; height:auto; top:55px; left:" + oLeft + "px; ");
+
+//                //d1.setAttribute("style", "position:absolute; background-color:#5AD5FC; width:auto; height:auto; top:55px; left:" + oLeft + "px; border:1px #888888 solid;");
+//            }
+//            if (mode == 2) {
+//                var oRight = screen.width - (offset.Left + parent.offsetWidth + getScrollBarWidth() - 10);
+//                //var oRight = offset.Left + parent.offsetWidth;
+//                d1.setAttribute("style", "position:absolute; background-color:#5AD5FC; min-width:100px; width:auto; padding: 5px 5px 5px 5px; height:auto; top:55px; right:" + oRight + "px; ");
+
+//                //d1.setAttribute("style", "position:absolute; background-color:#5AD5FC; width:auto; height:auto; top:55px; right:" + oRight + "px; border:1px #888888 solid;");
+//            }
+
+//            if (mode == 4) {
+//                var oLeft = offset.Left;
+//                //var oRight = offset.Left + parent.offsetWidth;
+//                d1.setAttribute("style", "position:absolute; background-color:white; width:auto; padding: 5px 5px 5px 5px; height:auto; top:168px; left:" + oLeft + "px; ");
+
+//                //d1.setAttribute("style", "position:absolute; background-color:#5AD5FC; width:auto; height:auto; top:55px; right:" + oRight + "px; border:1px #888888 solid;");
+//            }
+//            //d1.setAttribute("style", "position:absolute; width:100px; height:100px; top:60px; left:" + oLeft + "px; border:1px black solid; background-color:white;");            
+//            document.body.appendChild(d1);
+//            document.getElementById("dropMenu").style.display = "none";
 
 
-    try {
-        if (x || x == null) {
+//            var xmldoc = 'OPHCore/api/default.aspx?mode=menu&code=' + code + '&caption=' + caption + '&date=' + Date() + '&formnow=' + getCookie("formactive");
+//            var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_menu_drop.xslt';
+//            showXML('dropMenu', xmldoc, xsldoc, true, true, function () {
+//                if (document.getElementById("dropMenu")) {
+//                    if (document.getElementById("dropMenu").innerHTML.length != 67) {
+//                        document.getElementById("dropMenu").style.display = "inline";
+//                    }
+//                    //if(caption.indexOf("form") >=0) 
+//                    //countnewdropmenu(getCookie("formactive"), caption, serverAddress, ThemeFolder);
+//                }
+//            });
 
-            var child = document.getElementById("dropMenu");
-            if (child) {
-                child.parentNode.removeChild(child);
-            }
-
-            var d1 = document.createElement("div");
-            //d1.innerHTML = "test";
-            d1.setAttribute("id", "dropMenu");
-            d1.setAttribute("class", "shadow");
-            d1.setAttribute("onblur", "removeDropMenu();");
-            var offset = GetTopLeft(parent);
-            if (mode == 0) {
-                var oLeft = offset.Left;
-                d1.setAttribute("style", "position:absolute; background-color:#5AD5FC; min-width:100px; width:auto; padding: 5px 5px 5px 5px; height:auto; top:55px; left:" + oLeft + "px; ");
-
-                //d1.setAttribute("style", "position:absolute; background-color:#5AD5FC; width:auto; height:auto; top:55px; left:" + oLeft + "px; border:1px #888888 solid;");
-            }
-            if (mode == 2) {
-                var oRight = screen.width - (offset.Left + parent.offsetWidth + getScrollBarWidth() - 10);
-                //var oRight = offset.Left + parent.offsetWidth;
-                d1.setAttribute("style", "position:absolute; background-color:#5AD5FC; min-width:100px; width:auto; padding: 5px 5px 5px 5px; height:auto; top:55px; right:" + oRight + "px; ");
-
-                //d1.setAttribute("style", "position:absolute; background-color:#5AD5FC; width:auto; height:auto; top:55px; right:" + oRight + "px; border:1px #888888 solid;");
-            }
-
-            if (mode == 4) {
-                var oLeft = offset.Left;
-                //var oRight = offset.Left + parent.offsetWidth;
-                d1.setAttribute("style", "position:absolute; background-color:white; width:auto; padding: 5px 5px 5px 5px; height:auto; top:168px; left:" + oLeft + "px; ");
-
-                //d1.setAttribute("style", "position:absolute; background-color:#5AD5FC; width:auto; height:auto; top:55px; right:" + oRight + "px; border:1px #888888 solid;");
-            }
-            //d1.setAttribute("style", "position:absolute; width:100px; height:100px; top:60px; left:" + oLeft + "px; border:1px black solid; background-color:white;");            
-            document.body.appendChild(d1);
-            document.getElementById("dropMenu").style.display = "none";
+//        }
+//        else {
+//        }
+//    } catch (e) { }
+//}
 
 
-            var xmldoc = 'OPHCore/api/default.aspx?mode=menu&code=' + code + '&caption=' + caption + '&date=' + Date() + '&formnow=' + getCookie("formactive");
-            var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_menu_drop.xslt';
-            showXML('dropMenu', xmldoc, xsldoc, true, true, function () {
-                if (document.getElementById("dropMenu")) {
-                    if (document.getElementById("dropMenu").innerHTML.length != 67) {
-                        document.getElementById("dropMenu").style.display = "inline";
-                    }
-                    //if(caption.indexOf("form") >=0) 
-                    //countnewdropmenu(getCookie("formactive"), caption, serverAddress, ThemeFolder);
-                }
-            });
+//function removeDropMenu() {
+//    var child = document.getElementById("dropMenu");
+//    if (child) {
+//        child.parentNode.removeChild(child);
+//    }
+//}
 
-        }
-        else {
-        }
-    } catch (e) { }
-}
+//function showForm(x, caption, code) {
 
+//    //var serverAddress = document.getElementById("serverAddress").value;
+//    //serverAddress = '../../../';
+//    //var ThemeFolder = document.getElementById("curTheme").value;
+//    try {
+//        if (x || x == null) {
+//            document.getElementById("frameSnap").style.display = "inline";
+//            document.getElementById("frameForm").style.display = "inline";
 
-function removeDropMenu() {
-    var child = document.getElementById("dropMenu");
-    if (child) {
-        child.parentNode.removeChild(child);
-    }
-}
+//            document.body.style.overflow = "hidden";
+//            document.getElementById("frameFormContent").innerHTML = "Loading. Please wait...";
+//            document.getElementById("frameFormContent").style.overflow = "auto";
+//            h = document.body.scrollHeight;
+//            document.getElementById("frameFormContent").style.height = (h - 80) + 'px';
+//            document.getElementById("frameFormContent").style.width = 1000 - 300;
 
-function showForm(x, caption, code) {
+//            //Latu 20130604: Set address and parameter
+//            var xmldoc = 'OPHCore/api/default.aspx?mode=menu&code=' + code + '&caption=' + caption + '&date=' + Date() + '&formnow=' + getCookie("formactive");
+//            var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_menu.xslt';
+//            showXML('frameFormContent', xmldoc, xsldoc, true, true, function () {
+//                if (x)
+//                    menuStack = "";
+//                else
+//                    menuStack = getCookie("menuStack");
 
-    //var serverAddress = document.getElementById("serverAddress").value;
-    //serverAddress = '../../../';
-    //var ThemeFolder = document.getElementById("curTheme").value;
-    try {
-        if (x || x == null) {
-            document.getElementById("frameSnap").style.display = "inline";
-            document.getElementById("frameForm").style.display = "inline";
+//                if (!menuStack) menuStack = '';
+//                menuStack = caption + ',' + menuStack;
+//                setCookie("menuStack", menuStack, 30, 0, 0);
+//                //                if (caption.indexOf("form") >= 0) 
+//                //countnew(getCookie("formactive"), caption, serverAddress, ThemeFolder);
+//            });
 
-            document.body.style.overflow = "hidden";
-            document.getElementById("frameFormContent").innerHTML = "Loading. Please wait...";
-            document.getElementById("frameFormContent").style.overflow = "auto";
-            h = document.body.scrollHeight;
-            document.getElementById("frameFormContent").style.height = (h - 80) + 'px';
-            document.getElementById("frameFormContent").style.width = 1000 - 300;
+//        }
+//        else {
+//            document.getElementById("frameSnap").style.display = "none";
+//            document.getElementById("frameForm").style.display = "none";
+//            document.body.style.overflow = "auto";
+//            setCookie("menuStack", "", 30, 0, 0);
+//        }
+//    } catch (e) { }
+//}
 
-            //Latu 20130604: Set address and parameter
-            var xmldoc = 'OPHCore/api/default.aspx?mode=menu&code=' + code + '&caption=' + caption + '&date=' + Date() + '&formnow=' + getCookie("formactive");
-            var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_menu.xslt';
-            showXML('frameFormContent', xmldoc, xsldoc, true, true, function () {
-                if (x)
-                    menuStack = "";
-                else
-                    menuStack = getCookie("menuStack");
+//function showForm1(x, caption) {
+//    //var serverAddress = document.getElementById("serverAddress").value;
+//    //serverAddress = '../../../';
+//    //var ThemeFolder = document.getElementById("curTheme").value;
+//    try {
+//        if (x || x == null) {
+//            document.getElementById("frameReject").style.display = "inline";
+//            document.getElementById("frameFormReject").style.display = "inline";
 
-                if (!menuStack) menuStack = '';
-                menuStack = caption + ',' + menuStack;
-                setCookie("menuStack", menuStack, 30, 0, 0);
-                //                if (caption.indexOf("form") >= 0) 
-                //countnew(getCookie("formactive"), caption, serverAddress, ThemeFolder);
-            });
+//            //            document.body.style.overflow = "hidden";
+//            //            document.getElementById("Content").innerHTML = "";
+//            //            document.getElementById("Content").style.overflow = "auto";
+//            //            document.getElementById("Content").style.height = document.body.scrollHeight - 80;
+//            //            document.getElementById("Content").style.width = 1000 - 300;
 
-        }
-        else {
-            document.getElementById("frameSnap").style.display = "none";
-            document.getElementById("frameForm").style.display = "none";
-            document.body.style.overflow = "auto";
-            setCookie("menuStack", "", 30, 0, 0);
-        }
-    } catch (e) { }
-}
+//            //Latu 20130604: Set address and parameter
+//            //            var xmldoc = 'OPHCore/api/default.aspx?mode=menu&code=' + caption + '&date=' + Date() + '&formnow=' + getCookie("formactive");
+//            //            var xsldoc = 'OPHContent/themes/' +loadThemeFolder() + '/xslt/master_menu.xslt';
+//            //            showXML('Content', xmldoc, xsldoc, true, true);
+//            //            if (x)
+//            //                menuStack = "";
+//            //            else
+//            //                menuStack = getCookie("menuStack");
 
-function showForm1(x, caption) {
-    //var serverAddress = document.getElementById("serverAddress").value;
-    //serverAddress = '../../../';
-    //var ThemeFolder = document.getElementById("curTheme").value;
-    try {
-        if (x || x == null) {
-            document.getElementById("frameReject").style.display = "inline";
-            document.getElementById("frameFormReject").style.display = "inline";
+//            //            if (!menuStack) menuStack = '';
+//            //            menuStack = caption + ',' + menuStack;
+//            //            setCookie("menuStack", menuStack, 30, 0, 0);
+//        }
+//        else {
+//            document.getElementById("frameReject").style.display = "none";
+//            document.getElementById("frameFormReject").style.display = "none";
+//            document.body.style.overflow = "auto";
+//            setCookie("menuStack", "", 30, 0, 0);
+//        }
+//    } catch (e) { }
+//}
+//function menuContent(mguid, parent, t1, t2, lvel, purl, qcode, tblname, user, QueryName, nbNew) {
+//    //var ThemeFolder = document.getElementById("curTheme").value;
+//    if (t1) t1 = (t1 == undefined ? '' : t1).split('.').join(' ');
+//    if (t2) {
+//        t2 = (t2 == undefined ? '' : t2).split('.').join(' ');
+//    }
+//    else {
+//        tt = (t1 == undefined ? '' : t1).split(' ');
+//        t1 = tt[0];
+//        t2 = tt[1];
+//    }
+//    if (nbNew == '') nbNew = 0;
+//    var d0 = document.getElementById(parent)
+//    var d1 = document.createElement("div");
+//    if (t2) {
+//        t2 = t2;
+//    } else {
+//        var t2 = "";
+//    }
+//    var button_active = getCookie("button_s" + "_" + getCookie("OPH_AccountId") + "_" + getCookie("OPH_UserId"));
+//    if (button_active == null) {
+//        //Latu 20130725: Set NOT-SET Button Value
+//        setCookie("button_s" + "_" + getCookie("OPH_AccountId") + "_" + getCookie("OPH_UserId"), "BUTTON", 30, 0, 0);
+//    }
 
-            //            document.body.style.overflow = "hidden";
-            //            document.getElementById("Content").innerHTML = "";
-            //            document.getElementById("Content").style.overflow = "auto";
-            //            document.getElementById("Content").style.height = document.body.scrollHeight - 80;
-            //            document.getElementById("Content").style.width = 1000 - 300;
+//    var menuactive = getCookie("formactive");
+//    if (menuactive == null) {
+//        setCookie("formactive" + "_" + getCookie("OPH_AccountId") + "_" + getCookie("OPH_UserId"), "00000000-0000-0000-0000-000000000000", 30, 0, 0);
+//    }
 
-            //Latu 20130604: Set address and parameter
-            //            var xmldoc = 'OPHCore/api/default.aspx?mode=menu&code=' + caption + '&date=' + Date() + '&formnow=' + getCookie("formactive");
-            //            var xsldoc = 'OPHContent/themes/' +loadThemeFolder() + '/xslt/master_menu.xslt';
-            //            showXML('Content', xmldoc, xsldoc, true, true);
-            //            if (x)
-            //                menuStack = "";
-            //            else
-            //                menuStack = getCookie("menuStack");
+//    var fontColor;
 
-            //            if (!menuStack) menuStack = '';
-            //            menuStack = caption + ',' + menuStack;
-            //            setCookie("menuStack", menuStack, 30, 0, 0);
-        }
-        else {
-            document.getElementById("frameReject").style.display = "none";
-            document.getElementById("frameFormReject").style.display = "none";
-            document.body.style.overflow = "auto";
-            setCookie("menuStack", "", 30, 0, 0);
-        }
-    } catch (e) { }
-}
-function menuContent(mguid, parent, t1, t2, lvel, purl, qcode, tblname, user, QueryName, nbNew) {
-    //var ThemeFolder = document.getElementById("curTheme").value;
-    if (t1) t1 = (t1 == undefined ? '' : t1).split('.').join(' ');
-    if (t2) {
-        t2 = (t2 == undefined ? '' : t2).split('.').join(' ');
-    }
-    else {
-        tt = (t1 == undefined ? '' : t1).split(' ');
-        t1 = tt[0];
-        t2 = tt[1];
-    }
-    if (nbNew == '') nbNew = 0;
-    var d0 = document.getElementById(parent)
-    var d1 = document.createElement("div");
-    if (t2) {
-        t2 = t2;
-    } else {
-        var t2 = "";
-    }
-    var button_active = getCookie("button_s" + "_" + getCookie("OPH_AccountId") + "_" + getCookie("OPH_UserId"));
-    if (button_active == null) {
-        //Latu 20130725: Set NOT-SET Button Value
-        setCookie("button_s" + "_" + getCookie("OPH_AccountId") + "_" + getCookie("OPH_UserId"), "BUTTON", 30, 0, 0);
-    }
+//    d1.setAttribute("id", "button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join(''));
+//    if (button_active == ("button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join(''))) {
+//        if (nbNew > 0)
+//            d1.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-selected-new.png); background-repeat:no-repeat; text-align:right;");
+//        else
+//            d1.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-selected.png); background-repeat:no-repeat; text-align:right;");
+//        fontColor = '#ffffff';
+//    } else {
+//        if (nbNew > 0)
+//            d1.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-new.png); background-repeat:no-repeat; text-align:right;");
+//        else
+//            d1.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame.png); background-repeat:no-repeat; text-align:right;");
+//        fontColor = '#7f7f7f';
+//    }
 
-    var menuactive = getCookie("formactive");
-    if (menuactive == null) {
-        setCookie("formactive" + "_" + getCookie("OPH_AccountId") + "_" + getCookie("OPH_UserId"), "00000000-0000-0000-0000-000000000000", 30, 0, 0);
-    }
+//    // get old onmouseover attribute
+//    var omover = d1.getAttribute("onmouseover");
 
-    var fontColor;
+//    // if onclick is not a function, it's not IE7, so use setAttribute
+//    if (typeof (omover) != "function") {
+//        //Latu 20130604: Check if actived by cookie
+//        if (button_active == ("button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join(''))) {
+//            d1.setAttribute('onmouseover', 'color(' + "button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join('') + ', true, ' + nbNew + ');' + omover); // for FF,IE8,Chrome
+//        } else {
+//            d1.setAttribute('onmouseover', 'color(' + "button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join('') + ', false, ' + nbNew + ');' + omover); // for FF,IE8,Chrome
+//        }
+//        //d1.setAttribute('onmouseover', 'color(' + "button_" + t1 + t2 + ');' + onclick); // for FF,IE8,Chrome
+//        // if onclick is a function, use the IE7 method and call onclick() in the anonymous function
+//    } else {
+//        d1.onmouseover = function () {
+//            if (button_active == ("button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join(''))) {
+//                color(d1, true, nbNew);
+//            } else {
+//                color(d1, false, nbNew);
+//            }
+//        }; // for IE7
+//    }
 
-    d1.setAttribute("id", "button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join(''));
-    if (button_active == ("button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join(''))) {
-        if (nbNew > 0)
-            d1.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-selected-new.png); background-repeat:no-repeat; text-align:right;");
-        else
-            d1.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-selected.png); background-repeat:no-repeat; text-align:right;");
-        fontColor = '#ffffff';
-    } else {
-        if (nbNew > 0)
-            d1.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-new.png); background-repeat:no-repeat; text-align:right;");
-        else
-            d1.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame.png); background-repeat:no-repeat; text-align:right;");
-        fontColor = '#7f7f7f';
-    }
+//    // get old onmouseout attribute
+//    var omout = d1.getAttribute("onmouseout");
+//    // if omout is not a function, it's not IE7, so use setAttribute
+//    if (typeof (omout) != "function") {
+//        if (button_active == ("button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join(''))) {
+//            d1.setAttribute('onmouseout', 'colorout(' + "button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join('') + ', true, ' + nbNew + ');' + omout); // for FF,IE8,Chrome
+//        } else {
+//            d1.setAttribute('onmouseout', 'colorout(' + "button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join('') + ', false, ' + nbNew + ');' + omout); // for FF,IE8,Chrome
+//        }
+//    } else {
+//        //Latu 20130520: set Attribut when mouseout
+//        d1.onmouseout = function () {
+//            if (button_active == ("button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join(''))) {
+//                colorout(d1, true, nbNew);
+//            } else {
+//                colorout(d1, false, nbNew);
+//            }
+//        }; // for IE7
+//    }
 
-    // get old onmouseover attribute
-    var omover = d1.getAttribute("onmouseover");
+//    // get old onclick attribute
+//    var oclick = d1.getAttribute("onclick");
+//    // if onclick is not a function, it's not IE7, so use setAttribute
+//    if (typeof (oclick) != "function") {
 
-    // if onclick is not a function, it's not IE7, so use setAttribute
-    if (typeof (omover) != "function") {
-        //Latu 20130604: Check if actived by cookie
-        if (button_active == ("button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join(''))) {
-            d1.setAttribute('onmouseover', 'color(' + "button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join('') + ', true, ' + nbNew + ');' + omover); // for FF,IE8,Chrome
-        } else {
-            d1.setAttribute('onmouseover', 'color(' + "button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join('') + ', false, ' + nbNew + ');' + omover); // for FF,IE8,Chrome
-        }
-        //d1.setAttribute('onmouseover', 'color(' + "button_" + t1 + t2 + ');' + onclick); // for FF,IE8,Chrome
-        // if onclick is a function, use the IE7 method and call onclick() in the anonymous function
-    } else {
-        d1.onmouseover = function () {
-            if (button_active == ("button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join(''))) {
-                color(d1, true, nbNew);
-            } else {
-                color(d1, false, nbNew);
-            }
-        }; // for IE7
-    }
+//        //        if (tblname == ("causr1")) {
+//        //            purl = purl + user;
+//        //
+//        //if (!user) user = "";
+//        //purl = purl.split("#user#").join(user);
+//        purl = purl.split("#user#").join(getCookie("OPH_UserGUID"));
+//        purl = purl.split("#account#").join(getCookie("OPH_AccountGUID"));
 
-    // get old onmouseout attribute
-    var omout = d1.getAttribute("onmouseout");
-    // if omout is not a function, it's not IE7, so use setAttribute
-    if (typeof (omout) != "function") {
-        if (button_active == ("button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join(''))) {
-            d1.setAttribute('onmouseout', 'colorout(' + "button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join('') + ', true, ' + nbNew + ');' + omout); // for FF,IE8,Chrome
-        } else {
-            d1.setAttribute('onmouseout', 'colorout(' + "button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join('') + ', false, ' + nbNew + ');' + omout); // for FF,IE8,Chrome
-        }
-    } else {
-        //Latu 20130520: set Attribut when mouseout
-        d1.onmouseout = function () {
-            if (button_active == ("button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join(''))) {
-                colorout(d1, true, nbNew);
-            } else {
-                colorout(d1, false, nbNew);
-            }
-        }; // for IE7
-    }
+//        //d1.setAttribute('onclick', 'colorclick(' + "button_" + t1 + t2 + ', "' + "button_" + t1 + t2 + '", "' + "button_s" + lvel + '");' + oclick); // for FF,IE8,Chrome
+//        d1.setAttribute('onmousedown', 'colorclick(' + "button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join('') + ', "' + lvel + '", "' + t1 + '", "' + t2 + '", "' + mguid + '", "' + purl + '", "' + qcode + '", false, ' + nbNew + ');' + oclick); // for FF,IE8,Chrome
+//        //setCookie("button_s", d1.getAttribute("id"), 30,0,0)
+//    } else {
+//        //Latu 20130520: set Attribut when mouseout
+//        d1.onclick = function () {
+//            //setCookie("button_s", d1.getAttribute("id"), 30,0,0)
+//            colorclick(d1, lvel, t1, t2, mguid, purl, qcode, false, nbNew);
+//        }; // for IE7
+//    }
 
-    // get old onclick attribute
-    var oclick = d1.getAttribute("onclick");
-    // if onclick is not a function, it's not IE7, so use setAttribute
-    if (typeof (oclick) != "function") {
+//    var d2 = document.createElement("div");
+//    if (t1.length < t2.length) {
+//        d2.setAttribute("style", "margin:70px 15px 0px 15px; padding:0 0 0 0; color:" + fontColor + "; font-size:arial; font-size:18pt")
+//        t1 = t1.substr(0, 9);
+//        t2 = t2.substr(0, 15);
+//    }
+//    else {
+//        d2.setAttribute("style", "margin:70px 15px 0px 15px; padding:0 0 0 0; color:" + fontColor + "; font-size:arial; font-size:10pt")
+//        t1 = t1.substr(0, 15);
+//        t2 = t2.substr(0, 9);
+//    }
 
-        //        if (tblname == ("causr1")) {
-        //            purl = purl + user;
-        //
-        //if (!user) user = "";
-        //purl = purl.split("#user#").join(user);
-        purl = purl.split("#user#").join(getCookie("OPH_UserGUID"));
-        purl = purl.split("#account#").join(getCookie("OPH_AccountGUID"));
+//    d2.innerHTML = t1;
 
-        //d1.setAttribute('onclick', 'colorclick(' + "button_" + t1 + t2 + ', "' + "button_" + t1 + t2 + '", "' + "button_s" + lvel + '");' + oclick); // for FF,IE8,Chrome
-        d1.setAttribute('onmousedown', 'colorclick(' + "button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join('') + ', "' + lvel + '", "' + t1 + '", "' + t2 + '", "' + mguid + '", "' + purl + '", "' + qcode + '", false, ' + nbNew + ');' + oclick); // for FF,IE8,Chrome
-        //setCookie("button_s", d1.getAttribute("id"), 30,0,0)
-    } else {
-        //Latu 20130520: set Attribut when mouseout
-        d1.onclick = function () {
-            //setCookie("button_s", d1.getAttribute("id"), 30,0,0)
-            colorclick(d1, lvel, t1, t2, mguid, purl, qcode, false, nbNew);
-        }; // for IE7
-    }
+//    var d3 = document.createElement("div");
+//    if (t2.length <= t1.length)
+//        d3.setAttribute("style", "margin:0px 15px 15px 15px; color:" + fontColor + "; font-size:arial; font-size:18pt")
+//    else
+//        d3.setAttribute("style", "margin:0px 15px 15px 15px; color:" + fontColor + "; font-size:arial; font-size:10pt")
 
-    var d2 = document.createElement("div");
-    if (t1.length < t2.length) {
-        d2.setAttribute("style", "margin:70px 15px 0px 15px; padding:0 0 0 0; color:" + fontColor + "; font-size:arial; font-size:18pt")
-        t1 = t1.substr(0, 9);
-        t2 = t2.substr(0, 15);
-    }
-    else {
-        d2.setAttribute("style", "margin:70px 15px 0px 15px; padding:0 0 0 0; color:" + fontColor + "; font-size:arial; font-size:10pt")
-        t1 = t1.substr(0, 15);
-        t2 = t2.substr(0, 9);
-    }
-
-    d2.innerHTML = t1;
-
-    var d3 = document.createElement("div");
-    if (t2.length <= t1.length)
-        d3.setAttribute("style", "margin:0px 15px 15px 15px; color:" + fontColor + "; font-size:arial; font-size:18pt")
-    else
-        d3.setAttribute("style", "margin:0px 15px 15px 15px; color:" + fontColor + "; font-size:arial; font-size:10pt")
-
-    d3.innerHTML = t2;
+//    d3.innerHTML = t2;
 
 
-    d1.appendChild(d2);
-    d1.appendChild(d3);
-    d0.appendChild(d1);
-}
+//    d1.appendChild(d2);
+//    d1.appendChild(d3);
+//    d0.appendChild(d1);
+//}
 
-function menuDropContent(mguid, parent, caption, lvel, purl, qcode, tblname, user, nbNew) {
-    var cap = caption.split(" ");
-    var t1 = cap[0];
-    var t2 = cap[1];
-    colorclick("button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join(''), lvel, t1, t2, mguid, purl, qcode, true, nbNew); // for FF,IE8,Chrome
+//function menuDropContent(mguid, parent, caption, lvel, purl, qcode, tblname, user, nbNew) {
+//    var cap = caption.split(" ");
+//    var t1 = cap[0];
+//    var t2 = cap[1];
+//    colorclick("button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join(''), lvel, t1, t2, mguid, purl, qcode, true, nbNew); // for FF,IE8,Chrome
 
-}
-function color(cid, btn_slt, nbNew) {
-    //var ThemeFolder = document.getElementById("curTheme").value;
-    var obj = cid;
-    if (obj) {
-        if (btn_slt) {
-            if (nbNew > 0)
-                obj.setAttribute("style", "float:left; width:135px; height:125px; cursor:pointer; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-selected-glow-new.png); background-repeat:no-repeat; text-align:right;");
-            else
-                obj.setAttribute("style", "float:left; width:135px; height:125px; cursor:pointer; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-selected-glow.png); background-repeat:no-repeat; text-align:right;");
-        } else {
-            if (nbNew > 0)
-                obj.setAttribute("style", "float:left; width:135px; height:125px; cursor:pointer; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-glow-new.png); background-repeat:no-repeat; text-align:right;");
-            else
-                obj.setAttribute("style", "float:left; width:135px; height:125px; cursor:pointer; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-glow.png); background-repeat:no-repeat; text-align:right;");
-        }
-    }
-}
+//}
+//function color(cid, btn_slt, nbNew) {
+//    //var ThemeFolder = document.getElementById("curTheme").value;
+//    var obj = cid;
+//    if (obj) {
+//        if (btn_slt) {
+//            if (nbNew > 0)
+//                obj.setAttribute("style", "float:left; width:135px; height:125px; cursor:pointer; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-selected-glow-new.png); background-repeat:no-repeat; text-align:right;");
+//            else
+//                obj.setAttribute("style", "float:left; width:135px; height:125px; cursor:pointer; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-selected-glow.png); background-repeat:no-repeat; text-align:right;");
+//        } else {
+//            if (nbNew > 0)
+//                obj.setAttribute("style", "float:left; width:135px; height:125px; cursor:pointer; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-glow-new.png); background-repeat:no-repeat; text-align:right;");
+//            else
+//                obj.setAttribute("style", "float:left; width:135px; height:125px; cursor:pointer; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-glow.png); background-repeat:no-repeat; text-align:right;");
+//        }
+//    }
+//}
 
-//Latu 20130520: set Attribut when mouseout
-function colorout(cid, btn_slt, nbNew) {
-    //var ThemeFolder = document.getElementById("curTheme").value;
-    var obj = cid;
-    if (obj) {
-        if (btn_slt) {
-            if (nbNew > 0)
-                obj.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-selected-new.png); background-repeat:no-repeat; text-align:right;");
-            else
-                obj.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-selected.png); background-repeat:no-repeat; text-align:right;");
-        } else {
-            if (nbNew > 0)
-                obj.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-new.png); background-repeat:no-repeat; text-align:right;");
-            else
-                obj.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame.png); background-repeat:no-repeat; text-align:right;");
-        }
-    }
-}
+////Latu 20130520: set Attribut when mouseout
+//function colorout(cid, btn_slt, nbNew) {
+//    //var ThemeFolder = document.getElementById("curTheme").value;
+//    var obj = cid;
+//    if (obj) {
+//        if (btn_slt) {
+//            if (nbNew > 0)
+//                obj.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-selected-new.png); background-repeat:no-repeat; text-align:right;");
+//            else
+//                obj.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-selected.png); background-repeat:no-repeat; text-align:right;");
+//        } else {
+//            if (nbNew > 0)
+//                obj.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame-new.png); background-repeat:no-repeat; text-align:right;");
+//            else
+//                obj.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(OPHContent/Themes/" + loadThemeFolder() + "/images/menu-frame.png); background-repeat:no-repeat; text-align:right;");
+//        }
+//    }
+//}
 
-function colorclick(cid, lvel, t1, t2, mguid, purl, code, isDrop, nbNew) {
-    var serverAddress = '';
-    if (document.getElementById("serverAddress")) serverAddress = document.getElementById("serverAddress").value;
-    if (serverAddress == '') //serverAddress = '../../../';
-        if (serverAddress.substring(serverAddress.length, serverAddress.length - 1) != '/') serverAddress += '/';
+//function colorclick(cid, lvel, t1, t2, mguid, purl, code, isDrop, nbNew) {
+//    var serverAddress = '';
+//    if (document.getElementById("serverAddress")) serverAddress = document.getElementById("serverAddress").value;
+//    if (serverAddress == '') //serverAddress = '../../../';
+//        if (serverAddress.substring(serverAddress.length, serverAddress.length - 1) != '/') serverAddress += '/';
 
-    var obj = cid;
-    if (!isDrop) {
-        if (nbNew > 0)
-            obj.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(../images/menu-frame-selected.png); background-repeat:no-repeat; text-align:right;");
-        else
-            obj.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(../images/menu-frame-selected.png); background-repeat:no-repeat; text-align:right;");
+//    var obj = cid;
+//    if (!isDrop) {
+//        if (nbNew > 0)
+//            obj.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(../images/menu-frame-selected.png); background-repeat:no-repeat; text-align:right;");
+//        else
+//            obj.setAttribute("style", "float:left; width:135px; height:125px; background-image:url(../images/menu-frame-selected.png); background-repeat:no-repeat; text-align:right;");
 
-        setCookie("button_s" + "_" + getCookie("OPH_AccountId") + "_" + getCookie("OPH_UserId"), "button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join(''), 30, 0, 0);
-        color(document.getElementById("button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join('')), true, nbNew);
-    }
-    purl = purl.split("#user#").join(getCookie("OPH_UserGUID"));
-    purl = purl.split("#account#").join(getCookie("OPH_AccountGUID"));
+//        setCookie("button_s" + "_" + getCookie("OPH_AccountId") + "_" + getCookie("OPH_UserId"), "button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join(''), 30, 0, 0);
+//        color(document.getElementById("button_" + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join('')), true, nbNew);
+//    }
+//    purl = purl.split("#user#").join(getCookie("OPH_UserGUID"));
+//    purl = purl.split("#account#").join(getCookie("OPH_AccountGUID"));
 
-    if (lvel == "0") {
-        if (purl) document.location.href = purl;
-        if (code) {
-            if (code.indexOf("menu=") >= 0) {
-                var menu = code.split("menu=").join("");
-                setCookie("buttonBackMenu", menu, 30, 0, 0);
-                showForm(null, menu);
-            }
-        }
-    }
-    else
-        if (lvel == "5") {
-            //document.location.href = document.location.href.replace(document.location.search, '') + '?mode=view&code=' + vCode + '&GUID=' + vGUID;
-            //document.location.href = document.location.href.replace(document.location.search, '') + '?' + purl;
-            purl = purl.split("#user#").join(getCookie("OPH_UserGUID"));
-            purl = purl.split("#account#").join(getCookie("OPH_AccountGUID"));
-            //if (purl) document.location.href = document.location.href.replace(document.location.search, '') + '?' + purl;
-            if (purl) {
-                var xmldoc = 'OPHCore/api/?' + purl + '&date=' + Date();
-                //var xsldoc = 'OPHContent/themes/' +loadThemeFolder() + '/xslt/master_tableView.xslt';
-                //var result = loadXMLDoc(xmldoc);
-                showXML('frameTableView', xmldoc, null, true, true);
+//    if (lvel == "0") {
+//        if (purl) document.location.href = purl;
+//        if (code) {
+//            if (code.indexOf("menu=") >= 0) {
+//                var menu = code.split("menu=").join("");
+//                setCookie("buttonBackMenu", menu, 30, 0, 0);
+//                showForm(null, menu);
+//            }
+//        }
+//    }
+//    else
+//        if (lvel == "5") {
+//            //document.location.href = document.location.href.replace(document.location.search, '') + '?mode=view&code=' + vCode + '&GUID=' + vGUID;
+//            //document.location.href = document.location.href.replace(document.location.search, '') + '?' + purl;
+//            purl = purl.split("#user#").join(getCookie("OPH_UserGUID"));
+//            purl = purl.split("#account#").join(getCookie("OPH_AccountGUID"));
+//            //if (purl) document.location.href = document.location.href.replace(document.location.search, '') + '?' + purl;
+//            if (purl) {
+//                var xmldoc = 'OPHCore/api/?' + purl + '&date=' + Date();
+//                //var xsldoc = 'OPHContent/themes/' +loadThemeFolder() + '/xslt/master_tableView.xslt';
+//                //var result = loadXMLDoc(xmldoc);
+//                showXML('frameTableView', xmldoc, null, true, true);
 
-                //document.location.href = 'index.aspx?' + purl;
-            }
-        }
-        else
-            if (lvel == "10") {
-                if (t1) t1 = t1.toUpperCase();
-                if (t2) t2 = t2.toUpperCase(); else t2 = '';
-                document.getElementById("formType").innerHTML = t1 + ' ' + t2;
-                setCookie("formactive", mguid, 30, 0, 0);
-                setCookie("formname", (t1 == undefined ? '' : t1).split('&').join('') + ' ' + (t2 == undefined ? '' : t2).split('&').join(''), 30, 0, 0);
-                //document.location.href = document.location.href.replace(document.location.search, '') + '?mode=browse&code=taCALL&option=4&fact=' + t1 + t2;
-                document.location.href = document.location.href.replace(document.location.search, '') + '?' + purl + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join('');
-            }
-            else
-                if (lvel == "20" || lvel == "30") {
-                    //document.location.href = document.location.href.replace(document.location.search, '') + '?mode=view&code=' + vCode + '&GUID=' + vGUID;
-                    document.location.href = document.location.href.replace(document.location.search, '') + '?' + purl;
-                }
-                else
-                    //if (lvel == "40" || lvel == "35") {
-                    if (lvel >= "35") {
-                        // document.location.href = document.location.href.replace(document.location.search, '') + '?mode=report&code=caQURY&QueryCode=' + code;
-                        document.location.href = document.location.href.replace(document.location.search, '') + '?' + purl + '&titleName=' + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join('');
+//                //document.location.href = 'index.aspx?' + purl;
+//            }
+//        }
+//        else
+//            if (lvel == "10") {
+//                if (t1) t1 = t1.toUpperCase();
+//                if (t2) t2 = t2.toUpperCase(); else t2 = '';
+//                document.getElementById("formType").innerHTML = t1 + ' ' + t2;
+//                setCookie("formactive", mguid, 30, 0, 0);
+//                setCookie("formname", (t1 == undefined ? '' : t1).split('&').join('') + ' ' + (t2 == undefined ? '' : t2).split('&').join(''), 30, 0, 0);
+//                //document.location.href = document.location.href.replace(document.location.search, '') + '?mode=browse&code=taCALL&option=4&fact=' + t1 + t2;
+//                document.location.href = document.location.href.replace(document.location.search, '') + '?' + purl + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join('');
+//            }
+//            else
+//                if (lvel == "20" || lvel == "30") {
+//                    //document.location.href = document.location.href.replace(document.location.search, '') + '?mode=view&code=' + vCode + '&GUID=' + vGUID;
+//                    document.location.href = document.location.href.replace(document.location.search, '') + '?' + purl;
+//                }
+//                else
+//                    //if (lvel == "40" || lvel == "35") {
+//                    if (lvel >= "35") {
+//                        // document.location.href = document.location.href.replace(document.location.search, '') + '?mode=report&code=caQURY&QueryCode=' + code;
+//                        document.location.href = document.location.href.replace(document.location.search, '') + '?' + purl + '&titleName=' + (t1 == undefined ? '' : t1).split('&').join('') + (t2 == undefined ? '' : t2).split('&').join('');
 
-                    }
-}
+//                    }
+//}
 
-//Latu 20130613: Set to View Filter
-function doFilter(state, stateid) {
-    var bCode = document.getElementById('curCode').value;
-    var mainTable = bCode.substr(2, bCode.length - 2);
-    switch (state) {
-        case '100':
-        case "pending":
-            bCode = 'ta' + mainTable;
+////Latu 20130613: Set to View Filter
+//function doFilter(state, stateid) {
+//    var bCode = document.getElementById('curCode').value;
+//    var mainTable = bCode.substr(2, bCode.length - 2);
+//    switch (state) {
+//        case '100':
+//        case "pending":
+//            bCode = 'ta' + mainTable;
 
-            break;
-        case '400':
-        case "release":
-            bCode = 'te' + mainTable;
-            break;
-        case '500':
-        case "closed":
-            bCode = 'tc' + mainTable;
-            break;
-        case '0':
-        case "active":
-            bCode = bCode.substr(0, 1) + 'a' + mainTable;
-            break;
-        case "deleted":
-            bCode = bCode.substr(0, 1) + 'd' + mainTable;
-            break;
-        case "999":
-            bCode = bCode.substr(0, 1) + 'd' + mainTable;
-            break;
-        default:
-            bCode = bCode.substr(0, 1) + 'a' + mainTable;
-            break;
-    }
-    var bPageNo = document.getElementById("curPage").value;
-    if (bPageNo == "") bPageNo = "1";
+//            break;
+//        case '400':
+//        case "release":
+//            bCode = 'te' + mainTable;
+//            break;
+//        case '500':
+//        case "closed":
+//            bCode = 'tc' + mainTable;
+//            break;
+//        case '0':
+//        case "active":
+//            bCode = bCode.substr(0, 1) + 'a' + mainTable;
+//            break;
+//        case "deleted":
+//            bCode = bCode.substr(0, 1) + 'd' + mainTable;
+//            break;
+//        case "999":
+//            bCode = bCode.substr(0, 1) + 'd' + mainTable;
+//            break;
+//        default:
+//            bCode = bCode.substr(0, 1) + 'a' + mainTable;
+//            break;
+//    }
+//    var bPageNo = document.getElementById("curPage").value;
+//    if (bPageNo == "") bPageNo = "1";
 
-    var bSearchText = document.getElementById("bSearchText").value;
-    if (stateid == undefined) stateid = '';
-    document.location.href = document.location.href.replace(document.location.search, '') + '?mode=browse&code=' + bCode + '&option=4&state=' + state + '&stateid=' + stateid;
-}
+//    var bSearchText = document.getElementById("bSearchText").value;
+//    if (stateid == undefined) stateid = '';
+//    document.location.href = document.location.href.replace(document.location.search, '') + '?mode=browse&code=' + bCode + '&option=4&state=' + state + '&stateid=' + stateid;
+//}
 
-function doViewNew(tblName) {
-    var bCode = tblName;
-    if (bCode == undefined || bCode == '') bCode = document.getElementById('curCode').value;
-    if (bCode.substr(1, 1) != 'a') {
-        var bCode = bCode.replace(bCode.substr(1, 1), "a");
-    }
-    document.location.href = document.location.href.replace(document.location.search, '') + '?mode=new&code=' + bCode + '&';
-}
+//function doViewNew(tblName) {
+//    var bCode = tblName;
+//    if (bCode == undefined || bCode == '') bCode = document.getElementById('curCode').value;
+//    if (bCode.substr(1, 1) != 'a') {
+//        var bCode = bCode.replace(bCode.substr(1, 1), "a");
+//    }
+//    document.location.href = document.location.href.replace(document.location.search, '') + '?mode=new&code=' + bCode + '&';
+//}
+
+//DOCUMENT TALK FUNCTIONS
+
 function enterTalk(guid, e, location) {
     if (e.keyCode == 13) {
         submitTalk(guid, location)
@@ -3502,7 +2453,7 @@ function checkrequired(Names) {
 function showChildForm(code, guid) {
     //clear other childform
     var divnm = [code + guid];
-    $("#"+divnm).html("Please Wait...");
+    $("#" + divnm).html("Please Wait...");
 
     var xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=form&GUID=" + guid
 
@@ -3512,7 +2463,7 @@ function showChildForm(code, guid) {
 }
 function closeChildForm(code, guid) {
     var divnm = [code + guid];
-    $('#'+divnm).collapse("hide");
+    $('#' + divnm).collapse("hide");
 }
 
 function autosuggestSetValue(SelectID, Code, CaptionID, CaptionName, CaptionKey, InitialValue) {
@@ -4231,4 +3182,148 @@ function downloadChild(code, sqlFilter) {
     ParentGUID = '&parentGUID=' + getQueryVariable('GUID');
     window.open('OPHCore/api/msg_rptDialog.aspx?gbox=1&code=' + code + '&parameter=&outputType=3&' + ParentGUID + '&titleName=' + titleName + '&subtitleName=' + subtitleName + ' ' + Date());
 
+}
+function loadDashboard() {
+    if (getCode().toLowerCase() == 'dumy')
+        var xmldoc = 'OPHContent/themes/' + loadThemeFolder() + '/sample.xml';
+    else
+        var xmldoc = 'OPHCore/api/default.aspx?mode=widget&code=' + getCode() + '&date=' + getUnique();
+
+    var divname = ['contentWrapper'];
+    var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/dashboard_content.xslt'];
+
+    //sidebar
+    //divname.push('sidebarWrapper');
+    //xsldoc.push('OPHContent/themes/' + loadThemeFolder() + '/xslt/dashboard_content_sidebar.xslt');
+
+    pushTheme(divname, xmldoc, xsldoc, true);
+}
+function getWidgetData(dataId, f) {
+    var url = 'OPHCore/api/default.aspx?mode=data&data=' + dataId;
+    var dataForm;
+
+    $.post({
+        url: url,
+        data: dataForm,
+        success: function (data) {
+            if (typeof f == "function") f(data);
+        },
+        dataType: 'xml'
+    });
+
+}
+
+function drawChart(chartId, chartType, chartLabelH, chartDatasets) {
+    // chartLabelH=["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+    //chartDatasets=[{
+    //    label: '# of Votes',
+    //    data: [12, 19, 3, 5, 2, 23],
+    //    backgroundColor: [
+    //    'rgba(255, 99, 132, 0.2)',
+    //    'rgba(54, 162, 235, 0.2)',
+    //    'rgba(255, 206, 86, 0.2)',
+    //    'rgba(75, 192, 192, 0.2)',
+    //    'rgba(153, 102, 255, 0.2)',
+    //    'rgba(255, 159, 64, 0.2)'
+    //    ],
+    //    borderColor: [
+    //    'rgba(255,99,132,1)',
+    //    'rgba(54, 162, 235, 1)',
+    //    'rgba(255, 206, 86, 1)',
+    //    'rgba(75, 192, 192, 1)',
+    //    'rgba(153, 102, 255, 1)',
+    //    'rgba(255, 159, 64, 1)'
+    //    ],
+    //    borderWidth: 1
+    //}]
+    var ctx = document.getElementById(chartId).getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: chartType,
+        data: {
+            labels: chartLabelH,
+            datasets: chartDatasets
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+}
+function fillChartDataSets(label, data, bgColor, borderColor, borderWidth) {
+    return [{ label, data, bgColor, borderColor, borderWidth}]
+    //chartDatasets=[{
+    //    label: '# of Votes',
+    //    data: [12, 19, 3, 5, 2, 23],
+    //    backgroundColor: [
+    //    'rgba(255, 99, 132, 0.2)',
+    //    'rgba(54, 162, 235, 0.2)',
+    //    'rgba(255, 206, 86, 0.2)',
+    //    'rgba(75, 192, 192, 0.2)',
+    //    'rgba(153, 102, 255, 0.2)',
+    //    'rgba(255, 159, 64, 0.2)'
+    //    ],
+    //    borderColor: [
+    //    'rgba(255,99,132,1)',
+    //    'rgba(54, 162, 235, 1)',
+    //    'rgba(255, 206, 86, 1)',
+    //    'rgba(75, 192, 192, 1)',
+    //    'rgba(153, 102, 255, 1)',
+    //    'rgba(255, 159, 64, 1)'
+    //    ],
+    //    borderWidth: 1
+    //}]
+}
+
+//upload class
+var Upload = function (file) {
+    this.file = file;
+};
+
+Upload.prototype.getType = function() {
+    return this.file.type;
+};
+Upload.prototype.getSize = function() {
+    return this.file.size;
+};
+Upload.prototype.getName = function() {
+    return this.file.name;
+};
+Upload.prototype.doUpload = function (url, successF, errorF) {
+    var that = this;
+    var formData = new FormData();
+
+    // add assoc key values, this will be posts values
+    formData.append("file", this.file, this.getName());
+    formData.append("upload_file", true);
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        xhr: function () {
+            var myXhr = $.ajaxSettings.xhr();
+            if (myXhr.upload) {
+                myXhr.upload.addEventListener('progress', that.progressHandling, false);
+            }
+            return myXhr;
+        },
+        success: function (data) {
+            if (typeof successF == "function") successF(data);
+            // your callback here
+        },
+        error: function (error) {
+            if (typeof errorF == "function") errorF(error);
+            // handle error
+        },
+        async: true,
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        timeout: 60000
+    });
 }

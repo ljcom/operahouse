@@ -14,6 +14,7 @@
     <cssFile>OPHContent/themes/themeONE/scripts/admin-LTE/css/skins/_all-skins.min.css</cssFile>
     <cssFile>OPHContent/themes/themeONE/styles/custom-me.css</cssFile>
     <cssFile>OPHContent/themes/themeONE/styles/icomoon/style.css</cssFile>
+    <cssFile>https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css</cssFile>
     <jsFile>OPHContent/themes/themeONE/scripts/jQuery/jquery-2.2.3.min.js</jsFile>
     <jsFile>OPHContent/themes/themeONE/scripts/bootstrap/js/bootstrap.min.js</jsFile>
     <jsFile>OPHContent/themes/themeONE/scripts/input-mask/jquery.inputmask.js</jsFile>
@@ -29,6 +30,9 @@
     <jsFile>OPHContent/themes/themeONE/scripts/fastclick/fastclick.js</jsFile>
     <jsFile>OPHContent/themes/themeONE/scripts/upclick/upclick-min.js</jsFile>
     <jsFile>OPHContent/themes/themeONE/scripts/custom-me.js</jsFile>
+    
+    <jsFile>https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></jsFile>
+
 
   </manifest>
 </sqroot>

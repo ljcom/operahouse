@@ -132,7 +132,7 @@
             </div>
             <!-- Dashboard -->
             <xsl:choose>
-              <xsl:when test="sqroot/header/info/user/userId=''">
+              <xsl:when test="not(sqroot/header/info/user/userId)">
                 <li>
                   <a href="#" data-toggle="modal" data-target="#login-modal">
                     <span>
@@ -145,7 +145,7 @@
               <xsl:otherwise>
                 <li class="dropdown user user-menu">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="OPHContent/{sqroot/header/info/user/userURL}" class="user-image" alt="User Image"/>
+                    <img src="OPHContent/documents/{sqroot/header/info/account}/{sqroot/header/info/user/userURL}" class="user-image" alt="User Image"/>
                     <span class="hidden-xs">
                       <xsl:value-of select="sqroot/header/info/user/userName"/>
                     </span>
@@ -153,10 +153,12 @@
                   <ul class="dropdown-menu">
                     <!-- User image -->
                     <li class="user-header">
-                      <img src="OPHContent/{sqroot/header/info/user/userURL}" class="img-circle" alt="User Image"/>
+                      <img src="OPHContent/documents/{sqroot/header/info/account}/{sqroot/header/info/user/userURL}" class="img-circle" alt="User Image"/>
                       <p>
-                        <xsl:value-of select="sqroot/header/info/user/userName"/> - Web Developer
-                        <small>Member since Nov. 2012</small>
+                        <xsl:value-of select="sqroot/header/info/user/userName"/>
+                        <small>
+                          Active since <xsl:value-of select="sqroot/header/info/user/dateCreate"/>
+                        </small>
                       </p>
                     </li>
                     <!-- Menu Body -->

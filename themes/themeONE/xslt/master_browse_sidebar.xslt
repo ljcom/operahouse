@@ -12,16 +12,16 @@
       $("#searchBox").val(getSearchText());
       var c=getQueryVariable('code').toLowerCase();
       try {
-      $($('.treeview').children().find('a[href$="'+c+'"]')[0].parentNode.parentNode.parentNode.parentNode.parentNode).addClass('active');
-      $($('.treeview').children().find('a[href$="'+c+'"]')[0].parentNode.parentNode.parentNode).addClass('active');
-      $($('.treeview').children().find('a[href$="'+c+'"]')[0].parentNode).addClass('active');
+      $($('.treeview').children().find('a[href$="='+c+'"]')[0].parentNode.parentNode.parentNode.parentNode.parentNode).addClass('active');
+      $($('.treeview').children().find('a[href$="='+c+'"]')[0].parentNode.parentNode.parentNode).addClass('active');
+      $($('.treeview').children().find('a[href$="='+c+'"]')[0].parentNode).addClass('active');
       } catch(e) {}
     </script>
     <!-- search form -->
     <!--<form method="get" class="sidebar-form">-->
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="OPHContent/{sqroot/header/info/user/userURL}" class="img-circle" alt="User Image" />
+        <img src="OPHContent/documents/{sqroot/header/info/account}/{sqroot/header/info/user/userURL}" class="img-circle" alt="User Image" />
       </div>
       <div class="pull-left info">
         <p>

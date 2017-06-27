@@ -39,7 +39,7 @@
       <div class="lockscreen-item">
         <!-- lockscreen image -->
         <div class="lockscreen-image">
-          <img id="userImage" src="OPHContent/{sqroot/header/info/user/userURL}" alt="User Image"/>
+          <img id="userImage" src="OPHContent/documents/{sqroot/header/info/user/userURL}" alt="User Image"/>
         </div>
         <!-- /.lockscreen-image -->
 

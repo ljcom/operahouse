@@ -18,10 +18,26 @@
       label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
       input.trigger('fileselect', [numFiles, label]);
 
-      //var file = this.files[0];
-      //if (file.size > 1024 {
-      //alert('max upload size is 1k')
-      //}
+      var file = this.files[0];
+      if (file.size > 1024000) {
+      alert('max upload size is 1M')
+      }
+      //submit ajax
+      else {var file = $(this)[0].files[0];
+      var upload = new Upload(file);
+
+      var url='OPHCore/api/default.aspx?mode=upload&#38;code=<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code"/>&#38;GUID='+getGUID();
+
+      upload.doUpload(url,
+      function(data) {
+      //success
+      showMessage(data);
+      },
+      function(error) {
+      //error
+      showMessage(error);
+      });
+      }
       });
 
       // We can watch for our custom `fileselect` event like this
@@ -83,13 +99,13 @@
                           onclick="showChildForm('{/sqroot/body/bodyContent/browse/info/code}','00000000-0000-0000-0000-000000000000')">ADD</button>&#160;
                 </xsl:if>
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)=1 and (/sqroot/body/bodyContent/browse/info/permission/allowExport/.)=1" >
-                  <button class="btn btn-gray-a" 
+                  <button class="btn btn-gray-a"
                           onclick="downloadChild('{/sqroot/body/bodyContent/browse/info/code}', '')">DOWNLOAD</button>&#160;
                   <button class="btn btn-gray-a" onclick="javascript:$('#import_hidden').click();">UPLOAD...</button>&#160;
 
                   <!--<button type="button" class="buttonCream" id="download" name="download" onclick="javascript:PrintDirect('{/sqroot/body/bodyContent/browse/info/code}', '', 3, '', '', '');">DOWNLOAD</button>
                   <button type="button" class="buttonCream" id="upload" name="upload" onclick="javascript:showSubBrowseView('{/sqroot/body/bodyContent/browse/info/code}','',1,'');">UPLOAD</button>-->
-                  <input id ="import_hidden" name="import_hidden" type="file" style="visibility: hidden; width: 0; height: 0;;" multiple="" />
+                  <input id ="import_hidden" name="import_hidden" type="file" style="visibility: hidden; width: 0; height: 0;" multiple="" />
                 </xsl:if>
                 <xsl:if test="/sqroot/body/bodyContent/browse/info/nbPages > 1">
                   <ul class="pagination pagination-sm no-margin pull-right" id="childPageNo"></ul>
@@ -120,7 +136,8 @@
 
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
 
-    <tr id="tr1_{@code}{@GUID}" data-parent="#{@code}" data-toggle="collapse" data-target="#{@code}{@GUID}" class="accordion-toggle"
+    <tr id="tr1_{@code}{@GUID}" data-parent="#{@code}" data-toggle="collapse" data-target="#{@code}{@GUID}"
+        class="accordion-toggle"
         onclick="showChildForm('{@code}','{@GUID}')" onmouseover="this.bgColor='lavender';this.style.cursor='pointer';" onmouseout="this.bgColor='white'">
       <xsl:apply-templates select="fields/field"/>
     </tr>

@@ -62,6 +62,11 @@
       autoclose: true
       });
 
+      <!--//Date time picker-->
+      $('.datetimepicker').datetimepicker({
+
+      });
+      
       $(".timepicker").timepicker({
       minuteStep: 15,
       template: 'modal',
@@ -391,6 +396,7 @@
     <div class="form-group {$fieldEnabled}-input">
       <xsl:apply-templates select="textBox"/>
       <xsl:apply-templates select="dateBox"/>
+      <xsl:apply-templates select="dateTimeBox"/>
       <xsl:apply-templates select="timeBox"/>
       <xsl:apply-templates select="passwordBox"/>
       <xsl:apply-templates select="checkBox"/>
@@ -496,6 +502,22 @@
         <ix class="fa fa-calendar"></ix>
       </div>
       <input type="text" class="form-control pull-right datepicker" id ="{../@fieldName}" name="{../@fieldName}" Value="{value}" data-type="dateBox" data-old="{value}"
+        onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" >
+        <xsl:if test="../@isEditable=0">
+          <xsl:attribute name="disabled">disabled</xsl:attribute>
+        </xsl:if>
+      </input>
+    </div>
+  </xsl:template>
+  <xsl:template match="dateTimeBox">
+    <label id="{../@fieldName}caption">
+      <xsl:value-of select="titlecaption"/>
+    </label>
+    <div class="input-group date">
+      <div class="input-group-addon">
+        <ix class="fa fa-calendar"></ix>
+      </div>
+      <input type="text" class="form-control pull-right datetimepicker" id ="{../@fieldName}" name="{../@fieldName}" Value="{value}" data-type="dateTimeBox" data-old="{value}"
         onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" >
         <xsl:if test="../@isEditable=0">
           <xsl:attribute name="disabled">disabled</xsl:attribute>

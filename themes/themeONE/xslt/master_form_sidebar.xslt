@@ -297,7 +297,7 @@
         </span>
       </div>
       <!-- /.direct-chat-info -->
-      <img class="direct-chat-img" src="OPHContent/{@talkUserProfile}" alt="{talkUser}"/>
+      <img class="direct-chat-img" src="OPHContent/documents/{@talkUserProfile}" alt="{talkUser}"/>
       <!-- /.direct-chat-img -->
       <div class="direct-chat-text">
         <xsl:value-of select="@comment"/>
