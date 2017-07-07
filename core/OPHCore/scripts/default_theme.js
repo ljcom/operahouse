@@ -385,7 +385,7 @@ function selectAll(x, nbRec, code) {
 }
 
 
-function showMessage(msg, mode) {
+function showMessage(msg, mode, fokus) {
     var msgType;
     if (mode == 1) msgType = 'notice';
     else if (mode == 2) msgType = 'success';
@@ -398,6 +398,15 @@ function showMessage(msg, mode) {
     $("#notiTitle").text(msgType);
     $("#notiContent").text(msg);
     $("#notiModal").modal();
+
+    if (fokus) {
+        try {
+            document.getElementById('notiBtn').onclick = function () {
+                document.getElementById(fokus).focus();
+            };
+        }
+        catch (e) { }
+    }
 }
 
 /*browse*/
@@ -1019,6 +1028,7 @@ function submitTalk(guid, location) {
     if (guid == '') guid = $('#cid').val();
     //location: 0 header; 1 child; 2 browse 
     //location: browse:10, header form:20, browse anak:30, browse form:40
+    var commentBrowse = $('#message' + guid).val();
     if (comment) {
         refreshTalk(guid, comment, location, function () {
             $('#message').val('');
@@ -1026,7 +1036,15 @@ function submitTalk(guid, location) {
         });
     }
     else {
-        showMessage('Please put your comment before press enter');
+        if (commentBrowse) {
+            refreshTalk(guid, commentBrowse, location, function () {
+                $('#message' + guid).val('');
+                $('#message' + guid).focus();
+            });
+        }
+        else {
+            showMessage('Please put your comment before press enter');
+        }
     }
 }
 
@@ -1035,6 +1053,7 @@ function refreshTalk(guid, comment, location, f) {
     var xmldoc = 'OPHCore/api/default.aspx?mode=talk&guid=' + guid + "&comment=" + comment + "";
     var xsldoc
     if (location == '10') {
+        divname = divname + guid;
         xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_browse_talk.xslt';
     }
     else {
@@ -2435,19 +2454,20 @@ function isGuid(value) {
     return match != null;
 }
 
-function checkrequired(Names) {
+function checkrequired(Names, output) {
     var result = 'good'
     for (i = 0; i < Names.length - 1; i++) {
-        var val = document.getElementsByName(Names[i])[0].value;
+        //var val = document.getElementsByName(Names[i + 1])[0].value;
+        var val = document.getElementById(Names[i + 1]).value;
 
-        if (val == '' || val == undefined) {
-            result = document.getElementById(Names[i] + 'caption').innerHTML + ' need to be filled';
+        if (val == '' || val == undefined || val == "NULL") {
+            //document.getElementById('rfm_' + Names[i + 1]).innerHTML = 'need to be filled !';
+            result = document.getElementById(Names[i + 1] + 'caption').innerHTML + ' need to be filled';
+            output = (output == 'id') ? Names[i + 1] : result;
             break;
-        }
-
+        } 
     }
-
-    return result;
+    return output;
 }
 
 function showChildForm(code, guid) {
@@ -2527,7 +2547,7 @@ function searchTextChild(e, searchvalue, code) {
         var bSearchText = searchvalue;
 
         var sqlfilter = document.getElementById("filter" + code.toLowerCase()).value;
-        pageNo = (pageNo == undefined) ? 1 : pageNo;
+        var pageNo = (pageNo == undefined) ? 1 : pageNo;
 
         var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + sqlfilter + '&bPageNo=' + pageNo + '&bSearchText=' + bSearchText + '&date=' + getUnique();
         var divName = ['child' + String(code).toLowerCase()];
@@ -2663,7 +2683,7 @@ function preview(flag, code, GUID, formid, t) {
         });
     }
     else {
-        checkChanges();
+        checkChanges(t);
     }
 }
 function checkChanges(t) {
@@ -2809,7 +2829,7 @@ function executeFunction(code, GUID, action, location) {
     if (isAction == 1) {
         $.post(path, function (data) {
             var msg = $(data).find('message').text();
-            if (msg == '' || msg == 'Approval Succesfully') {
+            if (msg == '' || msg == 'Approval Succesfully' || msg.substring(0, 1) == '2') {
                 //location: 0 header; 1 child; 2 browse 
                 //location: browse:10, header form:20, browse anak:30, browse form:40
                 //if ($("#tr1_" + code + GUID) && location != '10' && action == "delete") {
@@ -2838,24 +2858,23 @@ function executeFunction(code, GUID, action, location) {
         });
     }
 }
-//SaveData('taPCS1','cartForm', 'index.aspx?code=tapcs3')
+
 function saveFunction(code, guid, location, formId, afterSuccess) {
     var tblnm = code
     requiredname = document.getElementsByName(tblnm + "requiredname")[0];
     var result
+    var idReq
     if (requiredname != undefined) {
         requiredname = requiredname.value;
-        requiredname = requiredname.substring(1, requiredname.length - 1);
-        result = checkrequired(requiredname.split(';'));
+        if (requiredname != '' && requiredname  != undefined){
+        result = checkrequired(requiredname.split(', '), 'good');
+        idReq = checkrequired(requiredname.split(', '), 'id');
+        }else{
+        result = 'good'
+        }
     } else {
         result = 'good';
     }
-
-
-    //if (location == undefined || location == "") { location = 0 }
-    //console.log(requiredname);
-    //var result = checkrequired(requiredname.split(';'));
-    //console.log(result);
 
     if (result == 'good') {
         //var filename = $(":file").val();
@@ -2873,8 +2892,6 @@ function saveFunction(code, guid, location, formId, afterSuccess) {
         $.each(other_data, function (key, input) {
             data.append(input.name, input.value);
         });
-
-        //$('#' + formid).serialize()
 
         $.ajax({
             type: "POST",
@@ -2934,9 +2951,10 @@ function saveFunction(code, guid, location, formId, afterSuccess) {
 
         });
     }
-    else
-        showMessage(result);
-
+    else {
+        if (idReq) showMessage(result, '0', idReq)
+        else showMessage(result);
+    }        
 }
 
 function loadReport(qCode, f) {
@@ -3039,7 +3057,8 @@ function childPageNo(pageid, code, currentpage, totalpages) {
 
     var before = "";
     var after = "";
-    var parentKey = '&quot;' + String(code).substring(2, 6) + 'GUID&quot;';
+    var parentKey = '&quot;' + document.getElementById('PKName').value + '&quot;';
+    //var parentKey = '&quot;' + String(code).substring(2, 6) + 'GUID&quot;';
     var guid = '&quot;' + getQueryVariable("GUID") + '&quot;';
     var code = '&quot;' + code + '&quot;';
 

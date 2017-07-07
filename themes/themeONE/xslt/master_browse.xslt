@@ -15,7 +15,7 @@
   <xsl:variable name="allowDelete" select="/sqroot/body/bodyContent/browse/info/permission/allowDelete" />
   <xsl:variable name="allowWipe" select="/sqroot/body/bodyContent/browse/info/permission/allowWipe" />
   <xsl:variable name="allowOnOff" select="/sqroot/body/bodyContent/browse/info/permission/allowOnOff" />
-  
+
   <xsl:template match="/">
 
     <xsl:if test="/sqroot/header/info/isBrowsable = 0">
@@ -120,10 +120,14 @@
               <thead>
                 <tr>
                   <xsl:apply-templates select="sqroot/body/bodyContent/browse/header/column[@mandatory=1]" />
-                  <th>SUMMARY</th>
+
+                  <th>
+                    <xsl:if test="count(sqroot/body/bodyContent/browse/header/column[@mandatory=0])>0">SUMMARY</xsl:if>&#160;
+                  </th>
+
                   <xsl:if test="/sqroot/header/info/code/settingMode='T'">
                     <th width="10">
-                      <xsl:apply-templates select="sqroot/body/bodyContent/browse/header/column[@docStatus=1]" />&#160;
+                      <!--<xsl:apply-templates select="sqroot/body/bodyContent/browse/header/column[@docStatus=1]" />-->&#160;
                     </th>
                   </xsl:if>
                   <th width="10">
@@ -220,7 +224,6 @@
 
     </section>
     <!-- /.content -->
-
   </xsl:template>
 
   <xsl:template match="sqroot/header/menus/menu[@code='newdocument']/submenus/submenu">
@@ -245,8 +248,8 @@
         <xsl:value-of select="translate(., $smallcase, $uppercase)"/>
       </a>
     </li>
-
   </xsl:template>
+
   <xsl:template match="sqroot/body/bodyContent/browse/header/column[@mandatory=1]">
     <th width="10">
       <table class="fixed-table">
@@ -268,21 +271,24 @@
 
   <xsl:template match="sqroot/body/bodyContent/browse/header/column[@docStatus=1]">
     STATUS
-    <xsl:value-of select="translate(., $smallcase, $uppercase)" />
+    <xsl:value-of select="translate(titleCaption/., $smallcase, $uppercase)" />
   </xsl:template>
 
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
     <tr class="odd-tr">
       <input id="mandatory{@GUID}" type="hidden" value="" />
       <xsl:apply-templates select="fields/field[@mandatory=1]" />
+
       <td class="expand-td" data-toggle="collapse" data-target="#brodeta-{@GUID}" data-parent="#brodeta-{@GUID}">
-        <table class="fixed-table">
-          <tr>
-            <td id="summary{@GUID}">
-              <xsl:apply-templates select="fields/field[@mandatory=0]" />&#160;
-            </td>
-          </tr>
-        </table>
+        <xsl:if test="count(fields/field[@mandatory=0])>0">
+          <table class="fixed-table">
+            <tr>
+              <td id="summary{@GUID}">
+                <xsl:apply-templates select="fields/field[@mandatory=0]" />&#160;
+              </td>
+            </tr>
+          </table>
+        </xsl:if>
       </td>
 
       <script>
@@ -302,7 +308,7 @@
 
       <xsl:variable name="pageNo" select="/sqroot/body/bodyContent/browse/info/pageNo" />
       <td class="browse-action-button" style="white-space: nowrap;">
-        
+
         <!--approval icons-->
         <xsl:if test="substring(/sqroot/header/info/code/id, 1, 1) = 'T'">
           <xsl:choose>
@@ -391,7 +397,8 @@
         <div class="browse-data accordian-body collapse" id="brodeta-{@GUID}" style="cursor:default;">
           <div class="row">
             <div class="col-md-12 full-width-a">
-              
+
+              <!--Summary-->
               <!--<div class="box box-primary box-solid" style="max-width:600px;float:left;margin: 10px 10px 10px 10px;">
                 <div class="box-header with-border">
                   <h3 class="box-title">Content Summary</h3>
@@ -402,48 +409,30 @@
                     </button>
                   </div>
                 </div>
-                --><!-- /.box-header --><!--
                 <div class="box-body">
-                  --><!-- Conversations are loaded here --><!--
                   <div class="direct-chat-messages">
-                    --><!-- Message. Default to the left --><!--
                     <div class="direct-chat-msg">
                       <div class="direct-chat-info clearfix">
                         <span class="direct-chat-name pull-left">Alexander Pierce</span>
                         <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
                       </div>
-                      --><!-- /.direct-chat-info --><!--
                       <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image"/>
-                      --><!-- /.direct-chat-img --><!--
                       <div class="direct-chat-text">
                         Is this template really for free? That's unbelievable!
                       </div>
-                      --><!-- /.direct-chat-text --><!--
                     </div>
-                    --><!-- /.direct-chat-msg --><!--
-
-                    --><!-- Message to the right --><!--
                     <div class="direct-chat-msg right">
                       <div class="direct-chat-info clearfix">
                         <span class="direct-chat-name pull-right">Sarah Bullock</span>
                         <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
                       </div>
-                      --><!-- /.direct-chat-info --><!--
                       <img class="direct-chat-img" src="../dist/img/user3-128x128.jpg" alt="message user image"/>
-                      --><!-- /.direct-chat-img --><!--
                       <div class="direct-chat-text">
                         You better believe it!
                       </div>
-                      --><!-- /.direct-chat-text --><!--
                     </div>
-                    --><!-- /.direct-chat-msg --><!--
                   </div>
-                  --><!--/.direct-chat-messages--><!--
-
-                  
-                  --><!-- /.direct-chat-pane --><!--
                 </div>
-                --><!-- /.box-body --><!--
                 <div class="box-footer">
                   <div class="input-group">
                     <input type="text" name="message" placeholder="Type Message ..." class="form-control"/>
@@ -452,131 +441,71 @@
                     </span>
                   </div>
                 </div>
-                --><!-- /.box-footer--><!--
-              </div>
-              --><!--/.direct-chat -->
+              </div>-->
+
+              <!--Status Approval-->
               <div class="box box-warning box-solid" style="max-width:300px;float:left;margin: 10px 10px 10px 10px;">
                 <div class="box-header with-border">
                   <h3 class="box-title">Document Status</h3>
                   <div class="box-tools pull-right">
-                    <span data-toggle="tooltip" title="3 New Messages" class="badge bg-red">3</span>
                     <button class="btn btn-box-tool" data-widget="collapse">
                       <ix class="fa fa-minus"></ix>
                     </button>
                   </div>
                 </div>
-                <!-- /.box-header -->
                 <div class="box-body">
-                  <!-- Conversations are loaded here -->
-                  <div class="row">
-                    <!-- Message. Default to the left -->
-                    <div class="col-xs-12">
-                      <!-- /.direct-chat-info -->
-                      <img class="direct-chat-img" src="" alt="message user image"/>
-                      <!-- /.direct-chat-img -->
-                      <div class="direct-chat-text">
-                        Is this template really for free? That's unbelievable!
-                      </div>
-                      <!-- /.direct-chat-text -->
+                  <div class="direct-chat-msg">
+                    <div class="direct-chat-info clearfix">
+                      <span class="direct-chat-name pull-left">
+                        Created By
+                      </span>
+                      <span class="direct-chat-timestamp pull-right">
+                        <xsl:value-of select="fields/field[@caption='CreatedUser']"/>
+                      </span>
                     </div>
-                    <!-- /.direct-chat-msg -->
-
-                    <!-- Message to the right -->
-                    <div class="direct-chat-msg right">
-                      <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-name pull-right">Sarah Bullock</span>
-                        <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
-                      </div>
-                      <!-- /.direct-chat-info -->
-                      <img class="direct-chat-img" src="" alt="message user image"/>
-                      <!-- /.direct-chat-img -->
-                      <div class="direct-chat-text">
-                        You better believe it!
-                      </div>
-                      <!-- /.direct-chat-text -->
-                    </div>
-                    <!-- /.direct-chat-msg -->
-                  </div>
-                  <!--/.direct-chat-messages-->
-
-                  
-                  <!-- /.direct-chat-pane -->
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer">
-                  <div class="input-group">
-                    <input type="text" name="message" placeholder="Type Message ..." class="form-control"/>
-                    <span class="input-group-btn">
-                      <button type="button" class="btn btn-danger btn-flat">Send</button>
-                    </span>
+                    <!--Approvals-->
+                    <xsl:if test="approvals/approval">
+                      <br/>
+                      <strong>APPROVALS</strong>
+                      <hr style="margin:0 0 5px 0;"/>
+                      <xsl:apply-templates select="approvals"/>
+                    </xsl:if>
                   </div>
                 </div>
-                <!-- /.box-footer-->
               </div>
-              <!--/.direct-chat -->
+
+              <!--Talks-->
               <div class="box box-danger box-solid direct-chat direct-chat-danger" style="max-width:300px;float:left;margin: 10px 10px 10px 10px;">
                 <div class="box-header with-border">
                   <h3 class="box-title">Document Talk</h3>
                   <div class="box-tools pull-right">
-                    <span data-toggle="tooltip" title="3 New Messages" class="badge bg-red">3</span>
+                    <!--<span data-toggle="tooltip" title="3 New Messages" class="badge bg-red">3</span>-->
                     <button class="btn btn-box-tool" data-widget="collapse">
-                      <ix class="fa fa-minus"></ix>
+                      <ix class="fa fa-plus"></ix>
                     </button>
                   </div>
                 </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                  <!-- Conversations are loaded here -->
-                  <div class="direct-chat-messages">
-                    <!-- Message. Default to the left -->
-                    <div class="direct-chat-msg">
-                      <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-name pull-left">Alexander Pierce</span>
-                        <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
-                      </div>
-                      <!-- /.direct-chat-info -->
-                      <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image"/>
-                      <!-- /.direct-chat-img -->
-                      <div class="direct-chat-text">
-                        Is this template really for free? That's unbelievable!
-                      </div>
-                      <!-- /.direct-chat-text -->
-                    </div>
-                    <!-- /.direct-chat-msg -->
-
-                    <!-- Message to the right -->
-                    <div class="direct-chat-msg right">
-                      <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-name pull-right">Sarah Bullock</span>
-                        <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
-                      </div>
-                      <!-- /.direct-chat-info -->
-                      <img class="direct-chat-img" src="../dist/img/user3-128x128.jpg" alt="message user image"/>
-                      <!-- /.direct-chat-img -->
-                      <div class="direct-chat-text">
-                        You better believe it!
-                      </div>
-                      <!-- /.direct-chat-text -->
-                    </div>
-                    <!-- /.direct-chat-msg -->
+                <xsl:variable name="talkDisplay">
+                  <xsl:choose>
+                    <xsl:when test="talks/talk">block</xsl:when>
+                    <xsl:otherwise>none</xsl:otherwise>
+                  </xsl:choose>
+                </xsl:variable>
+                <div class="box-body" style="display:{$talkDisplay};">
+                  <div class="direct-chat-messages" id="chatMessages{@GUID}" >
+                    <xsl:apply-templates select="talks/talk"/>
                   </div>
-                  <!--/.direct-chat-messages-->
-
-                 
-                  <!-- /.direct-chat-pane -->
                 </div>
-                <!-- /.box-body -->
                 <div class="box-footer">
                   <div class="input-group">
-                    <input type="text" name="message" placeholder="Type Message ..." class="form-control"/>
+                    <input type="text" id="message{@GUID}" name="message" placeholder="Type Message ..." class="form-control" onkeypress="javascript:enterTalk('{@GUID}', event, '10')"/>
                     <span class="input-group-btn">
-                      <button type="button" class="btn btn-danger btn-flat">Send</button>
+                      <button type="button" class="btn btn-danger btn-flat" onclick="javascript:submitTalk('{@GUID}', '10')">Send</button>
                     </span>
                   </div>
                 </div>
-                <!-- /.box-footer-->
               </div>
-              <!--/.direct-chat -->
+
             </div>
           </div>
         </div>
@@ -624,5 +553,116 @@
     </span>&#160;:&#160;
     <xsl:value-of select="$tbContent" />
     &#160;·&#160;
+  </xsl:template>
+
+  <xsl:template match="approvals">
+    <xsl:for-each select="approval">
+      <xsl:variable name="aprvStat">
+        <xsl:choose>
+          <xsl:when test="@status = 400">
+            Approved
+          </xsl:when>
+          <xsl:when test="@status = 300">
+            Rejected
+          </xsl:when>
+          <xsl:otherwise>
+            Waiting for Approval
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      <xsl:variable name="aprvColor">
+        <xsl:choose>
+          <xsl:when test="@status = 400">
+            ORANGE
+          </xsl:when>
+          <xsl:when test="@status = 300">
+            RED
+          </xsl:when>
+          <xsl:otherwise>
+            GREY
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      <xsl:variable name="aprvIcon">
+        <xsl:choose>
+          <xsl:when test="@status = 400">
+            fa-user-circle-o
+          </xsl:when>
+          <xsl:when test="@status = 300">
+            fa-user-times
+          </xsl:when>
+          <xsl:otherwise>
+            fa-user
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      <xsl:variable name="aprvName">
+        <xsl:choose>
+          <xsl:when test="@status = 400">
+            &#160;&#160;<xsl:value-of select="name"/>
+          </xsl:when>
+          <xsl:when test="@status = 300">
+            &#160;<xsl:value-of select="name"/>
+          </xsl:when>
+          <xsl:otherwise>
+            &#160;&#160;&#160;&#160;<xsl:value-of select="name"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+
+      <div class="direct-chat-info clearfix">
+        <span class="direct-chat-name pull-left">
+          Level <xsl:value-of select="@level"/>
+        </span>
+      </div>
+      <div class="direct-chat-info clearfix">
+        <span class="direct-chat-name pull-left">
+          <ix class="fa {$aprvIcon} fa-lg" aria-hidden="true" style="color:{$aprvColor};" title="{$aprvStat}"></ix>
+        </span>
+        <span class="direct-chat-name pull-left">
+          <xsl:value-of select="$aprvName"/>
+        </span>
+        <span class="direct-chat-timestamp pull-right">
+          <xsl:value-of select="date"/>
+        </span>
+      </div>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="talks/talk">
+    <xsl:choose>
+      <xsl:when test="@itsMe">
+        <div class="direct-chat-msg right">
+          <div class="direct-chat-info clearfix">
+            <span class="direct-chat-name pull-right">
+              <xsl:value-of select="@talkUser"/>
+            </span>
+            <span class="direct-chat-timestamp pull-left">
+              <xsl:value-of select="@talkDateCaption"/>
+            </span>
+          </div>
+          <img class="direct-chat-img" src="OPHContent/documents/{/sqroot/header/info/account}/{@talkUserProfile}" alt="{talkUser}"/>
+          <div class="direct-chat-text">
+            <xsl:value-of select="@comment"/>
+          </div>
+        </div>
+      </xsl:when>
+      <xsl:otherwise>
+        <div class="direct-chat-msg">
+          <div class="direct-chat-info clearfix">
+            <span class="direct-chat-name pull-left">
+              <xsl:value-of select="@talkUser"/>
+            </span>
+            <span class="direct-chat-timestamp pull-right">
+              <xsl:value-of select="@talkDateCaption"/>
+            </span>
+          </div>
+          <img class="direct-chat-img" src="OPHContent/documents/{/sqroot/header/info/account}/{@talkUserProfile}" alt="{talkUser}"/>
+          <div class="direct-chat-text">
+            <xsl:value-of select="@comment"/>
+          </div>
+        </div>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 </xsl:stylesheet>

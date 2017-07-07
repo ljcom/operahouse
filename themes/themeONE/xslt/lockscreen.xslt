@@ -16,7 +16,7 @@
       //setCookie('lockScreen',1);
       uid=getCookie('userId');
       if(uid == undefined) window.location='index.aspx';
-      $('#userImage').attr('src', 'OPHContent/'+getCookie('userURL'));
+      $('#userImage').attr('src', getCookie('userURL'));
       $('#userName').html(getCookie('userName')+' ');
 
     </script>
@@ -39,7 +39,7 @@
       <div class="lockscreen-item">
         <!-- lockscreen image -->
         <div class="lockscreen-image">
-          <img id="userImage" src="OPHContent/documents/{sqroot/header/info/user/userURL}" alt="User Image"/>
+          <img id="userImage" src="OPHContent/documents/{sqroot/header/info/account}/{sqroot/header/info/user/userURL}" alt="User Image"/>
         </div>
         <!-- /.lockscreen-image -->
 

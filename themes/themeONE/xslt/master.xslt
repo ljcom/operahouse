@@ -241,8 +241,8 @@ _________________________________________________________ -->
         </div>
       </div>
     </div>
-
     <!-- *** LOGIN MODAL END *** -->
+    
     <!-- *** NOTIFICATION MODAL -->
     <div id="notiModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
@@ -257,7 +257,7 @@ _________________________________________________________ -->
             <p>Some text in the modal.</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button id="notiBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
 

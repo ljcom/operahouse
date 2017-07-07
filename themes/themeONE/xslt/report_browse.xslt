@@ -62,6 +62,10 @@
             <xsl:if test="$isXLS = 1 and $isPDF = 0">
               <button class="btn btn-orange-a" onclick="genReport('{$code}','{$par}', 0,'{$sql}','{$reportName}');">SHOW XLS</button>&#160;
             </xsl:if>
+            <xsl:if test="$isXLS = 1 and $isPDF = 1">
+              <button class="btn btn-orange-a" onclick="genReport('{$code}','{$par}', 0,'{$sql}','{$reportName}');">SHOW XLS</button>&#160;
+              <button class="btn btn-orange-a" onclick="genReport('{$code}','{$par}', 1,'{$sql}','{$reportName}');">SHOW PDF</button>&#160;
+            </xsl:if>
           </div>
         </div>
         <div class="col-md-12 displayblock-phone" style="margin-bottom:20px;">

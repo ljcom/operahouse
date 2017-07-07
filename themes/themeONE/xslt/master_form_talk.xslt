@@ -35,9 +35,5 @@
       </div>
       <!-- /.direct-chat-text -->
     </div>
-
   </xsl:template>
-
 </xsl:stylesheet>
-
-

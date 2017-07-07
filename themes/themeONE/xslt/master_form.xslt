@@ -427,7 +427,7 @@
       <xsl:value-of select="titlecaption"/>
     </label>
     <xsl:if test="../@isNullable = 0">
-      <span style="color:red;float:right;">required field</span>
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
 
     <label id="{../@fieldName}suffixCaption">
@@ -438,10 +438,10 @@
 
   <xsl:template match="textBox">
     <label id="{../@fieldName}caption">
-      <xsl:value-of select="titlecaption"/>&#160;
+      <xsl:value-of select="titlecaption"/>
     </label>
     <xsl:if test="../@isNullable = 0">
-      <span style="color:red;float:right;">required field</span>
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
 
     <!--digit-->
@@ -495,7 +495,7 @@
       <xsl:value-of select="titlecaption"/>
     </label>
     <xsl:if test="../@isNullable = 0">
-      <span style="color:red;float:right;">required field</span>
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
     <div class="input-group date">
       <div class="input-group-addon">
@@ -530,7 +530,7 @@
       <xsl:value-of select="titlecaption"/>
     </label>
     <xsl:if test="../@isNullable = 0">
-      <span style="color:red;float:right;">required field</span>
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
 
     <input type="text" class="form-control" Value="********" data-type="textBox" data-old="" name="{../@fieldName}"
@@ -549,7 +549,7 @@
       <xsl:value-of select="titlecaption"/>
     </label>
     <xsl:if test="../@isNullable = 0">
-      <span style="color:red;float:right;">required field</span>
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
     
     <div class="input-group date">
@@ -575,7 +575,7 @@
       <xsl:value-of select="titlecaption"/>
     </label>
     <xsl:if test="../@isNullable = 0">
-      <span style="color:red;float:right;">required field</span>
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
     <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}"
             data-type="selectBox" data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}"
@@ -667,7 +667,7 @@
       <xsl:value-of select="titlecaption"/>
     </label>
     <xsl:if test="../@isNullable = 0">
-      <span style="color:red;float:right;">required field</span>
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
 
     <!--digit-->
@@ -703,7 +703,7 @@
       <xsl:value-of select="titlecaption"/>
     </label>
     <xsl:if test="../@isNullable = 0">
-      <span style="color:red;float:right;">required field</span>
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
 
     <!--default value-->
@@ -752,7 +752,7 @@
         <xsl:value-of select="titlecaption"/>
       </label>
      <xsl:if test="../@isNullable = 0">
-      <span style="color:red;float:right;">required field</span>
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
    </div>
     <div class = "btn-group" data-toggle = "radios">
@@ -836,6 +836,7 @@
     <input type="hidden" id="PKID" value="child{code/.}"/>
     <input type="hidden" id="filter{code/.}" value="{parentkey/.}='{/sqroot/body/bodyContent/form/info/GUID/.}'"/>
     <input type="hidden" id="parent{code/.}" value="{parentkey/.}"/>
+    <input type="hidden" id="PKName" value="{parentkey/.}"/>
     <script>
 
       //xmldoc = "OPHCORE/api/default.aspx?code=<xsl:value-of select ="code/."/>&amp;mode=browse&amp;sqlFilter=<xsl:value-of select ="parentkey/."/>='<xsl:value-of select ="/sqroot/body/bodyContent/form/info/GUID/."/>'"

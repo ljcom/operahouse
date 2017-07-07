@@ -79,7 +79,7 @@ Partial Class OPHCore_API_default
             Case "view", "form"
                 sqlstr = "exec [api].[theme_form] '" & curHostGUID & "', '" & code & "', " & GUID '& ", " & editMode
             Case "talk"
-                Dim comment = getQueryVar("comment")
+                Dim comment As String = getQueryVar("comment")
                 sqlstr = "exec gen.submitTalk '" & curHostGUID & "', " & GUID & ", '" & comment & "'"
             Case "widget"
                 Dim stateid = getQueryVar("stateid")

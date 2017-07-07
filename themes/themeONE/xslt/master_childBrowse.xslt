@@ -31,7 +31,9 @@
       upload.doUpload(url,
       function(data) {
       //success
-      showMessage(data);
+      var x = $(data).find("sqroot").children().each(function () {
+      var msg = $(this).text();
+      showMessage(msg);})
       },
       function(error) {
       //error
