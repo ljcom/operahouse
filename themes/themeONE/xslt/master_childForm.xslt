@@ -141,7 +141,7 @@
       <xsl:apply-templates select="sqroot/body/bodyContent"/>
 
       <!-- view header -->
-      <div class="box" style="box-shadow:0px;border:0;">
+      <div class="row" style="box-shadow:0px;border:0;">
         <div class="col-md-12" style="margin-bottom:50px;">
           <div style="text-align:left">
             <!--location: 0 header; 1 child; 2 browse
@@ -718,7 +718,7 @@
           </h3>
         </div>
       </div-->
-    <div class="box visible-phone" style="box-shadow:0px;border:none;" id="child{code/.}">
+    <div class="box visible-phone" style="box-shadow:0px;border:none;" id="child{code/.}{/sqroot/body/bodyContent/form/info/GUID/.}">
       &#160;
     </div>
     <!--/div-->

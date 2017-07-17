@@ -33,7 +33,13 @@
       //success
       var x = $(data).find("sqroot").children().each(function () {
       var msg = $(this).text();
-      showMessage(msg);})
+      showMessage('Upload Success');
+
+      })
+      location.reload();
+
+
+
       },
       function(error) {
       //error
@@ -137,10 +143,10 @@
   </xsl:template>
 
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
-
-    <tr id="tr1_{@code}{@GUID}" data-parent="#{@code}" data-toggle="collapse" data-target="#{@code}{@GUID}"
+    
+    <tr id="tr1_{@code}{@GUID}" data-parent="#{/sqroot/body/bodyContent/browse/info/code}" data-target="#{@code}{@GUID}"
         class="accordion-toggle"
-        onclick="showChildForm('{@code}','{@GUID}')" onmouseover="this.bgColor='lavender';this.style.cursor='pointer';" onmouseout="this.bgColor='white'">
+        onclick="showChildForm('{@code}','{@GUID}', '{/sqroot/body/bodyContent/browse/info/code}')" onmouseover="this.bgColor='lavender';this.style.cursor='pointer';" onmouseout="this.bgColor='white'">
       <xsl:apply-templates select="fields/field"/>
     </tr>
     <tr id="tr2_{@code}{@GUID}">
@@ -150,13 +156,7 @@
         </div>
       </td>
     </tr>
-    <script>
-      var <xsl:value-of select="@code"/> = $('#<xsl:value-of select="@code"/>');
-      <xsl:value-of select="@code"/>.on('show.bs.collapse','.collapse', function() {
-      <xsl:value-of select="@code"/>.find('.collapse.in').collapse('hide');
-      });
-
-    </script>
+    
 
   </xsl:template>
 

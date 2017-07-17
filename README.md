@@ -21,8 +21,8 @@ IIS Express Setting:
 * see file iis-setting.txt
 
 GIT populate:
-1. create repository di d:\vsonline\operahouse
-2. add new remote: name: github location: https://github.com/ljcom/operahouse
+1. create repository di d:\vsonline\operahouse, click button Create.
+2. add new remote: name: github location: https://github.com/ljcom/operahouse, click button Add then login
 3. enter git-bash
 4. run git pull github master
 5. all source code will be stored in d:\vsonline\operahouse

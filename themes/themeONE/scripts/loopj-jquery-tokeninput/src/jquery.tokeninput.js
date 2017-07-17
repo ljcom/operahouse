@@ -190,6 +190,8 @@ $.TokenList = function (input, url_or_data, settings) {
             outline: "none"
         })
         .attr("id", settings.idPrefix + input.id)
+        .attr("disabled", tokenDisabled())
+        .attr('style', styleDisabled)
         .focus(function () {
             if (settings.tokenLimit === null || settings.tokenLimit !== token_count) {
                 show_dropdown_hint();
@@ -306,6 +308,7 @@ $.TokenList = function (input, url_or_data, settings) {
     // The list to store the token items in
     var token_list = $("<ul />")
         .addClass(settings.classes.tokenList)
+        .attr("style", styleDisabled())
         .click(function (event) {
             var li = $(event.target).closest("li");
             if(li && li.get(0) && $.data(li.get(0), "tokeninput")) {
@@ -337,6 +340,7 @@ $.TokenList = function (input, url_or_data, settings) {
     // The token holding the input box
     var input_token = $("<li />")
         .addClass(settings.classes.inputToken)
+        .attr('style', styleDisabled)
         .appendTo(token_list)
         .append(input_box);
 
@@ -420,6 +424,22 @@ $.TokenList = function (input, url_or_data, settings) {
     //
     // Private functions
     //
+
+    function tokenDisabled() {
+        if ($("#" + input.id).attr('disabled')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function styleDisabled() {
+        var res = '';
+        if (tokenDisabled()) {
+            res = 'cursor:not-allowed; background-color: #eee; opacity:1;'
+        }
+        return res;
+    }
 
     function checkTokenLimit() {
         if(settings.tokenLimit !== null && token_count >= settings.tokenLimit) {
@@ -858,3 +878,4 @@ $.TokenList.Cache = function (options) {
     };
 };
 }(jQuery));
+

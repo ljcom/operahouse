@@ -13,6 +13,7 @@
     <script>
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/scripts/daterangepicker/daterangepicker.js');
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/scripts/select2/select2.full.min.js');
+      <!--loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/scripts/ckeditor/ckeditor.js');-->
       var xmldoc = ""
       var xsldoc = "OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/xslt/" + getPage();
 
@@ -166,24 +167,13 @@
 
     <!-- Main content -->
     <section class="content">
-      <!--<div class="row visible-phone">
-        <div class="col-md-12">
-          <div class="view-title">
-            <h3>REQUEST FOR RECRUITMENT (HRRR)</h3>
-          </div>
-        </div>
-      </div>-->
-      <!-- title -->
       <xsl:apply-templates select="sqroot/body/bodyContent"/>
-      <!-- view header -->
+      
       <div class="row">
         <div class="col-md-12 device-sm visible-sm device-md visible-md device-lg visible-lg" style="margin-bottom:50px;">
           <div style="text-align:left">
             <xsl:choose>
               <xsl:when test="(/sqroot/body/bodyContent/form/info/GUID/.) = '00000000-0000-0000-0000-000000000000'">
-                <!--location: 0 header; 1 child; 2 browse
-              location: browse:10, header form:20, browse anak:30, browse form:40-->
-
                 <button id="button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 20);">SAVE</button>&#160;
                 <button id="button_cancel" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
               </xsl:when>
@@ -217,10 +207,6 @@
               </xsl:when>
               <xsl:otherwise>
                 &#160;
-                <!--<div style="text-align:left">
-                <button id="button_save" class="btn btn-orange-a" onclick="submitfunction('formheader','{sqroot/body/bodyContent/form/info/GUID/.}','{sqroot/body/bodyContent/form/info/code/.}');">SAVE</button>&#160;
-                <button id="button_cancel" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
-              </div>-->
               </xsl:otherwise>
             </xsl:choose>
           </div>
@@ -257,11 +243,7 @@
               </xsl:when>
               <xsl:otherwise>
                 &#160;
-                <!--<div style="text-align:left">
-                <button id="button_save" class="btn btn-orange-a" onclick="submitfunction('formheader','{sqroot/body/bodyContent/form/info/GUID/.}','{sqroot/body/bodyContent/form/info/code/.}');">SAVE</button>&#160;
-                <button id="button_cancel" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
-              </div>-->
-              </xsl:otherwise>
+            </xsl:otherwise>
             </xsl:choose>
           </div>
         </div>
@@ -270,22 +252,14 @@
 
       <xsl:if test="sqroot/body/bodyContent/form/info/GUID !='00000000-0000-0000-0000-000000000000'">
         <xsl:apply-templates select="sqroot/body/bodyContent/form/children"/>
-        <!-- /.col -->
       </xsl:if>
       <!-- browse for phone/tablet max width 768 -->
     </section>
     <!-- /.content -->
-
-
-
   </xsl:template>
 
   <xsl:template match="sqroot/body/bodyContent">
-    <div class="col-md-12">
-      <!--<div class="box box-primary">-->
       <xsl:apply-templates select="form"/>
-      <!--</div>-->
-    </div>
   </xsl:template>
 
   <xsl:template match="form">
@@ -294,21 +268,13 @@
       var tblnm =code+"requiredname";
     </script>
 
-
-    <!--<div class="row collapse in" id="header" >-->
-    <!--<div class="col-md-12">-->
     <form role="form" id="formheader" enctype="multipart/form-data">
       <input type="hidden" id="cid" name="cid" value="{/sqroot/body/bodyContent/form/info/GUID/.}" />
       <input type="hidden" name ="{info/code/.}requiredname"/>
       <input type="hidden" name ="{info/code/.}requiredtblvalue"/>
 
-      <!--<input type="hidden" name="mode" value="save"/>
-      <input type="hidden" name="code" value="{info/code/.}"/>-->
-
       <xsl:apply-templates select="formPages/formPage[@pageNo&lt;9]"/>
     </form>
-    <!--</div>-->
-    <!--</div>-->
   </xsl:template>
 
   <xsl:template match="formPages/formPage[@pageNo&lt;9]">
@@ -320,34 +286,42 @@
   </xsl:template>
 
   <xsl:template match="formSection ">
-    <xsl:choose>
-      <xsl:when test="@rowTitle/.!=''">
-        <div class="col-md-12" data-toggle="collapse" data-target="#section_{@sectionNo}">
-          <h3>
-            <xsl:value-of select="@rowTitle/."/>&#160;
-          </h3>
-        </div>
-      </xsl:when>
-    </xsl:choose>
-    <div class="col-md-12 collapse in" id="section_{@sectionNo}">
-      <xsl:apply-templates select="formCols"/>
-    </div>
+    <xsl:if test="@rowTitle/.!=''">
+      <div class="col-md-12" data-toggle="collapse" data-target="#section_{@sectionNo}">
+        <h3>
+          <xsl:value-of select="@rowTitle/."/>&#160;
+        </h3>
+      </div>
+    </xsl:if>
+    <xsl:if test="formCols/formCol/formRows">
+      <div class="col-md-12 collapse in" id="section_{@sectionNo}">
+        <xsl:apply-templates select="formCols"/>
+      </div>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="formCols">
-
     <xsl:apply-templates select="formCol"/>
   </xsl:template>
 
   <xsl:template match="formCol">
-    <div class="col-md-6">
-      <xsl:if test="@colNo='1'">
-        <xsl:apply-templates select="formRows"/>
-      </xsl:if>
-      <xsl:if test="@colNo='2'">
-        <xsl:apply-templates select="formRows"/>
-      </xsl:if>
-    </div>
+    <xsl:choose>
+      <xsl:when test="@colNo='0'">
+        <div class="col-md-12">
+          <xsl:apply-templates select="formRows"/>
+        </div>
+      </xsl:when>
+      <xsl:otherwise>
+        <div class="col-md-6">
+          <xsl:if test="@colNo='1'">
+            <xsl:apply-templates select="formRows"/>
+          </xsl:if>
+          <xsl:if test="@colNo='2'">
+            <xsl:apply-templates select="formRows"/>
+          </xsl:if>
+        </div>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="formRows">
@@ -364,13 +338,10 @@
   </xsl:template>
 
   <xsl:template match="fields">
-
     <xsl:apply-templates select="field"/>
-
   </xsl:template>
 
   <xsl:template match="field">
-
     <xsl:if test="@isNullable=0">
       <script>
         document.getElementsByName(tblnm)[0].value = document.getElementsByName(tblnm)[0].value + ', <xsl:value-of select="@fieldName"/>'
@@ -387,14 +358,14 @@
     <xsl:choose>
       <xsl:when test ="@isEditable=0 or (@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000')) or (/sqroot/body/bodyContent/form/info/permission/allowEdit/.)!='1'">
         <script>
-          $('#<xsl:value-of select="@fieldName"/>').attr('disabled', true);
+          $('#<xsl:value-of select="@fieldName"/>').attr('disabled', true);          
         </script>
       </xsl:when>
     </xsl:choose>
 
-
     <div class="form-group {$fieldEnabled}-input">
       <xsl:apply-templates select="textBox"/>
+      <xsl:apply-templates select="textEditor"/>
       <xsl:apply-templates select="dateBox"/>
       <xsl:apply-templates select="dateTimeBox"/>
       <xsl:apply-templates select="timeBox"/>
@@ -405,7 +376,6 @@
       <xsl:apply-templates select="tokenBox"/>
       <xsl:apply-templates select="radio"/>
     </div>
-
   </xsl:template>
 
   <xsl:template match="checkBox">
@@ -436,6 +406,30 @@
 
   </xsl:template>
 
+  <xsl:template match="textEditor">    
+    <label id="{../@fieldName}caption" data-toggle="collapse" data-target="#section_{@sectionNo}">
+      <xsl:value-of select="titlecaption"/>
+    </label>
+    <xsl:if test="../@isNullable = 0">
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
+    </xsl:if>
+
+    <textarea id ="te{../@fieldName}" name ="te{../@fieldName}" class="form-control" style="visibility: hidden; display: none;">
+      <xsl:choose>
+        <xsl:when test="defaultValue">
+          <xsl:value-of select="defaultvalue"/>
+        </xsl:when>
+        <xsl:otherwise>
+          &#160;
+        </xsl:otherwise>
+      </xsl:choose>
+    </textarea>  
+
+    <script type="text/javascript">
+      CKEDITOR.replace('te<xsl:value-of select="../@fieldName"/>');
+    </script>
+</xsl:template>
+
   <xsl:template match="textBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
@@ -444,6 +438,7 @@
       <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
 
+   
     <!--digit-->
     <xsl:variable name="tbContent">
       <xsl:choose>
@@ -509,6 +504,7 @@
       </input>
     </div>
   </xsl:template>
+
   <xsl:template match="dateTimeBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
@@ -525,6 +521,7 @@
       </input>
     </div>
   </xsl:template>
+  
   <xsl:template match="passwordBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
@@ -541,7 +538,6 @@
     </input>
 
   </xsl:template>
-
 
   <xsl:template match="timeBox">
     <script>//timebox</script>
@@ -569,7 +565,6 @@
     </div>
   </xsl:template>
 
-
   <xsl:template match="autoSuggestBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
@@ -593,7 +588,7 @@
       $("#<xsl:value-of select="../@fieldName"/>").select2({
       ajax: {
 
-      url:"OPHCORe/api/msg_autosuggest.aspx",
+      url:"OPHCORE/api/msg_autosuggest.aspx",
       data: function (params) {
       var query = {
       search: params.term,
@@ -621,9 +616,9 @@
       </xsl:if>
     </script>
   </xsl:template>
+  
   <xsl:template match="tokenBox">
     <script type="text/javascript">
-
       var sURL<xsl:value-of select="key"/>='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="code/."/>&amp;key=<xsl:value-of select="key"/>&amp;id=<xsl:value-of select="id"/>&amp;name=<xsl:value-of select="name"/>'
       var noPrepopulate<xsl:value-of select="key"/>=1;
       <xsl:if test="value">
@@ -660,8 +655,8 @@
       );
       }
       });
-      });
-    </script>
+      });      
+</script>
 
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
@@ -698,6 +693,7 @@
       </xsl:if>
     </input>
   </xsl:template>
+  
   <xsl:template match="mediaBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
@@ -827,40 +823,32 @@
     <xsl:apply-templates select="field" />
   </xsl:template>
 
-
   <xsl:template match="sqroot/body/bodyContent/form/children">
     <xsl:apply-templates select="child"/>
   </xsl:template>
 
   <xsl:template match="child">
-    <input type="hidden" id="PKID" value="child{code/.}"/>
-    <input type="hidden" id="filter{code/.}" value="{parentkey/.}='{/sqroot/body/bodyContent/form/info/GUID/.}'"/>
-    <input type="hidden" id="parent{code/.}" value="{parentkey/.}"/>
-    <input type="hidden" id="PKName" value="{parentkey/.}"/>
-    <script>
+    <xsl:if test="info/permission/allowBrowse='1'">
+      <input type="hidden" id="PKID" value="child{code/.}"/>
+      <input type="hidden" id="filter{code/.}" value="{parentkey/.}='{/sqroot/body/bodyContent/form/info/GUID/.}'"/>
+      <input type="hidden" id="parent{code/.}" value="{parentkey/.}"/>
+      <input type="hidden" id="PKName" value="{parentkey/.}"/>
+      <script>
 
-      //xmldoc = "OPHCORE/api/default.aspx?code=<xsl:value-of select ="code/."/>&amp;mode=browse&amp;sqlFilter=<xsl:value-of select ="parentkey/."/>='<xsl:value-of select ="/sqroot/body/bodyContent/form/info/GUID/."/>'"
-      //showXML('child<xsl:value-of select ="code/."/>', xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () {});
+        //xmldoc = "OPHCORE/api/default.aspx?code=<xsl:value-of select ="code/."/>&amp;mode=browse&amp;sqlFilter=<xsl:value-of select ="parentkey/."/>='<xsl:value-of select ="/sqroot/body/bodyContent/form/info/GUID/."/>'"
+        //showXML('child<xsl:value-of select ="code/."/>', xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () {});
 
-      var code='<xsl:value-of select ="code/."/>';
-      var parentKey='<xsl:value-of select ="parentkey/."/>';
-      var GUID='<xsl:value-of select ="/sqroot/body/bodyContent/form/info/GUID/."/>';
+        var code='<xsl:value-of select ="code/."/>';
+        var parentKey='<xsl:value-of select ="parentkey/."/>';
+        var GUID='<xsl:value-of select ="/sqroot/body/bodyContent/form/info/GUID/."/>';
 
-      loadChild(code, parentKey, GUID);
-    </script>
+        loadChild(code, parentKey, GUID);
+      </script>
 
-    <!--div class="col-md-12">
-      <div class="box" style="border-top:none;" id="section2">
-        <div class="box-header with-border" style="background:none">
-          <h3 class="dashboard-title">
-            <xsl:value-of select="childTitle/."/>
-          </h3>
-        </div>
-      </div-->
-    <div class="box box-warning visible-phone" style="box-shadow:0px;border:none" id="child{code/.}">
-      &#160;
-    </div>
-    <!--/div-->
+      <div class="box box-warning visible-phone" style="box-shadow:0px;border:none" id="child{code/.}{/sqroot/body/bodyContent/form/info/GUID/.}">
+        &#160;
+      </div>
+    </xsl:if>
   </xsl:template>
 
 </xsl:stylesheet>

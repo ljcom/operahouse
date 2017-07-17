@@ -30,9 +30,7 @@
     <jsFile>OPHContent/themes/themeONE/scripts/fastclick/fastclick.js</jsFile>
     <jsFile>OPHContent/themes/themeONE/scripts/upclick/upclick-min.js</jsFile>
     <jsFile>OPHContent/themes/themeONE/scripts/custom-me.js</jsFile>
-    
+    <jsFile>OPHContent/themes/themeONE/scripts/ckeditor/ckeditor.js</jsFile>
     <jsFile>https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></jsFile>
-
-
   </manifest>
 </sqroot>

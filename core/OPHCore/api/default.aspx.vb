@@ -148,6 +148,7 @@ Partial Class OPHCore_API_default
                     'Next
                     'Dim theDate As DateTime = DateTime.Now
                     Dim ranGUID = System.Guid.NewGuid().ToString()
+                    Dim ParentGUID = getQueryVar("GUID")
 
 
                     Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & ranGUID.Replace("'", "") & "_" & Request.Files(f).FileName
@@ -157,7 +158,7 @@ Partial Class OPHCore_API_default
                     If Directory.Exists(checkDir) Then
                         If fxn <> "" Then Request.Files(f).SaveAs(fxn)
                     End If
-                    sqlstr = "exec gen.uploadChild '" & curHostGUID & "', '" & code & "', '" & GUID.Replace("'", "") & "', '" & fxn & "'"
+                    sqlstr = "exec gen.uploadChild '" & curHostGUID & "', '" & code & "', '" & GUID.Replace("'", "") & "', '" & ParentGUID & "', '" & fxn & "'"
                     xmlstr = getXML(sqlstr, curODBC)
                 Next
 
@@ -266,7 +267,7 @@ Partial Class OPHCore_API_default
                 Dim curPass = getQueryVar("curpass")
                 Dim newPass = getQueryVar("newpass")
 
-                sqlstr = "exec api.changePassword '" & curHostGUID & "', '" & curPass & "', '" & newPass & "'"
+                sqlstr = "exec gen.changePassword '" & curHostGUID & "', '" & curPass & "', '" & newPass & "'"
                 xmlstr = runSQLwithResult(sqlstr, curODBC)
                 xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
                 isSingle = False

@@ -399,80 +399,52 @@
             <div class="col-md-12 full-width-a">
 
               <!--Summary-->
-              <!--<div class="box box-primary box-solid" style="max-width:600px;float:left;margin: 10px 10px 10px 10px;">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Content Summary</h3>
-                  <div class="box-tools pull-right">
-                    <span data-toggle="tooltip" title="3 New Messages" class="badge bg-red">3</span>
-                    <button class="btn btn-box-tool" data-widget="collapse">
-                      <ix class="fa fa-minus"></ix>
-                    </button>
-                  </div>
-                </div>
-                <div class="box-body">
-                  <div class="direct-chat-messages">
-                    <div class="direct-chat-msg">
-                      <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-name pull-left">Alexander Pierce</span>
-                        <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
-                      </div>
-                      <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image"/>
-                      <div class="direct-chat-text">
-                        Is this template really for free? That's unbelievable!
-                      </div>
-                    </div>
-                    <div class="direct-chat-msg right">
-                      <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-name pull-right">Sarah Bullock</span>
-                        <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
-                      </div>
-                      <img class="direct-chat-img" src="../dist/img/user3-128x128.jpg" alt="message user image"/>
-                      <div class="direct-chat-text">
-                        You better believe it!
-                      </div>
+              <xsl:if test="fields/field[@mandatory=0]">
+                <div class="box box-primary box-solid" style="max-width:600px;float:left;margin: 10px 10px 10px 10px;">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Content of Summary</h3>
+                    <div class="box-tools pull-right">
+                      <button class="btn btn-box-tool" data-widget="collapse">
+                        <ix class="fa fa-minus"></ix>
+                      </button>
                     </div>
                   </div>
-                </div>
-                <div class="box-footer">
-                  <div class="input-group">
-                    <input type="text" name="message" placeholder="Type Message ..." class="form-control"/>
-                    <span class="input-group-btn">
-                      <button type="button" class="btn btn-danger btn-flat">Send</button>
-                    </span>
+                  <div class="box-body">
+                    <xsl:apply-templates select="fields/field[@mandatory=0]" />                
                   </div>
                 </div>
-              </div>-->
+              </xsl:if>
 
               <!--Status Approval-->
-              <div class="box box-warning box-solid" style="max-width:300px;float:left;margin: 10px 10px 10px 10px;">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Document Status</h3>
-                  <div class="box-tools pull-right">
-                    <button class="btn btn-box-tool" data-widget="collapse">
-                      <ix class="fa fa-minus"></ix>
-                    </button>
-                  </div>
-                </div>
-                <div class="box-body">
-                  <div class="direct-chat-msg">
-                    <div class="direct-chat-info clearfix">
-                      <span class="direct-chat-name pull-left">
-                        Created By
-                      </span>
-                      <span class="direct-chat-timestamp pull-right">
-                        <xsl:value-of select="fields/field[@caption='CreatedUser']"/>
-                      </span>
+              <xsl:if test="approvals/approval">
+                <div class="box box-warning box-solid" style="max-width:300px;float:left;margin: 10px 10px 10px 10px;">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Approval List</h3>
+                    <div class="box-tools pull-right">
+                      <button class="btn btn-box-tool" data-widget="collapse">
+                        <ix class="fa fa-minus"></ix>
+                      </button>
                     </div>
-                    <!--Approvals-->
-                    <xsl:if test="approvals/approval">
-                      <br/>
-                      <strong>APPROVALS</strong>
-                      <hr style="margin:0 0 5px 0;"/>
-                      <xsl:apply-templates select="approvals"/>
-                    </xsl:if>
+                  </div>
+                  <div class="box-body">
+                    <div class="direct-chat-msg">
+                      <!--<div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-left">
+                          Created By
+                        </span>
+                        <span class="direct-chat-timestamp pull-right">
+                          <xsl:value-of select="fields/field[@caption='CreatedUser']"/>
+                        </span>
+                      </div>-->
+                      <!--Approvals-->
+                        <!--<br/>
+                        <strong>APPROVALS</strong>
+                        <hr style="margin:0 0 5px 0;"/>-->
+                        <xsl:apply-templates select="approvals"/>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </xsl:if>
 
               <!--Talks-->
               <div class="box box-danger box-solid direct-chat direct-chat-danger" style="max-width:300px;float:left;margin: 10px 10px 10px 10px;">
@@ -548,11 +520,14 @@
         </xsl:otherwise>
       </xsl:choose>&#160;
     </xsl:variable>
-    <span style="font-weight:bold;">
-      <xsl:value-of select="@title" />
-    </span>&#160;:&#160;
-    <xsl:value-of select="$tbContent" />
-    &#160;·&#160;
+    <xsl:if test=". != ''">
+      <span style="font-weight:bold;">
+        <xsl:value-of select="@title" />
+      </span>
+      &#160;:&#160;
+      <xsl:value-of select="$tbContent" />
+      &#160;·&#160;
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="approvals">

@@ -86,19 +86,24 @@ function loadContent(nbpage, f) {
     xsldoc.push('OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '_sidebar.xslt');
 
     pushTheme(divname, xmldoc, xsldoc, true);
-}
+}//
 
 function loadChild(code, parentKey, GUID, pageNo) {
     pageNo = (pageNo == undefined) ? 1 : pageNo;
 
     var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + parentKey + '=' + "'" + GUID + "'&bPageNo=" + pageNo + '&date=' + getUnique();
 
-    var divName = ['child' + String(code).toLowerCase()];
+    var divName = ['child' + String(code).toLowerCase() + GUID];
     var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
 
     pushTheme(divName, xmldoc, xsldoc, true);
 
-    //showXML(divName, xmldoc, xsldocs, true, true, function () { });
+    //$('#' + code).on('show.bs.collapse', '.collapse', function () {
+    //    $('#' + code).find('.collapse.in').collapse('hide');
+
+//});
+
+//showXML(divName, xmldoc, xsldocs, true, true, function () { });
 }
 
 function signIn() {
@@ -2465,20 +2470,33 @@ function checkrequired(Names, output) {
             result = document.getElementById(Names[i + 1] + 'caption').innerHTML + ' need to be filled';
             output = (output == 'id') ? Names[i + 1] : result;
             break;
-        } 
+        }
     }
     return output;
 }
 
-function showChildForm(code, guid) {
-    //clear other childform
+function showChildForm(code, guid, parent) {
     var divnm = [code + guid];
-    $("#" + divnm).html("Please Wait...");
+    //clear other childform
+    if (!$('#' + code + guid).is(":visible")) {
+        
+        $("#" + divnm).html("Please Wait...");
 
-    var xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=form&GUID=" + guid
+        var xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=form&GUID=" + guid
 
-    var xsldoc = ["OPHContent/themes/" + loadThemeFolder() + "/xslt/" + getPage() + "_childForm.xslt"];
-    pushTheme(divnm, xmldoc, xsldoc, true);
+        var xsldoc = ["OPHContent/themes/" + loadThemeFolder() + "/xslt/" + getPage() + "_childForm.xslt"];
+        pushTheme(divnm, xmldoc, xsldoc, true, function () {
+            $('#' + code + guid).collapse({ parent: '#' + parent, toggle: true });
+            $('#' + code + guid).collapse('toggle');
+        });
+        $('#' + code).find('.collapse.in').collapse('hide');
+        $('#' + code).children().find('.collapse.in').collapse('hide');
+    }
+    else {
+        $('#' + code + guid).collapse({ parent: '#' + guid, toggle: true });
+        $('#' + code + guid).collapse('toggle');
+        $("#" + divnm).html("");
+    }
     //setCookie("currentChild", code + guid);
 }
 function closeChildForm(code, guid) {
@@ -2866,11 +2884,11 @@ function saveFunction(code, guid, location, formId, afterSuccess) {
     var idReq
     if (requiredname != undefined) {
         requiredname = requiredname.value;
-        if (requiredname != '' && requiredname  != undefined){
-        result = checkrequired(requiredname.split(', '), 'good');
-        idReq = checkrequired(requiredname.split(', '), 'id');
-        }else{
-        result = 'good'
+        if (requiredname != '' && requiredname != undefined) {
+            result = checkrequired(requiredname.split(', '), 'good');
+            idReq = checkrequired(requiredname.split(', '), 'id');
+        } else {
+            result = 'good'
         }
     } else {
         result = 'good';
@@ -2954,7 +2972,7 @@ function saveFunction(code, guid, location, formId, afterSuccess) {
     else {
         if (idReq) showMessage(result, '0', idReq)
         else showMessage(result);
-    }        
+    }
 }
 
 function loadReport(qCode, f) {
@@ -3303,13 +3321,13 @@ var Upload = function (file) {
     this.file = file;
 };
 
-Upload.prototype.getType = function() {
+Upload.prototype.getType = function () {
     return this.file.type;
 };
-Upload.prototype.getSize = function() {
+Upload.prototype.getSize = function () {
     return this.file.size;
 };
-Upload.prototype.getName = function() {
+Upload.prototype.getName = function () {
     return this.file.name;
 };
 Upload.prototype.doUpload = function (url, successF, errorF) {
