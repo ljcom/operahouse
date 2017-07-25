@@ -22,7 +22,7 @@ Public Class cl_base_view
             If fieldattachment.Contains(Request.Form.Keys(x)) Then
                 info = info.Replace("#element#", "<field id=""" & colName & """><value>" & code & "_" & colName & "/" & szFilename & "/" & GUID & "_" & Request.Form(x).Replace("'", "''").Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
             Else
-                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & Request.Form(x).Replace("'", "''").Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
+                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & Request.Form(x).Replace("'", "&#39;").Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
             End If
         Next
         info = info.Replace("#element#", "")
@@ -39,13 +39,14 @@ Public Class cl_base_view
 
         'Tablename = Left(Tablename, 1) & "o" & Mid(Tablename, 3, Len(Tablename) - 2)
         Dim saveXML = writeXMLFromRequestForm("sqroot", fieldattachment, GUID, Tablename)
+        saveXML = saveXML.Replace("&amp;lt;", "&lt;").Replace("&amp;gt;", "&gt;").Replace("&amp;#39;", "&#39;")
         Dim contentofSaveString As String = ""
         Dim mainguid = Request.QueryString("cfunctionlist")
         Dim hostGUID As String
 
         If mainguid = "" Or Request.Form("gen_newid") = "1" Then
             'contentofSaveString = " exec api.[save] '" & Session("HostGUID").ToString & "', '" & Tablename & "', null, '" & saveXML & "'"
-            contentofSaveString = " exec api.[save] '" & curHostGUID & "', '" & Tablename & "', null, '" & saveXML & "'"
+            contentofSaveString = "exec api.[save] '" & curHostGUID & "', '" & Tablename & "', null, '" & saveXML & "'"
         Else
             If mainguid.IndexOf(",") > 0 Then
                 Stop
