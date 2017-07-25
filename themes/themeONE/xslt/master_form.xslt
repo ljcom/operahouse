@@ -67,7 +67,7 @@
       $('.datetimepicker').datetimepicker({
 
       });
-      
+
       $(".timepicker").timepicker({
       minuteStep: 15,
       template: 'modal',
@@ -168,7 +168,7 @@
     <!-- Main content -->
     <section class="content">
       <xsl:apply-templates select="sqroot/body/bodyContent"/>
-      
+
       <div class="row">
         <div class="col-md-12 device-sm visible-sm device-md visible-md device-lg visible-lg" style="margin-bottom:50px;">
           <div style="text-align:left">
@@ -243,7 +243,7 @@
               </xsl:when>
               <xsl:otherwise>
                 &#160;
-            </xsl:otherwise>
+              </xsl:otherwise>
             </xsl:choose>
           </div>
         </div>
@@ -259,7 +259,7 @@
   </xsl:template>
 
   <xsl:template match="sqroot/body/bodyContent">
-      <xsl:apply-templates select="form"/>
+    <xsl:apply-templates select="form"/>
   </xsl:template>
 
   <xsl:template match="form">
@@ -358,7 +358,7 @@
     <xsl:choose>
       <xsl:when test ="@isEditable=0 or (@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000')) or (/sqroot/body/bodyContent/form/info/permission/allowEdit/.)!='1'">
         <script>
-          $('#<xsl:value-of select="@fieldName"/>').attr('disabled', true);          
+          $('#<xsl:value-of select="@fieldName"/>').attr('disabled', true);
         </script>
       </xsl:when>
     </xsl:choose>
@@ -406,7 +406,7 @@
 
   </xsl:template>
 
-  <xsl:template match="textEditor">    
+  <xsl:template match="textEditor">
     <label id="{../@fieldName}caption" data-toggle="collapse" data-target="#section_{@sectionNo}">
       <xsl:value-of select="titlecaption"/>
     </label>
@@ -414,21 +414,32 @@
       <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
 
-    <textarea id ="te{../@fieldName}" name ="te{../@fieldName}" class="form-control" style="visibility: hidden; display: none;">
+    <textarea id ="{../@fieldName}" name ="{../@fieldName}" class="form-control">
       <xsl:choose>
-        <xsl:when test="defaultValue">
-          <xsl:value-of select="defaultvalue"/>
+        <xsl:when test="value != ''">
+          <xsl:value-of select="value"/>
         </xsl:when>
-        <xsl:otherwise>
-          &#160;
-        </xsl:otherwise>
+        <xsl:otherwise>&#160;</xsl:otherwise>
       </xsl:choose>
-    </textarea>  
+    </textarea>
 
     <script type="text/javascript">
-      CKEDITOR.replace('te<xsl:value-of select="../@fieldName"/>');
+      CKEDITOR.replace('<xsl:value-of select="../@fieldName"/>');
+      CKEDITOR.instances['<xsl:value-of select="../@fieldName"/>'].on('blur', function() {
+      var teOldData = $('#<xsl:value-of select="../@fieldName"/>').html();
+      var teData = CKEDITOR.instances['<xsl:value-of select="../@fieldName"/>'].getData();
+      teData = teData.trim();
+      $('#<xsl:value-of select="../@fieldName"/>').html(teData);
+      if (teOldData != teData) {
+      $('#button_save').show();
+      $('#button_cancel').show();
+      $('#button_save2').show();
+      $('#button_cancel2').show();
+      }
+      preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);
+      });
     </script>
-</xsl:template>
+  </xsl:template>
 
   <xsl:template match="textBox">
     <label id="{../@fieldName}caption">
@@ -438,7 +449,7 @@
       <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
 
-   
+
     <!--digit-->
     <xsl:variable name="tbContent">
       <xsl:choose>
@@ -476,7 +487,7 @@
     </xsl:variable>
 
 
-    <input type="text" class="form-control" Value="{$thisvalue}" data-type="textBox" data-old="{$thisvalue}" name="{../@fieldName}" 
+    <input type="text" class="form-control" Value="{$thisvalue}" data-type="textBox" data-old="{$thisvalue}" name="{../@fieldName}"
            onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" id ="{../@fieldName}"
            oninput="javascript:checkChanges(this)">
       <xsl:if test="../@isEditable=0 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000')) or (/sqroot/body/bodyContent/form/info/permission/allowEdit/.)!='1'">
@@ -521,7 +532,7 @@
       </input>
     </div>
   </xsl:template>
-  
+
   <xsl:template match="passwordBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
@@ -547,7 +558,7 @@
     <xsl:if test="../@isNullable = 0">
       <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
-    
+
     <div class="input-group date">
       <div class="input-group-addon">
         <ix class="fa fa-clock-o"></ix>
@@ -569,9 +580,11 @@
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
+
     <xsl:if test="../@isNullable = 0">
       <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
+
     <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}"
             data-type="selectBox" data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}"
       onchange="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" >
@@ -587,21 +600,15 @@
       <!--$("#<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/><xsl:value-of select="../@fieldName"/>").select2({-->
       $("#<xsl:value-of select="../@fieldName"/>").select2({
       ajax: {
-
       url:"OPHCORE/api/msg_autosuggest.aspx",
       data: function (params) {
       var query = {
+      code:"<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>",
+      colkey:"<xsl:value-of select="../@fieldName"/>",
       search: params.term,
-      page: params.page,
-      code:"<xsl:value-of select="code"/>",
-      id:"<xsl:value-of select="id"/>",
-      name:"<xsl:value-of select="name"/>",
-      key:"<xsl:value-of select='key'/>",
-      wf1: "<xsl:value-of select='whereFields/wf1'/>",
       wf1value: ($("#<xsl:value-of select='whereFields/wf1'/>").val() === undefined ? "" : $("#<xsl:value-of select='whereFields/wf1'/>").val()),
-      wf2: "<xsl:value-of select='whereFields/wf2'/>",
-      wf2value: ($("#<xsl:value-of select='whereFields/wf2'/>").val() === undefined ? "" : $("#<xsl:value-of select='whereFields/wf2'/>").val())
-
+      wf2value: ($("#<xsl:value-of select='whereFields/wf2'/>").val() === undefined ? "" : $("#<xsl:value-of select='whereFields/wf2'/>").val()),
+      page: params.page
       }
 
       return query;
@@ -611,29 +618,29 @@
       });
       <xsl:if test="value!=''">
         deferreds.push(
-        autosuggestSetValue('<xsl:value-of select="../@fieldName"/>',"<xsl:value-of select="code"/>","<xsl:value-of select="id"/>","<xsl:value-of select="name"/>","<xsl:value-of select='key'/>","<xsl:value-of select='value'/>")
+        autosuggestSetValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', '<xsl:value-of select='value'/>', '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
         );
       </xsl:if>
     </script>
   </xsl:template>
-  
+
   <xsl:template match="tokenBox">
     <script type="text/javascript">
-      var sURL<xsl:value-of select="key"/>='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="code/."/>&amp;key=<xsl:value-of select="key"/>&amp;id=<xsl:value-of select="id"/>&amp;name=<xsl:value-of select="name"/>'
-      var noPrepopulate<xsl:value-of select="key"/>=1;
+      var sURL<xsl:value-of select="../@fieldName"/>='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>&amp;colkey=<xsl:value-of select="../@fieldName"/>'
+      var noPrepopulate<xsl:value-of select="../@fieldName"/>=1;
       <xsl:if test="value">
-        noPrepopulate<xsl:value-of select="key"/>=0;
+        noPrepopulate<xsl:value-of select="../@fieldName"/>=0;
       </xsl:if>
-      var cURL<xsl:value-of select="key"/>='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="code/."/>&amp;key=<xsl:value-of select="key"/>&amp;id=<xsl:value-of select="id"/>&amp;name=<xsl:value-of select="name"/>&amp;search=<xsl:value-of select="value"/>'
+      var cURL<xsl:value-of select="../@fieldName"/>='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>&amp;colkey=<xsl:value-of select="../@fieldName"/>&amp;search=<xsl:value-of select="value"/>'
 
       $(document).ready(function(){
       $.ajax({
-      url: cURL<xsl:value-of select="key"/>,
+      url: cURL<xsl:value-of select="../@fieldName"/>,
       dataType: 'json',
       success: function(data){
-      if (noPrepopulate<xsl:value-of select="key"/>==1) data='';
+      if (noPrepopulate<xsl:value-of select="../@fieldName"/>==1) data='';
       $("#<xsl:value-of select="../@fieldName"/>").tokenInput(
-      sURL<xsl:value-of select="key"/>,
+      sURL<xsl:value-of select="../@fieldName"/>,
       {
       hintText: "please type...",
       searchingText: "Searching...",
@@ -655,12 +662,13 @@
       );
       }
       });
-      });      
-</script>
+      });
+    </script>
 
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
+
     <xsl:if test="../@isNullable = 0">
       <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
@@ -682,9 +690,7 @@
       </xsl:choose>
     </xsl:variable>
 
-
-    <input type="text" class="form-control" Value="{$thisvalue}" data-type="tokenBox" data-old="{$thisvalue}" data-newJSON=""
-           data-code="{code/.}"
+    <input type="text" class="form-control" Value="{$thisvalue}" data-type="tokenBox" data-old="{$thisvalue}" data-newJSON="" data-code="{code/.}"
       data-key="{key}" data-id="{id}" data-name="{name}"
       name="{../@fieldName}" id ="{../@fieldName}">
 
@@ -693,7 +699,7 @@
       </xsl:if>
     </input>
   </xsl:template>
-  
+
   <xsl:template match="mediaBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
@@ -747,10 +753,10 @@
       <label id="{../@fieldName}caption">
         <xsl:value-of select="titlecaption"/>
       </label>
-     <xsl:if test="../@isNullable = 0">
-      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
-    </xsl:if>
-   </div>
+      <xsl:if test="../@isNullable = 0">
+        <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
+      </xsl:if>
+    </div>
     <div class = "btn-group" data-toggle = "radios">
       <xsl:apply-templates select="radioSections/radioSection"/>
     </div>

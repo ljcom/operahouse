@@ -2371,7 +2371,7 @@ function back() {
 function saveCancel() {
     if (getGUID() == "00000000-0000-0000-0000-000000000000") back()
     else {
-        $("input[type='text'], input[type='checkbox'], select").each(function () {
+        $("input[type='text'], input[type='checkbox'], textarea, select").each(function () {
             var t = $(this);
             if ($(this).data("old") != undefined) {
 
@@ -2421,9 +2421,12 @@ function saveCancel() {
                     $('#button_cancel').hide();
                     $('#button_save2').hide();
                     $('#button_cancel2').hide();
-
-
                 }
+            } else {
+                $('#button_save').hide();
+                $('#button_cancel').hide();
+                $('#button_save2').hide();
+                $('#button_cancel2').hide();
             }
         })
     }
@@ -2462,11 +2465,10 @@ function isGuid(value) {
 function checkrequired(Names, output) {
     var result = 'good'
     for (i = 0; i < Names.length - 1; i++) {
-        //var val = document.getElementsByName(Names[i + 1])[0].value;
         var val = document.getElementById(Names[i + 1]).value;
+        val = val.trim();
 
         if (val == '' || val == undefined || val == "NULL") {
-            //document.getElementById('rfm_' + Names[i + 1]).innerHTML = 'need to be filled !';
             result = document.getElementById(Names[i + 1] + 'caption').innerHTML + ' need to be filled';
             output = (output == 'id') ? Names[i + 1] : result;
             break;
@@ -2487,7 +2489,7 @@ function showChildForm(code, guid, parent) {
         var xsldoc = ["OPHContent/themes/" + loadThemeFolder() + "/xslt/" + getPage() + "_childForm.xslt"];
         pushTheme(divnm, xmldoc, xsldoc, true, function () {
             $('#' + code + guid).collapse({ parent: '#' + parent, toggle: true });
-            $('#' + code + guid).collapse('toggle');
+           // $('#' + code + guid).collapse('toggle');
         });
         $('#' + code).find('.collapse.in').collapse('hide');
         $('#' + code).children().find('.collapse.in').collapse('hide');
@@ -2504,15 +2506,16 @@ function closeChildForm(code, guid) {
     $('#' + divnm).collapse("hide");
 }
 
-function autosuggestSetValue(SelectID, Code, CaptionID, CaptionName, CaptionKey, InitialValue) {
+function autosuggestSetValue(SelectID, code, colKey, defaultValue, wf1, wf2) {
     var aj = $.ajax({
         url: "OPHCORE/api/msg_autosuggest.aspx",
         data: {
-            search: InitialValue,
-            code: Code,
-            id: CaptionID,
-            name: CaptionName,
-            key: CaptionKey,
+            code: code,
+            colkey: colKey,
+            defaultValue: defaultValue,
+            wf1value: ($("#"+wf1).data("value") === undefined ? "" : $("#"+wf1).data("value")),
+            wf2value: ($("#"+wf2).data("value") === undefined ? "" : $("#"+wf2).data("value")),
+
         },
         dataType: "json",
         success: function (data) {
@@ -2585,7 +2588,8 @@ function preview(flag, code, GUID, formid, t) {
         var dataForm = $(thisForm).serialize()
 
         var dfLength = dataForm.length;
-
+        dataForm = dataForm.substring(2, dfLength);
+        dataForm = dataForm.split('%3C').join('%26lt%3B');
 
         $.ajax({
             url: path,
@@ -2709,7 +2713,7 @@ function checkChanges(t) {
         if (($("#" + t.id).prop("type") == "select-one") && (t.options[t.selectedIndex].value != $("#" + t.id).data("value"))) {
             $("#" + t.id).data("value", t.options[t.selectedIndex].value);
         }
-        $("input[type='text'], input[type='checkbox'], select").each(function () {
+        $("input[type='text'], input[type='checkbox'], textarea, select").each(function () {
             var tx = $(this);
             if ($(this).data("old") != undefined) {
 
@@ -2908,7 +2912,10 @@ function saveFunction(code, guid, location, formId, afterSuccess) {
 
         var other_data = $(thisForm).serializeArray();
         $.each(other_data, function (key, input) {
-            data.append(input.name, input.value);
+            var newVal = input.value;
+            newVal = newVal.replace(/</g, '&lt;',);
+            newVal = newVal.replace(/>/g, '&gt;');
+            data.append(input.name, newVal);
         });
 
         $.ajax({
