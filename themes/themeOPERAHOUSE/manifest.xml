@@ -1,0 +1,9 @@
+<sqroot>
+  <manifest>
+    <cssFile>https://fonts.googleapis.com/icon?family=Material+Icons</cssFile>
+    <cssFile>OPHContent/themes/themeOPERAHOUSE/assets/css/preload.min.css</cssFile>
+    <cssFile>OPHContent/themes/themeOPERAHOUSE/assets/css/plugins.min.css</cssFile>
+    <cssFile>OPHContent/themes/themeOPERAHOUSE/assets/css/style.light-blue-500.min.css</cssFile>
+    
+  </manifest>
+</sqroot>
