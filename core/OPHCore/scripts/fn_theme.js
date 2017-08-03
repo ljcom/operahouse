@@ -7,24 +7,14 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
         req.push($.ajax({ url: item, error: function () {alert('error push') } }))
     })
     var callback = function (divnm, xml, xsl) {
-        // code for IE
-        //var xml
-        //if (isIE()) {
-        //    xml = a1[2];
-        //    xsl = a2[2];
-        //} else {
-        //    xml = a1[0];
-        //    xsl = a2[0];
-        //}
-        //if (xmlToString(xml) != '') {
         var clean = stripXML(stripScript(xmlToString(xml)));
         var hiddenText = findScript(xmlToString(xml));
-        //alert(hiddenText);
+        var hiddenMsg = findMsg(xmlToString(xml));
         if (hiddenText.length > 5 || clean.length < 5) {
-            //alert(xml);
             if (hiddenText.length > 5) ExecuteScript(xmlToString(xml), true);
             else top.window.location = '?';
         }
+        else if (hiddenMsg.length > 0) { showMessage(hiddenMsg, 4);}
         else {
             if (isIE()) {
                 var ex = TransformToHtmlText(clean, xsl.responseText)
@@ -232,6 +222,17 @@ function findScript(text) {
     return scripts;
 }
 
+function findMsg(text) {
+    var msg = '';
+    if (text) {
+        var text3 = text.replace(/<message[^>]*>([\s\S]*?)<\/message>/gi, function () {
+            msg += arguments[1] + '\n';
+            msg = msg.replace(/<message>/gi, '');
+            return '';
+        });
+    }
+    return msg;
+}
 
 function ExecuteCSS(text, needRunSript) {
     var scripts = '';

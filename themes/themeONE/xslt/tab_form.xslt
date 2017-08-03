@@ -13,7 +13,7 @@
     <script>
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/scripts/daterangepicker/daterangepicker.js');
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/scripts/select2/select2.full.min.js');
-      
+
       var xmldoc = ""
       var xsldoc = "OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/xslt/" + getPage();
       <xsl:if test="sqroot/body/bodyContent/form/info/GUID!='00000000-0000-0000-0000-000000000000'">
@@ -132,187 +132,182 @@
       </ol>
     </section>
 
-    
-      <!-- START CUSTOM TABS -->
-    <!--<h2 class="page-header">CASH</h2>-->
 
-    <div class="row">
-      <div class="col-md-12">
-        <!-- Custom Tabs -->
-        <div class="nav-tabs-custom">
-          <ul class="nav nav-tabs">
-            <li class="active">
-              <a href="#tab_1" data-toggle="tab">Header</a>
-            </li>
-            <xsl:for-each select="sqroot/body/bodyContent/form/children/child">
-              <li>
-                <a href="#tab_{code}" data-toggle="tab">
-                  <xsl:value-of select="childTitle"/>
-                </a>
+    <!-- START CUSTOM TABS -->
+    <!--<h2 class="page-header">CASH</h2>-->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Custom Tabs -->
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active">
+                <a href="#tab_1" data-toggle="tab">Header</a>
               </li>
-            </xsl:for-each>  
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane active" id="tab_1">
-              <!-- Main content -->
-              <section class="content">
-                <!--<div class="row visible-phone">
+              <xsl:for-each select="sqroot/body/bodyContent/form/children/child">
+                <li>
+                  <a href="#tab_{code}" data-toggle="tab">
+                    <xsl:value-of select="childTitle"/>
+                  </a>
+                </li>
+              </xsl:for-each>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_1">
+                <!-- Main content -->
+                <section class="content">
+                  <!--<div class="row visible-phone">
         <div class="col-md-12">
           <div class="view-title">
             <h3>REQUEST FOR RECRUITMENT (HRRR)</h3>
           </div>
         </div>
       </div>-->
-                <!-- title -->
-                <xsl:apply-templates select="sqroot/body/bodyContent"/>
-                <!-- view header -->
-                <div class="row">
-                  <div class="col-md-12 device-sm visible-sm device-md visible-md device-lg visible-lg" style="margin-bottom:50px;">
-                    <div style="text-align:left">
-                      <xsl:choose>
-                        <xsl:when test="(/sqroot/body/bodyContent/form/info/GUID/.) = '00000000-0000-0000-0000-000000000000'">
-                          <!--location: 0 header; 1 child; 2 browse
-              location: browse:10, header form:20, browse anak:30, browse form:40-->
-
-                          <button id="button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 20);">SAVE</button>&#160;
-                          <button id="button_cancel" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
-                        </xsl:when>
-                        <xsl:when test="($documentstatus) = 0 or ($documentstatus) = ''">
-                          <button id="button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 20);">SAVE</button>&#160;
-                          <button id="button_cancel" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
-                          <xsl:if test="(/sqroot/body/bodyContent/form/info/permission/allowDelete/.)=1">
-                            <button id="button_save" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 'delete', 1, 20);">DELETE</button>&#160;
+                  <!-- title -->
+                  <xsl:apply-templates select="sqroot/body/bodyContent"/>
+                  <!-- view header -->
+                  <div class="row">
+                    <div class="col-md-12 device-sm visible-sm device-md visible-md device-lg visible-lg" style="margin-bottom:50px;">
+                      <div style="text-align:left">
+                        <xsl:choose>
+                          <xsl:when test="(/sqroot/body/bodyContent/form/info/GUID/.) = '00000000-0000-0000-0000-000000000000'">
                             <!--location: 0 header; 1 child; 2 browse
               location: browse:10, header form:20, browse anak:30, browse form:40-->
 
-                          </xsl:if>
-                          <xsl:if test="($settingmode)='T' and ($documentstatus) &lt; 400 ">
-                            <button id="button_submit" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'execute', 1, 20)">SUBMIT</button>
-                          </xsl:if>
-                        </xsl:when>
-                        <xsl:when test="($documentstatus) &gt; 99 and ($documentstatus) &lt; 199">
-                          <button id="button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 20);">SAVE</button>&#160;
-                          <button id="button_cancel" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
-                          <button id="button_approve" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'execute', 1, 20)">APPROVE</button>
-                        </xsl:when>
-                        <xsl:when test="($documentstatus) = 300">
-                          <button id="button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 20);">SAVE</button>&#160;
-                          <button id="button_cancel" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
-                          <button id="button_reject" class="btn btn-orange-a">REJECT</button>&#160;
-                        </xsl:when>
-                        <xsl:when test="($documentstatus) &gt;= 400 and ($documentstatus) &lt;= 499">
-                          <button id="button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 20);">SAVE</button>&#160;
-                          <button id="button_cancel" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
-                          <button id="button_close" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'force', 1, 20)">CLOSE</button>&#160;
-                        </xsl:when>
-                        <xsl:otherwise>
-                          &#160;
-                          <!--<div style="text-align:left">
+                            <button id="button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 20);">SAVE</button>&#160;
+                            <button id="button_cancel" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
+                          </xsl:when>
+                          <xsl:when test="($documentstatus) = 0 or ($documentstatus) = ''">
+                            <button id="button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 20);">SAVE</button>&#160;
+                            <button id="button_cancel" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
+                            <xsl:if test="(/sqroot/body/bodyContent/form/info/permission/allowDelete/.)=1">
+                              <button id="button_save" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 'delete', 1, 20);">DELETE</button>&#160;
+                              <!--location: 0 header; 1 child; 2 browse
+              location: browse:10, header form:20, browse anak:30, browse form:40-->
+
+                            </xsl:if>
+                            <xsl:if test="($settingmode)='T' and ($documentstatus) &lt; 400 ">
+                              <button id="button_submit" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'execute', 1, 20)">SUBMIT</button>
+                            </xsl:if>
+                          </xsl:when>
+                          <xsl:when test="($documentstatus) &gt; 99 and ($documentstatus) &lt; 199">
+                            <button id="button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 20);">SAVE</button>&#160;
+                            <button id="button_cancel" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
+                            <button id="button_approve" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'execute', 1, 20)">APPROVE</button>
+                          </xsl:when>
+                          <xsl:when test="($documentstatus) = 300">
+                            <button id="button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 20);">SAVE</button>&#160;
+                            <button id="button_cancel" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
+                            <button id="button_reject" class="btn btn-orange-a">REJECT</button>&#160;
+                          </xsl:when>
+                          <xsl:when test="($documentstatus) &gt;= 400 and ($documentstatus) &lt;= 499">
+                            <button id="button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 20);">SAVE</button>&#160;
+                            <button id="button_cancel" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
+                            <button id="button_close" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'force', 1, 20)">CLOSE</button>&#160;
+                          </xsl:when>
+                          <xsl:otherwise>
+                            &#160;
+                            <!--<div style="text-align:left">
                 <button id="button_save" class="btn btn-orange-a" onclick="submitfunction('formheader','{sqroot/body/bodyContent/form/info/GUID/.}','{sqroot/body/bodyContent/form/info/code/.}');">SAVE</button>&#160;
                 <button id="button_cancel" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
               </div>-->
-                        </xsl:otherwise>
-                      </xsl:choose>
-                    </div>
+                          </xsl:otherwise>
+                        </xsl:choose>
+                      </div>
 
-                  </div>
-                  <div class="col-md-12 displayblock-phone device-xs visible-xs" style="margin-bottom:20px;">
-                    <div style="text-align:center">
-                      <xsl:choose>
-                        <xsl:when test="(/sqroot/body/bodyContent/form/info/GUID/.) = '00000000-0000-0000-0000-000000000000'">
-                          <button id="button_save2" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 'save', 1, 20);">SAVE</button>&#160;
-                          <button id="button_cancel2" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
-                        </xsl:when>
-                        <xsl:when test="($documentstatus) = 0 or ($documentstatus) = ''">
-                          <button id="button_save2" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 'save', 1, 20);">SAVE</button>&#160;
-                          <button id="button_cancel2" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
-                          <xsl:if test="($settingmode)='T' and ($documentstatus) &lt; 400 ">
-                            <button id="button_submit2" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'execute', 1, 20)">SUBMIT</button>
-                          </xsl:if>
-                        </xsl:when>
-                        <xsl:when test="($documentstatus) &gt; 99 and ($documentstatus) &lt; 199">
-                          <button id="button_save2" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 'save', 1, 20);">SAVE</button>&#160;
-                          <button id="button_cancel2" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
-                          <button id="button_approve2" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'execute', 1, 20)">APPROVE</button>
-                        </xsl:when>
-                        <xsl:when test="($documentstatus) = 300">
-                          <button id="button_save2" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 'save', 1, 20);">SAVE</button>&#160;
-                          <button id="button_cancel2" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
-                          <button id="button_reject2" class="btn btn-orange-a">REJECT</button>&#160;
-                        </xsl:when>
-                        <xsl:when test="($documentstatus) &gt;= 400 and ($documentstatus) &lt;= 499">
-                          <button id="button_save2" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 'save', 1, 20);">SAVE</button>&#160;
-                          <button id="button_cancel2" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
-                          <button id="button_close2" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'force', 1, 20)">CLOSE</button>&#160;
-                        </xsl:when>
-                        <xsl:otherwise>
-                          &#160;
-                          <!--<div style="text-align:left">
+                    </div>
+                    <div class="col-md-12 displayblock-phone device-xs visible-xs" style="margin-bottom:20px;">
+                      <div style="text-align:center">
+                        <xsl:choose>
+                          <xsl:when test="(/sqroot/body/bodyContent/form/info/GUID/.) = '00000000-0000-0000-0000-000000000000'">
+                            <button id="button_save2" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 'save', 1, 20);">SAVE</button>&#160;
+                            <button id="button_cancel2" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
+                          </xsl:when>
+                          <xsl:when test="($documentstatus) = 0 or ($documentstatus) = ''">
+                            <button id="button_save2" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 'save', 1, 20);">SAVE</button>&#160;
+                            <button id="button_cancel2" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
+                            <xsl:if test="($settingmode)='T' and ($documentstatus) &lt; 400 ">
+                              <button id="button_submit2" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'execute', 1, 20)">SUBMIT</button>
+                            </xsl:if>
+                          </xsl:when>
+                          <xsl:when test="($documentstatus) &gt; 99 and ($documentstatus) &lt; 199">
+                            <button id="button_save2" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 'save', 1, 20);">SAVE</button>&#160;
+                            <button id="button_cancel2" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
+                            <button id="button_approve2" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'execute', 1, 20)">APPROVE</button>
+                          </xsl:when>
+                          <xsl:when test="($documentstatus) = 300">
+                            <button id="button_save2" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 'save', 1, 20);">SAVE</button>&#160;
+                            <button id="button_cancel2" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
+                            <button id="button_reject2" class="btn btn-orange-a">REJECT</button>&#160;
+                          </xsl:when>
+                          <xsl:when test="($documentstatus) &gt;= 400 and ($documentstatus) &lt;= 499">
+                            <button id="button_save2" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 'save', 1, 20);">SAVE</button>&#160;
+                            <button id="button_cancel2" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
+                            <button id="button_close2" class="btn btn-orange-a" onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'force', 1, 20)">CLOSE</button>&#160;
+                          </xsl:when>
+                          <xsl:otherwise>
+                            &#160;
+                            <!--<div style="text-align:left">
                 <button id="button_save" class="btn btn-orange-a" onclick="submitfunction('formheader','{sqroot/body/bodyContent/form/info/GUID/.}','{sqroot/body/bodyContent/form/info/code/.}');">SAVE</button>&#160;
                 <button id="button_cancel" class="btn btn-gray-a" onclick="saveCancel()">CANCEL</button>&#160;
               </div>-->
-                        </xsl:otherwise>
-                      </xsl:choose>
+                          </xsl:otherwise>
+                        </xsl:choose>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <!-- button view header -->
-                
-                
-              </section>
-              <!-- /.content -->
-              
-            </div>
-            <!-- /.tab-pane -->
+                  <!-- button view header -->
 
-            <xsl:for-each select="sqroot/body/bodyContent/form/children/child">
-              <div class="tab-pane" id="tab_{code}">
-                <xsl:if test="/sqroot/body/bodyContent/form/info/GUID !='00000000-0000-0000-0000-000000000000'">
-                  <xsl:apply-templates select="."/>
-                    
-                </xsl:if>
-                <!--<xsl:value-of select="code"/>-->
+
+                </section>
+                <!-- /.content -->
+
               </div>
-            </xsl:for-each> 
+              <!-- /.tab-pane -->
 
+              <xsl:for-each select="sqroot/body/bodyContent/form/children/child">
+                <div class="tab-pane" id="tab_{code}">
+                  <xsl:if test="/sqroot/body/bodyContent/form/info/GUID !='00000000-0000-0000-0000-000000000000'">
+                    <xsl:apply-templates select="."/>
+
+                  </xsl:if>
+                  <!--<xsl:value-of select="code"/>-->
+                </div>
+              </xsl:for-each>
+
+            </div>
+            <!-- /.tab-content -->
           </div>
-          <!-- /.tab-content -->
+          <!-- nav-tabs-custom -->
         </div>
-        <!-- nav-tabs-custom -->
-      </div>
-      <!-- /.col -->
+        <!-- /.col -->
 
-    </div>
+      </div>
+    </section>
     <!-- /.row -->
     <!-- END CUSTOM TABS -->
   </xsl:template>
+
+
   <xsl:template match="sqroot/body/bodyContent">
-    <div class="col-md-12">
-      <xsl:apply-templates select="form"/>
-    </div>
+    <xsl:apply-templates select="form"/>
   </xsl:template>
+
   <xsl:template match="form">
     <script>
       var code = "<xsl:value-of select="info/code/."/>";
       var tblnm =code+"requiredname";
     </script>
 
-
-    <!--<div class="row collapse in" id="header" >-->
-    <!--<div class="col-md-12">-->
     <form role="form" id="formheader" enctype="multipart/form-data">
       <input type="hidden" id="cid" name="cid" value="{/sqroot/body/bodyContent/form/info/GUID/.}" />
       <input type="hidden" name ="{info/code/.}requiredname"/>
       <input type="hidden" name ="{info/code/.}requiredtblvalue"/>
 
-      <!--<input type="hidden" name="mode" value="save"/>
-      <input type="hidden" name="code" value="{info/code/.}"/>-->
-
       <xsl:apply-templates select="formPages/formPage[@pageNo&lt;9]"/>
     </form>
-    <!--</div>-->
-    <!--</div>-->
   </xsl:template>
+
   <xsl:template match="formPages/formPage[@pageNo&lt;9]">
     <xsl:apply-templates select="formSections"/>
   </xsl:template>
@@ -320,39 +315,48 @@
   <xsl:template match="formSections">
     <xsl:apply-templates select="formSection"/>
   </xsl:template>
+
   <xsl:template match="formSection ">
-    <xsl:choose>
-      <xsl:when test="@rowTitle/.!=''">
-        <div class="col-md-12" data-toggle="collapse" data-target="#section_{@sectionNo}">
-          <h3>
-            <xsl:value-of select="@rowTitle/."/>&#160;
-          </h3>
-        </div>
-      </xsl:when>
-    </xsl:choose>
-    <div class="col-md-12 collapse in" id="section_{@sectionNo}">
-      <xsl:apply-templates select="formCols"/>
-    </div>
+    <xsl:if test="@rowTitle/.!=''">
+      <div class="col-md-12" data-toggle="collapse" data-target="#section_{@sectionNo}">
+        <h3>
+          <xsl:value-of select="@rowTitle/."/>&#160;
+        </h3>
+      </div>
+    </xsl:if>
+    <xsl:if test="formCols/formCol/formRows">
+      <div class="col-md-12 collapse in" id="section_{@sectionNo}">
+        <xsl:apply-templates select="formCols"/>
+      </div>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="formCols">
-
     <xsl:apply-templates select="formCol"/>
   </xsl:template>
 
   <xsl:template match="formCol">
-    <div class="col-md-6">
-      <xsl:if test="@colNo='1'">
-        <xsl:apply-templates select="formRows"/>
-      </xsl:if>
-      <xsl:if test="@colNo='2'">
-        <xsl:apply-templates select="formRows"/>
-      </xsl:if>
-    </div>
+    <xsl:choose>
+      <xsl:when test="@colNo='0'">
+        <div class="col-md-12">
+          <xsl:apply-templates select="formRows"/>
+        </div>
+      </xsl:when>
+      <xsl:otherwise>
+        <div class="col-md-6">
+          <xsl:if test="@colNo='1'">
+            <xsl:apply-templates select="formRows"/>
+          </xsl:if>
+          <xsl:if test="@colNo='2'">
+            <xsl:apply-templates select="formRows"/>
+          </xsl:if>
+        </div>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="formRows">
-    <div class="box">
+    <div class="box box-solid box-default">
       <div class="box-body">
         <xsl:apply-templates select="formRow"/>
       </div>
@@ -363,14 +367,12 @@
     <xsl:apply-templates select="fields"/>
 
   </xsl:template>
+
   <xsl:template match="fields">
-
     <xsl:apply-templates select="field"/>
-
   </xsl:template>
 
   <xsl:template match="field">
-
     <xsl:if test="@isNullable=0">
       <script>
         document.getElementsByName(tblnm)[0].value = document.getElementsByName(tblnm)[0].value + ', <xsl:value-of select="@fieldName"/>'
@@ -392,9 +394,9 @@
       </xsl:when>
     </xsl:choose>
 
-
     <div class="form-group {$fieldEnabled}-input">
       <xsl:apply-templates select="textBox"/>
+      <xsl:apply-templates select="textEditor"/>
       <xsl:apply-templates select="dateBox"/>
       <xsl:apply-templates select="dateTimeBox"/>
       <xsl:apply-templates select="timeBox"/>
@@ -405,8 +407,8 @@
       <xsl:apply-templates select="tokenBox"/>
       <xsl:apply-templates select="radio"/>
     </div>
-
   </xsl:template>
+
 
   <xsl:template match="checkBox">
     <!--Supaya bisa di serialize-->
@@ -436,6 +438,41 @@
 
   </xsl:template>
 
+  <xsl:template match="textEditor">
+    <label id="{../@fieldName}caption" data-toggle="collapse" data-target="#section_{@sectionNo}">
+      <xsl:value-of select="titlecaption"/>
+    </label>
+    <xsl:if test="../@isNullable = 0">
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
+    </xsl:if>
+
+    <textarea id ="{../@fieldName}" name ="{../@fieldName}" class="form-control">
+      <xsl:choose>
+        <xsl:when test="value != ''">
+          <xsl:value-of select="value"/>
+        </xsl:when>
+        <xsl:otherwise>&#160;</xsl:otherwise>
+      </xsl:choose>
+    </textarea>
+
+    <script type="text/javascript">
+      CKEDITOR.replace('<xsl:value-of select="../@fieldName"/>');
+      CKEDITOR.instances['<xsl:value-of select="../@fieldName"/>'].on('blur', function() {
+      var teOldData = $('#<xsl:value-of select="../@fieldName"/>').html();
+      var teData = CKEDITOR.instances['<xsl:value-of select="../@fieldName"/>'].getData();
+      teData = teData.trim();
+      $('#<xsl:value-of select="../@fieldName"/>').html(teData);
+      if (teOldData != teData) {
+      $('#button_save').show();
+      $('#button_cancel').show();
+      $('#button_save2').show();
+      $('#button_cancel2').show();
+      }
+      preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);
+      });
+    </script>
+  </xsl:template>
+
   <xsl:template match="textBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
@@ -443,6 +480,7 @@
     <xsl:if test="../@isNullable = 0">
       <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
+
 
     <!--digit-->
     <xsl:variable name="tbContent">
@@ -509,6 +547,7 @@
       </input>
     </div>
   </xsl:template>
+
   <xsl:template match="dateTimeBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
@@ -525,6 +564,7 @@
       </input>
     </div>
   </xsl:template>
+
   <xsl:template match="passwordBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
@@ -568,14 +608,15 @@
     </div>
   </xsl:template>
 
-
   <xsl:template match="autoSuggestBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
+
     <xsl:if test="../@isNullable = 0">
       <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
+
     <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}"
             data-type="selectBox" data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}"
       onchange="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" >
@@ -591,21 +632,15 @@
       <!--$("#<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/><xsl:value-of select="../@fieldName"/>").select2({-->
       $("#<xsl:value-of select="../@fieldName"/>").select2({
       ajax: {
-
-      url:"OPHCORe/api/msg_autosuggest.aspx",
+      url:"OPHCORE/api/msg_autosuggest.aspx",
       data: function (params) {
       var query = {
+      code:"<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>",
+      colkey:"<xsl:value-of select="../@fieldName"/>",
       search: params.term,
-      page: params.page,
-      code:"<xsl:value-of select="code"/>",
-      id:"<xsl:value-of select="id"/>",
-      name:"<xsl:value-of select="name"/>",
-      key:"<xsl:value-of select='key'/>",
-      wf1: "<xsl:value-of select='whereFields/wf1'/>",
       wf1value: ($("#<xsl:value-of select='whereFields/wf1'/>").val() === undefined ? "" : $("#<xsl:value-of select='whereFields/wf1'/>").val()),
-      wf2: "<xsl:value-of select='whereFields/wf2'/>",
-      wf2value: ($("#<xsl:value-of select='whereFields/wf2'/>").val() === undefined ? "" : $("#<xsl:value-of select='whereFields/wf2'/>").val())
-
+      wf2value: ($("#<xsl:value-of select='whereFields/wf2'/>").val() === undefined ? "" : $("#<xsl:value-of select='whereFields/wf2'/>").val()),
+      page: params.page
       }
 
       return query;
@@ -615,29 +650,29 @@
       });
       <xsl:if test="value!=''">
         deferreds.push(
-        autosuggestSetValue('<xsl:value-of select="../@fieldName"/>',"<xsl:value-of select="code"/>","<xsl:value-of select="id"/>","<xsl:value-of select="name"/>","<xsl:value-of select='key'/>","<xsl:value-of select='value'/>")
+        autosuggestSetValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', '<xsl:value-of select='value'/>', '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
         );
       </xsl:if>
     </script>
   </xsl:template>
+
   <xsl:template match="tokenBox">
     <script type="text/javascript">
-
-      var sURL<xsl:value-of select="key"/>='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="code/."/>&amp;key=<xsl:value-of select="key"/>&amp;id=<xsl:value-of select="id"/>&amp;name=<xsl:value-of select="name"/>'
-      var noPrepopulate<xsl:value-of select="key"/>=1;
+      var sURL<xsl:value-of select="../@fieldName"/>='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>&amp;colkey=<xsl:value-of select="../@fieldName"/>'
+      var noPrepopulate<xsl:value-of select="../@fieldName"/>=1;
       <xsl:if test="value">
-        noPrepopulate<xsl:value-of select="key"/>=0;
+        noPrepopulate<xsl:value-of select="../@fieldName"/>=0;
       </xsl:if>
-      var cURL<xsl:value-of select="key"/>='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="code/."/>&amp;key=<xsl:value-of select="key"/>&amp;id=<xsl:value-of select="id"/>&amp;name=<xsl:value-of select="name"/>&amp;search=<xsl:value-of select="value"/>'
+      var cURL<xsl:value-of select="../@fieldName"/>='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>&amp;colkey=<xsl:value-of select="../@fieldName"/>&amp;search=<xsl:value-of select="value"/>'
 
       $(document).ready(function(){
       $.ajax({
-      url: cURL<xsl:value-of select="key"/>,
+      url: cURL<xsl:value-of select="../@fieldName"/>,
       dataType: 'json',
       success: function(data){
-      if (noPrepopulate<xsl:value-of select="key"/>==1) data='';
+      if (noPrepopulate<xsl:value-of select="../@fieldName"/>==1) data='';
       $("#<xsl:value-of select="../@fieldName"/>").tokenInput(
-      sURL<xsl:value-of select="key"/>,
+      sURL<xsl:value-of select="../@fieldName"/>,
       {
       hintText: "please type...",
       searchingText: "Searching...",
@@ -665,6 +700,7 @@
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
+
     <xsl:if test="../@isNullable = 0">
       <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
@@ -686,9 +722,7 @@
       </xsl:choose>
     </xsl:variable>
 
-
-    <input type="text" class="form-control" Value="{$thisvalue}" data-type="tokenBox" data-old="{$thisvalue}" data-newJSON=""
-           data-code="{code/.}"
+    <input type="text" class="form-control" Value="{$thisvalue}" data-type="tokenBox" data-old="{$thisvalue}" data-newJSON="" data-code="{code/.}"
       data-key="{key}" data-id="{id}" data-name="{name}"
       name="{../@fieldName}" id ="{../@fieldName}">
 
@@ -697,6 +731,7 @@
       </xsl:if>
     </input>
   </xsl:template>
+
   <xsl:template match="mediaBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
@@ -769,6 +804,7 @@
       </div>
     </xsl:if>
   </xsl:template>
+
   <xsl:template match="radioSections/radioSection">
 
     <xsl:variable name="pandis" select="count(radioRows)"/>
@@ -825,39 +861,38 @@
     <xsl:apply-templates select="field" />
   </xsl:template>
 
- 
   <xsl:template match="sqroot/body/bodyContent/form/children">
-    
-      <xsl:apply-templates select="child"/>
-    
+
+    <xsl:apply-templates select="child"/>
+
   </xsl:template>
 
-    
-    <xsl:template match="child">
-      <xsl:if test="info/permission/allowBrowse='1'">
-        <input type="hidden" id="PKID" value="child{code/.}"/>
-        <input type="hidden" id="filter{code/.}" value="{parentkey/.}='{/sqroot/body/bodyContent/form/info/GUID/.}'"/>
-        <input type="hidden" id="parent{code/.}" value="{parentkey/.}"/>
-        <input type="hidden" id="PKName" value="{parentkey/.}"/>
 
-        <script>
+  <xsl:template match="child">
+    <xsl:if test="info/permission/allowBrowse='1'">
+      <input type="hidden" id="PKID" value="child{code/.}"/>
+      <input type="hidden" id="filter{code/.}" value="{parentkey/.}='{/sqroot/body/bodyContent/form/info/GUID/.}'"/>
+      <input type="hidden" id="parent{code/.}" value="{parentkey/.}"/>
+      <input type="hidden" id="PKName" value="{parentkey/.}"/>
 
-          //xmldoc = "OPHCORE/api/default.aspx?code=<xsl:value-of select ="code/."/>&amp;mode=browse&amp;sqlFilter=<xsl:value-of select ="parentkey/."/>='<xsl:value-of select ="/sqroot/body/bodyContent/form/info/GUID/."/>'"
-          //showXML('child<xsl:value-of select ="code/."/>', xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () {});
+      <script>
 
-          var code='<xsl:value-of select ="code/."/>';
-          var parentKey='<xsl:value-of select ="parentkey/."/>';
-          var GUID='<xsl:value-of select ="/sqroot/body/bodyContent/form/info/GUID/."/>';
+        //xmldoc = "OPHCORE/api/default.aspx?code=<xsl:value-of select ="code/."/>&amp;mode=browse&amp;sqlFilter=<xsl:value-of select ="parentkey/."/>='<xsl:value-of select ="/sqroot/body/bodyContent/form/info/GUID/."/>'"
+        //showXML('child<xsl:value-of select ="code/."/>', xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () {});
 
-          loadChild(code, parentKey, GUID);
-        </script>
+        var code='<xsl:value-of select ="code/."/>';
+        var parentKey='<xsl:value-of select ="parentkey/."/>';
+        var GUID='<xsl:value-of select ="/sqroot/body/bodyContent/form/info/GUID/."/>';
+
+        loadChild(code, parentKey, GUID);
+      </script>
 
 
-        <div class="box box-warning visible-phone" style="box-shadow:0px;border:none" id="child{code/.}{/sqroot/body/bodyContent/form/info/GUID/.}">
-          &#160;
-        </div>
-        
-      </xsl:if>
-    </xsl:template>
+      <div class="box box-solid box-default visible-phone" style="box-shadow:0px;border:none" id="child{code/.}{/sqroot/body/bodyContent/form/info/GUID/.}">
+        &#160;
+      </div>
+
+    </xsl:if>
+  </xsl:template>
 
 </xsl:stylesheet>

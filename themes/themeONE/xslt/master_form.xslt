@@ -851,7 +851,7 @@
         loadChild(code, parentKey, GUID);
       </script>
 
-      <div class="box box-warning visible-phone" style="box-shadow:0px;border:none" id="child{code/.}{/sqroot/body/bodyContent/form/info/GUID/.}">
+      <div class="box box-solid box-default visible-phone" style="box-shadow:0px;border:none" id="child{code/.}{/sqroot/body/bodyContent/form/info/GUID/.}">
         &#160;
       </div>
     </xsl:if>

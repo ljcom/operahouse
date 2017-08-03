@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl"
->
+    xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl">
   <xsl:template match="/">
     <script>
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/js/plugins.min.js');
@@ -9,6 +8,8 @@
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/js/app.min.js');
 
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/js/home-generic-6.js');
+      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/custom-me.js');
+      
     </script>
     <div id="ms-preload" class="ms-preload">
       <div id="status">
@@ -251,132 +252,44 @@
         <!-- container -->
       </nav>
       <!--this is slider-->
-      <div class="ms-hero-page-override ms-hero-img-city ms-hero-bg-primary no-pb overflow-hidden ms-bg-fixed">
+      <div class="ms-hero-page-override ms-hero-img-airplane ms-bg-fixed ms-hero-bg-dark-light">
         <div class="container">
-          <div class="text-center color-white">
-            <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">
-              <span>Operahouse</span> Systems
-            </h1>
-            <p class="lead lead-lg color-white text-center center-block mt-2 mw-800 text-uppercase fw-300 animated fadeInUp animation-delay-7">
-              Discover our projects and the
-              <span class="color-warning">rigorous process</span> of creation. Our principles are creativity, design, experience and knowledge.
-              
+          <div class="text-center">
+            <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">Register</h1>
+            <p class="lead lead-lg color-light text-center center-block mt-2 mw-800 text-uppercase fw-300 animated fadeInUp animation-delay-7">
+              Do not wait more register now! Access our great community and benefit from
+              <span class="color-info">exclusive membership</span> conditions.
             </p>
-            <a href="javascript:void(0)" class="btn btn-raised btn-lg btn-warning animated flipInX animation-delay-24">
-              <i class="zmdi zmdi-coffee"></i> Start Now - Its Free
-            </a>
-            <div class="img-browser-container mt-6">
-              <img src="OPHContent/themes/{/sqroot/header/info/themeFolder}/assets/img/demo/safariBig1.png" alt="" class="img-responsive center-block index-1 img-browser animated slideInUp"/>
-            </div>
           </div>
         </div>
       </div>
-      <!--this is banner-->
-      <div class="container mt-6">
-        <div class="text-center mw-800 center-block mb-4">
-          <h2 class="color-primary wow fadeInDown animation-delay-4">We know what you need</h2>
-          <p class="lead wow fadeInDown animation-delay-4">Discover our projects and the rigorous process of creation. Our principles are creativity, design, experience and knowledge. We are backed by 20 years of research.</p>
-        </div>
-        <div class="row">
-          <div class="col-md-3">
-            <div class="card card-royal wow zoomInUp animation-delay-5">
-              <div class="bg-royal">
-                <img src="assets/img/demo/m1.png" alt="..." class="img-avatar-circle"/> </div>
-              <div class="card-block pt-4 text-center">
-                <h4 class="color-royal">A Feature Title</h4>
-                <p>Eaque repellendus nemo deserunt qui sequi laborum officiis assumenda caecati.</p>
-                <a href="javascript:void(0)" class="btn btn-royal">
-                  <i class="zmdi zmdi-star"></i> Action here
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card card-danger wow zoomInUp animation-delay-6">
-              <div class="bg-danger">
-                <img src="assets/img/demo/m2.png" alt="..." class="img-avatar-circle"/> </div>
-              <div class="card-block pt-4 text-center">
-                <h4 class="color-danger">A Feature Title</h4>
-                <p>Eaque repellendus nemo deserunt qui sequi laborum officiis assumenda caecati.</p>
-                <a href="javascript:void(0)" class="btn btn-danger">
-                  <i class="zmdi zmdi-star"></i> Action here
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card card-warning wow zoomInUp animation-delay-7">
-              <div class="bg-warning">
-                <img src="assets/img/demo/m3.png" alt="..." class="img-avatar-circle"/> </div>
-              <div class="card-block pt-4 text-center">
-                <h4 class="color-warning">A Feature Title</h4>
-                <p>Eaque repellendus nemo deserunt qui sequi laborum officiis assumenda caecati.</p>
-                <a href="javascript:void(0)" class="btn btn-warning">
-                  <i class="zmdi zmdi-star"></i> Action here
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card card-success wow zoomInUp animation-delay-8">
-              <div class="bg-success">
-                <img src="assets/img/demo/m4.png" alt="..." class="img-avatar-circle"/> </div>
-              <div class="card-block pt-4 text-center">
-                <h4 class="color-success">A Feature Title</h4>
-                <p>Eaque repellendus nemo deserunt qui sequi laborum officiis assumenda caecati.</p>
-                <a href="javascript:void(0)" class="btn btn-success">
-                  <i class="zmdi zmdi-star"></i> Action here
-                </a>
-              </div>
-            </div>
+      <!--this is Content-->
+      <div class="container">
+        <div class="card card-primary card-hero animated fadeInUp animation-delay-7">
+          <div class="card-block" id="register_form">
+            <script>
+              LoadNewPartView('register_form', 'register_form', 'register', '00000000-0000-0000-0000-000000000000');
+              
+            </script>
+            <form class="form-horizontal">
+              <fieldset>
+                <div class="form-group">
+                  <label for="inputUser" class="col-md-2 control-label">Username</label>
+                  <div class="col-md-9">
+                    <input type="text" class="form-control" id="inputUser" placeholder="Username" /> 
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4 col-md-offset-8">
+                    <button class="btn btn-raised btn-primary btn-block mt-4">Register Now</button>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
           </div>
         </div>
       </div>
-      <!--this is amazing feature-->
-      <section class="wrap ms-hero-page ms-hero-img-coffee ms-hero-bg-info ms-bg-fixed color-white mt-6">
-        <div class="container">
-          <h2 class="text-center fw-500 mb-6 wow fadeInDown animation-delay-2">Amazing Features</h2>
-          <div class="row">
-            <div class="col-sm-6 col-md-3 wow fadeIn animation-delay-2">
-              <div class="text-center">
-                <div class="circle" id="circles-1"></div>
-                <h4 class="text-center">HTML 5</h4>
-                <p class="small-font">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-3 wow fadeIn animation-delay-3">
-              <div class="text-center">
-                <div class="circle" id="circles-2"></div>
-                <h4 class="text-center">CSS 3</h4>
-                <p class="small-font">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-3 wow fadeIn animation-delay-4">
-              <div class="text-center">
-                <div class="circle" id="circles-3"></div>
-                <h4 class="text-center">Jquery</h4>
-                <p class="small-font">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-3 wow fadeIn animation-delay-5">
-              <div class="text-center">
-                <div class="circle" id="circles-4"></div>
-                <h4 class="text-center">Bootstrap 3</h4>
-                <p class="small-font">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
-              </div>
-            </div>
-          </div>
-          <div class="text-center mt-6">
-            <a href="javascript:void(0)" class="btn btn-raised btn-lg btn-white color-primary animated flipInX animation-delay-4">
-              <i class="zmdi zmdi-info"></i> Know More
-            </a>
-            <a href="javascript:void(0)" class="btn btn-raised btn-lg btn-info animated flipInX animation-delay-6">
-              <i class="zmdi zmdi-email"></i> Contact US
-            </a>
-          </div>
-        </div>
-      </section>
-
+      
       <!--this is footer-->
       <footer class="ms-footer">
         <div class="container">

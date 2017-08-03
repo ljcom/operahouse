@@ -226,7 +226,7 @@
   </xsl:template>
 
   <xsl:template match="formSection ">
-    <div class="box" style="box-shadow:0px;border:none;">
+    <div class="box box-solid box-default" style="box-shadow:0px;border:none;">
       <div class="col-md-12">
         <xsl:apply-templates select="formCols"/>
       </div>
@@ -802,7 +802,7 @@
           </h3>
         </div>
       </div-->
-    <div class="box visible-phone" style="box-shadow:0px;border:none;" id="child{code/.}{/sqroot/body/bodyContent/form/info/GUID/.}">
+    <div class="box box-solid box-default visible-phone" style="box-shadow:0px;border:none;" id="child{code/.}{/sqroot/body/bodyContent/form/info/GUID/.}">
       &#160;
     </div>
     <!--/div-->

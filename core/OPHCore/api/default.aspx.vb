@@ -46,12 +46,12 @@ Partial Class OPHCore_API_default
                 Dim searchText = getQueryVar("bSearchText")
 
                 If sortOrder = "" Or sortOrder = "," Then sortOrder = ""
-                If stateid = "" Or stateid = "" Or stateid = "," Then
+                If stateid = "" Or stateid = "" Or stateid = "," Or stateid = "null" Then
                     sqlstr = "select c.StateID from modl a inner join msta b on a.ModuleStatusGUID=b.ModuleStatusGUID inner join mstastat c on b.ModuleStatusGUID=c.ModuleStatusGUID and c.isDefault=1 where moduleid='" & code & "'"
                     stateid = runSQLwithResult(sqlstr, curODBC)
-
                 End If
-                If searchText = "" Or searchText = "search" Then searchText = ""
+
+                If searchText = "null" Or searchText = "search" Then searchText = ""
                 If bpage = "" Then bpage = 1
 
                 Dim rpp = 20 'IIf(code.Length() > 6 And String.IsNullOrWhiteSpace(sqlfilter) = False, 10, 20)
@@ -62,20 +62,9 @@ Partial Class OPHCore_API_default
                 End If
                 sqlstr = "exec [api].[theme_browse] '" & curHostGUID & "', '" & code & "', '" & sqlfilter.Replace("'", "''") & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", " & rpp & ", '" & sortOrder & "', '" & stateid & "'"
 
-                isSingle = False
-                xmlstr = getXML(sqlstr, curODBC)
-                If xmlstr <> "" Then
-                    xmlstr1 = xmlstr.Substring(1, 6)
-                Else
-                    writeLog("browse : " & sqlstr)
-                    'Stop
-                End If
-                '"You dont have authority!!!"
-                If xmlstr1 <> "sqroot" Then
-                    xmlstr = runSQLwithResult(sqlstr, curODBC)
-                    xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
-                    isSingle = False
-                End If
+                'isSingle = False
+                'xmlstr = getXML(sqlstr, curODBC)
+
             Case "view", "form"
                 sqlstr = "exec [api].[theme_form] '" & curHostGUID & "', '" & code & "', " & GUID '& ", " & editMode
             Case "talk"
@@ -322,6 +311,12 @@ Partial Class OPHCore_API_default
         End Select
         If isSingle Then xmlstr = getXML(sqlstr, curODBC)
 
+        If xmlstr <> "" Then
+            xmlstr1 = xmlstr.Substring(1, 6)
+        End If
+        If xmlstr1 <> "sqroot" Then
+            isSingle = False
+        End If
         If Not noxml Then
             'If Len(xmlstr) > 50 Then
             If xmlstr <> "" Then

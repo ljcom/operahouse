@@ -139,6 +139,21 @@
                     <binding protocol="http" bindingInformation="*:50370:localhost" />
                 </bindings>
             </site>
+	    <site name="SUNTERJAYARW08" id="11">
+                <application path="/" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="D:\vsonline\OPERAHOUSE\core" />
+
+                </application>
+                <application path="/OPHContent/themes" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="D:\vsonline\OPERAHOUSE\themes" />
+                </application>
+                <application path="/OPHContent/documents" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="d:\vsonline\operahouse\documents" />
+                </application>
+                <bindings>
+                    <binding protocol="http" bindingInformation="*:50371:localhost" />
+                </bindings>
+            </site>
 			
             <siteDefaults>
                 <logFile logFormat="W3C" directory="%IIS_USER_HOME%\Logs" />
