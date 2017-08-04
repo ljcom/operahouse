@@ -9,9 +9,6 @@
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/js/app.min.js');
 
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/js/home-generic-6.js');
-
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/custom-me.js');
-      loadContent(1);
     </script>
     <div id="ms-preload" class="ms-preload">
       <div id="status">
@@ -70,7 +67,8 @@
                             <i class="zmdi zmdi-account"></i>
                           </span>
                           <label class="control-label" for="ms-form-user">Username</label>
-                          <input type="text" id="ms-form-user" class="form-control" /> </div>
+                          <input type="text" id="ms-form-user" class="form-control" />
+                        </div>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -78,14 +76,16 @@
                             <i class="zmdi zmdi-lock"></i>
                           </span>
                           <label class="control-label" for="ms-form-pass">Password</label>
-                          <input type="password" id="ms-form-pass" class="form-control" /> </div>
+                          <input type="password" id="ms-form-pass" class="form-control" />
+                        </div>
                       </div>
                       <div class="row mt-2">
                         <div class="col-md-6">
                           <div class="form-group no-mt">
                             <div class="checkbox">
                               <label>
-                                <input type="checkbox" /> Remember Me </label>
+                                <input type="checkbox" /> Remember Me
+                              </label>
                             </div>
                           </div>
                         </div>
@@ -117,7 +117,8 @@
                             <i class="zmdi zmdi-account"></i>
                           </span>
                           <label class="control-label" for="ms-form-user">Username</label>
-                          <input type="text" id="ms-form-user"  class="form-control" /> </div>
+                          <input type="text" id="ms-form-user"  class="form-control" />
+                        </div>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -125,7 +126,8 @@
                             <i class="zmdi zmdi-email"></i>
                           </span>
                           <label class="control-label" for="ms-form-email">Email</label>
-                          <input type="email" id="ms-form-email"  class="form-control" /> </div>
+                          <input type="email" id="ms-form-email"  class="form-control" />
+                        </div>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -133,7 +135,8 @@
                             <i class="zmdi zmdi-lock"></i>
                           </span>
                           <label class="control-label" for="ms-form-pass">Password</label>
-                          <input type="password" id="ms-form-pass"  class="form-control" /> </div>
+                          <input type="password" id="ms-form-pass"  class="form-control" />
+                        </div>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -141,7 +144,8 @@
                             <i class="zmdi zmdi-lock"></i>
                           </span>
                           <label class="control-label" for="ms-form-pass">Re-type Password</label>
-                          <input type="password" id="ms-form-pass"  class="form-control" /> </div>
+                          <input type="password" id="ms-form-pass"  class="form-control" />
+                        </div>
                       </div>
                       <button class="btn btn-raised btn-block btn-primary">Register Now</button>
                     </fieldset>
@@ -149,25 +153,27 @@
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="ms-recovery-tab">
                   <form>
-                  <fieldset>
-                    <div class="form-group label-floating">
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="zmdi zmdi-account"></i>
-                        </span>
-                        <label class="control-label" for="ms-form-user">Username</label>
-                        <input type="text" id="ms-form-user"  class="form-control" /> </div>
-                    </div>
-                    <div class="form-group label-floating">
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="zmdi zmdi-email"></i>
-                        </span>
-                        <label class="control-label" for="ms-form-email">Email</label>
-                        <input type="email" id="ms-form-email"  class="form-control" /> </div>
-                    </div>
-                    <button class="btn btn-raised btn-block btn-primary">Send Password</button>
-                  </fieldset>
+                    <fieldset>
+                      <div class="form-group label-floating">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="zmdi zmdi-account"></i>
+                          </span>
+                          <label class="control-label" for="ms-form-user">Username</label>
+                          <input type="text" id="ms-form-user"  class="form-control" />
+                        </div>
+                      </div>
+                      <div class="form-group label-floating">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="zmdi zmdi-email"></i>
+                          </span>
+                          <label class="control-label" for="ms-form-email">Email</label>
+                          <input type="email" id="ms-form-email"  class="form-control" />
+                        </div>
+                      </div>
+                      <button class="btn btn-raised btn-block btn-primary">Send Password</button>
+                    </fieldset>
                   </form>
                 </div>
               </div>
@@ -231,7 +237,7 @@
         <div class="container container-full">
           <div class="navbar-header">
             <a class="navbar-brand" href="index.html">
-               <img src="OPHContent/themes/{/sqroot/header/info/themeFolder}/assets/img/logo.png" style="width:30px" alt=""/> 
+              <img src="OPHContent/themes/{/sqroot/header/info/themeFolder}/assets/img/logo.png" style="width:30px" alt=""/>
               <!--<span class="ms-logo ms-logo-sm" style="font-size:12px;">MX4</span>-->
               <span class="ms-title">
                 <strong>Operahouse</strong>
@@ -242,7 +248,7 @@
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <xsl:apply-templates select="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu" />
-              
+
               <!-- <li class="btn-navbar-menu"><a href="javascript:void(0)" class="sb-toggle-left"><i class="zmdi zmdi-menu"></i></a></li> -->
             </ul>
           </div>
@@ -253,13 +259,29 @@
         </div>
         <!-- container -->
       </nav>
+      <!--this is slider-->
+      <div class="ms-hero-page-override ms-hero-img-city ms-hero-bg-primary no-pb overflow-hidden ms-bg-fixed">
+        <div class="container">
+          <div class="text-center color-white">
+            <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">
+              <span>Operahouse</span> Systems
+            </h1>
+            <p class="lead lead-lg color-white text-center center-block mt-2 mw-800  fw-300 animated fadeInUp animation-delay-7">
+              Discover our projects and the rigorous process of creation. Our principles are creativity, design, experience and knowledge.
 
-      <div id="contentWrapper">
-        
-        
+            </p>
+            <a href="javascript:void(0)" class="btn btn-raised btn-lg btn-warning animated flipInX animation-delay-20">
+              Start Now - Its Free
+            </a>
+            <div class="img-browser-container mt-6">
+              <img src="OPHContent/themes/{/sqroot/header/info/themeFolder}/assets/img/demo/safariBig1.png" alt="" class="img-responsive center-block index-1 img-browser animated slideInUp"/>
+            </div>
+          </div>
+        </div>
       </div>
+
       <!--this is content One-->
-      <!--<div class="container mt-6">
+      <div class="container mt-6">
         <div class="text-center">
           <h2 class="color-primary">
             Knows the
@@ -268,6 +290,7 @@
           <p class="lead">Put here a short description or brief highlights in your app.</p>
         </div>
         <div class="panel-body">
+          <!-- Tab panes -->
           <div class="tab-content mt-4">
             <div class="row">
               <div class="col-md-6 col-lg-5 col-md-push-6 col-lg-push-7">
@@ -292,9 +315,9 @@
             </div>
           </div>
         </div>
-      </div>-->
+      </div>
       <!--this is banner-->
-      <!--<div class="container mt-6">
+      <div class="container mt-6">
         <div class="text-center mw-800 center-block mb-4">
           <h2 class="color-primary wow fadeInDown animation-delay-4">We know what you need</h2>
           <p class="lead wow fadeInDown animation-delay-4">Discover our projects and the rigorous process of creation. Our principles are creativity, design, experience and knowledge. We are backed by 20 years of research.</p>
@@ -303,7 +326,8 @@
           <div class="col-md-3">
             <div class="card card-royal wow zoomInUp animation-delay-5">
               <div class="bg-royal">
-                <img src="assets/img/demo/m1.png" alt="..." class="img-avatar-circle"/> </div>
+                <img src="assets/img/demo/m1.png" alt="..." class="img-avatar-circle"/>
+              </div>
               <div class="card-block pt-4 text-center">
                 <h4 class="color-royal">A Feature Title</h4>
                 <p>Eaque repellendus nemo deserunt qui sequi laborum officiis assumenda caecati.</p>
@@ -316,7 +340,8 @@
           <div class="col-md-3">
             <div class="card card-danger wow zoomInUp animation-delay-6">
               <div class="bg-danger">
-                <img src="assets/img/demo/m2.png" alt="..." class="img-avatar-circle"/> </div>
+                <img src="assets/img/demo/m2.png" alt="..." class="img-avatar-circle"/>
+              </div>
               <div class="card-block pt-4 text-center">
                 <h4 class="color-danger">A Feature Title</h4>
                 <p>Eaque repellendus nemo deserunt qui sequi laborum officiis assumenda caecati.</p>
@@ -329,7 +354,8 @@
           <div class="col-md-3">
             <div class="card card-warning wow zoomInUp animation-delay-7">
               <div class="bg-warning">
-                <img src="assets/img/demo/m3.png" alt="..." class="img-avatar-circle"/> </div>
+                <img src="assets/img/demo/m3.png" alt="..." class="img-avatar-circle"/>
+              </div>
               <div class="card-block pt-4 text-center">
                 <h4 class="color-warning">A Feature Title</h4>
                 <p>Eaque repellendus nemo deserunt qui sequi laborum officiis assumenda caecati.</p>
@@ -342,7 +368,8 @@
           <div class="col-md-3">
             <div class="card card-success wow zoomInUp animation-delay-8">
               <div class="bg-success">
-                <img src="assets/img/demo/m4.png" alt="..." class="img-avatar-circle"/> </div>
+                <img src="assets/img/demo/m4.png" alt="..." class="img-avatar-circle"/>
+              </div>
               <div class="card-block pt-4 text-center">
                 <h4 class="color-success">A Feature Title</h4>
                 <p>Eaque repellendus nemo deserunt qui sequi laborum officiis assumenda caecati.</p>
@@ -353,9 +380,9 @@
             </div>
           </div>
         </div>
-      </div>-->
+      </div>
       <!--this is amazing feature-->
-      <!--<section class="wrap ms-hero-page ms-hero-img-coffee ms-hero-bg-info ms-bg-fixed color-white mt-6">
+      <section class="wrap ms-hero-page ms-hero-img-coffee ms-hero-bg-info ms-bg-fixed color-white mt-6">
         <div class="container">
           <h2 class="text-center fw-500 mb-6 wow fadeInDown animation-delay-2">Amazing Features</h2>
           <div class="row">
@@ -397,7 +424,7 @@
             </a>
           </div>
         </div>
-      </section>-->
+      </section>
 
       <!--this is footer-->
       <footer class="ms-footer">
@@ -428,14 +455,14 @@
             <div class="row">
               <div class="col-sm-3 megamenu-col">
                 <xsl:apply-templates select="submenus/submenu[@type='list1']" />&#160;
-                
+
               </div>
             </div>
           </li>
         </ul>
       </li>
     </xsl:if>
-   
+
   </xsl:template>
 
   <xsl:template match="submenus/submenu[@type='list1']">
@@ -445,8 +472,8 @@
       </h3>
       <ul class="megamenu-block-list">
         <xsl:apply-templates select="submenus/submenu[@type='itemlist1']" />&#160;
-        
-      
+
+
       </ul>
     </div>
   </xsl:template>
