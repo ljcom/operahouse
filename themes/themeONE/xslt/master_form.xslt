@@ -119,7 +119,7 @@
       <xsl:value-of select="/sqroot/body/bodyContent/form/info/state/status/."/>
     </xsl:variable>
 
-    <section class="content-header visible-phone">
+    <section class="content-header">
       <h1 data-toggle="collapse" data-target="#header" id="header_title">
         <xsl:choose>
           <xsl:when test="sqroot/body/bodyContent/form/info/GUID='00000000-0000-0000-0000-000000000000'">
@@ -850,10 +850,11 @@
 
         loadChild(code, parentKey, GUID);
       </script>
-
-      <div class="box box-solid box-default visible-phone" style="box-shadow:0px;border:none" id="child{code/.}{/sqroot/body/bodyContent/form/info/GUID/.}">
-        &#160;
-      </div>
+      
+        <div class="box box-solid box-default" style="box-shadow:0px;border:none" id="child{code/.}{/sqroot/body/bodyContent/form/info/GUID/.}">
+          &#160;
+        </div>
+      
     </xsl:if>
   </xsl:template>
 
