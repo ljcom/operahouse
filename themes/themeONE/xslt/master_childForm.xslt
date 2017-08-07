@@ -286,45 +286,36 @@
   </xsl:template>
 
   <xsl:template match="field">
-    <xsl:apply-templates select="field[@isEditable>0]"/>
-    <xsl:apply-templates select="field[@isEditable=0]"/>
-  </xsl:template>
-
-  <xsl:template match="field[@isEditable>0]">
-
-    <xsl:if test="@isNullable=0">
-      <script>
-        document.getElementsByName(tblnm)[0].value = document.getElementsByName(tblnm)[0].value + ';<xsl:value-of select="@fieldName"/>'
-      </script>
-    </xsl:if>
-
-    <div class="form-group enabled-input">
-      <xsl:apply-templates select="textBox"/>
-      <xsl:apply-templates select="textEditor"/>
-      <xsl:apply-templates select="dateBox"/>
-      <xsl:apply-templates select="dateTimeBox"/>
-      <xsl:apply-templates select="timeBox"/>
-      <xsl:apply-templates select="mediaBox"/>
-      <xsl:apply-templates select="checkBox"/>
-      <xsl:apply-templates select="autoSuggestBox"/>
-      <xsl:apply-templates select="tokenBox"/>
-      <xsl:apply-templates select="radio"/>
-    </div>
-  </xsl:template>
-
-  <xsl:template match="field[@isEditable=0]">
-
     <xsl:if test="@isNullable=0">
       <script>
         document.getElementsByName(tblnm)[0].value = document.getElementsByName(tblnm)[0].value + ', <xsl:value-of select="@fieldName"/>'
       </script>
     </xsl:if>
-    <div class="form-group disabled-input">
+
+    <xsl:variable name="fieldEnabled">
+      <xsl:choose>
+        <xsl:when test ="@isEditable=1 or (@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. = '00000000-0000-0000-0000-000000000000'))">enabled</xsl:when>
+        <xsl:otherwise>disabled</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:choose>
+      <xsl:when test ="@isEditable=0 or (@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000')) or (/sqroot/body/bodyContent/form/info/permission/allowEdit/.)!='1'">
+        <script>
+          $('#<xsl:value-of select="@fieldName"/>').attr('disabled', true);
+        </script>
+      </xsl:when>
+    </xsl:choose>
+
+    <div class="form-group {$fieldEnabled}-input">
       <xsl:apply-templates select="textBox"/>
+      <xsl:apply-templates select="textEditor"/>
       <xsl:apply-templates select="dateBox"/>
+      <xsl:apply-templates select="dateTimeBox"/>
       <xsl:apply-templates select="timeBox"/>
-      <xsl:apply-templates select="mediaBox"/>
+      <xsl:apply-templates select="passwordBox"/>
       <xsl:apply-templates select="checkBox"/>
+      <xsl:apply-templates select="mediaBox"/>
       <xsl:apply-templates select="autoSuggestBox"/>
       <xsl:apply-templates select="tokenBox"/>
       <xsl:apply-templates select="radio"/>
@@ -352,7 +343,9 @@
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
-
+    <xsl:if test="../@isNullable = 0">
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
+    </xsl:if>
     <label id="{../@fieldName}suffixCaption">
       <xsl:value-of select="suffixCaption"/>
     </label>
@@ -363,6 +356,9 @@
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
+    <xsl:if test="../@isNullable = 0">
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
+    </xsl:if>
     <!--digit-->
     <xsl:variable name="tbContent">
       <xsl:choose>
@@ -453,6 +449,9 @@
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
+    <xsl:if test="../@isNullable = 0">
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
+    </xsl:if>
     <div class="input-group date">
       <div class="input-group-addon">
         <ix class="fa fa-calendar"></ix>
@@ -474,6 +473,9 @@
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
+    <xsl:if test="../@isNullable = 0">
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
+    </xsl:if>
     <div class="input-group date">
       <div class="input-group-addon">
         <ix class="fa fa-calendar"></ix>
@@ -492,6 +494,9 @@
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
+    <xsl:if test="../@isNullable = 0">
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
+    </xsl:if>
     <div class="input-group date">
       <div class="input-group-addon">
         <ix class="fa fa-clock-o"></ix>
@@ -513,7 +518,9 @@
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
-
+    <xsl:if test="../@isNullable = 0">
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
+    </xsl:if>
     <!--default value-->
     <xsl:variable name="thisvalue">
       <xsl:choose>
@@ -729,6 +736,9 @@
         <xsl:value-of select="titlecaption"/>
       </label>
     </div>
+    <xsl:if test="../@isNullable = 0">
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
+    </xsl:if>
     <div class = "btn-group" data-toggle = "buttons">
       <xsl:apply-templates select="radioSections/radioSection"/>
     </div>
