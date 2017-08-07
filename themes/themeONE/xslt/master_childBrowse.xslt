@@ -73,10 +73,10 @@
             <xsl:value-of select="sqroot/body/bodyContent/browse/info/description"/>
           </h3>
         </div>
-        <span>
+        <div>
           <input style="width:200px; position:absolute; right:25px; top:5px" type="text" id="searchBox_{sqroot/body/bodyContent/browse/info/code}" name="searchBox_{sqroot/body/bodyContent/browse/info/code}" class="form-control" placeholder="Search..." onkeypress="return searchTextChild(event,this.value, '{sqroot/body/bodyContent/browse/info/code}');" value="" />
-        </span>
-        <div class="row visible-phone">
+        </div>
+        <div class="row">
           <div class="col-md-12">
             <div style="border:0px none white;box-shadow:none;" id="content_{/sqroot/body/bodyContent/browse/info/code}" class="box collapse in">
               <table class="table table-condensed strip-table-browse" style="border-collapse:collapse;">
