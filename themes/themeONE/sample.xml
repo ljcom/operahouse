@@ -632,6 +632,7 @@
                                 <id />
                                 <name />
                               </defaultValue>
+                              <button></button>
                               <filter />
                               <hiddenZone />
                               <preview>0</preview>

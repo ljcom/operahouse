@@ -584,23 +584,33 @@
     <xsl:if test="../@isNullable = 0">
       <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
-
-    <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}"
+      <div>
+        <xsl:if test="button">
+          <xsl:attribute name="class">input-group</xsl:attribute>
+        </xsl:if>
+        <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}"
             data-type="selectBox" data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}"
       onchange="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" >
       <xsl:if test="../@isEditable=0">
         <xsl:attribute name="disabled">disabled</xsl:attribute>
       </xsl:if>
-
       <option value="NULL">-----Select-----</option>
     </select>
-
+    <xsl:if test="button">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" data-select2-open="multi-append">
+          <span class="fa fa-plus"></span>
+        </button>
+      </span>
+    </xsl:if>
+    </div>
     <script>
 
       <!--$("#<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/><xsl:value-of select="../@fieldName"/>").select2({-->
       $("#<xsl:value-of select="../@fieldName"/>").select2({
       ajax: {
       url:"OPHCORE/api/msg_autosuggest.aspx",
+      delay : 0,
       data: function (params) {
       var query = {
       code:"<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>",
@@ -850,11 +860,11 @@
 
         loadChild(code, parentKey, GUID);
       </script>
-      
-        <div class="box box-solid box-default" style="box-shadow:0px;border:none" id="child{code/.}{/sqroot/body/bodyContent/form/info/GUID/.}">
-          &#160;
-        </div>
-      
+
+      <div class="box box-solid box-default" style="box-shadow:0px;border:none" id="child{code/.}{/sqroot/body/bodyContent/form/info/GUID/.}">
+        &#160;
+      </div>
+
     </xsl:if>
   </xsl:template>
 

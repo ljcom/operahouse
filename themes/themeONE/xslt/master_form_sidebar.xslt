@@ -19,16 +19,27 @@
     </xsl:variable>
 
     <div class="user-panel">
-      <div class="pull-left image image-envi data-logo" style="padding:0;  margin-left:7px; margin-top:2px;">
-        <span >
-          <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 1, 2), $smallcase, $uppercase)" />
-          <br />
-          <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 3, 2), $smallcase, $uppercase)" />
-        </span>
+      <div class="pull-left image image-envi data-logo" style="padding:2px; margin-left:7px; margin-top:0px; border:2px inset grey;">
+        <xsl:choose>
+          <xsl:when test="sqroot/header/info/code/settingMode = 't' or sqroot/header/info/code/settingMode = 'T'">
+            <span>
+              <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 3, 2), $smallcase, $uppercase)" />
+              <br />
+              <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 5, 2), $smallcase, $uppercase)" />
+            </span>
+          </xsl:when>
+          <xsl:otherwise>
+            <span >
+              <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 1, 2), $smallcase, $uppercase)" />
+              <br />
+              <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 3, 2), $smallcase, $uppercase)" />
+            </span>
+          </xsl:otherwise>
+        </xsl:choose>
       </div>
-      <div class="pull-left info menu-environtment doc-type-f" style="padding:0;margin-left:-5px;">
+      <div class="pull-left info menu-environtment doc-type-f" style="padding:3px;margin-left:5px;">
         <span>
-          <span style="font-size:9pt;">
+          <span style="font-size:10pt;">
             <xsl:choose>
               <xsl:when test="$settingmode='T'">
                 <xsl:value-of select="sqroot/body/bodyContent/form/info/docNo/."/>
@@ -37,9 +48,7 @@
                 <!--xsl:value-of select="sqroot/body/bodyContent/form/info/id/."/-->
               </xsl:otherwise>
             </xsl:choose>
-
           </span>
-          <br />
           <span style="font-size:14pt;">
             <table class="fixed-table">
               <tr>
@@ -49,7 +58,7 @@
                       <xsl:value-of select="sqroot/body/bodyContent/form/info/refNo/."/>
                     </xsl:when>
                     <xsl:otherwise>
-                      <xsl:value-of select="sqroot/body/bodyContent/form/info/id/."/>
+                      <!--<xsl:value-of select="sqroot/body/bodyContent/form/info/id/."/>-->
                     </xsl:otherwise>
                   </xsl:choose>
                 </td>
@@ -58,8 +67,6 @@
 
             <!--xsl:value-of select="sqroot/body/bodyContent/form/info/Description/."/-->
           </span>
-
-
         </span>
       </div>
     </div>
@@ -78,7 +85,7 @@
     <ul class="sidebar-menu">
       <!-- <li class="header">MAIN NAVIGATION</li> -->
       <xsl:if test="(sqroot/body/bodyContent/form/children) and (sqroot/body/bodyContent/form/info/GUID)!='00000000-0000-0000-0000-000000000000'">
-        <li class="treeview {$gotoActive}">
+        <li class="treeview">
           <a href="#">
             <span>
               <ix class="fa  fa-arrow-circle-right"></ix>
@@ -99,12 +106,12 @@
             <li>
               <xsl:apply-templates select="sqroot/body/bodyContent/form/children"/>
             </li>
-            <!-- <li><a href="browse.html"><ix class="fa fa-list-alt"></ix> CHILD 2</a></li> -->
           </ul>
         </li>
       </xsl:if>
 
-      <li class="treeview">
+      <!--Document Information-->
+      <li class="treeview active">
         <a href="#">
           <span>
             <ix class="fa fa-info-circle"></ix>
@@ -169,37 +176,22 @@
             <li>
               <dl id="approval-info">
                 <xsl:for-each select="sqroot/body/bodyContent/form/approvals/approval/.">
-                  <dt style="margin: 10px 0 0 0;">
+                  <dt style="margin: 10px 0 0 0;" data-toggle="tooltip" title="Approved">
                     <xsl:choose>
                       <xsl:when test="@status = 400">
-                        <ix class="fa fa-check-circle"></ix>
+                        <div style="float:left">
+                          <ix class="fa fa-check-circle"></ix>
+                        </div>
                       </xsl:when>
                       <xsl:otherwise>
                         <ix class="fa fa-minus-circle"></ix>
                       </xsl:otherwise>
                     </xsl:choose>
-                    &#160;<xsl:value-of select="name"/><!--(Lv. <xsl:value-of select="@level"/>)-->
+                    &#160;<xsl:value-of select="name"/>
                   </dt>
                   <dd style="margin-left:15px;">
                     <xsl:value-of select="date"/>
                   </dd>
-
-                  <!--<xsl:choose>
-                    <xsl:when test="@status = 400">
-                      <dt>
-                        <ix class="fa fa-check-circle"></ix> 
-                          <xsl:value-of select="name"/> (Lv. <xsl:value-of select="@level"/>)
-                      </dt>
-                      <dd style="margin-left:15px;"><xsl:value-of select="date"/></dd>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <dt>
-                        <ix class="fa fa-minus-circle"></ix>
-                          <xsl:value-of select="name"/> (Lv. <xsl:value-of select="@level"/>)
-                      </dt>
-                      <dd style="margin-left:15px;"><xsl:value-of select="date"/></dd>
-                    </xsl:otherwise>
-                  </xsl:choose>-->
                 </xsl:for-each>
               </dl>
             </li>
@@ -207,46 +199,13 @@
         </li>
       </xsl:if>
 
-      <!--<xsl:if test="substring(sqroot/body/bodyContent/form/info/code, 1, 1) = 't'">
-        <li class="treeview">
-          <a href="#">
-            <span>
-              <ix class="fa fa-users"></ix>
-            </span>
-            <span>&#160;APPROVAL</span>
-            <span class="pull-right-container">
-              <ix class="fa fa-angle-left pull-right"></ix>
-            </span>
-          </a>
-
-          <xsl:apply-templates select="sqroot/body/bodyContent/form/approvals"/>
-          <ul class="treeview-menu view-left-sidebar">
-            <li>
-              <dl id="approval-info">
-                <dt>
-                  <ix class="fa  fa-check-circle"></ix> Mikaela Grace
-                </dt>
-                <dd style="margin-left:15px;">1 hours ago</dd>
-                <dt>
-                  <ix class="fa   fa-check-circle"></ix> SHEDEA Maria Onawa
-                </dt>
-                <dd style="margin-left:15px;">1 minutes ago</dd>
-                <dt>
-                  <ix class="fa  fa-minus-circle"></ix> SUSILA Yitna
-                </dt>
-              </dl>
-            </li>
-          </ul>
-        </li>
-      </xsl:if>-->
-
       <xsl:if test="$settingmode!='C'">
         <script>
           setTimeout(function () { refreshTalk('<xsl:value-of select="sqroot/body/bodyContent/form/info/GUID" />', '', 20); }, 1000 * 60);
 
         </script>
 
-        <li class="treeview {$chatActive}">
+        <li class="treeview">
           <a href="#">
             <span>
               <ix class="fa fa-comments"></ix>
@@ -296,13 +255,10 @@
           <xsl:value-of select="@talkDateCaption"/>
         </span>
       </div>
-      <!-- /.direct-chat-info -->
       <img class="direct-chat-img" src="OPHContent/documents/{/sqroot/header/info/account}/{@talkUserProfile}" alt="{talkUser}"/>
-      <!-- /.direct-chat-img -->
       <div class="direct-chat-text">
         <xsl:value-of select="@comment"/>
       </div>
-      <!-- /.direct-chat-text -->
     </div>
 
   </xsl:template>
@@ -310,56 +266,107 @@
   <xsl:template match="sqroot/body/bodyContent/form/info">
     <ul class="treeview-menu view-left-sidebar">
       <li>
-        <xsl:if test="docNo/.">
+        <!--<xsl:if test="docNo/.">
           <dl>
-            <dt>Doc No</dt>
             <dt>
+              <span style="font-weight:normal;">Doc No</span>
+              <br/>
               <xsl:value-of select="docNo"/>
             </dt>
           </dl>
         </xsl:if>
         <xsl:if test="refNo/.">
           <dl>
-            <dt>Ref No</dt>
-
             <dt>
+              <span style="font-weight:normal;">Ref No</span>
+              <br/>
               <xsl:value-of select="refNo"/>
             </dt>
           </dl>
         </xsl:if>
         <xsl:if test="docDate/.">
           <dl>
-            <dt>Doc Date</dt>
             <dt>
+              <span style="font-weight:normal;">Doc Date</span>
+              <br/>
               <xsl:value-of select="docDate"/>
             </dt>
           </dl>
-        </xsl:if>
-        <xsl:if test="id/.">
-          <dl>
-            <dt>ID</dt>
-            <dd>
-              <xsl:value-of select="id"/>
-            </dd>
-          </dl>
-        </xsl:if>
-        <hr />
-        <xsl:if test="state/status/.">
-          <dl>
-            <dt>Status</dt>
-            <dt>
-              <xsl:value-of select="state/status"/>
-            </dt>
-          </dl>
-        </xsl:if>
+        </xsl:if>-->
         <xsl:if test="state/statuscomment/.">
           <dl>
-            <dt>Comment</dt>
             <dt>
+              <span style="font-weight:normal;">Status Comment</span>
+              <br/>
               <xsl:value-of select="state/statuscomment"/>
             </dt>
           </dl>
         </xsl:if>
+        <xsl:if test="document/createdDate/.">
+          <dl>
+            <dt>
+              <span style="font-weight:normal;">Created On</span>
+              <br/>
+              <xsl:value-of select="document/createdDate"/>
+            </dt>
+          </dl>
+        </xsl:if>
+        <xsl:if test="document/createdUser/.">
+          <dl>
+            <dt>
+              <span style="font-weight:normal;">Created By</span>
+              <br/>
+              <xsl:value-of select="document/createdUser"/>
+            </dt>
+          </dl>
+        </xsl:if>
+        <xsl:if test="document/updatedDate/.">
+          <dl>
+            <dt>
+              <span style="font-weight:normal;">Updated On</span>
+              <br/>
+              <xsl:value-of select="document/updatedDate"/>
+            </dt>
+          </dl>
+        </xsl:if>
+        <xsl:if test="document/updatedUser/.">
+          <dl>
+            <dt>
+              <span style="font-weight:normal;">Updated By</span>
+              <br/>
+              <xsl:value-of select="document/updatedUser"/>
+            </dt>
+          </dl>
+        </xsl:if>
+        <xsl:if test="document/isDelete/. = 1">
+          <xsl:if test="document/isDeleted/.">
+            <dl>
+              <dt>
+                <span style="font-weight:normal;">Status Document</span>
+                <br/>
+                Deleted
+              </dt>
+            </dl>
+          </xsl:if>
+          <xsl:if test="document/deletedDate/.">
+            <dl>
+              <dt>
+                <span style="font-weight:normal;">Deleted On</span>
+                <br/>
+                <xsl:value-of select="document/deletedDate"/>
+              </dt>
+            </dl>
+          </xsl:if>
+          <xsl:if test="document/deletedUser/.">
+            <dl>
+              <dt>
+                <span style="font-weight:normal;">Deleted By</span>
+                <br/>
+                <xsl:value-of select="document/deletedUser"/>
+              </dt>
+            </dl>
+          </xsl:if>
+        </xsl:if>  
       </li>
     </ul>
   </xsl:template>

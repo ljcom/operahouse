@@ -1298,8 +1298,11 @@ Public Class cl_base
 
             'Reader.Read()
             r.Read()
-
+            'Dim RegularExp = "[^\x09\x0A\x0D\x20-\xD7FF\xE000-\xFFFD\x10000-x10FFFF]"
+            'Return Regex.Replace(StrInput, RegularExp, String.Empty)
+            'result = Regex.Replace(r.ReadOuterXml(), "[^\x08\x09\x0A\x0D\x20-\xD7FF\xE000-\xFFFD\x10000-x10FFFF]", "")
             result = r.ReadOuterXml()
+
             'If Reader.HasRows Then
             'result = Reader.Item(0)
             'Else
