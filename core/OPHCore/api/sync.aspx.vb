@@ -59,12 +59,24 @@ Partial Class OPHCore_api_sync
 				Else
                     result = "<sqroot><message>Incorrect Data!</message></sqroot>"
                 End If
+			Case "sendcodeprop"
+				Dim code = getQueryVar("code")
 
-            Case "reqheader"
+				sqlstr = "exec [api].[sync_sendcodeprop] '" & accountId & "', '" & sessionToken & "', '" & code & "'"
+
+				xmlstr = getXML(sqlstr, contentOfdbODBC)
+
+				If xmlstr IsNot Nothing And xmlstr <> "" Then
+					'result = "<sqroot>" & xmlstr & "</sqroot>"
+					result = xmlstr
+				Else
+					result = "<sqroot><message>Incorrect Data!</message></sqroot>"
+				End If
+			Case "reqheader"
                 Dim code = getQueryVar("code")
                 Dim pg = getQueryVar("page")
 
-                sqlstr = "exec [api].[sync_reqheader] '" & accountId & "', '" & sessionToken & "', '" & code & "', " & IIf(pg = "", 1, pg) & ""
+				sqlstr = "exec [api].[sync_reqheader] '" & accountId & "', '" & sessionToken & "', '" & code & "', " & IIf(pg = "", 1, pg) & ""
 
 				xmlstr = getXML(sqlstr, contentOfdbODBC)
 
@@ -80,7 +92,7 @@ Partial Class OPHCore_api_sync
                 Dim guid = getQueryVar("guid")
                 Dim pg = getQueryVar("page")
 
-                sqlstr = "exec [api].[sync_reqdata] '" & accountId & "', '" & sessionToken & "', '" & code & "', '" & guid & "'"
+				sqlstr = "exec [api].[sync_reqdata] '" & accountId & "', '" & sessionToken & "', '" & code & "', '" & guid & "'"
 
 				xmlstr = getXML(sqlstr, contentOfdbODBC)
 
@@ -93,8 +105,9 @@ Partial Class OPHCore_api_sync
 
             Case "sendData"
                 Dim code = getQueryVar("code")
-                Dim dataxml = getQueryVar("dataXML")
-                sqlstr = "exec [api].[sync_sendData] '" & accountId & "', '" & sessionToken & "', '" & code & "', '" & dataxml & "'"
+				Dim dataxml = Request.Form("dataXML").ToString
+				writeLog("dataXML: ")
+				sqlstr = "exec [api].[sync_sendData] '" & accountId & "', '" & sessionToken & "', '" & code & "', '" & dataxml & "'"
 
 				xmlstr = getXML(sqlstr, contentOfdbODBC)
 
