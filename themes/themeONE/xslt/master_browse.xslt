@@ -17,6 +17,9 @@
   <xsl:variable name="allowOnOff" select="/sqroot/body/bodyContent/browse/info/permission/allowOnOff" />
 
   <xsl:template match="/">
+    <script>
+      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/scripts/select2/select2.full.min.js');
+    </script>
 
     <xsl:if test="/sqroot/header/info/isBrowsable = 0">
       <script>
@@ -28,10 +31,10 @@
 
       </script>
     </xsl:if>
+
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <!--<xsl:value-of select="sqroot/header/info/code/name"/>&#160;(<xsl:value-of select="sqroot/header/info/code/id"/>)-->
         <xsl:value-of select="sqroot/header/info/code/name"/>
       </h1>
       <ol class="breadcrumb">
@@ -54,7 +57,7 @@
         addpagenumber('pagenumbers', '<xsl:value-of select ="sqroot/body/bodyContent/browse/info/pageNo"/>', '<xsl:value-of select ="sqroot/body/bodyContent/browse/info/nbPages"/>')
         addpagenumber('mobilepagenumbers', '<xsl:value-of select ="sqroot/body/bodyContent/browse/info/pageNo"/>', '<xsl:value-of select ="sqroot/body/bodyContent/browse/info/nbPages"/>')
       </script>
-
+      
       <div class="col-md-12 full-width-a">
         <div class="box-header full-width-a">
           <div class=" browse-dropdown-status">
@@ -100,20 +103,32 @@
             var allowAdd='<xsl:value-of select="sqroot/body/bodyContent/browse/info/permission/allowAdd/." />';
             if (allowAdd!='1') $('#newdoc').prop('disabled', true);
           </script>
-          <!--<div class="accordian-body collapse" id="newdocpanel" style="background:#4c4c4c; position:absolute; z-index:100; width:99%; right:10px; top:65px; ">
-              <ul class="new-doc"  style="margin-left:-10px; display:inline-table; padding:10px;">
-                <xsl:apply-templates select="sqroot/header/menus/menu[@code='newdocument']/submenus/submenu" />
-              </ul>
-              <div class="arrow-up"></div>
-            </div>
-          </div>-->
-          <!-- /.box-header -->
         </div>
       </div>
       <!-- header -->
+      
 
       <!-- browse for pc/laptop -->
       <div class="row visible-phone">
+        <!--Browse Filters-->
+        <div class="col-md-12" style="margin:0px;">
+          <xsl:if test="sqroot/body/bodyContent/browse/info/filters">
+            <div class="box box-default collapsed-box">
+              <div class="box-header with-border">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                  <ix class="fa fa-plus" aria-hidden="true"></ix>
+                  &#160; More Filters
+                </button>
+              </div>
+              <div class="box-body">
+                <form id="formFilter">
+                  <xsl:apply-templates select="sqroot/body/bodyContent/browse/info/filters" />          
+                </form>
+              </div>
+            </div>
+          </xsl:if>
+        </div>
+        
         <div class="col-md-12">
           <div class="box" style="border:0px none white;box-shadow:none;">
             <table class="table table-condensed strip-table-browse browse-table-an" style="border-collapse:collapse; margin:auto;">
@@ -242,6 +257,56 @@
     </li>
   </xsl:template>
 
+  <xsl:template match="sqroot/body/bodyContent/browse/info/filters">
+    <div class="row">
+      <xsl:apply-templates select="comboFilter"/>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button id="btnFilter" type="button" class="btn btn-success btn-flat" data-loading-text="Apllying Filter..." onclick="applyFilter(this)" >
+          Apply Filters
+        </button>
+        <button id="btnResetFilter" type="button" class="btn btn-warning btn-flat" data-loading-text="Reseting Filter..." onclick="resetFilter(this)" >
+          <xsl:if test="not(comboFilter/value)">
+            <xsl:attribute name="disabled">disabled</xsl:attribute>
+          </xsl:if>
+          Reset Filters
+        </button>
+      </div>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="comboFilter">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="{@id}"><xsl:value-of select="@caption"/></label>
+        <select class="form-control select2" style="width: 100%;" name="{@id}" id="{@id}" tabindex="-1" aria-hidden="true" 
+           data-type="selectBox" data-old="{value}" data-oldText="{value}" data-value="{value}" >      
+          <option value="NULL">-- Select All --</option>
+        </select>
+      </div>      
+    </div>    
+    <script>
+      $("#<xsl:value-of select="@id"/>").select2({
+        ajax: {
+          url:"OPHCORE/api/msg_autosuggest.aspx",
+          data: function (params) {
+            var query = {
+              code:"<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code/."/>",
+              colkey:"<xsl:value-of select="@id"/>",
+              search: params.term, page: params.page
+            }
+            return query;
+          },
+          dataType: 'json',
+        }
+      });
+      <xsl:if test="value!=''">
+          autosuggestSetValue('<xsl:value-of select="@id"/>','<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code/."/>','<xsl:value-of select="@id"/>', '<xsl:value-of select="value"/>', '', '')
+      </xsl:if>
+    </script>
+  </xsl:template>
+  
   <xsl:template match="sqroot/body/bodyContent/browse/info/states/state/substate">
     <li>
       <a href="javascript:changestateid({@code})">
@@ -392,43 +457,65 @@
         </xsl:choose>
       </td>
     </tr>
-    <tr class="tr-detail">
-      <td colspan="7" style="padding:0;">
-        <div class="browse-data accordian-body collapse" id="brodeta-{@GUID}" style="cursor:default;">
-          <div class="row">
-            <div class="col-md-12 full-width-a">
-
-              <!--Summary-->
-              <xsl:if test="fields/field[@mandatory=0]">
-                <div class="box box-primary box-solid" style="max-width:600px;float:left;margin: 10px 10px 10px 10px;">
-                  <div class="box-header with-border">
-                    <h3 class="box-title">Content of Summary</h3>
-                    <div class="box-tools pull-right">
-                      <button class="btn btn-box-tool" data-widget="collapse">
-                        <ix class="fa fa-minus"></ix>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="box-body">
-                    <xsl:apply-templates select="fields/field[@mandatory=0]" />                
-                  </div>
+    <xsl:choose>
+      <xsl:when test="/sqroot/body/bodyContent/browse/info/browseMode=2">
+        <script>
+          $('#brodeta-<xsl:value-of select="@GUID" />').on('shown.bs.collapse', function() {
+          //alert('shown');
+          }).on('show.bs.collapse', function() {
+          //alert('collapse');
+          });
+        </script>
+        <tr class="tr-detail">
+          <td colspan="7" style="padding:0;">
+            <div class="browse-data accordian-body collapse" id="brodeta-{@GUID}" style="cursor:default;">
+              <div class="row">
+                <div class="col-md-12 full-width-a">
+                  loading child...
                 </div>
-              </xsl:if>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </xsl:when>
+      <xsl:otherwise>
+        <tr class="tr-detail">
+          <td colspan="7" style="padding:0;">
+            <div class="browse-data accordian-body collapse" id="brodeta-{@GUID}" style="cursor:default;">
+              <div class="row">
+                <div class="col-md-12 full-width-a">
 
-              <!--Status Approval-->
-              <xsl:if test="approvals/approval">
-                <div class="box box-warning box-solid" style="max-width:300px;float:left;margin: 10px 10px 10px 10px;">
-                  <div class="box-header with-border">
-                    <h3 class="box-title">Approval List</h3>
-                    <div class="box-tools pull-right">
-                      <button class="btn btn-box-tool" data-widget="collapse">
-                        <ix class="fa fa-minus"></ix>
-                      </button>
+                  <!--Summary-->
+                  <xsl:if test="fields/field[@mandatory=0]">
+                    <div class="box box-primary box-solid" style="max-width:600px;float:left;margin: 10px 10px 10px 10px;">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Content of Summary</h3>
+                        <div class="box-tools pull-right">
+                          <button class="btn btn-box-tool" data-widget="collapse">
+                            <ix class="fa fa-minus"></ix>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="box-body">
+                        <xsl:apply-templates select="fields/field[@mandatory=0]" />
+                      </div>
                     </div>
-                  </div>
-                  <div class="box-body">
-                    <div class="direct-chat-msg">
-                      <!--<div class="direct-chat-info clearfix">
+                  </xsl:if>
+
+                  <!--Status Approval-->
+                  <xsl:if test="approvals/approval">
+                    <div class="box box-warning box-solid" style="max-width:300px;float:left;margin: 10px 10px 10px 10px;">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Approval List</h3>
+                        <div class="box-tools pull-right">
+                          <button class="btn btn-box-tool" data-widget="collapse">
+                            <ix class="fa fa-minus"></ix>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="box-body">
+                        <div class="direct-chat-msg">
+                          <!--<div class="direct-chat-info clearfix">
                         <span class="direct-chat-name pull-left">
                           Created By
                         </span>
@@ -436,53 +523,56 @@
                           <xsl:value-of select="fields/field[@caption='CreatedUser']"/>
                         </span>
                       </div>-->
-                      <!--Approvals-->
-                        <!--<br/>
+                          <!--Approvals-->
+                          <!--<br/>
                         <strong>APPROVALS</strong>
                         <hr style="margin:0 0 5px 0;"/>-->
-                        <xsl:apply-templates select="approvals"/>
+                          <xsl:apply-templates select="approvals"/>
+                        </div>
+                      </div>
+                    </div>
+                  </xsl:if>
+
+                  <!--Talks-->
+                  <div class="box box-danger box-solid direct-chat direct-chat-danger" style="max-width:300px;float:left;margin: 10px 10px 10px 10px;">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Document Talk</h3>
+                      <div class="box-tools pull-right">
+                        <!--<span data-toggle="tooltip" title="3 New Messages" class="badge bg-red">3</span>-->
+                        <button class="btn btn-box-tool" data-widget="collapse">
+                          <ix class="fa fa-plus"></ix>
+                        </button>
+                      </div>
+                    </div>
+                    <xsl:variable name="talkDisplay">
+                      <xsl:choose>
+                        <xsl:when test="talks/talk">block</xsl:when>
+                        <xsl:otherwise>none</xsl:otherwise>
+                      </xsl:choose>
+                    </xsl:variable>
+                    <div class="box-body" style="display:{$talkDisplay};">
+                      <div class="direct-chat-messages" id="chatMessages{@GUID}" >
+                        <xsl:apply-templates select="talks/talk"/>
+                      </div>
+                    </div>
+                    <div class="box-footer">
+                      <div class="input-group">
+                        <input type="text" id="message{@GUID}" name="message" placeholder="Type Message ..." class="form-control" onkeypress="javascript:enterTalk('{@GUID}', event, '10')"/>
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-danger btn-flat" onclick="javascript:submitTalk('{@GUID}', '10')">Send</button>
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </xsl:if>
 
-              <!--Talks-->
-              <div class="box box-danger box-solid direct-chat direct-chat-danger" style="max-width:300px;float:left;margin: 10px 10px 10px 10px;">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Document Talk</h3>
-                  <div class="box-tools pull-right">
-                    <!--<span data-toggle="tooltip" title="3 New Messages" class="badge bg-red">3</span>-->
-                    <button class="btn btn-box-tool" data-widget="collapse">
-                      <ix class="fa fa-plus"></ix>
-                    </button>
-                  </div>
-                </div>
-                <xsl:variable name="talkDisplay">
-                  <xsl:choose>
-                    <xsl:when test="talks/talk">block</xsl:when>
-                    <xsl:otherwise>none</xsl:otherwise>
-                  </xsl:choose>
-                </xsl:variable>
-                <div class="box-body" style="display:{$talkDisplay};">
-                  <div class="direct-chat-messages" id="chatMessages{@GUID}" >
-                    <xsl:apply-templates select="talks/talk"/>
-                  </div>
-                </div>
-                <div class="box-footer">
-                  <div class="input-group">
-                    <input type="text" id="message{@GUID}" name="message" placeholder="Type Message ..." class="form-control" onkeypress="javascript:enterTalk('{@GUID}', event, '10')"/>
-                    <span class="input-group-btn">
-                      <button type="button" class="btn btn-danger btn-flat" onclick="javascript:submitTalk('{@GUID}', '10')">Send</button>
-                    </span>
-                  </div>
                 </div>
               </div>
-
             </div>
-          </div>
-        </div>
-      </td>
-    </tr>
+          </td>
+        </tr>
+
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="fields/field[@mandatory=1]">

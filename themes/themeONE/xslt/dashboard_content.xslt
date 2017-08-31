@@ -84,7 +84,7 @@
     <!-- small box -->
     <div class="small-box {@widgetBgColor}">
       <xsl:attribute name="style">
-        <xsl:if test="not(@moreInfoURL)">padding-bottom:25px;</xsl:if>
+        <xsl:if test="@moreInfoURL='' or not(@moreInfoURL)">padding-bottom:25px;</xsl:if>
       </xsl:attribute>
       <div class="inner">
         <h3 id="data{contents/data/@dataId}">0</h3>

@@ -67,13 +67,8 @@ Partial Class OPHCore_API_default
 
             Case "view", "form"
                 sqlstr = "exec [api].[theme_form] '" & curHostGUID & "', '" & code & "', " & GUID '& ", " & editMode
-            Case "talk"
-                Dim comment As String = getQueryVar("comment")
-                sqlstr = "exec gen.submitTalk '" & curHostGUID & "', " & GUID & ", '" & comment & "'"
-            Case "widget"
-                Dim stateid = getQueryVar("stateid")
-                sqlstr = "exec [api].[theme_widget] '" & curHostGUID & "', '" & code & "'"
-            Case "save", "preview"
+
+			Case "save", "preview"
                 isSingle = False
                 Dim preview = getQueryVar("flag")
                 GUID = System.Guid.NewGuid().ToString()
@@ -118,8 +113,33 @@ Partial Class OPHCore_API_default
                     xmlstr = xmlstr.Replace("</row>", "")
                     xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
                 End If
+			Case "function"
+				Dim functionName = IIf(String.IsNullOrWhiteSpace(Request.Form("cfunction")), getQueryVar("cfunction"), Request.Form("cfunction"))
+				Dim functionlist = IIf(String.IsNullOrWhiteSpace(Request.Form("cfunctionlist")), getQueryVar("cfunctionlist"), Request.Form("cfunctionlist"))
+				Dim comment = getQueryVar("comment")
 
-            Case "upload"
+				Dim fl = functionlist.Split(",")
+				For Each f In fl
+					If f = "" Then f = "null" Else f = "'" & f & "'"
+					sqlstr = "exec api.[function] @hostGUID='" & curHostGUID & "', @mode='" & functionName & "', @code='" & code & "', @GUID=" & f & ", @comment='" & comment & "'"
+					xmlstr &= runSQLwithResult(sqlstr, curODBC)
+				Next
+				Dim msg = xmlstr
+				xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
+				isSingle = False
+			Case "talk"
+				Dim comment As String = getQueryVar("comment")
+				sqlstr = "exec gen.submitTalk '" & curHostGUID & "', " & GUID & ", '" & comment & "'"
+			Case "widget"
+				Dim stateid = getQueryVar("stateid")
+				sqlstr = "exec [api].[theme_widget] '" & curHostGUID & "', '" & code & "'"
+			Case "data"
+				Dim data = getQueryVar("data")
+				Dim sqlFilter = getQueryVar("sqlFilter")
+				sqlstr = "exec [api].[getData] '" & curHostGUID & "', '" & data & "', '" & sqlFilter & "'"
+				xmlstr = runSQLwithResult(sqlstr, curODBC)
+				isSingle = False
+			Case "upload"
                 Dim fieldattachment As New List(Of String)
                 Dim f As String
                 For Each f In Request.Files
@@ -153,61 +173,44 @@ Partial Class OPHCore_API_default
 
                 isSingle = False
 
-            Case "function"
-                Dim functionName = IIf(String.IsNullOrWhiteSpace(Request.Form("cfunction")), getQueryVar("cfunction"), Request.Form("cfunction"))
-                Dim functionlist = IIf(String.IsNullOrWhiteSpace(Request.Form("cfunctionlist")), getQueryVar("cfunctionlist"), Request.Form("cfunctionlist"))
-                Dim comment = getQueryVar("comment")
 
-                Dim fl = functionlist.Split(",")
-                For Each f In fl
-                    If f = "" Then f = "null" Else f = "'" & f & "'"
-                    sqlstr = "exec api.[function] @hostGUID='" & curHostGUID & "', @mode='" & functionName & "', @code='" & code & "', @GUID=" & f & ", @comment='" & comment & "'"
-                    xmlstr &= runSQLwithResult(sqlstr, curODBC)
-                Next
-                Dim msg = xmlstr
-                xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
-                isSingle = False
-            Case "report"
+			Case "report"
                 sqlstr = "exec [api].[theme_report] '" & curHostGUID & "', '" & code & "'"
                 xmlstr &= runSQLwithResult(sqlstr, curODBC)
-            'Case "date"
-            '    Dim field = getQueryVar("FieldName")
-            '    sqlstr = "select '" & field & "' from '" & code & "'"
-            '    xmlstr &= runSQLwithResult(sqlstr, curODBC)
-                'Case "uploader"
-                '    Dim QueryCode = getQueryVar("QueryCode")
-                '    If QueryCode = "" Then
-                '        contentofError = "No tablename found"
-                '        Response.Redirect(Back())
-                '        Exit Sub
-                '    End If
-                '    sqlstr = "exec [xml].[Uploader] " & curHostGUID & ", '" & code & "', '" & QueryCode & "'"
-                '    xmlstr &= runSQLwithResult(sqlstr, curODBC)
-                'Case "switch"
-                'xmlstr = changeUser(getQueryVar("GUID"))
-                'xmlstr = "" & "You act as yourself." & ""
-                'isSingle = False
-                'Case "page"
-                '    Dim curPage = getQueryVar("CurPage")
-                '    curPage = Right(curPage, curPage.Length - curPage.IndexOf("OPH") - 4)
-                '    curPage = curPage.Replace("*", "&")
-                '    sqlstr = "update coUSER set firstPage='" & curPage & "' where userGUID='" & Session("userGUID") & "'"
-                '    runSQL(sqlstr, curODBC)
-                'Case "calculate"
-                '    sqlstr = "exec [xml].[browsecount]  '" & code & "'," & curHostGUID & ""
-                'Case "countnew"
-            '    sqlstr = "exec [xml].[countnew]  " & curHostGUID & ",'" & getQueryVar("caption") & "','" & getQueryVar("formnow") & "'"
-            'Case "sidebar"
-            '    sqlstr = "exec [api].[sidebar] " & curHostGUID & ", '" & code & "', " & GUID
-            'Case "widget"
-            '    sqlstr = "exec [api].[theme_widget] '" & curHostGUID & "', '" & code & "'"
-            '    xmlstr = runSQLwithResult(sqlstr, curODBC)
-            Case "data"
-                Dim data = getQueryVar("data")
-                Dim sqlFilter = getQueryVar("sqlFilter")
-                sqlstr = "exec [api].[getData] '" & curHostGUID & "', '" & data & "', '" & sqlFilter & "'"
-                xmlstr = runSQLwithResult(sqlstr, curODBC)
-            Case "signout"
+			'Case "date"
+			'    Dim field = getQueryVar("FieldName")
+			'    sqlstr = "select '" & field & "' from '" & code & "'"
+			'    xmlstr &= runSQLwithResult(sqlstr, curODBC)
+				'Case "uploader"
+				'    Dim QueryCode = getQueryVar("QueryCode")
+				'    If QueryCode = "" Then
+				'        contentofError = "No tablename found"
+				'        Response.Redirect(Back())
+				'        Exit Sub
+				'    End If
+				'    sqlstr = "exec [xml].[Uploader] " & curHostGUID & ", '" & code & "', '" & QueryCode & "'"
+				'    xmlstr &= runSQLwithResult(sqlstr, curODBC)
+				'Case "switch"
+				'xmlstr = changeUser(getQueryVar("GUID"))
+				'xmlstr = "" & "You act as yourself." & ""
+				'isSingle = False
+				'Case "page"
+				'    Dim curPage = getQueryVar("CurPage")
+				'    curPage = Right(curPage, curPage.Length - curPage.IndexOf("OPH") - 4)
+				'    curPage = curPage.Replace("*", "&")
+				'    sqlstr = "update coUSER set firstPage='" & curPage & "' where userGUID='" & Session("userGUID") & "'"
+				'    runSQL(sqlstr, curODBC)
+				'Case "calculate"
+				'    sqlstr = "exec [xml].[browsecount]  '" & code & "'," & curHostGUID & ""
+				'Case "countnew"
+			'    sqlstr = "exec [xml].[countnew]  " & curHostGUID & ",'" & getQueryVar("caption") & "','" & getQueryVar("formnow") & "'"
+			'Case "sidebar"
+			'    sqlstr = "exec [api].[sidebar] " & curHostGUID & ", '" & code & "', " & GUID
+			'Case "widget"
+			'    sqlstr = "exec [api].[theme_widget] '" & curHostGUID & "', '" & code & "'"
+			'    xmlstr = runSQLwithResult(sqlstr, curODBC)
+
+			Case "signout"
                 Response.Cookies("guestID").Value = ""
                 Session.Clear()
                 Session.RemoveAll()

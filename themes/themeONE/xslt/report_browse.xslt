@@ -282,23 +282,20 @@
     </select>
     
     <script>
-      $("#<xsl:value-of select="../@fieldName"/>").select2({
+          $("#<xsl:value-of select="../@fieldName"/>").select2({
       ajax: {
-
       url:"OPHCORE/api/msg_autosuggest.aspx",
+      delay : 0,
       data: function (params) {
       var query = {
+      code:"<xsl:value-of select="/sqroot/header/info/code/id/."/>",
+      colkey:"<xsl:value-of select="../@fieldName"/>",
       search: params.term,
-      page: params.page,
-      code:"<xsl:value-of select='comboTable' />",
-      key:"<xsl:value-of select='comboKey' />",
-      id:"<xsl:value-of select='comboId' />",
-      name:"<xsl:value-of select='comboName' />",
-      wf1: "<xsl:value-of select='whereFields/wf1'/>",
       wf1value: ($("#<xsl:value-of select='whereFields/wf1'/>").val() === undefined ? "" : $("#<xsl:value-of select='whereFields/wf1'/>").val()),
-      wf2: "<xsl:value-of select='whereFields/wf2'/>",
-      wf2value: ($("#<xsl:value-of select='whereFields/wf2'/>").val() === undefined ? "" : $("#<xsl:value-of select='whereFields/wf2'/>").val())
+      wf2value: ($("#<xsl:value-of select='whereFields/wf2'/>").val() === undefined ? "" : $("#<xsl:value-of select='whereFields/wf2'/>").val()),
+      page: params.page
       }
+
 
       return query;
       },

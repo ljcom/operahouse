@@ -1,6 +1,3 @@
-
-
-
 function LoadNewPart(filename, id, code, sqlfilter, searchText, bpageno, showpage, sortOrder) {
     if (filename == 'product') {
         filename = filename + '_' + getCookie('browsetype');
@@ -35,6 +32,7 @@ function saveThemeONE(code, guid, location, formId) {
             var pkvalue = document.getElementById("PK" + code).value;
             var parentkey = document.getElementById("PKID").value.split('child').join('');
             var pkey = $('#parent' + code).val();
+            var childKey = $('#childKey' + code).val()
         }
         //insert new form
         if (retguid != "" && retguid != guid && location == 20) window.location = 'index.aspx?env=back&code=' + getCode() + '&guid=' + retguid;
@@ -132,6 +130,7 @@ function fillMobileItem(code, guid, Status, allowedit, allowDelete, allowWipe, a
 
     $(x).appendTo("#accordionBrowse");
 }
+
 function addpagenumber(pageid, currentpage, totalpages) {
     cp = parseInt(currentpage);
     tp = parseInt(totalpages);
@@ -173,6 +172,7 @@ function addpagenumber(pageid, currentpage, totalpages) {
         $('#' + pageid).html(result);
     }
 }
+
 function timeIsUp() {
     //lastPar = window.location;
     //setCookie('lastPar', lastPar);
@@ -181,6 +181,13 @@ function timeIsUp() {
 }
 setTimeout(function () { timeIsUp(); }, 1000 * 60 * 60);
 
+function isGuid(stringToTest) {
+    if (stringToTest[0] === "{") {
+        stringToTest = stringToTest.substring(1, stringToTest.length - 1);
+    }
+    var regexGuid = /^(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}$/gi;
+    return regexGuid.test(stringToTest);
+}
 
 function checkPassProfile(id) {
     var pass = (document.getElementById(id).value == undefined) ? "" : document.getElementById(id).value;
@@ -236,7 +243,14 @@ function checkPassProfile(id) {
 }
 
 function profileOnChange(id) {
-    document.getElementById("save_profile").disabled = false;
+    oldValue = $('#' + id).data('old');
+    newValue = $('#' + id).val();
+
+    if (oldValue != newValue) {
+        $('#save_profile').removeAttr('disabled');
+    } else {
+        $('#save_profile').attr('disabled', 'disabled');
+    }
 }
 
 function changePassProfile() {
@@ -256,10 +270,8 @@ function changePassProfile() {
     });
 }
 
-
 function saveProfile(formId, code, guid) {
-    //var formpara = $('#formProfile').serialize();
-    
+    $('#save_profile').button('loading');
     var data = new FormData();
     if ($(':file').length > 0) {
         $.each($(':file')[0].files, function (key, value) {
@@ -286,12 +298,21 @@ function saveProfile(formId, code, guid) {
         }
     }).done(function (data) {
         var msg = $(data).find('messages').text();
+        var mdl = $('#allModal');
+        $('#modal-btn-close').show();
+        $('#modal-btn-cancel').hide();
+        $('#modal-btn-confirm').hide();
         if (msg == '') {
-            alert("You have successfully change your profile.");
-            location.reload();
+            mdl.find('.modal-title').text("Success!");
+            mdl.find('.modal-body').text("Profile was updating successfully !");
+            $('#save_profile').button('reset');
+            $('#save_profile').attr('disabled', 'disabled');
         } else {
-            alert(msg);
+            mdl.find('.modal-title').text("Failure!");
+            mdl.find('.modal-body').text(msg);
+            $('#save_profile').button('reset');
         }
+        mdl.modal('show');
     });
 }
 
@@ -339,4 +360,241 @@ function uploadBox(id, formId, code, guid) {
         });
     });
 
+}
+
+function showModal(ini, action, formId, childID, guid) {
+    var idmodal = $(ini).data('target'); 
+    idmodal = (idmodal.indexOf('#') < 0) ? "#" + idmodal : idmodal;
+    var title = $(ini).data('caption');
+    var msg = $(ini).data('msg');
+    var md = $(idmodal);
+    md.find('.modal-title').text(title);
+    md.find('.modal-body').text(msg);
+    var clickact = ""
+    if (action == "delete") {
+        clickact = "deleteUserdele('" + childID + "', '" + idmodal + "', '" + guid +"')";
+    } else if (action == "save") {
+        clickact = "saveUserdele('" + formId + "', '" + childID + "', '" + idmodal + "', '" + guid +"')";
+    }
+    $('#modal-btn-close').hide();
+    $('#modal-btn-cancel').show();
+    $('#modal-btn-confirm').attr('onclick', clickact).show();
+    md.modal({ backdrop: "static" });
+}
+
+function tokenizer(name, tokenID) {
+    var url = 'OPHCore/api/msg_autosuggest.aspx?mode=token&code=userdele&colkey=' + name
+    $("#" + name + tokenID).tokenInput(url, {
+        hintText: "please type...", searchingText: "Searching...", preventDuplicates: true, allowCustomEntry: false, highlightDuplicates: false,
+        tokenDelimiter: "*", theme: "facebook", prePopulate: "", onAdd: function (x) { checkToken(name + tokenID); }, onDelete: function (x) { checkToken(name + tokenID); }
+    });
+}
+
+function addNewDele(ini) {
+    var leChild = document.getElementById("deleparent").lastElementChild;
+    var leChildID = leChild.id.split("delechild").pop();
+    var newID = parseInt(leChildID) + 1;
+    var divParent = document.getElementById("deleparent");
+    var divChild = document.getElementById("delechild0");
+    var addChild = document.importNode(divChild, true)
+    addChild.innerHTML = addChild.innerHTML.split("delechild0").join("delechild" + newID);
+    addChild.innerHTML = addChild.innerHTML.split("formDelegate0").join("formDelegate" + newID);
+    addChild.innerHTML = addChild.innerHTML.split("guid0").join("guid" + newID);
+    addChild.innerHTML = addChild.innerHTML.split("GUID0").join("GUID" + newID);
+    addChild.innerHTML = addChild.innerHTML.split("TokenDelegate0").join("TokenDelegate" + newID);
+    addChild.innerHTML = addChild.innerHTML.split("TokenModule0").join("TokenModule" + newID);
+    addChild.innerHTML = addChild.innerHTML.split("btn-del0").join("btn-del" + newID);
+    addChild.innerHTML = addChild.innerHTML.split("btn-save0").join("btn-save" + newID);
+    addChild.id = "delechild" + newID;
+    addChild.removeAttribute("style");
+    addChild.setAttribute("data-new", "true");
+    divParent.appendChild(addChild);
+    $("#addele").attr("disabled", "disabled");
+    tokenizer("TokenDelegate", newID);
+    tokenizer("TokenModule", newID);
+}
+
+function checkToken(idToken) {
+    var oldValue = $('#' + idToken).data('old-value');
+    var newValue = $('#' + idToken).val();
+    var indID = "", otherValue = "";
+
+    //attention!! This "indexOf" is case-sensitive
+    if (idToken.indexOf('TokenDelegate') >= 0) {
+        indID = idToken.split('TokenDelegate').pop();
+        otherValue = $('#TokenModule' + indID).val();
+    } else {
+        indID = idToken.split('TokenModule').pop();
+        otherValue = $('#TokenDelegate' + indID).val();
+    }
+
+    if (newValue != "") {
+        if (newValue != oldValue && otherValue != "") {
+            $('#btn-save' + indID).removeAttr('disabled');
+        } else if (newValue != oldValue && otherValue == "") {
+            $('#btn-save' + indID).attr('disabled', 'disabled');
+        }
+    } else {
+        $('#btn-save' + indID).attr('disabled', 'disabled');
+    }
+}
+
+function deleteUserdele(childID, modalID, guid) { 
+
+    var isNew = $('#' + childID).data('new');
+
+    if (isNew != undefined) {
+        //removing child
+        var item = document.getElementById(childID);
+        item.parentNode.removeChild(item);
+
+        var leChild = document.getElementById("deleparent").lastElementChild;
+        var maxID = leChild.id.split("delechild").pop();
+        var isContinue = true;
+        for (var i = 1; i < maxID; i++) {
+            if ($("#btn-save" + i).attr("disabled") == undefined) {
+                isContinue = false;
+                break;
+            }
+        }
+        var dataNew = $('#' + leChild.id).data('new');
+        if (isContinue == true && dataNew == undefined) $('#addele').removeAttr('disabled');
+        $(modalID).modal('hide');
+    } else {
+        var url = "OPHCore/api/default.aspx?code=userdele&mode=function&cfunction=delete&cfunctionlist=" + guid + '&comment&unique=' + getUnique();
+        var deleting = $.post(url);
+        $('#modal-btn-confirm').button('loading');
+        $('#modal-btn-cancel').hide();
+        deleting.done(function (data) {
+            var msg = $(data).find('message').text();
+            var mdl = $(modalID);
+
+            if (msg == "" || msg == undefined || isGuid(msg) == true) {
+                mdl.find('.modal-title').text("Success!");
+                mdl.find('.modal-body').text("Entry was deleting successfully !");
+                $('#modal-btn-close').show();
+                $('#modal-btn-cancel').hide();
+                $('#modal-btn-confirm').hide();
+
+                //removing child
+                var item = document.getElementById(childID);
+                item.parentNode.removeChild(item);
+
+                var leChild = document.getElementById("deleparent").lastElementChild;
+                var maxID = leChild.id.split("delechild").pop();
+                var isContinue = true;
+                for (var i = 1; i < maxID; i++) {
+                    if ($("#btn-save" + i).attr("disabled") == undefined) {
+                        isContinue = false;
+                        break;
+                    }
+                }
+                var dataNew = $('#' + leChild.id).data('new');
+                if (isContinue == true && dataNew == undefined) $('#addele').removeAttr('disabled');
+                $('#modal-btn-confirm').button('reset');
+            } else {
+                md.find('.modal-title').text("Error!");
+                md.find('.modal-body').text(msg);
+                $('#modal-btn-close').show();
+                $('#modal-btn-cancel').hide();
+                $('#modal-btn-confirm').hide();
+                $('#modal-btn-confirm').button('reset');
+            }
+        });
+    }
+}
+
+function saveUserdele(formId, childID, modalID, guid) {
+    $('#modal-btn-confirm').button('loading');
+    $('#modal-btn-cancel').hide();
+
+    var popID = childID.split("delechild").pop();
+    var other_data = $('#' + formId).serializeArray();
+
+    var data = new FormData();
+    $.each(other_data, function (key, input) {
+        data.append(input.name.split(popID).join(""), input.value);
+    });
+
+    var savePost = $.post({
+        url: "OPHCore/api/default.aspx?code=userdele&mode=save&cfunctionlist=" + guid,
+        enctype: 'multipart/form-data',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: data
+    });
+    savePost.done(function (data) {
+        var msg = $(data).find('message').text();
+        var mdl = $(modalID);
+
+        if (msg == "" || msg == undefined || isGuid(msg) == true) {
+            mdl.find('.modal-title').text("Success!");
+            mdl.find('.modal-body').text("Entry was saving successfully !");
+            $('#modal-btn-close').show();
+            $('#modal-btn-cancel').hide();
+            $('#modal-btn-confirm').hide();
+
+            $('#btn-save' + popID).attr("disabled", "disabled");
+            $('#' + childID).removeAttr("data-new");
+            $('#' + childID).removeData("new");
+
+            var leChild = document.getElementById("deleparent").lastElementChild;
+            var maxID = leChild.id.split("delechild").pop(); 
+            var isContinue = true;
+            for (var i = 1; i < maxID; i++) {
+                if ($("#btn-save" + i).attr("disabled") == undefined) {
+                    isContinue = false;
+                    break;
+                }
+            }
+            var dataNew = $('#' + leChild.id).data('new');
+            if (isContinue == true && dataNew == undefined) $('#addele').removeAttr('disabled');
+            $('#modal-btn-confirm').button('reset');
+        } else {
+            md.find('.modal-title').text("Error!");
+            md.find('.modal-body').text(msg);
+            $('#modal-btn-close').show();
+            $('#modal-btn-cancel').hide();
+            $('#modal-btn-confirm').hide();
+            $('#modal-btn-confirm').button('reset');
+        }
+    });
+}
+
+function applyFilter(ini) {
+    $(ini).button('loading');
+    var form = $(ini).parents('form:first');
+    var form_data = $(form).serializeArray();
+
+    var sqlFilter = "";
+    $.each(form_data, function (key, input) {
+        if (input.value != "NULL" && input.value != undefined) {
+            if (sqlFilter == "") {
+                sqlFilter = input.name + " = '" + input.value + "'";
+            } else {
+                sqlFilter = sqlFilter + " and " + input.name + " = '" + input.value + "'";
+            }
+        }
+    });
+    
+    var divname = ['contentWrapper'];
+    var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + getCode() + '&sqlFilter=' + sqlFilter + '&stateid=' + getState() + '&bSearchText=' + getSearchText() + '&date=' + getUnique();
+    var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
+
+    $.when(
+        $.ajax(pushTheme(divname, xmldoc, xsldoc, true))).then(function () {
+        $(ini).button('reset');
+    });
+}
+
+function resetFilter(ini) {
+    $(ini).button('loading');
+    var divname = ['contentWrapper'];
+    var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + getCode() + '&stateid=' + getState() + '&bSearchText=' + getSearchText() + '&date=' + getUnique();
+    var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
+
+    $.when($.ajax(pushTheme(divname, xmldoc, xsldoc, true))).then(function () {
+        $(ini).button('reset');
+    });
 }

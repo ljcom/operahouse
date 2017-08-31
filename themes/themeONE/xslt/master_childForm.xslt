@@ -147,7 +147,7 @@
             <!--location: 0 header; 1 child; 2 browse
               location: browse:10, header form:20, browse anak:30, browse form:40-->
 
-            <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}',40);">SAVE</button>&#160;
+            <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 40, 'form{sqroot/body/bodyContent/form/info/code/.}');">SAVE</button>&#160;
             <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}')">CANCEL</button>&#160;
             <xsl:if test="(/sqroot/body/bodyContent/form/info/GUID/.)!='00000000-0000-0000-0000-000000000000' or (/sqroot/body/bodyContent/form/info/permission/allowDelete/.)=1" >
               <button id="child_button_delete" class="btn btn-gray-a"
@@ -166,7 +166,7 @@
 
         <div class="col-md-12 displayblock-phone" style="margin-bottom:20px;">
           <div style="text-align:center">
-            <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}',40);">SAVE</button>&#160;
+            <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 40, 'form{sqroot/body/bodyContent/form/info/code/.}');">SAVE</button>&#160;
             <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}')">CANCEL</button>
           </div>
         </div>
@@ -792,6 +792,7 @@
 
   <xsl:template match="child">
     <input type="hidden" id="CPKID" value="gchild{code/.}"/>
+    <input type="hidden" id="childKey{code/.}" value="{parentkey/.}"/>
     <script>
 
       //xmldoc = "OPHCORE/api/default.aspx?code=<xsl:value-of select ="code/."/>&amp;mode=browse&amp;sqlFilter=<xsl:value-of select ="parentkey/."/>='<xsl:value-of select ="/sqroot/body/bodyContent/form/info/GUID/."/>'"

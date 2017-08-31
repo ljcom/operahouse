@@ -36,8 +36,7 @@
                 <!--<span class="ms-logo ms-logo-white ms-logo-sm mr-1" style="font-size:12px;">MX4</span>-->
                 <img  src="OPHContent/themes/{/sqroot/header/info/themeFolder}/assets/img/logo.png" style="max-width:30px; margin-right:10px;" />
                 <h3 class="no-m ms-site-title">
-                  <span>Operahouse</span>
-                  Systems
+                  <span>OPERAHOUSE</span>                  
                 </h3>
               </div>
               <div class="modal-header-tabs">
@@ -184,8 +183,7 @@
               <!--<span class="ms-logo animated zoomInDown animation-delay-5" style="font-size:18px;">OPH</span>-->
               <img class="animated zoomInDown animation-delay-5" src="OPHContent/themes/{/sqroot/header/info/themeFolder}/assets/img/logo.png" style="max-width:70px;" />
               <h1 class="animated fadeInRight animation-delay-6">
-                <span>Operahouse</span>
-                Systems
+                <span>OPERAHOUSE</span>                
               </h1>
             </a>
           </div>

@@ -209,7 +209,7 @@
                     <li class="user-body">
                       <div class="row">
                         <xsl:apply-templates select="sqroot/header/menus/menu[@code='primaryback']/submenus/submenu" />
-                       
+
                       </div>
                       <!-- /.row -->
                     </li>
@@ -314,44 +314,9 @@ _________________________________________________________ -->
     <aside  class="main-sidebar">
       <!-- sidebar: style can be found in sidebar.less -->
       <section id="sidebarWrapper" class="sidebar">
-        <script>
-          $("#searchBox").val(getSearchText());
-          var c=getQueryVariable('code');
-          try {
-          $($('.treeview').children().find('a[href$="'+c+'"]')[0].parentNode.parentNode.parentNode.parentNode.parentNode).addClass('active');
-          $($('.treeview').children().find('a[href$="'+c+'"]')[0].parentNode.parentNode.parentNode).addClass('active');
-          $($('.treeview').children().find('a[href$="'+c+'"]')[0].parentNode).addClass('active');
-          } catch(e) {}
-        </script>
-        <!-- search form -->
-        <!--<form method="get" class="sidebar-form">-->
-        <div class="user-panel">
-          <div class="pull-left image">
-            <img src="OPHContent/documents/{sqroot/header/info/account}/{sqroot/header/info/user/userURL}" class="img-circle" alt="User Image" />
-          </div>
-          <div class="pull-left info">
-            <p>
-              <xsl:value-of select="sqroot/header/info/user/userName"/>
-            </p>
-            <a href="#">
-              <ix class="fa fa-circle text-success"></ix> Online
-            </a>
-          </div>
+        <div class="overlay">
+          <ix class="fa fa-refresh fa-spin"></ix>
         </div>
-        <div class="input-group sidebar-form">
-          <input type="text" id="searchBox" name="searchBox" class="form-control" placeholder="Search..." onkeypress="return searchText(event,this.value);" value="" />
-          <span class="input-group-btn">
-            <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-              <ix class="fa fa-search" aria-hidden="true"></ix>
-            </button>
-          </span>
-        </div>
-        <!--</form>-->
-        <!-- sidebar menu: : style can be found in sidebar.less -->
-        <ul class="sidebar-menu">
-          <xsl:apply-templates select="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu[@type='label']" />
-        </ul>
-
       </section>
 
       <!-- /.sidebar -->
@@ -437,17 +402,17 @@ _________________________________________________________ -->
 
   <xsl:template match="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu[@type='label']">
     <li>
-        <a href="{pageURL/.}">
-          <xsl:if test="(icon/fa/.)!=''">
-            <span>
-              <ix class="fa {icon/fa/.}"></ix>&#160;
-            </span>
-          </xsl:if>
+      <a href="{pageURL/.}">
+        <xsl:if test="(icon/fa/.)!=''">
           <span>
-            <xsl:value-of select="caption/." />
+            <ix class="fa {icon/fa/.}"></ix>&#160;
           </span>
-        </a>
-      </li>
+        </xsl:if>
+        <span>
+          <xsl:value-of select="caption/." />
+        </span>
+      </a>
+    </li>
 
   </xsl:template>
 

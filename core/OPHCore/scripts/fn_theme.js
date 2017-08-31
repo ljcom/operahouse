@@ -4,7 +4,10 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
     req.push($.ajax({ url: xmldoc, error: function () { } }));
     //$.ajax({ url: 'somefile.dat', type: 'HEAD', error: do_something });
     xltdoc.forEach(function (item, index) {
-        req.push($.ajax({ url: item, error: function () {alert('error push') } }))
+        req.push($.ajax({
+            url: item,
+            error: function () { console.log(item + ' is not found') }
+        }))
     })
     var callback = function (divnm, xml, xsl) {
         var clean = stripXML(stripScript(xmlToString(xml)));
@@ -39,7 +42,7 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
         if (typeof f == "function") f();
     }
 
-    $.when.apply(this, req).then(function (xml, xsl1, xsl2, xsl3, xsl4, xsl5) {
+    $.when.apply(this, req).always(function (xml, xsl1, xsl2, xsl3, xsl4, xsl5) {
         if (isIE()) {
             if (xml && $.parseXML(xml[2].responseText)) {
                 if (xml != undefined && xsl1 != undefined) callback(divname[0], xml[2], xsl1[2]);

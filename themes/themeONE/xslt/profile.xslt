@@ -13,6 +13,7 @@
       <xsl:otherwise>0</xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
+  
   <xsl:template match="/">
     <script>
       loadScript('OPHContent/themes/themeONE/scripts/admin-LTE/js/app.min.js');
@@ -184,54 +185,24 @@
       </nav>
     </header>
 
-    <!-- *** LOGIN MODAL ***
-_________________________________________________________ -->
-
-    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="signinLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm" role="document">
-
+    <!-- *** MODAL SECTION ***-->
+    <div class="modal fade" id="allModal" role="dialog" >
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <form id="signinForm" method="post">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&#215;</button>
-              <h4 class="modal-title" id="signinLabel">Sign in</h4>
-            </div>
-
-            <div class="modal-body">
-              <div class="form-group">
-                <input type="text" class="form-control" id="userid" placeholder="user id" />
-              </div>
-              <div class="form-group">
-                <input type="password" class="form-control" id="pwd" placeholder="password" />
-              </div>
-
-              <p class="text-center text-muted">Not registered yet?</p>
-              <p class="text-center text-muted">
-                <a href="customer-register.html">
-                  <strong>Register now</strong>
-                </a>! It is easy and done in 1&#160;minute and gives you access to special discounts and much more!
-              </p>
-
-            </div>
-            <div class="modal-footer">
-
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <a href="javascript: signIn();">
-                <button type="button" class="btn btn-primary">
-                  <span>
-                    <ix class="fa fa-sign-in"></ix>
-                  </span>&#160;Sign In
-                </button>
-              </a>
-
-            </div>
-          </form>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&#215;</button>
+            <h4 class="modal-title">&#160;</h4>
+          </div>
+          <div class="modal-body">&#160;</div>
+          <div class="modal-footer">
+            <button class="btn btn-default" id="modal-btn-close" data-dismiss="modal">Close</button>
+            <button class="btn btn-default" id="modal-btn-cancel" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-primary" id="modal-btn-confirm" data-loading-text="Processing...">Confirm</button>
+          </div>
         </div>
       </div>
     </div>
-
-    <!-- *** LOGIN MODAL END *** -->
-
+    
     <!-- Left side column. contains the logo and sidebar -->
     <aside  class="main-sidebar">
       <!-- sidebar: style can be found in sidebar.less -->
@@ -279,6 +250,7 @@ _________________________________________________________ -->
 
       <!-- /.sidebar -->
     </aside>
+    
     <!-- Content Wrapper. Contains page content -->
     <div id="contentWrapper" class="content-wrapper">
       <section class="content-header">
@@ -380,6 +352,7 @@ _________________________________________________________ -->
 
           <div class="col-md-9">
             <div class="nav-tabs-custom">
+              <!--Menu Tab-->
               <ul class="nav nav-tabs">
                 <li class="active">
                   <a href="#journal" data-toggle="tab">Journal</a>
@@ -388,10 +361,15 @@ _________________________________________________________ -->
                   <a href="#profile" data-toggle="tab">Profile</a>
                 </li>
                 <li>
+                  <a href="#delegation" data-toggle="tab">Delegation</a>
+                </li>
+                <li>
                   <a href="#password" data-toggle="tab">Change Password</a>
                 </li>
               </ul>
+              
               <div class="tab-content">
+                <!--Journal Content-->
                 <div class="active tab-pane" id="journal">
                   <ul class="timeline timeline-inverse">
                     <xsl:for-each select="sqroot/body/bodyContent/journal/item">
@@ -448,98 +426,98 @@ _________________________________________________________ -->
                   </ul>
                 </div>
                 
+                <!--Profile Content-->
                 <div class="tab-pane" id="profile">
                   <form class="form-horizontal" id="formProfile">
-                    <xsl:for-each select="sqroot/body/bodyContent/profile/row">
-                      <xsl:choose>
-                        <xsl:when test="@isViewable=1">
-                          <div class="form-group">
-                            <label for="{@key}" class="col-sm-2 control-label">
-                              <xsl:value-of select="caption"/>
-                            </label>
-
-                            <div class="col-sm-10">
-                              <xsl:choose>
-                                <xsl:when test="type = 'number'">
-                                  <input type="{type}" min="0" class="form-control" id="{@key}" name="{@key}" placeholder="{caption}" value="{value}" onchange="profileOnChange('{@key}')" />                                
-                                </xsl:when>
-                                <xsl:when test="type = 'textarea'">
-                                  <xsl:choose>
-                                    <xsl:when test="value != ''">
-                                      <textarea class="form-control" id="{@key}" name="{@key}" placeholder="{caption}" onchange="profileOnChange('{@key}')" > 
-                                        <xsl:value-of select="value"/>                                    
-                                      </textarea>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                      <textarea class="form-control" id="{@key}" name="{@key}" placeholder="{caption}" onchange="profileOnChange('{@key}')" >&#160;</textarea>
-                                    </xsl:otherwise>                                    
-                                  </xsl:choose>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                  <input type="{type}" class="form-control" id="{@key}" name="{@key}" placeholder="{caption}" value="{value}" onchange="profileOnChange('{@key}')" />                                
-                              </xsl:otherwise>                              
-                              </xsl:choose>
-                            </div>
-                          </div>
-                        </xsl:when>
-                        <xsl:otherwise>
-                          <div class="form-group">
-                            <div class="col-sm-10">
-                              <xsl:choose>
-                                <xsl:when test="type = 'file'">
-                                  <input type="file" class="form-control" id ="{@key}_file" style="visibility: hidden; width: 0; height: 0;" />
-                                  <input type="hidden" class="form-control" id="{@key}" name="{@key}" value="{value}"/>                                
-                                </xsl:when>
-                                <xsl:otherwise>
-                                  <input type="hidden" class="form-control" id="{@key}" name="{@key}" value="{value}"/>
-                                </xsl:otherwise>
-                              </xsl:choose>
-                            </div>
-                          </div>
-                        </xsl:otherwise>                      
-                      </xsl:choose>
-                    </xsl:for-each>                 
-
+                    <xsl:apply-templates select="sqroot/body/bodyContent/profile"/>
+                  </form>
+                </div>
+                
+                <!--Delegation Content-->
+                <div class="tab-pane" id="delegation">
+                  <div class="form-horizontal" >
                     <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-10">
-                        <button type="button" class="btn btn-danger" id="save_profile" onclick="saveProfile('formProfile', 'profile', '{sqroot/body/bodyContent/info/GUID}' )" disabled="disabled">
-                          Save Profile
+                      <div class="col-sm-5">
+                        <p style="font-weight:bold;float:left;">Delegate to :</p>
+                        <span style="color:red;float:right;">required field</span>
+                      </div>
+                      <div class="col-sm-5">
+                        <p style="font-weight:bold;float:left;">for Modules :</p>
+                        <span style="color:red;float:right;">required field</span>
+                      </div>
+                      <div class="col-sm-2">
+                        &#160;
+                      </div>                    
+                    </div>                    
+                    <div id="deleparent">
+                      <div class="form-group" id="delechild0" style="display:none;" >
+                        <form id="formDelegate0">
+                          <input type="hidden" id="guid0" value=""/>
+                          <input type="hidden" id="UserGUID0" name="UserGUID0" value="{/sqroot/body/bodyContent/info/GUID}"/>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control" id="TokenDelegate0" name="TokenDelegate0" data-type="tokenBox" data-old-value ="" value="" />
+                          </div>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control" id="TokenModule0" name="TokenModule0" data-type="tokenBox" data-old-value ="" value="" />
+                          </div>
+                          <div class="col-sm-2">
+                            <button type="button" class="btn btn-warning" id="btn-del0" data-toggle="tooltip" title="Delete This Entry?" 
+                              data-target="#allModal" data-caption="Deleting Entry" data-msg="Are you sure you want to delete this entry ?" 
+                                onclick="showModal(this, 'delete', 'formDelegate0', 'delechild0', '')" >
+                              <ix class="fa fa-trash-o" aria-hidden="true"></ix>
+                            </button>
+                            <button type="button" class="btn btn-success" id="btn-save0" data-toggle="tooltip" title="Save This Entry?" 
+                              data-target="#allModal" data-caption="Saving Entry" data-msg="Are you sure you want to save this entry ?" 
+                                onclick="showModal(this, 'save', 'formDelegate0', 'delechild0', '')" disabled="disabled">
+                              <ix class="fa fa-floppy-o" aria-hidden="true"></ix>
+                            </button>
+                          </div>  
+                        </form>
+                      </div>                    
+                      <xsl:apply-templates select="sqroot/body/bodyContent/delegation" />                    
+                    </div>
+                    <div class="form-group">
+                      <div class="col-sm-10">
+                        <button type="button" class="btn btn-primary" id="addele" onclick="addNewDele(this);" >
+                          <ix class="fa fa-plus" aria-hidden="true"></ix>
+                          &#160; Add New Delegation
                         </button>
                       </div>
                     </div>
-                  </form>
+                  </div>
                 </div>
 
+                <!--Password Content-->
                 <div class="tab-pane" id="password">
                   <form class="form-horizontal" id="formPass">
                     <div class="form-group">
-                      <label for="curPass" class="col-sm-2 control-label">Current Password</label>
-                      <div class="col-sm-10">
+                      <label for="curPass" class="col-sm-3 control-label">Current Password</label>
+                      <div class="col-sm-6">
                         <span id="ecurPass" style="color:red;display:none;">&#160;</span>
                         <input type="password" class="form-control" id="curPass" value="" onblur="checkPassProfile('curPass')" />
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="newPass" class="col-sm-2 control-label">New Password</label>
-                      <div class="col-sm-10">
+                      <label for="newPass" class="col-sm-3 control-label">New Password</label>
+                      <div class="col-sm-6">
                         <span id="enewPass" style="color:red;display:none;">&#160;</span>
                         <input type="password" class="form-control" id="newPass" value="" onblur="checkPassProfile('newPass')" />
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="conPass" class="col-sm-2 control-label">Confirm Password</label>
-                      <div class="col-sm-10">
+                      <label for="conPass" class="col-sm-3 control-label">Confirm Password</label>
+                      <div class="col-sm-6">
                         <span id="econPass" style="color:red;display:none;">&#160;</span>
                         <input type="password" class="form-control" id="conPass" value="" onblur="checkPassProfile('conPass')" />
                       </div>
                     </div>
                     <div class="form-group">
-                      <div class="col-sm-10">
-                        <span style="font-size:12px; margin-left:15px;">*) This action is only change your eform password, not your windows password.</span>
+                      <div class="col-sm-offset-3 col-sm-7">
+                        <span style="font-size:12px;">*) This action is only change your eform password, not your windows password.</span>
                       </div>
                     </div>
                     <div class="form-group">
-                      <div class="col-sm-offset-2 col-sm-10">
+                      <div class="col-sm-offset-3 col-sm-7">
                         <button type="button" class="btn btn-danger" id="btn_pass" onclick="changePassProfile()" disabled="disabled">Submit</button>
                       </div>
                     </div>
@@ -621,7 +599,6 @@ _________________________________________________________ -->
     </script>
 
   </xsl:template>
-
 
   <xsl:template match="sqroot/header/menus/menu[@code='primaryback']/submenus/submenu">
     <div class="col-xs-{$nbAccountMenu} text-center">
@@ -705,6 +682,123 @@ _________________________________________________________ -->
         </span>
       </a>
     </li>
+  </xsl:template>
+  
+  <xsl:template match="sqroot/body/bodyContent/profile">
+    <xsl:for-each select="row">
+      <xsl:choose>
+        <xsl:when test="@isViewable=1">
+          <div class="form-group">
+            <label for="{@key}" class="col-sm-3 control-label">
+              <xsl:value-of select="caption"/>
+            </label>
+
+            <div class="col-sm-8">
+              <xsl:choose>
+                <xsl:when test="type = 'number'">
+                  <input type="{type}" min="0" class="form-control" id="{@key}" name="{@key}" data-old="{value}" value="{value}" onchange="profileOnChange('{@key}')" />                                
+                </xsl:when>
+                <xsl:when test="type = 'textarea'">
+                  <xsl:choose>
+                    <xsl:when test="value != ''">
+                      <textarea class="form-control" id="{@key}" name="{@key}" data-old="{value}" onchange="profileOnChange('{@key}')" > 
+                        <xsl:value-of select="value"/>                                    
+                      </textarea>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <textarea class="form-control" id="{@key}" name="{@key}" data-old="{value}" onchange="profileOnChange('{@key}')" >&#160;</textarea>
+                    </xsl:otherwise>                                    
+                  </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                  <input type="{type}" class="form-control" id="{@key}" name="{@key}" data-old="{value}" value="{value}" onchange="profileOnChange('{@key}')" />                                
+              </xsl:otherwise>                              
+              </xsl:choose>
+            </div>
+          </div>
+        </xsl:when>
+        <xsl:otherwise>
+          <div class="form-group">
+            <div class="col-sm-8">
+              <xsl:choose>
+                <xsl:when test="type = 'file'">
+                  <input type="file" class="form-control" id ="{@key}_file" style="visibility: hidden; width: 0; height: 0;" />
+                  <input type="hidden" class="form-control" id="{@key}" name="{@key}" value="{value}"/>                                
+                </xsl:when>
+                <xsl:otherwise>
+                  <input type="hidden" class="form-control" id="{@key}" name="{@key}" value="{value}"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </div>
+          </div>
+        </xsl:otherwise>                      
+      </xsl:choose>
+    </xsl:for-each>                 
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-8">
+        <button type="button" class="btn btn-success" id="save_profile" onclick="saveProfile('formProfile', 'profile', '{/sqroot/body/bodyContent/info/GUID}' )"
+          data-loading-text="Processing..." disabled="disabled">
+          Save Profile
+        </button>
+      </div>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="sqroot/body/bodyContent/delegation">
+    <xsl:for-each select="row">
+      <div class="form-group" id="delechild{@no}">
+        <form id="formDelegate{@no}">        
+          <input type="hidden" id="guid{@no}" value="{@GUID}"/>
+          <input type="hidden" id="UserGUID{@no}" name="UserGUID{@no}" value="{/sqroot/body/bodyContent/info/GUID}"/>
+          <div class="col-sm-5">
+            <input type="text" class="form-control" id="TokenDelegate{@no}" name="TokenDelegate{@no}" data-type="tokenBox" data-old-value="{tokenDelegate/value}" value="{tokenDelegate/value}" />
+          </div>
+          <div class="col-sm-5">
+            <input type="text" class="form-control" id="TokenModule{@no}" name="TokenModule{@no}" data-type="tokenBox" data-old-value="{tokenModule/value}" value="{tokenModule/value}" />
+          </div>
+          <div class="col-sm-2">
+            <button type="button" class="btn btn-warning" id="btn-del{@no}" data-toggle="tooltip" title="Delete This Entry?" data-target="#allModal" 
+              data-caption="Deleting Entry" data-msg="Are you sure you want to delete this entry ?" onclick="showModal(this, 'delete', 'formDelegate{@no}', 'delechild{@no}', '{@GUID}')" >
+              <ix class="fa fa-trash-o" aria-hidden="true"></ix>
+            </button>
+            <button type="button" class="btn btn-success" id="btn-save{@no}" data-toggle="tooltip" title="Save This Entry?" 
+              data-target="#allModal" data-caption="Saving Entry" data-msg="Are you sure you want to save this entry ?" 
+                onclick="showModal(this, 'save', 'formDelegate{@no}', 'delechild{@no}', '{@GUID}')" disabled="disabled">
+              <ix class="fa fa-floppy-o" aria-hidden="true"></ix>
+            </button>
+          </div>              
+        </form>
+        <script type="text/javascript">
+          //TokenDelegate
+          var urlTokenDelegate<xsl:value-of select="@no"/> = 'OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=userdele&amp;colkey=TokenDelegate'
+          var curlTokenDelegate<xsl:value-of select="@no"/> = 'OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=userdele&amp;colkey=TokenDelegate&amp;search=<xsl:value-of select="tokenDelegate/value"/>';                  
+          $.ajax({
+              url: curlTokenDelegate<xsl:value-of select="@no"/>, dataType: 'json', success: function (data) {
+                  $('#TokenDelegate<xsl:value-of select="@no"/>').tokenInput(urlTokenDelegate<xsl:value-of select="@no"/>, {
+                      hintText: "please type...", searchingText: "Searching...", preventDuplicates: true, allowCustomEntry: false, highlightDuplicates: false,
+                      tokenDelimiter: "*", theme: "facebook", prePopulate: data,
+                      onAdd: function(x) {  checkToken('TokenDelegate<xsl:value-of select="@no"/>'); },
+                      onDelete: function(x) { checkToken('TokenDelegate<xsl:value-of select="@no"/>'); }
+                  });
+              }
+          });
+          
+          //TokenModule
+          var urlTokenModule<xsl:value-of select="@no"/> = 'OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=userdele&amp;colkey=TokenModule'
+          var curlTokenModule<xsl:value-of select="@no"/> = 'OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=userdele&amp;colkey=TokenModule&amp;search=<xsl:value-of select="tokenModule/value"/>';                  
+          $.ajax({
+              url: curlTokenModule<xsl:value-of select="@no"/>, dataType: 'json', success: function (data) {
+                  $('#TokenModule<xsl:value-of select="@no"/>').tokenInput(urlTokenModule<xsl:value-of select="@no"/>, {
+                      hintText: "please type...", searchingText: "Searching...", preventDuplicates: true, allowCustomEntry: false, highlightDuplicates: false,
+                      tokenDelimiter: "*", theme: "facebook", prePopulate: data,
+                      onAdd: function(x) {  checkToken('TokenModule<xsl:value-of select="@no"/>'); },
+                      onDelete: function(x) { checkToken('TokenModule<xsl:value-of select="@no"/>'); }
+                  });
+              }
+          });         
+        </script>      
+      </div>                    
+    </xsl:for-each>
   </xsl:template>
 
 </xsl:stylesheet>

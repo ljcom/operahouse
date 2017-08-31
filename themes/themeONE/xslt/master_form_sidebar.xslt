@@ -176,15 +176,35 @@
             <li>
               <dl id="approval-info">
                 <xsl:for-each select="sqroot/body/bodyContent/form/approvals/approval/.">
-                  <dt style="margin: 10px 0 0 0;" data-toggle="tooltip" title="Approved">
+                  <xsl:variable name="aprvstat">
+                    <xsl:choose>
+                      <xsl:when test="@status = 400">
+                        Approved
+                      </xsl:when>
+                      <xsl:when test="@status = 300">
+                        Rejected   
+                      </xsl:when>
+                      <xsl:otherwise>
+                        Not Yet Approved
+                      </xsl:otherwise>
+                    </xsl:choose>                  
+                  </xsl:variable>
+                  <dt style="margin: 10px 0 0 0;" data-toggle="tooltip" title="{$aprvstat}">
                     <xsl:choose>
                       <xsl:when test="@status = 400">
                         <div style="float:left">
                           <ix class="fa fa-check-circle"></ix>
                         </div>
                       </xsl:when>
+                      <xsl:when test="@status = 300">
+                        <div style="float:left">
+                          <ix class="fa fa-times-circle"></ix>
+                        </div>
+                      </xsl:when>
                       <xsl:otherwise>
-                        <ix class="fa fa-minus-circle"></ix>
+                        <div style="float:left">
+                          <ix class="fa fa-minus-circle"></ix>
+                        </div>
                       </xsl:otherwise>
                     </xsl:choose>
                     &#160;<xsl:value-of select="name"/>
@@ -393,7 +413,6 @@
     <dt>Status</dt>
     <dd>
       <xsl:if test="status='400'" > Approved</xsl:if>
-
     </dd>
   </xsl:template>
 

@@ -13,9 +13,20 @@
 
         var divname = ['frameMaster'];
         var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '.xslt'];
+        
+        if (getGUID()=='' || getGUID()==undefined) {
+            $.get( 'OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_sidebar.xslt').done(function() {
+                divname.push('sidebarWrapper');
+                xsldoc.push('OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_sidebar.xslt');
 
+            }).always(function() {
+                pushTheme(divname, xmldoc, xsldoc, true);
+            });
 
-        pushTheme(divname, xmldoc, xsldoc, true);
+        }
+        else {pushTheme(divname, xmldoc, xsldoc, true);}
+
+        
 
     }
     catch (e) {
@@ -101,9 +112,9 @@ function loadChild(code, parentKey, GUID, pageNo) {
     //$('#' + code).on('show.bs.collapse', '.collapse', function () {
     //    $('#' + code).find('.collapse.in').collapse('hide');
 
-//});
+    //});
 
-//showXML(divName, xmldoc, xsldocs, true, true, function () { });
+    //showXML(divName, xmldoc, xsldocs, true, true, function () { });
 }
 
 function signIn() {
@@ -2277,87 +2288,87 @@ function ShowMap(reportName, parameter, n, t) {
     });
 }
 
-function PrintDirect(queryCode, parameter, outputtype, titleName, subtitleName, PathDPLX) {
+//function PrintDirect(queryCode, parameter, outputtype, titleName, subtitleName, PathDPLX) {
 
-    var parvalue1 = "";
-    var parameter1 = parameter.length - 1;
-    var parameter = parameter.substring(0, parameter1);
+//    var parvalue1 = "";
+//    var parameter1 = parameter.length - 1;
+//    var parameter = parameter.substring(0, parameter1);
 
-    do {
-        if (parameter.indexOf(',') > -1) {
-            parid = parameter.substring(0, parameter.indexOf(','));
-            parid1 = parid
+//    do {
+//        if (parameter.indexOf(',') > -1) {
+//            parid = parameter.substring(0, parameter.indexOf(','));
+//            parid1 = parid
 
-            do {
-                parid1 = parid1.replace('*', '');
-            }
-            while (parid1.indexOf('*') > -1)
-            if (parid1.substring(0, 1) == '#') {
-                parid1 = parid1.replace("#", "");
-                parid1 = parid1.replace("#", "");
-                parvalue = parid1;
-            }
-            else {
-                if (document.getElementById(parid1).type == 'checkbox') {
-                    var r = document.getElementById(parid1).checked ? "1" : "0";
-                    parvalue = "" + r + "";
-                }
-                else {
-                    parvalue = document.getElementById(parid1).value;
+//            do {
+//                parid1 = parid1.replace('*', '');
+//            }
+//            while (parid1.indexOf('*') > -1)
+//            if (parid1.substring(0, 1) == '#') {
+//                parid1 = parid1.replace("#", "");
+//                parid1 = parid1.replace("#", "");
+//                parvalue = parid1;
+//            }
+//            else {
+//                if (document.getElementById(parid1).type == 'checkbox') {
+//                    var r = document.getElementById(parid1).checked ? "1" : "0";
+//                    parvalue = "" + r + "";
+//                }
+//                else {
+//                    parvalue = document.getElementById(parid1).value;
 
-                }
-                parid = parid1.replace(parid1, parvalue);
+//                }
+//                parid = parid1.replace(parid1, parvalue);
 
-            }
+//            }
 
-            if (outputtype == 1)
-                parvalue1 += parid1 + ":''" + parvalue + "'',";
-            else
-                parvalue1 += parid1 + ":''" + parvalue + "'',";
-            parameter = parameter.substring(parameter.indexOf(',') + 1, parameter.length);
-        }
-        else {
-            if (parameter.length > 0) {
-                do {
-                    parameter = parameter.replace('*', '');
-                }
-                while (parameter.indexOf('*') > -1)
-                if (parameter.substring(0, 1) == '#') {
-                    parameter = parameter.replace("#", "");
-                    parameter = parameter.replace("#", "");
-                    parvalue1 += "''" + parameter + "''";
-                }
-                else {
-                    if (eval("document.getElementById('" + parameter + "').type") == 'checkbox') {
-                        var r = (eval("document.getElementById('" + parameter + "').checked")) ? "1" : "0";
-                        if (outputtype == 1)
-                            parvalue1 += parameter + ":" + r + "";
-                        else
-                            parvalue1 += parameter + ":" + r + "";
-                    }
-                    else {
-                        if (outputtype == 1)
-                            parvalue1 += parameter + ":''" + eval("document.getElementById('" + parameter + "').value") + "''";
-                        else
+//            if (outputtype == 1)
+//                parvalue1 += parid1 + ":''" + parvalue + "'',";
+//            else
+//                parvalue1 += parid1 + ":''" + parvalue + "'',";
+//            parameter = parameter.substring(parameter.indexOf(',') + 1, parameter.length);
+//        }
+//        else {
+//            if (parameter.length > 0) {
+//                do {
+//                    parameter = parameter.replace('*', '');
+//                }
+//                while (parameter.indexOf('*') > -1)
+//                if (parameter.substring(0, 1) == '#') {
+//                    parameter = parameter.replace("#", "");
+//                    parameter = parameter.replace("#", "");
+//                    parvalue1 += "''" + parameter + "''";
+//                }
+//                else {
+//                    if (eval("document.getElementById('" + parameter + "').type") == 'checkbox') {
+//                        var r = (eval("document.getElementById('" + parameter + "').checked")) ? "1" : "0";
+//                        if (outputtype == 1)
+//                            parvalue1 += parameter + ":" + r + "";
+//                        else
+//                            parvalue1 += parameter + ":" + r + "";
+//                    }
+//                    else {
+//                        if (outputtype == 1)
+//                            parvalue1 += parameter + ":''" + eval("document.getElementById('" + parameter + "').value") + "''";
+//                        else
 
-                            parvalue1 += parameter + ":''" + eval("document.getElementById('" + parameter + "').value") + "''";
-                    }
-                }
-                parameter = parvalue1;
+//                            parvalue1 += parameter + ":''" + eval("document.getElementById('" + parameter + "').value") + "''";
+//                    }
+//                }
+//                parameter = parvalue1;
 
-            }
-            break;
-        }
-    }
-    while (parameter.indexOf(',') > -2)
-    parameter = parameter.replace("''''", "null").replace("''''", "null").replace("''''", "null").replace("''''", "null").replace("''''", "null").replace("''''", "null").replace("''''", "null");
-    var ParentGUID = '';
-    mode = (outputtype == 1) ? 'dplx' : 'gbox';
-    if (outputtype == 3) ParentGUID = '&parentGUID=' + getQueryVariable('GUID');
+//            }
+//            break;
+//        }
+//    }
+//    while (parameter.indexOf(',') > -2)
+//    parameter = parameter.replace("''''", "null").replace("''''", "null").replace("''''", "null").replace("''''", "null").replace("''''", "null").replace("''''", "null").replace("''''", "null");
+//    var ParentGUID = '';
+//    mode = (outputtype == 1) ? 'dplx' : 'gbox';
+//    if (outputtype == 3) ParentGUID = '&parentGUID=' + getQueryVariable('GUID');
 
-    window.open('OPHCore/api/msg_rptDialog.aspx?' + mode + '=1&queryCode=' + queryCode + '&parameter=' + parameter + '&outputType=' + outputtype + '&' + ParentGUID + '&titleName=' + titleName + '&subtitleName=' + subtitleName + ' ' + Date());
+//    window.open('OPHCore/api/msg_rptDialog.aspx?' + mode + '=1&queryCode=' + queryCode + '&parameter=' + parameter + '&outputType=' + outputtype + '&' + ParentGUID + '&titleName=' + titleName + '&subtitleName=' + subtitleName + ' ' + Date());
 
-}
+//}
 
 function displayResult() {
     var x = document.getElementById("startdate").value;
@@ -2488,11 +2499,13 @@ function showChildForm(code, guid, parent) {
 
         var xsldoc = ["OPHContent/themes/" + loadThemeFolder() + "/xslt/" + getPage() + "_childForm.xslt"];
         pushTheme(divnm, xmldoc, xsldoc, true, function () {
-            $('#' + code + guid).collapse({ parent: '#' + parent, toggle: true });
-           // $('#' + code + guid).collapse('toggle');
+            $('#' + code + guid).collapse('show');
+            // $('#' + code + guid).collapse({ parent: '#' + parent, toggle: true });
+            // $('#' + code + guid).collapse('toggle');
         });
-        $('#' + code).find('.collapse.in').collapse('hide');
-        $('#' + code).children().find('.collapse.in').collapse('hide');
+        //$('#' + code).find('.collapse.in').collapse('hide');
+        //$('#' + code).children().find('.collapse.in').collapse('hide');
+        $('#' + code + guid).parent().parent().parent().children().find('.collapse.in').collapse('hide');
     }
     else {
         $('#' + code + guid).collapse({ parent: '#' + guid, toggle: true });
@@ -2571,7 +2584,7 @@ function searchTextChild(e, searchvalue, code) {
         var pageNo = (pageNo == undefined) ? 1 : pageNo;
 
         var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + sqlfilter + '&bPageNo=' + pageNo + '&bSearchText=' + bSearchText + '&date=' + getUnique();
-        var divName = ['child' + String(code).toLowerCase()];
+        var divName = ['child' + String(code).toLowerCase() + getGUID()];
         var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
 
         pushTheme(divName, xmldoc, xsldoc, true);

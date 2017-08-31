@@ -26,8 +26,9 @@ Partial Class OPHCore_api_sync
                     xmlstr = getXML(sqlstr, contentOfsequoiaCon)
 
                     If xmlstr IsNot Nothing And xmlstr <> "" Then
-                        result = "<sqroot>" & xmlstr & "</sqroot>"
-                    Else
+						'result = "<sqroot>" & xmlstr & "</sqroot>"
+						result = xmlstr
+					Else
                         result = "<sqroot><message>Incorrect Password!</message></sqroot>"
                     End If
 
@@ -39,8 +40,9 @@ Partial Class OPHCore_api_sync
 				xmlstr = getXML(sqlstr, contentOfdbODBC)
 
 				If xmlstr IsNot Nothing And xmlstr <> "" Then
-                    result = "<sqroot>" & xmlstr & "</sqroot>"
-                Else
+					'result = "<sqroot>" & xmlstr & "</sqroot>"
+					result = xmlstr
+				Else
                     result = "<sqroot><message>Incorrect Data!</message></sqroot>"
                 End If
 
@@ -52,8 +54,9 @@ Partial Class OPHCore_api_sync
 				xmlstr = getXML(sqlstr, contentOfdbODBC)
 
 				If xmlstr IsNot Nothing And xmlstr <> "" Then
-                    result = "<sqroot>" & xmlstr & "</sqroot>"
-                Else
+					'result = "<sqroot>" & xmlstr & "</sqroot>"
+					result = xmlstr
+				Else
                     result = "<sqroot><message>Incorrect Data!</message></sqroot>"
                 End If
 
@@ -66,8 +69,9 @@ Partial Class OPHCore_api_sync
 				xmlstr = getXML(sqlstr, contentOfdbODBC)
 
 				If xmlstr IsNot Nothing And xmlstr <> "" Then
-                    result = "<sqroot>" & xmlstr & "</sqroot>"
-                Else
+					'result = "<sqroot>" & xmlstr & "</sqroot>"
+					result = xmlstr
+				Else
                     result = "<sqroot><message>Incorrect Data!</message></sqroot>"
                 End If
 
@@ -81,8 +85,9 @@ Partial Class OPHCore_api_sync
 				xmlstr = getXML(sqlstr, contentOfdbODBC)
 
 				If xmlstr IsNot Nothing And xmlstr <> "" Then
-                    result = "<sqroot>" & xmlstr & "</sqroot>"
-                Else
+					'result = "<sqroot>" & xmlstr & "</sqroot>"
+					result = xmlstr
+				Else
                     result = "<sqroot><message>Incorrect Data!</message></sqroot>"
                 End If
 
@@ -94,8 +99,9 @@ Partial Class OPHCore_api_sync
 				xmlstr = getXML(sqlstr, contentOfdbODBC)
 
 				If xmlstr IsNot Nothing And xmlstr <> "" Then
-                    result = "<sqroot>" & xmlstr & "</sqroot>"
-                Else
+					'result = "<sqroot>" & xmlstr & "</sqroot>"
+					result = xmlstr
+				Else
                     result = "<sqroot><message>Incorrect Data!</message></sqroot>"
                 End If
 
