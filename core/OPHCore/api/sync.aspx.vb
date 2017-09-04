@@ -14,8 +14,8 @@ Partial Class OPHCore_api_sync
         Dim mode = getQueryVar("mode")
         Dim accountId = contentOfaccountId
         Dim sessionToken = getQueryVar("token")
-
-        Select Case mode.ToLower
+		writeLog(mode)
+		Select Case mode.ToLower
             Case "reqtoken"
                 Dim userId = getQueryVar("userId")
                 Dim pwd = getQueryVar("pwd")
@@ -107,22 +107,23 @@ Partial Class OPHCore_api_sync
 				Dim code = getQueryVar("code")
 				writeLog(code)
 				If Not IsNothing(Request.Form("dataXML")) Then
-					Dim dataxml = Request.Form("dataXML").ToString.Replace("%26lt;", "<").Replace("%26gt;", ">").Replace("%26", "&")
-					writeLog(dataxml)
+					Dim dataxml = Request.Form("dataXML").ToString.Replace("%26lt;", "<").Replace("%26gt;", ">").Replace("%26", "&").Replace("&lt;", "<").Replace("&gt;", ">")
+					writeLog(Len(Request.Form("dataXML")).ToString & " " & Len(dataxml).ToString & " " + dataxml)
 
 					sqlstr = "exec [api].[sync_sendData] '" & accountId & "', '" & sessionToken & "', '" & code & "', '" & dataxml & "'"
-
+					writeLog(sqlstr)
 					xmlstr = getXML(sqlstr, contentOfdbODBC)
-				End If
-
-				If xmlstr IsNot Nothing And xmlstr <> "" Then
-					'result = "<sqroot>" & xmlstr & "</sqroot>"
-					result = xmlstr
+					writeLog(xmlstr)
+					result = "<sqroot><message>Done</message></sqroot>"
 				Else
-                    result = "<sqroot><message>Incorrect Data!</message></sqroot>"
-                End If
-
-        End Select
+					If xmlstr IsNot Nothing And xmlstr <> "" Then
+						'result = "<sqroot>" & xmlstr & "</sqroot>"
+						result = xmlstr
+					Else
+						result = "<sqroot><message>Incorrect Data!</message></sqroot>"
+					End If
+				End If
+		End Select
 
         Response.ContentType = "text/xml"
         Response.Write("<?xml version=""1.0"" encoding=""utf-8""?>")
