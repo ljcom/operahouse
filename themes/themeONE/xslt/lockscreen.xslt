@@ -26,7 +26,7 @@
         <a href="?">
           <xsl:value-of select="sqroot/header/info/company"/>&#160;
           <b>
-            <xsl:value-of select="sqroot/header/info/account" />
+            <xsl:value-of select="sqroot/header/info/productName" />
           </b>
         </a>
       </div>

@@ -89,8 +89,8 @@ Partial Class OPHCore_api_sync
 
             Case "reqdata"
                 Dim code = getQueryVar("code")
-                Dim guid = getQueryVar("guid")
-                Dim pg = getQueryVar("page")
+				Dim guid = Request.Form("guid")
+				'Dim pg = getQueryVar("page")
 
 				sqlstr = "exec [api].[sync_reqdata] '" & accountId & "', '" & sessionToken & "', '" & code & "', '" & guid & "'"
 
@@ -103,13 +103,17 @@ Partial Class OPHCore_api_sync
                     result = "<sqroot><message>Incorrect Data!</message></sqroot>"
                 End If
 
-            Case "sendData"
-                Dim code = getQueryVar("code")
-				Dim dataxml = Request.Form("dataXML").ToString
-				writeLog("dataXML: ")
-				sqlstr = "exec [api].[sync_sendData] '" & accountId & "', '" & sessionToken & "', '" & code & "', '" & dataxml & "'"
+			Case "senddata"
+				Dim code = getQueryVar("code")
+				writeLog(code)
+				If Not IsNothing(Request.Form("dataXML")) Then
+					Dim dataxml = Request.Form("dataXML").ToString.Replace("%26lt;", "<").Replace("%26gt;", ">").Replace("%26", "&")
+					writeLog(dataxml)
 
-				xmlstr = getXML(sqlstr, contentOfdbODBC)
+					sqlstr = "exec [api].[sync_sendData] '" & accountId & "', '" & sessionToken & "', '" & code & "', '" & dataxml & "'"
+
+					xmlstr = getXML(sqlstr, contentOfdbODBC)
+				End If
 
 				If xmlstr IsNot Nothing And xmlstr <> "" Then
 					'result = "<sqroot>" & xmlstr & "</sqroot>"
