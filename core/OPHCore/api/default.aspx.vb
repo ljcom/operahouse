@@ -282,13 +282,12 @@ Partial Class OPHCore_API_default
 			Case Else 'signin
 				Dim userid = getQueryVar("userid")
 				Dim pwd = getQueryVar("pwd")
+				Dim source As String = Request.Form("source")
 				Dim captcha = Request.Form("g-recaptcha-response")
 				If userid = "" And pwd = "" And captcha = "" Then
 					reloadURL("index.aspx?")
 				Else
-					If captcha = "" Or Not IsGoogleCaptchaValid() Then
-						xmlstr = "<sqroot><message>Please authorize CAPTCHA!</message></sqroot>"
-					Else
+					If (captcha <> "" And IsGoogleCaptchaValid()) Or (source.ToLower.IndexOf("localhost") > 0) Or (source.ToLower.IndexOf("code=lockscreen") > 0) Then
 						Dim bypass = 0
 						If checkWinLogin(userid, pwd) Then
 							bypass = 1
@@ -312,6 +311,8 @@ Partial Class OPHCore_API_default
 							sqlstr = "exec dbo.checkToPCSO '" & curHostGUID & "', '" & cartID & "'"
 							Dim xmlstr2 = runSQLwithResult(sqlstr, curODBC)
 						End If
+					Else
+						xmlstr = "<sqroot><message>Please authorize CAPTCHA!</message></sqroot>"
 					End If
 					'--!
 					isSingle = False
