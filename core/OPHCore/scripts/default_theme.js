@@ -123,7 +123,7 @@ function signIn() {
     if ($("#userid")) uid = $("#userid").val();
     var pwd = $("#pwd").val();
 
-    var dataForm = $('#signinForm').serialize() //.split('_').join('');
+    var dataForm = $('form').serialize() //.split('_').join('');
 
     var dfLength = dataForm.length;
     dataForm = dataForm.substring(2, dfLength);

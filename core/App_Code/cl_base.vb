@@ -1442,5 +1442,38 @@ Public Class cl_base
         'End If
 
     End Sub
+	Public Function IsGoogleCaptchaValid() As Boolean
+		Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
+		'dynamic account
+		Dim secret = appSettings.Item("reCAPTCHAsecret")
+		Try
+			Dim recaptchaResponse As String = Request.Form("g-recaptcha-response")
+			If Not String.IsNullOrEmpty(recaptchaResponse) Then
+				Dim request As Net.WebRequest = Net.WebRequest.Create("https://www.google.com/recaptcha/api/siteverify?secret=" & secret & "&response=" + recaptchaResponse)
+				request.Method = "POST"
+				request.ContentType = "application/json; charset=utf-8"
+				Dim postData As String = ""
 
+				'get a reference to the request-stream, and write the postData to it
+				Using s As IO.Stream = request.GetRequestStream()
+					Using sw As New IO.StreamWriter(s)
+						sw.Write(postData)
+					End Using
+				End Using
+				''get response-stream, and use a streamReader to read the content
+				Using s As IO.Stream = request.GetResponse().GetResponseStream()
+					Using sr As New IO.StreamReader(s)
+						'decode jsonData with javascript serializer
+						Dim jsonData = sr.ReadToEnd()
+						If jsonData.IndexOf("  ""success"": true") > 0 Then
+							Return True
+						End If
+					End Using
+				End Using
+			End If
+		Catch ex As Exception
+			'Dont show the error
+		End Try
+		Return False
+	End Function
 End Class

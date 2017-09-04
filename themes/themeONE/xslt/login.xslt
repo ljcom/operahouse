@@ -32,7 +32,7 @@
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/fastclick/fastclick.js');
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/admin-LTE/js/demo.js');-->
       loadScript('OPHContent/themes/themeONE/scripts/admin-LTE/js/app.min.js');
-
+      loadScript('https://www.google.com/recaptcha/api.js');
       document.title='<xsl:value-of select="/sqroot/header/info/title"/>';
       <!--loadContent();-->
     </script>
@@ -113,6 +113,7 @@
                   <label>Password</label>
                   <input type="password" class="form-control" name ="pwd" id ="pwd" onkeypress="return checkenter(event)"/>
                 </div>
+                <div class="g-recaptcha" data-sitekey="6Ld9Qi8UAAAAAJKicrf2JhrOH3k5LkqxyCodIOWm"></div>
                 <br/>
                 
               </form>
