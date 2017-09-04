@@ -29,8 +29,8 @@ Partial Class OPHCore_api_sync
 						'result = "<sqroot>" & xmlstr & "</sqroot>"
 						result = xmlstr
 					Else
-                        result = "<sqroot><message>Incorrect Password!</message></sqroot>"
-                    End If
+						result = "<sqroot><source>reqtoken</source><message>Incorrect Password!</message></sqroot>"
+					End If
 
                 End If
             Case "checklatestevent"
@@ -43,8 +43,8 @@ Partial Class OPHCore_api_sync
 					'result = "<sqroot>" & xmlstr & "</sqroot>"
 					result = xmlstr
 				Else
-                    result = "<sqroot><message>Incorrect Data!</message></sqroot>"
-                End If
+					result = "<sqroot><source>checklatestevent</source><message>Incorrect Data!</message></sqroot>"
+				End If
 
             Case "reqcodeprop"
                 Dim code = getQueryVar("code")
@@ -57,8 +57,8 @@ Partial Class OPHCore_api_sync
 					'result = "<sqroot>" & xmlstr & "</sqroot>"
 					result = xmlstr
 				Else
-                    result = "<sqroot><message>Incorrect Data!</message></sqroot>"
-                End If
+					result = "<sqroot><source>reqcodeprop</source><message>Incorrect Data!</message></sqroot>"
+				End If
 			Case "sendcodeprop"
 				Dim code = getQueryVar("code")
 
@@ -70,7 +70,7 @@ Partial Class OPHCore_api_sync
 					'result = "<sqroot>" & xmlstr & "</sqroot>"
 					result = xmlstr
 				Else
-					result = "<sqroot><message>Incorrect Data!</message></sqroot>"
+					result = "<sqroot><source>sendcodeprop</source><message>Incorrect Data!</message></sqroot>"
 				End If
 			Case "reqheader"
                 Dim code = getQueryVar("code")
@@ -84,8 +84,8 @@ Partial Class OPHCore_api_sync
 					'result = "<sqroot>" & xmlstr & "</sqroot>"
 					result = xmlstr
 				Else
-                    result = "<sqroot><message>Incorrect Data!</message></sqroot>"
-                End If
+					result = "<sqroot><source>reqheader</source><message>Incorrect Data!</message></sqroot>"
+				End If
 
             Case "reqdata"
                 Dim code = getQueryVar("code")
@@ -100,8 +100,8 @@ Partial Class OPHCore_api_sync
 					'result = "<sqroot>" & xmlstr & "</sqroot>"
 					result = xmlstr
 				Else
-                    result = "<sqroot><message>Incorrect Data!</message></sqroot>"
-                End If
+					result = "<sqroot><source>reqdata</source><message>Incorrect Data!</message></sqroot>"
+				End If
 
 			Case "senddata"
 				Dim code = getQueryVar("code")
@@ -120,7 +120,7 @@ Partial Class OPHCore_api_sync
 						'result = "<sqroot>" & xmlstr & "</sqroot>"
 						result = xmlstr
 					Else
-						result = "<sqroot><message>Incorrect Data!</message></sqroot>"
+						result = "<sqroot><source>senddata</source><message>Incorrect Data!</message></sqroot>"
 					End If
 				End If
 		End Select
