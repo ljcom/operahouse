@@ -61,16 +61,24 @@ Partial Class OPHCore_api_sync
 				End If
 			Case "sendcodeprop"
 				Dim code = getQueryVar("code")
+				If Not IsNothing(Request.Form("dataXML")) Then
+					Dim dataxml = Request.Form("dataXML").ToString.Replace("%26lt;", "<").Replace("%26gt;", ">").Replace("%26", "&").Replace("&lt;", "<").Replace("&gt;", ">")
+					writeLog(Len(Request.Form("dataXML")).ToString & " " & Len(dataxml).ToString & " " + dataxml)
 
-				sqlstr = "exec [api].[sync_sendcodeprop] '" & accountId & "', '" & sessionToken & "', '" & code & "'"
+					sqlstr = "exec [api].[sync_sendcodeprop] '" & accountId & "', '" & sessionToken & "', '" & code & "', '" & dataxml & "'"
 
-				xmlstr = getXML(sqlstr, contentOfdbODBC)
+					writeLog(sqlstr)
+					xmlstr = getXML(sqlstr, contentOfdbODBC)
+					writeLog(xmlstr)
+					result = "<sqroot><message>Done</message></sqroot>"
+				Else
 
-				If xmlstr IsNot Nothing And xmlstr <> "" Then
+					If xmlstr IsNot Nothing And xmlstr <> "" Then
 					'result = "<sqroot>" & xmlstr & "</sqroot>"
 					result = xmlstr
 				Else
 					result = "<sqroot><source>sendcodeprop</source><message>Incorrect Data!</message></sqroot>"
+				End If
 				End If
 			Case "reqheader"
 				Dim code = getQueryVar("code")
@@ -127,7 +135,7 @@ Partial Class OPHCore_api_sync
 
 		Response.ContentType = "text/xml"
 		Response.Write("<?xml version=""1.0"" encoding=""utf-8""?>")
-        Response.Write(result)
+		Response.Write(result)
 
     End Sub
 End Class
