@@ -64,6 +64,10 @@ function getState() { return (getQueryVariable("stateid") == undefined ? getCook
 
 function getSearchText() { return (getQueryVariable("bSearchText") == undefined ? getCookie('bSearchText') : getQueryVariable("bSearchText")) }
 
+function getFilter() {
+    return (getQueryVariable("sqlFilter") == undefined ? (getCookie("sqlFilter") == undefined ? "" : getCookie("sqlFilter")) : getQueryVariable("sqlFilter"))
+}
+
 function getUnique() {
     var d = new Date(),
         month = '' + (d.getMonth() + 1),
@@ -87,7 +91,7 @@ function loadContent(nbpage, f) {
     if (getCode().toLowerCase() == 'dumy')
         var xmldoc = 'OPHContent/themes/' + loadThemeFolder() + '/sample.xml';
     else
-        var xmldoc = 'OPHCore/api/default.aspx?mode=' + getMode() + '&code=' + getCode() + '&GUID=' + getGUID() + '&stateid=' + getState() + '&bPageNo=' + nbpage + '&bSearchText=' + getSearchText() + '&date=' + getUnique();
+        var xmldoc = 'OPHCore/api/default.aspx?mode=' + getMode() + '&code=' + getCode() + '&GUID=' + getGUID() + '&stateid=' + getState() + '&bPageNo=' + nbpage + '&bSearchText=' + getSearchText() + '&sqlFilter=' + getFilter() + '&date=' + getUnique();
 
     var divname = ['contentWrapper'];
     var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
@@ -123,7 +127,7 @@ function signIn() {
     if ($("#userid")) uid = $("#userid").val();
     var pwd = $("#pwd").val();
 
-    var dataForm = $('form').serialize()+'&source='+window.location //.split('_').join('');
+    var dataForm = $('form').serialize()+'&source='+window.location.toString().replace('&', '*').replace('?', '*') //.split('_').join('');
 
     var dfLength = dataForm.length;
     dataForm = dataForm.substring(2, dfLength);
@@ -3382,5 +3386,35 @@ Upload.prototype.doUpload = function (url, successF, errorF) {
         contentType: false,
         processData: false,
         timeout: 60000
+    });
+}
+
+function applySQLFilter(ini) {
+    $(ini).button('loading');
+    var form = $(ini).parents('form:first');
+    var form_data = $(form).serializeArray();
+
+    var sqlFilter = "";
+    $.each(form_data, function (key, input) {
+        if (input.value != "NULL" && input.value != undefined) {
+            if (sqlFilter == "") {
+                sqlFilter = input.name + " = '" + input.value + "'";
+            } else {
+                sqlFilter = sqlFilter + " and " + input.name + " = '" + input.value + "'";
+            }
+        }
+    });
+    setCookie('sqlFilter', sqlFilter, 0, 1, 0);
+    $.when($.ajax(loadContent(1))).done(function () {$(ini).button('reset');});
+}
+
+function resetSQLFilter(ini) {
+    $(ini).button('loading');
+    var divname = ['contentWrapper'];
+    var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + getCode() + '&stateid=' + getState() + '&bSearchText=' + getSearchText() + '&date=' + getUnique();
+    var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
+    setCookie('sqlFilter', "", 0, 1, 0);
+    $.when($.ajax(loadContent(1))).done(function () {
+        $(ini).button('reset');
     });
 }

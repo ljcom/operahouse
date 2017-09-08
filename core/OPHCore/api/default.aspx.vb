@@ -61,7 +61,7 @@ Partial Class OPHCore_API_default
 				If showpage <> "" Then
 					rpp = showpage
 				End If
-				sqlstr = "exec [api].[theme_browse] '" & curHostGUID & "', '" & code & "', '" & sqlfilter.Replace("'", "''") & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", " & rpp & ", '" & sortOrder & "', '" & stateid & "'"
+                sqlstr = "exec [api].[theme_browse] '" & curHostGUID & "', '" & code & "', '" & sqlfilter.Replace("'", "''") & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", " & rpp & ", '" & sortOrder & "', '" & stateid & "'"
 
 				'isSingle = False
 				'xmlstr = getXML(sqlstr, curODBC)
@@ -212,9 +212,10 @@ Partial Class OPHCore_API_default
 			'    xmlstr = runSQLwithResult(sqlstr, curODBC)
 
 			Case "signout"
-				Response.Cookies("guestID").Value = ""
-				Session.Clear()
-				Session.RemoveAll()
+                Response.Cookies("guestID").Value = ""
+                Response.Cookies("sqlFilter").Value = ""
+                Session.Clear()
+                Session.RemoveAll()
 				Session.Abandon()
 				noxml = True
 				isSingle = False

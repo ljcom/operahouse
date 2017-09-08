@@ -562,39 +562,3 @@ function saveUserdele(formId, childID, modalID, guid) {
     });
 }
 
-function applyFilter(ini) {
-    $(ini).button('loading');
-    var form = $(ini).parents('form:first');
-    var form_data = $(form).serializeArray();
-
-    var sqlFilter = "";
-    $.each(form_data, function (key, input) {
-        if (input.value != "NULL" && input.value != undefined) {
-            if (sqlFilter == "") {
-                sqlFilter = input.name + " = '" + input.value + "'";
-            } else {
-                sqlFilter = sqlFilter + " and " + input.name + " = '" + input.value + "'";
-            }
-        }
-    });
-    
-    var divname = ['contentWrapper'];
-    var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + getCode() + '&sqlFilter=' + sqlFilter + '&stateid=' + getState() + '&bSearchText=' + getSearchText() + '&date=' + getUnique();
-    var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
-
-    $.when(
-        $.ajax(pushTheme(divname, xmldoc, xsldoc, true))).then(function () {
-        $(ini).button('reset');
-    });
-}
-
-function resetFilter(ini) {
-    $(ini).button('loading');
-    var divname = ['contentWrapper'];
-    var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + getCode() + '&stateid=' + getState() + '&bSearchText=' + getSearchText() + '&date=' + getUnique();
-    var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
-
-    $.when($.ajax(pushTheme(divname, xmldoc, xsldoc, true))).then(function () {
-        $(ini).button('reset');
-    });
-}

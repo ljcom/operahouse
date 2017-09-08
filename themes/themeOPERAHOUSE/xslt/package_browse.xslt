@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
         <div class="col-md-3">
           <div class="card card-primary">
@@ -30,22 +30,8 @@
                 <h4 class="mb-1 no-mt">Category</h4>
                 <fieldset>
                   <div class="form-group no-mt">
-                    <div class="checkbox ml-2">
-                      <label>
-                        <input type="checkbox" value=".humanresource" /> Human Resources </label>
-                    </div>
-                    <div class="checkbox  ml-2">
-                      <label>
-                        <input type="checkbox" value=".Finance"/> Finance </label>
-                    </div>
-                    <!--<div class="checkbox  ml-2">
-                      <label>
-                        <input type="checkbox" value=".laptop"/> Laptops </label>
-                    </div>
-                    <div class="checkbox  ml-2">
-                      <label>
-                        <input type="checkbox" value=".accessory"/> Accesories </label>
-                    </div>-->
+                    <xsl:apply-templates select="sqroot/header/menus/menu[@code='packageCtgr']/submenus/submenu" />
+                    
                   </div>
                 </fieldset>
                 <button class="btn btn-danger btn-block no-mb mt-2" id="Reset">
@@ -54,18 +40,19 @@
               </form>
               <form class="form-horizontal">
                 <h4>Sort by</h4>
-                <select id="SortSelect" class="form-control">
+                <!--<select id="SortSelect" class="form-control">
                   <option value="random">Popular</option>
                   <option value="price:asc">Price ASC</option>
                   <option value="price:desc">Price DESC</option>
                   <option value="date:asc">Release ASC</option>
                   <option value="date:desc">Release DESC</option>
-                </select>
+                </select>-->
               </form>
             </div>
           </div>
         </div>
         <div class="col-md-9">
+         
           <div class="row" id="Container">
             <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row"/>
             
@@ -77,45 +64,74 @@
 
 
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
-    <div class="col-lg-4 col-md-6 col-xs-12 mix {fields/field[@caption = 'PaclageClassTag']/.} apple" data-price="1999.99" data-date="20160901">
-      <div class="card ms-feature">
-        <div class="card-block text-center">
-          <a href="ecommerce-item.html">
-            <img src="{fields/field[@caption = 'PackagePrimaryImg']/.}" alt="" class="img-responsive center-block" />
+    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mix {fields/field[@caption = 'PaclageClassTag']/.} apple" data-price="1999.99" data-date="20160901">
+      <div class="card card-primary">
+        <!--<div class="card-header">
+          <h3 class="card-title">
+            <i class="zmdi zmdi-graduation-cap"></i> <xsl:value-of select ="fields/field[@caption = 'packageName']/."/>
+          </h3>
+        </div>-->
+        <figure class="ms-thumbnail ms-thumbnail-horizontal">
+          <a href="javascript:void(0);">
+            <img src="{fields/field[@caption = 'PackagePrimaryImg']/.}" alt="" class="img-responsive" />
           </a>
-          <xsl:apply-templates select="fields/field"/>
-          
-          <!--<div class="mt-2">
-            <span class="mr-2">
-              <i class="zmdi zmdi-star color-warning"></i>
-              <i class="zmdi zmdi-star color-warning"></i>
-              <i class="zmdi zmdi-star color-warning"></i>
-              <i class="zmdi zmdi-star color-warning"></i>
-              <i class="zmdi zmdi-star"></i>
-            </span>
-            <span class="ms-tag ms-tag-success">$ 1999.99</span>
-          </div>-->
-          <a href="index.aspx?code={@code}&amp;GUID={@GUID}" class="btn btn-primary btn-sm btn-block btn-raised mt-2 no-mb">
-             See Details
+          <figcaption class="ms-thumbnail-caption text-center">
+            <div class="ms-thumbnail-caption-content">
+              <p class="ms-thumbnail-caption-title mb-2">
+                <xsl:value-of select ="fields/field[@caption = 'packageDescription']/."/>
+              </p>
+              <a href="javascript:void(0)" class="btn-circle btn-circle-raised btn-circle-xs mr-1 btn-circle-white color-danger">
+                <i class="zmdi zmdi-favorite"></i>
+              </a>
+              <a href="javascript:void(0)" class="btn-circle btn-circle-raised btn-circle-xs ml-1 mr-1 btn-circle-white color-warning">
+                <i class="zmdi zmdi-shopping-cart"></i>
+              </a>
+              <a href="javascript:void(0)" class="btn-circle btn-circle-raised btn-circle-xs ml-1 btn-circle-white color-success">
+                <i class="zmdi zmdi-share"></i>
+              </a>
+            </div>
+          </figcaption>
+          </figure>
+        <!--<div class="withripple zoom-img">
+          <a href="javascript:void(0);">
+            <img src="{fields/field[@caption = 'PackagePrimaryImg']/.}" alt="" class="img-responsive" />
           </a>
+        </div>-->
+        <div class="card-footer">
+          <h4 style="margin:5px; font-weight:450; text-align:center"><xsl:value-of select ="fields/field[@caption = 'packageName']/."/>
+          </h4>
         </div>
+        
       </div>
     </div>
+    
   </xsl:template>
 
   <xsl:template match="fields/field">
     <xsl:choose>
       <xsl:when test="@caption = 'packageName'">
-        <h4 class="text-normal text-center">
+        <!--<h4 class="text-normal text-center">
+          
+        </h4>-->
+        <a href="index.aspx?code={@code}&amp;GUID={@GUID}" class="btn btn-primary btn-sm btn-block btn-raised mt-2 no-mb">
           <xsl:value-of select ="."/>
-        </h4>
+        </a>
       </xsl:when>
-      <xsl:when test="@caption = 'packageDescription'">
+      <!--<xsl:when test="@caption = 'packageDescription'">
         <p>
           <xsl:value-of select ="."/>
         </p>
-      </xsl:when>
+      </xsl:when>-->
     </xsl:choose>
+  </xsl:template>
+
+
+  <xsl:template match="sqroot/header/menus/menu[@code='packageCtgr']/submenus/submenu">
+    <div class="checkbox ml-2">
+      <label>
+        <input type="checkbox" value="{@tag}" /> <xsl:value-of select="caption/." />&#160;
+      </label>
+    </div>
   </xsl:template>
   
 </xsl:stylesheet>
