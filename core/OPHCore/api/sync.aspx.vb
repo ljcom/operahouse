@@ -1,19 +1,19 @@
 ﻿
 Partial Class OPHCore_api_sync
-    Inherits cl_base
+	Inherits cl_base
 
-    Private Sub OPHCore_api_sync_Load(sender As Object, e As EventArgs) Handles Me.Load
-        loadAccount()
+	Private Sub OPHCore_api_sync_Load(sender As Object, e As EventArgs) Handles Me.Load
+		loadAccount()
 
-        Dim curODBC = contentOfdbODBC
-        Dim DBCore = contentOfsqDB
+		Dim curODBC = contentOfdbODBC
+		Dim DBCore = contentOfsqDB
 
-        Dim curHostGUID = Session("hostGUID")
-        Dim curUserGUID = Session("userGUID")
-        Dim result = "", sqlstr = "", xmlstr = ""
-        Dim mode = getQueryVar("mode")
-        Dim accountId = contentOfaccountId
-        Dim sessionToken = getQueryVar("token")
+		Dim curHostGUID = Session("hostGUID")
+		Dim curUserGUID = Session("userGUID")
+		Dim result = "", sqlstr = "", xmlstr = ""
+		Dim mode = getQueryVar("mode")
+		Dim accountId = contentOfaccountId
+		Dim sessionToken = getQueryVar("token")
 		writeLog(mode)
 		Select Case mode.ToLower
 			Case "reqtoken"
@@ -65,7 +65,7 @@ Partial Class OPHCore_api_sync
 					Dim dataxml = Request.Form("dataXML").ToString.Replace("%26lt;", "<").Replace("%26gt;", ">").Replace("%26", "&").Replace("&lt;", "<").Replace("&gt;", ">")
 					writeLog(Len(Request.Form("dataXML")).ToString & " " & Len(dataxml).ToString & " " + dataxml)
 
-					sqlstr = "exec [api].[sync_sendcodeprop] '" & accountId & "', '" & sessionToken & "', '" & code & "', '" & dataxml & "'"
+					sqlstr = "exec [api].[sync_sendcodeprop] '" & accountId & "', '" & sessionToken & "', '" & code & "', '" & dataxml.Replace("'", "''") & "'"
 
 					writeLog(sqlstr)
 					xmlstr = getXML(sqlstr, contentOfdbODBC)
@@ -74,17 +74,18 @@ Partial Class OPHCore_api_sync
 				Else
 
 					If xmlstr IsNot Nothing And xmlstr <> "" Then
-					'result = "<sqroot>" & xmlstr & "</sqroot>"
-					result = xmlstr
-				Else
-					result = "<sqroot><source>sendcodeprop</source><message>Incorrect Data!</message></sqroot>"
-				End If
+						'result = "<sqroot>" & xmlstr & "</sqroot>"
+						result = xmlstr
+					Else
+						result = "<sqroot><source>sendcodeprop</source><message>Incorrect Data!</message></sqroot>"
+					End If
 				End If
 			Case "reqheader"
 				Dim code = getQueryVar("code")
 				Dim pg = getQueryVar("page")
 
 				sqlstr = "exec [api].[sync_reqheader] '" & accountId & "', '" & sessionToken & "', '" & code & "', " & IIf(pg = "", 1, pg) & ""
+				writeLog(sqlstr)
 
 				xmlstr = getXML(sqlstr, contentOfdbODBC)
 
@@ -118,7 +119,7 @@ Partial Class OPHCore_api_sync
 					Dim dataxml = Request.Form("dataXML").ToString.Replace("%26lt;", "<").Replace("%26gt;", ">").Replace("%26", "&").Replace("&lt;", "<").Replace("&gt;", ">")
 					writeLog(Len(Request.Form("dataXML")).ToString & " " & Len(dataxml).ToString & " " + dataxml)
 
-					sqlstr = "exec [api].[sync_sendData] '" & accountId & "', '" & sessionToken & "', '" & code & "', '" & dataxml & "'"
+					sqlstr = "exec [api].[sync_sendData] '" & accountId & "', '" & sessionToken & "', '" & code & "', '" & dataxml.Replace("'", "''") & "'"
 					writeLog(sqlstr)
 					xmlstr = getXML(sqlstr, contentOfdbODBC)
 					writeLog(xmlstr)
@@ -137,5 +138,5 @@ Partial Class OPHCore_api_sync
 		Response.Write("<?xml version=""1.0"" encoding=""utf-8""?>")
 		Response.Write(result)
 
-    End Sub
+	End Sub
 End Class
