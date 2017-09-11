@@ -215,6 +215,7 @@
       <xsl:apply-templates select="dateBox"/>
       <xsl:apply-templates select="checkBox"/>
       <xsl:apply-templates select="comboBox"/>
+      <xsl:apply-templates select="radioBox"/>
     </div>
   </xsl:template>
 
@@ -235,14 +236,14 @@
     </input>
 
     <label id="{../@fieldName}caption">
-      <xsl:value-of select="titlecaption"/>
+      <xsl:value-of select="titleCaption"/>
     </label>
 
   </xsl:template>
 
   <xsl:template match="textBox">
     <label id="{../@fieldName}caption">
-      <xsl:value-of select="titlecaption"/>
+      <xsl:value-of select="titleCaption"/>
 
     </label>
 
