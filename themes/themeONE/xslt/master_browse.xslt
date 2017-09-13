@@ -32,8 +32,22 @@
       </script>
     </xsl:if>
 
+    <!--Delegation Info alert-->
+    <xsl:if test="sqroot/body/bodyContent/browse/info/isDelegated = 1">
+      <div id="delegationAlert" class="alert alert-warning alert-dismissable fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&#215;</button>
+        <h4><ix class="icon fa fa-info"></ix>&#160; Attention</h4>
+        You are assigned as a delegation for this module. Expand the "Advanced Filters Box" below to filtering between your documents or the delegators.
+      </div>
+      <script>
+        $("#delegationAlert").fadeTo(5000, 800).slideUp(800, function(){
+            $("#delegationAlert").slideUp(800);
+        });
+      </script>
+    </xsl:if>
+    
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+      <section class="content-header">
       <h1>
         <xsl:value-of select="sqroot/header/info/code/name"/>
       </h1>
@@ -92,12 +106,9 @@
             </div>
           </div>
           <div class="box-tools">
-            <!-- <button type="button" class="btn btn-info btn-lg" style="background:#ccc; border:none;">CLEAR</button> -->
-            <!-- <button type="button" class="btn btn-info btn-lg" style="background:orange; border:none;">DONE</button> -->
             <button type="button" style="margin-top:10px;" class="btn btn-orange-a" id="newdoc" onclick="window.location='?code={sqroot/header/info/code/id}&amp;guid=00000000-0000-0000-0000-000000000000'">
               NEW <span class="visible-phone">DOCUMENT</span>
             </button>
-            <!-- Modal -->
           </div>
           <script>
             var allowAdd='<xsl:value-of select="sqroot/body/bodyContent/browse/info/permission/allowAdd/." />';
@@ -107,17 +118,15 @@
       </div>
       <!-- header -->
       
-
       <!-- browse for pc/laptop -->
       <div class="row visible-phone">
         <!--Browse Filters-->
         <div class="col-md-12" style="margin:0px;">
           <xsl:if test="sqroot/body/bodyContent/browse/info/filters">
-            <div class="box box-default collapsed-box">
+            <div id="bfBox" class="box box-default collapsed-box">
               <div class="box-header with-border">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                  <ix class="fa fa-plus" aria-hidden="true"></ix>
-                  &#160; More Filters
+                  <ix class="fa fa-plus" aria-hidden="true">&#160; Advanced Filters</ix>                  
                 </button>
               </div>
               <div class="box-body">
@@ -126,6 +135,14 @@
                 </form>
               </div>
             </div>
+            <script>
+              $(document).ready(function () {
+                if (getFilter() != "") {
+                  $("#bfBox").removeClass().addClass("box box-default");
+                  $("#bfBox ix").removeClass().addClass("fa fa-minus").text(" Advanced Filter (ACTIVE)");
+                }
+              });            
+            </script>
           </xsl:if>
         </div>
         
@@ -135,14 +152,17 @@
               <thead>
                 <tr>
                   <xsl:apply-templates select="sqroot/body/bodyContent/browse/header/column[@mandatory=1]" />
-
                   <th>
                     <xsl:if test="count(sqroot/body/bodyContent/browse/header/column[@mandatory=0])>0">SUMMARY</xsl:if>&#160;
                   </th>
-
+                  <xsl:if test="/sqroot/body/bodyContent/browse/info/isDelegated = 1">
+                    <th width="10">
+                      &#160;
+                    </th>
+                  </xsl:if>
                   <xsl:if test="/sqroot/header/info/code/settingMode='T'">
                     <th width="10">
-                      <!--<xsl:apply-templates select="sqroot/body/bodyContent/browse/header/column[@docStatus=1]" />-->&#160;
+                      &#160;
                     </th>
                   </xsl:if>
                   <th width="10">
@@ -263,10 +283,10 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <button id="btnFilter" type="button" class="btn btn-success btn-flat" data-loading-text="Apllying Filter..." onclick="applyFilter(this)" >
+        <button id="btnFilter" type="button" class="btn btn-success btn-flat" data-loading-text="Applying Filter..." onclick="applySQLFilter(this)" >
           Apply Filters
         </button>
-        <button id="btnResetFilter" type="button" class="btn btn-warning btn-flat" data-loading-text="Reseting Filter..." onclick="resetFilter(this)" >
+        <button id="btnResetFilter" type="button" class="btn btn-warning btn-flat" data-loading-text="Reseting Filter..." onclick="resetSQLFilter(this)" >
           <xsl:if test="not(comboFilter/value)">
             <xsl:attribute name="disabled">disabled</xsl:attribute>
           </xsl:if>
@@ -316,18 +336,21 @@
   </xsl:template>
 
   <xsl:template match="sqroot/body/bodyContent/browse/header/column[@mandatory=1]">
-    <th width="10">
+    <xsl:variable name="title">
+      <xsl:choose>
+        <xsl:when test=".!=''">
+          <xsl:value-of select="translate(., $smallcase, $uppercase)" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="translate(@fieldName, $smallcase, $uppercase)" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <th width="10" title="{$title}">
       <table class="fixed-table">
         <tr>
           <td>
-            <xsl:choose>
-              <xsl:when test=".!=''">
-                <xsl:value-of select="translate(., $smallcase, $uppercase)" />
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:value-of select="translate(@fieldName, $smallcase, $uppercase)" />
-              </xsl:otherwise>
-            </xsl:choose>
+            <xsl:value-of select="$title"/>
           </td>
         </tr>
       </table>
@@ -343,8 +366,15 @@
     <tr class="odd-tr">
       <input id="mandatory{@GUID}" type="hidden" value="" />
       <xsl:apply-templates select="fields/field[@mandatory=1]" />
+      <script>
+        //put before mandatory section
+        fillMobileItem('<xsl:value-of select="@code"/>', '<xsl:value-of select="@GUID" />', '<xsl:value-of select="$state" />', '<xsl:value-of select="@edit" />', '<xsl:value-of select="@delete" />', '<xsl:value-of select="@wipe" />', '<xsl:value-of select="@force" />');
+      </script>
 
       <td class="expand-td" data-toggle="collapse" data-target="#brodeta-{@GUID}" data-parent="#brodeta-{@GUID}">
+        <xsl:if test="not(docDelegate)">
+            <xsl:attribute name="colspan">2</xsl:attribute>
+        </xsl:if>
         <xsl:if test="count(fields/field[@mandatory=0])>0">
           <table class="fixed-table">
             <tr>
@@ -355,11 +385,16 @@
           </table>
         </xsl:if>
       </td>
-
-      <script>
-        //put before mandatory section
-        fillMobileItem('<xsl:value-of select="@code"/>', '<xsl:value-of select="@GUID" />', '<xsl:value-of select="$state" />', '<xsl:value-of select="@edit" />', '<xsl:value-of select="@delete" />', '<xsl:value-of select="@wipe" />', '<xsl:value-of select="@force" />');
-      </script>
+ 
+      <xsl:if test="docDelegate">
+        <td class="expand-td" style="text-align:center" data-toggle="collapse" data-target="#{@GUID}" data-parent="#{@GUID}">
+          <a href="#" data-toggle="tooltip" title="{docDelegate/.}">
+            <span class="label label-{docDelegate/@labelColor}">
+              <xsl:value-of select="docDelegate/@title" />
+            </span>
+          </a>
+        </td>
+      </xsl:if>
 
       <xsl:if test="/sqroot/header/info/code/settingMode='T'">
         <td class="expand-td" style="text-align:center" data-toggle="collapse" data-target="#{@GUID}" data-parent="#{@GUID}">

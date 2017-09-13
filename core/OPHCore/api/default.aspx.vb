@@ -216,7 +216,7 @@ Partial Class OPHCore_API_default
                 Response.Cookies("sqlFilter").Value = ""
                 Session.Clear()
                 Session.RemoveAll()
-				Session.Abandon()
+                Session.Abandon()
 				noxml = True
 				isSingle = False
 				'Response.Cookies("isLogin").Value = 0

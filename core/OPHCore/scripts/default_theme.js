@@ -3404,7 +3404,7 @@ function applySQLFilter(ini) {
             }
         }
     });
-    setCookie('sqlFilter', sqlFilter, 0, 1, 0);
+    setCookie('sqlFilter', sqlFilter, 0, 0, 10);
     $.when($.ajax(loadContent(1))).done(function () {$(ini).button('reset');});
 }
 
@@ -3413,7 +3413,7 @@ function resetSQLFilter(ini) {
     var divname = ['contentWrapper'];
     var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + getCode() + '&stateid=' + getState() + '&bSearchText=' + getSearchText() + '&date=' + getUnique();
     var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
-    setCookie('sqlFilter', "", 0, 1, 0);
+    setCookie('sqlFilter', "", 0, 0, 0);
     $.when($.ajax(loadContent(1))).done(function () {
         $(ini).button('reset');
     });
