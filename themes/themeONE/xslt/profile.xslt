@@ -737,8 +737,8 @@
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-8">
         <button type="button" class="btn btn-success" id="save_profile" onclick="saveProfile('formProfile', 'profile', '{/sqroot/body/bodyContent/info/GUID}' )"
-          data-loading-text="Processing..." disabled="disabled">
-          Save Profile
+          data-loading-text="Processing..." data-text="Save Profile" disabled="disabled">
+            Save Profile
         </button>
       </div>
     </div>

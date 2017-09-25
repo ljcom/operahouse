@@ -305,11 +305,11 @@ function saveProfile(formId, code, guid) {
         if (msg == '') {
             mdl.find('.modal-title').text("Success!");
             mdl.find('.modal-body').text("Profile was updating successfully !");
-            $('#save_profile').button('reset');
-            $('#save_profile').attr('disabled', 'disabled');
+            $('#save_profile').text($('#save_profile').data('text'));
+            $('#save_profile').removeClass().addClass('btn btn-success');
         } else {
             mdl.find('.modal-title').text("Failure!");
-            mdl.find('.modal-body').text(msg);
+            mdl.find('.modal-body').text(msg);  
             $('#save_profile').button('reset');
         }
         mdl.modal('show');

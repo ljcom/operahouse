@@ -24,30 +24,64 @@
     <xsl:if test="/sqroot/header/info/isBrowsable = 0">
       <script>
         document.getElementById("contentWrapper").innerHTML = '<p style="padding:20px 0 0 20px; font-weight:bold;">Sorry, You Do Not Have Authority for This Module.</p><hr />';
+      </script>
+    </xsl:if>
 
-        <!--$(".ellipsis").dotdotdot({
-        watch: "window"
-        });-->
-
+    <!--Delegator Action Modal-->
+    <xsl:if test="sqroot/body/bodyContent/browse/info/isDelegator = 1">
+      <div id="delegatorModal" class="modal fade" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="delegatorModal(0, '{sqroot/header/info/code/id}')">
+                <span aria-hidden="true">&#215;</span>
+              </button>              
+              <h3>Are you sure you want to revoke your delegation?</h3>
+            </div>
+            <div class="modal-body">
+              <p>
+                Since you have delegated this module to someone else, you need to revoke your delegation to gain your full access to this module.
+                But if you choose not to revoke your delegation, you will have no fully access to this module.
+              </p>
+              <p>If you want to set / modify your delegation later, please abandon this notification and go to your menu profile instead.</p>
+            </div>
+            <div class="modal-footer">
+              <button id="btnRevokeLater" type="button" class="btn btn-default" data-dismiss="modal" onclick="delegatorModal(false)">No, I'll do it later</button>
+              <button id="btnRevoke" type="button" class="btn btn-primary" data-loading-text="Revoking in process..." onclick="delegatorModal(true)">Yes, Revoke my delegate now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        $(document).ready(function(){
+          var isShow = 1;
+          var cname = '<xsl:value-of select="sqroot/header/info/code/id"/>_dmc';
+          isShow = (getCookie(cname) == null || getCookie(cname) == undefined || getCookie(cname) == '') ? 1 : 0;
+          if (isShow == 1) {
+            $('#delegatorModal').modal({ backdrop: "static" });
+          }
+        });
       </script>
     </xsl:if>
 
     <!--Delegation Info alert-->
-    <xsl:if test="sqroot/body/bodyContent/browse/info/isDelegated = 1">
+    <xsl:if test="sqroot/body/bodyContent/browse/info/isDelegated = 1 and sqroot/body/bodyContent/browse/info/isDelegator = 0">
       <div id="delegationAlert" class="alert alert-warning alert-dismissable fade in">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&#215;</button>
-        <h4><ix class="icon fa fa-info"></ix>&#160; Attention</h4>
+        <h4>
+          <ix class="icon fa fa-info"></ix>&#160; Attention
+        </h4>
         You are assigned as a delegation for this module. Expand the "Advanced Filters Box" below to filtering between your documents or the delegators.
       </div>
       <script>
         $("#delegationAlert").fadeTo(5000, 800).slideUp(800, function(){
-            $("#delegationAlert").slideUp(800);
+        $("#delegationAlert").slideUp(800);
         });
       </script>
     </xsl:if>
-    
+
     <!-- Content Header (Page header) -->
-      <section class="content-header">
+    <section class="content-header">
       <h1>
         <xsl:value-of select="sqroot/header/info/code/name"/>
       </h1>
@@ -71,7 +105,7 @@
         addpagenumber('pagenumbers', '<xsl:value-of select ="sqroot/body/bodyContent/browse/info/pageNo"/>', '<xsl:value-of select ="sqroot/body/bodyContent/browse/info/nbPages"/>')
         addpagenumber('mobilepagenumbers', '<xsl:value-of select ="sqroot/body/bodyContent/browse/info/pageNo"/>', '<xsl:value-of select ="sqroot/body/bodyContent/browse/info/nbPages"/>')
       </script>
-      
+
       <div class="col-md-12 full-width-a">
         <div class="box-header full-width-a">
           <div class=" browse-dropdown-status">
@@ -117,35 +151,35 @@
         </div>
       </div>
       <!-- header -->
-      
+
       <!-- browse for pc/laptop -->
       <div class="row visible-phone">
         <!--Browse Filters-->
-        <div class="col-md-12" style="margin:0px;">
-          <xsl:if test="sqroot/body/bodyContent/browse/info/filters">
+        <xsl:if test="sqroot/body/bodyContent/browse/info/filters">
+          <div class="col-md-12" style="margin:0px;">
             <div id="bfBox" class="box box-default collapsed-box">
               <div class="box-header with-border">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                  <ix class="fa fa-plus" aria-hidden="true">&#160; Advanced Filters</ix>                  
+                  <ix class="fa fa-plus" aria-hidden="true">&#160; Advanced Filters</ix>
                 </button>
               </div>
               <div class="box-body">
                 <form id="formFilter">
-                  <xsl:apply-templates select="sqroot/body/bodyContent/browse/info/filters" />          
+                  <xsl:apply-templates select="sqroot/body/bodyContent/browse/info/filters" />
                 </form>
               </div>
             </div>
             <script>
               $(document).ready(function () {
-                if (getFilter() != "") {
-                  $("#bfBox").removeClass().addClass("box box-default");
-                  $("#bfBox ix").removeClass().addClass("fa fa-minus").text(" Advanced Filter (ACTIVE)");
-                }
-              });            
+              if (getFilter() != "") {
+              $("#bfBox").removeClass().addClass("box box-default");
+              $("#bfBox ix").removeClass().addClass("fa fa-minus").text(" Advanced Filter (ACTIVE)");
+              }
+              });
             </script>
-          </xsl:if>
-        </div>
-        
+          </div>
+        </xsl:if>
+
         <div class="col-md-12">
           <div class="box" style="border:0px none white;box-shadow:none;">
             <table class="table table-condensed strip-table-browse browse-table-an" style="border-collapse:collapse; margin:auto;">
@@ -165,26 +199,28 @@
                       &#160;
                     </th>
                   </xsl:if>
-                  <th width="10">
-                    ACTION&#160;
-                    <!--<xsl:if test="/sqroot/header/info/code/settingMode!='M'">
-                        <xsl:if test="$state &lt; 400">
-                          <a href="#">
-                            <ix class="fa fa-check" title="Approve All"></ix>
-                          </a>
+                  <xsl:if test="/sqroot/body/bodyContent/browse/info/isDelegator = 0">
+                    <th width="10">
+                      ACTION&#160;
+                      <!--<xsl:if test="/sqroot/header/info/code/settingMode!='M'">
+                          <xsl:if test="$state &lt; 400">
+                            <a href="#">
+                              <ix class="fa fa-check" title="Approve All"></ix>
+                            </a>
+                          </xsl:if>
+                          <xsl:if test="$state = 400">
+                            <a href="#">
+                              <ix class="fa fa-close" title="Close All"></ix>
+                            </a>
+                          </xsl:if>
                         </xsl:if>
-                        <xsl:if test="$state = 400">
+                        <xsl:if test="$state &lt; 500">
                           <a href="#">
-                            <ix class="fa fa-close" title="Close All"></ix>
+                            <ix class="fa fa-trash" title="Delete All"></ix>
                           </a>
-                        </xsl:if>
-                      </xsl:if>
-                      <xsl:if test="$state &lt; 500">
-                        <a href="#">
-                          <ix class="fa fa-trash" title="Delete All"></ix>
-                        </a>
-                      </xsl:if>-->
-                  </th>
+                        </xsl:if>-->
+                    </th>
+                  </xsl:if>
                 </tr>
               </thead>
               <xsl:choose>
@@ -299,34 +335,36 @@
   <xsl:template match="comboFilter">
     <div class="col-md-6">
       <div class="form-group">
-        <label for="{@id}"><xsl:value-of select="@caption"/></label>
-        <select class="form-control select2" style="width: 100%;" name="{@id}" id="{@id}" tabindex="-1" aria-hidden="true" 
-           data-type="selectBox" data-old="{value}" data-oldText="{value}" data-value="{value}" >      
+        <label for="{@id}">
+          <xsl:value-of select="@caption"/>
+        </label>
+        <select class="form-control select2" style="width: 100%;" name="{@id}" id="{@id}" tabindex="-1" aria-hidden="true"
+           data-type="selectBox" data-old="{value}" data-oldText="{value}" data-value="{value}" >
           <option value="NULL">-- Select All --</option>
         </select>
-      </div>      
-    </div>    
+      </div>
+    </div>
     <script>
       $("#<xsl:value-of select="@id"/>").select2({
-        ajax: {
-          url:"OPHCORE/api/msg_autosuggest.aspx",
-          data: function (params) {
-            var query = {
-              code:"<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code/."/>",
-              colkey:"<xsl:value-of select="@id"/>",
-              search: params.term, page: params.page
-            }
-            return query;
-          },
-          dataType: 'json',
-        }
+      ajax: {
+      url:"OPHCORE/api/msg_autosuggest.aspx",
+      data: function (params) {
+      var query = {
+      code:"<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code/."/>",
+      colkey:"<xsl:value-of select="@id"/>",
+      search: params.term, page: params.page
+      }
+      return query;
+      },
+      dataType: 'json',
+      }
       });
       <xsl:if test="value!=''">
-          autosuggestSetValue('<xsl:value-of select="@id"/>','<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code/."/>','<xsl:value-of select="@id"/>', '<xsl:value-of select="value"/>', '', '')
+        autosuggestSetValue('<xsl:value-of select="@id"/>','<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code/."/>','<xsl:value-of select="@id"/>', '<xsl:value-of select="value"/>', '', '')
       </xsl:if>
     </script>
   </xsl:template>
-  
+
   <xsl:template match="sqroot/body/bodyContent/browse/info/states/state/substate">
     <li>
       <a href="javascript:changestateid({@code})">
@@ -373,7 +411,7 @@
 
       <td class="expand-td" data-toggle="collapse" data-target="#brodeta-{@GUID}" data-parent="#brodeta-{@GUID}">
         <xsl:if test="not(docDelegate)">
-            <xsl:attribute name="colspan">2</xsl:attribute>
+          <xsl:attribute name="colspan">2</xsl:attribute>
         </xsl:if>
         <xsl:if test="count(fields/field[@mandatory=0])>0">
           <table class="fixed-table">
@@ -385,7 +423,7 @@
           </table>
         </xsl:if>
       </td>
- 
+
       <xsl:if test="docDelegate">
         <td class="expand-td" style="text-align:center" data-toggle="collapse" data-target="#{@GUID}" data-parent="#{@GUID}">
           <a href="#" data-toggle="tooltip" title="{docDelegate/.}">
@@ -407,90 +445,91 @@
       </xsl:if>
 
       <xsl:variable name="pageNo" select="/sqroot/body/bodyContent/browse/info/pageNo" />
-      <td class="browse-action-button" style="white-space: nowrap;">
+      
+      <xsl:if test="/sqroot/body/bodyContent/browse/info/isDelegator = 0">
+        <td class="browse-action-button" style="white-space: nowrap;">
+          <!--approval icons-->
+          <xsl:if test="substring(/sqroot/header/info/code/id, 1, 1) = 'T'">
+            <xsl:choose>
+              <xsl:when test="$state &lt; 400">
+                <a href="javascript:btn_function('{@code}', '{@GUID}', 'execute', '{$pageNo}', 10)">
+                  <ix class="fa fa-check" title="Approve"></ix>
+                </a>
+              </xsl:when>
+              <xsl:when test="$allowForce = 1 and $state &lt; 500">
+                <a href="javascript:btn_function('{@code}', '{@GUID}', 'force', '{$pageNo}', 10)">
+                  <ix class="fa fa-archive" title="Close"></ix>
+                </a>
+              </xsl:when>
+              <xsl:when test="$allowForce = 1 and $state &lt; 600">
+                <a href="javascript:btn_function('{@code}', '{@GUID}', 'reopen', '{$pageNo}', 10)">
+                  <ix class="fa fa-undo" title="Reopen"></ix>
+                </a>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:if>
 
-        <!--approval icons-->
-        <xsl:if test="substring(/sqroot/header/info/code/id, 1, 1) = 'T'">
+          <!--delete things-->
           <xsl:choose>
-            <xsl:when test="$state &lt; 400">
-              <!--location: 0 header; 1 child; 2 browse
-              location: browse:10, header form:20, browse anak:30, browse form:40-->
-              <a href="javascript:btn_function('{@code}', '{@GUID}', 'execute', '{$pageNo}', 10)">
-                <ix class="fa fa-check" title="Approve"></ix>
+            <!--allow delete-->
+            <xsl:when test="$allowOnOff = 1 and $allowDelete = 1 and $state &lt; 500">
+              <a href="javascript:btn_function('{@code}', '{@GUID}', 'inactivate', '{$pageNo}', 10)">
+                <ix class="fa fa-toggle-off" title="Inactive"></ix>
               </a>
             </xsl:when>
-            <xsl:when test="$allowForce = 1 and $state &lt; 500">
-              <a href="javascript:btn_function('{@code}', '{@GUID}', 'force', '{$pageNo}', 10)">
-                <ix class="fa fa-archive" title="Close"></ix>
+            <xsl:when test="$allowOnOff = 0 and $allowDelete = 1 and $state &lt; 500">
+              <a href="javascript:btn_function('{@code}', '{@GUID}', 'delete', '{$pageNo}', 10)">
+                <ix class="fa fa-trash" title="Delete"></ix>
               </a>
             </xsl:when>
-            <xsl:when test="$allowForce = 1 and $state &lt; 600">
-              <a href="javascript:btn_function('{@code}', '{@GUID}', 'reopen', '{$pageNo}', 10)">
-                <ix class="fa fa-undo" title="Reopen"></ix>
+            <xsl:when test="$state = 999">
+              <a href="javascript:btn_function('{@code}', '{@GUID}', 'restore', '{$pageNo}', 10)">
+                <ix class="fa fa-toggle-on" title="Reactivate"></ix>
+              </a>
+              <xsl:if test="$allowWipe = 1">
+                <a href="javascript:btn_function('{@code}', '{@GUID}', 'wipe', '{$pageNo}', 10)">
+                  <ix class="fa fa-trash" title="Delete"></ix>
+                </a>
+              </xsl:if>
+            </xsl:when>
+
+            <!--not allow delete-->
+            <xsl:when test="$allowOnOff = 1 and $allowDelete = 0 and $state &lt; 500">
+              <a href="#">
+                <ix class="fa fa-toggle-off" title="Inactive" style="color:LightGray"></ix>
+              </a>
+            </xsl:when>
+            <xsl:when test="$allowOnOff = 0 and $allowDelete = 0 and $state &lt; 500">
+              <a href="#">
+                <ix class="fa fa-trash" title="Delete" style="color:LightGray"></ix>
+              </a>
+            </xsl:when>
+            <xsl:when test="$state = 999">
+              <a href="#">
+                <ix class="fa fa-undo" title="Recover" style="color:lightgray"></ix>
+              </a>
+              <a href="#">
+                <ix class="fa fa-trash" title="Delete" style="color:LightGray"></ix>
               </a>
             </xsl:when>
           </xsl:choose>
-        </xsl:if>
 
-        <!--delete things-->
-        <xsl:choose>
-          <!--allow delete-->
-          <xsl:when test="$allowOnOff = 1 and $allowDelete = 1 and $state &lt; 500">
-            <a href="javascript:btn_function('{@code}', '{@GUID}', 'inactivate', '{$pageNo}', 10)">
-              <ix class="fa fa-toggle-off" title="Inactive"></ix>
-            </a>
-          </xsl:when>
-          <xsl:when test="$allowOnOff = 0 and $allowDelete = 1 and $state &lt; 500">
-            <a href="javascript:btn_function('{@code}', '{@GUID}', 'delete', '{$pageNo}', 10)">
-              <ix class="fa fa-trash" title="Delete"></ix>
-            </a>
-          </xsl:when>
-          <xsl:when test="$state = 999">
-            <a href="javascript:btn_function('{@code}', '{@GUID}', 'restore', '{$pageNo}', 10)">
-              <ix class="fa fa-toggle-on" title="Reactivate"></ix>
-            </a>
-            <xsl:if test="$allowWipe = 1">
-              <a href="javascript:btn_function('{@code}', '{@GUID}', 'wipe', '{$pageNo}', 10)">
-                <ix class="fa fa-trash" title="Delete"></ix>
+          <!--edit things-->
+          <xsl:choose>
+            <xsl:when test="$state &lt; 999">
+              <a id="edit_{@GUID}" href="index.aspx?code={@code}&#38;guid={@GUID}">
+                <ix class="fa fa-pencil" title="Edit"></ix>
               </a>
-            </xsl:if>
-          </xsl:when>
+            </xsl:when>
+            <xsl:otherwise>
+              <a href="#">
+                <ix class="fa fa-pencil" title="Edit" style="color:LightGray"></ix>
+              </a>
+            </xsl:otherwise>
+          </xsl:choose>
+        </td>
+      </xsl:if>
 
-          <!--not allow delete-->
-          <xsl:when test="$allowOnOff = 1 and $allowDelete = 0 and $state &lt; 500">
-            <a href="#">
-              <ix class="fa fa-toggle-off" title="Inactive" style="color:LightGray"></ix>
-            </a>
-          </xsl:when>
-          <xsl:when test="$allowOnOff = 0 and $allowDelete = 0 and $state &lt; 500">
-            <a href="#">
-              <ix class="fa fa-trash" title="Delete" style="color:LightGray"></ix>
-            </a>
-          </xsl:when>
-          <xsl:when test="$state = 999">
-            <a href="#">
-              <ix class="fa fa-undo" title="Recover" style="color:lightgray"></ix>
-            </a>
-            <a href="#">
-              <ix class="fa fa-trash" title="Delete" style="color:LightGray"></ix>
-            </a>
-          </xsl:when>
-        </xsl:choose>
-
-        <!--edit things-->
-        <xsl:choose>
-          <xsl:when test="$state &lt; 999">
-            <a id="edit_{@GUID}" href="index.aspx?code={@code}&#38;guid={@GUID}">
-              <ix class="fa fa-pencil" title="Edit"></ix>
-            </a>
-          </xsl:when>
-          <xsl:otherwise>
-            <a href="#">
-              <ix class="fa fa-pencil" title="Edit" style="color:LightGray"></ix>
-            </a>
-          </xsl:otherwise>
-        </xsl:choose>
-      </td>
     </tr>
     <xsl:choose>
       <xsl:when test="/sqroot/body/bodyContent/browse/info/browseMode=2">
@@ -569,23 +608,21 @@
                   </xsl:if>
 
                   <!--Talks-->
-                  <div class="box box-danger box-solid direct-chat direct-chat-danger" style="max-width:300px;float:left;margin: 10px 10px 10px 10px;">
+                  <xsl:variable name="talkDisplay">
+                    <xsl:if test="not(talks/talk)">
+                      collapsed-box
+                    </xsl:if>
+                  </xsl:variable>
+                  <div class="box box-danger box-solid direct-chat direct-chat-danger {$talkDisplay}" style="max-width:300px;float:left;margin: 10px 10px 10px 10px;">
                     <div class="box-header with-border">
                       <h3 class="box-title">Document Talk</h3>
                       <div class="box-tools pull-right">
-                        <!--<span data-toggle="tooltip" title="3 New Messages" class="badge bg-red">3</span>-->
                         <button class="btn btn-box-tool" data-widget="collapse">
                           <ix class="fa fa-plus"></ix>
                         </button>
                       </div>
                     </div>
-                    <xsl:variable name="talkDisplay">
-                      <xsl:choose>
-                        <xsl:when test="talks/talk">block</xsl:when>
-                        <xsl:otherwise>none</xsl:otherwise>
-                      </xsl:choose>
-                    </xsl:variable>
-                    <div class="box-body" style="display:{$talkDisplay};">
+                    <div class="box-body">
                       <div class="direct-chat-messages" id="chatMessages{@GUID}" >
                         <xsl:apply-templates select="talks/talk"/>
                       </div>
@@ -613,8 +650,8 @@
   <xsl:template match="fields/field[@mandatory=1]">
     <script>
       var m=$('#mandatory<xsl:value-of select="../../@GUID"/>').val();
-      if (m!='' &#38;&#38; '<xsl:value-of select="." />'!='') m+='/';
-      m+='<xsl:value-of select="." />';
+      if (m!='' &#38;&#38; "<xsl:value-of select="." />" != '') m+='/';
+      m+="<xsl:value-of select="." />";
       $('#mandatory<xsl:value-of select="../../@GUID"/>').val(m);
     </script>
     <td id="mandatory{../../@GUID}" class="expand-td" data-toggle="collapse" data-target="#{../@GUID}" data-parent="#{../@GUID}">

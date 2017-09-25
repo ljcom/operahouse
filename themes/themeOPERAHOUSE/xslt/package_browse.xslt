@@ -30,14 +30,16 @@
                 <h4 class="mb-1 no-mt">Category</h4>
                 <fieldset>
                   <div class="form-group no-mt">
-                    <xsl:apply-templates select="sqroot/header/menus/menu[@code='packageCtgr']/submenus/submenu" />
+                    <xsl:apply-templates select="sqroot/header/menus/menu[@code='Category']/submenus/submenu" />
                     
                   </div>
                 </fieldset>
+
                 <button class="btn btn-danger btn-block no-mb mt-2" id="Reset">
                   <i class="zmdi zmdi-delete"></i> Clear Filters
                 </button>
               </form>
+              
               <form class="form-horizontal">
                 <h4>Sort by</h4>
                 <!--<select id="SortSelect" class="form-control">
@@ -49,6 +51,7 @@
                 </select>-->
               </form>
             </div>
+          
           </div>
         </div>
         <div class="col-md-9">
@@ -80,14 +83,14 @@
               <p class="ms-thumbnail-caption-title mb-2">
                 <xsl:value-of select ="fields/field[@caption = 'packageDescription']/."/>
               </p>
-              <a href="javascript:void(0)" class="btn-circle btn-circle-raised btn-circle-xs mr-1 btn-circle-white color-danger">
+              <!--<a href="javascript:void(0)" class="btn-circle btn-circle-raised btn-circle-xs mr-1 btn-circle-white color-danger">
                 <i class="zmdi zmdi-favorite"></i>
-              </a>
+              </a>-->
               <a href="javascript:void(0)" class="btn-circle btn-circle-raised btn-circle-xs ml-1 mr-1 btn-circle-white color-warning">
                 <i class="zmdi zmdi-shopping-cart"></i>
               </a>
-              <a href="javascript:void(0)" class="btn-circle btn-circle-raised btn-circle-xs ml-1 btn-circle-white color-success">
-                <i class="zmdi zmdi-share"></i>
+              <a href="index.aspx?code={@code}&amp;GUID={@GUID}" class="btn-circle btn-circle-raised btn-circle-xs ml-1 btn-circle-white color-success">
+                <i class="zmdi zmdi-view-list-alt"></i>
               </a>
             </div>
           </figcaption>
@@ -98,7 +101,8 @@
           </a>
         </div>-->
         <div class="card-footer">
-          <h4 style="margin:5px; font-weight:450; text-align:center"><xsl:value-of select ="fields/field[@caption = 'packageName']/."/>
+          <h4 style="margin:5px; font-weight:450; text-align:center">
+            <xsl:value-of select ="fields/field[@caption = 'packageName']/."/>
           </h4>
         </div>
         
@@ -126,12 +130,18 @@
   </xsl:template>
 
 
-  <xsl:template match="sqroot/header/menus/menu[@code='packageCtgr']/submenus/submenu">
+  <xsl:template match="sqroot/header/menus/menu[@code='Category']/submenus/submenu">
     <div class="checkbox ml-2">
       <label>
         <input type="checkbox" value="{@tag}" /> <xsl:value-of select="caption/." />&#160;
       </label>
     </div>
   </xsl:template>
-  
+  <xsl:template match="sqroot/header/menus/menu[@code='Industry']/submenus/submenu">
+    <div class="checkbox ml-2">
+      <label>
+        <input type="checkbox" value="{@tag}" /> <xsl:value-of select="caption/." />&#160;
+      </label>
+    </div>
+  </xsl:template>
 </xsl:stylesheet>

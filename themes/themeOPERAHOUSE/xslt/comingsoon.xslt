@@ -186,8 +186,8 @@
     <div class="bg-full-page bg-primary back-fixed">
       <div class="mw-500 absolute-center">
         <header class="text-center mb-2">
-          <span>
-            <img width="30" style="margin-top:-9px;" alt="OPERAHOUSE" id="logoimg"/>
+          <span class="logo-mini" style="font-size:9px; text-align:center">
+            <img width="90" src="OPHContent/themes/{/sqroot/header/info/themeFolder}/images/oph4_logo.png" alt="Logo Image" />
           </span>
           <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">
             <span>

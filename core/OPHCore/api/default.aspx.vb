@@ -219,10 +219,13 @@ Partial Class OPHCore_API_default
                 Session.Abandon()
 				noxml = True
 				isSingle = False
-				'Response.Cookies("isLogin").Value = 0
-				'reloadURL("../../index.aspx")
-			Case "saveProfile"
-				Dim fieldattachment As New List(Of String)
+            Case "revokeDelegation"
+                sqlstr = "exec [api].[revoke_delegation] '" & curHostGUID & "', '" & code & "'"
+                xmlstr = runSQLwithResult(sqlstr, curODBC)
+                xmlstr = "<sqroot><message>" & xmlstr & "</message></sqroot>"
+                isSingle = False
+            Case "saveProfile"
+                Dim fieldattachment As New List(Of String)
 				Dim f As String
 				For Each f In Request.Files
 					Dim path As String
@@ -253,19 +256,18 @@ Partial Class OPHCore_API_default
 				sqlstr = populateSaveXML(1, code, 0, fieldattachment, GUID)
 				sqlstr = sqlstr.Replace("#95#", "_")
 				sqlstr = sqlstr.Replace("[save]", "[save_profile]")
-				xmlstr = runSQLwithResult(sqlstr, curODBC)
-
-				xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
-				isSingle = False
-			Case "changePassword"
+                xmlstr = runSQLwithResult(sqlstr, curODBC)
+                xmlstr = "<sqroot><message>" & xmlstr & "</message></sqroot>"
+                isSingle = False
+            Case "changePassword"
 				Dim curPass = getQueryVar("curpass")
 				Dim newPass = getQueryVar("newpass")
 
 				sqlstr = "exec gen.changePassword '" & curHostGUID & "', '" & curPass & "', '" & newPass & "'"
 				xmlstr = runSQLwithResult(sqlstr, curODBC)
-				xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
-				isSingle = False
-			Case "forgotpwd"
+                xmlstr = "<sqroot><message>" & xmlstr & "</message></sqroot>"
+                isSingle = False
+            Case "forgotpwd"
 				code = getQueryVar("code")
 				Dim steps = getQueryVar("step")
 				Dim email = getQueryVar("email")

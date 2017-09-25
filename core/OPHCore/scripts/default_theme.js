@@ -13,20 +13,20 @@
 
         var divname = ['frameMaster'];
         var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '.xslt'];
-        
-        if (getGUID()=='' || getGUID()==undefined) {
-            $.get( 'OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_sidebar.xslt').done(function() {
+
+        if (getGUID() == '' || getGUID() == undefined) {
+            $.get('OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_sidebar.xslt').done(function () {
                 divname.push('sidebarWrapper');
                 xsldoc.push('OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_sidebar.xslt');
 
-            }).always(function() {
+            }).always(function () {
                 pushTheme(divname, xmldoc, xsldoc, true);
             });
 
         }
-        else {pushTheme(divname, xmldoc, xsldoc, true);}
+        else { pushTheme(divname, xmldoc, xsldoc, true); }
 
-        
+
 
     }
     catch (e) {
@@ -49,6 +49,8 @@ function getMode() { return (getGUID() == '' || getGUID() == undefined) ? 'brows
 
 function getCode() { return (getCookie('code') == undefined ? getQueryVariable("code") : getQueryVariable("code")) }
 
+function lastCode() { return getCookie('lastCode'); }
+
 function getGUID() { return (getCookie('GUID') == undefined || getCookie('GUID') == "" ? getQueryVariable("GUID") : getQueryVariable("GUID")) }
 
 function getPage() {
@@ -65,6 +67,15 @@ function getState() { return (getQueryVariable("stateid") == undefined ? getCook
 function getSearchText() { return (getQueryVariable("bSearchText") == undefined ? getCookie('bSearchText') : getQueryVariable("bSearchText")) }
 
 function getFilter() {
+    if (getCookie("sqlFilter") == undefined || getCookie("sqlFilter") == "") {
+        if (getQueryVariable("sqlFilter") == undefined || getQueryVariable("sqlFilter") == "") {
+            return ""
+        } else {
+            return getQueryVariable("sqlFilter")
+        }
+    } else {
+        return getCookie("sqlFilter")
+    }
     return (getQueryVariable("sqlFilter") == undefined ? (getCookie("sqlFilter") == undefined ? "" : getCookie("sqlFilter")) : getQueryVariable("sqlFilter"))
 }
 
@@ -88,6 +99,11 @@ function getUnique() {
 
 function loadContent(nbpage, f) {
     //main content
+    if (lastCode() != getCode()) {
+        setCookie('sqlFilter', "", 0, 0, 0);
+        setCookie('lastCode', getCode(), 0, 0, 15);
+    }
+
     if (getCode().toLowerCase() == 'dumy')
         var xmldoc = 'OPHContent/themes/' + loadThemeFolder() + '/sample.xml';
     else
@@ -127,7 +143,7 @@ function signIn() {
     if ($("#userid")) uid = $("#userid").val();
     var pwd = $("#pwd").val();
 
-    var dataForm = $('form').serialize()+'&source='+window.location.toString().replace('&', '*').replace('?', '*') //.split('_').join('');
+    var dataForm = $('form').serialize() + '&source=' + window.location.toString().replace('&', '*').replace('?', '*') //.split('_').join('');
 
     var dfLength = dataForm.length;
     dataForm = dataForm.substring(2, dfLength);
@@ -1345,7 +1361,7 @@ function doSubViewFunction(functiontext, caption, strGUID, needConfirm, subBrows
             document.forms(0).submit();
         }
     }
-        //if not valid show message
+    //if not valid show message
     else {
         confirmed = 0;
         showMessage(validation);
@@ -2496,7 +2512,7 @@ function showChildForm(code, guid, parent) {
     var divnm = [code + guid];
     //clear other childform
     if (!$('#' + code + guid).is(":visible")) {
-        
+
         $("#" + divnm).html("Please Wait...");
 
         var xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=form&GUID=" + guid
@@ -2530,8 +2546,8 @@ function autosuggestSetValue(SelectID, code, colKey, defaultValue, wf1, wf2) {
             code: code,
             colkey: colKey,
             defaultValue: defaultValue,
-            wf1value: ($("#"+wf1).data("value") === undefined ? "" : $("#"+wf1).data("value")),
-            wf2value: ($("#"+wf2).data("value") === undefined ? "" : $("#"+wf2).data("value")),
+            wf1value: ($("#" + wf1).data("value") === undefined ? "" : $("#" + wf1).data("value")),
+            wf2value: ($("#" + wf2).data("value") === undefined ? "" : $("#" + wf2).data("value")),
 
         },
         dataType: "json",
@@ -2930,7 +2946,7 @@ function saveFunction(code, guid, location, formId, afterSuccess) {
         var other_data = $(thisForm).serializeArray();
         $.each(other_data, function (key, input) {
             var newVal = input.value;
-            newVal = newVal.replace(/</g, '&lt;',);
+            newVal = newVal.replace(/</g, '&lt;', );
             newVal = newVal.replace(/>/g, '&gt;');
             data.append(input.name, newVal);
         });
@@ -3275,6 +3291,9 @@ function getWidgetData(dataId, f) {
 }
 
 function drawChart(chartId, chartType, chartLabelH, chartDatasets) {
+    var isStacked = false;
+    if (chartType == 'barStack') { chartType = 'bar'; isStacked = true; }
+    if (chartType == 'lineStack') { chartType = 'line'; isStacked = true; }
     // chartLabelH=["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
     //chartDatasets=[{
     //    label: '# of Votes',
@@ -3306,17 +3325,20 @@ function drawChart(chartId, chartType, chartLabelH, chartDatasets) {
         },
         options: {
             scales: {
+                xAxes: [{
+                    stacked: isStacked,
+                }],
                 yAxes: [{
                     ticks: {
                         beginAtZero: true
-                    }
+                    }, stacked: isStacked
                 }]
             }
         }
     });
 }
 function fillChartDataSets(label, data, bgColor, borderColor, borderWidth) {
-    return [{ label, data, bgColor, borderColor, borderWidth}]
+    return [{ label, data, bgColor, borderColor, borderWidth }]
     //chartDatasets=[{
     //    label: '# of Votes',
     //    data: [12, 19, 3, 5, 2, 23],
@@ -3405,7 +3427,7 @@ function applySQLFilter(ini) {
         }
     });
     setCookie('sqlFilter', sqlFilter, 0, 0, 10);
-    $.when($.ajax(loadContent(1))).done(function () {$(ini).button('reset');});
+    $.when($.ajax(loadContent(1))).done(function () { $(ini).button('reset'); });
 }
 
 function resetSQLFilter(ini) {
@@ -3417,4 +3439,65 @@ function resetSQLFilter(ini) {
     $.when($.ajax(loadContent(1))).done(function () {
         $(ini).button('reset');
     });
+}
+
+function delegatorModal(isRevoke) {
+    var kukis = getCode() + '_dmc';
+    if (isRevoke == true) {
+        $('#btnRevoke').button('loading');
+        var url = "OPHCore/api/default.aspx?code=" + getCode() + "&mode=revokeDelegation" + "&unique=" + getUnique();
+        var revoking = $.post(url)
+            .done(function (data) {
+                var msg = $(data).find('message').text();
+                if (msg == "" || msg == undefined || isGuid(msg) == true) {
+                    $('#btnRevoke').button('reset');
+                    window.location.reload();
+                } else {
+                    $('#delegatorModal h3').text('Oops! Something went wrong.')
+                    $('#delegatorModal .modal-body').text("We are very sorry for the inconvenience. You have to revoke your delegation manually in your profile menu. Thank you for your understanding.")
+                    $('#btnRevokeLater').text("Close");
+                    $('#btnRevoke').hide();
+                }
+            });
+    } else {
+        setCookie(kukis, "yes", 1);
+    }
+}
+
+function loadModalForm(divID, code, guid) {
+    var xmldoc = 'OPHCore/api/default.aspx?mode=form&code=' + code + '&guid=' + guid + '&u=' + getUnique();
+    var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_form_modal.xslt';
+
+    if (code.indexOf('par') == 0) {
+        $('#' + divID).text('| Parameter : ' + code );
+    } else {
+        showXML(divID, xmldoc, xsldoc, true, true);
+    }
+}
+
+function saveModalForm(ini, selectID, code, guid) {
+    $(ini).button('loading');
+    var selectID = $(ini).parents("div[id*='addNew']").attr('id');
+    selectID = selectID.split('addNew').join('');
+    var md = "#addNew" + selectID;    
+    var formId = $('#modalForm' + selectID).children('form:first').attr('id');
+
+    saveFunction(code, guid, 80, formId, function (data) {
+        var msg = $(data).children().find("message").text();
+        var retguid = $(data).children().find("guid").text();
+
+        if (isGuid(retguid)) {
+            //get the guid and set the select2 value with the guid return value
+            $('#' + selectID).val(retguid).trigger('change');
+            $(ini).button('reset');
+            $(md).modal('hide');
+        } else {
+            if (msg != "") {
+                //show error message
+                alert(msg);
+                $(ini).button('reset');
+            }
+        }
+    })
+    
 }

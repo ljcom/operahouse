@@ -59,44 +59,74 @@ namespace webRequest
         [Microsoft.SqlServer.Server.SqlFunction(DataAccess = DataAccessKind.Read)]
         public static SqlString POST(SqlString uri, SqlString postData, SqlString username, SqlString passwd)
         {
-            SqlPipe pipe = SqlContext.Pipe;
-            SqlString document;
-            byte[] postByteArray = Encoding.UTF8.GetBytes(Convert.ToString(postData));
+            SqlString document="";
 
-            // Set up the request, including authentication, 
-            // method=POST and encoding:
-
-            WebRequest req = WebRequest.Create(Convert.ToString(uri));
-            ((HttpWebRequest)req).UserAgent = "CLR web client on SQL Server";
-            if (Convert.ToString(username) != null & Convert.ToString(username) != "")
+            try
             {
-                req.Credentials = new NetworkCredential(
-                    Convert.ToString(username),
-                    Convert.ToString(passwd));
+                SqlPipe pipe = SqlContext.Pipe;
+                
+                byte[] postByteArray = Encoding.UTF8.GetBytes(Convert.ToString(postData));
+
+                var urix = new Uri(Convert.ToString(uri));
+                var p = ServicePointManager.FindServicePoint(urix);
+                p.Expect100Continue = false;
+
+
+                //// Create a WebPermission.
+                //WebPermission myWebPermission1 = new WebPermission();
+
+                //// Allow Connect access to the specified URLs.
+                //myWebPermission1.AddPermission(NetworkAccess.Connect, new Regex("http://www\.twitter\.com/.*",
+                //  RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline));
+
+                //myWebPermission1.Demand();
+
+                // Set up the request, including authentication, 
+                // method=POST and encoding:
+
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(Convert.ToString(uri));
+                req.ServicePoint.Expect100Continue = false;
+
+                req.UserAgent = "CLR web client on SQL Server";
+                if (Convert.ToString(username) != null & Convert.ToString(username) != "")
+                {
+                    req.Credentials = new NetworkCredential(
+                        Convert.ToString(username),
+                        Convert.ToString(passwd));
+                }
+                req.Method = "POST";
+                req.ContentType = "application/x-www-form-urlencoded";
+
+
+                //System.Net.ServicePointManager.Expect100Continue = false;
+
+
+                // Submit the POST data
+                Stream dataStream = req.GetRequestStream();
+                dataStream.Write(postByteArray, 0, postByteArray.Length);
+                dataStream.Close();
+
+                // Collect the response, put it in the string variable "document"
+                WebResponse resp = req.GetResponse();
+                dataStream = resp.GetResponseStream();
+                StreamReader rdr = new StreamReader(dataStream);
+                document = (SqlString)rdr.ReadToEnd();
+
+                // Close up and return
+                rdr.Close();
+                dataStream.Close();
+                resp.Close();
+
             }
-            req.Method = "POST";
-            req.ContentType = "application/x-www-form-urlencoded";
-
-            System.Net.ServicePointManager.Expect100Continue = false;
-            
-
-            // Submit the POST data
-            Stream dataStream = req.GetRequestStream();
-            dataStream.Write(postByteArray, 0, postByteArray.Length);
-            dataStream.Close();
-
-            // Collect the response, put it in the string variable "document"
-            WebResponse resp = req.GetResponse();
-            dataStream = resp.GetResponseStream();
-            StreamReader rdr = new StreamReader(dataStream);
-            document = (SqlString)rdr.ReadToEnd();
-
-            // Close up and return
-            rdr.Close();
-            dataStream.Close();
-            resp.Close();
-
+            catch (Exception exc)
+            {
+                // send error back
+                SqlContext.Pipe.Send(exc.Message);
+                //document = exc.Message;
+            }
             return (document);
         }
+
+        
     }
 }

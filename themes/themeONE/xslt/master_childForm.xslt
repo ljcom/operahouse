@@ -192,23 +192,20 @@
   </xsl:template>
 
   <xsl:template match="form">
-
     <script>
       var code = "<xsl:value-of select="info/code/."/>";
       var tblnm =code+"requiredname";
-
-
     </script>
     <input type="hidden" name ="{info/code/.}requiredname"/>
     <input type="hidden" name ="{info/code/.}requiredtblvalue"/>
-    <!--<input type="hidden" id="PKSAVE{info/code/.}" value="{info/parentKey/.}"/>-->
     <div class="col-md-12" id="child">
       <form role="form" id="form{info/code/.}">
-        <!--<input type="hidden" name="mode" value="save"/>
-      <input type="hidden" name="code" value="{info/code/.}"/>-->
         <input type="hidden" name="{info/parentKey/.}" id="PK{info/code/.}" value=""/>
         <script>
-          $('#PK'+code).val(getGUID());
+          var childCode = 'child' + code;
+          var parentGUID = $("div[id*='" + childCode + "']").attr('id')
+          parentGUID = parentGUID.replace(childCode, '');
+          $('#PK'+code).val(parentGUID);
         </script>
         <xsl:apply-templates select="formPages/formPage[@pageNo&lt;9]"/>
       </form>
@@ -793,6 +790,8 @@
   <xsl:template match="child">
     <input type="hidden" id="CPKID" value="gchild{code/.}"/>
     <input type="hidden" id="childKey{code/.}" value="{parentkey/.}"/>
+    <input type="hidden" id="filter{code/.}" value="{parentkey/.}='{/sqroot/body/bodyContent/form/info/GUID/.}'"/>
+    <input type="hidden" id="parent{code/.}" value="{parentkey/.}"/>
     <script>
 
       //xmldoc = "OPHCORE/api/default.aspx?code=<xsl:value-of select ="code/."/>&amp;mode=browse&amp;sqlFilter=<xsl:value-of select ="parentkey/."/>='<xsl:value-of select ="/sqroot/body/bodyContent/form/info/GUID/."/>'"
