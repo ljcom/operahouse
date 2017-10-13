@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl">
   <xsl:template match="/">
+    
     <xsl:apply-templates select="sqroot/body/bodyContent"/>
 
     <xsl:if test="sqroot/body/bodyContent/form/info/GUID !='00000000-0000-0000-0000-000000000000'">
@@ -73,12 +74,18 @@
         <p class="lead lead-lg color-white text-center center-block mt-2 mw-800 fw-300 animated fadeInUp animation-delay-7">
           <xsl:apply-templates select="fields"/>
         </p>
+        <a href="index.aspx?code=register&amp;launch=orders&amp;package={/sqroot/body/bodyContent/form/info/GUID/.}" class="btn btn-raised btn-warning" style="margin-top:20px;">
+          <i class="zmdi zmdi-account-add"></i>  
+          Create Account
+        </a>
       </xsl:when>
+      
       <xsl:when test="@rowNo = '3'">
-        <div class="img-browser-container mt-6">
+        <div class="img-browser-container mt-6" style="margin-top:20px !important;">
           <xsl:apply-templates select="fields"/>
         </div>
       </xsl:when>
+      
      
     </xsl:choose>
   </xsl:template>

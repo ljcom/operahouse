@@ -3,18 +3,25 @@
     xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl">
   <xsl:template match="/">
 
-    
-   
-    <form class="form-horizontal">
+    <h1 class="color-primary text-center">Register</h1>
+    <form class="form-horizontal" id="registerform" method="post">
       <fieldset>
         <xsl:apply-templates select="sqroot/body/bodyContent"/>
+  
+        <div class="row">
+          <div class="col-md-6 col-md-offset-2">
+            <input type="checkbox"/> I agree to the terms and conditions.
+          </div>
+        </div>
         <div class="row">
           <div class="col-md-4 col-md-offset-8">
-            <button class="btn btn-raised btn-primary btn-block mt-4">Register Now</button>
+            <button class="btn btn-raised btn-primary btn-block mt-4" onclick="savethemeOPERAHOUSE('register', '00000000-0000-0000-0000-000000000000', '', 'registerform')">Register Now</button>
           </div>
         </div>
       </fieldset>
     </form>
+
+    
   </xsl:template>
 
   <xsl:template match="sqroot/body/bodyContent">

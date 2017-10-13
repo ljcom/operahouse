@@ -81,16 +81,15 @@ function LoadNewPartView(filename, id, code, GUID) {
 function signInFrontEnd() {
     var uid = document.getElementById("userid").value;
     var pwd = document.getElementById("pwd").value;
-    var cartID = getCookie("cartID");
-    var remember = document.getElementById("rememberme");
+    var cartID = ''//getCookie("cartID");
+    var remember = ''//document.getElementById("rememberme");
 
     var dataForm = $('#signinForm').serialize() //.split('_').join('');
 
     var dfLength = dataForm.length;
     dataForm = dataForm.substring(2, dfLength);
     dataForm = dataForm.split('%3C').join('%26lt%3B');
-    path = "OPHCore/api/default.aspx?mode=signin&userid=" + uid + "&pwd=" + pwd + "&cartID=" + cartID;
-
+    path = "OPHCore/api/default.aspx?mode=signin&userid=" + uid + "&pwd=" + pwd + "&cartID=" + cartID + '&withCaptcha=0'
     $.ajax({
         url: path,
         data: dataForm,
@@ -104,13 +103,17 @@ function signInFrontEnd() {
             var result = $(data).find("hostGUID").text();
             if (result) {
                 if (remember.checked == true) { setCookie("userID", uid, 30, 0, 0); }
-                var landingPage = (getCookie('lastPar') == null || getCookie('lastPar') == '') ? '?' : getCookie('lastPar');
-                window.location=landingPage;
+                if (getQueryVariable("launch") != undefined && getQueryVariable("launch") != "") {
+                    var landingPage = 'index.aspx?code=' + getQueryVariable("launch") + '&package=' + getQueryVariable("package");
+                } else {
+                    var landingPage = (getCookie('lastPar') == null || getCookie('lastPar') == '') ? '?' : getCookie('lastPar');
+                }
+                window.location = landingPage;
             } else {
                 //alert('Invalid User or password!');
-                document.getElementById("loginNotifMsg").innerHTML = 'Invalid User ID or password!';
-                //document.getElementById("loginNotif").style.display = 'block';
-                $("#loginNotif").show("slow").delay(2000).fadeOut();
+                document.getElementById("notiModalText").innerHTML = 'Invalid User ID or password!';
+                document.getElementById("notiModalLabel").innerHTML = 'Warning!';
+                $("#notiModal").modal();
             }
         }
     });
@@ -577,12 +580,12 @@ function savethemeOPERAHOUSE(code, guid, location, formId) {
     saveFunction(code, guid, location, formId, function (data) {
         var result = $(data).find("message").text();
         if (result) {
-            document.getElementById("popupMsgContent").innerHTML = result;
-            $("#popupMsg").show("slow");
+            $("#notiModal").modal();
+            document.getElementById("notiModalText").innerHTML = result;
+            document.getElementById("notiModalLabel").innerHTML = 'Warning!';
         } else {
-            window.location.reload();
+            window.location = 'index.aspx?code=account';
         }
-        stopLoadingScreen();
 
     });
 }

@@ -8,8 +8,7 @@
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/js/app.min.js');
 
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/js/home-generic-6.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/custom-me.js');
-      
+    
     </script>
     <div id="ms-preload" class="ms-preload">
       <div id="status">
@@ -68,7 +67,8 @@
                             <i class="zmdi zmdi-account"></i>
                           </span>
                           <label class="control-label" for="ms-form-user">Username</label>
-                          <input type="text" id="ms-form-user" class="form-control" /> </div>
+                          <input type="text" id="ms-form-user" class="form-control" />
+                        </div>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -76,14 +76,16 @@
                             <i class="zmdi zmdi-lock"></i>
                           </span>
                           <label class="control-label" for="ms-form-pass">Password</label>
-                          <input type="password" id="ms-form-pass" class="form-control" /> </div>
+                          <input type="password" id="ms-form-pass" class="form-control" />
+                        </div>
                       </div>
                       <div class="row mt-2">
                         <div class="col-md-6">
                           <div class="form-group no-mt">
                             <div class="checkbox">
                               <label>
-                                <input type="checkbox" /> Remember Me </label>
+                                <input type="checkbox" /> Remember Me
+                              </label>
                             </div>
                           </div>
                         </div>
@@ -115,7 +117,8 @@
                             <i class="zmdi zmdi-account"></i>
                           </span>
                           <label class="control-label" for="ms-form-user">Username</label>
-                          <input type="text" id="ms-form-user"  class="form-control" /> </div>
+                          <input type="text" id="ms-form-user"  class="form-control" />
+                        </div>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -123,7 +126,8 @@
                             <i class="zmdi zmdi-email"></i>
                           </span>
                           <label class="control-label" for="ms-form-email">Email</label>
-                          <input type="email" id="ms-form-email"  class="form-control" /> </div>
+                          <input type="email" id="ms-form-email"  class="form-control" />
+                        </div>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -131,7 +135,8 @@
                             <i class="zmdi zmdi-lock"></i>
                           </span>
                           <label class="control-label" for="ms-form-pass">Password</label>
-                          <input type="password" id="ms-form-pass"  class="form-control" /> </div>
+                          <input type="password" id="ms-form-pass"  class="form-control" />
+                        </div>
                       </div>
                       <div class="form-group label-floating">
                         <div class="input-group">
@@ -139,7 +144,8 @@
                             <i class="zmdi zmdi-lock"></i>
                           </span>
                           <label class="control-label" for="ms-form-pass">Re-type Password</label>
-                          <input type="password" id="ms-form-pass"  class="form-control" /> </div>
+                          <input type="password" id="ms-form-pass"  class="form-control" />
+                        </div>
                       </div>
                       <button class="btn btn-raised btn-block btn-primary">Register Now</button>
                     </fieldset>
@@ -147,25 +153,27 @@
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="ms-recovery-tab">
                   <form>
-                  <fieldset>
-                    <div class="form-group label-floating">
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="zmdi zmdi-account"></i>
-                        </span>
-                        <label class="control-label" for="ms-form-user">Username</label>
-                        <input type="text" id="ms-form-user"  class="form-control" /> </div>
-                    </div>
-                    <div class="form-group label-floating">
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="zmdi zmdi-email"></i>
-                        </span>
-                        <label class="control-label" for="ms-form-email">Email</label>
-                        <input type="email" id="ms-form-email"  class="form-control" /> </div>
-                    </div>
-                    <button class="btn btn-raised btn-block btn-primary">Send Password</button>
-                  </fieldset>
+                    <fieldset>
+                      <div class="form-group label-floating">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="zmdi zmdi-account"></i>
+                          </span>
+                          <label class="control-label" for="ms-form-user">Username</label>
+                          <input type="text" id="ms-form-user"  class="form-control" />
+                        </div>
+                      </div>
+                      <div class="form-group label-floating">
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <i class="zmdi zmdi-email"></i>
+                          </span>
+                          <label class="control-label" for="ms-form-email">Email</label>
+                          <input type="email" id="ms-form-email"  class="form-control" />
+                        </div>
+                      </div>
+                      <button class="btn btn-raised btn-block btn-primary">Send Password</button>
+                    </fieldset>
                   </form>
                 </div>
               </div>
@@ -187,37 +195,18 @@
             </a>
           </div>
           <div class="header-right">
-            <div class="share-menu">
-              <ul class="share-menu-list">
-                <li class="animated fadeInRight animation-delay-3">
-                  <a href="javascript:void(0)" class="btn-circle btn-google">
-                    <i class="zmdi zmdi-google"></i>
-                  </a>
-                </li>
-                <li class="animated fadeInRight animation-delay-2">
-                  <a href="javascript:void(0)" class="btn-circle btn-facebook">
-                    <i class="zmdi zmdi-facebook"></i>
-                  </a>
-                </li>
-                <li class="animated fadeInRight animation-delay-1">
-                  <a href="javascript:void(0)" class="btn-circle btn-twitter">
-                    <i class="zmdi zmdi-twitter"></i>
-                  </a>
-                </li>
-              </ul>
-              <a href="javascript:void(0)" class="btn-circle btn-circle-primary animated zoomInDown animation-delay-7">
-                <i class="zmdi zmdi-share"></i>
-              </a>
-            </div>
+            <p class="no-focus animated zoomInDown animation-delay-8">
+              <xsl:value-of select="/sqroot/header/info/user/userName/." />
+            </p>
             <a href="javascript:void(0)" class="btn-circle btn-circle-primary no-focus animated zoomInDown animation-delay-8" data-toggle="modal" data-target="#ms-account-modal">
               <i class="zmdi zmdi-account"></i>
             </a>
-            <form class="search-form animated zoomInDown animation-delay-9">
+            <!--<form class="search-form animated">
               <input id="search-box" type="text" class="search-input" placeholder="Search..." name="q" />
               <label for="search-box">
                 <i class="zmdi zmdi-search"></i>
               </label>
-            </form>
+            </form>-->
             <a href="javascript:void(0)" class="btn-ms-menu btn-circle btn-circle-primary sb-toggle-left animated zoomInDown animation-delay-10">
               <i class="zmdi zmdi-menu"></i>
             </a>
@@ -229,7 +218,7 @@
         <div class="container container-full">
           <div class="navbar-header">
             <a class="navbar-brand" href="index.html">
-               <img src="OPHContent/themes/{/sqroot/header/info/themeFolder}/assets/img/logo.png" style="width:30px" alt=""/> 
+              <img src="OPHContent/themes/{/sqroot/header/info/themeFolder}/assets/img/logo.png" style="width:30px" alt=""/>
               <!--<span class="ms-logo ms-logo-sm" style="font-size:12px;">MX4</span>-->
               <span class="ms-title">
                 <strong>Operahouse</strong>
@@ -240,7 +229,7 @@
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <xsl:apply-templates select="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu" />
-              
+
               <!-- <li class="btn-navbar-menu"><a href="javascript:void(0)" class="sb-toggle-left"><i class="zmdi zmdi-menu"></i></a></li> -->
             </ul>
           </div>
@@ -252,7 +241,7 @@
         <!-- container -->
       </nav>
       <!--this is slider-->
-      <div class="ms-hero-page-override ms-hero-img-airplane ms-bg-fixed ms-hero-bg-dark-light">
+      <!--<div class="ms-hero-page-override ms-hero-img-airplane ms-bg-fixed ms-hero-bg-dark-light">
         <div class="container">
           <div class="text-center">
             <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">Register</h1>
@@ -262,34 +251,102 @@
             </p>
           </div>
         </div>
-      </div>
+      </div>-->
       <!--this is Content-->
       <div class="container">
-        <div class="card card-primary card-hero animated fadeInUp animation-delay-7">
-          <div class="card-block" id="register_form">
-            <script>
-              LoadNewPartView('register_form', 'register_form', 'register', '00000000-0000-0000-0000-000000000000');
-              
-            </script>
-            <form class="form-horizontal">
-              <fieldset>
-                <div class="form-group">
-                  <label for="inputUser" class="col-md-2 control-label">Username</label>
-                  <div class="col-md-9">
-                    <input type="text" class="form-control" id="inputUser" placeholder="Username" /> 
-                  </div>
+        <div class="row">
+          
+          <div class="col-md-5 col-md-push-7">
+            <div class="card card-primary animated fadeInUp animation-delay-7">
+              <div class="card-block">
+                <h1 class="color-primary text-center">Login</h1>
+                <form class="form-horizontal" id="signinForm" onsubmit="return signInFrontEnd()">
+                  <fieldset>
+                    <div class="form-group">
+                      <label for="inputEmail" class="col-md-2 control-label">User ID</label>
+                      <div class="col-md-10">
+                        <input type="text" class="form-control" id="userid" name ="userid" placeholder="User ID" /> </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputPassword" class="col-md-2 control-label">Password</label>
+                      <div class="col-md-10">
+                        <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Password" /> </div>
+                    </div>
+                  </fieldset>
+                  <textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; ">success</textarea>
+                 
+                </form>
+                <button class="btn btn-raised btn-primary btn-block" id="btn_submitLogin"  onclick="signInFrontEnd()">
+                  Login
+                  <i class="zmdi zmdi-long-arrow-right no-mr ml-1"></i>
+                </button>
+                <div class="text-center mt-4">
+                  <h3>Login with</h3>
+                  <a href="javascript:void(0)" class="btn-circle btn-facebook">
+                    <i class="zmdi zmdi-facebook"></i>
+                  </a>
+                  <a href="javascript:void(0)" class="btn-circle btn-twitter">
+                    <i class="zmdi zmdi-twitter"></i>
+                  </a>
+                  <a href="javascript:void(0)" class="btn-circle btn-google">
+                    <i class="zmdi zmdi-google"></i>
+                  </a>
                 </div>
-                <div class="row">
-                  <div class="col-md-4 col-md-offset-8">
-                    <button class="btn btn-raised btn-primary btn-block mt-4">Register Now</button>
-                  </div>
-                </div>
-              </fieldset>
-            </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7 col-md-pull-5">
+            <div class="card card-primary animated fadeInUp animation-delay-7">
+
+              <div class="card-block" id="register_form">
+                Loading Please Wait...
+                <script>
+                  LoadNewPartView('register_form', 'register_form', 'register', '00000000-0000-0000-0000-000000000000');
+
+                </script>
+                
+                <!--<form class="form-horizontal">
+                  <fieldset>
+                    <div class="form-group">
+                      <label for="inputUser" class="col-md-2 control-label">Username</label>
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" id="inputUser" placeholder="Username" />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4 col-md-offset-8">
+                        <button class="btn btn-raised btn-primary btn-block mt-4">Register Now</button>
+                      </div>
+                    </div>
+                  </fieldset>
+                </form>-->
+              </div>
+            </div>
           </div>
         </div>
       </div>
       
+      <!--this is notif Modal-->
+      <div class="modal modal-warning" id="notiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel6">
+        <div class="modal-dialog animated zoomIn animated-3x" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">
+                  <i class="zmdi zmdi-close"></i>
+                </span>
+              </button>
+              <h3 class="modal-title" id="notiModalLabel">Notification</h3>
+            </div>
+            <div class="modal-body">
+              <p id="notiModalText">Message</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <!--this is footer-->
       <footer class="ms-footer">
         <div class="container">
