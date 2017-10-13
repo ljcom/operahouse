@@ -1,49 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl"
->
+    xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl" >
+  
   <xsl:template match="/">
-
     <script>
-      <!--loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/bootstrap/css/bootstrap.min.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/styles/font-awesome-4.7.0/css/font-awesome.min.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/daterangepicker/daterangepicker.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/datepicker/datepicker3.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/iCheck/all.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/colorpicker/bootstrap-colorpicker.min.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/timepicker/bootstrap-timepicker.min.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/select2/select2.min.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/admin-LTE/css/AdminLTE.min.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/admin-LTE/css/skins/_all-skins.min.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/styles/custom-me.css');
-
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/jQuery/jquery-2.2.3.min.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/bootstrap/js/bootstrap.min.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/input-mask/jquery.inputmask.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/input-mask/jquery.inputmask.date.extensions.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/input-mask/jquery.inputmask.extensions.js');
-      loadScript('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js');
-
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/datepicker/bootstrap-datepicker.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/colorpicker/bootstrap-colorpicker.min.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/timepicker/bootstrap-timepicker.min.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/slimScroll/jquery.slimscroll.min.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/iCheck/icheck.min.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/fastclick/fastclick.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/admin-LTE/js/demo.js');-->
       loadScript('OPHContent/themes/themeONE/scripts/admin-LTE/js/app.min.js');
-      loadScript('https://www.google.com/recaptcha/api.js');
+
+      if (getCookie('isWhiteAddress') == '0' || getCookie('isWhiteAddress') == undefined || getCookie('isWhiteAddress') == '') {
+        loadScript('https://www.google.com/recaptcha/api.js');
+      }
+      
       document.title='<xsl:value-of select="/sqroot/header/info/title"/>';
-      <!--loadContent();-->
     </script>
     
     <div class="wrapper" style="background: rgba(38, 44, 44, 0.1);">
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="javascript:goHome();" class="logo visible-phone" style="text-align:left;">
-
-        </a>
+        <a href="javascript:goHome();" class="logo visible-phone" style="text-align:left;"></a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
           <div id ="button-menu-phone"  class="" style="color:white;margin:0; display:inline-table; margin-top:5px; margin-left:10px" data-toggle="collapse" data-target="#demo5">
@@ -62,12 +36,9 @@
         </nav>
       </header>
 
-
-      <!-- *** LOGIN MODAL END *** -->
       <!-- *** NOTIFICATION MODAL -->
       <div id="notiModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
-
           <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-header">
@@ -81,15 +52,12 @@
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
           </div>
-
         </div>
       </div>
       <!-- *** NOTIFICATION MODAL END -->
       
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper" style="background:white">
-
-        <!-- Main content -->
         <section class="content">
           <div class="row">
             <div class="col-md-6">
@@ -97,14 +65,13 @@
                 WELCOME TO <br/>
                 <xsl:value-of select="sqroot/header/info/company"/>&#160;<xsl:value-of select="sqroot/header/info/productName"/>
               </h1>
-
               <h3>SIGN IN</h3>
               <!--<div style="text-align:center">
              <button class="btn btn-orange-a">WINDOWS CONNECT</button><br><br>
              <span> or </span>
           </div><br>-->
               <h4 style="color:gray">Please enter your username and password</h4>
-              <form id="formlogin" onsubmit ="return signIn();">
+              <form id="formlogin" onsubmit ="return signIn(1);">
                 <div class="form-group enabled-input">
                   <label>User Name</label>
                   <input type="text" class="form-control" name ="userid" id ="userid" autofocus="autofocus" onkeypress="return checkenter(event)"/>
@@ -114,11 +81,10 @@
                   <input type="password" class="form-control" name ="pwd" id ="pwd" onkeypress="return checkenter(event)"/>
                 </div>
                 <div class="g-recaptcha" data-sitekey="6Ld9Qi8UAAAAAJKicrf2JhrOH3k5LkqxyCodIOWm"></div>
-                <br/>
-                
+                <br/>                
               </form>
               <div style="text-align:center">
-                <button class="btn btn-orange-a" onclick="signIn();">SUBMIT</button>&#160;
+                <button id="btn_submitLogin" class="btn btn-orange-a">SUBMIT</button>&#160;
                 <button class="btn btn-gray-a" onclick="clearLoginText();">CLEAR</button>
               </div>
             </div>
@@ -142,9 +108,7 @@
             </div>-->
           </div>
         </section>
-        <!-- /.content -->
       </div>
-      <!-- /.content-wrapper -->
       <footer class="main-footer">
         <div class="pull-right hidden-xs">
           <b>Version</b> 4.0
@@ -154,20 +118,27 @@
         </strong> All rights
         reserved.
       </footer>
-
     </div>
-    <!-- ./wrapper -->
 
     <!-- jQuery 2.2.3 -->
     <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-
     <script>
+      if (getCookie('isWhiteAddress') == '1') {
+        $('#formlogin .g-recaptcha').remove();
+        $('#btn_submitLogin').attr('onclick', 'signIn(0)')
+      } else {
+        $('#btn_submitLogin').attr('onclick', 'signIn(1)')
+      }
 
       function checkenter(e) {
-      if (e.keyCode == 13) {
-      signIn();
-      //checklogin();
-      }
+        if (e.keyCode == 13) {
+          if (getCookie('isWhiteAddress') == '1') {
+            signIn(0);
+          }
+          else {
+            signIn(1);
+          }
+        }
       }
 
       <!--function checklogin()

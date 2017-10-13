@@ -50,7 +50,7 @@
             <input type="password" class="form-control" name ="pwd" id ="pwd" placeholder="password"/>
           </form>
           <div class="input-group-btn">
-            <button type="button" class="btn" onclick="javasript:signIn();">
+            <button type="button" class="btn" onclick="javasript:signIn(0);">
               <ix class="fa fa-arrow-right text-muted"></ix>
             </button>
           </div>

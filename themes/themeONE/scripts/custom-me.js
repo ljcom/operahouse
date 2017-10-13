@@ -562,3 +562,13 @@ function saveUserdele(formId, childID, modalID, guid) {
     });
 }
 
+function select2editForm(ini) {
+    var guid = $(ini).val();
+    var id = $(ini).attr('id');
+    var edit = '<span style= "cursor:pointer;float:right" data-toggle="modal" data-target="#addNew' + id + '" data-backdrop="static" ></span >'
+    if (isGuid(guid)) {
+        var divSpan = document.getElementById(id);
+        $('#select2-' + id + '-container').append(edit);
+        $('#select2-' + id + '-container').children().append('<ix class="fa fa-pencil" title= "Edit" ></ix >');
+    }
+}

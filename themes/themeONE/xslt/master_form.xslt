@@ -366,6 +366,7 @@
     <div class="form-group {$fieldEnabled}-input">
       <xsl:apply-templates select="textBox"/>
       <xsl:apply-templates select="textEditor"/>
+      <xsl:apply-templates select="textArea"/>
       <xsl:apply-templates select="dateBox"/>
       <xsl:apply-templates select="dateTimeBox"/>
       <xsl:apply-templates select="timeBox"/>
@@ -495,6 +496,43 @@
     </input>
   </xsl:template>
 
+  <xsl:template match="textArea">
+    <label id="{../@fieldName}caption">
+      <xsl:value-of select="titlecaption"/>
+    </label>
+    <xsl:if test="../@isNullable = 0">
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
+    </xsl:if>
+
+    <!--default value-->
+    <xsl:variable name="thisValue">
+      <xsl:choose>
+        <xsl:when  test="/sqroot/body/bodyContent/form/info/GUID/. = '00000000-0000-0000-0000-000000000000' and defaultvalue != ''">
+          <xsl:value-of select="defaultvalue/." />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:choose>
+            <xsl:when test="value and value != ''">
+              <xsl:value-of select="value"/>            
+            </xsl:when>
+            <xsl:otherwise>
+              &#160;            
+            </xsl:otherwise>          
+          </xsl:choose>          
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    
+    <textarea class="form-control" placeholder="input text..." name="{../@fieldName}" id ="{../@fieldName}" data-type="textArea" style="max-width:100%; min-width:100%; min-height:55px;" 
+      onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" oninput="javascript:checkChanges(this)" >
+      <xsl:if test="../@isEditable=0 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000')) or (/sqroot/body/bodyContent/form/info/permission/allowEdit/.)!='1'">
+        <xsl:attribute name="disabled">disabled</xsl:attribute>
+      </xsl:if>
+      <xsl:value-of select="$thisValue"/>
+    </textarea>
+ 
+  </xsl:template>
+
   <xsl:template match="dateBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
@@ -587,7 +625,8 @@
         <xsl:attribute name="class">input-group</xsl:attribute>
       </xsl:if>
       <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}" data-type="selectBox"
-        data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}" onchange="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" >
+        data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}"
+          onchange="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" >
         <xsl:if test="../@isEditable=0">
           <xsl:attribute name="disabled">disabled</xsl:attribute>
         </xsl:if>
@@ -600,19 +639,10 @@
           </button>
         </span>
       </xsl:if>
-      <span class="select2-search select2-box--dropdown" id="select2-{../@fieldName}-addNew" style="display:none;">
-        <ul class="select2-results__options" role="tree" aria-expanded="true" aria-hidden="false">
-          <li class="select2-results__option" role="treeitem" aria-selected="false">
-            <a href="#" data-toggle="modal" data-target="#addNew{../@fieldName}" data-backdrop="static" onclick="$('#{../@fieldName}').select2('close');">
-              Add New <xsl:value-of select="titlecaption"/>
-            </a>
-          </li>
-        </ul>
-      </span>
     </div>
 
     <!--AutoSuggest Add New Form Modal-->
-    <xsl:if test="1 = 1">
+    <xsl:if test="(@allowAdd=1 or @allowEdit=1) and ../@isEditable=1">
       <div id="addNew{../@fieldName}" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
@@ -620,49 +650,105 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
                 <span aria-hidden="true">&#215;</span>
               </button>
-              <h3>
-                <xsl:value-of select="titlecaption"/>
-              </h3>
-              <p>(Quick Add New Data Set)</p>
+              <div style="float:left;margin-top:-15px;">
+                <h3>
+                  <xsl:value-of select="titlecaption"/>
+                </h3>
+                <span>(Quick Add New Data Set)</span>
+              </div>
+              <div style="float:left">
+                <a id="link{../@fieldName}" data-toggle="tooltip" data-placement="right" title="Click to see more detail" style="cursor:pointer;" onclick="">
+                  <ix class="fa fa-external-link fa-2x"></ix>
+                </a>
+                <script>
+                  $('#link<xsl:value-of select="../@fieldName"/>').click(function(){
+                  var guid = (isGuid($('#<xsl:value-of select="../@fieldName"/>').val())) ? $('#<xsl:value-of select="../@fieldName"/>').val() : '00000000-0000-0000-0000-000000000000';
+                  var url = '?code=<xsl:value-of select="@comboCode"/>&amp;guid=' + guid;
+                  window.open(url);
+                  });
+                </script>
+              </div>
             </div>
             <div class="modal-body">
               <div class="row" id="modalForm{../@fieldName}">
-                <div class="col-md-12">
-                  <div style="float:left;">
-                  <ix class="fa fa-spinner fa-pulse fa-2x fa-fw"></ix>
-                  <span class="sr-only">Loading...</span>
-                  </div>
-                  <div style="float:left; margin-left:10px;font-size:20px;">Please wait...</div>                  
-                </div>
+                &#160;
               </div>
             </div>
             <script>
+              if ($('body').children('#addNew<xsl:value-of select="../@fieldName"/>').length == 1) {
+              $('body').children('#addNew<xsl:value-of select="../@fieldName"/>').remove();
+              }
               $('#addNew<xsl:value-of select="../@fieldName"/>').appendTo("body");
-              $('#addNew<xsl:value-of select="../@fieldName"/>').on('shown.bs.modal', function () {              
-                loadModalForm('modalForm<xsl:value-of select="../@fieldName"/>', '<xsl:value-of select="@comboCode"/>', '00000000-0000-0000-0000-000000000000');
+              $('#addNew<xsl:value-of select="../@fieldName"/>')
+              .on('show.bs.modal', function (event) {
+              $('#<xsl:value-of select="../@fieldName"/>').select2('close');
+              $('#modalForm<xsl:value-of select="../@fieldName"/>').append('<div class="col-md-12"></div>');
+              $('#modalForm<xsl:value-of select="../@fieldName"/>').children('.col-md-12').append('<div style="float:left;"></div>');
+              $('#modalForm<xsl:value-of select="../@fieldName"/>').children('.col-md-12').append('<div style="float:left; margin-left:10px;font-size:20px;">Please wait...</div>');
+              $('#modalForm<xsl:value-of select="../@fieldName"/>').children('.col-md-12').children('div:first').append('<ix class="fa fa-spinner fa-pulse fa-2x fa-fw"></ix>');
               })
+              .on('shown.bs.modal', function (event) {
+              if (isGuid($('#<xsl:value-of select="../@fieldName"/>').val()) &amp;&amp; $(event.relatedTarget).data('action') == 'edit' ) {
+              loadModalForm('modalForm<xsl:value-of select="../@fieldName"/>', '<xsl:value-of select="@comboCode"/>', $('#<xsl:value-of select="../@fieldName"/>').val());
+              }
+              else {
+              loadModalForm('modalForm<xsl:value-of select="../@fieldName"/>', '<xsl:value-of select="@comboCode"/>', '00000000-0000-0000-0000-000000000000');
+              }
+              })
+              .on('hide.bs.modal', function(event){
+              $('#modalForm<xsl:value-of select="../@fieldName"/>').children('div').remove();
+              $('#modalForm<xsl:value-of select="../@fieldName"/>').children('form').remove();
+              $('#modalForm<xsl:value-of select="../@fieldName"/>').children('button').remove();
+              $('#addNew<xsl:value-of select="../@fieldName"/> .modal-footer').children('button[id*="btn_save"]').remove();
+              $('#modalForm<xsl:value-of select="../@fieldName"/>').text('&#160;');
+              });
             </script>
             <div class="modal-footer">
-              <!--<button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>-->
               <button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
-              <!--<button type="button" class="btn btn-primary" data-loading-text="Saving in process..."
-                onclick="saveModalForm(this,'{../@fieldName}', '{@comboCode}', '00000000-0000-0000-0000-000000000000')" style="display:none;">
-                Save New <xsl:value-of select="titlecaption"/>
-              </button>-->
             </div>
           </div>
         </div>
       </div>
+
+      <xsl:if test="@allowAdd=1">
+        <span class="select2-search select2-box--dropdown" id="select2-{../@fieldName}-addNew" style="display:none;">
+          <ul class="select2-results__options" role="tree" aria-expanded="true" aria-hidden="false">
+            <li class="select2-results__option" role="treeitem" aria-selected="false">
+              <a href="#" data-toggle="modal" data-target="#addNew{../@fieldName}" data-backdrop="static" data-action="new">
+                Add New <xsl:value-of select="titlecaption"/>
+              </a>
+            </li>
+          </ul>
+        </span>
+        <script>
+          $("#<xsl:value-of select="../@fieldName"/>").on("select2:open", function(e) {
+          var s2id = $("span[class*='select2-dropdown select2-dropdown']").children('.select2-results').children().attr('id');
+          s2id = s2id.split('select2-').join('').split('-results').join('');
+          if (s2id == '<xsl:value-of select="../@fieldName"/>') {
+          $('#select2-<xsl:value-of select="../@fieldName"/>-addNew').appendTo("span[class*='select2-dropdown select2-dropdown']").show();
+          }
+          });
+        </script>
+      </xsl:if>
+
+      <xsl:if test="@allowEdit=1">
+        <span id="editForm{../@fieldName}" data-toggle="modal" data-target="#addNew{../@fieldName}" data-backdrop="static" data-action="edit"
+          style="cursor: pointer;margin: 8px 30px 0px 0px;position: absolute;top: 0px;right: 0px; display:none" >
+          <ix class="fa fa-pencil" title= "Edit" ></ix >
+        </span >
+        <script>
+          $("#<xsl:value-of select="../@fieldName"/>").on("select2:select", function(e) {
+          $selection = $('#select2-<xsl:value-of select="../@fieldName"/>-container').parents('.selection');
+          if ($selection.children('#editForm<xsl:value-of select="../@fieldName"/>').length == 0) {
+          $('#editForm<xsl:value-of select="../@fieldName"/>').appendTo($selection).show();
+          }
+          });
+        </script>
+      </xsl:if>
+
     </xsl:if>
 
     <script>
-      //by: els -- unremark if all preps was done
-      var $onSelecting = $("#<xsl:value-of select="../@fieldName"/>");
-      $onSelecting.on("select2:open", function() {
-      $('#select2-<xsl:value-of select="../@fieldName"/>-addNew').appendTo("span[class*='select2-dropdown select2-dropdown']");
-      $('#select2-<xsl:value-of select="../@fieldName"/>-addNew').show();
-      });
-
       $("#<xsl:value-of select="../@fieldName"/>").select2({
       placeholder: 'Select <xsl:value-of select="titlecaption"/>',
       ajax: {

@@ -25,17 +25,20 @@ Public Class cl_base
 	Protected contentOfEnv As String
 	Protected contentofNeedLogin As Boolean
 	Protected contentofsignInPage As String
+    Protected contentofwhiteAddress As Boolean
 
-	'Protected contentOfE As String
+    Protected errorCaptcha As String
 
-	'Protected contentOfsigninPage As String
-	'Protected contentOffrontPage As String
-	'Protected contentOfdocFolder As String
+    'Protected contentOfE As String
 
-	'Protected wordofHeadTitle As String = "Main"
-	'Protected wordofHeadLinkHRef As String = "" '"OPHCore/styles/default.css"
-	'Protected wordofBodyOnLoad As String = ""
-	Protected wordofWindowOnLoad As String = ""
+    'Protected contentOfsigninPage As String
+    'Protected contentOffrontPage As String
+    'Protected contentOfdocFolder As String
+
+    'Protected wordofHeadTitle As String = "Main"
+    'Protected wordofHeadLinkHRef As String = "" '"OPHCore/styles/default.css"
+    'Protected wordofBodyOnLoad As String = ""
+    Protected wordofWindowOnLoad As String = ""
 
 
 	'Protected wordofBodyContextMenu As String = ""
@@ -1382,9 +1385,12 @@ Public Class cl_base
 			Session("hostGUID") = r1.Tables(0).Rows(0).Item(7).ToString
 			Session("userGUID") = r1.Tables(0).Rows(0).Item(8).ToString
 			contentofNeedLogin = r1.Tables(0).Rows(0).Item(9).ToString
-			contentofsignInPage = r1.Tables(0).Rows(0).Item(10).ToString
-			'Session("lastPar") = r1.Tables(0).Rows(0).Item(8).ToString
-		End If
+            contentofsignInPage = r1.Tables(0).Rows(0).Item(10).ToString
+            contentofwhiteAddress = r1.Tables(0).Rows(0).Item(11)
+            setCookie("isWhiteAddress", r1.Tables(0).Rows(0).Item(11).ToString, 1)
+            setCookie("skinColor", r1.Tables(0).Rows(0).Item(12).ToString, 1)
+            'Session("lastPar") = r1.Tables(0).Rows(0).Item(8).ToString
+        End If
 
 	End Sub
 	Sub writeLog(logMessage As String)
@@ -1446,34 +1452,36 @@ Public Class cl_base
 		Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
 		'dynamic account
 		Dim secret = appSettings.Item("reCAPTCHAsecret")
-		Try
-			Dim recaptchaResponse As String = Request.Form("g-recaptcha-response")
-			If Not String.IsNullOrEmpty(recaptchaResponse) Then
-				Dim request As Net.WebRequest = Net.WebRequest.Create("https://www.google.com/recaptcha/api/siteverify?secret=" & secret & "&response=" + recaptchaResponse)
-				request.Method = "POST"
-				request.ContentType = "application/json; charset=utf-8"
-				Dim postData As String = ""
+        Try
+            Dim recaptchaResponse As String = Request.Form("g-recaptcha-response")
+            If Not String.IsNullOrEmpty(recaptchaResponse) Then
+                Dim request As Net.WebRequest = Net.WebRequest.Create("https://www.google.com/recaptcha/api/siteverify?secret=" & secret & "&response=" + recaptchaResponse)
+                request.Method = "POST"
+                request.ContentType = "application/json; charset=utf-8"
+                Dim postData As String = ""
 
-				'get a reference to the request-stream, and write the postData to it
-				Using s As IO.Stream = request.GetRequestStream()
-					Using sw As New IO.StreamWriter(s)
-						sw.Write(postData)
-					End Using
-				End Using
-				''get response-stream, and use a streamReader to read the content
-				Using s As IO.Stream = request.GetResponse().GetResponseStream()
-					Using sr As New IO.StreamReader(s)
-						'decode jsonData with javascript serializer
-						Dim jsonData = sr.ReadToEnd()
-						If jsonData.IndexOf("  ""success"": true") > 0 Then
-							Return True
-						End If
-					End Using
-				End Using
-			End If
-		Catch ex As Exception
-			'Dont show the error
-		End Try
+                'get a reference to the request-stream, and write the postData to it
+                Using s As IO.Stream = request.GetRequestStream()
+                    Using sw As New IO.StreamWriter(s)
+                        sw.Write(postData)
+                    End Using
+                End Using
+
+                ''get response-stream, and use a streamReader to read the content
+                Using s As IO.Stream = request.GetResponse().GetResponseStream()
+                    Using sr As New IO.StreamReader(s)
+                        'decode jsonData with javascript serializer
+                        Dim jsonData = sr.ReadToEnd()
+                        If jsonData.IndexOf("""success"": true") > 0 Then
+                            Return True
+                        End If
+                    End Using
+                End Using
+            End If
+        Catch ex As Exception
+            errorCaptcha = "Your Server is unable to connect Internet | " + ex.Message.ToString
+            'Dont show the error
+        End Try
 		Return False
 	End Function
 End Class

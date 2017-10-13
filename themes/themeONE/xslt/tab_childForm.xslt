@@ -359,7 +359,8 @@
         <xsl:when test="digit  = 3 and value!=''">
           <xsl:value-of select="format-number(value, '#,##0.000', 'dot-dec')"/>
         </xsl:when>
-        <xsl:when test="digit  = 4 and value!=''">
+        <xsl:when test="digit  = 4 and
+          value!=''">
           <xsl:value-of select="format-number(value, '#,##0.0000', 'dot-dec')"/>
         </xsl:when>
         <xsl:otherwise>
@@ -382,7 +383,7 @@
 
     <input type="text" class="form-control" Value="{$thisvalue}" name="{../@fieldName}"
            data-old="{value/.}" data-child="Y"
-           onblur="preview('{preview/.}', 'sqroot/body/bodyContent/form/info/code/.', '{/sqroot/body/bodyContent/form/info/GUID/.}','formsqroot/body/bodyContent/form/info/code/.', this);"
+           onblur="preview('{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);"
            oninput="javascript:checkChanges(this)"
            id ="{../@fieldName}">
       <xsl:choose>

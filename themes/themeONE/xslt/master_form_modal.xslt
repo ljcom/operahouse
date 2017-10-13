@@ -88,20 +88,27 @@
       var code = "<xsl:value-of select="info/code/."/>";
       var tblnm =code+"requiredname";
     </script>
-
+    
+    <div id="modalFormAlert{info/code/.}" class="alert alert-warning alert-dismissable fade in" style="display:none;">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&#215;</button>
+      <p>&#160;</p>
+    </div>
+    
     <form role="form" id="formModal{info/code/.}" enctype="multipart/form-data">
       <input type="hidden" id="cid" name="cid" value="{/sqroot/body/bodyContent/form/info/GUID/.}" />
       <input type="hidden" name ="{info/code/.}requiredname"/>
       <input type="hidden" name ="{info/code/.}requiredtblvalue"/>
-
       <xsl:apply-templates select="formPages/formPage[@pageNo&lt;9]"/>
     </form>
     <button id="btn_save{info/code/.}" type="button" class="btn btn-primary" data-loading-text="Saving in process..."
-      onclick="saveModalForm(this, '', '{info/code/.}', '00000000-0000-0000-0000-000000000000')">
+      onclick="saveModalForm(this, '', '{info/code/.}', '{info/GUID/.}')">
         Save
     </button>
     <script>
-      var mdfooter = $('#btn_savemadivn').parents('.modal-content').children('.modal-footer');
+      var mdfooter = $('#btn_save<xsl:value-of select="info/code/."/>').parents('.modal-content').children('.modal-footer');
+      if ($(mdfooter).children('#btn_save<xsl:value-of select="info/code/."/>'). length == 1) {
+        $(mdfooter).children('#btn_save<xsl:value-of select="info/code/."/>').remove();
+      }
       $('#btn_save<xsl:value-of select="info/code/."/>').appendTo(mdfooter);
     </script>
   </xsl:template>
@@ -318,8 +325,7 @@
     </xsl:variable>
 
     <input type="text" class="form-control" Value="{$thisvalue}" data-type="textBox" data-old="{$thisvalue}" name="{../@fieldName}"
-           onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" id ="{../@fieldName}"
-           oninput="javascript:checkChanges(this)">
+           onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" id ="{../@fieldName}" >
       <xsl:if test="../@isEditable=0 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000')) or (/sqroot/body/bodyContent/form/info/permission/allowEdit/.)!='1'">
         <xsl:attribute name="disabled">disabled</xsl:attribute>
       </xsl:if>
@@ -417,7 +423,7 @@
       <xsl:if test="button">
         <xsl:attribute name="class">input-group</xsl:attribute>
       </xsl:if>
-      <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}" data-type="selectBox"
+      <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}_{/sqroot/body/bodyContent/form/info/code}" data-type="selectBox"
         data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}" onchange="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" >
         <xsl:if test="../@isEditable=0">
           <xsl:attribute name="disabled">disabled</xsl:attribute>
@@ -434,7 +440,7 @@
     </div>
 
     <script>
-      $("#<xsl:value-of select="../@fieldName"/>").select2({
+      $('#<xsl:value-of select="../@fieldName"/>_<xsl:value-of select="/sqroot/body/bodyContent/form/info/code"/>').select2({
       placeholder: 'Select <xsl:value-of select="titlecaption"/>',
       ajax: {
       url:"OPHCORE/api/msg_autosuggest.aspx",

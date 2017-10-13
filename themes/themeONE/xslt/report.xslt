@@ -47,7 +47,7 @@
 
       setCookie('userURL', 'OPHContent/documents/<xsl:value-of select="sqroot/header/info/account" />/<xsl:value-of select="sqroot/header/info/user/userURL"/>', 7);
       setCookie('userName', '<xsl:value-of select="sqroot/header/info/user/userName"/>', 7);
-      setCookie('userId', '<xsl:value-of select="sqroot/header/info/user/userId"/>', 7);
+      //setCookie('userId', '<xsl:value-of select="sqroot/header/info/user/userId"/>', 7);
     </script>
     <!-- Page script -->
 

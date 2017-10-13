@@ -285,40 +285,50 @@ Partial Class OPHCore_API_default
 			Case Else 'signin
 				Dim userid = getQueryVar("userid")
 				Dim pwd = getQueryVar("pwd")
-				Dim source As String = Request.Form("source")
-				Dim captcha = Request.Form("g-recaptcha-response")
-				If userid = "" And pwd = "" And captcha = "" Then
-					reloadURL("index.aspx?")
-				Else
-					If (captcha <> "" And IsGoogleCaptchaValid()) Or (source.ToLower.IndexOf("localhost") > 0) Or (source.ToLower.IndexOf("code=lockscreen") > 0) Then
-						Dim bypass = 0
-						If checkWinLogin(userid, pwd) Then
-							bypass = 1
-							sqlstr = "select infovalue from acctinfo a inner join acct b on a.accountguid=b.accountguid where infokey='masterPassword' and accountid='" & contentOfaccountId & "'"
-							pwd = runSQLwithResult(sqlstr, contentOfsequoiaCon)
-						End If
-						sqlstr = "exec api.verifyPassword '" & curHostGUID & "', '" & userid & "', '" & pwd & "', " & bypass
-						xmlstr = getXML(sqlstr, curODBC)
+                Dim source As String = getQueryVar("source")
+                Dim withCaptcha = getQueryVar("withCaptcha")
+                withCaptcha = IIf(String.IsNullOrWhiteSpace(withCaptcha), 0, withCaptcha)
+                Dim captcha = Request.Form("g-recaptcha-response")
+                If userid = "" And pwd = "" And captcha = "" Then
+                    reloadURL("index.aspx?")
+                Else
+                    If withCaptcha = 0 Or (withCaptcha = 1 And captcha <> "" And IsGoogleCaptchaValid()) Then 'Or (source.ToLower.IndexOf("localhost") > 0) Then
+                        Dim bypass = 0
+                        'If checkWinLogin(userid, pwd) Then
+                        '    bypass = 1
+                        '    sqlstr = "select infovalue from acctinfo a inner join acct b on a.accountguid=b.accountguid where infokey='masterPassword' and accountid='" & contentOfaccountId & "'"
+                        '    pwd = runSQLwithResult(sqlstr, contentOfsequoiaCon)
+                        'End If
+                        sqlstr = "exec api.verifyPassword '" & curHostGUID & "', '" & userid & "', '" & pwd & "', " & bypass
+                        xmlstr = getXML(sqlstr, curODBC)
 
-						If xmlstr IsNot Nothing And xmlstr <> "" Then
-							curUserGUID = XDocument.Parse(xmlstr).Element("sqroot").Element("userGUID").Value
-							Session("userGUID") = curUserGUID
-							'Response.Cookies("hostGUID").Value = curHostGUID
-							Response.Cookies("isLogin").Value = 1
-						Else
-							xmlstr = "<sqroot><message>Incorrect Password!</message></sqroot>"
-						End If
-						'--!
-						Dim cartID = getQueryVar("cartID")
-						If cartID <> "" Then
-							sqlstr = "exec dbo.checkToPCSO '" & curHostGUID & "', '" & cartID & "'"
-							Dim xmlstr2 = runSQLwithResult(sqlstr, curODBC)
-						End If
-					Else
-						xmlstr = "<sqroot><message>Please authorize CAPTCHA!</message></sqroot>"
-					End If
-					'--!
-					isSingle = False
+                        If xmlstr IsNot Nothing And xmlstr <> "" Then
+                            curUserGUID = XDocument.Parse(xmlstr).Element("sqroot").Element("userGUID").Value
+                            Session("userGUID") = curUserGUID
+                            'Response.Cookies("hostGUID").Value = curHostGUID
+                            Response.Cookies("isLogin").Value = 1
+                        Else
+                            If String.IsNullOrWhiteSpace(errorCaptcha) Then
+                                xmlstr = "<sqroot><message>Incorrect Password!</message></sqroot>"
+                            Else
+                                xmlstr = "<sqroot><message>" + errorCaptcha + "</message></sqroot>"
+                            End If
+                        End If
+                        '--!
+                        Dim cartID = getQueryVar("cartID")
+                        If cartID <> "" Then
+                            sqlstr = "exec dbo.checkToPCSO '" & curHostGUID & "', '" & cartID & "'"
+                            Dim xmlstr2 = runSQLwithResult(sqlstr, curODBC)
+                        End If
+                    Else
+                        If String.IsNullOrWhiteSpace(errorCaptcha) Then
+                            xmlstr = "<sqroot><message>Please authorize CAPTCHA!</message></sqroot>"
+                        Else
+                            xmlstr = "<sqroot><message>" + errorCaptcha + "</message></sqroot>"
+                        End If
+                    End If
+                    '--!
+                    isSingle = False
 
 				End If
 		End Select

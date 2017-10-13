@@ -35,7 +35,7 @@ Partial Class OPHCore_api_msg_rptDialog
 
 			isPrintOnly = Request.QueryString("isPrintOnly") '--> to be hidden
 			Dim code = Request.QueryString("code")  'code
-			Dim query = Request.QueryString("query")    'querySQL --> to be hidden -- untuk xls/csv only
+			'Dim query = Request.QueryString("query")    'querySQL --> to be hidden -- untuk xls/csv only
 			'If query<>"" And code="" then 
 			Dim outputType = Request.QueryString("outputType")
 			Dim dplx = Request.QueryString("dplx") '--> to be hidden
@@ -43,23 +43,10 @@ Partial Class OPHCore_api_msg_rptDialog
 			Dim reportName = Request.QueryString("reportName") '--> to be hidden
 			Dim parameterid As String = Request.QueryString("Parameter")
 
-			Dim g = System.Guid.NewGuid().ToString
-			Dim Connections As String = contentOfdbODBC
-			If query IsNot Nothing Then
-				If runSQLwithResult("select OBJECT_ID('" & query & "')", Connections) = "" Then
-					Dim dbName = runSQLwithResult("declare @db varchar(20); exec gen.getdbinfo '" & curHostGUID & "', '" & code & "', @db=@db OUTPUT; select @db", Connections)
-					Dim lfCtl = Left(contentOfdbODBC, (contentOfdbODBC.ToLower().IndexOf("catalog") + 8))
-					Dim rtCtl = Right(contentOfdbODBC, (contentOfdbODBC.Length - lfCtl.Length))
-					rtCtl = Right(rtCtl, (rtCtl.Length - rtCtl.IndexOf(";")))
 
-					Dim newConnection = lfCtl & dbName & rtCtl
-					If runSQLwithResult("select OBJECT_ID('" & query & "')", newConnection) = "" Then
-						Response.Write("<script>alert('Invalid object_id(" & query & ")')</script>")
-					Else
-						Connections = newConnection
-					End If
-				End If
-			End If
+
+
+			Dim Connections As String = contentOfdbODBC
 
 			If parameterid = "" Then
 				parameterid = "hostGUID:" & curHostGUID
@@ -80,13 +67,30 @@ Partial Class OPHCore_api_msg_rptDialog
 					parValId(Parameters, pp(0), pp(1))
 					n += 1
 				Next
-
+				Dim q As Long = 1
+				Dim query = "" 'runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='YoDailySalesByCustomer' and InfoKey='querysql_" & q & "'")
 				Try
 					Dim reportDocument As DocumentLayout = New DocumentLayout(pathDPLX)
-					Dim q As Long = 1
 					Do While True
+						query = runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='YoDailySalesByCustomer' and InfoKey='querysql_" & q & "'")
+
 						Dim rpQuery As ceTe.DynamicPDF.ReportWriter.Data.StoredProcedureQuery = CType(reportDocument.GetQueryById("Query" & q), ceTe.DynamicPDF.ReportWriter.Data.StoredProcedureQuery)
 						If Not rpQuery Is Nothing Then
+							If query IsNot Nothing Then
+								If runSQLwithResult("select OBJECT_ID('doc." & query & "')", Connections) = "" Then
+									Dim dbName = runSQLwithResult("declare @db varchar(20); exec gen.getdbinfo '" & curHostGUID & "', '" & code & "', @db=@db OUTPUT; select @db", Connections)
+									Dim lfCtl = Left(contentOfdbODBC, (contentOfdbODBC.ToLower().IndexOf("catalog") + 8))
+									Dim rtCtl = Right(contentOfdbODBC, (contentOfdbODBC.Length - lfCtl.Length))
+									rtCtl = Right(rtCtl, (rtCtl.Length - rtCtl.IndexOf(";")))
+
+									Dim newConnection = lfCtl & dbName & rtCtl
+									If runSQLwithResult("select OBJECT_ID('doc." & query & "')", newConnection) = "" Then
+										Response.Write("<script>alert('Invalid object_id(" & query & ")')</script>")
+									Else
+										Connections = newConnection
+									End If
+								End If
+							End If
 							rpQuery.ConnectionString = Connections
 							q += 1
 						Else
@@ -95,6 +99,7 @@ Partial Class OPHCore_api_msg_rptDialog
 					Loop
 
 					Dim MyDocument As Document = reportDocument.Run(Parameters)
+					Dim g = System.Guid.NewGuid().ToString
 					Dim savesPath As String = Request.PhysicalApplicationPath & "document\temp" & g & "_" & reportName & ".pdf"
 					If Request.QueryString("dontdelete") = 1 Then
 						Response.Write(savesPath)
@@ -108,9 +113,12 @@ Partial Class OPHCore_api_msg_rptDialog
 						MyDocument.DrawToWeb(savesPath)
 					End If
 				Catch ex As Exception
-					Response.Write("<script>alert('" & ex.Message.Replace("'", "/'") & "')</script>")
+					Response.ContentType = "text/html"
+					Response.AddHeader("Cache-Control", " no-store, no-cache ")
+					Response.Write("<script>alert('" & ex.Message.Replace("'", "\'") & "')</script>")
 				End Try
 			ElseIf gbox = 1 Then
+				Dim g = System.Guid.NewGuid().ToString
 				SpreadsheetInfo.SetLicense("ESWM-UQ6R-26SR-4WB1")
 				Dim Parameters As ParameterDictionary = New ParameterDictionary
 				Dim gfile As String = "", gext As String = ""
@@ -119,6 +127,7 @@ Partial Class OPHCore_api_msg_rptDialog
 
 				If outputType = 3 Then
 					Dim ParentGUID As String = Request.QueryString("ParentGUID").ToString
+
 					If reportName = "" Then reportName = code
 					gext = Right(reportName, reportName.Length - InStr(reportName, "."))
 					If gext = "txt" Then
@@ -144,6 +153,8 @@ Partial Class OPHCore_api_msg_rptDialog
 
 				If outputType <> 3 Then
 					parameterid = parameterid.Replace(":", "=").Replace(":null", "=null").Replace("''", "")
+					Dim q As Long = 1
+					Dim query = runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='YoDailySalesByCustomer' and InfoKey='querysql_" & q & "'")
 
 					sqlstr = "exec " & query & " "
 					Dim p = parameterid.Split(",")
@@ -259,9 +270,10 @@ Partial Class OPHCore_api_msg_rptDialog
 		If x = 36 Then
 			Dim Gdt As Guid = New Guid(pp1)
 			par.Add(pp0, Gdt)
-		ElseIf pp1 = "null" Then
-			Dim Gdt As Guid = New Guid("00000000-0000-0000-0000-000000000000")
-			par.Add(pp0, Gdt)
+		ElseIf pp1.ToLower = "null" Then
+			'Dim Gdt As Guid = New Guid("00000000-0000-0000-0000-000000000000")
+			'par.Add(pp0, Gdt)
+			par.Add(pp0, System.Guid.Empty)
 		ElseIf x = 0 Then
 			par.Add(pp0, System.Guid.Empty)
 		Else

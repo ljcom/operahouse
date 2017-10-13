@@ -539,6 +539,9 @@
       <div class="input-group-addon">
         <ix class="fa fa-calendar"></ix>
       </div>
+      
+
+      
       <input type="text" class="form-control pull-right datepicker" id ="{../@fieldName}" name="{../@fieldName}" Value="{value}" data-type="dateBox" data-old="{value}"
         onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" >
         <xsl:if test="../@isEditable=0">

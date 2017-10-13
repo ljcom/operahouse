@@ -62,6 +62,7 @@ function getPage() {
     }
 }
 
+
 function getState() { return (getQueryVariable("stateid") == undefined ? getCookie('stateid') : getQueryVariable("stateid")) }
 
 function getSearchText() { return (getQueryVariable("bSearchText") == undefined ? getCookie('bSearchText') : getQueryVariable("bSearchText")) }
@@ -137,10 +138,12 @@ function loadChild(code, parentKey, GUID, pageNo) {
     //showXML(divName, xmldoc, xsldocs, true, true, function () { });
 }
 
-function signIn() {
+function signIn(withCapcay) {
     //if (top.document.domain == window.location.hostname) {
+    withCapcay = (withCapcay == 1) ? 1 : 0;
     var uid = getCookie('userId');
     if ($("#userid")) uid = $("#userid").val();
+    if (getCode() == 'lockscreen') uid = getCookie('userId');
     var pwd = $("#pwd").val();
 
     var dataForm = $('form').serialize() + '&source=' + window.location.toString().replace('&', '*').replace('?', '*') //.split('_').join('');
@@ -148,7 +151,7 @@ function signIn() {
     var dfLength = dataForm.length;
     dataForm = dataForm.substring(2, dfLength);
     dataForm = dataForm.split('%3C').join('%26lt%3B');
-    path = "OPHCore/api/default.aspx?mode=signin&userid=" + uid + "&pwd=" + pwd;
+    path = "OPHCore/api/default.aspx?mode=signin&userid=" + uid + "&pwd=" + pwd + "&withCaptcha=" + withCapcay;
 
     $.ajax({
         url: path,
@@ -167,7 +170,8 @@ function signIn() {
 
                 if (msg != '') {
                     if ($(this)[0].nodeName == "userGUID") {
-                        setCookie('userId', $("#userid").val(), 7);
+                        //setCookie('userId', $("#userid").val(), 7);
+                        setCookie('userId', uid, 7);
                         window.location = landingPage;
                     }
                     if ($(this)[0].nodeName == "message") showMessage(msg, 4);
@@ -2540,6 +2544,8 @@ function closeChildForm(code, guid) {
 }
 
 function autosuggestSetValue(SelectID, code, colKey, defaultValue, wf1, wf2) {
+    if (wf1 == '' || wf1 == undefined) wf1 = 'wf1isnone';
+    if (wf2 == '' || wf2 == undefined) wf2 = 'wf2isnone';
     var aj = $.ajax({
         url: "OPHCORE/api/msg_autosuggest.aspx",
         data: {
@@ -2596,8 +2602,9 @@ function searchText(e, searchvalue) {
         loadContent(1);
     }
 }
-function searchTextChild(e, searchvalue, code) {
-    if (e.keyCode == 13) {
+
+function searchTextChild(e, searchvalue, code, isClear) {
+    if (e.keyCode == 13 || isClear) {
         var bSearchText = searchvalue;
 
         var sqlfilter = document.getElementById("filter" + code.toLowerCase()).value;
@@ -2612,7 +2619,6 @@ function searchTextChild(e, searchvalue, code) {
     }
 }
 
-
 function preview(flag, code, GUID, formid, t) {
     if (flag > 0) {
         var path = 'OPHCore/api/default.aspx?mode=preview&code=' + code + '&flag=' + flag + '&cfunctionlist=' + GUID;
@@ -2621,7 +2627,7 @@ function preview(flag, code, GUID, formid, t) {
         var dataForm = $(thisForm).serialize()
 
         var dfLength = dataForm.length;
-        dataForm = dataForm.substring(2, dfLength);
+        dataForm = dataForm.substring(0, dfLength);
         dataForm = dataForm.split('%3C').join('%26lt%3B');
 
         $.ajax({
@@ -2649,13 +2655,12 @@ function preview(flag, code, GUID, formid, t) {
                             if (flag > 1 || $(this).text() != '') {
 
                                 if (document.getElementById(this.tagName).type == 'select-one') {
-                                    var newOption = new Option($(this.nextSibling).text(), $(this).text(), true, true);
-                                    $("#" + this.tagName).append(newOption).trigger('change');
-
+                                    //var newOption = new Option($(this.nextSibling).text(), $(this).text(), true, true);
+                                    //$("#" + this.tagName).append(newOption).trigger('change');
+                                    autosuggestSetValue(this.tagName, getCode(), this.tagName, this.textContent);
+                                } else {
+                                    document.getElementById(this.tagName).value = $(this).text();
                                 }
-
-                                document.getElementById(this.tagName).value = $(this).text();
-
                             }
                             if ($(this).attr('disabled') == 'disabled') {
 
@@ -2963,55 +2968,61 @@ function saveFunction(code, guid, location, formId, afterSuccess) {
                 //alert("Data Uploaded: ");
             }
         }).done(function (data) {
-            //var msg = $(data).children().find("message").text();
-            //var retguid = $(data).children().find("guid").text();
-            //if (location == 1) {
-            //    var pkfield = document.getElementById("PKSAVE" + code).value;
-            //    var pkvalue = document.getElementById("PK" + code).value;
-            //    var parentkey = document.getElementById("PKID").value.split('child').join('');
-            //}
-            //if (retguid != guid && location == 0) window.location = 'index.aspx?env=back&code=' + getCode() + '&guid=' + retguid;
-            //else if (retguid != guid && location == 1) {
-            //    xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=browse&sqlFilter=" + pkfield + "='" + pkvalue + "'";
-            //    preview(1, code, guid, formId + code);
-            //    //showXML(pkid, xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () { });
-            //    loadChild(code, pkfield, pkvalue, 1)
+            /*
+            var msg = $(data).children().find("message").text();
+            var retguid = $(data).children().find("guid").text();
+            if (location == 1) {
+                var pkfield = document.getElementById("PKSAVE" + code).value;
+                var pkvalue = document.getElementById("PK" + code).value;
+                var parentkey = document.getElementById("PKID").value.split('child').join('');
+            }
+            if (retguid != guid && location == 0) window.location = 'index.aspx?env=back&code=' + getCode() + '&guid=' + retguid;
+            else if (retguid != guid && location == 1) {
+                xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=browse&sqlFilter=" + pkfield + "='" + pkvalue + "'";
+                preview(1, code, guid, formId + code);
+                //showXML(pkid, xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () { });
+                loadChild(code, pkfield, pkvalue, 1)
 
-            //}
-            //else if (msg != "") {
-            //    //compatible with load version
-            //    if (isGuid(msg) && location == 0) {
-            //        window.location = 'index.aspx?env=back&code=' + getCode() + '&guid=' + msg;
-            //    }
-            //        //compatible with load version
-            //    else if (isGuid(msg) && location == 1) {
-            //        xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=browse&sqlFilter=" + pkfield + "='" + pkvalue + "'";
-            //        preview(1, code, msg, formId + code);
-            //        //showXML(pkid, xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () { });
-            //        loadChild(code, pkfield, pkvalue, 1)
-            //    }
-            //    else {
-            //        showMessage(msg);
-            //    }
-            //}
-            //else {
-            //    if (location == 0) {
-            //        //location.reload();
-            //        saveConfirm();
-            //    } else {
-            //        xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=browse&sqlFilter=" + pkfield + "='" + pkvalue + "'";
-            //        //showXML(pkid, xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () { });
-            //        loadChild(code, parentkey, pkvalue, 1)
-            //    }
-            //}
-
+            }
+            else if (msg != "") {
+                //compatible with load version
+                if (isGuid(msg) && location == 0) {
+                    window.location = 'index.aspx?env=back&code=' + getCode() + '&guid=' + msg;
+                }
+                    //compatible with load version
+                else if (isGuid(msg) && location == 1) {
+                    xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=browse&sqlFilter=" + pkfield + "='" + pkvalue + "'";
+                    preview(1, code, msg, formId + code);
+                    //showXML(pkid, xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () { });
+                    loadChild(code, pkfield, pkvalue, 1)
+                }
+                else {
+                    showMessage(msg);
+                }
+            }
+            else {
+                if (location == 0) {
+                    //location.reload();
+                    saveConfirm();
+                } else {
+                    xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=browse&sqlFilter=" + pkfield + "='" + pkvalue + "'";
+                    //showXML(pkid, xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () { });
+                    loadChild(code, parentkey, pkvalue, 1)
+                }
+            }
+            */
             if (typeof afterSuccess == "function") afterSuccess(data);
-
         });
     }
     else {
-        if (idReq) showMessage(result, '0', idReq)
-        else showMessage(result);
+        if (location == 50 || location == '50') { //saveModalForm
+            $('#notiModal').data("message", result);
+            $('#notiModal').data("colname", idReq);
+            if (typeof afterSuccess == "function") afterSuccess(data);
+        } else {
+            if (idReq) showMessage(result, '0', idReq)
+            else showMessage(result);
+        }
     }
 }
 
@@ -3465,7 +3476,7 @@ function delegatorModal(isRevoke) {
 }
 
 function loadModalForm(divID, code, guid) {
-    var xmldoc = 'OPHCore/api/default.aspx?mode=form&code=' + code + '&guid=' + guid + '&u=' + getUnique();
+    var xmldoc = 'OPHCore/api/default.aspx?mode=form&code=' + code + '&guid=' + guid + '&unique=' + getUnique();
     var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_form_modal.xslt';
 
     if (code.indexOf('par') == 0) {
@@ -3482,19 +3493,23 @@ function saveModalForm(ini, selectID, code, guid) {
     var md = "#addNew" + selectID;    
     var formId = $('#modalForm' + selectID).children('form:first').attr('id');
 
-    saveFunction(code, guid, 80, formId, function (data) {
+    saveFunction(code, guid, 50, formId, function (data) {
         var msg = $(data).children().find("message").text();
         var retguid = $(data).children().find("guid").text();
+        msg = (msg == "") ? $('#notiModal').data('message') : msg;
 
         if (isGuid(retguid)) {
-            //get the guid and set the select2 value with the guid return value
-            $('#' + selectID).val(retguid).trigger('change');
             $(ini).button('reset');
             $(md).modal('hide');
+            autosuggestSetValue(selectID, getCode(), selectID, retguid);
         } else {
             if (msg != "") {
                 //show error message
-                alert(msg);
+                $('#modalFormAlert' + code + ' p').text(msg);
+                $('#modalFormAlert' + code).show();
+                $(md).animate({ scrollTop: 0 }, 'slow');
+                $(ini).button('reset');
+            } else {
                 $(ini).button('reset');
             }
         }
