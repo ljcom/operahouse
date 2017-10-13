@@ -1,0 +1,6 @@
+D:\vsonline\OPERAHOUSE\addOns\webRequest\webRequest\bin\Debug\webRequest.dll
+D:\vsonline\OPERAHOUSE\addOns\webRequest\webRequest\bin\Debug\webRequest.pdb
+D:\vsonline\OPERAHOUSE\addOns\webRequest\webRequest\obj\Debug\webRequest.dll
+D:\vsonline\OPERAHOUSE\addOns\webRequest\webRequest\obj\Debug\webRequest.pdb
+D:\vsonline\OPERAHOUSE\addOns\webRequest\webRequest\obj\Debug\webRequest.csprojResolveAssemblyReference.cache
+D:\vsonline\OPERAHOUSE\addOns\webRequest\webRequest\bin\Debug\webRequest.dll.config
