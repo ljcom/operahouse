@@ -11,14 +11,14 @@
 
     <form class="form-horizontal" id="formorders" method="post">
       <fieldset>
-        <div class="col-md-12" data-toggle="collapse" data-target="#section_{@sectionNo}">
+        <div class="col-md-12" data-toggle="collapse" data-target="#section_{@sectionNo}" style="display:none">
           <h3>
             Customer Information
           </h3>
         </div>
         <div class="col-md-12">
           <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group" style="display:none">
               <label id="AccountIdcaption" for="inputUser" class="col-md-3 control-label" style="margin:0px;">Name</label>
               <div class="col-md-8">
                 <input class="form-control" type="text" id="username" value="{/sqroot/header/info/user/userName}" disabled=""/>
@@ -247,6 +247,11 @@
       <xsl:if test="not(value) and (../@fieldName)='Package'">
         deferreds.push(
         autosuggestSetValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', getQueryVariable("package"), '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
+        );
+      </xsl:if>
+      <xsl:if test="not(value) and (../@fieldName)='PackagePrice'">
+        deferreds.push(
+        autosuggestSetValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', getQueryVariable("plan"), '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
         );
       </xsl:if>
     </script>
