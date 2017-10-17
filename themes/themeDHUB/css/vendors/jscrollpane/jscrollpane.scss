@@ -1,0 +1,53 @@
+@import "../../settings/variables/colors";
+@import "../../settings/variables/ui";
+
+.jspDrag {
+  border-radius: 0;
+  background-color: #ccd4e2;
+  border: solid 1px rgba(#fff, .6);
+}
+
+.jspArrow {
+  background: #50506d;
+
+  &.jspDisabled
+  {
+    background: #80808d;
+  }
+}
+
+.jspVerticalBar {
+  width: 8px;
+
+  .jspArrow {
+    height: 8px;
+  }
+}
+
+.jspHorizontalBar {
+  height: 8px;
+
+  .jspArrow {
+    width: 8px;
+  }
+}
+
+.jspCorner {
+  background: #eeeef4;
+}
+
+.jspScrollable {
+  outline: none;
+}
+
+[data-scroll-visible-on-hover] {
+  .jspVerticalBar, .jspHorizontalBar {
+    opacity: 0;
+  }
+
+  &:hover {
+    .jspVerticalBar, .jspHorizontalBar {
+      opacity: 1;
+    }
+  }
+}
