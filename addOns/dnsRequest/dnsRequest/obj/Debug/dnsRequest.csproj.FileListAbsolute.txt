@@ -1,6 +1,0 @@
-D:\vsonline\OPERAHOUSE\addOns\dnsRequest\dnsRequest\obj\Debug\dnsRequest.csprojResolveAssemblyReference.cache
-D:\vsonline\OPERAHOUSE\addOns\dnsRequest\dnsRequest\bin\Debug\dnsRequest.dll.config
-D:\vsonline\OPERAHOUSE\addOns\dnsRequest\dnsRequest\bin\Debug\dnsRequest.dll
-D:\vsonline\OPERAHOUSE\addOns\dnsRequest\dnsRequest\bin\Debug\dnsRequest.pdb
-D:\vsonline\OPERAHOUSE\addOns\dnsRequest\dnsRequest\obj\Debug\dnsRequest.dll
-D:\vsonline\OPERAHOUSE\addOns\dnsRequest\dnsRequest\obj\Debug\dnsRequest.pdb
