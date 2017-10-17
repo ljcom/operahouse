@@ -19,6 +19,26 @@
     <div style="display:none" id="themeName">&#xA0;</div>
 
     <script>
+      var meta = document.createElement('meta');
+      meta.charset = "UTF-8";
+      loadMeta(meta);
+
+      var meta = document.createElement('meta');
+      meta.httpEquiv = "X-UA-Compatible";
+      meta.content = "IE=edge";
+      loadMeta(meta);
+
+      var meta = document.createElement('meta');
+      meta.name = "viewport";
+      meta.content = "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no";
+      loadMeta(meta);
+
+      $("body").addClass("skin-blue");
+      $("body").addClass("hold-transition");
+      $("body").addClass("sidebar-mini");
+      $("body").addClass("fixed");
+
+
       <!-- Ionicons -->
       loadStyle('https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css');
       <!-- Morris chart -->
