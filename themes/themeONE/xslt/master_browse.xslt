@@ -366,9 +366,26 @@
   </xsl:template>
 
   <xsl:template match="sqroot/body/bodyContent/browse/info/states/state/substate">
-    <li>
+    <xsl:variable name="titleState">
+      <xsl:choose>
+        <xsl:when test="@tRecord &gt; 0">
+          <xsl:value-of select="@tRecord"/> records in total
+        </xsl:when>
+        <xsl:when test="@tRecord = 0">
+          No record yet
+        </xsl:when>
+      </xsl:choose>    
+    </xsl:variable>
+      
+    <li data-toggle="tooltip" data-placement="right" title="{$titleState}">
       <a href="javascript:changestateid({@code})">
         <xsl:value-of select="translate(., $smallcase, $uppercase)"/>
+        <xsl:if test="@tRecord">
+          &#160;
+          <span class="label label-default">
+            <xsl:value-of select="@tRecord"/>
+          </span>
+        </xsl:if>
       </a>
     </li>
   </xsl:template>

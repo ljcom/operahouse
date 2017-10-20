@@ -1,0 +1,14 @@
+<sqroot>
+  <manifest>
+    <cssFile>OPHContent/themes/themeDHUB/vendors/bootstrap/css/bootstrap.min.css</cssFile>
+    <cssFile>OPHContent/themes/themeDHUB/vendors/tether/css/tether.min.css</cssFile>
+    <cssFile>OPHContent/themes/themeDHUB/vendors/animate-css/animate.css</cssFile>
+    <cssFile>OPHContent/themes/themeDHUB/fonts/circular/styles.css</cssFile>
+    <cssFile>OPHContent/themes/themeDHUB/fonts/open-sans/styles.css</cssFile>
+    <cssFile>OPHContent/themes/themeDHUB/fonts/iconfont/styles.css</cssFile>
+    <cssFile>OPHContent/themes/themeDHUB/css/style.min.css</cssFile>
+    <jsFile>OPHContent/themes/themeDHUB/vendors/jquery/jquery.min.js</jsFile>
+    <jsFile>OPHContent/themes/themeDHUB/vendors/tether/js/tether.min.js</jsFile>
+    <jsFile>OPHContent/themes/themeDHUB/js/dropdown.animate.js</jsFile>
+  </manifest>
+</sqroot>

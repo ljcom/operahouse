@@ -6,6 +6,7 @@
 
     <xsl:if test="sqroot/body/bodyContent/form/info/GUID !='00000000-0000-0000-0000-000000000000'">
       <xsl:apply-templates select="sqroot/body/bodyContent/form/children"/>
+     
     </xsl:if>
   </xsl:template>
 
@@ -15,6 +16,7 @@
       <div class="container">
         <div class="text-center color-white">
           <xsl:apply-templates select="form"/>
+          
           <!--<h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">
             <span>Operahouse</span> Systems
           </h1>
@@ -76,7 +78,7 @@
         </p>
         <a href="index.aspx?code=register&amp;launch=orders&amp;package={/sqroot/body/bodyContent/form/info/GUID/.}" class="btn btn-raised btn-warning" style="margin-top:20px;">
           <i class="zmdi zmdi-account-add"></i>  
-          Create Account
+          Start Free Trial
         </a>
       </xsl:when>
       

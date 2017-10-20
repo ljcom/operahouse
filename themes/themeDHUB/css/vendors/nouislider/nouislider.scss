@@ -1,0 +1,158 @@
+@import "../../settings/variables/colors";
+@import "../../settings/variables/ui";
+
+$nouislider-bg-color: #e2ebf4;
+$nouislider-horizontal-size: 10px;
+$nouislider-vertical-size: 10px;
+$nouislider-handle-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+
+.range-slider-default {
+  border-radius: $border-radius;
+  background-color: $nouislider-bg-color;
+  border: none;
+  box-shadow: none;
+
+  .noUi-handle {
+    width: 23px;
+    height: 23px;
+    border: 2px solid #fff;
+    background: #c3cada;
+    box-shadow: none;
+    border-radius: 50%;
+
+    &:before, &:after {
+      display: none;
+    }
+  }
+
+  &.noUi-horizontal {
+    height: $nouislider-horizontal-size;
+
+    .noUi-handle {
+      top: -7px;
+      left: -11.5px;
+    }
+  }
+
+  &.noUi-vertical {
+    width: $nouislider-vertical-size;
+    height: 100%;
+  }
+
+  .noUi-connect {
+    border-radius: $border-radius;
+    background: #CCD4E2;
+    box-shadow: none;
+    border: none;
+  }
+}
+
+.range-slider-default-shadow {
+  border-radius: $border-radius;
+  background: #e2ebf4;
+  border: none;
+  box-shadow: none;
+
+  .noUi-handle {
+    width: 21px;
+    height: 21px;
+    border: none;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: $nouislider-handle-shadow;
+
+    &:before, &:after {
+      display: none;
+    }
+  }
+
+  &.noUi-horizontal {
+    height: 10px;
+
+    .noUi-handle {
+      top: -6px;
+      left: -10.5px;
+    }
+  }
+
+  &.noUi-vertical {
+    width: 10px;
+    height: 100%;
+  }
+
+  .noUi-connect {
+    border-radius: 2px;
+    background: #CCD4E2;
+    box-shadow: none;
+    border: none;
+  }
+}
+
+.range-slider-default-shadow-sm {
+  .noUi-handle {
+    width: 16px;
+    height: 16px;
+  }
+
+  &.noUi-horizontal {
+    height: 4px;
+
+    .noUi-handle {
+      top: -7px;
+      left: -8px;
+    }
+  }
+}
+
+.range-slider-handle-primary {
+  .noUi-handle {
+    background: $color-primary;
+  }
+}
+
+.range-slider-connect-primary {
+  .noUi-connect {
+    background: $color-primary;
+  }
+}
+
+.range-slider-info {
+  .noUi-handle {
+    background: $color-info;
+  }
+
+  .noUi-connect {
+    background: $color-info;
+  }
+}
+
+.range-slider-success {
+  .noUi-handle {
+    background: $color-success;
+  }
+
+  .noUi-connect {
+    background: $color-success;
+  }
+}
+
+.range-slider-warning {
+  .noUi-handle {
+    background: $color-warning;
+  }
+
+  .noUi-connect {
+    background: $color-warning;
+  }
+}
+
+.range-slider-danger {
+  .noUi-handle {
+    background: $color-danger;
+  }
+
+  .noUi-connect {
+    background: $color-danger;
+  }
+}
+

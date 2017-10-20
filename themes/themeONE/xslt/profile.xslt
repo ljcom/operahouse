@@ -16,6 +16,26 @@
   
   <xsl:template match="/">
     <script>
+      var meta = document.createElement('meta');
+      meta.charset = "UTF-8";
+      loadMeta(meta);
+
+      var meta = document.createElement('meta');
+      meta.httpEquiv = "X-UA-Compatible";
+      meta.content = "IE=edge";
+      loadMeta(meta);
+
+      var meta = document.createElement('meta');
+      meta.name = "viewport";
+      meta.content = "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no";
+      loadMeta(meta);
+
+      changeSkinColor();
+      $("body").addClass("hold-transition");
+      $("body").addClass("sidebar-mini");
+      $("body").addClass("fixed");
+
+
       loadScript('OPHContent/themes/themeONE/scripts/admin-LTE/js/app.min.js');
 
       //loadContent();

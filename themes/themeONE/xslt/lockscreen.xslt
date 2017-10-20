@@ -8,8 +8,27 @@
 
   <xsl:template match="/">
     <script>
-      $("body").removeClass("skin-blue");
+      var meta = document.createElement('meta');
+      meta.charset = "UTF-8";
+      loadMeta(meta);
+
+      var meta = document.createElement('meta');
+      meta.httpEquiv = "X-UA-Compatible";
+      meta.content = "IE=edge";
+      loadMeta(meta);
+
+      var meta = document.createElement('meta');
+      meta.name = "viewport";
+      meta.content = "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no";
+      loadMeta(meta);
+
+      
       $("body").addClass("lockscreen");
+      $("body").addClass("hold-transition");
+      $("body").addClass("sidebar-mini");
+      $("body").addClass("fixed");
+
+
       //var lastPar=getCookie('lastPar');
       //if (lastPar=='') lastPar='index.aspx';
       //if (getCookie('lockScreen')=='1') window.location=lastPar;

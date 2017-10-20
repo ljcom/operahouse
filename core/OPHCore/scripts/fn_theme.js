@@ -407,6 +407,11 @@ function checkDevMode() {
 loadScript("one.js");
 
  */
+
+loadMeta = function (meta) {
+    document.getElementsByTagName('head')[0].appendChild(meta);
+}
+
 loadScript = function (src) {
     var jsLink = $("<script src='" + src + "'>");
     $("head").append(jsLink);

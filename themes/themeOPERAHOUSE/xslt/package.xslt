@@ -452,8 +452,8 @@
 
   <xsl:template match="submenus/submenu[@type='itemlist1']">
     <li>
-      <a class="withripple" href="component-typography.html">
-        <i class="fa fa-font"></i> <xsl:value-of select="caption/." />&#160;
+      <a class="withripple" href="{pageURL}">
+        <i class="fa fa-list"></i> <xsl:value-of select="caption/." />&#160;
       </a>
     </li>
   </xsl:template>

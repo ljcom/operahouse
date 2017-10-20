@@ -8,6 +8,26 @@
 
   <xsl:template match="/">
     <script>
+      var meta = document.createElement('meta');
+      meta.charset = "UTF-8";
+      loadMeta(meta);
+
+      var meta = document.createElement('meta');
+      meta.httpEquiv = "X-UA-Compatible";
+      meta.content = "IE=edge";
+      loadMeta(meta);
+
+      var meta = document.createElement('meta');
+      meta.name = "viewport";
+      meta.content = "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no";
+      loadMeta(meta);
+
+      changeSkinColor();
+      $("body").addClass("hold-transition");
+      $("body").addClass("sidebar-mini");
+      $("body").addClass("fixed");
+
+
       <!--loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/bootstrap/css/bootstrap.min.css');
       loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/styles/font-awesome-4.7.0/css/font-awesome.min.css');
 

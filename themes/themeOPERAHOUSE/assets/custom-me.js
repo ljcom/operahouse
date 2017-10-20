@@ -104,7 +104,7 @@ function signInFrontEnd() {
             if (result) {
                 if (remember.checked == true) { setCookie("userID", uid, 30, 0, 0); }
                 if (getQueryVariable("launch") != undefined && getQueryVariable("launch") != "") {
-                    var landingPage = 'index.aspx?code=' + getQueryVariable("launch") + '&package=' + getQueryVariable("package");
+                    var landingPage = 'index.aspx?code=' + getQueryVariable("launch") + '&package=' + getQueryVariable("package") + '&plan=' + getQueryVariable("plan");
                 } else {
                     var landingPage = (getCookie('lastPar') == null || getCookie('lastPar') == '') ? '?' : getCookie('lastPar');
                 }
@@ -221,6 +221,21 @@ function AddToCart(code, formid) {
 function goToAnotherPage(url) {
     window.location.href = url;
 
+}
+function gotoOrders(package, plan) {
+    if (package != undefined && package != '') {
+        package = 'package=' + package
+    } else if (getGUID() != undefined && getGUID() != '') {
+        package = 'package=' + getGUID();
+    } else { package =''}
+
+    if (plan != undefined && plan != '') {
+        plan = 'plan=' + plan
+    } else if (getQueryVariable("plan") != undefined && getQueryVariable("plan") != '') {
+        plan = 'plan=' + getQueryVariable("plan");
+    } else { plan = '' }
+
+    window.location.href = 'index.aspx?code=orders&'+package+'&'+plan;
 }
 
 function productChangeView(type, id) {

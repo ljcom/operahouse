@@ -108,7 +108,7 @@
   </xsl:template>
 
   <xsl:template match="submenus/submenu[@type='label']">
-    <script>//label</script>
+    <script>//label</script>    
     <li>
       <a href="{translate(pageURL/., $uppercase, $smallcase)}">
         <span>
@@ -117,6 +117,12 @@
           </xsl:if>
           <xsl:value-of select="caption/." />&#160;
         </span>
+        &#160;
+        <xsl:if test="tRecord &gt; 0">
+          <span class="label label-default">
+            <xsl:value-of select="tRecord"/>
+          </span>
+        </xsl:if>
       </a>
     </li>
   </xsl:template>

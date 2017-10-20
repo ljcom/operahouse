@@ -5,7 +5,18 @@
     
     <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row[@code = 'packagesection']"/>
     <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row[@code = 'packagerelated']"/>
-   
+
+    <xsl:if test="sqroot/body/bodyContent/browse/info/code ='PackagePrice'">
+      <div class="container">
+        <div class="text-center">
+          <h2 class="uppercase color-medium animated fadeInUp animation-delay-7">See our subscription plans</h2>
+          <p class="lead uppercase color-medium animated fadeInUp animation-delay-7">Surprise with our unique features</p>
+        </div>
+        <div class="row">
+          <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row[@code = 'packageprice']"/>
+        </div>
+      </div>
+    </xsl:if>
   </xsl:template>
 
   <!--package section-->
@@ -105,7 +116,7 @@
   </xsl:template>
  <!--tutup pacakage section-->
 
-
+  <!--package related-->
   <xsl:template match="sqroot/body/bodyContent/browse/content/row[@code = 'packagerelated']">
     <div class="container mt-6">
       <h2 class="text-center color-primary mb-2 wow fadeInDown animation-delay-4">Fully integrated with Operahouse Apps</h2>
@@ -145,6 +156,37 @@
   <xsl:template match="sqroot/body/bodyContent/browse/content/row[@code = 'packagerelated']/fields/field[@caption = 'Icon']">
     <i class="zmdi {.}"></i>
   </xsl:template>
+
+  <!--tutup package related-->
   
+  <!--package price-->
+
+  <xsl:template match="sqroot/body/bodyContent/browse/content/row[@code = 'packageprice']">
+  
+        <div class="col-md-4 price-table price-table-info animated zoomInDown animation-delay-7">
+          <header class="price-table-header">
+            <span class="price-table-category"><xsl:value-of select ="fields/field[@caption='PriceName']/."/></span>
+            <h3>
+              <sup>Rp.</sup><xsl:value-of select ="fields/field[@caption='AmountAlias']/."/>
+              <sub>/<xsl:value-of select ="fields/field[@caption='PriceType']/."/></sub>
+            </h3>
+          </header>
+          <div class="price-table-body">
+            <ul class="price-table-list">
+              <xsl:value-of select ="fields/field[@caption='DetailDescription']/."/>
+              <!--<li>
+                <i class="zmdi zmdi-code"></i> Lorem ipsum dolor sit amet.
+              </li>-->
+            </ul>
+            <div class="text-center">
+              <a href="javascript:void(0)" onclick="gotoOrders('','{@GUID}')" class="btn btn-info btn-raised">
+                <i class="zmdi zmdi-cloud-download"></i> Get Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+      
+  </xsl:template>
   
 </xsl:stylesheet>
