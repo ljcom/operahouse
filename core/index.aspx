@@ -11,10 +11,7 @@
 
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function () {
-            if (getCookie('skinColor') != '') {
-                var bodyClass = $('body').attr('class').split('skin-blue').join(getCookie('skinColor'));
-                $('body').removeClass().addClass(bodyClass);
-            }
+           
 
             <%=wordofWindowOnLoad%>
         });

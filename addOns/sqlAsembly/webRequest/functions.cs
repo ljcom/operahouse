@@ -118,6 +118,13 @@ namespace webRequest
                 resp.Close();
 
             }
+            catch (NullReferenceException exc)
+            {
+                // send error back
+                SqlContext.Pipe.Send(exc.Message);
+                //document = exc.Message;
+            }
+
             catch (Exception exc)
             {
                 // send error back

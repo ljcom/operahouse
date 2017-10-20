@@ -22,7 +22,7 @@
       meta.content = "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no";
       loadMeta(meta);
 
-      $("body").removeClass("skin-blue");
+      
       $("body").addClass("lockscreen");
       $("body").addClass("hold-transition");
       $("body").addClass("sidebar-mini");

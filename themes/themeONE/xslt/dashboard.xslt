@@ -33,7 +33,7 @@
       meta.content = "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no";
       loadMeta(meta);
 
-      $("body").addClass("skin-blue");
+      changeSkinColor();
       $("body").addClass("hold-transition");
       $("body").addClass("sidebar-mini");
       $("body").addClass("fixed");
@@ -409,8 +409,7 @@ _________________________________________________________ -->
 
   </xsl:template>
 
-
-  <xsl:template match="sqroot/header/menus/menu[@code='primaryback']/submenus/submenu[@type='label']">
+  <xsl:template match="sqroot/header/menus/menu[@code='primaryback']/submenus/submenu">
     <div class="col-xs-{$colMenu} text-center">
       <a href="{pageURL/.}">
         <xsl:value-of select="caption/." />&#160;
@@ -418,9 +417,54 @@ _________________________________________________________ -->
     </div>
   </xsl:template>
 
-
-
+  <xsl:template match="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu">
+    <div class="panel top-menu-onphone">
+      <a class="top-envi" data-toggle="collapse" data-parent="#accordion2" href="#{@idMenu}">
+        <xsl:value-of select="caption/." />&#160;<span class="caret"></span>
+      </a>
+      <div id="{@idMenu}" class="panel-collapse collapse">
+        <ul class="panel-group" id="{@idMenu}">
+          <xsl:if test="(@type)='treeroot'">
+            <xsl:apply-templates select="submenus/submenu[@type='treeview']" />&#160;
+            <xsl:apply-templates select="submenus/submenu[@type='label']" />&#160;
+          </xsl:if>
+        </ul>
+      </div>
+    </div>
+  </xsl:template>
+  
+  <xsl:template match="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu[@type='treeview']">
+    <li>
+      <a data-toggle="collapse" data-parent="#accordion{../../@GUID}" href="#{@idMenu}">
+        <xsl:value-of select="caption/." />
+      </a>
+      <div id="{@idMenu}" class="panel-collapse collapse">
+        <ul class="panel-group" id="{@idMenu}">
+          <xsl:apply-templates select="submenus/submenu[@type='treeview']" />&#160;
+          <xsl:apply-templates select="submenus/submenu[@type='label']" />&#160;
+        </ul>
+      </div>
+    </li>
+  </xsl:template>
+  
   <xsl:template match="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu[@type='label']">
+    <li>
+      <a href="{pageURL/.}">
+        <xsl:value-of select="caption/." />
+      </a>
+    </li>
+  </xsl:template>
+
+
+  <!--<xsl:template match="sqroot/header/menus/menu[@code='primaryback']/submenus/submenu[@type='label']">
+    <div class="col-xs-{$colMenu} text-center">
+      <a href="{pageURL/.}">
+        <xsl:value-of select="caption/." />&#160;
+      </a>
+    </div>
+  </xsl:template>-->
+
+  <!--<xsl:template match="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu[@type='label']">
     <li>
       <a href="{pageURL/.}">
         <xsl:if test="(icon/fa/.)!=''">
@@ -433,7 +477,6 @@ _________________________________________________________ -->
         </span>
       </a>
     </li>
-
-  </xsl:template>
+  </xsl:template>-->
 
 </xsl:stylesheet>

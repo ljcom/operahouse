@@ -7,6 +7,5 @@ D:\vsonline\OPERAHOUSE\addOns\webRequest\webRequest\bin\Debug\webRequest.dll.con
 D:\vsonline\OPERAHOUSE\addOns\sqlAsembly\webRequest\bin\Debug\webRequest.dll.config
 D:\vsonline\OPERAHOUSE\addOns\sqlAsembly\webRequest\bin\Debug\webRequest.dll
 D:\vsonline\OPERAHOUSE\addOns\sqlAsembly\webRequest\bin\Debug\webRequest.pdb
-D:\vsonline\OPERAHOUSE\addOns\sqlAsembly\webRequest\obj\Debug\webRequest.csprojResolveAssemblyReference.cache
 D:\vsonline\OPERAHOUSE\addOns\sqlAsembly\webRequest\obj\Debug\webRequest.dll
 D:\vsonline\OPERAHOUSE\addOns\sqlAsembly\webRequest\obj\Debug\webRequest.pdb

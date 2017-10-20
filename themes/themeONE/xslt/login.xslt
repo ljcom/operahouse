@@ -18,7 +18,8 @@
       meta.content = "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no";
       loadMeta(meta);
 
-      $("body").addClass("skin-blue");
+      changeSkinColor();
+      //$("body").addClass("skin-blue");
       $("body").addClass("hold-transition");
       $("body").addClass("sidebar-mini");
       $("body").addClass("fixed");
@@ -30,6 +31,7 @@
       }
 
       document.title='<xsl:value-of select="/sqroot/header/info/title"/>';
+
     </script>
     
     <div class="wrapper" style="background: rgba(38, 44, 44, 0.1);">

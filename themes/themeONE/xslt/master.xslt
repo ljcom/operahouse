@@ -34,7 +34,7 @@
       meta.content = "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no";
       loadMeta(meta);
 
-      $("body").addClass("skin-blue");
+      changeSkinColor();
       $("body").addClass("hold-transition");
       $("body").addClass("sidebar-mini");
       $("body").addClass("fixed");
@@ -88,7 +88,7 @@
       setCookie('userURL', 'OPHContent/documents/<xsl:value-of select="sqroot/header/info/account" />/<xsl:value-of select="sqroot/header/info/user/userURL"/>', 7);
       setCookie('userName', '<xsl:value-of select="sqroot/header/info/user/userName"/>', 7);
       //setCookie('userId', '<xsl:value-of select="sqroot/header/info/user/userId"/>', 7);
-
+      changeSkinColor;
     </script>
     <!-- Page script -->
 
@@ -121,9 +121,7 @@
             <xsl:value-of select="sqroot/header/info/code/name"/>&#160;(<xsl:value-of select="sqroot/header/info/code/id"/>)<span class="caret"></span>
           </a>
         </div>
-        <div class="accordian-body collapse top-menu-div" id="mobilemenupanel"
-        style="color:white; position:absolute; background:#222D32; z-index:100; width:100%; right:0px; top:50px; ">
-
+        <div class="accordian-body collapse top-menu-div" id="mobilemenupanel" style="color:white; position:absolute; background:#222D32; z-index:100; width:100%; right:0px; top:50px; ">
           <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
               <input type="text" name="q" class="form-control" placeholder="Search..." />
@@ -135,7 +133,7 @@
             </div>
           </form>
           <div class="panel-group" id="accordion2">
-            <xsl:apply-templates select="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu" />
+            <!--<xsl:apply-templates select="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu" />-->
           </div>
         </div>
         <div class="navbar-custom-menu">
@@ -292,11 +290,9 @@ _________________________________________________________ -->
         <div class="overlay">
           <ix class="fa fa-refresh fa-spin"></ix>
         </div>
-
       </section>
-
-      <!-- /.sidebar -->
     </aside>
+    
     <!-- Content Wrapper. Contains page content -->
     <div id="contentWrapper" class="content-wrapper">
       <div style="padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px">
