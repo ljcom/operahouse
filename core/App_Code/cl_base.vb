@@ -1387,7 +1387,7 @@ Public Class cl_base
 			contentofNeedLogin = r1.Tables(0).Rows(0).Item(9).ToString
             contentofsignInPage = r1.Tables(0).Rows(0).Item(10).ToString
             contentofwhiteAddress = r1.Tables(0).Rows(0).Item(11)
-            setCookie("isWhiteAddress", r1.Tables(0).Rows(0).Item(11).ToString, 1)
+            setCookie("isWhiteAddress", IIf(contentofwhiteAddress, 1, 0), 1)
             setCookie("skinColor", r1.Tables(0).Rows(0).Item(12).ToString, 1)
             'Session("lastPar") = r1.Tables(0).Rows(0).Item(8).ToString
         End If
