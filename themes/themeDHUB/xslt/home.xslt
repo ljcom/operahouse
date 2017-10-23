@@ -107,7 +107,7 @@
               <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="index.html">
-              Direct<span class="colored">o</span>ry
+              G<span class="colored">O</span>PELAGO
             </a>
             <div id="header-default-menu" class="collapse navbar-collapse">
               <div class="header-default__menu-collapse">
