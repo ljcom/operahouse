@@ -238,7 +238,7 @@ td.browse-action-button a, th.browse-action-button a {
 }
 
     .browse-left-sidebar li {
-        border-bottom: dotted 1px #222D32;
+        /*border-bottom: dotted 1px #222D32;*/
         border-left: 3px solid gray;
     }
 
@@ -795,7 +795,7 @@ ul.pending-task-module li {
             display: block;
             padding: 8px 0 8px 10px;
             border-left: 3px solid gray;
-            border-bottom: dotted 1px #222D32;
+            /*border-bottom: dotted 1px #222D32;*/
         }
 
             .top-menu-onphone ul li a:hover {

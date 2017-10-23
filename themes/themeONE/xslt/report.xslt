@@ -5,6 +5,14 @@
 
   <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
+  <xsl:variable name="colMenu">
+    <xsl:choose>
+      <xsl:when test="count(/sqroot/header/menus/menu[@code='primaryback']/submenus/submenu)=0">12</xsl:when>
+      <xsl:when test="count(/sqroot/header/menus/menu[@code='primaryback']/submenus/submenu)=1">12</xsl:when>
+      <xsl:when test="count(/sqroot/header/menus/menu[@code='primaryback']/submenus/submenu)=2">6</xsl:when>
+      <xsl:otherwise>4</xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
 
   <xsl:template match="/">
     <script>
@@ -100,9 +108,7 @@
             <xsl:value-of select="sqroot/header/info/code/name"/>&#160;(<xsl:value-of select="sqroot/header/info/code/id"/>)<span class="caret"></span>
           </a>
         </div>
-        <div class="accordian-body collapse top-menu-div" id="mobilemenupanel"
-        style="color:white; position:absolute; background:#222D32; z-index:100; width:100%; right:0px; top:50px; ">
-
+        <div class="accordian-body collapse top-menu-div" id="mobilemenupanel" style="color:white; position:absolute; background:#222D32; z-index:100; width:100%; right:0px; top:50px; ">
           <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
               <input type="text" name="q" class="form-control" placeholder="Search..." />
@@ -119,58 +125,64 @@
         </div>
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
-            <li>
-              <a href="#" id="button-menu-phone2" data-toggle="collapse" data-target="#right-menu-phone" class="unvisible-phone">
-                <ix class="fa fa-list"></ix>
-              </a>
+            <li class="dropdown user user-menu">
+              <xsl:choose>
+                <xsl:when test="not(sqroot/header/info/user/userId)">
+                  <a href="#" data-toggle="modal" data-target="#login-modal">
+                    <span>
+                      <ix class="fa fa-sign-in"></ix>&#160;
+                    </span>
+                    <span>Sign in</span>
+                  </a>
+                </xsl:when>
+                <xsl:otherwise>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                    <img src="OPHContent/documents/{sqroot/header/info/account}/{sqroot/header/info/user/userURL}" class="user-image" alt="User Image"/>
+                    <span class="hidden-xs">
+                      <xsl:value-of select="sqroot/header/info/user/userName"/>
+                    </span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <!-- User image -->
+                    <li class="user-header">
+                      <img src="OPHContent/documents/{sqroot/header/info/account}/{sqroot/header/info/user/userURL}" class="img-circle" alt="User Image"/>
+                      <p>
+                        <xsl:value-of select="sqroot/header/info/user/userName"/>
+                        <small>
+                          Active since <xsl:value-of select="sqroot/header/info/user/dateCreate"/>
+                        </small>
+                      </p>
+                    </li>
+                    <!-- Menu Body -->
+                    <li class="user-body">
+                      <div class="row">
+                        <xsl:for-each select="sqroot/header/menus/menu[@code='primaryback']/submenus/submenu">
+                          <div class="col-xs-{$colMenu} text-center">
+                            <a href="{pageURL}">
+                              <xsl:value-of select="caption" />&#160;
+                            </a>
+                          </div>
+                        </xsl:for-each>
+                        <!--<xsl:apply-templates select="sqroot/header/menus/menu[@code='primaryback']/submenus/submenu" />-->
+                      </div>
+                    </li>
+                    <!-- Menu Footer-->
+                    <li class="user-footer">
+                      <div class="pull-left">
+                        <a href="?code=profile" class="btn btn-default btn-flat">
+                          <ix class="fa fa-user"></ix>&#160;Profile
+                        </a>
+                      </div>
+                      <div class="pull-right">
+                        <a href="javascript:signOut()" class="btn btn-default btn-flat">
+                          <ix class="fa fa-power-off"></ix>&#160;Sign out
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </xsl:otherwise>
+              </xsl:choose>
             </li>
-            <div class="collapse top-menu-div" id="right-menu-phone"
-            style="color:white; position:absolute; background:#222D32; z-index:90; width:100%; right:0px; top:50px; ">
-              <ul>
-                <xsl:apply-templates select="sqroot/header/menus/menu[@code='primaryback']/submenus/submenu" />
-              </ul>
-            </div>
-            <!-- Dashboard -->
-
-            <xsl:if test="count(sqroot/header/info/user/userName)=0">
-              <li>
-                <a href="#" data-toggle="modal" data-target="#login-modal">
-                  <span>
-                    <ix class="fa fa-sign-in"></ix>&#160;
-                  </span>
-                  <span>Sign in</span>
-                </a>
-              </li>
-            </xsl:if>
-
-            <li class="dropdown messages-menu visible-phone" style="margin-right:20px;">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="User Setting">
-                Welcome, <b>
-                  <xsl:value-of select="sqroot/header/info/user/userName" />
-                </b><span style="margin-right:10px;"></span>&#160;<ix class="fa fa-user"></ix>
-                <!-- <span class="label label-success">4</span> -->
-              </a>
-              <ul class="dropdown-menu" style="border:none; border-radius:0px;" id="dropdown-top">
-                <!-- <li class="header" style="background:#367FAA; color:white; text-align:right; border-radius:0; padding:10px 10px;">Welcome, <b>Administrator</b></li>
-              <li> -->
-                <!-- inner menu: contains the actual data -->
-                <ul class="user-setting-menu" id="right-menu-phone1">
-                  <xsl:apply-templates select="sqroot/header/menus/menu[@code='primaryback']/submenus/submenu" />
-                  <li>
-                    <!-- start message -->
-                    <!--<span style="color:white">Act as :</span>-->
-                    <a href="javascript:signOut()">
-                      <span>
-                        <ix class="fa fa-power-off"></ix>
-                      </span> Sign out
-                    </a>
-                  </li>
-                  <!--<xsl:apply-templates select="sqroot/header/menus/menu[@code='primary']" />-->
-                </ul>
-              </ul>
-            </li>
-            <!-- Control Sidebar Toggle Button -->
-
           </ul>
         </div>
       </nav>
@@ -306,21 +318,13 @@ _________________________________________________________ -->
 
   </xsl:template>
 
-  <xsl:template match="sqroot/header/menus/menu[@code='primaryback']/submenus/submenu">
-    <li>
-      <a href="{pageURL/.}">
-        <xsl:value-of select="caption/." />
-      </a>
-    </li>
-  </xsl:template>
-
   <xsl:template match="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu">
-    <div class="panel top-menu-onphone" style="border-radius:0; margin-top:0;">
-      <a class="top-envi" data-toggle="collapse" data-parent="#accordion2" href="#collapse{@GUID}">
+    <div class="panel top-menu-onphone">
+      <a class="top-envi" data-toggle="collapse" data-parent="#accordion2" href="#{@idMenu}">
         <xsl:value-of select="caption/." />&#160;<span class="caret"></span>
       </a>
-      <div id="collapse{@GUID}" class="panel-collapse collapse">
-        <ul class="panel-group" id="accordion{@GUID}">
+      <div id="{@idMenu}" class="panel-collapse collapse">
+        <ul class="treeview">
           <xsl:if test="(@type)='treeroot'">
             <xsl:apply-templates select="submenus/submenu[@type='treeview']" />&#160;
             <xsl:apply-templates select="submenus/submenu[@type='label']" />&#160;
@@ -329,25 +333,41 @@ _________________________________________________________ -->
       </div>
     </div>
   </xsl:template>
-  <xsl:template match="submenus/submenu[@type='treeview']">
+
+  <xsl:template match="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu[@type='treeview']">
     <li>
-      <a data-toggle="collapse" data-parent="#accordion{../../@GUID}" href="#collapse{@GUID}">
+      <a data-toggle="collapse" data-parent="#accordion{../../@GUID}" href="#{@idMenu}">
         <xsl:value-of select="caption/." />
       </a>
-      <div id="collapse{@GUID}" class="panel-collapse collapse">
-        <ul class="panel-group" id="accordion{@GUID}">
+      <div id="{@idMenu}" class="panel-collapse collapse">
+        <ul class="panel-group">
           <xsl:apply-templates select="submenus/submenu[@type='treeview']" />&#160;
           <xsl:apply-templates select="submenus/submenu[@type='label']" />&#160;
         </ul>
       </div>
     </li>
   </xsl:template>
-  <xsl:template match="submenus/submenu[@type='label']">
+
+  <xsl:template match="submenus/submenu[@type='treeview']">
     <li>
-      <a href="{pageURL/.}">
+      <a data-toggle="collapse" data-parent="#accordion{../../@GUID}" href="#{@idMenu}">
         <xsl:value-of select="caption/." />
+        &#160;
+        <span class="caret"></span>
       </a>
+      <div id="{@idMenu}" class="panel-collapse collapse">
+        <ul class="panel-group">
+          <xsl:apply-templates select="submenus/submenu[@type='treeview']" />&#160;
+          <xsl:apply-templates select="submenus/submenu[@type='label']" />&#160;
+        </ul>
+      </div>
     </li>
+  </xsl:template>
+
+  <xsl:template match="submenus/submenu[@type='label']">
+    <a href="{pageURL/.}" class="top-envi">
+      <xsl:value-of select="caption/." />
+    </a>
   </xsl:template>
 
 </xsl:stylesheet>

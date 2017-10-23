@@ -309,7 +309,7 @@ function saveProfile(formId, code, guid) {
             $('#save_profile').removeClass().addClass('btn btn-success');
         } else {
             mdl.find('.modal-title').text("Failure!");
-            mdl.find('.modal-body').text(msg);  
+            mdl.find('.modal-body').text(msg);
             $('#save_profile').button('reset');
         }
         mdl.modal('show');
@@ -355,7 +355,7 @@ function uploadBox(id, formId, code, guid) {
                 if (log) {
                     document.getElementById(id).value = log;
                     saveProfile(formId, code, guid);
-                } 
+                }
             }
         });
     });
@@ -363,7 +363,7 @@ function uploadBox(id, formId, code, guid) {
 }
 
 function showModal(ini, action, formId, childID, guid) {
-    var idmodal = $(ini).data('target'); 
+    var idmodal = $(ini).data('target');
     idmodal = (idmodal.indexOf('#') < 0) ? "#" + idmodal : idmodal;
     var title = $(ini).data('caption');
     var msg = $(ini).data('msg');
@@ -372,9 +372,9 @@ function showModal(ini, action, formId, childID, guid) {
     md.find('.modal-body').text(msg);
     var clickact = ""
     if (action == "delete") {
-        clickact = "deleteUserdele('" + childID + "', '" + idmodal + "', '" + guid +"')";
+        clickact = "deleteUserdele('" + childID + "', '" + idmodal + "', '" + guid + "')";
     } else if (action == "save") {
-        clickact = "saveUserdele('" + formId + "', '" + childID + "', '" + idmodal + "', '" + guid +"')";
+        clickact = "saveUserdele('" + formId + "', '" + childID + "', '" + idmodal + "', '" + guid + "')";
     }
     $('#modal-btn-close').hide();
     $('#modal-btn-cancel').show();
@@ -439,7 +439,7 @@ function checkToken(idToken) {
     }
 }
 
-function deleteUserdele(childID, modalID, guid) { 
+function deleteUserdele(childID, modalID, guid) {
 
     var isNew = $('#' + childID).data('new');
 
@@ -540,7 +540,7 @@ function saveUserdele(formId, childID, modalID, guid) {
             $('#' + childID).removeData("new");
 
             var leChild = document.getElementById("deleparent").lastElementChild;
-            var maxID = leChild.id.split("delechild").pop(); 
+            var maxID = leChild.id.split("delechild").pop();
             var isContinue = true;
             for (var i = 1; i < maxID; i++) {
                 if ($("#btn-save" + i).attr("disabled") == undefined) {
@@ -571,4 +571,12 @@ function select2editForm(ini) {
         $('#select2-' + id + '-container').append(edit);
         $('#select2-' + id + '-container').children().append('<ix class="fa fa-pencil" title= "Edit" ></ix >');
     }
+}
+
+function changeSkinColor() {
+    if (getCookie('skinColor') != '')
+        var bodyClass = getCookie('skinColor')
+    else
+        var bodyClass = 'skin-blue';
+    $('body').addClass(bodyClass);
 }

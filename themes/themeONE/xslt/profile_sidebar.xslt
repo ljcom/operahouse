@@ -106,7 +106,7 @@
   </xsl:template>
 
   <xsl:template match="submenus/submenu[@type='label']">
-    <script>//label</script>    
+    <script>//label</script>
     <li>
       <a href="{translate(pageURL/., $uppercase, $smallcase)}">
         <span>
@@ -118,7 +118,7 @@
         &#160;
         <xsl:if test="isPending &gt; 0">
           <!--<span class="label label-info">-->
-            <ix class="fa fa-asterisk" aria-hidden="true" style="font-size: 10px; position: absolute;"></ix>
+          <ix class="fa fa-asterisk" aria-hidden="true" style="font-size: 10px; position: absolute;"></ix>
           <!--</span>-->
         </xsl:if>
         <!--<xsl:if test="tRecord &gt; 0">
