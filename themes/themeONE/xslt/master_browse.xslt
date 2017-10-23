@@ -74,7 +74,7 @@
         You are assigned as a delegation for this module. Expand the "Advanced Filters Box" below to filtering between your documents or the delegators.
       </div>
       <script>
-        $("#delegationAlert").fadeTo(5000, 800).slideUp(800, function(){
+        $("#delegationAlert").fadeTo(10000, 800).slideUp(800, function(){
         $("#delegationAlert").slideUp(800);
         });
       </script>

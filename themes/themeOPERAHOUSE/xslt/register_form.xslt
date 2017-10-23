@@ -13,13 +13,14 @@
             <input type="checkbox"/> I agree to the terms and conditions.
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-4 col-md-offset-8">
-            <button class="btn btn-raised btn-primary btn-block mt-4" onclick="savethemeOPERAHOUSE('register', '00000000-0000-0000-0000-000000000000', '', 'registerform')">Register Now</button>
-          </div>
-        </div>
+       
       </fieldset>
     </form>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-8">
+        <button class="btn btn-raised btn-primary btn-block mt-4" onclick="savethemeOPERAHOUSE('register', '00000000-0000-0000-0000-000000000000', 'index.aspx?code=register', 'registerform')">Register Now</button>
+      </div>
+    </div>
 
     
   </xsl:template>

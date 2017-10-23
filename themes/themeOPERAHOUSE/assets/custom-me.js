@@ -90,6 +90,7 @@ function signInFrontEnd() {
     dataForm = dataForm.substring(2, dfLength);
     dataForm = dataForm.split('%3C').join('%26lt%3B');
     path = "OPHCore/api/default.aspx?mode=signin&userid=" + uid + "&pwd=" + pwd + "&cartID=" + cartID + '&withCaptcha=0'
+    LoadWave('show');
     $.ajax({
         url: path,
         data: dataForm,
@@ -101,6 +102,7 @@ function signInFrontEnd() {
         },
         success: function (data) {
             var result = $(data).find("hostGUID").text();
+            LoadWave('hide')
             if (result) {
                 if (remember.checked == true) { setCookie("userID", uid, 30, 0, 0); }
                 if (getQueryVariable("launch") != undefined && getQueryVariable("launch") != "") {
@@ -113,7 +115,7 @@ function signInFrontEnd() {
                 //alert('Invalid User or password!');
                 document.getElementById("notiModalText").innerHTML = 'Invalid User ID or password!';
                 document.getElementById("notiModalLabel").innerHTML = 'Warning!';
-                $("#notiModal").modal();
+                $('#notiModal').show().delay(3000).hide(0);
             }
         }
     });
@@ -592,15 +594,36 @@ function topbutton(username) {
 }
 
 function savethemeOPERAHOUSE(code, guid, location, formId) {
+    LoadWave('show')
     saveFunction(code, guid, location, formId, function (data) {
         var result = $(data).find("message").text();
         if (result) {
-            $("#notiModal").modal();
+            LoadWave('hide');
             document.getElementById("notiModalText").innerHTML = result;
             document.getElementById("notiModalLabel").innerHTML = 'Warning!';
+            $('#notiModal').modal()
         } else {
-            window.location = 'index.aspx?code=account';
+            if (code == 'register') {
+                result = 'Register Success'
+            } else {
+                result = 'Save ' + code + ' Success'
+            }
+            LoadWave('hide');
+            document.getElementById("notiModalText").innerHTML = result;
+            document.getElementById("notiModalLabel").innerHTML = 'Notification';
+            $('#notiModal').modal()
+            setTimeout(function () {
+                window.location.href = location
+            }, 3000);
         }
 
     });
+}
+
+function LoadWave(type) {
+    if (type == 'show') {
+        $('#content-loader').show()
+    } else {
+        $('#content-loader').hide()
+    }
 }
