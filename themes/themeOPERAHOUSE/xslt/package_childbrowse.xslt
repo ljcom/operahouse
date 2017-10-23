@@ -7,10 +7,10 @@
     <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row[@code = 'packagerelated']"/>
 
     <xsl:if test="sqroot/body/bodyContent/browse/info/code ='PackagePrice'">
-      <div class="container">
+      <div class="container" style="margin-top:50px;">
         <div class="text-center">
-          <h2 class="uppercase color-medium animated fadeInUp animation-delay-7">See our subscription plans</h2>
-          <p class="lead uppercase color-medium animated fadeInUp animation-delay-7">Surprise with our unique features</p>
+          <h2 class="uppercase  color-primary animated fadeInUp animation-delay-7">See our subscription plans</h2>
+          <p class="lead uppercase  color-primary animated fadeInUp animation-delay-7">Surprise with our unique features</p>
         </div>
         <div class="row">
           <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row[@code = 'packageprice']"/>

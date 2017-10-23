@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl">
   <xsl:template match="/">
     <script>
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/js/plugins.min.js');
@@ -9,8 +8,24 @@
 
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/js/home-generic-6.js');
 
-    </script>
+      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/custom-me.js');
 
+
+      var userguid = '<xsl:value-of select="/sqroot/header/info/user/userGUID" />';
+      if (userguid == ''){
+      var url = 'index.aspx?code=register&amp;launch=orders&amp;package='+getQueryVariable("package")
+      document.getElementById("notiModalText").innerHTML = 'You need to login';
+      document.getElementById("notiModalLabel").innerHTML = 'Warning!';
+      document.getElementById("notiModalFooter").innerHTML = '<button type="button" class="btn btn-default" onclick="goToAnotherPage(url)">Login</button>';
+      document.getElementById("notiModalClose").style.display = 'none';
+      $('#notiModal').show().delay(3000);
+      window.location = 'index.aspx?code=register';
+      }else{
+      loadContent(1);
+      }
+
+
+    </script>
     <!--sidebar-->
     <div class="ms-slidebar sb-slidebar sb-left sb-style-overlay" id="ms-slidebar">
       <div class="sb-slidebar-container">
@@ -56,7 +71,7 @@
             <p id="notiModalText">Message</p>
           </div>
           <div class="modal-footer" id="notiModalFooter">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick=" $('#notiModal').hide()">Close</button>
           </div>
         </div>
       </div>
@@ -80,7 +95,7 @@
         <div class="sk-rect sk-rect5"></div>
       </div>
     </div>
-    <!--content-->
+    <!--this is Content-->
     <div class="sb-site-container">
       <div class="modal modal-primary" id="ms-account-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog animated zoomIn animated-3x" role="document">
@@ -119,7 +134,7 @@
 
             <xsl:if test="(sqroot/header/info/user/userName/.)">
               <div class="btn-group">
-                <a href="index.aspx?code=userprofile" style="color:white; padding:5px;" class="animated zoomInDown animation-delay-10" data-toggle="tooltip" data-placement="bottom" title="Go to profile">
+                <a href="index.aspx?code=userprofile&amp;GUID={/sqroot/header/info/user/userGUID}" style="color:white; padding:5px;" class="animated zoomInDown animation-delay-10" data-toggle="tooltip" data-placement="bottom" title="Go to profile">
                   <xsl:value-of select="/sqroot/header/info/user/userName/." />&amp;nbsp;
                 </a>
                 <a href="#" style="color:white; padding:5px;" class="animated zoomInDown animation-delay-10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -149,8 +164,8 @@
       <nav class="navbar navbar-static-top yamm ms-navbar ms-navbar-primary">
         <div class="container container-full">
           <div class="navbar-header">
-            <a class="navbar-brand" href="javascript:void(0)">
-              <img src="OPHContent/themes/{/sqroot/header/info/themeFolder}/assets/img/logo.png" style="width:30px" alt=""/>
+            <a class="navbar-brand" href="index.html">
+               <img src="OPHContent/themes/{/sqroot/header/info/themeFolder}/assets/img/logo.png" style="width:30px" alt=""/> 
               <!--<span class="ms-logo ms-logo-sm" style="font-size:12px;">MX4</span>-->
               <span class="ms-title">
                 <strong>Operahouse</strong>
@@ -161,7 +176,8 @@
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <xsl:apply-templates select="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu" />
-
+              
+              <!-- <li class="btn-navbar-menu"><a href="javascript:void(0)" class="sb-toggle-left"><i class="zmdi zmdi-menu"></i></a></li> -->
             </ul>
           </div>
           <!-- navbar-collapse collapse -->
@@ -172,88 +188,166 @@
         <!-- container -->
       </nav>
 
-      <!--this is Content-->
-      <div class="container">
-        <div class="row">
-          
-          <div class="col-md-5 col-md-push-7">
-            <div class="card card-primary animated fadeInUp animation-delay-7">
-              <div class="card-block">
-                <h1 class="color-primary text-center">Login</h1>
-                <form class="form-horizontal" id="signinForm" onsubmit="return signInFrontEnd()">
-                  <fieldset>
-                    <div class="form-group">
-                      <label for="inputEmail" class="col-md-2 control-label">User ID</label>
-                      <div class="col-md-10">
-                        <input type="text" class="form-control" id="userid" name ="userid" placeholder="User ID" /> </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="inputPassword" class="col-md-2 control-label">Password</label>
-                      <div class="col-md-10">
-                        <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Password" /> </div>
-                    </div>
-                  </fieldset>
-                  <textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; ">success</textarea>
-                 
-                </form>
-                <button class="btn btn-raised btn-primary btn-block" id="btn_submitLogin"  onclick="signInFrontEnd()">
-                  Login
-                  <i class="zmdi zmdi-long-arrow-right no-mr ml-1"></i>
-                </button>
-                <div class="text-center mt-4">
-                  <h3>Login with</h3>
-                  <a href="javascript:void(0)" class="btn-circle btn-facebook">
-                    <i class="zmdi zmdi-facebook"></i>
-                  </a>
-                  <a href="javascript:void(0)" class="btn-circle btn-twitter">
-                    <i class="zmdi zmdi-twitter"></i>
-                  </a>
-                  <a href="javascript:void(0)" class="btn-circle btn-google">
-                    <i class="zmdi zmdi-google"></i>
-                  </a>
-                </div>
+      <div id="contentWrapper">
+        
+        
+      </div>
+      <!--this is content One-->
+      <!--<div class="container mt-6">
+        <div class="text-center">
+          <h2 class="color-primary">
+            Knows the
+            <span class="text-normal">Material Style</span> and surprise yourself
+          </h2>
+          <p class="lead">Put here a short description or brief highlights in your app.</p>
+        </div>
+        <div class="panel-body">
+          <div class="tab-content mt-4">
+            <div class="row">
+              <div class="col-md-6 col-lg-5 col-md-push-6 col-lg-push-7">
+                <ul class="list-unstyled hand-list">
+                  <li class="animated fadeInLeft animation-delay-2">
+                    <h2 class="no-mt color-primary no-mb">Ideas for your product</h2>
+                    <p class="lead handwriting">Lorem ipsum dolor sit amet, consectetur adipisicing elit provident tempore porro deserunt nostrum sapiente.</p>
+                  </li>
+                  <li class="animated fadeInLeft animation-delay-4">
+                    <h2 class="handwriting no-mt color-primary no-mb">Type here annotations</h2>
+                    <p class="lead handwriting">Lorem ipsum dolor sit amet, consectetur adipisicing elit provident tempore porro deserunt nostrum sapiente.</p>
+                  </li>
+                  <li class="animated fadeInLeft animation-delay-6">
+                    <h2 class="handwriting no-mt color-primary no-mb">An informal approach to design</h2>
+                    <p class="lead handwriting">Lorem ipsum dolor sit amet, consectetur adipisicing elit provident tempore porro deserunt nostrum.</p>
+                  </li>
+                </ul>
               </div>
-            </div>
-          </div>
-          <div class="col-md-7 col-md-pull-5">
-            <div class="card card-primary animated fadeInUp animation-delay-7">
-
-              <div class="card-block" id="register_form">
-                Loading Please Wait...
-                <script>
-                  LoadNewPartView('register_form', 'register_form', 'register', '00000000-0000-0000-0000-000000000000');
-
-                </script>
-                
-                <!--<form class="form-horizontal">
-                  <fieldset>
-                    <div class="form-group">
-                      <label for="inputUser" class="col-md-2 control-label">Username</label>
-                      <div class="col-md-9">
-                        <input type="text" class="form-control" id="inputUser" placeholder="Username" />
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4 col-md-offset-8">
-                        <button class="btn btn-raised btn-primary btn-block mt-4">Register Now</button>
-                      </div>
-                    </div>
-                  </fieldset>
-                </form>-->
+              <div class="col-md-6 col-lg-7 col-md-pull-6 col-lg-pull-5">
+                <img class="img-responsive animated zoomInDown animation-delay-3" src="assets/img/demo/surface.png" />
               </div>
             </div>
           </div>
         </div>
-      </div>
-      
-     <!--this is footer-->
+      </div>-->
+      <!--this is banner-->
+      <!--<div class="container mt-6">
+        <div class="text-center mw-800 center-block mb-4">
+          <h2 class="color-primary wow fadeInDown animation-delay-4">We know what you need</h2>
+          <p class="lead wow fadeInDown animation-delay-4">Discover our projects and the rigorous process of creation. Our principles are creativity, design, experience and knowledge. We are backed by 20 years of research.</p>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card card-royal wow zoomInUp animation-delay-5">
+              <div class="bg-royal">
+                <img src="assets/img/demo/m1.png" alt="..." class="img-avatar-circle"/> </div>
+              <div class="card-block pt-4 text-center">
+                <h4 class="color-royal">A Feature Title</h4>
+                <p>Eaque repellendus nemo deserunt qui sequi laborum officiis assumenda caecati.</p>
+                <a href="javascript:void(0)" class="btn btn-royal">
+                  <i class="zmdi zmdi-star"></i> Action here
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card card-danger wow zoomInUp animation-delay-6">
+              <div class="bg-danger">
+                <img src="assets/img/demo/m2.png" alt="..." class="img-avatar-circle"/> </div>
+              <div class="card-block pt-4 text-center">
+                <h4 class="color-danger">A Feature Title</h4>
+                <p>Eaque repellendus nemo deserunt qui sequi laborum officiis assumenda caecati.</p>
+                <a href="javascript:void(0)" class="btn btn-danger">
+                  <i class="zmdi zmdi-star"></i> Action here
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card card-warning wow zoomInUp animation-delay-7">
+              <div class="bg-warning">
+                <img src="assets/img/demo/m3.png" alt="..." class="img-avatar-circle"/> </div>
+              <div class="card-block pt-4 text-center">
+                <h4 class="color-warning">A Feature Title</h4>
+                <p>Eaque repellendus nemo deserunt qui sequi laborum officiis assumenda caecati.</p>
+                <a href="javascript:void(0)" class="btn btn-warning">
+                  <i class="zmdi zmdi-star"></i> Action here
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card card-success wow zoomInUp animation-delay-8">
+              <div class="bg-success">
+                <img src="assets/img/demo/m4.png" alt="..." class="img-avatar-circle"/> </div>
+              <div class="card-block pt-4 text-center">
+                <h4 class="color-success">A Feature Title</h4>
+                <p>Eaque repellendus nemo deserunt qui sequi laborum officiis assumenda caecati.</p>
+                <a href="javascript:void(0)" class="btn btn-success">
+                  <i class="zmdi zmdi-star"></i> Action here
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>-->
+      <!--this is amazing feature-->
+      <!--<section class="wrap ms-hero-page ms-hero-img-coffee ms-hero-bg-info ms-bg-fixed color-white mt-6">
+        <div class="container">
+          <h2 class="text-center fw-500 mb-6 wow fadeInDown animation-delay-2">Amazing Features</h2>
+          <div class="row">
+            <div class="col-sm-6 col-md-3 wow fadeIn animation-delay-2">
+              <div class="text-center">
+                <div class="circle" id="circles-1"></div>
+                <h4 class="text-center">HTML 5</h4>
+                <p class="small-font">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3 wow fadeIn animation-delay-3">
+              <div class="text-center">
+                <div class="circle" id="circles-2"></div>
+                <h4 class="text-center">CSS 3</h4>
+                <p class="small-font">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3 wow fadeIn animation-delay-4">
+              <div class="text-center">
+                <div class="circle" id="circles-3"></div>
+                <h4 class="text-center">Jquery</h4>
+                <p class="small-font">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3 wow fadeIn animation-delay-5">
+              <div class="text-center">
+                <div class="circle" id="circles-4"></div>
+                <h4 class="text-center">Bootstrap 3</h4>
+                <p class="small-font">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-6">
+            <a href="javascript:void(0)" class="btn btn-raised btn-lg btn-white color-primary animated flipInX animation-delay-4">
+              <i class="zmdi zmdi-info"></i> Know More
+            </a>
+            <a href="javascript:void(0)" class="btn btn-raised btn-lg btn-info animated flipInX animation-delay-6">
+              <i class="zmdi zmdi-email"></i> Contact US
+            </a>
+          </div>
+        </div>
+      </section>-->
+
+      <!--this is footer-->
       <footer class="ms-footer">
         <div class="container">
           <p>Copyright © OPERAHOUSE 2017</p>
         </div>
       </footer>
     </div>
+    <!--button back to top-->
+    <div class="btn-back-top">
+      <a href="#" data-scroll="" id="back-top" class="btn-circle btn-circle-primary btn-circle-sm btn-circle-raised ">
+        <i class="zmdi zmdi-long-arrow-up"></i>
+      </a>
+    </div>
   </xsl:template>
+
 
   <!--primaryfront menu-->
   <xsl:template match="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu">
@@ -310,6 +404,7 @@
     </div>
   </xsl:template>
 
+
   <xsl:template match="submenus/submenu[@type='itemlist']">
     <li>
       <a class="withripple" href="{pageURL}">
@@ -349,4 +444,5 @@
       </a>
     </li>
   </xsl:template>
+  
 </xsl:stylesheet>

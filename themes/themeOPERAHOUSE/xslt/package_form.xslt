@@ -76,7 +76,7 @@
         <p class="lead lead-lg color-white text-center center-block mt-2 mw-800 fw-300 animated fadeInUp animation-delay-7">
           <xsl:apply-templates select="fields"/>
         </p>
-        <a href="index.aspx?code=register&amp;launch=orders&amp;package={/sqroot/body/bodyContent/form/info/GUID/.}" class="btn btn-raised btn-warning" style="margin-top:20px;">
+        <a href="index.aspx?code=orders&amp;launch=orders&amp;package={/sqroot/body/bodyContent/form/info/GUID/.}" class="btn btn-raised btn-warning  animated fadeInUp animation-delay-7" style="margin-top:20px;">
           <i class="zmdi zmdi-account-add"></i>  
           Start Free Trial
         </a>

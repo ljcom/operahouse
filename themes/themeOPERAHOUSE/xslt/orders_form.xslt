@@ -245,14 +245,20 @@
         );
       </xsl:if>
       <xsl:if test="not(value) and (../@fieldName)='Package'">
-        deferreds.push(
-        autosuggestSetValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', getQueryVariable("package"), '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
-        );
+
+        if (getQueryVariable("package")){
+          deferreds.push(
+          autosuggestSetValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', getQueryVariable("package"), '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
+          );
+        }
       </xsl:if>
       <xsl:if test="not(value) and (../@fieldName)='PackagePrice'">
-        deferreds.push(
-        autosuggestSetValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', getQueryVariable("plan"), '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
-        );
+
+        if (getQueryVariable("plan")){
+          deferreds.push(
+          autosuggestSetValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', getQueryVariable("plan"), '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
+          );
+        }
       </xsl:if>
     </script>
   </xsl:template>
