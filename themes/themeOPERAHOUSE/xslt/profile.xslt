@@ -21,7 +21,12 @@
       $('#notiModal').show().delay(3000);
       window.location = 'index.aspx?code=register';
       }else{
-      loadContent(1);
+      setCookie('lastPar', document.URL, 0, 1, 0);
+        if (getGUID() != '<xsl:value-of select="/sqroot/header/info/user/userGUID" />'){
+         window.location.href = 'index.aspx?code=userprofile&amp;GUID=<xsl:value-of select="/sqroot/header/info/user/userGUID" />'
+        }else{
+          loadContent(1);
+        }
       }
 
 
@@ -353,7 +358,7 @@
   <xsl:template match="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu">
     <xsl:if test="(@type)='label'">
       <li class="dropdown">
-        <a href="javascript:void(0)" class="dropdown-toggle animated fadeIn animation-delay-4">
+        <a href="{pageURL}" class="dropdown-toggle animated fadeIn animation-delay-4">
           <xsl:value-of select="caption/." />&#160;
         </a>
       </li>

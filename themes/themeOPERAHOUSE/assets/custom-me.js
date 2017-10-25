@@ -606,7 +606,15 @@ function savethemeOPERAHOUSE(code, guid, location, formId) {
             if (code == 'register') {
                 result = 'Register Success'
             } else {
-                result = 'Save ' + code + ' Success'
+                result = 'Save Success'
+            }
+            if (getCode() == 'Orders') {
+                var guids = getCookie('userguid')
+                location = 'index.aspx?code=userprofile&GUID=' + guids
+            }
+            else if (getGUID() == '00000000-0000-0000-0000-000000000000') {
+                var guids = $(data).find("guid").text();
+                location = 'index.aspx?code=' + code + '&GUID=' + guids
             }
             LoadWave('hide');
             document.getElementById("notiModalText").innerHTML = result;
@@ -614,7 +622,7 @@ function savethemeOPERAHOUSE(code, guid, location, formId) {
             $('#notiModal').modal()
             setTimeout(function () {
                 window.location.href = location
-            }, 3000);
+            }, 2000);
         }
 
     });

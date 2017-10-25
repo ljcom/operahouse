@@ -7,6 +7,12 @@
       
       var deferreds = [];
     </script>
+    <style>
+      .form-horizontal .radio, .form-horizontal .checkbox, .form-horizontal .radio-inline{
+        padding-top:0;
+      }
+
+    </style>
     <h1 class="color-primary text-center">Order Form</h1>
 
     <form class="form-horizontal" id="formorders" method="post">
@@ -59,7 +65,7 @@
 
   <xsl:template match="formSection ">
       <xsl:if test="@rowTitle/.!=''">
-        <div class="col-md-12" data-toggle="collapse" data-target="#section_{@sectionNo}">
+        <div class="col-md-12 no-padding-tb" data-toggle="collapse" data-target="#section_{@sectionNo}">
           <h3>
             <xsl:value-of select="@rowTitle/."/>&#160;
           </h3>
@@ -99,19 +105,25 @@
   </xsl:template>
 
   <xsl:template match="field">
-    <div class="form-group">
-      <xsl:apply-templates select="textBox"/>
-      <xsl:apply-templates select="textEditor"/>
-      <xsl:apply-templates select="dateBox"/>
-      <xsl:apply-templates select="dateTimeBox"/>
-      <xsl:apply-templates select="timeBox"/>
-      <xsl:apply-templates select="passwordBox"/>
-      <xsl:apply-templates select="checkBox"/>
-      <xsl:apply-templates select="mediaBox"/>
-      <xsl:apply-templates select="autoSuggestBox"/>
-      <xsl:apply-templates select="tokenBox"/>
+
+    <xsl:if test="not(radio)">
+      <div class="form-group">
+        <xsl:apply-templates select="textBox"/>
+        <xsl:apply-templates select="textEditor"/>
+        <xsl:apply-templates select="dateBox"/>
+        <xsl:apply-templates select="dateTimeBox"/>
+        <xsl:apply-templates select="timeBox"/>
+        <xsl:apply-templates select="passwordBox"/>
+        <xsl:apply-templates select="checkBox"/>
+        <xsl:apply-templates select="mediaBox"/>
+        <xsl:apply-templates select="autoSuggestBox"/>
+        <xsl:apply-templates select="tokenBox"/>
+      </div>
+    </xsl:if>
+
+    <xsl:if test="radio">
       <xsl:apply-templates select="radio"/>
-    </div>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="textBox">
@@ -160,11 +172,14 @@
     </xsl:variable>
 
     <div class="col-md-8">
-      <input type="text" class="form-control" Value="{$thisvalue}" data-type="textBox" data-old="{$thisvalue}" name="{../@fieldName}" placeholder="Please Enter {titlecaption}"
+      <input type="text" class="form-control" Value="{$thisvalue}" data-type="textBox" data-old="{$thisvalue}" name="{../@fieldName}"
              onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" id ="{../@fieldName}"
              oninput="javascript:checkChanges(this)">
         <xsl:if test="../@isEditable='0' or (../@isEditable='2' and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000'))">
           <xsl:attribute name="disabled">disabled</xsl:attribute>
+        </xsl:if>
+        <xsl:if test="../@isEditable='1'">
+          <xsl:attribute name="placeholder">Please Enter <xsl:value-of select="titlecaption" /></xsl:attribute>
         </xsl:if>
       </input>
     </div>
@@ -196,8 +211,6 @@
       <select class="form-control select2"  name="{../@fieldName}" id="{../@fieldName}"
          data-type="selectBox" data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}" data-child="Y"
          onchange="preview('{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);">
-
-
         <option value="NULL"> Please Select <xsl:value-of select="titlecaption"/> </option>
       </select>
     </div>
@@ -214,10 +227,6 @@
     <script>
       <!--$("#<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/><xsl:value-of select="../@fieldName"/>").select2({-->
       var wf1 = '<xsl:value-of select='whereFields/wf1'/>';
-      var wf1value = '';
-      if (wf1 != ''){
-        var wf1value<xsl:value-of select="../@fieldName"/> = $("#<xsl:value-of select='whereFields/wf1'/>").val()
-      }
       
       $("#<xsl:value-of select="../@fieldName"/>").select2({
       ajax: {
@@ -230,7 +239,7 @@
       code:"<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>",
       colkey:"<xsl:value-of select="../@fieldName"/>",
       wf1 : '<xsl:value-of select='whereFields/wf1'/>',
-      wf1value: wf1value<xsl:value-of select="../@fieldName"/>
+      wf1value: ('<xsl:value-of select='whereFields/wf1'/>' != '') ? $("#<xsl:value-of select='whereFields/wf1'/>").val() : ''
       }
 
       return query;
@@ -246,7 +255,7 @@
       </xsl:if>
       <xsl:if test="not(value) and (../@fieldName)='Package'">
 
-        if (getQueryVariable("package")){
+        if (getQueryVariable("package") &amp;&amp; getQueryVariable("package") != 'undefined'){
           deferreds.push(
           autosuggestSetValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', getQueryVariable("package"), '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
           );
@@ -254,7 +263,7 @@
       </xsl:if>
       <xsl:if test="not(value) and (../@fieldName)='PackagePrice'">
 
-        if (getQueryVariable("plan")){
+        if (getQueryVariable("plan") &amp;&amp; getQueryVariable("plan") != 'undefined'){
           deferreds.push(
           autosuggestSetValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', getQueryVariable("plan"), '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
           );
@@ -262,4 +271,105 @@
       </xsl:if>
     </script>
   </xsl:template>
+
+  <xsl:template match="radio">
+    <script>
+      function <xsl:value-of select="../@fieldName" />_hide(shownId) {
+      $('#accordion_<xsl:value-of select="../@fieldName" />').children().each(function(){
+      if ($(this).hasClass('in') &#38;&#38; this.id!=shownId) {
+      $(this).collapse('toggle');
+      }
+      });
+      }
+    </script>
+    <div class="form-group">
+    <input type="hidden" id="{../@fieldName}" name="{../@fieldName}" value="{value/.}" />
+   
+    <div class="radio radio-primary">
+      <div>
+        <label id="{../@fieldName}caption">
+          <xsl:value-of select="titlecaption"/>
+        </label>
+        <xsl:if test="../@isNullable = 0">
+          <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
+        </xsl:if>
+      </div>
+      <div class = "btn-group" data-toggle = "radios">
+        <xsl:apply-templates select="radioSections/radioSection"/>
+      </div>
+      
+    </div>
+    </div>
+
+    <div class="">
+      <xsl:if test="radioSections/radioSection/radioRows">
+        <div class="" id="accordion_{../@fieldName}" style="box-shadow:none;border:none;display:none;">
+          <xsl:for-each select="radioSections/radioSection">
+            <!--<xsl:if test="radioSections/radioSection/radioRows/radioRow">-->
+            <div id="panel_{../../../@fieldName}_{@radioNo}" class="box collapse" style="box-shadow:none;border:none;">
+              <xsl:apply-templates select="radioRows/radioRow/fields" />&#160;
+            </div>
+            <!--</xsl:if>-->
+          </xsl:for-each>
+        </div>
+      </xsl:if>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="radioSections/radioSection">
+
+    <xsl:variable name="pandis" select="count(radioRows)"/>
+
+    <xsl:choose>
+      <xsl:when test="@fieldName=../../value/.">
+        <xsl:choose>
+          <xsl:when test="radioRows">
+            <label class="radio-inline" for="{../../../@fieldName}_radio_{@radioNo}" onclick="panel_display('accordion_{../../../@fieldName}', 1)" >
+              <input type="radio" name="{../../../@fieldName}_radio" id="{../../../@fieldName}_radio_{@radioNo}" value="{@fieldName}" checked="checked" />
+             <span class="circle"></span><span class="check"></span><xsl:value-of select="@radioRowTitle"/>
+            </label>
+          </xsl:when>
+          <xsl:otherwise>
+            <label class="radio-inline" for="{../../../@fieldName}_radio_{@radioNo}" onclick="panel_display('accordion_{../../../@fieldName}', 0)" >
+              <input type="radio" name="{../../../@fieldName}_radio" id="{../../../@fieldName}_radio_{@radioNo}" value="{@fieldName}" checked="checked" />
+              <span class="circle"></span><span class="check"></span><xsl:value-of select="@radioRowTitle"/>
+            </label>
+          </xsl:otherwise>
+        </xsl:choose>
+        <script>
+          $('#panel_<xsl:value-of select="../../../@fieldName" />_<xsl:value-of select="@radioNo" />').collapse('show');
+        </script>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:choose>
+          <xsl:when test="radioRows">
+            <label class="radio-inline" for="{../../../@fieldName}_radio_{@radioNo}" onclick="panel_display('accordion_{../../../@fieldName}', 1)" >
+              <input type="radio" name="{../../../@fieldName}_radio" id="{../../../@fieldName}_radio_{@radioNo}" value="{@fieldName}" />
+              <span class="circle"></span><span class="check"></span><xsl:value-of select="@radioRowTitle"/>
+            </label>
+          </xsl:when>
+          <xsl:otherwise>
+            <label class="radio-inline" for="{../../../@fieldName}_radio_{@radioNo}" onclick="panel_display('accordion_{../../../@fieldName}', 0)" >
+              <input type="radio" name="{../../../@fieldName}_radio" id="{../../../@fieldName}_radio_{@radioNo}" value="{@fieldName}" />
+              <span class="circle"></span><span class="check"></span><xsl:value-of select="@radioRowTitle"/>
+            </label>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:otherwise>
+    </xsl:choose>
+
+    <script>
+      $('#<xsl:value-of select="../../../@fieldName" />_radio_<xsl:value-of select="@radioNo" />').click(function(){
+      <xsl:value-of select="../../../@fieldName" />_hide('panel_<xsl:value-of select="../../../@fieldName" />_<xsl:value-of select="@radioNo" />');
+      $('#panel_<xsl:value-of select="../../../@fieldName" />_<xsl:value-of select="@radioNo" />').collapse('show');
+      var x=$('input[name=<xsl:value-of select="../../../@fieldName" />_radio]:checked').val();
+      $('#<xsl:value-of select="../../../@fieldName" />').val(x);
+      });
+    </script>
+  </xsl:template>
+
+  <xsl:template match="radioRow/fields">
+    <xsl:apply-templates select="field" />
+  </xsl:template>
+
 </xsl:stylesheet>

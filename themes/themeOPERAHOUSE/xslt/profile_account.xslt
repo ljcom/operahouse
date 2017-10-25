@@ -10,7 +10,7 @@
         </div>
         <div class="text-center color-white mw-800 center-block mt-4">
           <p class="lead lead-lg">Need a new account for other companies?</p>
-          <a href="javascript:void(0)" class="btn btn-raised btn-white color-info wow flipInX animation-delay-8">
+          <a href="index.aspx?env=front&amp;code=Account&amp;GUID=00000000-0000-0000-0000-000000000000" class="btn btn-raised btn-white color-info wow flipInX animation-delay-8">
             <i class="fa fa-plus"></i> ADD MORE
           </a>
         </div>
@@ -38,8 +38,8 @@
           <a href="index.aspx?code={/sqroot/body/bodyContent/browse/info/code/.}&amp;GUID={@GUID}" class="btn btn-primary">
             <i class="zmdi zmdi-edit"></i> Edit
           </a>
-          <a href="javascript:void(0)" class="btn btn-primary btn-raised">
-            <i class="zmdi zmdi-globe"></i> Open
+          <a href="{fields/field[@caption = 'pageURL']/.}" target="new" class="btn btn-primary btn-raised">
+            <i class="zmdi zmdi-globe"></i> Go To
           </a>
         </div>
       </div>

@@ -156,7 +156,7 @@
     </xsl:if>
 
     <div class="col-md-9">
-      <input type="password" class="form-control" Value="********" data-type="textBox" data-old="" name="{../@fieldName}"
+      <input type="password" class="form-control" Value="" data-type="textBox" data-old="" name="{../@fieldName}"
         onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" id ="{../@fieldName}">
 
       </input>
