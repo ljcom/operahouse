@@ -109,21 +109,32 @@ function fillMobileItem(code, guid, Status, allowedit, allowDelete, allowWipe, a
     x = x.replace('#t#', '<table style="width:100%">#tr#</table>');
     x = x.replace('#tr#', '<tr><td>&#160;</td>#td#<td>&#160;</td></tr>');
 
-    bt = '<td width="1" style="padding:0 10px;">#a3#</td>#td#';
-    bt = bt.replace('#a3#', '<a href="#">#bt#</a>');
-    bt = bt.replace('#bt#', '<button type="button" class="btn btn-gray-a" style="background:#ccc; border:none;">#btname#</button>');
+    bt = '<td width="1" style="padding:0 10px;">#bt#</td>#td#';
+    bt = bt.replace('#bt#', '<button type="button" class="btn btn-gray-a" style="background:#ccc; border:none;" onclick="#abt#">#btname#</button>');
+    //bt = bt.replace('#a3#', '<a href="#">#bt#</a>');
+    //bt = bt.replace('#bt#', '<button type="button" class="btn btn-gray-a" style="background:#ccc; border:none;">#btname#</button>');
 
     var btname = 'DELETE';
-    if (status < 500 && allowDelete == 1) x = x.replace('#td#', bt.replace('#btname#', btname));
+    var btfn = 'inactive';
+    if (status < 500 && allowDelete == 1) {
+        x = x.replace('#td#', bt.replace('#btname#', btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'' + btfn + '\', 1, 10)'));
+    }
 
     var btname = 'WIPE';
-    if (status == 999 && allowWipe == 1) x = x.replace('#td#', bt.replace('#btname#', btname));
+    var btfn = 'wipe';
+    if (status == 999 && allowWipe == 1) {
+        x = x.replace('#td#', bt.replace('#btname#', btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'' + btfn + '\', 1, 10)'));
+    }
 
-    var btname = 'ARCHIEVE';
-    if (status < 500 && status >= 400 && allowForce == 1) x = x.replace('#td#', bt.replace('#btname#', btname));
+    var btname = 'ARCHIEVE'; 
+    var btfn = 'force';
+    if (status < 500 && status >= 400 && allowForce == 1) {
+        x = x.replace('#td#', bt.replace('#btname#', btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'' + btfn + '\', 1, 10)'));
+    }
 
     var btname = 'APPROVE';
-    x = x.replace('#td#', bt.replace('#btname#', btname));
+    var btfn = 'execute';
+    x = x.replace('#td#', bt.replace('#btname#', btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'' + btfn + '\', 1, 10)'));
 
     //close
     x = x.replace('#td#', '');

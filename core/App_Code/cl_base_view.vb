@@ -16,8 +16,8 @@ Public Class cl_base_view
             Dim ix As Integer
 
             'for Radio Button
-            ix = colName.ToLower().IndexOf("_radio")
-            If ix > 0 Then colName = Left(colName, ix)
+            'ix = colName.ToLower().IndexOf("_radio")
+            'If ix > 0 Then colName = Left(colName, ix)
 
             If fieldattachment.Contains(Request.Form.Keys(x)) Then
                 info = info.Replace("#element#", "<field id=""" & colName & """><value>" & code & "_" & colName & "/" & szFilename & "/" & GUID & "_" & Request.Form(x).Replace("'", "''").Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
