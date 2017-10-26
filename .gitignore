@@ -3,10 +3,10 @@ scripts/
 reports/
 log/
 version/
-addOns/sqlAsembly/dnsRequest/bin/
-addOns/sqlAsembly/dnsRequest/obj/
-addOns/sqlAsembly/webRequest/bin/
-addOns/sqlAsembly/webRequest/obj/
+addOns/sqlAssembly/dnsRequest/bin/
+addOns/sqlAssembly/dnsRequest/obj/
+addOns/sqlAssembly/webRequest/bin/
+addOns/sqlAssembly/webRequest/obj/
 addOns/tools/dnsRecord/bin/
 addOns/tools/dnsRecord/obj/
 addOns/tools/dnsRecord/bin/Debug/
