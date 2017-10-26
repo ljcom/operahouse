@@ -284,7 +284,6 @@
     </script>
     <div class="form-group">
     <input type="hidden" id="{../@fieldName}" name="{../@fieldName}" value="{value/.}" />
-   
     <div class="radio radio-primary">
       <div>
         <label id="{../@fieldName}caption">

@@ -11,7 +11,6 @@
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/custom-me.js');
 
       var userguid = '<xsl:value-of select="/sqroot/header/info/user/userGUID" />';
-
       setCookie('userguid', userguid, 0, 5, 0);
       if (userguid == ''){
       var url = 'index.aspx?code=register&amp;launch=orders&amp;package='+getQueryVariable("package")+'&amp;plan='+getQueryVariable("plan")
