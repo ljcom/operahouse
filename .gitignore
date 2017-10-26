@@ -3,11 +3,11 @@ scripts/
 reports/
 log/
 version/
-OPERAHOUSE/addOns/sqlAsembly/dnsRequest/bin
-OPERAHOUSE/addOns/sqlAsembly/dnsRequest/obj
-OPERAHOUSE/addOns/sqlAsembly/webRequest/bin
-OPERAHOUSE/addOns/sqlAsembly/webRequest/obj
-OPERAHOUSE/addOns/tools/dnsRecord/bin
-OPERAHOUSE/addOns/tools/dnsRecord/obj
+addOns/sqlAsembly/dnsRequest/bin
+addOns/sqlAsembly/dnsRequest/obj
+addOns/sqlAsembly/webRequest/bin
+addOns/sqlAsembly/webRequest/obj
+addOns/tools/dnsRecord/bin
+addOns/tools/dnsRecord/obj
 
 
