@@ -63,3 +63,26 @@ input[type=text].disabled-input, input[type=password].disabled-input
     padding-left:10px;
     background:#e5e5e5 !important;
  }
+ 
+   .select2-container--default .select2-selection--single {
+      background-color: #fff;
+      border:none;
+      border-bottom: 1px solid #D2D2D2;
+      border-radius: 0px;
+      }
+      .select2-container .select2-selection--single .select2-selection__rendered {
+      padding-left:0;
+      }
+
+.no-padding-tb
+{padding-top:0px !important;
+ padding-bottom:0px !important;
+ 
+    }
+.form-group
+{margin-top:15px;
+    }
+.select2-container
+{min-width:250px;
+ width:100%;
+    }

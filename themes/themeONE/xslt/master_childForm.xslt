@@ -164,12 +164,12 @@
           </div>
         </div>
 
-        <div class="col-md-12 displayblock-phone" style="margin-bottom:20px;">
+        <!--<div class="col-md-12 displayblock-phone" style="margin-bottom:20px;">
           <div style="text-align:center">
             <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 40, 'form{sqroot/body/bodyContent/form/info/code/.}');">SAVE</button>&#160;
             <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}')">CANCEL</button>
           </div>
-        </div>
+        </div>-->
       </div>
       <!-- button view header -->
       <xsl:apply-templates select="sqroot/body/bodyContent/form/children/child"/>

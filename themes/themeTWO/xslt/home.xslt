@@ -33,13 +33,14 @@
       loadScript('OPHContent/themes/themeTWO/scripts/js/custom.js');
       loadScript('OPHContent/themes/themeTWO/scripts/custom-me.js');-->
 
+
       LoadNewPart('home_browse', 'contentWrapper', 'home', '','');
       changeColorMenuFront();
     </script>
     <!-- Page script -->
-    
+
     <!--before loadpage-->
-     <!-- Message -->
+    <!-- Message -->
     <div id="popupMsg" class="alert alert-warning" style="background:#47BAC1; color:white; position:fixed; z-index:1000; top:5%;  right:3%; width:350px; margin:0 auto; display:none">
       <button type="button" class="close" onclick="hidePopUp('popupMsg')" aria-hidden="true" style="color:white; opacity:1;">
         x
@@ -47,9 +48,9 @@
       <!--<span class="glyphicon glyphicon-record">&#xA0;</span>
       <strong>&#xA0;</strong>
       <hr class="message-inner-separator" />-->
-        <p style="color:white;" id="popupMsgContent">
-          Notification
-        </p>
+      <p style="color:white;" id="popupMsgContent">
+        Notification
+      </p>
     </div>
 
     <!--LOGIN MODAL-->
@@ -71,10 +72,10 @@
                 <input type="password" class="form-control" id="pwd" onkeypress="loginkeypressFront(event)"/>
               </div>
               <div class="alert alert-danger" id="loginNotif" style="display:none;height:35px;padding-top:8px;">
-                <span class="glyphicon glyphicon-exclamation-sign">&#xA0;</span> 
+                <span class="glyphicon glyphicon-exclamation-sign">&#xA0;</span>
                 <span id="loginNotifMsg">&#xA0;</span>
-               </div>
-        
+              </div>
+
               <div class="checkbox">
                 <label>
                   <input type="checkbox" id="rememberme"/> Remember Me
@@ -88,7 +89,8 @@
       </div>
     </div>
 
-    <!--Loading Screen--><!--
+    <!--Loading Screen-->
+    <!--
     <div id="content-loader">
       <div class="loader" style="">
         &#xA0;
@@ -103,7 +105,7 @@
       
       });
     </script-->
-    
+
     <!--HEADER-->
     <div class="header clearfix headerV3">
       <!-- TOPBAR -->
@@ -170,8 +172,8 @@
             <div class="" id="demo5" style="color:white; position:absolute; background:#white; z-index:100; width:100%; right:0px; top:50px; overflow:hidden !important; overflow-y:scroll !important; max-height:520px !important;">
               <xsl:apply-templates select="sqroot/header/filters/filter" />
             </div>
-              
-            
+
+
           </div>
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -187,8 +189,8 @@
             <ul class="nav navbar-nav">
               <xsl:apply-templates select="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu" />
               <script type="text/javascript">
-                if (getCookie("isLogin") == "0"){   
-                    $('.needlogin').attr('href','.login-modal')
+                if (getCookie("isLogin") == "0"){
+                $('.needlogin').attr('href','.login-modal')
                 }
               </script>
             </ul>
@@ -198,7 +200,7 @@
       </nav>
 
     </div>
-    
+
     <div  id="contentWrapper" class="content-wrapper">
       a
     </div>
@@ -220,12 +222,12 @@
         </div>
       </div>
     </div>
-    
+
     <!--Stop Loading Screen-->
     <script>
       showtheLimit();
     </script>
-    
+
   </xsl:template>
 
 
@@ -240,15 +242,21 @@
             <xsl:apply-templates select="submenus/submenu[@type='treeview']" />
           </ul>
         </xsl:when>
-        <xsl:when test="(@type)='label'"><a href="{pageURL/.}" id="prim-{caption/.}"><xsl:value-of select="caption/." /></a></xsl:when>
+        <xsl:when test="(@type)='label'">
+          <a href="{pageURL/.}" id="prim-{caption/.}">
+            <xsl:value-of select="caption/." />
+          </a>
+        </xsl:when>
       </xsl:choose>
     </li>
   </xsl:template>
-  
+
 
   <xsl:template match="submenus/submenu[@type='treeview']">
     <li>
-      <a  class="needlogin" data-toggle="modal" href="{pageURL/.}"><xsl:value-of select="caption/." /></a>
+      <a  class="needlogin" data-toggle="modal" href="{pageURL/.}">
+        <xsl:value-of select="caption/." />
+      </a>
     </li>
   </xsl:template>
 

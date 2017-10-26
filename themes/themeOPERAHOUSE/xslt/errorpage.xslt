@@ -10,19 +10,6 @@
 
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/custom-me.js');
 
-      var userguid = '<xsl:value-of select="/sqroot/header/info/user/userGUID" />';
-      if (userguid == ''){
-      var url = 'index.aspx?code=register&amp;launch=orders&amp;package='+getQueryVariable("package")
-      $("#notiModal").modal();
-      document.getElementById("notiModalText").innerHTML = 'You need to login or register to order';
-      document.getElementById("notiModalLabel").innerHTML = 'Warning!';
-      document.getElementById("notiModalFooter").innerHTML = '<button type="button" class="btn btn-default" onclick="goToAnotherPage(url)">Login</button>';
-      document.getElementById("notiModalClose").style.display = 'none';
-      }else{
-      setCookie('bSearchText', '<xsl:value-of select="/sqroot/header/info/user/userGUID" />', 1, 0, 0);
-      setCookie('lastPar', document.URL, 0, 1, 0);
-      loadContent(1);
-      }
 
     </script>
     <!--sidebar-->
@@ -188,7 +175,24 @@
       </nav>
 
       <div id="contentWrapper">
-
+        <div class="container">
+          <div class="row">
+            <div class="card animated fadeInUp animation-delay-7 color-primary withripple">
+              <div class="card-block-big color-dark">
+                <div class="text-center">
+                  <h1 class="color-primary">Error 404</h1>
+                  <h2>This Page is Under Construction</h2>
+                  <p class="lead lead-sm">
+                    We have not found what you are looking for.
+                    <br/>We have put our robots to search.</p>
+                  <a href="javascript:void(0)" class="btn btn-primary btn-raised">
+                    <i class="zmdi zmdi-home"></i> Go Home
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
       <!--this is content One-->

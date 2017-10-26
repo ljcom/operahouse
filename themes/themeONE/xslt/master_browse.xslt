@@ -152,34 +152,35 @@
       </div>
       <!-- header -->
 
+      <!--Browse Filters-->
+      <xsl:if test="sqroot/body/bodyContent/browse/info/filters">
+        <div class="col-md-12 full-width-a" style="margin:0px;">
+          <div id="bfBox" class="box box-default collapsed-box">
+            <div class="box-header with-border">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <ix class="fa fa-plus" aria-hidden="true">&#160; Advanced Filters</ix>
+              </button>
+            </div>
+            <div class="box-body">
+              <form id="formFilter">
+                <xsl:apply-templates select="sqroot/body/bodyContent/browse/info/filters" />
+              </form>
+            </div>
+          </div>
+          <script>
+            $(document).ready(function () {
+            if (getFilter() != "") {
+            $("#bfBox").removeClass().addClass("box box-default");
+            $("#bfBox ix").removeClass().addClass("fa fa-minus").text(" Advanced Filter (ACTIVE)");
+            }
+            });
+          </script>
+        </div>
+      </xsl:if>
+
+
       <!-- browse for pc/laptop -->
       <div class="row visible-phone">
-        <!--Browse Filters-->
-        <xsl:if test="sqroot/body/bodyContent/browse/info/filters">
-          <div class="col-md-12" style="margin:0px;">
-            <div id="bfBox" class="box box-default collapsed-box">
-              <div class="box-header with-border">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                  <ix class="fa fa-plus" aria-hidden="true">&#160; Advanced Filters</ix>
-                </button>
-              </div>
-              <div class="box-body">
-                <form id="formFilter">
-                  <xsl:apply-templates select="sqroot/body/bodyContent/browse/info/filters" />
-                </form>
-              </div>
-            </div>
-            <script>
-              $(document).ready(function () {
-              if (getFilter() != "") {
-              $("#bfBox").removeClass().addClass("box box-default");
-              $("#bfBox ix").removeClass().addClass("fa fa-minus").text(" Advanced Filter (ACTIVE)");
-              }
-              });
-            </script>
-          </div>
-        </xsl:if>
-
         <div class="col-md-12">
           <div class="box" style="border:0px none white;box-shadow:none;">
             <table class="table table-condensed strip-table-browse browse-table-an" style="border-collapse:collapse; margin:auto;">

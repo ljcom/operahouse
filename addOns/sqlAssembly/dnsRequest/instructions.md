@@ -46,3 +46,7 @@ GO
 
 PRINT dbo.fn_get_webrequest('http://quote.yahoo.com/d/quotes.csv?'+
        's=AAPL+YHOO+GOOG+GE+MSFT&f=snl1t1ghc1', DEFAULT, DEFAULT);
+
+
+-- download https://dndns.codeplex.com/releases/view/52768
+taruh di dnsRequest folder: dnDNS.dll

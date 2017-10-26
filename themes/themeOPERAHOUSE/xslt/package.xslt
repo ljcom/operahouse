@@ -46,7 +46,7 @@
       </div>
     </div>
     <!--this is notif Modal-->
-    <div class="modal modal-warning" id="notiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel6">
+    <div class="modal modal-primary" id="notiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel6">
       <div class="modal-dialog animated zoomIn animated-3x" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -329,13 +329,20 @@
         </div>
       </footer>
     </div>
+
+    <!--button back to top-->
+    <div class="btn-back-top">
+      <a href="#" data-scroll="" id="back-top" class="btn-circle btn-circle-primary btn-circle-sm btn-circle-raised ">
+        <i class="zmdi zmdi-long-arrow-up"></i>
+      </a>
+    </div>
   </xsl:template>
   
   <!--primaryfront menu-->
   <xsl:template match="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu">
     <xsl:if test="(@type)='label'">
       <li class="dropdown">
-        <a href="javascript:void(0)" class="dropdown-toggle animated fadeIn animation-delay-4">
+        <a href="{pageURL}" class="dropdown-toggle animated fadeIn animation-delay-4">
           <xsl:value-of select="caption/." />&#160;
         </a>
       </li>

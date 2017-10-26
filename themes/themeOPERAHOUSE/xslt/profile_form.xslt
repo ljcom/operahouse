@@ -30,13 +30,13 @@
     </xsl:if>-->
     <div id="childAccount">
       <script>
-      LoadNewPart('profile_account', 'childAccount', 'account', "userguid='510E072E-96A0-4C5B-8BBD-F70BC3B5D9C8'", '', '', '', '');
+        LoadNewPart('profile_account', 'childAccount', 'account', "userguid='<xsl:value-of select="/sqroot/header/info/user/userGUID"/>'", '', '', '', '');
       </script>
     </div>
 
     <div id="childOrders">
       <script>
-        LoadNewPart('profile_orders', 'childOrders', 'Orders', "createduser='510E072E-96A0-4C5B-8BBD-F70BC3B5D9C8'", '', '', '', '');
+        LoadNewPart('profile_orders', 'childOrders', 'Orders', "createduser='<xsl:value-of select="/sqroot/header/info/user/userGUID"/>'", '', '', '', '');
       </script>
     </div>
   </xsl:template>
@@ -61,12 +61,12 @@
       <div class="card card-hero card-primary animated fadeInUp animation-delay-7">
         <div class="card-header-100">
           <ul class="nav nav-tabs nav-tabs-full nav-tabs-4 shadow-2dp" role="tablist">
-            <li role="presentation" class="active">
+            <!--<li role="presentation" class="active">
               <a class="withoutripple" href="#home2" aria-controls="home2" role="tab" data-toggle="tab">
                 <i class="zmdi zmdi-account"></i>
                 <span class="hidden-xs">Profile</span>
               </a>
-            </li>
+            </li>-->
             <li role="presentation">
               <a class="withoutripple" data-scroll="" href="#childAccount" >
                 <i class="zmdi zmdi-accounts-list"></i>
@@ -101,7 +101,7 @@
           </div>
           <div class="col-md-4 text-right">
             <div class="col-md-6">
-              <a href="javascript:void(0)" class="btn btn-raised btn-block btn-primary mt-4"  onclick="savethemeOPERAHOUSE(getCode(), getGUID(), document.URL, 'form{/sqroot/body/bodyContent/form/info/code/.}')">
+              <a href="javascript:void(0)" class="btn btn-raised btn-block btn-primary mt-4"  onclick="savethemeOPERAHOUSE(getCode(), getGUID(),  'index.aspx?env=front&amp;code=userprofile&amp;GUID={/sqroot/header/info/user/userGUID}', 'form{/sqroot/body/bodyContent/form/info/code/.}')">
                 Save
               </a>
             </div>
@@ -236,11 +236,16 @@
     </xsl:variable>
     
     <div class="col-md-8">
-      <input type="text" class="form-control {$fieldEnabled}-input" Value="{$thisvalue}" data-type="textBox" data-old="{$thisvalue}" name="{../@fieldName}" placeholder="Please Enter {titlecaption}"
+      <input type="text" class="form-control {$fieldEnabled}-input" Value="{$thisvalue}" data-type="textBox" data-old="{$thisvalue}" name="{../@fieldName}" 
              onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" id ="{../@fieldName}"
              oninput="javascript:checkChanges(this)" spellcheck="false">
         <xsl:if test="../@isEditable='0' or (../@isEditable='2' and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000'))">
           <xsl:attribute name="disabled">disabled</xsl:attribute>
+        </xsl:if>
+        <xsl:if test="../@isEditable='1'">
+          <xsl:attribute name="placeholder">
+            Please Enter <xsl:value-of select="titlecaption" />
+          </xsl:attribute>
         </xsl:if>
       </input>
     </div>

@@ -11,28 +11,48 @@
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/custom-me.js');
 
       var userguid = '<xsl:value-of select="/sqroot/header/info/user/userGUID" />';
+      setCookie('userguid', userguid, 0, 5, 0);
       if (userguid == ''){
-        var url = 'index.aspx?code=register&amp;launch=orders&amp;package='+getQueryVariable("package")+'&amp;plan='+getQueryVariable("plan")
+      var url = 'index.aspx?code=register&amp;launch=orders&amp;package='+getQueryVariable("package")+'&amp;plan='+getQueryVariable("plan")
         $("#notiModal").modal();
         document.getElementById("notiModalText").innerHTML = 'You need to login or register to order';
         document.getElementById("notiModalLabel").innerHTML = 'Warning!';
         document.getElementById("notiModalFooter").innerHTML = '<button type="button" class="btn btn-default" onclick="goToAnotherPage(url)">Login</button>';
         document.getElementById("notiModalClose").style.display = 'none';
       }
+      
     </script>
-    <style>
-      .select2-container--default .select2-selection--single {
-      background-color: #fff;
-      border:none;
-      border-bottom: 1px solid #D2D2D2;
-      border-radius: 0px;
-      }
-      .select2-container .select2-selection--single .select2-selection__rendered {
-      padding-left:0;
-      }
-    </style>
+    <!--sidebar-->
+    <div class="ms-slidebar sb-slidebar sb-left sb-style-overlay" id="ms-slidebar">
+      <div class="sb-slidebar-container">
+        <header class="ms-slidebar-header">
+          <div class="ms-slidebar-login">
+            <xsl:if test="not(sqroot/header/info/user/userName/.)">
+              <a href="index.aspx?code=register" class="withripple">
+                <i class="zmdi zmdi-account"></i> Login
+              </a>
+            </xsl:if>
+            <xsl:if test="(sqroot/header/info/user/userName/.)">
+              <a href="index.aspx?code=userprofile" class="withripple" data-toggle="tooltip" data-placement="bottom" title="Go to profile">
+                <xsl:value-of select="/sqroot/header/info/user/userName/." />&amp;nbsp;
+              </a>
+              <a href="javascript:void(0)" onclick="signOut()" class="withripple" data-toggle="tooltip" data-placement="bottom" title="Signout">
+                Sign Out
+              </a>
+            </xsl:if>
+          </div>
+
+        </header>
+        <ul class="ms-slidebar-menu" id="slidebar-menu" role="tablist" aria-multiselectable="true">
+
+          <xsl:apply-templates select="sqroot/header/menus/menu[@code='mobilemenu']/submenus/submenu" />
+
+        </ul>
+
+      </div>
+    </div>
     <!--this is notif Modal-->
-    <div class="modal modal-warning" id="notiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel6">
+    <div class="modal modal-primary" id="notiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel6">
       <div class="modal-dialog animated zoomIn animated-3x" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -47,11 +67,12 @@
             <p id="notiModalText">Message</p>
           </div>
           <div class="modal-footer" id="notiModalFooter">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick=" $('#notiModal').hide()">Close</button>
           </div>
         </div>
       </div>
     </div>
+    <!--preload-->
     <div id="ms-preload" class="ms-preload">
       <div id="status">
         <div class="spinner">
@@ -60,6 +81,17 @@
         </div>
       </div>
     </div>
+    <!--wave loading screen-->
+    <div id="content-loader" style="display:none">
+      <div class="sk-wave">
+        <div class="sk-rect sk-rect1"></div>
+        <div class="sk-rect sk-rect2"></div>
+        <div class="sk-rect sk-rect3"></div>
+        <div class="sk-rect sk-rect4"></div>
+        <div class="sk-rect sk-rect5"></div>
+      </div>
+    </div>
+    <!--this is Content-->
     <div class="sb-site-container">
       <div class="modal modal-primary" id="ms-account-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog animated zoomIn animated-3x" role="document">
@@ -74,201 +106,51 @@
                 <!--<span class="ms-logo ms-logo-white ms-logo-sm mr-1" style="font-size:12px;">MX4</span>-->
                 <img  src="OPHContent/themes/{/sqroot/header/info/themeFolder}/assets/img/logo.png" style="max-width:30px; margin-right:10px;" />
                 <h3 class="no-m ms-site-title">
-                  <span>Operahouse</span>
-                  Systems
+                  <span>Operahouse</span>Systems
                 </h3>
               </div>
-              <div class="modal-header-tabs">
-                <ul class="nav nav-tabs nav-tabs-full nav-tabs-3 nav-tabs-primary" role="tablist">
-                  <li role="presentation" class="active">
-                    <a href="#ms-login-tab" aria-controls="ms-login-tab" role="tab" data-toggle="tab" class="withoutripple">
-                      <i class="zmdi zmdi-account"></i> Login
-                    </a>
-                  </li>
-                  <li role="presentation">
-                    <a href="#ms-register-tab" aria-controls="ms-register-tab" role="tab" data-toggle="tab" class="withoutripple">
-                      <i class="zmdi zmdi-account-add"></i> Register
-                    </a>
-                  </li>
-                  <li role="presentation">
-                    <a href="#ms-recovery-tab" aria-controls="ms-recovery-tab" role="tab" data-toggle="tab" class="withoutripple">
-                      <i class="zmdi zmdi-key"></i> Recovery Pass
-                    </a>
-                  </li>
-                </ul>
-              </div>
             </div>
-            <div class="modal-body">
-              <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade active in" id="ms-login-tab">
-                  <form autocomplete="off">
-                    <fieldset>
-                      <div class="form-group label-floating">
-                        <div class="input-group">
-                          <span class="input-group-addon">
-                            <i class="zmdi zmdi-account"></i>
-                          </span>
-                          <label class="control-label" for="ms-form-user">Username</label>
-                          <input type="text" id="ms-form-user" class="form-control" />
-                        </div>
-                      </div>
-                      <div class="form-group label-floating">
-                        <div class="input-group">
-                          <span class="input-group-addon">
-                            <i class="zmdi zmdi-lock"></i>
-                          </span>
-                          <label class="control-label" for="ms-form-pass">Password</label>
-                          <input type="password" id="ms-form-pass" class="form-control" />
-                        </div>
-                      </div>
-                      <div class="row mt-2">
-                        <div class="col-md-6">
-                          <div class="form-group no-mt">
-                            <div class="checkbox">
-                              <label>
-                                <input type="checkbox" /> Remember Me
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <button class="btn btn-raised btn-primary pull-right">Login</button>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </form>
-                  <div class="text-center">
-                    <h3>Login with</h3>
-                    <a href="javascript:void(0)" class="wave-effect-light btn btn-raised btn-facebook">
-                      <i class="zmdi zmdi-facebook"></i> Facebook
-                    </a>
-                    <a href="javascript:void(0)" class="wave-effect-light btn btn-raised btn-twitter">
-                      <i class="zmdi zmdi-twitter"></i> Twitter
-                    </a>
-                    <a href="javascript:void(0)" class="wave-effect-light btn btn-raised btn-google">
-                      <i class="zmdi zmdi-google"></i> Google
-                    </a>
-                  </div>
-                </div>
-                <div role="tabpanel" class="tab-pane fade" id="ms-register-tab">
-                  <form>
-                    <fieldset>
-                      <div class="form-group label-floating">
-                        <div class="input-group">
-                          <span class="input-group-addon">
-                            <i class="zmdi zmdi-account"></i>
-                          </span>
-                          <label class="control-label" for="ms-form-user">Username</label>
-                          <input type="text" id="ms-form-user"  class="form-control" />
-                        </div>
-                      </div>
-                      <div class="form-group label-floating">
-                        <div class="input-group">
-                          <span class="input-group-addon">
-                            <i class="zmdi zmdi-email"></i>
-                          </span>
-                          <label class="control-label" for="ms-form-email">Email</label>
-                          <input type="email" id="ms-form-email"  class="form-control" />
-                        </div>
-                      </div>
-                      <div class="form-group label-floating">
-                        <div class="input-group">
-                          <span class="input-group-addon">
-                            <i class="zmdi zmdi-lock"></i>
-                          </span>
-                          <label class="control-label" for="ms-form-pass">Password</label>
-                          <input type="password" id="ms-form-pass"  class="form-control" />
-                        </div>
-                      </div>
-                      <div class="form-group label-floating">
-                        <div class="input-group">
-                          <span class="input-group-addon">
-                            <i class="zmdi zmdi-lock"></i>
-                          </span>
-                          <label class="control-label" for="ms-form-pass">Re-type Password</label>
-                          <input type="password" id="ms-form-pass"  class="form-control" />
-                        </div>
-                      </div>
-                      <button class="btn btn-raised btn-block btn-primary">Register Now</button>
-                    </fieldset>
-                  </form>
-                </div>
-                <div role="tabpanel" class="tab-pane fade" id="ms-recovery-tab">
-                  <form>
-                    <fieldset>
-                      <div class="form-group label-floating">
-                        <div class="input-group">
-                          <span class="input-group-addon">
-                            <i class="zmdi zmdi-account"></i>
-                          </span>
-                          <label class="control-label" for="ms-form-user">Username</label>
-                          <input type="text" id="ms-form-user"  class="form-control" />
-                        </div>
-                      </div>
-                      <div class="form-group label-floating">
-                        <div class="input-group">
-                          <span class="input-group-addon">
-                            <i class="zmdi zmdi-email"></i>
-                          </span>
-                          <label class="control-label" for="ms-form-email">Email</label>
-                          <input type="email" id="ms-form-email"  class="form-control" />
-                        </div>
-                      </div>
-                      <button class="btn btn-raised btn-block btn-primary">Send Password</button>
-                    </fieldset>
-                  </form>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>
       <header class="ms-header ms-header-primary">
         <div class="container container-full">
           <div class="ms-title">
-            <a href="index.html">
+            <a href="javascript:void(0)">
               <!-- <img src="OPHContent/themes/{/sqroot/header/info/themeFolder}/assets/img/demo/logo-header.png" alt=""> -->
               <!--<span class="ms-logo animated zoomInDown animation-delay-5" style="font-size:18px;">OPH</span>-->
               <img class="animated zoomInDown animation-delay-5" src="OPHContent/themes/{/sqroot/header/info/themeFolder}/assets/img/logo.png" style="max-width:70px;" />
               <h1 class="animated fadeInRight animation-delay-6">
-                <span>Operahouse</span>
-                Systems
+                <span>Operahouse</span>Systems
               </h1>
             </a>
           </div>
           <div class="header-right">
-            <div class="share-menu">
-              <ul class="share-menu-list">
-                <li class="animated fadeInRight animation-delay-3">
-                  <a href="javascript:void(0)" class="btn-circle btn-google">
-                    <i class="zmdi zmdi-google"></i>
-                  </a>
-                </li>
-                <li class="animated fadeInRight animation-delay-2">
-                  <a href="javascript:void(0)" class="btn-circle btn-facebook">
-                    <i class="zmdi zmdi-facebook"></i>
-                  </a>
-                </li>
-                <li class="animated fadeInRight animation-delay-1">
-                  <a href="javascript:void(0)" class="btn-circle btn-twitter">
-                    <i class="zmdi zmdi-twitter"></i>
-                  </a>
-                </li>
-              </ul>
-              <a href="javascript:void(0)" class="btn-circle btn-circle-primary animated zoomInDown animation-delay-7">
-                <i class="zmdi zmdi-share"></i>
+
+            <xsl:if test="(sqroot/header/info/user/userName/.)">
+              <div class="btn-group">
+                <a href="index.aspx?code=userprofile&amp;GUID={/sqroot/header/info/user/userGUID}" style="color:white; padding:5px;" class="animated zoomInDown animation-delay-10" data-toggle="tooltip" data-placement="bottom" title="Go to profile">
+                  <xsl:value-of select="/sqroot/header/info/user/userName/." />&amp;nbsp;
+                </a>
+                <a href="#" style="color:white; padding:5px;" class="animated zoomInDown animation-delay-10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="zmdi zmdi-chevron-down right only"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right" style="top:25px;">
+
+                  <li>
+                    <a href="javascript:void(0)" onclick="signOut()" style="padding:5px 10px;">Sign Out</a>
+                  </li>
+                </ul>
+              </div>
+            </xsl:if>
+
+            <xsl:if test="not(sqroot/header/info/user/userName/.)">
+              <a href="index.aspx?code=register" class="btn-circle btn-circle-primary no-focus animated zoomInDown animation-delay-8" data-toggle="tooltip" data-placement="bottom" title="Login or Register">
+                <i class="zmdi zmdi-account"></i>
               </a>
-            </div>
-            <a href="javascript:void(0)" class="btn-circle btn-circle-primary no-focus animated zoomInDown animation-delay-8" data-toggle="modal" data-target="#ms-account-modal">
-              <i class="zmdi zmdi-account"></i>
-            </a>
-            <form class="search-form animated zoomInDown animation-delay-9">
-              <input id="search-box" type="text" class="search-input" placeholder="Search..." name="q" />
-              <label for="search-box">
-                <i class="zmdi zmdi-search"></i>
-              </label>
-            </form>
-            <a href="javascript:void(0)" class="btn-ms-menu btn-circle btn-circle-primary sb-toggle-left animated zoomInDown animation-delay-10">
+            </xsl:if>
+            <a href="javascript:void(0)" class="btn-ms-menu btn-circle btn-circle-primary sb-toggle-left animated zoomInDown animation-delay-10"  data-toggle="tooltip" data-placement="bottom" title="Show Menu Sidebar">
               <i class="zmdi zmdi-menu"></i>
             </a>
           </div>
@@ -301,18 +183,6 @@
         </div>
         <!-- container -->
       </nav>
-      <!--this is slider-->
-      <!--<div class="ms-hero-page-override ms-hero-img-airplane ms-bg-fixed ms-hero-bg-dark-light">
-        <div class="container">
-          <div class="text-center">
-            <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">Register</h1>
-            <p class="lead lead-lg color-light text-center center-block mt-2 mw-800 text-uppercase fw-300 animated fadeInUp animation-delay-7">
-              Do not wait more register now! Access our great community and benefit from
-              <span class="color-info">exclusive membership</span> conditions.
-            </p>
-          </div>
-        </div>
-      </div>-->
       <!--this is Content-->
       <div class="container">
         <div class="row">
@@ -340,12 +210,20 @@
         </div>
       </footer>
     </div>
+
+    <!--button back to top-->
+    <div class="btn-back-top">
+      <a href="#" data-scroll="" id="back-top" class="btn-circle btn-circle-primary btn-circle-sm btn-circle-raised ">
+        <i class="zmdi zmdi-long-arrow-up"></i>
+      </a>
+    </div>
   </xsl:template>
 
+  <!--primaryfront menu-->
   <xsl:template match="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu">
     <xsl:if test="(@type)='label'">
       <li class="dropdown">
-        <a href="javascript:void(0)" class="dropdown-toggle animated fadeIn animation-delay-4">
+        <a href="{pageURL}" class="dropdown-toggle animated fadeIn animation-delay-4">
           <xsl:value-of select="caption/." />&#160;
         </a>
       </li>
@@ -362,33 +240,77 @@
             <div class="row">
               <div class="col-sm-3 megamenu-col">
                 <xsl:apply-templates select="submenus/submenu[@type='list1']" />&#160;
-                
+
+              </div>
+              <div class="col-sm-3 megamenu-col">
+                <xsl:apply-templates select="submenus/submenu[@type='list2']" />&#160;
+
+              </div>
+              <div class="col-sm-3 megamenu-col">
+                <xsl:apply-templates select="submenus/submenu[@type='list3']" />&#160;
+
+              </div>
+              <div class="col-sm-3 megamenu-col">
+                <xsl:apply-templates select="submenus/submenu[@type='list4']" />&#160;
+
               </div>
             </div>
           </li>
         </ul>
       </li>
     </xsl:if>
-   
+
   </xsl:template>
 
-  <xsl:template match="submenus/submenu[@type='list1']">
+  <xsl:template match="submenus/submenu[@type='list1'] | submenus/submenu[@type='list2'] | submenus/submenu[@type='list3'] | submenus/submenu[@type='list4']">
     <div class="megamenu-block animated fadeInLeft animated-2x">
       <h3 class="megamenu-block-title">
         <xsl:value-of select="caption/." />&#160;
       </h3>
       <ul class="megamenu-block-list">
-        <xsl:apply-templates select="submenus/submenu[@type='itemlist1']" />&#160;
-        
-      
+        <xsl:apply-templates select="submenus/submenu[@type='itemlist']" />&#160;
+
       </ul>
     </div>
   </xsl:template>
 
-  <xsl:template match="submenus/submenu[@type='itemlist1']">
+
+  <xsl:template match="submenus/submenu[@type='itemlist']">
     <li>
-      <a class="withripple" href="component-typography.html">
-        <i class="fa fa-font"></i> <xsl:value-of select="caption/." />&#160;
+      <a class="withripple" href="{pageURL}">
+        <i class="fa fa-angle-right"></i> <xsl:value-of select="caption/." />&#160;
+      </a>
+    </li>
+  </xsl:template>
+
+  <!--mobilemenu menu-->
+  <xsl:template match="sqroot/header/menus/menu[@code='mobilemenu']/submenus/submenu">
+    <xsl:if test="(@type)='label'">
+      <li>
+        <a class="link" href="{pageURL}">
+          <xsl:value-of select="caption/." />
+        </a>
+      </li>
+    </xsl:if>
+
+    <xsl:if test="(@type)='dropdown-expand'">
+      <li class="panel" role="tab" id="{MenuDescription}sch1">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#slidebar-menu" href="#{MenuDescription}sc1" aria-expanded="false" aria-controls="sc1">
+          <xsl:value-of select="caption/." />
+        </a>
+        <ul id="{MenuDescription}sc1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="sch1">
+          <xsl:apply-templates select="submenus/submenu[@type='mobiledrop']" />
+
+        </ul>
+      </li>
+    </xsl:if>
+
+  </xsl:template>
+
+  <xsl:template match="submenus/submenu[@type='mobiledrop']">
+    <li>
+      <a  href="{pageURL}">
+        <xsl:value-of select="caption/." />
       </a>
     </li>
   </xsl:template>

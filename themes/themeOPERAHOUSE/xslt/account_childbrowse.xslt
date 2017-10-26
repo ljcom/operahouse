@@ -16,8 +16,16 @@
         </div>
       </div>
     </div>
-    
-   
+
+    <div class="modal modal-primary" id="childmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel6">
+      <div class="modal-dialog animated zoomIn animated-3x" role="document">
+        <div class="modal-content">
+          <div id="childmodalcontent">
+            
+          </div>
+        </div>
+      </div>
+    </div>
   </xsl:template>
 
   <!--package section-->
@@ -28,23 +36,31 @@
         <!--<p class="counter">
           <xsl:value-of select ="fields/field[@caption = 'NoOfUsers']/."/> Users
         </p>-->
-        
-        <i class="fa fa-4x fa-group color-info"></i>
-        <h4 class="mt-2 no-mb uppercase">
-          <a href="#">
-            <xsl:value-of select ="fields/field[@caption = 'Package']/."/>
-          </a>
-        </h4>
-        <a href="index.aspx?code={/sqroot/body/bodyContent/browse/info/code/.}&amp;GUID={@GUID}" class="btn btn-primary" style="padding:10px 15px;">
-          <i class="zmdi zmdi-edit"></i> Edit
+        <a href="javascript:void(0)" class="btn btn-primary btn-raised" style="position:absolute; top:-10px; right:10px;" onclick="">
+          <i class="zmdi zmdi-delete"></i> 
         </a>
-        <a href="javascript:void(0)" class="btn btn-primary btn-raised" style="padding:10px 15px;">
-          <i class="zmdi zmdi-globe"></i> Open
+        <!--<i class="fa fa-4x fa-microchip"></i>-->
+        <h4 class="mt-2 no-mb" style="height:50px; font-weight:bold;">
+          
+            <xsl:value-of select ="fields/field[@caption = 'Package']/."/>
+          
+        </h4>
+        <h4 class="mt-2 no-mb" style="height:30px;">
+
+          <xsl:value-of select ="fields/field[@caption = 'PackagePrice']/."/>
+
+        </h4>
+        <!--<a href="javascript:void(0)" data-toggle="modal" data-target="#childmodal">
+          <i class="zmdi zmdi-edit"></i> Change Plan
+        </a>-->
+        <a href="javascript:void(0)" class="btn btn-primary btn-raised" style="padding:10px 15px;" onclick="LoadNewPartView('account_childbrowse_modal', 'childmodalcontent', 'accountdetail', '{@GUID}');" data-toggle="modal" data-target="#childmodal">
+          <i class="zmdi zmdi-globe"></i> Change Plan
         </a>
       </div>
     </div>
     
   </xsl:template>
+
 
   
   
