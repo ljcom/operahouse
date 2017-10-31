@@ -393,7 +393,7 @@
         <xsl:attribute name="disabled">disabled</xsl:attribute>
       </xsl:if>
     </input>
-
+    
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
@@ -515,9 +515,7 @@
             <xsl:when test="value and value != ''">
               <xsl:value-of select="value"/>            
             </xsl:when>
-            <xsl:otherwise>
-              &#160;            
-            </xsl:otherwise>          
+            <xsl:otherwise>&#160;</xsl:otherwise>
           </xsl:choose>          
         </xsl:otherwise>
       </xsl:choose>
@@ -530,6 +528,9 @@
       </xsl:if>
       <xsl:value-of select="$thisValue"/>
     </textarea>
+    <script>
+      $('#<xsl:value-of select="../@fieldName"/>').val($.trim($('#<xsl:value-of select="../@fieldName"/>').val()));
+    </script>
  
   </xsl:template>
 

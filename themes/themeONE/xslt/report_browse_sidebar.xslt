@@ -21,7 +21,7 @@
     <!--<form method="get" class="sidebar-form">-->
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="OPHContent/documents/{sqroot/header/info/user/userURL}" class="img-circle" alt="User Image" />
+        <img src="OPHContent/documents/{sqroot/header/info/account}/{sqroot/header/info/user/userURL}" class="img-circle" alt="User Image" />
       </div>
       <div class="pull-left info">
         <p>
@@ -119,6 +119,10 @@
           </xsl:if>
           <xsl:value-of select="caption/." />&#160;
         </span>
+        &#160;
+        <xsl:if test="isPending &gt; 0">
+          <ix class="fa fa-asterisk" aria-hidden="true" style="font-size: 8px; position: absolute;"></ix>
+        </xsl:if>
       </a>
     </li>
   </xsl:template>

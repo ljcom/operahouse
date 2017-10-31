@@ -404,6 +404,10 @@ _________________________________________________________ -->
     <li>
       <a href="{pageURL/.}">
         <xsl:value-of select="caption/." />
+        &#160;
+        <xsl:if test="isPending &gt; 0">
+          <ix class="fa fa-asterisk" aria-hidden="true" style="font-size: 8px; position:absolute"></ix>
+        </xsl:if>
       </a>
     </li>
   </xsl:template>

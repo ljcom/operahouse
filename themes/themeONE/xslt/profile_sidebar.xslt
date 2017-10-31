@@ -117,9 +117,7 @@
         </span>
         &#160;
         <xsl:if test="isPending &gt; 0">
-          <!--<span class="label label-info">-->
-          <ix class="fa fa-asterisk" aria-hidden="true" style="font-size: 10px; position: absolute;"></ix>
-          <!--</span>-->
+          <ix class="fa fa-asterisk" aria-hidden="true" style="font-size: 8px; position: absolute;"></ix>
         </xsl:if>
         <!--<xsl:if test="tRecord &gt; 0">
           <span class="label label-default">
