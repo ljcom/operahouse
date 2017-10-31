@@ -1,19 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl">
+  
   <xsl:template match="/">
-
+    <script>
+      removeXmlns();
+    </script>
     
     <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row[@code = 'packagesection']"/>
     <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row[@code = 'packagerelated']"/>
 
     <xsl:if test="sqroot/body/bodyContent/browse/info/code ='PackagePrice'">
-      <div class="container" style="margin-top:50px;">
-        <div class="text-center">
-          <h2 class="uppercase  color-primary animated fadeInUp animation-delay-7">See our subscription plans</h2>
-          <p class="lead uppercase  color-primary animated fadeInUp animation-delay-7">Surprise with our unique features</p>
-        </div>
-        <div class="row">
-          <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row[@code = 'packageprice']"/>
+      <div class="ms-hero-page-override ms-hero-img-city ms-hero-bg-primary no-pb overflow-hidden ms-bg-fixed mt-6">
+        <div class="container">
+          <div class="text-center mb-6">
+            <h2 class="uppercase  color-white animated fadeInUp animation-delay-7">See our subscription plans</h2>
+            <p class="lead uppercase  color-white animated fadeInUp animation-delay-7">Surprise with our unique features</p>
+          </div>
+          <div class="row">
+            <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row[@code = 'packageprice']"/>
+          </div>
         </div>
       </div>
     </xsl:if>
@@ -179,9 +184,16 @@
               </li>-->
             </ul>
             <div class="text-center">
-              <a href="javascript:void(0)" onclick="gotoOrders('','{@GUID}')" class="btn btn-info btn-raised">
-                <i class="zmdi zmdi-cloud-download"></i> Get Now
-              </a>
+              <xsl:if test="(/sqroot/header/info/user/userId/.)">
+                <a href="javascript:void(0)" onclick="gotoOrders('','{@GUID}')" class="btn btn-info btn-raised">
+                  <i class="zmdi zmdi-cloud-download"></i> Get Now
+                </a>
+              </xsl:if>
+              <xsl:if test="not(/sqroot/header/info/user/userId/.)">
+                <a href="index.aspx?code=register" class="btn btn-info btn-raised">
+                  <i class="zmdi zmdi-cloud-download"></i> Get Now
+                </a>
+              </xsl:if>
             </div>
           </div>
         </div>

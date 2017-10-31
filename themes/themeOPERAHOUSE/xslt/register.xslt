@@ -6,9 +6,6 @@
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/js/plugins.min.js');
 
       loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/js/app.min.js');
-
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/assets/js/home-generic-6.js');
-
     </script>
 
     <!--sidebar-->
@@ -176,20 +173,20 @@
       <div class="container">
         <div class="row">
           
-          <div class="col-md-5 col-md-push-7">
+          <div class="col-md-4 col-md-push-8">
             <div class="card card-primary animated fadeInUp animation-delay-7">
               <div class="card-block">
                 <h1 class="color-primary text-center">Login</h1>
                 <form class="form-horizontal" id="signinForm" onsubmit="return signInFrontEnd()">
                   <fieldset>
                     <div class="form-group">
-                      <label for="inputEmail" class="col-md-2 control-label">User ID</label>
-                      <div class="col-md-10">
+                      <label for="inputEmail" class="col-md-3 control-label" style="margin:0px;">User ID</label>
+                      <div class="col-md-9">
                         <input type="text" class="form-control" id="userid" name ="userid" placeholder="User ID" /> </div>
                     </div>
                     <div class="form-group">
-                      <label for="inputPassword" class="col-md-2 control-label">Password</label>
-                      <div class="col-md-10">
+                      <label for="inputPassword" class="col-md-3 control-label" style="margin:0px;">Password</label>
+                      <div class="col-md-9">
                         <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Password" /> </div>
                     </div>
                   </fieldset>
@@ -215,7 +212,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-7 col-md-pull-5">
+          <div class="col-md-8 col-md-pull-4">
             <div class="card card-primary animated fadeInUp animation-delay-7">
 
               <div class="card-block" id="register_form">

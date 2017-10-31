@@ -635,3 +635,9 @@ function LoadWave(type) {
         $('#content-loader').hide()
     }
 }
+
+function removeXmlns() {
+    $("div").removeAttr("xmlns");
+    $("input").removeAttr("xmlns");
+    $("section").removeAttr("xmlns");
+}
