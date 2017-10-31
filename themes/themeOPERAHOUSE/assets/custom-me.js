@@ -641,3 +641,8 @@ function removeXmlns() {
     $("input").removeAttr("xmlns");
     $("section").removeAttr("xmlns");
 }
+
+function setPackage(package, plan) {
+    setCookie("packageguid", package, 30, 0, 0);
+    setCookie("planguid", plan, 30, 0, 0);
+}
