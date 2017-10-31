@@ -72,26 +72,26 @@ Partial Class OPHCore_api_msg_rptDialog
 				Try
 					Dim reportDocument As DocumentLayout = New DocumentLayout(pathDPLX)
 					Do While True
-						query = runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='YoDailySalesByCustomer' and InfoKey='querysql_" & q & "'")
+                        query = runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='" & code & "' and InfoKey='querysql_" & q & "'")
 
-						Dim rpQuery As ceTe.DynamicPDF.ReportWriter.Data.StoredProcedureQuery = CType(reportDocument.GetQueryById("Query" & q), ceTe.DynamicPDF.ReportWriter.Data.StoredProcedureQuery)
+                        Dim rpQuery As ceTe.DynamicPDF.ReportWriter.Data.StoredProcedureQuery = CType(reportDocument.GetQueryById("Query" & q), ceTe.DynamicPDF.ReportWriter.Data.StoredProcedureQuery)
 						If Not rpQuery Is Nothing Then
-							If query IsNot Nothing Then
-								If runSQLwithResult("select OBJECT_ID('doc." & query & "')", Connections) = "" Then
-									Dim dbName = runSQLwithResult("declare @db varchar(20); exec gen.getdbinfo '" & curHostGUID & "', '" & code & "', @db=@db OUTPUT; select @db", Connections)
-									Dim lfCtl = Left(contentOfdbODBC, (contentOfdbODBC.ToLower().IndexOf("catalog") + 8))
-									Dim rtCtl = Right(contentOfdbODBC, (contentOfdbODBC.Length - lfCtl.Length))
-									rtCtl = Right(rtCtl, (rtCtl.Length - rtCtl.IndexOf(";")))
+                            If query IsNot Nothing And query <> "" Then
+                                If runSQLwithResult("select OBJECT_ID('doc." & query & "')", Connections) = "" Then
+                                    Dim dbName = runSQLwithResult("declare @db varchar(20); exec gen.getdbinfo '" & curHostGUID & "', '" & code & "', @db=@db OUTPUT; select @db", Connections)
+                                    Dim lfCtl = Left(contentOfdbODBC, (contentOfdbODBC.ToLower().IndexOf("catalog") + 8))
+                                    Dim rtCtl = Right(contentOfdbODBC, (contentOfdbODBC.Length - lfCtl.Length))
+                                    rtCtl = Right(rtCtl, (rtCtl.Length - rtCtl.IndexOf(";")))
 
-									Dim newConnection = lfCtl & dbName & rtCtl
-									If runSQLwithResult("select OBJECT_ID('doc." & query & "')", newConnection) = "" Then
-										Response.Write("<script>alert('Invalid object_id(" & query & ")')</script>")
-									Else
-										Connections = newConnection
-									End If
-								End If
-							End If
-							rpQuery.ConnectionString = Connections
+                                    Dim newConnection = lfCtl & dbName & rtCtl
+                                    If runSQLwithResult("select OBJECT_ID('doc." & query & "')", newConnection) = "" Then
+                                        Response.Write("<script>alert('Invalid object_id(" & query & ")')</script>")
+                                    Else
+                                        Connections = newConnection
+                                    End If
+                                End If
+                            End If
+                            rpQuery.ConnectionString = Connections
 							q += 1
 						Else
 							Exit Do
