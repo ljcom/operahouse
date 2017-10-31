@@ -5,7 +5,16 @@
     <script>
       removeXmlns();
     </script>
-    
+    <!--childmodal-->
+    <div class="modal modal-primary" id="childmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel6">
+      <div class="modal-dialog animated zoomIn animated-3x" role="document">
+        <div class="modal-content">
+          <div id="childmodalcontent">
+
+          </div>
+        </div>
+      </div>
+    </div>
     <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row[@code = 'packagesection']"/>
     <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row[@code = 'packagerelated']"/>
 
@@ -185,7 +194,7 @@
             </ul>
             <div class="text-center">
               <xsl:if test="(/sqroot/header/info/user/userId/.)">
-                <a href="javascript:void(0)" onclick="gotoOrders('','{@GUID}')" class="btn btn-info btn-raised">
+                <a href="javascript:void(0)"  onclick=" var temp = setPackage(getGUID(),'{@GUID}');LoadNewPartView('package_childbrowse_modal', 'childmodalcontent', 'ordersdetailsmodal', '00000000-0000-0000-0000-000000000000'); return temp;" data-toggle="modal" data-target="#childmodal" class="btn btn-info btn-raised">
                   <i class="zmdi zmdi-cloud-download"></i> Get Now
                 </a>
               </xsl:if>

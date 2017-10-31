@@ -150,11 +150,6 @@
                 <i class="zmdi zmdi-account"></i>
               </a>
             </xsl:if>
-            <a href="javascript:void(0)" class="btn-ms-menu btn-circle btn-circle-primary sb-toggle-left animated zoomInDown animation-delay-10"  data-toggle="tooltip" data-placement="bottom" title="Cart">
-              <i class="zmdi zmdi-shopping-cart">
-                <p id="totalincart" href="javascript:void(0)" style="color:white; background:#EB8C00; position:absolute;top:10px;right:15px; padding:2px; font-size:10px;">0</p>
-              </i>
-            </a>
             <a href="javascript:void(0)" class="btn-ms-menu btn-circle btn-circle-primary sb-toggle-left animated zoomInDown animation-delay-10"  data-toggle="tooltip" data-placement="bottom" title="Show Menu Sidebar">
               <i class="zmdi zmdi-menu"></i>
             </a>
@@ -193,9 +188,13 @@
         <div class="row">
           <div class="col-md-12 ">
             <div class="card card-primary animated fadeInUp animation-delay-7">
+
               <div class="card-block" id="orders_form">
+                Loading Please Wait...
                 <script>
-                  LoadNewPart('orders_details', 'orders_form', 'ordersdetails', '', '');
+                  if (userguid != ''){
+                  LoadNewPartView('ordersdetails_form', 'orders_form', 'ordersdetails', '00000000-0000-0000-0000-000000000000');
+                  }
                 </script>
                 
               </div>
