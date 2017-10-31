@@ -93,18 +93,15 @@ function fillMobileItem(code, guid, Status, allowedit, allowDelete, allowWipe, a
     x = x.replace('#tx2#', tx2);
 
     x = x.replace('#d2#', '<div id="' + divname + '" class="panel-collapse collapse">#d21#</div>');
-    x = x.replace('#d21#', '<div class="box-body full-width-a">#d211##d212#</div>');
-    x = x.replace('#d211#', '<div class="browse-status" style="background:gray; color:white; padding:10px; position:relative;">#tx3##a2#</div>');
-    x = x.replace('#tx3#', tx3);
-    x = x.replace('#a2#', '<a href="#" style="color:white; text-decoration:underline">see more</a><br /><br /><b>LAST COMMENT</b><br />WAIT FOR USER3<br /><br /><b>REQUESTED ON</b><br />ESRA MARTLIANTY (3 JAN 2016) <br /><a href="#a4#" title="edit" style="position:absolute; top:10px; right:10px; font-size:17px; color:white;">#ix#</a>');
-    if (allowedit == 1) {
-        x = x.replace('#ix#', '<ix class="fa fa-pencil"></ix>');
-        x = x.replace('#a4#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'formView\', 1, 10)');
-    }
-    else {
-        x = x.replace('#ix#', '<ix class="fa fa-pencil" style="color:LightGray"></ix>');
-        x = x.replace('#a4#', '#');
-    }
+    x = x.replace('#d21#', '<div class="box-body full-width-a">#d212#</div>');
+
+    //x = x.replace('#d211#', '<div class="browse-status" style="background:gray; color:white; padding:10px; position:relative;">#tx3##a2#</div>');
+    //x = x.replace('#d211#', '<div class="browse-status" style="background:gray; color:white; padding:10px; position:relative;">#tx3#<a href="#a4#" title="edit" style="position:absolute; top:10px; right:10px; font-size:17px; color:white;">#ix#</a></div>');
+    //x = x.replace('#tx3#', tx3);
+    //x = x.replace('#a2#', '<a href="#" style="color:white; text-decoration:underline">see more</a><br /><br /><b>LAST COMMENT</b><br />WAIT FOR USER3<br /><br /><b>REQUESTED ON</b><br />ESRA MARTLIANTY (3 JAN 2016) <br /><a href="#a4#" title="edit" style="position:absolute; top:10px; right:10px; font-size:17px; color:white;">#ix#</a>');
+
+    //x = x.replace('#d211#', '<a href="#a4#" title="edit" style="position:absolute; top:10px; right:10px; font-size:17px; color:white;">#ix#</a>');
+
     x = x.replace('#d212#', '<div style="text-align:center; display:block; background:gray; padding:10px 0;">#t#</div>');
     x = x.replace('#t#', '<table style="width:100%">#tr#</table>');
     x = x.replace('#tr#', '<tr><td>&#160;</td>#td#<td>&#160;</td></tr>');
@@ -114,32 +111,45 @@ function fillMobileItem(code, guid, Status, allowedit, allowDelete, allowWipe, a
     //bt = bt.replace('#a3#', '<a href="#">#bt#</a>');
     //bt = bt.replace('#bt#', '<button type="button" class="btn btn-gray-a" style="background:#ccc; border:none;">#btname#</button>');
 
+    var btname = "EDIT"
+    if (allowedit == 1) {
+        x = x.replace('#td#', bt.replace('#btname#', '<ix class="fa fa-pencil"></ix> ' + btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'formView\', 1, 10)'));
+        //x = x.replace('#ix#', '<ix class="fa fa-pencil"></ix>');
+        //x = x.replace('#a4#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'formView\', 1, 10)');
+    }
+    //else {
+    //    x = x.replace('#ix#', '<ix class="fa fa-pencil" style="color:LightGray"></ix>');
+    //    x = x.replace('#a4#', '#');
+    //}
+
     var btname = 'DELETE';
     var btfn = 'inactive';
     if (status < 500 && allowDelete == 1) {
-        x = x.replace('#td#', bt.replace('#btname#', btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'' + btfn + '\', 1, 10)'));
+        x = x.replace('#td#', bt.replace('#btname#', '<ix class="fa fa-trash"></ix> ' + btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'' + btfn + '\', 1, 10)'));
     }
 
     var btname = 'WIPE';
     var btfn = 'wipe';
     if (status == 999 && allowWipe == 1) {
-        x = x.replace('#td#', bt.replace('#btname#', btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'' + btfn + '\', 1, 10)'));
+        x = x.replace('#td#', bt.replace('#btname#', '<ix class="fa fa-trash"></ix> ' + btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'' + btfn + '\', 1, 10)'));
     }
 
     var btname = 'ARCHIEVE'; 
     var btfn = 'force';
     if (status < 500 && status >= 400 && allowForce == 1) {
-        x = x.replace('#td#', bt.replace('#btname#', btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'' + btfn + '\', 1, 10)'));
+        x = x.replace('#td#', bt.replace('#btname#', '<ix class="fa fa-archive"></ix> ' + btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'' + btfn + '\', 1, 10)'));
     }
 
     var btname = 'APPROVE';
     var btfn = 'execute';
-    x = x.replace('#td#', bt.replace('#btname#', btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'' + btfn + '\', 1, 10)'));
+    x = x.replace('#td#', bt.replace('#btname#', '<ix class="fa fa-check"></ix> ' + btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'' + btfn + '\', 1, 10)'));
 
     //close
     x = x.replace('#td#', '');
 
     $(x).appendTo("#accordionBrowse");
+
+
 }
 
 function addpagenumber(pageid, currentpage, totalpages) {
