@@ -35,7 +35,7 @@
     <div class="input-group sidebar-form">
       <input type="text" id="searchBox" name="searchBox" class="form-control" placeholder="Search..." onkeypress="return searchText(event,this.value);" value="" />
       <span class="input-group-btn">
-        <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+        <button type="button" name="search" id="search-btn" class="btn btn-flat" onclick="searchText(event);">
           <ix class="fa fa-search" aria-hidden="true"></ix>
         </button>
       </span>

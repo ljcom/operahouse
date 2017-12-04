@@ -147,16 +147,24 @@
             <!--location: 0 header; 1 child; 2 browse
               location: browse:10, header form:20, browse anak:30, browse form:40-->
 
-            <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}',40);">SAVE</button>&#160;
+            <xsl:if test="/sqroot/body/bodyContent/form/info/permission/allowAddSave = 1">
+              <button id="child_button_addSave" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 41, 'form{sqroot/body/bodyContent/form/info/code/.}');">SAVE &amp; ADD NEW</button>&#160;
+            </xsl:if>
+            
+            <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 40, 'form{sqroot/body/bodyContent/form/info/code/.}');">SAVE</button>&#160;
             <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}')">CANCEL</button>&#160;
+            
             <xsl:if test="(/sqroot/body/bodyContent/form/info/GUID/.)!='00000000-0000-0000-0000-000000000000' or (/sqroot/body/bodyContent/form/info/permission/allowDelete/.)=1" >
               <button id="child_button_delete" class="btn btn-gray-a"
-                      onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'delete', 1, 40)">DELETE</button>
-              <!--location: 0 header; 1 child; 2 browse
-              location: browse:10, header form:20, browse anak:30, browse form:40-->
+                  onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'delete', 1, 40)">
+                DELETE
+              </button>
             </xsl:if>
             <xsl:if test="(/sqroot/body/bodyContent/form/info/GUID/.)!='00000000-0000-0000-0000-000000000000'">
               <script>
+                <xsl:if test="/sqroot/body/bodyContent/form/info/permission/allowAddSave = 1 and /sqroot/body/bodyContent/form/info/code = 'tadedudocm'">
+                  $('#child_button_addSave').hide();
+                </xsl:if>
                 $('#child_button_save').hide();
                 $('#child_button_cancel').hide();
               </script>
@@ -164,12 +172,12 @@
           </div>
         </div>
 
-        <div class="col-md-12 displayblock-phone" style="margin-bottom:20px;">
+        <!--<div class="col-md-12 displayblock-phone" style="margin-bottom:20px;">
           <div style="text-align:center">
-            <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}',40);">SAVE</button>&#160;
+            <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 40, 'form{sqroot/body/bodyContent/form/info/code/.}');">SAVE</button>&#160;
             <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}')">CANCEL</button>
           </div>
-        </div>
+        </div>-->
       </div>
       <!-- button view header -->
       <xsl:apply-templates select="sqroot/body/bodyContent/form/children/child"/>
@@ -192,23 +200,20 @@
   </xsl:template>
 
   <xsl:template match="form">
-
     <script>
       var code = "<xsl:value-of select="info/code/."/>";
       var tblnm =code+"requiredname";
-
-
     </script>
     <input type="hidden" name ="{info/code/.}requiredname"/>
     <input type="hidden" name ="{info/code/.}requiredtblvalue"/>
-    <!--<input type="hidden" id="PKSAVE{info/code/.}" value="{info/parentKey/.}"/>-->
     <div class="col-md-12" id="child">
       <form role="form" id="form{info/code/.}">
-        <!--<input type="hidden" name="mode" value="save"/>
-      <input type="hidden" name="code" value="{info/code/.}"/>-->
         <input type="hidden" name="{info/parentKey/.}" id="PK{info/code/.}" value=""/>
         <script>
-          $('#PK'+code).val(getGUID());
+          var childCode = 'child' + code;
+          var parentGUID = $("div[id*='" + childCode + "']").attr('id')
+          parentGUID = parentGUID.replace(childCode, '');
+          $('#PK'+code).val(parentGUID);
         </script>
         <xsl:apply-templates select="formPages/formPage[@pageNo&lt;9]"/>
       </form>
@@ -226,8 +231,11 @@
   </xsl:template>
 
   <xsl:template match="formSection ">
-    <div class="box" style="box-shadow:0px;border:none;">
+    <div class="box box-solid box-default" style="box-shadow:0px;border:none;">
       <div class="col-md-12">
+        <h3>
+          <xsl:value-of select="@rowTitle/."/>&#160;
+        </h3>
         <xsl:apply-templates select="formCols"/>
       </div>
     </div>
@@ -238,10 +246,8 @@
     <xsl:apply-templates select="formCol"/>
   </xsl:template>
 
-  <xsl:template match="formCol">
-
+  <!--<xsl:template match="formCol">
     <xsl:if test="@colNo='1'">
-
       <div class="col-md-6">
         <xsl:apply-templates select="formRows"/>
       </div>
@@ -251,6 +257,25 @@
         <xsl:apply-templates select="formRows"/>
       </div>
     </xsl:if>
+  </xsl:template>-->
+  <xsl:template match="formCol">
+    <xsl:choose>
+      <xsl:when test="@colNo='0'">
+        <div class="col-md-12">
+          <xsl:apply-templates select="formRows"/>
+        </div>
+      </xsl:when>
+      <xsl:otherwise>
+        <div class="col-md-6">
+          <xsl:if test="@colNo='1'">
+            <xsl:apply-templates select="formRows"/>
+          </xsl:if>
+          <xsl:if test="@colNo='2'">
+            <xsl:apply-templates select="formRows"/>
+          </xsl:if>
+        </div>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="formRows">
@@ -265,9 +290,7 @@
   </xsl:template>
 
   <xsl:template match="fields">
-
     <xsl:apply-templates select="field"/>
-
   </xsl:template>
 
   <xsl:template match="field">
@@ -359,8 +382,7 @@
         <xsl:when test="digit  = 3 and value!=''">
           <xsl:value-of select="format-number(value, '#,##0.000', 'dot-dec')"/>
         </xsl:when>
-        <xsl:when test="digit  = 4 and
-          value!=''">
+        <xsl:when test="digit  = 4 and value!=''">
           <xsl:value-of select="format-number(value, '#,##0.0000', 'dot-dec')"/>
         </xsl:when>
         <xsl:otherwise>
@@ -382,8 +404,8 @@
     </xsl:variable>
 
     <input type="text" class="form-control" Value="{$thisvalue}" name="{../@fieldName}"
-           data-old="{value/.}" data-child="Y"
-           onblur="preview('{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);"
+           data-old="{value/.}" data-child="Y" 
+           onblur="preview('{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);" 
            oninput="javascript:checkChanges(this)"
            id ="{../@fieldName}">
       <xsl:choose>
@@ -396,7 +418,7 @@
     </input>
   </xsl:template>
 
-  <xsl:template match="textEditor">
+  <xsl:template match="textEditor">    
     <label id="{../@fieldName}caption" data-toggle="collapse" data-target="#section_{@sectionNo}">
       <xsl:value-of select="titlecaption"/>
     </label>
@@ -411,26 +433,26 @@
         </xsl:when>
         <xsl:otherwise>&#160;</xsl:otherwise>
       </xsl:choose>
-    </textarea>
+    </textarea>  
 
     <script type="text/javascript">
       CKEDITOR.replace('<xsl:value-of select="../@fieldName"/>');
       CKEDITOR.instances['<xsl:value-of select="../@fieldName"/>'].on('blur', function() {
-      var teOldData = $('#<xsl:value-of select="../@fieldName"/>').html();
-      var teData = CKEDITOR.instances['<xsl:value-of select="../@fieldName"/>'].getData();
-      teData = teData.trim();
-      $('#<xsl:value-of select="../@fieldName"/>').html(teData);
-      if (teOldData != teData) {
-      $('#button_save').show();
-      $('#button_cancel').show();
-      $('#button_save2').show();
-      $('#button_cancel2').show();
-      }
-      preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);
+        var teOldData = $('#<xsl:value-of select="../@fieldName"/>').html();
+        var teData = CKEDITOR.instances['<xsl:value-of select="../@fieldName"/>'].getData();
+        teData = teData.trim();
+        $('#<xsl:value-of select="../@fieldName"/>').html(teData);
+        if (teOldData != teData) {
+          $('#button_save').show();
+          $('#button_cancel').show();
+          $('#button_save2').show();
+          $('#button_cancel2').show();
+        }
+        preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);
       });
     </script>
-  </xsl:template>
-
+</xsl:template>
+  
   <xsl:template match="dateBox">
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
@@ -474,7 +496,7 @@
       </input>
     </div>
   </xsl:template>
-
+  
   <xsl:template match="timeBox">
     <script>//timebox</script>
     <label id="{../@fieldName}caption">
@@ -545,10 +567,10 @@
     <xsl:if test="../@isNullable = 0">
       <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
-
+    
     <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}"
-            data-type="selectBox" data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}" data-child="Y"
-            onchange="preview('{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);">
+      data-type="selectBox" data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}" data-child="Y"
+        onchange="autosuggest_onchange(this, '{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);">
       <xsl:choose>
         <xsl:when test ="../@isEditable=1 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. = '00000000-0000-0000-0000-000000000000'))"></xsl:when>
         <xsl:otherwise>
@@ -630,8 +652,8 @@
       });
       });
     </script>-->
-
-    <script type="text/javascript">
+    
+    <script type="text/javascript">   
       var sURL<xsl:value-of select="../@fieldName"/>='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>&amp;colkey=<xsl:value-of select="../@fieldName"/>'
       var noPrepopulate<xsl:value-of select="../@fieldName"/>=1;
       <xsl:if test="value">
@@ -668,17 +690,17 @@
       );
       }
       });
-      });
+      });      
     </script>
 
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
-
+    
     <xsl:if test="../@isNullable = 0">
       <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
-
+    
     <!--digit-->
     <xsl:variable name="tbContent">
       <xsl:value-of select="value"/>
@@ -778,6 +800,9 @@
 
   <xsl:template match="child">
     <input type="hidden" id="CPKID" value="gchild{code/.}"/>
+    <input type="hidden" id="childKey{code/.}" value="{parentkey/.}"/>
+    <input type="hidden" id="filter{code/.}" value="{parentkey/.}='{/sqroot/body/bodyContent/form/info/GUID/.}'"/>
+    <input type="hidden" id="parent{code/.}" value="{parentkey/.}"/>
     <script>
 
       //xmldoc = "OPHCORE/api/default.aspx?code=<xsl:value-of select ="code/."/>&amp;mode=browse&amp;sqlFilter=<xsl:value-of select ="parentkey/."/>='<xsl:value-of select ="/sqroot/body/bodyContent/form/info/GUID/."/>'"

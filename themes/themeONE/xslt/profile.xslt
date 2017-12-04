@@ -87,16 +87,14 @@
           </a>
         </div>
         <div class="accordian-body collapse top-menu-div" id="mobilemenupanel" style="color:white; position:absolute; background:#222D32; z-index:100; width:100%; right:0px; top:50px; ">
-          <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search..." />
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                  <ix class="fa fa-search" aria-hidden="true"></ix>
-                </button>
-              </span>
-            </div>
-          </form>
+          <div class="input-group sidebar-form">
+            <input type="text" id="searchBox" name="searchBox" class="form-control" placeholder="Search..." onkeypress="return searchText(event,this.value);" value="" />
+            <span class="input-group-btn">
+              <button type="button" name="search" id="search-btn" class="btn btn-flat" onclick="searchText(event);">
+                <ix class="fa fa-search" aria-hidden="true"></ix>
+              </button>
+            </span>
+          </div>
           <div class="panel-group" id="accordion2">
             <xsl:apply-templates select="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu" />
           </div>

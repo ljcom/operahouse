@@ -55,7 +55,7 @@
     </div>
   </xsl:template>
   <xsl:template match="widgetColumns/widgetColumn">
-    <div class="col-lg-{@colWidth} col-xs-{@colWidth}">
+    <div class="col-lg-{@colWidth} col-xs-12">      
       <xsl:apply-templates select="widget[@type='smallBox']" />
       <xsl:apply-templates select="widget[@type='graphBox']" />
       <xsl:apply-templates select="widget[@type='chatBox']" />

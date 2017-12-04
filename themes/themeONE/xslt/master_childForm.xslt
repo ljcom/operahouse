@@ -147,16 +147,24 @@
             <!--location: 0 header; 1 child; 2 browse
               location: browse:10, header form:20, browse anak:30, browse form:40-->
 
+            <xsl:if test="/sqroot/body/bodyContent/form/info/permission/allowAddSave = 1">
+              <button id="child_button_addSave" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 41, 'form{sqroot/body/bodyContent/form/info/code/.}');">SAVE &amp; ADD NEW</button>&#160;
+            </xsl:if>
+            
             <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 40, 'form{sqroot/body/bodyContent/form/info/code/.}');">SAVE</button>&#160;
             <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}')">CANCEL</button>&#160;
+            
             <xsl:if test="(/sqroot/body/bodyContent/form/info/GUID/.)!='00000000-0000-0000-0000-000000000000' or (/sqroot/body/bodyContent/form/info/permission/allowDelete/.)=1" >
               <button id="child_button_delete" class="btn btn-gray-a"
-                      onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'delete', 1, 40)">DELETE</button>
-              <!--location: 0 header; 1 child; 2 browse
-              location: browse:10, header form:20, browse anak:30, browse form:40-->
+                  onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'delete', 1, 40)">
+                DELETE
+              </button>
             </xsl:if>
             <xsl:if test="(/sqroot/body/bodyContent/form/info/GUID/.)!='00000000-0000-0000-0000-000000000000'">
               <script>
+                <xsl:if test="/sqroot/body/bodyContent/form/info/permission/allowAddSave = 1 and /sqroot/body/bodyContent/form/info/code = 'tadedudocm'">
+                  $('#child_button_addSave').hide();
+                </xsl:if>
                 $('#child_button_save').hide();
                 $('#child_button_cancel').hide();
               </script>
@@ -224,9 +232,16 @@
 
   <xsl:template match="formSection ">
     <div class="box box-solid box-default" style="box-shadow:0px;border:none;">
-      <div class="col-md-12">
-        <xsl:apply-templates select="formCols"/>
-      </div>
+      
+        <div class="col-md-12">
+          <xsl:if test="@rowTitle/.!=''">
+            <h3>
+              <xsl:value-of select="@rowTitle/."/>&#160;
+            </h3>
+          </xsl:if>
+          <xsl:apply-templates select="formCols"/>
+        </div>
+     
     </div>
 
   </xsl:template>
@@ -393,8 +408,8 @@
     </xsl:variable>
 
     <input type="text" class="form-control" Value="{$thisvalue}" name="{../@fieldName}"
-           data-old="{value/.}" data-child="Y" 
-           onblur="preview('{preview/.}', 'sqroot/body/bodyContent/form/info/code/.', '{/sqroot/body/bodyContent/form/info/GUID/.}','formsqroot/body/bodyContent/form/info/code/.', this);" 
+           data-old="{value/.}" data-child="Y"
+           onblur="preview('{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);"
            oninput="javascript:checkChanges(this)"
            id ="{../@fieldName}">
       <xsl:choose>
@@ -558,8 +573,8 @@
     </xsl:if>
     
     <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}"
-            data-type="selectBox" data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}" data-child="Y"
-            onchange="preview('{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);">
+      data-type="selectBox" data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}" data-child="Y"
+        onchange="autosuggest_onchange(this, '{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);">
       <xsl:choose>
         <xsl:when test ="../@isEditable=1 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. = '00000000-0000-0000-0000-000000000000'))"></xsl:when>
         <xsl:otherwise>
@@ -727,7 +742,7 @@
       });
       }
     </script>
-    <input type="hidden" id="{../@fieldName}" value="{value/.}" />
+    <input type="hidden" id="{../@fieldName}" name="{../@fieldName}" value="{value/.}" />
     <div>
       <label id="{../@fieldName}caption">
         <xsl:value-of select="titlecaption"/>

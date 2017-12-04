@@ -18,31 +18,33 @@ function LoadNewPart(filename, id, code, sqlfilter, searchText, bpageno, showpag
 }
 
 function saveThemeONE(code, guid, location, formId) {
-    //location: browse:10, header form:20, browse anak:30, browse form:40
+    //location: browse:10, header form:20, browse anak:30, browse form:40, save&add form anak: 41
 
     saveFunction(code, guid, location, formId, function (data) {
         var msg = $(data).children().find("message").text();
         var retguid = $(data).children().find("guid").text();
-        //if (retguid == "" && isGuid(msg)) {
-        //    retguid = msg;
-        //}
-        //location: browse:10, header form:20, browse anak:30, browse form:40
-        if (location == 40) {
+
+        if (location == 40 || location == 41) {
             //var pkfield = document.getElementById("PKSAVE" + code).value;
             var pkvalue = document.getElementById("PK" + code).value;
             var parentkey = document.getElementById("PKID").value.split('child').join('');
             var pkey = $('#parent' + code).val();
             var childKey = $('#childKey' + code).val()
         }
+
         //insert new form
         if (retguid != "" && retguid != guid && location == 20) window.location = 'index.aspx?env=back&code=' + getCode() + '&guid=' + retguid;
             //insert child
-        else if (retguid != "" && retguid != guid && location == 40) {
-            //xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=browse&sqlFilter=" + pkey + "='" + pkvalue + "'";
-            preview(1, code, guid, formId + code);
-            //showXML(pkid, xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () { });
+        else if (retguid != "" && retguid != guid && location == 40 ) {
+            //preview(1, code, guid, formId + code);
             loadChild(code, pkey, pkvalue, 1)
-
+        }
+        else if (retguid != "" && retguid != guid && location == 41) {
+            //preview(1, code, guid, formId + code);
+            $.when(loadChild(code, pkey, pkvalue, 1)).done(function () {
+                $('#' + code + '00000000-0000-0000-0000-000000000000').hide();
+                showChildForm(code, '00000000-0000-0000-0000-000000000000');
+            });
         }
         else if (msg != "") {
             //compatible with load version
@@ -52,10 +54,15 @@ function saveThemeONE(code, guid, location, formId) {
             }
                 //compatible with load version
             else if (isGuid(msg) && location == 40) {
-                //xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=browse&sqlFilter=" + pkey + "='" + pkvalue + "'";
                 preview(1, code, msg, formId + code);
-                //showXML(pkid, xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () { });
-                loadChild(code, pkey, pkvalue, 1)
+                loadChild(code, pkey, pkvalue, 1);
+            }
+            else if (isGuid(msg) && location == 41) {
+                //preview(1, code, guid, formId + code);
+                $.when(loadChild(code, pkey, pkvalue, 1)).done(function () {
+                    $('#' + code + '00000000-0000-0000-0000-000000000000').hide();
+                    showChildForm(code, '00000000-0000-0000-0000-000000000000');
+                });
             }
             else {
                 showMessage(msg);
@@ -63,33 +70,39 @@ function saveThemeONE(code, guid, location, formId) {
         }
         else {
             if (location == 20) {
-                //location.reload();
                 saveConfirm();
             } else {
-                //xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=browse&sqlFilter=" + pkfield + "='" + pkvalue + "'";
-                //showXML(pkid, xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () { });
-                loadChild(code, pkey, pkvalue, 1)
+                if (location == 41) {
+                    $.when(loadChild(code, pkey, pkvalue, 1)).done(function () {
+                        $('#' + code + '00000000-0000-0000-0000-000000000000').hide();
+                        showChildForm(code, '00000000-0000-0000-0000-000000000000');
+                    });
+                } else {
+                    loadChild(code, pkey, pkvalue, 1);
+                }
             }
         }
 
     })
 }
 
-function fillMobileItem(code, guid, Status, allowedit, allowDelete, allowWipe, allowForce) {
+function fillMobileItem(code, guid, Status, allowedit, allowDelete, allowWipe, allowForce, isDelegator) {
     var tx1 = $('#mandatory' + guid).val();
     var tx2 = '<strong>' + tx1 + '</strong> ' + $('#summary' + guid).text();
-    //var tx1='HR<br />RC';
-    //var tx2='<b>RX16A002/RC16A004</b> 3 JAN 2016 POSITION: SALES MANAGER EXPECTED';
     var tx3 = '<b>WAIT FOR APPROVAL</b><br /><b>USER 3 </b>';
     var divname = 'collapse' + guid;
 
-    var x = '<div class="panel box browse-phone">#d1##d2#</div>';
+    if (isDelegator > 0) {
+        var x = '<div class="panel box browse-phone">#d1#</div>';
+    } else {
+        isDelegator = 0;
+        var x = '<div class="panel box browse-phone">#d1##d2#</div>';
+    }
+
     x = x.replace('#d1#', '<div class="box-header with-border ellipsis">#h4#</div>');
     x = x.replace('#h4#', '<h4 class="box-title">#a#</h4>');
     x = x.replace('#a#', '<a data-toggle="collapse" data-parent="#accordionBrowse" href="#' + divname + '" style="color:black; text-transform: uppercase">#s##tx2#</a>');
-    //x=x.replace('#s#','<span class="pull-left" style="margin-right:10px; color:#3C8DBC; font-weight:bold">#tx1#</span>');
     x = x.replace('#s#', '');
-    //x=x.replace('#tx1#',tx1);
     x = x.replace('#tx2#', tx2);
 
     x = x.replace('#d2#', '<div id="' + divname + '" class="panel-collapse collapse">#d21#</div>');
@@ -108,48 +121,38 @@ function fillMobileItem(code, guid, Status, allowedit, allowDelete, allowWipe, a
 
     bt = '<td width="1" style="padding:0 10px;">#bt#</td>#td#';
     bt = bt.replace('#bt#', '<button type="button" class="btn btn-gray-a" style="background:#ccc; border:none;" onclick="#abt#">#btname#</button>');
-    //bt = bt.replace('#a3#', '<a href="#">#bt#</a>');
-    //bt = bt.replace('#bt#', '<button type="button" class="btn btn-gray-a" style="background:#ccc; border:none;">#btname#</button>');
 
     var btname = "EDIT"
-    if (allowedit == 1) {
+    if (allowedit == 1 && isDelegator == 0 ) {
         x = x.replace('#td#', bt.replace('#btname#', '<ix class="fa fa-pencil"></ix> ' + btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'formView\', 1, 10)'));
-        //x = x.replace('#ix#', '<ix class="fa fa-pencil"></ix>');
-        //x = x.replace('#a4#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'formView\', 1, 10)');
     }
-    //else {
-    //    x = x.replace('#ix#', '<ix class="fa fa-pencil" style="color:LightGray"></ix>');
-    //    x = x.replace('#a4#', '#');
-    //}
 
     var btname = 'DELETE';
-    var btfn = 'inactive';
-    if (status < 500 && allowDelete == 1) {
+    var btfn = 'inactivate';
+    if (status < 500 && allowDelete == 1 && isDelegator == 0) {
         x = x.replace('#td#', bt.replace('#btname#', '<ix class="fa fa-trash"></ix> ' + btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'' + btfn + '\', 1, 10)'));
     }
 
     var btname = 'WIPE';
     var btfn = 'wipe';
-    if (status == 999 && allowWipe == 1) {
+    if (status == 999 && allowWipe == 1 && isDelegator == 0) {
         x = x.replace('#td#', bt.replace('#btname#', '<ix class="fa fa-trash"></ix> ' + btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'' + btfn + '\', 1, 10)'));
     }
 
     var btname = 'ARCHIEVE'; 
     var btfn = 'force';
-    if (status < 500 && status >= 400 && allowForce == 1) {
+    if (status < 500 && status >= 400 && allowForce == 1 && isDelegator == 0) {
         x = x.replace('#td#', bt.replace('#btname#', '<ix class="fa fa-archive"></ix> ' + btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'' + btfn + '\', 1, 10)'));
     }
 
     var btname = 'APPROVE';
     var btfn = 'execute';
-    x = x.replace('#td#', bt.replace('#btname#', '<ix class="fa fa-check"></ix> ' + btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'' + btfn + '\', 1, 10)'));
+    if (isDelegator == 0) {
+        x = x.replace('#td#', bt.replace('#btname#', '<ix class="fa fa-check"></ix> ' + btname).replace('#abt#', 'javascript:btn_function(\'' + code + '\', \'' + guid + '\', \'' + btfn + '\', 1, 10)'));
+    }
 
-    //close
     x = x.replace('#td#', '');
-
     $(x).appendTo("#accordionBrowse");
-
-
 }
 
 function addpagenumber(pageid, currentpage, totalpages) {

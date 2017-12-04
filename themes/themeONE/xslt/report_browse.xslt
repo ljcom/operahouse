@@ -8,11 +8,11 @@
 
   <xsl:variable name="code" select="sqroot/body/bodyContent/query/info/code" />
   <xsl:variable name="desc" select="sqroot/body/bodyContent/query/info/description" />
+  <xsl:variable name="type" select="translate(sqroot/body/bodyContent/query/info/type, $uppercase, $smallcase)"/>
   <xsl:variable name="sql" select="sqroot/body/bodyContent/query/info/querySQL" />
   <xsl:variable name="reportName" select="sqroot/body/bodyContent/query/info/reportName" />
   <xsl:variable name="isPDF" select="sqroot/body/bodyContent/query/info/permission/allowPDF" />
   <xsl:variable name="isXLS" select="sqroot/body/bodyContent/query/info/permission/allowXLS" />
-  <xsl:variable name="isDownload" select="sqroot/body/bodyContent/query/info/permission/allowDownload" />
   <xsl:variable name="par">
     <xsl:for-each select="sqroot/body/bodyContent/query/queryPages/queryPage/querySections/querySection/queryCols/queryCol/queryRows/.">
       <xsl:text>**</xsl:text>
@@ -26,13 +26,12 @@
     <script>
       loadScript('OPHContent/themes/<xsl:value-of select="sqroot/header/info/themeFolder"/>/scripts/daterangepicker/daterangepicker.js');
       loadScript('OPHContent/themes/<xsl:value-of select="sqroot/header/info/themeFolder"/>/scripts/select2/select2.full.min.js');
-      var xmldoc = ""
-      var xsldoc = "OPHContent/themes/<xsl:value-of select="sqroot/header/info/themeFolder"/>/xslt/" + getPage();
       var deferreds = [];
     </script>
+    
     <section class="content-header visible-phone">
       <h1>
-        Report&#160;<xsl:value-of select="$desc"/>&#160;
+        <xsl:value-of select="$desc"/>
       </h1>
       <ol class="breadcrumb">
         <li>
@@ -43,36 +42,34 @@
           </a>
         </li>
         <li>
-            <span>
-              <ix class="fa fa-home"></ix>
-            </span>&#160;<xsl:value-of select="sqroot/header/info/code/name"/>&#160;<xsl:value-of select="sqroot/body/bodyContent/query/info/Description/."/> Query Filter
+          <u>
+            <xsl:value-of select="$desc"/>
+          </u>
         </li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
-      <xsl:apply-templates select="sqroot/body/bodyContent"/>
+      <xsl:if test="sqroot/body/bodyContent/query/queryPages/queryPage/querySections/querySection">
+        <xsl:apply-templates select="sqroot/body/bodyContent/query/queryPages/queryPage/querySections/querySection"/>
+      </xsl:if>
       <div class="row">
-        <div class="col-md-12 visible-phone" style="margin-bottom:50px;">
+        <div class="col-md-12" style="margin-bottom:30px;margin-top:30px">
           <div style="text-align:left">
-            <xsl:if test="$isPDF = 1 and $isXLS = 0"> 
+            <xsl:if test="$isPDF = 1">
               <button class="btn btn-orange-a" onclick="genReport('{$code}','{$par}', 1,'{$sql}','{$reportName}');">SHOW PDF</button>&#160;
             </xsl:if>
-            <xsl:if test="$isXLS = 1 and $isPDF = 0">
+            <xsl:if test="$isXLS = 1">
               <button class="btn btn-orange-a" onclick="genReport('{$code}','{$par}', 0,'{$sql}','{$reportName}');">SHOW XLS</button>&#160;
-            </xsl:if>
-            <xsl:if test="$isXLS = 1 and $isPDF = 1">
-              <button class="btn btn-orange-a" onclick="genReport('{$code}','{$par}', 0,'{$sql}','{$reportName}');">SHOW XLS</button>&#160;
-              <button class="btn btn-orange-a" onclick="genReport('{$code}','{$par}', 1,'{$sql}','{$reportName}');">SHOW PDF</button>&#160;
             </xsl:if>
           </div>
         </div>
-        <div class="col-md-12 displayblock-phone" style="margin-bottom:20px;">
+        <!--<div class="col-md-12 displayblock-phone" style="margin-bottom:20px;">
           <div style="text-align:center">
             <button class="btn btn-orange-a" onclick="submitfunction('formheader',null,'{sqroot/body/bodyContent/query/info/code/.}');">SHOW</button>&#160;
           </div>
-        </div>
+        </div>-->
       </div>
     </section>
     <script>
@@ -104,118 +101,48 @@
     </script>
   </xsl:template>
 
-  <xsl:template match="sqroot/body/bodyContent">
-    <xsl:apply-templates select="query"/>
-  </xsl:template>
-
-  <xsl:template match="query">
-    <script>
-      //query
-    </script>
-   
-    <div class="row" id="header" >
-      <div class="col-md-12">
-        <form role="form" id="formheader">
-          <xsl:apply-templates select="queryPages/queryPage"/>
-        </form>
-      </div>
-    </div>
-  </xsl:template>
-
-  <xsl:template match="queryPages/queryPage">
-    <script>
-      //queryPage
-    </script>
-
-    <xsl:apply-templates select="querySections"/>
-  </xsl:template>
-
-  <xsl:template match="querySections">
-    <script>
-      //querySections
-    </script>
-
-    <xsl:apply-templates select="querySection"/>
-
-  </xsl:template>
-
-  <xsl:template match="querySection">
-    <script>
-      //querySection
-    </script>
-
+  <xsl:template match="sqroot/body/bodyContent/query/queryPages/queryPage/querySections/querySection">
     <div class="row">
       <div class="col-md-12">
-        <h2>
-          <xsl:value-of select="@rowTitle/."/>&#160;
-        </h2>
-        <xsl:apply-templates select="queryCols"/>
+        <xsl:if test="@rowTitle">
+          <h2>
+            <xsl:value-of select="@rowTitle"/>
+          </h2>
+        </xsl:if>
+        <xsl:apply-templates select="queryCols/queryCol"/>
+        &#160;
       </div>
     </div>
-
   </xsl:template>
 
-  <xsl:template match="queryCols">
-    <xsl:apply-templates select="queryCol"/>
-  </xsl:template>
-
-  <xsl:template match="queryCol">
-    <xsl:if test="@colNo='1'">
+  <xsl:template match="queryCols/queryCol">
+    <div class="row">
       <div class="col-md-6">
-        <xsl:apply-templates select="queryRows"/>
+        <xsl:apply-templates select="queryRows/queryRow"/>
       </div>
-    </xsl:if>
-    <xsl:if test="@colNo='2'">
-      <div class="col-md-6">
-        <xsl:apply-templates select="queryRows"/>
-      </div>
-    </xsl:if>
+    </div>
   </xsl:template>
 
-  <xsl:template match="queryRows">
-    <xsl:apply-templates select="queryRow"/>
+  <xsl:template match="queryRows/queryRow ">
+    <xsl:apply-templates select="fields/field"/>
   </xsl:template>
 
-  <xsl:template match="queryRow ">
-    <xsl:apply-templates select="fields"/>
-  </xsl:template>
-
-  <xsl:template match="fields">
-    <xsl:apply-templates select="field"/>
-  </xsl:template>
-
-  <xsl:template match="field">
-    <xsl:apply-templates select="field[@isEditable>0]"/>
-    <xsl:apply-templates select="field[@isEditable=0]"/>
-  </xsl:template>
-
-  <xsl:template match="field[@isEditable>0]">
-    <xsl:if test="@isNullable=0">
-      <script>
-        //document.getElementsByName(tblnm)[0].value = document.getElementsByName(tblnm)[0].value + ';<xsl:value-of select="@fieldName"/>'
-      </script>
-    </xsl:if>
-
+  <xsl:template match="fields/field">
     <div class="form-group enabled-input">
-      <xsl:apply-templates select="textBox"/>
-      <xsl:apply-templates select="dateBox"/>
-      <xsl:apply-templates select="checkBox"/>
-      <xsl:apply-templates select="comboBox"/>
-    </div>
-  </xsl:template>
-
-  <xsl:template match="field[@isEditable=0]">
-    <xsl:if test="@isNullable=0">
-      <script>
-        //document.getElementsByName(tblnm)[0].value = document.getElementsByName(tblnm)[0].value + ', <xsl:value-of select="@fieldName"/>'
-      </script>
-    </xsl:if>
-    <div class="form-group disabled-input">
-      <xsl:apply-templates select="textBox"/>
-      <xsl:apply-templates select="dateBox"/>
-      <xsl:apply-templates select="checkBox"/>
-      <xsl:apply-templates select="comboBox"/>
-      <xsl:apply-templates select="radioBox"/>
+      <form role="form" id="formheader">
+        <xsl:if test="textBox">
+          <xsl:apply-templates select="textBox"/>
+        </xsl:if>
+        <xsl:if test="dateBox">
+          <xsl:apply-templates select="dateBox"/>
+        </xsl:if>
+        <xsl:if test="checkBox">
+          <xsl:apply-templates select="checkBox"/>
+        </xsl:if>
+        <xsl:if test="comboBox">
+          <xsl:apply-templates select="comboBox"/>
+        </xsl:if>
+      </form>
     </div>
   </xsl:template>
 
@@ -281,9 +208,9 @@
       </xsl:if>
       <option value="NULL">-----Please Select-----</option>
     </select>
-    
+
     <script>
-          $("#<xsl:value-of select="../@fieldName"/>").select2({
+      $("#<xsl:value-of select="../@fieldName"/>").select2({
       ajax: {
       url:"OPHCORE/api/msg_autosuggest.aspx",
       delay : 0,
@@ -296,8 +223,6 @@
       wf2value: ($("#<xsl:value-of select='whereFields/wf2'/>").val() === undefined ? "" : $("#<xsl:value-of select='whereFields/wf2'/>").val()),
       page: params.page
       }
-
-
       return query;
       },
       dataType: 'json',
@@ -314,8 +239,5 @@
 
 
   </xsl:template>
-
-
-  
 
 </xsl:stylesheet>

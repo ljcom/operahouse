@@ -140,6 +140,11 @@
             </div>
           </div>
           <div class="box-tools">
+            <xsl:if test="sqroot/body/bodyContent/browse/info/permission/allowExport = 1">
+              <button type="button" style="margin-top:10px;" class="btn btn-success" onclick="window.location='?code={sqroot/header/info/code/id}&amp;mode=export'">
+                <strong>EXPORT DATA</strong>
+              </button>
+            </xsl:if>
             <button type="button" style="margin-top:10px;" class="btn btn-orange-a" id="newdoc" onclick="window.location='?code={sqroot/header/info/code/id}&amp;guid=00000000-0000-0000-0000-000000000000'">
               NEW <span class="visible-phone">DOCUMENT</span>
             </button>
@@ -424,7 +429,7 @@
       <xsl:apply-templates select="fields/field[@mandatory=1]" />
       <script>
         //put before mandatory section
-        fillMobileItem('<xsl:value-of select="@code"/>', '<xsl:value-of select="@GUID" />', '<xsl:value-of select="$state" />', '<xsl:value-of select="@edit" />', '<xsl:value-of select="@delete" />', '<xsl:value-of select="@wipe" />', '<xsl:value-of select="@force" />');
+        fillMobileItem('<xsl:value-of select="@code"/>', '<xsl:value-of select="@GUID" />', '<xsl:value-of select="$state" />', '<xsl:value-of select="@edit" />', '<xsl:value-of select="@delete" />', '<xsl:value-of select="@wipe" />', '<xsl:value-of select="@force" />', '<xsl:value-of select="/sqroot/body/bodyContent/browse/info/isDelegator"/>');
       </script>
 
       <td class="expand-td" data-toggle="collapse" data-target="#brodeta-{@GUID}" data-parent="#brodeta-{@GUID}">

@@ -20,11 +20,33 @@
 
     <div class="user-panel">
       <div class="pull-left image image-envi data-logo" style="padding:0;  margin-left:7px; margin-top:2px;">
-        <span >
-          <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 1, 2), $smallcase, $uppercase)" />
-          <br />
-          <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 3, 2), $smallcase, $uppercase)" />
-        </span>
+        <xsl:choose>
+          <xsl:when test="sqroot/header/info/code/shortName != ''">
+            <span>
+              <xsl:value-of select="translate(substring(sqroot/header/info/code/shortName, 1, 2), $smallcase, $uppercase)" />
+              <br />
+              <xsl:value-of select="translate(substring(sqroot/header/info/code/shortName, 3, 2), $smallcase, $uppercase)" />
+            </span>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:choose>
+              <xsl:when test="sqroot/header/info/code/settingMode = 't' or sqroot/header/info/code/settingMode = 'T'">
+                <span>
+                  <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 3, 2), $smallcase, $uppercase)" />
+                  <br />
+                  <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 5, 2), $smallcase, $uppercase)" />
+                </span>
+              </xsl:when>
+              <xsl:otherwise>
+                <span >
+                  <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 1, 2), $smallcase, $uppercase)" />
+                  <br />
+                  <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 3, 2), $smallcase, $uppercase)" />
+                </span>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:otherwise>
+        </xsl:choose>
       </div>
       <div class="pull-left info menu-environtment doc-type-f" style="padding:0;margin-left:-5px;">
         <span>

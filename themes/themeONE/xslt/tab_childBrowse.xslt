@@ -5,6 +5,11 @@
 
   <xsl:decimal-format name="comma-dec" decimal-separator="," grouping-separator="."/>
   <xsl:decimal-format name="dot-dec" decimal-separator="." grouping-separator=","/>
+  <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
+  <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
+  <xsl:variable name="lowerCode">
+    <xsl:value-of select="translate(/sqroot/body/bodyContent/browse/info/code, $uppercase, $smallcase)"/>
+  </xsl:variable>
 
   <xsl:template match="/">
     <script>
@@ -65,6 +70,13 @@
       });
 
       });
+      
+      //spreadsheet functions
+      /*
+      $(.cell).onclick = function (this) {
+        alert(this.html());
+      };
+      */
     </script>
     <div class="row">
       <div class="col-md-12">
@@ -73,10 +85,26 @@
             <xsl:value-of select="sqroot/body/bodyContent/browse/info/description"/>
           </h3>
         </div>
-        <span>
-          <input style="width:200px; position:absolute; right:25px; top:5px" type="text" id="searchBox_{sqroot/body/bodyContent/browse/info/code}" name="searchBox_{sqroot/body/bodyContent/browse/info/code}" class="form-control" placeholder="Search..." onkeypress="return searchTextChild(event,this.value, '{sqroot/body/bodyContent/browse/info/code}');" value="" />
-        </span>
-        <div class="row visible-phone">
+        <div>
+          <input style="width:200px; position:absolute; right:25px; top:5px; padding-right:25px" type="text" id="searchBox_{sqroot/body/bodyContent/browse/info/code}" name="searchBox_{sqroot/body/bodyContent/browse/info/code}" 
+            class="form-control" placeholder="Enter search key..." value="{sqroot/body/bodyContent/browse/info/search}" 
+              onkeypress="searchTextChild(event, this.value, '{sqroot/body/bodyContent/browse/info/code}');" />
+          <button id="clear{sqroot/body/bodyContent/browse/info/code}" type="button" class="btn btn-flat" style="position:absolute; right:25px; top:5px; background:none; border:none; display:none" >
+            <span aria-hidden="true">&#215;</span>
+          </button>
+          <script>
+            $('#clear<xsl:value-of select="sqroot/body/bodyContent/browse/info/code"/>').click(function(event) {
+              searchTextChild(event, '', '<xsl:value-of select="sqroot/body/bodyContent/browse/info/code"/>', true);
+            });
+            
+            $(document).ready(function() {
+              if ($('#searchBox_<xsl:value-of select="sqroot/body/bodyContent/browse/info/code"/>').val() != '') {
+                $('#clear<xsl:value-of select="sqroot/body/bodyContent/browse/info/code"/>').show();
+              }
+            });
+          </script>
+        </div>
+        <div class="row">
           <div class="col-md-12">
             <div style="border:0px none white;box-shadow:none;" id="content_{/sqroot/body/bodyContent/browse/info/code}" class="box collapse in">
               <table class="table table-condensed strip-table-browse" style="border-collapse:collapse;">
@@ -90,9 +118,8 @@
                   <tr>
                     <td colspan="7" style="padding:0;">
                       <div class="browse-data accordian-body collapse"
-                           id="{/sqroot/body/bodyContent/browse/info/code}00000000-0000-0000-0000-000000000000" aria-expanded="false">
+                           id="{$lowerCode}00000000-0000-0000-0000-000000000000" aria-expanded="false">
                         Please Wait...
-
                       </div>
                     </td>
                   </tr>
@@ -101,10 +128,10 @@
 
               <!-- /.box-body -->
               <div class="box-footer clearfix">
-                <xsl:if test="/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 and (/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)='1'">
+                <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
                   <button class="btn btn-orange-a accordion-toggle" data-toggle="collapse"
-                          data-target="#{/sqroot/body/bodyContent/browse/info/code}00000000-0000-0000-0000-000000000000"
-                          onclick="showChildForm('{/sqroot/body/bodyContent/browse/info/code}','00000000-0000-0000-0000-000000000000')">ADD</button>&#160;
+                          data-target="#{$lowerCode}00000000-0000-0000-0000-000000000000"
+                          onclick="showChildForm('{$lowerCode}','00000000-0000-0000-0000-000000000000')">ADD</button>&#160;
                 </xsl:if>
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)=1 and (/sqroot/body/bodyContent/browse/info/permission/allowExport/.)=1" >
                   <button class="btn btn-gray-a"
@@ -145,7 +172,7 @@
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
     
     <tr id="tr1_{@code}{@GUID}" data-parent="#{/sqroot/body/bodyContent/browse/info/code}" data-target="#{@code}{@GUID}"
-        class="accordion-toggle"
+        class="accordion-toggle cell"
         onclick="showChildForm('{@code}','{@GUID}', '{/sqroot/body/bodyContent/browse/info/code}')" onmouseover="this.bgColor='lavender';this.style.cursor='pointer';" onmouseout="this.bgColor='white'">
       <xsl:apply-templates select="fields/field"/>
     </tr>
@@ -156,7 +183,7 @@
         </div>
       </td>
     </tr>
-
+    
 
   </xsl:template>
 

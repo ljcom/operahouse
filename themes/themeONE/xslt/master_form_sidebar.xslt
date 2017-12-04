@@ -21,19 +21,30 @@
     <div class="user-panel">
       <div class="pull-left image image-envi data-logo" style="padding:2px; margin-left:7px; margin-top:0px; border:2px inset grey;">
         <xsl:choose>
-          <xsl:when test="sqroot/header/info/code/settingMode = 't' or sqroot/header/info/code/settingMode = 'T'">
+          <xsl:when test="sqroot/header/info/code/shortName != ''">
             <span>
-              <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 3, 2), $smallcase, $uppercase)" />
+              <xsl:value-of select="translate(substring(sqroot/header/info/code/shortName, 1, 2), $smallcase, $uppercase)" />
               <br />
-              <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 5, 2), $smallcase, $uppercase)" />
+              <xsl:value-of select="translate(substring(sqroot/header/info/code/shortName, 3, 2), $smallcase, $uppercase)" />
             </span>
           </xsl:when>
           <xsl:otherwise>
-            <span >
-              <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 1, 2), $smallcase, $uppercase)" />
-              <br />
-              <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 3, 2), $smallcase, $uppercase)" />
-            </span>
+            <xsl:choose>
+              <xsl:when test="sqroot/header/info/code/settingMode = 't' or sqroot/header/info/code/settingMode = 'T'">
+                <span>
+                  <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 3, 2), $smallcase, $uppercase)" />
+                  <br />
+                  <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 5, 2), $smallcase, $uppercase)" />
+                </span>
+              </xsl:when>
+              <xsl:otherwise>
+                <span >
+                  <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 1, 2), $smallcase, $uppercase)" />
+                  <br />
+                  <xsl:value-of select="translate(substring(sqroot/header/info/code/id, 3, 2), $smallcase, $uppercase)" />
+                </span>
+              </xsl:otherwise>
+            </xsl:choose>
           </xsl:otherwise>
         </xsl:choose>
       </div>
@@ -71,7 +82,15 @@
       </div>
     </div>
     <!-- search form -->
-    <form action="#" method="get" class="sidebar-form">
+    <div class="input-group sidebar-form">
+      <input type="text" id="searchBox" name="searchBox" class="form-control" placeholder="Search..." onkeypress="return searchText(event,this.value);" value="" />
+      <span class="input-group-btn">
+        <button type="button" name="search" id="search-btn" class="btn btn-flat" onclick="searchText(event);">
+          <ix class="fa fa-search" aria-hidden="true"></ix>
+        </button>
+      </span>
+    </div>
+    <!--<form action="#" method="get" class="sidebar-form">
       <div class="input-group">
         <input type="text" name="q" class="form-control" placeholder="Search..." />
         <span class="input-group-btn">
@@ -80,7 +99,7 @@
           </button>
         </span>
       </div>
-    </form>
+    </form>-->
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
       <!-- <li class="header">MAIN NAVIGATION</li> -->

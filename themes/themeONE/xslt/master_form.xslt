@@ -77,6 +77,39 @@
       defaultTime: false
       });
 
+      $(function() {
+
+      // We can attach the `fileselect` event to all file inputs on the page
+      $(document).on('change', ':file', function() {
+      var input = $(this),
+      numFiles = input.get(0).files ? input.get(0).files.length : 1,
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+      input.trigger('fileselect', [numFiles, label]);
+
+      //var file = this.files[0];
+      //if (file.size > 1024 {
+      //alert('max upload size is 1k')
+      //}
+      });
+
+      // We can watch for our custom `fileselect` event like this
+      $(document).ready( function() {
+      $(':file').on('fileselect', function(event, numFiles, label) {
+
+      var input = $(this).parents('.input-group').find(':text'),
+      //log = numFiles > 1 ? numFiles + ' files selected' : label;
+      log = label;
+      if( input.length ) {
+      input.val(log);
+      } else {
+      //if( log ) alert(log);
+      }
+
+      });
+      });
+
+      });
+
       <!--//iCheck for checkbox and radio inputs-->
       $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
       checkboxClass: 'icheckbox_minimal-blue',
@@ -92,7 +125,7 @@
       checkboxClass: 'icheckbox_flat-green',
       radioClass: 'iradio_flat-green'
       });
-
+    
       <!--//Colorpicker--><!--
     $(".my-colorpicker1").colorpicker();
     --><!--//color picker with addon--><!--
@@ -626,8 +659,8 @@
         <xsl:attribute name="class">input-group</xsl:attribute>
       </xsl:if>
       <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}" data-type="selectBox"
-        data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}"
-          onchange="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" >
+        data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}" 
+          onchange="autosuggest_onchange(this, '{preview/.}', getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}', 'formheader');" >        
         <xsl:if test="../@isEditable=0">
           <xsl:attribute name="disabled">disabled</xsl:attribute>
         </xsl:if>
@@ -751,24 +784,29 @@
 
     <script>
       $("#<xsl:value-of select="../@fieldName"/>").select2({
-      placeholder: 'Select <xsl:value-of select="titlecaption"/>',
-      ajax: {
-      url:"OPHCORE/api/msg_autosuggest.aspx",
-      delay : 0,
-      data: function (params) {
-      var query = {
-      code:"<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>",
-      colkey:"<xsl:value-of select="../@fieldName"/>",
-      search: params.term,
-      wf1value: ($("#<xsl:value-of select='whereFields/wf1'/>").val() === undefined ? "" : $("#<xsl:value-of select='whereFields/wf1'/>").val()),
-      wf2value: ($("#<xsl:value-of select='whereFields/wf2'/>").val() === undefined ? "" : $("#<xsl:value-of select='whereFields/wf2'/>").val()),
-      page: params.page
-      }
-
-      return query;
-      },
-      dataType: 'json',
-      }
+        placeholder: 'Select <xsl:value-of select="titlecaption"/>',
+        onAdd: function(x) {
+          preview('<xsl:value-of select="preview/."/>', getCode(), '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','formheader', this);
+        },
+        onDelete: function(x) {
+          preview('<xsl:value-of select="preview/."/>', getCode(), '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','formheader', this);
+        },        
+        ajax: {
+          url:"OPHCORE/api/msg_autosuggest.aspx",
+          delay : 0,
+          data: function (params) {
+            var query = {
+              code:"<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>",
+              colkey:"<xsl:value-of select="../@fieldName"/>",
+              search: params.term,
+              wf1value: ($("#<xsl:value-of select='whereFields/wf1'/>").val() === undefined ? "" : $("#<xsl:value-of select='whereFields/wf1'/>").val()),
+              wf2value: ($("#<xsl:value-of select='whereFields/wf2'/>").val() === undefined ? "" : $("#<xsl:value-of select='whereFields/wf2'/>").val()),
+              page: params.page
+            }
+            return query;
+          },
+          dataType: 'json', 
+        }        
       });
       <xsl:if test="value!=''">
         deferreds.push(
@@ -789,29 +827,29 @@
 
       $(document).ready(function(){
       $.ajax({
-      url: cURL<xsl:value-of select="../@fieldName"/>,
-      dataType: 'json',
-      success: function(data){
-      if (noPrepopulate<xsl:value-of select="../@fieldName"/>==1) data='';
-      $("#<xsl:value-of select="../@fieldName"/>").tokenInput(
-      sURL<xsl:value-of select="../@fieldName"/>,
-      {
-      hintText: "please type...",
-      searchingText: "Searching...",
-      preventDuplicates: true,
-      allowCustomEntry: true,
-      highlightDuplicates: false,
-      tokenDelimiter: "*",
-      theme:"facebook",
-      prePopulate: data,
-      onReady: function(x) {
-      },
-      onAdd: function(x) {
-      preview('<xsl:value-of select="preview/."/>', getCode(), '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','formheader', this);
-      },
-      onDelete: function(x) {
-      preview('<xsl:value-of select="preview/."/>', getCode(), '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','formheader', this);
-      }
+        url: cURL<xsl:value-of select="../@fieldName"/>,
+        dataType: 'json',
+        success: function(data){
+        if (noPrepopulate<xsl:value-of select="../@fieldName"/>==1) data='';
+        $("#<xsl:value-of select="../@fieldName"/>").tokenInput(
+        sURL<xsl:value-of select="../@fieldName"/>,
+        {
+          hintText: "please type...",
+          searchingText: "Searching...",
+          preventDuplicates: true,
+          allowCustomEntry: true,
+          highlightDuplicates: false,
+          tokenDelimiter: "*",
+          theme:"facebook",
+          prePopulate: data,
+          onReady: function(x) {
+        },
+        onAdd: function(x) {
+          preview('<xsl:value-of select="preview/."/>', getCode(), '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','formheader', this);
+        },
+        onDelete: function(x) {
+          preview('<xsl:value-of select="preview/."/>', getCode(), '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','formheader', this);
+        }
       }
       );
       }
@@ -877,7 +915,8 @@
     <div class="input-group">
       <label class="input-group-btn">
         <span class="btn btn-primary">
-          Browse <input id ="{../@fieldName}_hidden" name="{../@fieldName}_hidden" type="file" style="display: none;" multiple="" />
+          Browse <input id ="{../@fieldName}_hidden" name="{../@fieldName}_hidden" type="file" style="display: none;" multiple="">
+          </input>
         </span>
       </label>
       <input id ="{../@fieldName}" name="{../@fieldName}" Value="{value}" type="text" class="form-control" readonly="" />
@@ -902,7 +941,7 @@
       });
       }
     </script>
-    <input type="hidden" id="{../@fieldName}" value="{value/.}" />
+    <input type="hidden" id="{../@fieldName}" name="{../@fieldName}" value="{value/.}" />
     <div>
       <label id="{../@fieldName}caption">
         <xsl:value-of select="titlecaption"/>

@@ -70,6 +70,13 @@
       });
 
       });
+      
+      //spreadsheet functions
+      /*
+      $(.cell).onclick = function (this) {
+        alert(this.html());
+      };
+      */
     </script>
     <div class="row">
       <div class="col-md-12">
@@ -121,7 +128,7 @@
 
               <!-- /.box-body -->
               <div class="box-footer clearfix">
-                <xsl:if test="/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 and (/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)='1'">
+                <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
                   <button class="btn btn-orange-a accordion-toggle" data-toggle="collapse"
                           data-target="#{$lowerCode}00000000-0000-0000-0000-000000000000"
                           onclick="showChildForm('{$lowerCode}','00000000-0000-0000-0000-000000000000')">ADD</button>&#160;
@@ -165,7 +172,7 @@
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
     
     <tr id="tr1_{@code}{@GUID}" data-parent="#{/sqroot/body/bodyContent/browse/info/code}" data-target="#{@code}{@GUID}"
-        class="accordion-toggle"
+        class="accordion-toggle cell"
         onclick="showChildForm('{@code}','{@GUID}', '{/sqroot/body/bodyContent/browse/info/code}')" onmouseover="this.bgColor='lavender';this.style.cursor='pointer';" onmouseout="this.bgColor='white'">
       <xsl:apply-templates select="fields/field"/>
     </tr>
