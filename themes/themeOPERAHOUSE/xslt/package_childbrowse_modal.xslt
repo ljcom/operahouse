@@ -22,15 +22,27 @@
       </h3>
     </div>
     <div class="modal-body">
-      <form class="form-horizontal" id="formaccountdetail" method="post">
-        <input class="form-control" type="hidden" id="userguid" name="userguid" value="{/sqroot/header/info/user/userGUID}" disabled=""/>
+      <form class="form-horizontal" id="form{/sqroot/body/bodyContent/form/info/code/.}" method="post">
+        <input class="form-control" type="hidden" id="userguid" name="userguid" value="{/sqroot/header/info/user/userGUID}"/>
+        <input class="form-control" type="hidden" id="cartid" name="cartid" value=""/>
+        <script>
+          $("#cartid").val(getCookie('cartID'));
+        </script>
         <fieldset>
           <xsl:apply-templates select="form"/>
         </fieldset>
       </form>
     </div>
+    <div class="col-md-12" id="modalalert" style="display:none;">
+      <div class="alert alert-primary alert-dismissible">
+        <button type="button" class="close" onclick="$('#modalalert').hide()">
+          <i class="zmdi zmdi-close"></i>
+        </button>
+        <div id="modalalertmsg">Message</div>
+      </div>
+    </div>
     <div class="modal-footer" id="notiModalFooter">
-      <button type="button" class="btn btn-primary btn-raised"  onclick="savethemeOPERAHOUSE('accountdetail', '{/sqroot/body/bodyContent/form/info/GUID/.}',  '', 'form{/sqroot/body/bodyContent/form/info/code/.}')">Add To Cart</button>
+      <button type="button" class="btn btn-primary btn-raised"  onclick="savethemeOPERAHOUSE('{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}',  '', 'form{/sqroot/body/bodyContent/form/info/code/.}', '1')">Add To Cart</button>
       <button type="button" class="btn btn-primary btn-raised" data-dismiss="modal" onclick=" $('#notiModal').hide()">Close</button>
     </div>
   </xsl:template>

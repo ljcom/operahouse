@@ -593,21 +593,24 @@ function topbutton(username) {
     }
 }
 
-function savethemeOPERAHOUSE(code, guid, location, formId) {
+function savethemeOPERAHOUSE(code, guid, location, formId, type) {
+    if (type == '' || type == undefined) type = '0' 
+//    type = 0 normal, 1 modal
     LoadWave('show')
     saveFunction(code, guid, location, formId, function (data) {
         var result = $(data).find("message").text();
         if (result) {
             LoadWave('hide');
-            document.getElementById("notiModalText").innerHTML = result;
-            document.getElementById("notiModalLabel").innerHTML = 'Warning!';
-            $('#notiModal').modal()
+            showAlertMsg(result, 'Warning!', type)
+          
         } else {
             if (code == 'register') {
                 result = 'Register Success'
+                location = 'index.aspx?code=register' /*refresh setelah register*/
             } else {
                 result = 'Save Success'
             }
+
             if (getCode() == 'Orders') {
                 var guids = getCookie('userguid')
                 location = 'index.aspx?code=userprofile&GUID=' + guids
@@ -617,17 +620,32 @@ function savethemeOPERAHOUSE(code, guid, location, formId) {
                 location = 'index.aspx?code=' + code + '&GUID=' + guids
             }
             LoadWave('hide');
-            document.getElementById("notiModalText").innerHTML = result;
-            document.getElementById("notiModalLabel").innerHTML = 'Notification';
-            $('#notiModal').modal()
+            showAlertMsg(result, 'Notification', type, location)
+        }
+
+    });
+}
+function showAlertMsg(result, label, type, location) {
+    if (type == '0') {
+        document.getElementById("notiModalText").innerHTML = result;
+        document.getElementById("notiModalLabel").innerHTML = label;
+        $('#notiModal').modal()
+        if (location != '' && location != undefined) {
+            setTimeout(function () {
+                window.location.href = location
+            }, 2000);
+        }
+    } else if (type == '1') {
+        document.getElementById("modalalertmsg").innerHTML = result;
+        $('#modalalert').show()
+        if (location != '' && location != undefined) {
             setTimeout(function () {
                 window.location.href = location
             }, 2000);
         }
 
-    });
+    }
 }
-
 function LoadWave(type) {
     if (type == 'show') {
         $('#content-loader').show()

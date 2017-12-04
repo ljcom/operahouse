@@ -14,13 +14,13 @@
       setCookie('userguid', userguid, 0, 5, 0);
       if (userguid == ''){
       var url = 'index.aspx?code=register&amp;launch=orders&amp;package='+getQueryVariable("package")+'&amp;plan='+getQueryVariable("plan")
-        $("#notiModal").modal();
-        document.getElementById("notiModalText").innerHTML = 'You need to login or register to order';
-        document.getElementById("notiModalLabel").innerHTML = 'Warning!';
-        document.getElementById("notiModalFooter").innerHTML = '<button type="button" class="btn btn-default" onclick="goToAnotherPage(url)">Login</button>';
-        document.getElementById("notiModalClose").style.display = 'none';
+        window.location.href = 'index.aspx?code=register'
       }
       
+        $(".cartbtn").click(function(){
+          var filter = "parentdocguid='" + getCookie('cartID') + "'";
+          LoadNewPart('cart_modal', 'cartmodalcontent', 'ordersdetailsmodal', filter, '');
+        });
     </script>
     <!--sidebar-->
     <div class="ms-slidebar sb-slidebar sb-left sb-style-overlay" id="ms-slidebar">
@@ -91,6 +91,26 @@
         <div class="sk-rect sk-rect5"></div>
       </div>
     </div>
+    <!--childmodal-->
+    <div class="modal modal-primary" id="childmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel6">
+      <div class="modal-dialog animated zoomIn animated-3x" role="document">
+        <div class="modal-content">
+          <div id="childmodalcontent">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--cartmodal-->
+    <div class="modal modal-primary" id="cartmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel6">
+      <div class="modal-dialog animated zoomIn animated-3x" role="document">
+        <div class="modal-content">
+          <div id="cartmodalcontent">
+             test
+          </div>
+        </div>
+      </div>
+    </div>
     <!--this is Content-->
     <div class="sb-site-container">
       <div class="modal modal-primary" id="ms-account-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -137,7 +157,6 @@
                   <i class="zmdi zmdi-chevron-down right only"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right" style="top:25px;">
-
                   <li>
                     <a href="javascript:void(0)" onclick="signOut()" style="padding:5px 10px;">Sign Out</a>
                   </li>
@@ -150,10 +169,11 @@
                 <i class="zmdi zmdi-account"></i>
               </a>
             </xsl:if>
-            <a href="javascript:void(0)" class="btn-ms-menu btn-circle btn-circle-primary sb-toggle-left animated zoomInDown animation-delay-10"  data-toggle="tooltip" data-placement="bottom" title="Cart">
+            <a href="javascript:void(0)" class="cartbtn btn-ms-menu btn-circle btn-circle-primary animated zoomInDown animation-delay-10" data-toggle="modal" data-target="#cartmodal">
               <i class="zmdi zmdi-shopping-cart">
-                <p id="totalincart" href="javascript:void(0)" style="color:white; background:#EB8C00; position:absolute;top:10px;right:15px; padding:2px; font-size:10px;">0</p>
+                <p id="totalincart"  style="color:white; background:#EB8C00; position:absolute;top:10px;right:15px; padding:2px; font-size:10px;">0</p>
               </i>
+              
             </a>
             <a href="javascript:void(0)" class="btn-ms-menu btn-circle btn-circle-primary sb-toggle-left animated zoomInDown animation-delay-10"  data-toggle="tooltip" data-placement="bottom" title="Show Menu Sidebar">
               <i class="zmdi zmdi-menu"></i>
@@ -177,7 +197,14 @@
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <xsl:apply-templates select="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu" />
+              <li class="btn-navbar-menu">
+                <a href="javascript:void(0)" class="cartbtn" data-toggle="modal" data-target="#cartmodal">
+                  <i class="zmdi zmdi-shopping-cart">
+                    <p id="totalincart" href="javascript:void(0)" style="color:white; background:#EB8C00; position:absolute;top:10px;right:15px; padding:2px; font-size:10px;">0</p>
+                  </i>
 
+                </a>
+              </li>
               <!-- <li class="btn-navbar-menu"><a href="javascript:void(0)" class="sb-toggle-left"><i class="zmdi zmdi-menu"></i></a></li> -->
             </ul>
           </div>
@@ -191,15 +218,17 @@
       <!--this is Content-->
       <div class="container">
         <div class="row">
-          <div class="col-md-12 ">
-            <div class="card card-primary animated fadeInUp animation-delay-7">
-              <div class="card-block" id="orders_form">
-                <script>
-                  LoadNewPart('orders_details', 'orders_form', 'ordersdetails', '', '');
-                </script>
-                
-              </div>
-            </div>
+          <div class="col-md-9 " id="ordersdetails">              
+            <script>
+              var theid = "parentdocguid='" + getCookie('cartID') + "'";
+              LoadNewPart('orders_details', 'ordersdetails', 'ordersdetails', theid, '');
+            </script>
+          </div>
+          <div class="col-md-3" id="orderssum">
+            <script>
+              var theid = "docguid='" + getCookie('cartID') + "'";
+              LoadNewPart('orders_sum', 'orderssum', 'orderssum', theid, '');
+            </script>
           </div>
         </div>
       </div>

@@ -1,82 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl">
   <xsl:template match="/">
-    <style>
-      .MyTextBox{
-      background: transparent;
-      border:none; width:100%; padding:5px; 20px;
-      -webkit-animation: animation 2s ease-in-out;
-      -moz-animation: animation 2s ease-in-out;
-
-      }
-      .MyTextBox:focus{
-      box-shadow: 0px 2px 0px 0px rgba(3,154,228,1);
-      -webkit-animation: animation 1s ease-in-out;
-      -moz-animation: animation 1s ease-in-out;
-      }
-      .MyTextBox::-webkit-input-placeholder{
-        opacity:0.2;
-      }
-    </style>
     <script>
       loadScript('OPHContent/themes/themeOne/scripts/select2/select2.full.min.js');
+
       var deferreds = [];
     </script>
-    
     <xsl:apply-templates select="sqroot/body/bodyContent"/>
 
-    <!--<xsl:if test="sqroot/body/bodyContent/form/info/GUID !='00000000-0000-0000-0000-000000000000'">
-      <xsl:apply-templates select="sqroot/body/bodyContent/form/children"/>
-    </xsl:if>-->
-    <div id="childAccount">
-      <script>
-        LoadNewPart('profile_account', 'childAccount', 'account', "userguid='<xsl:value-of select="/sqroot/header/info/user/userGUID"/>'", '', '', '', '');
-      </script>
-    </div>
-
-    <div id="childOrders">
-      <script>
-        LoadNewPart('profile_orders', 'childOrders', 'Orders', "createduser='<xsl:value-of select="/sqroot/header/info/user/userGUID"/>'", '', '', '', '');
-      </script>
-    </div>
   </xsl:template>
 
-
   <xsl:template match="sqroot/body/bodyContent">
-    
-
-    <div class="container mb-2">
-      <div class="card card-primary animated fadeInUp animation-delay-7">
-        <div class="row">
-          <h2 class="color-primary text-center mb-4">UPDATE PROFILE</h2>
-          <form class="form-horizontal" id="formuserprofile" method="post">
-            <fieldset>
-              <xsl:apply-templates select="form"/>
-            </fieldset>
-          </form>
-         
-        </div>
-        <div class="row">
-          <div class="col-md-8">
-            &#xA0;
-          </div>
-          <div class="col-md-4 text-right">
-            <div class="col-md-6">
-              <a href="javascript:void(0)" class="btn btn-raised btn-block btn-primary mt-4"  onclick="savethemeOPERAHOUSE(getCode(), getGUID(),  'index.aspx?env=front&amp;code=userprofile&amp;GUID={/sqroot/header/info/user/userGUID}', 'form{/sqroot/body/bodyContent/form/info/code/.}')">
-                Save
-              </a>
-            </div>
-            <div class="col-md-6">
-              <a href="javascript:void(0)" class="btn btn-raised btn-block btn-default mt-4">
-                Cancel
-              </a>
-            </div>
-          </div>
-        </div>
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="notiModalClose">
+        <span aria-hidden="true">
+          <i class="zmdi zmdi-close"></i>
+        </span>
+      </button>
+      <h3 class="modal-title" id="notiModalLabel">
+        <xsl:value-of select ="/sqroot/header/info/code/name/."/>
+      </h3>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal" id="form{/sqroot/body/bodyContent/form/info/code/.}" method="post">
+        <input class="form-control" type="hidden" id="userguid" name="userguid" value="{/sqroot/header/info/user/userGUID}"/>
+        <input class="form-control" type="hidden" id="cartid" name="cartid" value=""/>
+        <script>
+          $("#cartid").val(getCookie('cartID'));
+        </script>
+        <fieldset>
+          <xsl:apply-templates select="form"/>
+        </fieldset>
+      </form>
+    </div>
+    <div class="col-md-12" id="modalalert" style="display:none;">
+      <div class="alert alert-primary alert-dismissible">
+        <button type="button" class="close" onclick="$('#modalalert').hide()">
+          <i class="zmdi zmdi-close"></i>
+        </button>
+        <div id="modalalertmsg">Message</div>
       </div>
     </div>
-    
-    
+    <div class="modal-footer" id="notiModalFooter">
+      <button type="button" class="btn btn-primary btn-raised"  onclick="savethemeOPERAHOUSE('{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}',  '', 'form{/sqroot/body/bodyContent/form/info/code/.}', '1')">Save</button>
+      <button type="button" class="btn btn-primary btn-raised" data-dismiss="modal" onclick=" $('#notiModal').hide()">Close</button>
+    </div>
   </xsl:template>
 
   <xsl:template match="form">
@@ -110,7 +78,7 @@
   </xsl:template>
 
   <xsl:template match="formCol">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <xsl:apply-templates select="formRows"/>
     </div>
   </xsl:template>
@@ -188,14 +156,14 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    
+
     <xsl:variable name="fieldEnabled">
       <xsl:choose>
         <xsl:when test ="../@isEditable=1 or (../@isEditable=2 and (/sqroot/body/bodyContent/form/info/GUID/. = '00000000-0000-0000-0000-000000000000'))">enabled</xsl:when>
         <xsl:otherwise>disabled</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    
+
     <div class="col-md-8">
       <input type="text" class="form-control {$fieldEnabled}-input" Value="{$thisvalue}" data-type="textBox" data-old="{$thisvalue}" name="{../@fieldName}" 
              onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" id ="{../@fieldName}"
@@ -204,9 +172,9 @@
           <xsl:attribute name="disabled">disabled</xsl:attribute>
         </xsl:if>
         <xsl:if test="../@isEditable='1'">
-          <xsl:attribute name="placeholder">
-            Please Enter <xsl:value-of select="titlecaption" />
-          </xsl:attribute>
+          <xsl:attribute name="placeholder">Please Enter <xsl:value-of select="titlecaption" />
+        </xsl:attribute>
+         
         </xsl:if>
       </input>
     </div>
@@ -226,7 +194,7 @@
         <xsl:otherwise>disabled</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    
+
     <div class="col-md-8">
       <input type="password" class="form-control {$fieldEnabled}-input" Value="********" data-type="textBox" data-old="" name="{../@fieldName}"
         onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" id ="{../@fieldName}" spellcheck="false">
@@ -244,9 +212,10 @@
     <div class="col-md-8">
       <select class="form-control select2"  name="{../@fieldName}" id="{../@fieldName}"
          data-type="selectBox" data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}" data-child="Y"
-         onchange="preview('{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);">
-
-
+         onchange="preview('{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);" >
+        <xsl:if test="../@isEditable='0' or (../@isEditable='2' and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000'))">
+          <xsl:attribute name="disabled">disabled</xsl:attribute>
+        </xsl:if>
         <option value="NULL">
           Please Select <xsl:value-of select="titlecaption"/>
         </option>
@@ -265,10 +234,6 @@
     <script>
       <!--$("#<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/><xsl:value-of select="../@fieldName"/>").select2({-->
       var wf1 = '<xsl:value-of select='whereFields/wf1'/>';
-      var wf1value = '';
-      if (wf1 != ''){
-      var wf1value<xsl:value-of select="../@fieldName"/> = $("#<xsl:value-of select='whereFields/wf1'/>").val()
-      }
 
       $("#<xsl:value-of select="../@fieldName"/>").select2({
       ajax: {
@@ -281,7 +246,7 @@
       code:"<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>",
       colkey:"<xsl:value-of select="../@fieldName"/>",
       wf1 : '<xsl:value-of select='whereFields/wf1'/>',
-      wf1value: wf1value<xsl:value-of select="../@fieldName"/>
+      wf1value: ('<xsl:value-of select='whereFields/wf1'/>' != '') ? $("#<xsl:value-of select='whereFields/wf1'/>").val() : ''
       }
 
       return query;
@@ -290,19 +255,25 @@
       //delay: 500
       }
       });
+      <xsl:if test="not(value) and (../@fieldName)='Package'">
+
+        if (getCookie('packageguid') &amp;&amp; getCookie('packageguid') != 'undefined'){
+        deferreds.push(
+        autosuggestSetValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', getCookie('packageguid'), '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
+        );
+        }
+      </xsl:if>
+      <xsl:if test="not(value) and (../@fieldName)='PackagePrice'">
+
+        if (getCookie('planguid') &amp;&amp; getCookie('planguid') != 'undefined'){
+        deferreds.push(
+        autosuggestSetValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', getCookie('planguid'), '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
+        );
+        }
+      </xsl:if>
       <xsl:if test="value!=''">
         deferreds.push(
         autosuggestSetValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', '<xsl:value-of select='value'/>', '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
-        );
-      </xsl:if>
-      <xsl:if test="not(value) and (../@fieldName)='Package'">
-        deferreds.push(
-        autosuggestSetValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', getQueryVariable("package"), '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
-        );
-      </xsl:if>
-      <xsl:if test="not(value) and (../@fieldName)='PackagePrice'">
-        deferreds.push(
-        autosuggestSetValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', getQueryVariable("plan"), '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
         );
       </xsl:if>
     </script>
@@ -313,25 +284,4 @@
   </xsl:template>
 
 
-  <xsl:template match="child">
-    <input type="hidden" id="PKID" value="child{code/.}"/>
-    <input type="hidden" id="filter{code/.}" value="{parentkey/.}='{/sqroot/body/bodyContent/form/info/GUID/.}'"/>
-    <input type="hidden" id="parent{code/.}" value="{parentkey/.}"/>
-    <input type="hidden" id="PKName" value="{parentkey/.}"/>
-    <script>
-
-      //xmldoc = "OPHCORE/api/default.aspx?code=<xsl:value-of select ="code/."/>&amp;mode=browse&amp;sqlFilter=<xsl:value-of select ="parentkey/."/>='<xsl:value-of select ="/sqroot/body/bodyContent/form/info/GUID/."/>'"
-      //showXML('child<xsl:value-of select ="code/."/>', xmldoc, xsldoc + "_childBrowse.xslt", true, true, function () {});
-
-      var code='<xsl:value-of select ="code/."/>';
-      var parentKey='<xsl:value-of select ="parentkey/."/>';
-      var GUID='<xsl:value-of select ="/sqroot/body/bodyContent/form/info/GUID/."/>';
-
-      loadChild(code, parentKey, GUID);
-    </script>
-
-    <div id="child{code/.}{/sqroot/body/bodyContent/form/info/GUID/.}">
-      &#160;
-    </div>
-  </xsl:template>
 </xsl:stylesheet>

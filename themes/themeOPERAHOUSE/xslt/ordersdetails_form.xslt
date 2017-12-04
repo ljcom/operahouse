@@ -43,7 +43,7 @@
     </form>
         <div class="row">
           <div class="col-md-4 col-md-offset-8">
-            <button class="btn btn-raised btn-primary btn-block mt-4" onclick="savethemeOPERAHOUSE('orders', '00000000-0000-0000-0000-000000000000', '', 'formorders')">Submit</button>
+            <button class="btn btn-raised btn-primary btn-block mt-4" onclick="savethemeOPERAHOUSE('{/sqroot/body/bodyContent/form/info/code/.}', '00000000-0000-0000-0000-000000000000', '', 'form{/sqroot/body/bodyContent/form/info/code/.}')">Submit</button>
           </div>
         </div>
 

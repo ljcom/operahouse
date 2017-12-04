@@ -193,7 +193,7 @@
                 Loading Please Wait...
                 <script>
                   if (userguid != ''){
-                  LoadNewPartView('ordersdetails_form', 'orders_form', 'ordersdetails', '00000000-0000-0000-0000-000000000000');
+                  LoadNewPartView('ordersdetails_form', 'orders_form', 'ordersdetails', getGUID());
                   }
                 </script>
                 

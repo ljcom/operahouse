@@ -23,7 +23,10 @@
       setCookie('lastPar', document.URL, 0, 1, 0);
       loadContent(1);
       }
-
+      $(".cartbtn").click(function(){
+          var filter = "parentdocguid='" + getCookie('cartID') + "'";
+          LoadNewPart('cart_modal', 'cartmodalcontent', 'ordersdetailsmodal', filter, '');
+        });
     </script>
     <!--sidebar-->
     <div class="ms-slidebar sb-slidebar sb-left sb-style-overlay" id="ms-slidebar">
@@ -94,6 +97,17 @@
         <div class="sk-rect sk-rect5"></div>
       </div>
     </div>
+    <!--cartmodal-->
+    <div class="modal modal-primary" id="cartmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel6">
+      <div class="modal-dialog animated zoomIn animated-3x" role="document">
+        <div class="modal-content">
+          <div id="cartmodalcontent">
+            test
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!--this is content-->
     <div class="sb-site-container">
       <div class="modal modal-primary" id="ms-account-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -140,7 +154,6 @@
                   <i class="zmdi zmdi-chevron-down right only"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right" style="top:25px;">
-
                   <li>
                     <a href="javascript:void(0)" onclick="signOut()" style="padding:5px 10px;">Sign Out</a>
                   </li>
@@ -153,6 +166,12 @@
                 <i class="zmdi zmdi-account"></i>
               </a>
             </xsl:if>
+            <a href="javascript:void(0)" class="cartbtn btn-ms-menu btn-circle btn-circle-primary animated zoomInDown animation-delay-10" data-toggle="modal" data-target="#cartmodal">
+              <i class="zmdi zmdi-shopping-cart">
+                <p id="totalincart"  style="color:white; background:#EB8C00; position:absolute;top:10px;right:15px; padding:2px; font-size:10px;">0</p>
+              </i>
+
+            </a>
             <a href="javascript:void(0)" class="btn-ms-menu btn-circle btn-circle-primary sb-toggle-left animated zoomInDown animation-delay-10"  data-toggle="tooltip" data-placement="bottom" title="Show Menu Sidebar">
               <i class="zmdi zmdi-menu"></i>
             </a>
@@ -175,7 +194,14 @@
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <xsl:apply-templates select="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu" />
+              <li class="btn-navbar-menu">
+                <a href="javascript:void(0)" class="cartbtn" data-toggle="modal" data-target="#cartmodal">
+                  <i class="zmdi zmdi-shopping-cart">
+                    <p id="totalincart" href="javascript:void(0)" style="color:white; background:#EB8C00; position:absolute;top:10px;right:15px; padding:2px; font-size:10px;">0</p>
+                  </i>
 
+                </a>
+              </li>
               <!-- <li class="btn-navbar-menu"><a href="javascript:void(0)" class="sb-toggle-left"><i class="zmdi zmdi-menu"></i></a></li> -->
             </ul>
           </div>
