@@ -3,6 +3,7 @@ scripts/
 reports/
 log/
 version/
+themes/
 addOns/sqlAssembly/dnsRequest/bin/
 addOns/sqlAssembly/dnsRequest/obj/
 addOns/sqlAssembly/webRequest/bin/
