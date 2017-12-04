@@ -3,28 +3,31 @@
   <xsl:template match="/">
 
     <div class="container mt-4">
-      <h1 class="color-primary text-center">Your Orders</h1>
-      <!--<p class="lead text-center center-block mb-4 mw-800">Suscipit placeat dolor iste, amet libero quidem aliquam expedita dicta repellendus ut modi sed mollitia dolorem tempore obcaecati incidunt est asperiores.</p>-->
-      
-      <div class="bs-example mt-4">
-        <div class="table-responsive">
-          <div class="card">
-          <table class="table table-condensed ">
-            <thead>
-              <tr>
-                <xsl:apply-templates select="sqroot/body/bodyContent/browse/header/column"/>
-                <th  style="background:#03A9F4; color:#FFF;">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row"/>
-            </tbody>
-          </table>
+      <div class="card card-primary animated fadeInUp animation-delay-7">
+        <div class="row" style="padding:30px;">
+          <h2 class="color-primary text-center mb-4">HISTORY ORDERS</h2>
+          <div class="bs-example mt-4">
+            <div class="table-responsive">
+              <div class="card">
+                <table class="table table-condensed ">
+                  <thead>
+                    <tr>
+                      <xsl:apply-templates select="sqroot/body/bodyContent/browse/header/column"/>
+                      <th  style="background:#03A9F4; color:#FFF; width:200px;">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row"/>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- /.table-responsive -->
           </div>
         </div>
-        <!-- /.table-responsive -->
       </div>
-      <!-- row -->
+     
+      
     </div>
 
 

@@ -2,18 +2,27 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl">
   <xsl:template match="/">
 
-    <div class="wrap ms-hero-img-coffee  ms-bg-fixed ms-hero-bg-primary">
+    <div class="wrap ms-hero-img-coffee  ms-bg-fixed ms-hero-bg-dark-light" style="padding-top:0; padding-bottom:10px;">
       <div class="container">
         <h1 class="color-white text-center mb-4">Your Account</h1>
         <div class="row">
           <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row"/>
+          
+          <div class="col-md-4 col-sm-6">
+            <div style="min-height:300px;padding-top:35%; text-align:center" >
+              <a href="index.aspx?env=front&amp;code=Account&amp;GUID=00000000-0000-0000-0000-000000000000" class="btn btn-raised btn-white color-info wow flipInX animation-delay-5">
+                <i class="fa fa-plus"></i> CREATE NEW ACCOUNT
+              </a>
+            </div>
+
+          </div>
         </div>
-        <div class="text-center color-white mw-800 center-block mt-4">
+        <!--<div class="text-center color-white mw-800 center-block mt-4">
           <p class="lead lead-lg">Need a new account for other companies?</p>
           <a href="index.aspx?env=front&amp;code=Account&amp;GUID=00000000-0000-0000-0000-000000000000" class="btn btn-raised btn-white color-info wow flipInX animation-delay-8">
-            <i class="fa fa-plus"></i> ADD MORE
+            <i class="fa fa-plus"></i> CREATE NEW ACCOUNT
           </a>
-        </div>
+        </div>-->
       </div>
     </div>
 
