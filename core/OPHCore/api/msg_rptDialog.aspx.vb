@@ -68,198 +68,224 @@ Partial Class OPHCore_api_msg_rptDialog
 					n += 1
 				Next
 				Dim q As Long = 1
-				Dim query = "" 'runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='YoDailySalesByCustomer' and InfoKey='querysql_" & q & "'")
-				Try
-					Dim reportDocument As DocumentLayout = New DocumentLayout(pathDPLX)
-					Do While True
+                Dim query = "" 'runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='YoDailySalesByCustomer' and InfoKey='querysql_" & q & "'")
+                Dim errReport = False
+                Try
+                    Dim reportDocument As DocumentLayout = New DocumentLayout(pathDPLX)
+
+                    Do While True
                         query = runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='" & code & "' and InfoKey='querysql_" & q & "'")
 
                         Dim rpQuery As ceTe.DynamicPDF.ReportWriter.Data.StoredProcedureQuery = CType(reportDocument.GetQueryById("Query" & q), ceTe.DynamicPDF.ReportWriter.Data.StoredProcedureQuery)
-						If Not rpQuery Is Nothing Then
+                        If Not rpQuery Is Nothing Then
                             If query IsNot Nothing And query <> "" Then
-                                If runSQLwithResult("select OBJECT_ID('doc." & query & "')", Connections) = "" Then
+                                If runSQLwithResult("select OBJECT_ID('" & query & "')", Connections) = "" Then
                                     Dim dbName = runSQLwithResult("declare @db varchar(20); exec gen.getdbinfo '" & curHostGUID & "', '" & code & "', @db=@db OUTPUT; select @db", Connections)
                                     Dim lfCtl = Left(contentOfdbODBC, (contentOfdbODBC.ToLower().IndexOf("catalog") + 8))
                                     Dim rtCtl = Right(contentOfdbODBC, (contentOfdbODBC.Length - lfCtl.Length))
                                     rtCtl = Right(rtCtl, (rtCtl.Length - rtCtl.IndexOf(";")))
 
                                     Dim newConnection = lfCtl & dbName & rtCtl
-                                    If runSQLwithResult("select OBJECT_ID('doc." & query & "')", newConnection) = "" Then
+                                    If runSQLwithResult("select OBJECT_ID('" & query & "')", newConnection) = "" Then
                                         Response.Write("<script>alert('Invalid object_id(" & query & ")')</script>")
+                                        writeLog("Invalid object_id(" & query & ")")
+                                        errReport = True
+                                        Exit Do
                                     Else
                                         Connections = newConnection
                                     End If
                                 End If
                             End If
                             rpQuery.ConnectionString = Connections
-							q += 1
-						Else
-							Exit Do
-						End If
-					Loop
+                            q += 1
+                        Else
+                            Exit Do
+                        End If
+                    Loop
+                    If Not errReport Then
 
-					Dim MyDocument As Document = reportDocument.Run(Parameters)
-					Dim g = System.Guid.NewGuid().ToString
-					Dim savesPath As String = Request.PhysicalApplicationPath & "document\temp" & g & "_" & reportName & ".pdf"
-					If Request.QueryString("dontdelete") = 1 Then
-						Response.Write(savesPath)
-						MyDocument.Draw(savesPath)
-					Else
-						Response.ClearHeaders()
-						Response.AddHeader("Cache-Control", " no-store, no-cache ")
-						Response.ContentType = "application/pdf"
-						Response.AddHeader("Content-Disposition", "attachment; filename=" & reportName & ".pdf")
+                        Dim MyDocument As Document = reportDocument.Run(Parameters)
+                        Dim g = System.Guid.NewGuid().ToString
+                        Dim savesPath As String = Request.PhysicalApplicationPath & "document\temp" & g & "_" & reportName & ".pdf"
+                        If Request.QueryString("dontdelete") = 1 Then
+                            Response.Write(savesPath)
+                            MyDocument.Draw(savesPath)
+                        Else
+                            Response.ClearHeaders()
+                            Response.AddHeader("Cache-Control", " no-store, no-cache ")
+                            Response.ContentType = "application/pdf"
+                            Response.AddHeader("Content-Disposition", "attachment; filename=" & reportName & ".pdf")
 
-						MyDocument.DrawToWeb(savesPath)
-					End If
-				Catch ex As Exception
-					Response.ContentType = "text/html"
-					Response.AddHeader("Cache-Control", " no-store, no-cache ")
-					Response.Write("<script>alert('" & ex.Message.Replace("'", "\'") & "')</script>")
-				End Try
+                            MyDocument.DrawToWeb(savesPath)
+                        End If
+                    End If
+
+                Catch ex As Exception
+                    Response.ContentType = "text/html"
+                    Response.AddHeader("Cache-Control", " no-store, no-cache ")
+                    Response.Write("<script>alert('" & ex.Message.Replace("'", "\'") & "')</script>")
+                    writeLog(ex.Message.Replace("'", "\'"))
+                Finally
+
+
+                End Try
 			ElseIf gbox = 1 Then
 				Dim g = System.Guid.NewGuid().ToString
 				SpreadsheetInfo.SetLicense("ESWM-UQ6R-26SR-4WB1")
 				Dim Parameters As ParameterDictionary = New ParameterDictionary
 				Dim gfile As String = "", gext As String = ""
-				Dim gpath As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp")
-				If Not Directory.Exists(gpath) Then Directory.CreateDirectory(gpath)
+                Dim gpath As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/")
+                If Not Directory.Exists(gpath) Then Directory.CreateDirectory(gpath)
 
-				If outputType = 3 Then
-					Dim ParentGUID As String = Request.QueryString("ParentGUID").ToString
+                'output 0 = download Report XLS & CSV
+                'output 1 = download Module 
+                'output 2 = ???
+                'output 3 = download Child
 
-					If reportName = "" Then reportName = code
-					gext = Right(reportName, reportName.Length - InStr(reportName, "."))
-					If gext = "txt" Then
-						gfile = g & "_" & reportName & ".csv"
-					Else
-						gfile = g & "_" & reportName & ".xls"
-					End If
+                If outputType = 1 Then
+                    If reportName = "" Then reportName = code
+                    gext = Right(reportName, reportName.Length - InStr(reportName, "."))
+                    If gext = "txt" Then
+                        gfile = g & "_" & reportName & ".csv"
+                    Else
+                        gfile = g & "_" & reportName & ".xls"
+                    End If
 
-					sqlstr = "exec gen.downloadChild '" & curHostGUID & "', '" & code & "','" & ParentGUID & "'"
-				Else
-					If InStr(reportName, ".") = 0 Then reportName = reportName & ".xls"
+                    sqlstr = "exec gen.downloadModule '" & curHostGUID & "', '" & code & "'"
+                ElseIf outputType = 3 Then
+                    Dim ParentGUID As String = Request.QueryString("ParentGUID").ToString
+
+                    If reportName = "" Then reportName = code
+                    gext = Right(reportName, reportName.Length - InStr(reportName, "."))
+                    If gext = "txt" Then
+                        gfile = g & "_" & reportName & ".csv"
+                    Else
+                        gfile = g & "_" & reportName & ".xls"
+                    End If
+
+                    sqlstr = "exec gen.downloadChild '" & curHostGUID & "', '" & code & "','" & ParentGUID & "'"
+                Else
+                    If InStr(reportName, ".") = 0 Then reportName = reportName & ".xls"
 					gext = LCase(Right(reportName, reportName.Length - InStr(reportName, ".")))
 
-					Select Case gext
-						Case "txt"
-							gfile = g & "_" & reportName & ".csv"
-						Case Else
-							gfile = g & "_" & reportName
-					End Select
-				End If
+                    Select Case gext
+                        Case "txt"
+                            gfile = g & "_" & reportName & ".csv"
+                        Case Else
+                            gfile = g & "_" & reportName
+                    End Select
+
+                    parameterid = parameterid.Replace(":", "=").Replace(":null", "=null").Replace("''", "")
+                    Dim q As Long = 1
+                    Dim query = runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='" & code & "' and InfoKey='querysql_" & q & "'")
+
+                    sqlstr = "exec " & query & " "
+                    Dim p = parameterid.Split(",")
+
+                    Dim n = 1
+                    For Each px In p
+                        If px <> "" Then
+                            Dim pp = px.Split("=")
+                            If pp(1) <> "null" Then
+                                sqlstr = sqlstr & "'" & pp(1) & "'"
+                            Else
+                                sqlstr = sqlstr & "null"
+                            End If
+
+                            If n < p.Length Then
+                                sqlstr = sqlstr & ", "
+                            End If
+                        End If
+                        n += 1
+                    Next
+                End If
 
 				Dim pathGBOX As String = gpath & gfile
 
-				If outputType <> 3 Then
-					parameterid = parameterid.Replace(":", "=").Replace(":null", "=null").Replace("''", "")
-					Dim q As Long = 1
-					Dim query = runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='YoDailySalesByCustomer' and InfoKey='querysql_" & q & "'")
+                Try
+                    Dim ef As ExcelFile = New ExcelFile
+                    Dim ws As ExcelWorksheet = ef.Worksheets.Add(code)
+                    Dim rows As Integer = 0
+                    Dim ds = SelectSqlSrvRows(sqlstr, Connections)
 
-					sqlstr = "exec " & query & " "
-					Dim p = parameterid.Split(",")
+                    If ds.Tables.Count > 0 And ds.Tables(0).Rows.Count > 0 Then
+                        Dim cols As Integer = 0
+                        If gext <> "txt" Then
+                            If gext <> "csv" Then
+                                For Each head In ds.Tables(0).Columns
+                                    ws.Cells(rows, cols).Value = head.ToString
+                                    cols = cols + 1
+                                Next
+                                ws.Rows(rows).Hidden = IIf(outputType = 0, False, True)
+                                rows = rows + 1
+                            End If
+                        End If
+                        Dim cl = ds.Tables(0).Columns.Count
+                        For Each r In ds.Tables(0).Rows
+                            Dim rx = DirectCast(r, DataRow)
+                            For n = 0 To cl - 1
+                                ws.Cells(rows, n).Value = rx.Item(n).ToString
+                            Next
+                            rows = rows + 1
+                        Next
 
-					Dim n = 1
-					For Each px In p
-						If px <> "" Then
-							Dim pp = px.Split("=")
-							If pp(1) <> "null" Then
-								sqlstr = sqlstr & "'" & pp(1) & "'"
-							Else
-								sqlstr = sqlstr & "null"
-							End If
+                        For n = 0 To ds.Tables(0).Columns.Count - 1
+                            ws.Columns.Item(n).AutoFit()
+                        Next
+                        ws.Columns(0).Hidden = IIf(outputType = 0, False, True)
+                        ws.Columns.Item(0).AutoFit()
+                        ef.Save(pathGBOX)
+                        If Not Request.QueryString("output") Is Nothing Then
+                            If Dir(Request.QueryString("output")) <> "" Then Kill(Request.QueryString("output"))
+                            If gext = "txt" Then
+                                Dim latin1 As Encoding = Encoding.GetEncoding(28591)
+                                Dim text As String = File.ReadAllText(pathGBOX, latin1)
+                                File.WriteAllText(Request.QueryString("output"), text, Encoding.ASCII)
+                            Else
+                                FileCopy(pathGBOX, Request.QueryString("output"))
+                            End If
+                        End If
+                        If gext = "txt" Then
+                            Rename(pathGBOX, Left(pathGBOX, pathGBOX.Length - 4))
+                            gfile = Left(gfile, Len(gfile) - 4)
+                            pathGBOX = Left(pathGBOX, Len(pathGBOX) - 4)
+                        End If
 
-							If n < p.Length Then
-								sqlstr = sqlstr & ", "
-							End If
-						End If
-						n += 1
-					Next
-				End If
+                        If Request.QueryString("dontdelete") = 1 Then
+                            If Not Request.QueryString("output") Is Nothing Then
+                                Response.Write(Request.QueryString("output"))
+                            Else
+                                Response.Write(pathGBOX)
+                            End If
+                        Else
+                            Dim bytes() As Byte
+                            Dim finfo As New FileInfo(pathGBOX)
+                            Dim numBytes As Long = finfo.Length
+                            Dim fstream As New FileStream(pathGBOX, FileMode.Open, FileAccess.Read)
+                            Dim br As New BinaryReader(fstream)
+                            bytes = br.ReadBytes(CInt(numBytes))
 
-				Try
-					Dim ef As ExcelFile = New ExcelFile
-					Dim ws As ExcelWorksheet = ef.Worksheets.Add(code)
-					Dim rows As Integer = 0
-					Dim ds = SelectSqlSrvRows(sqlstr, Connections)
+                            Dim context1 As HttpContext = HttpContext.Current
+                            context1.Response.Cache.SetCacheability(HttpCacheability.NoCache)
+                            If Right(pathGBOX, 3) = "xls" Or Right(pathGBOX, 4) = "xlsx" Then
+                                context1.Response.ContentType = "application/vnd.ms-excel"
+                            Else
+                                If Right(pathGBOX, 3) = "txt" Then context1.Response.ContentType = "text/plain"
+                            End If
 
-					If ds.Tables.Count > 0 And ds.Tables(0).Rows.Count > 0 Then
-						Dim cols As Integer = 0
-						If gext <> "txt" Then
-							If gext <> "csv" Then
-								For Each head In ds.Tables(0).Columns
-									ws.Cells(rows, cols).Value = head.ToString
-									cols = cols + 1
-								Next
-								rows = rows + 1
-							End If
-						End If
-						Dim cl = ds.Tables(0).Columns.Count
-						For Each r In ds.Tables(0).Rows
-							Dim rx = DirectCast(r, DataRow)
-							For n = 0 To cl - 1
-								ws.Cells(rows, n).Value = rx.Item(n).ToString
-							Next
-							rows = rows + 1
-						Next
-
-						For n = 0 To ds.Tables(0).Columns.Count - 1
-							ws.Columns.Item(n).AutoFit()
-						Next
-
-						ws.Columns.Item(0).AutoFit()
-						ef.Save(pathGBOX)
-						If Not Request.QueryString("output") Is Nothing Then
-							If Dir(Request.QueryString("output")) <> "" Then Kill(Request.QueryString("output"))
-							If gext = "txt" Then
-								Dim latin1 As Encoding = Encoding.GetEncoding(28591)
-								Dim text As String = File.ReadAllText(pathGBOX, latin1)
-								File.WriteAllText(Request.QueryString("output"), text, Encoding.ASCII)
-							Else
-								FileCopy(pathGBOX, Request.QueryString("output"))
-							End If
-						End If
-						If gext = "txt" Then
-							Rename(pathGBOX, Left(pathGBOX, pathGBOX.Length - 4))
-							gfile = Left(gfile, Len(gfile) - 4)
-							pathGBOX = Left(pathGBOX, Len(pathGBOX) - 4)
-						End If
-
-						If Request.QueryString("dontdelete") = 1 Then
-							If Not Request.QueryString("output") Is Nothing Then
-								Response.Write(Request.QueryString("output"))
-							Else
-								Response.Write(pathGBOX)
-							End If
-						Else
-							Dim bytes() As Byte
-							Dim finfo As New FileInfo(pathGBOX)
-							Dim numBytes As Long = finfo.Length
-							Dim fstream As New FileStream(pathGBOX, FileMode.Open, FileAccess.Read)
-							Dim br As New BinaryReader(fstream)
-							bytes = br.ReadBytes(CInt(numBytes))
-
-							Dim context1 As HttpContext = HttpContext.Current
-							context1.Response.Cache.SetCacheability(HttpCacheability.NoCache)
-							If Right(pathGBOX, 3) = "xls" Or Right(pathGBOX, 4) = "xlsx" Then
-								context1.Response.ContentType = "application/vnd.ms-excel"
-							Else
-								If Right(pathGBOX, 3) = "txt" Then context1.Response.ContentType = "text/plain"
-							End If
-
-							context1.Response.ClearHeaders()
-							context1.Response.AddHeader("content-disposition", "attachment;filename=" & gfile)
-							context1.Response.BinaryWrite(bytes)
-							context1.Response.Flush()
-							fstream.Close()
-							fstream.Dispose()
-							finfo.Delete()
-						End If
-					Else
-						Response.Write("<script>alert('Theres is No Data to be Shown!');window.close();</script>")
-					End If
-				Catch ex As Exception
-					Response.Write("<script>alert('" & ex.Message.Replace("'", "\'") & "')</script>")
+                            context1.Response.ClearHeaders()
+                            context1.Response.AddHeader("content-disposition", "attachment;filename=" & gfile)
+                            context1.Response.BinaryWrite(bytes)
+                            context1.Response.Flush()
+                            fstream.Close()
+                            fstream.Dispose()
+                            finfo.Delete()
+                        End If
+                    Else
+                        Response.Write("<script>alert('Theres is No Data to be Shown!');window.close();</script>")
+                    End If
+                Catch ex As Exception
+                    Response.Write("<script>alert('" & ex.Message.Replace("'", "\'") & "')</script>")
 				End Try
 			End If
 		End If
