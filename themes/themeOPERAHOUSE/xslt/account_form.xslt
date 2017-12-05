@@ -50,8 +50,12 @@
 
     <div class="container">
       <div class="card card-hero card-primary animated fadeInUp animation-delay-7">
-        <div class="card-header-100">
-          <ul class="nav nav-tabs nav-tabs-full nav-tabs-4 shadow-2dp" role="tablist">
+        <div class="card-header-50">
+          <a href="index.aspx?env=front&amp;code=userprofile&amp;GUID={/sqroot/header/info/user/userGUID}" class="btn btn-s btn-primary" style="margin-top:0px">
+            <i class="fa fa-arrow-left"></i> BACK TO PROFILE
+          </a>
+          
+          <!--<ul class="nav nav-tabs nav-tabs-full nav-tabs-4 shadow-2dp" role="tablist">
             <li role="presentation">
               <a class="withoutripple" data-scroll="" href="index.aspx?env=front&amp;code=userprofile&amp;GUID={/sqroot/header/info/user/userGUID}" >
                 <i class="zmdi zmdi-arrow-left"></i>
@@ -74,7 +78,15 @@
             
             
             
-          </ul>
+          </ul>-->
+        </div>
+        <div class="text-center">
+          <h2 class="no-m ms-site-title color-primary center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">
+            <xsl:value-of select ="/sqroot/header/info/title/."/>
+          </h2>
+          <p class="lead lead-lg color-default text-center center-block mt-2 mb-2 mw-800 text-uppercase fw-300 animated fadeInUp animation-delay-7">
+            <xsl:value-of select ="/sqroot/header/info/code/additionalDesc/."/>
+          </p>
         </div>
         <div class="row">
           <form class="form-horizontal" id="form{/sqroot/body/bodyContent/form/info/code/.}" method="post">

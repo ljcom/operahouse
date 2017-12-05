@@ -2,9 +2,16 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl">
   <xsl:template match="/">
 
-    <div class="wrap ms-hero-img-coffee  ms-bg-fixed ms-hero-bg-dark-light" style="padding-top:0; padding-bottom:10px;">
+    <div class="">
       <div class="container">
-        <h1 class="color-white text-center mb-4">Your Account</h1>
+        <div class="text-center">
+          <h2 class="no-m ms-site-title color-primary center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">
+            <xsl:value-of select ="/sqroot/header/info/title/."/>
+          </h2>
+          <p class="lead lead-lg color-default text-center center-block mt-2 mb-2 mw-800 text-uppercase fw-300 animated fadeInUp animation-delay-7">
+            <xsl:value-of select ="/sqroot/header/info/code/additionalDesc/."/>
+          </p>
+        </div>
         <div class="row">
           <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row"/>
           

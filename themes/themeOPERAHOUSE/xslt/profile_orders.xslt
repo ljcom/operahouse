@@ -4,8 +4,15 @@
 
     <div class="container mt-4">
       <div class="card card-primary animated fadeInUp animation-delay-7">
-        <div class="row" style="padding:30px;">
-          <h2 class="color-primary text-center mb-4">HISTORY ORDERS</h2>
+        <div class="row" style="padding:0 40px;">
+          <div class="text-center">
+            <h2 class="no-m ms-site-title color-primary center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">
+              <xsl:value-of select ="/sqroot/header/info/title/."/>
+            </h2>
+            <p class="lead lead-lg color-default text-center center-block mt-2 mb-2 mw-800 text-uppercase fw-300 animated fadeInUp animation-delay-7">
+              <xsl:value-of select ="/sqroot/header/info/code/additionalDesc/."/>
+            </p>
+          </div>
           <div class="bs-example mt-4">
             <div class="table-responsive">
               <div class="card">
@@ -13,7 +20,7 @@
                   <thead>
                     <tr>
                       <xsl:apply-templates select="sqroot/body/bodyContent/browse/header/column"/>
-                      <th  style="background:#03A9F4; color:#FFF; width:200px;">Action</th>
+                      <th  style="background:#03A9F4; color:#FFF; width:200px; text-align:center">Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -43,7 +50,14 @@
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
     <tr>
       <xsl:apply-templates select="fields/field"/>
-      <td></td>
+      <td align="center">
+        <a href="javascript:void(0)" class="btn-circle btn-circle-s btn-circle-primary" onclick="" title="VIEW TRANSACTION">
+          <i class="fa fa-search-plus"></i>
+        </a>
+        <a href="javascript:void(0)" class="btn-circle btn-circle-s btn-circle-primary" onclick="" title="PRINT">
+          <i class="fa fa-print"></i>
+        </a>
+      </td>
     </tr>
   </xsl:template>
 

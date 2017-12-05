@@ -210,16 +210,42 @@
       <xsl:value-of select="titlecaption"/>
     </label>
     <div class="col-md-8">
-      <select class="form-control select2"  name="{../@fieldName}" id="{../@fieldName}"
-         data-type="selectBox" data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}" data-child="Y"
-         onchange="preview('{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);" >
-        <xsl:if test="../@isEditable='0' or (../@isEditable='2' and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000'))">
-          <xsl:attribute name="disabled">disabled</xsl:attribute>
-        </xsl:if>
-        <option value="NULL">
-          Please Select <xsl:value-of select="titlecaption"/>
-        </option>
-      </select>
+      <xsl:if test="@addCombo = '1'">
+        <div class="col-md-10">
+          <select class="form-control select2"  name="{../@fieldName}" id="{../@fieldName}"
+           data-type="selectBox" data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}" data-child="Y"
+           onchange="preview('{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);" >
+            <xsl:if test="../@isEditable='0' or (../@isEditable='2' and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000'))">
+              <xsl:attribute name="disabled">disabled</xsl:attribute>
+            </xsl:if>
+            <option value="NULL">
+              Please Select <xsl:value-of select="titlecaption"/>
+            </option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <a class="btn-circle btn-circle-xs btn-circle-primary" title="Add New {titlecaption}" href="index.aspx?code={@comboCode}&amp;GUID=00000000-0000-0000-0000-000000000000" target="new">
+            <i class="fa fa-plus"></i>
+          </a>
+        </div>
+      </xsl:if>
+      <xsl:if test="@addCombo = '0'">
+        <div class="col-md-12">
+          <select class="form-control select2"  name="{../@fieldName}" id="{../@fieldName}"
+           data-type="selectBox" data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}" data-child="Y"
+           onchange="preview('{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);" >
+            <xsl:if test="../@isEditable='0' or (../@isEditable='2' and (/sqroot/body/bodyContent/form/info/GUID/. != '00000000-0000-0000-0000-000000000000'))">
+              <xsl:attribute name="disabled">disabled</xsl:attribute>
+            </xsl:if>
+            <option value="NULL">
+              Please Select <xsl:value-of select="titlecaption"/>
+            </option>
+          </select>
+        </div>
+      </xsl:if>
+
+
+     
     </div>
 
 

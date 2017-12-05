@@ -2,18 +2,25 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl">
   <xsl:template match="/">
 
-    <div class="wrap ms-hero-img-coffee  ms-bg-fixed ms-hero-bg-primary">
+    <div class="">
       <div class="container">
-        <h1 class="color-white text-center mb-4">Your Package</h1>
+        <div class="text-center">
+          <h2 class="no-m ms-site-title color-primary center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">
+            <xsl:value-of select ="/sqroot/header/info/title/."/>
+          </h2>
+          <p class="lead lead-lg color-default text-center center-block mt-2 mb-2 mw-800 text-uppercase fw-300 animated fadeInUp animation-delay-7">
+            <xsl:value-of select ="/sqroot/header/info/code/additionalDesc/."/>
+          </p>
+        </div>
         <div class="row">
           <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row"/>
         </div>
-        <div class="text-center color-white mw-800 center-block mt-4">
+        <!--<div class="text-center color-white mw-800 center-block mt-4">
           <p class="lead lead-lg">To complete your company's needs.</p>
           <a href="javascript:void(0)" class="btn btn-raised btn-white color-info wow flipInX animation-delay-8">
             <i class="fa fa-space-shuttle"></i> GET MORE
           </a>
-        </div>
+        </div>-->
       </div>
     </div>
 
@@ -31,14 +38,17 @@
   <!--package section-->
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
  
-    <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="col-lg-4 col-md-4 col-sm-6">
       <div class="card card-info card-block text-center wow zoomInUp animation-delay-3">
         <!--<p class="counter">
           <xsl:value-of select ="fields/field[@caption = 'NoOfUsers']/."/> Users
         </p>-->
-        <a href="javascript:void(0)" class="btn btn-primary btn-raised" style="position:absolute; top:-10px; right:10px;" onclick="">
-          <i class="zmdi zmdi-delete"></i> 
-        </a>
+        <span class="ms-icon ms-icon-sm" style="position:absolute; top:0px; right:10px;" title="delete" onclick="executeFunction('{/sqroot/header/info/code/id/.}', '{@GUID}', 'delete', '')">
+          <i class="fa fa-close"></i> 
+        </span>
+        <!--<a href="javascript:void(0)" class="btn-circle btn-circle-sm btn-circle-primary" style="position:absolute; top:-10px; right:10px;">
+          <i class="fa fa-delete"></i> test
+        </a>-->
         <!--<i class="fa fa-4x fa-microchip"></i>-->
         <h4 class="mt-2 no-mb" style="height:50px; font-weight:bold;">
           

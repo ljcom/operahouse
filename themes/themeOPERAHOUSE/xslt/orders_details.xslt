@@ -47,7 +47,7 @@
         <a href="javascript:void(0)" onclick="LoadNewPartView('orders_details_modal', 'childmodalcontent', 'ordersdetails', '{@GUID}')" class="btn-circle btn-circle-default " data-toggle="modal" data-target="#childmodal">
           <i class="fa fa-pencil"></i>
         </a>
-        <a href="javascript:void(0)" class="btn-circle btn-circle-default" data-toggle="tooltip" data-placement="bottom" title="Delete">
+        <a href="javascript:void(0)" class="btn-circle btn-circle-default" data-toggle="tooltip" data-placement="bottom" title="Delete" onclick="executeFunction('{/sqroot/header/info/code/id/.}', '{@GUID}', 'delete', '')">
           <i class="fa fa-close"></i>
         </a>
       </td>

@@ -216,7 +216,17 @@
         <!-- container -->
       </nav>
       <!--this is Content-->
-      <div class="container">
+      <div class="ms-hero-page-override ms-hero-img-coffee ms-bg-fixed ms-hero-bg-primary">
+        <div class="container">
+          <div class="text-center mt-2">
+            <h1 class="color-light no-mb animated fadeInUp animation-delay-10">
+              SHOPPING CART  
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div class="container" style="margin-top:-80px">
+        
         <div class="row">
           <div class="col-md-9 " id="ordersdetails">              
             <script>
