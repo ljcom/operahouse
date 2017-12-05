@@ -1240,12 +1240,12 @@ Public Class cl_base
 
 			myCommand.Connection = myConnection
 			myConnection.Open()
-			'Dim myCommand1 As New SqlCommand("SET ARITHABORT ON", myConnection)
-			'Dim myCommand2 As New SqlCommand("SET QUOTED_IDENTIFIER On", myConnection)
-			'myCommand1.ExecuteNonQuery()
-			'myCommand2.ExecuteNonQuery()
-			'myCommand.CommandTimeout = 600
-			Reader = myCommand.ExecuteReader()
+            'Dim myCommand1 As New SqlCommand("SET ARITHABORT ON", myConnection)
+            'Dim myCommand2 As New SqlCommand("SET QUOTED_IDENTIFIER On", myConnection)
+            'myCommand1.ExecuteNonQuery()
+            'myCommand2.ExecuteNonQuery()
+            myCommand.CommandTimeout = 600
+            Reader = myCommand.ExecuteReader()
 
 			Reader.Read()
 			If Reader.HasRows Then
