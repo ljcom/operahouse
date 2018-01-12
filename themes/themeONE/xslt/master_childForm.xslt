@@ -69,41 +69,6 @@
 
       $(function () {
 
-      <!--//Datemask dd/mm/yyyy--><!--
-      $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-      --><!--//Datemask2 mm/dd/yyyy--><!--
-      $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-      --><!--//Money Euro--><!--
-      $("[data-mask]").inputmask();
-
-      --><!--//Date range picker--><!--
-      $('#reservation').daterangepicker();
-      --><!--//Date range picker with time picker--><!--
-      $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-      --><!--//Date range as a button--><!--
-      $('#daterange-btn').daterangepicker(
-      {
-      ranges: {
-      'Today': [moment(), moment()],
-      'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-      'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-      'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-      'This Month': [moment().startOf('month'), moment().endOf('month')],
-      'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-      },
-      startDate: moment().subtract(29, 'days'),
-      endDate: moment()
-      },
-      function (start, end) {
-      $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-      }
-      );-->
-
-      <!--//Date picker-->
-      <!--$('#datepicker').datepicker({
-      autoclose: true
-      });-->
-
       <!--//iCheck for checkbox and radio inputs-->
       $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
       checkboxClass: 'icheckbox_minimal-blue',
@@ -154,7 +119,7 @@
             <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 40, 'form{sqroot/body/bodyContent/form/info/code/.}');">SAVE</button>&#160;
             <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}')">CANCEL</button>&#160;
             
-            <xsl:if test="(/sqroot/body/bodyContent/form/info/GUID/.)!='00000000-0000-0000-0000-000000000000' or (/sqroot/body/bodyContent/form/info/permission/allowDelete/.)=1" >
+            <xsl:if test="(/sqroot/body/bodyContent/form/info/GUID/.)!='00000000-0000-0000-0000-000000000000' and (/sqroot/body/bodyContent/form/info/permission/allowDelete/.)=1" >
               <button id="child_button_delete" class="btn btn-gray-a"
                   onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'delete', 1, 40)">
                 DELETE
@@ -186,17 +151,10 @@
       <!-- browse for phone/tablet max width 768 -->
     </section>
     <!-- /.content -->
-
-
-
-
-
   </xsl:template>
 
   <xsl:template match="sqroot/body/bodyContent">
-
     <xsl:apply-templates select="form"/>
-
   </xsl:template>
 
   <xsl:template match="form">
@@ -225,14 +183,11 @@
   </xsl:template>
 
   <xsl:template match="formSections">
-
     <xsl:apply-templates select="formSection"/>
-
   </xsl:template>
 
   <xsl:template match="formSection ">
-    <div class="box box-solid box-default" style="box-shadow:0px;border:none;">
-      
+    <div class="box box-solid box-default" style="box-shadow:0px;border:none;">     
         <div class="col-md-12">
           <xsl:if test="@rowTitle/.!=''">
             <h3>
@@ -241,27 +196,13 @@
           </xsl:if>
           <xsl:apply-templates select="formCols"/>
         </div>
-     
     </div>
-
   </xsl:template>
 
   <xsl:template match="formCols">
     <xsl:apply-templates select="formCol"/>
   </xsl:template>
 
-  <!--<xsl:template match="formCol">
-    <xsl:if test="@colNo='1'">
-      <div class="col-md-6">
-        <xsl:apply-templates select="formRows"/>
-      </div>
-    </xsl:if>
-    <xsl:if test="@colNo='2'">
-      <div class="col-md-6">
-        <xsl:apply-templates select="formRows"/>
-      </div>
-    </xsl:if>
-  </xsl:template>-->
   <xsl:template match="formCol">
     <xsl:choose>
       <xsl:when test="@colNo='0'">
@@ -283,14 +224,11 @@
   </xsl:template>
 
   <xsl:template match="formRows">
-
     <xsl:apply-templates select="formRow"/>
-
   </xsl:template>
 
   <xsl:template match="formRow ">
     <xsl:apply-templates select="fields"/>
-
   </xsl:template>
 
   <xsl:template match="fields">

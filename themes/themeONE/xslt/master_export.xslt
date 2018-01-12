@@ -8,8 +8,17 @@
   
   <xsl:variable name="code" select="/sqroot/body/bodyContent/info/code" />
   <xsl:variable name="desc" select="/sqroot/body/bodyContent/info/description" />
+  <xsl:variable name="exportMode">
+    <xsl:choose>
+      <xsl:when test="/sqroot/body/bodyContent/info/exportMode=0 or /sqroot/body/bodyContent/info/exportMode='0'">
+        0
+      </xsl:when>
+      <xsl:otherwise>1</xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
   <xsl:variable name="allowExport" select="/sqroot/body/bodyContent/info/permission/allowExport" />
-
+  <xsl:variable name="parameter" select="/sqroot/body/bodyContent/parameters/parameter" />
+  <xsl:variable name="xmlParameter" select="/sqroot/body/bodyContent/parameters/xmlParameter" />
 
   <xsl:template match="/">
     <script>
@@ -83,7 +92,7 @@
       <div class="row">
         <div class="col-md-12" style="margin-bottom:30px;margin-top:30px">
           <div style="text-align:left">
-            <button id="btn_imp" class="btn btn-orange-a" onclick="downloadModule('{$code}');">Download Template</button>&#160;
+            <button id="btn_imp" class="btn btn-orange-a" onclick="downloadModule('{$code}', {$exportMode});">Download Template</button>&#160;
             <button id="btn_exp" class="btn btn-orange-a" onclick="javascript:$('#import_hidden').click();" data-loading-text="Exporting File...(Please wait)" autocomplete="off">
               Export Template Data
             </button>&#160;
@@ -115,25 +124,6 @@
               </tbody>
             </table>
           </div>
-          <!--<div class="box-footer clearfix">
-                <ul class="pagination pagination-sm no-margin pull-right">
-                  <li>
-                    <a href="#">«</a>
-                  </li>
-                  <li>
-                    <a href="#">1</a>
-                  </li>
-                  <li>
-                    <a href="#">2</a>
-                  </li>
-                  <li>
-                    <a href="#">3</a>
-                  </li>
-                  <li>
-                    <a href="#">»</a>
-                  </li>
-                </ul>
-              </div>-->
         </div>
       </div>
     </div>

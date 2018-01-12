@@ -3281,8 +3281,8 @@ function panel_display(flag, val) {
 
 }
 
-function downloadModule(code) {
-    window.open('OPHCore/api/msg_rptDialog.aspx?gbox=1&code=' + code + '&parameter=&outputType=1');
+function downloadModule(code, exportMode) {
+    window.open('OPHCore/api/msg_rptDialog.aspx?gbox=1&code=' + code + '&parameter=&outputType=1&exportMode=' + exportMode);
 }
 
 function downloadChild(code, sqlFilter) {

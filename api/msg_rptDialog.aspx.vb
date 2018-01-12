@@ -136,8 +136,6 @@ Partial Class OPHCore_api_msg_rptDialog
 				Dim gfile As String = "", gext As String = ""
                 Dim gpath As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/")
                 If Not Directory.Exists(gpath) Then Directory.CreateDirectory(gpath)
-                Dim exportMode = Request.QueryString("exportMode")
-                exportMode = IIf(Not exportMode = 0, 1, 0)
 
                 'output 0 = download Report XLS & CSV
                 'output 1 = download Module 
@@ -152,7 +150,8 @@ Partial Class OPHCore_api_msg_rptDialog
                     Else
                         gfile = g & "_" & reportName & ".xls"
                     End If
-                    sqlstr = "exec gen.downloadModule '" & curHostGUID & "', '" & code & "', " & exportMode.ToString
+
+                    sqlstr = "exec gen.downloadModule '" & curHostGUID & "', '" & code & "'"
                 ElseIf outputType = 3 Then
                     Dim ParentGUID As String = Request.QueryString("ParentGUID").ToString
 
@@ -217,7 +216,7 @@ Partial Class OPHCore_api_msg_rptDialog
                                     ws.Cells(rows, cols).Value = head.ToString
                                     cols = cols + 1
                                 Next
-                                ws.Rows(rows).Hidden = IIf(outputType = 0 Or exportMode = 0, False, True)
+                                ws.Rows(rows).Hidden = IIf(outputType = 0, False, True)
                                 rows = rows + 1
                             End If
                         End If
@@ -233,7 +232,7 @@ Partial Class OPHCore_api_msg_rptDialog
                         For n = 0 To ds.Tables(0).Columns.Count - 1
                             ws.Columns.Item(n).AutoFit()
                         Next
-                        ws.Columns(0).Hidden = IIf(outputType = 0 Or exportMode = 0, False, True)
+                        ws.Columns(0).Hidden = IIf(outputType = 0, False, True)
                         ws.Columns.Item(0).AutoFit()
                         ef.Save(pathGBOX)
                         If Not Request.QueryString("output") Is Nothing Then
