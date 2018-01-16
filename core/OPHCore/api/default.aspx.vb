@@ -161,7 +161,10 @@ Partial Class OPHCore_API_default
                     End If
 
                     If header = True Then
-                        sqlstr = "exec gen.uploadModule '" & curHostGUID & "', '" & code & "', '" & fxn & "'"
+                        Dim exportMode = getQueryVar("exportMode")
+                        Dim xmlParameter = getQueryVar("xmlParameter")
+                        xmlParameter = xmlParameter.Replace("ss3css", "<").Replace("ss3ess", ">").Replace("ss3dss", "=").Replace("ss2fss", "/").Replace("ss84ss", """")
+                        sqlstr = "exec gen.uploadModule '" & curHostGUID & "', '" & code & "', " & exportMode & ", '" & fxn & "', '" & xmlParameter & "'"
                     Else
                         sqlstr = "exec gen.uploadChild '" & curHostGUID & "', '" & code & "', '" & GUID.Replace("'", "") & "', '" & ParentGUID & "', '" & fxn & "'"
                     End If

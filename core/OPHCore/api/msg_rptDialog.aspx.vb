@@ -54,20 +54,20 @@ Partial Class OPHCore_api_msg_rptDialog
 				parameterid = "hostGUID:" & curHostGUID & "," & parameterid
 			End If
 
-			If dplx = 1 Then
-				Dim Parameters As ParameterDictionary = New ParameterDictionary
-				Dim pathDPLX As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/" & reportName & ".dplx")
+            If dplx = 1 Then
+                Dim Parameters As ParameterDictionary = New ParameterDictionary
+                Dim pathDPLX As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/" & reportName & ".dplx")
 
-				parameterid = parameterid.Replace(":", "=").Replace(":null", "=null").Replace("''", "")
-				parameterid = parameterid.Replace("/", "-")
-				Dim p = parameterid.Split(",")
-				Dim n = 1
-				For Each px In p
-					Dim pp = px.Split("=")
-					parValId(Parameters, pp(0), pp(1))
-					n += 1
-				Next
-				Dim q As Long = 1
+                parameterid = parameterid.Replace(":", "=").Replace(":null", "=null").Replace("''", "")
+                parameterid = parameterid.Replace("/", "-")
+                Dim p = parameterid.Split(",")
+                Dim n = 1
+                For Each px In p
+                    Dim pp = px.Split("=")
+                    parValId(Parameters, pp(0), pp(1))
+                    n += 1
+                Next
+                Dim q As Long = 1
                 Dim query = "" 'runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='YoDailySalesByCustomer' and InfoKey='querysql_" & q & "'")
                 Dim errReport = False
                 Try
@@ -129,16 +129,18 @@ Partial Class OPHCore_api_msg_rptDialog
 
 
                 End Try
-			ElseIf gbox = 1 Then
-				Dim g = System.Guid.NewGuid().ToString
-				SpreadsheetInfo.SetLicense("ESWM-UQ6R-26SR-4WB1")
-				Dim Parameters As ParameterDictionary = New ParameterDictionary
-				Dim gfile As String = "", gext As String = ""
+            ElseIf gbox = 1 Then
+
+                Dim g = System.Guid.NewGuid().ToString
+                SpreadsheetInfo.SetLicense("ESWM-UQ6R-26SR-4WB1")
+                Dim Parameters As ParameterDictionary = New ParameterDictionary
+                Dim gfile As String = "", gext As String = ""
                 Dim gpath As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/")
                 If Not Directory.Exists(gpath) Then Directory.CreateDirectory(gpath)
                 Dim exportMode = Request.QueryString("exportMode")
                 exportMode = IIf(Not exportMode = 0, 1, 0)
-
+                writeLog("gbox")
+                writeLog(gpath)
                 'output 0 = download Report XLS & CSV
                 'output 1 = download Module 
                 'output 2 = ???
@@ -150,7 +152,7 @@ Partial Class OPHCore_api_msg_rptDialog
                     If gext = "txt" Then
                         gfile = g & "_" & reportName & ".csv"
                     Else
-                        gfile = g & "_" & reportName & ".xls"
+                        gfile = g & "_" & reportName & ".xlsx"
                     End If
                     sqlstr = "exec gen.downloadModule '" & curHostGUID & "', '" & code & "', " & exportMode.ToString
                 ElseIf outputType = 3 Then
@@ -167,7 +169,7 @@ Partial Class OPHCore_api_msg_rptDialog
                     sqlstr = "exec gen.downloadChild '" & curHostGUID & "', '" & code & "','" & ParentGUID & "'"
                 Else
                     If InStr(reportName, ".") = 0 Then reportName = reportName & ".xls"
-					gext = LCase(Right(reportName, reportName.Length - InStr(reportName, ".")))
+                    gext = LCase(Right(reportName, reportName.Length - InStr(reportName, ".")))
 
                     Select Case gext
                         Case "txt"
@@ -201,8 +203,9 @@ Partial Class OPHCore_api_msg_rptDialog
                     Next
                 End If
 
-				Dim pathGBOX As String = gpath & gfile
-
+                Dim pathGBOX As String = gpath & gfile
+                writeLog("after try")
+                writeLog(pathGBOX)
                 Try
                     Dim ef As ExcelFile = New ExcelFile
                     Dim ws As ExcelWorksheet = ef.Worksheets.Add(code)
@@ -263,6 +266,7 @@ Partial Class OPHCore_api_msg_rptDialog
                             Dim finfo As New FileInfo(pathGBOX)
                             Dim numBytes As Long = finfo.Length
                             Dim fstream As New FileStream(pathGBOX, FileMode.Open, FileAccess.Read)
+                            writeLog(pathGBOX)
                             Dim br As New BinaryReader(fstream)
                             bytes = br.ReadBytes(CInt(numBytes))
 
@@ -286,6 +290,7 @@ Partial Class OPHCore_api_msg_rptDialog
                         Response.Write("<script>alert('Theres is No Data to be Shown!');window.close();</script>")
                     End If
                 Catch ex As Exception
+                    writeLog(ex.Message)
                     Response.Write("<script>alert('" & ex.Message.Replace("'", "\'") & "')</script>")
 				End Try
 			End If
