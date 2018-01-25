@@ -1419,10 +1419,10 @@ Public Class cl_base
 		'replace this:' " ( ) ; , | < > - \ + & $ @
 		If Not IsNothing(Request.QueryString(key)) Then
 			If key.ToLower = "sqlfilter" Then
-				r = Request.QueryString(key).Replace("--", "").Replace("+", "").Replace(";", "").Replace("<", "").Replace(">", "")
-			Else
-				r = Request.QueryString(key).Replace(" Then ", "").Replace("'", "").Replace("--", "").Replace("+", "").Replace(";", "").Replace("""", "").Replace("<", "").Replace(">", "")
-				If Request.QueryString(key) <> r Then
+                r = Request.QueryString(key).Replace("--", "").Replace("+", "").Replace(";", "").Replace("<", "").Replace(">", "")
+            Else
+                r = Request.QueryString(key).Replace(" Then ", "").Replace("'", "").Replace("--", "").Replace("+", "").Replace(";", "").Replace("""", "").Replace("<", "").Replace(">", "")
+                If Request.QueryString(key) <> r Then
 					writeLog(key & "from :" & Request.QueryString(key) & "to :" & r)
 				End If
 				'Else

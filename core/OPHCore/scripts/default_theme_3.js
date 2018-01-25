@@ -219,29 +219,7 @@ function selectAll(x, nbRec, code) {
 }
 
 
-function showMessage(msg, mode, fokus) {
-    var msgType;
-    if (mode == 1) msgType = 'notice';
-    else if (mode == 2) msgType = 'success';
-    else if (mode == 4) msgType = 'error';
-    else if (mode == 3) msgType = 'warning';
-    else msgType = 'notice';
 
-    if (msg == '' && (mode == 4 || mode == 3)) msg = 'Time out.';
-
-    $("#notiTitle").text(msgType);
-    $("#notiContent").text(msg);
-    $("#notiModal").modal();
-
-    if (fokus) {
-        try {
-            document.getElementById('notiBtn').onclick = function () {
-                document.getElementById(fokus).focus();
-            };
-        }
-        catch (e) { }
-    }
-}
 
 
 
@@ -1089,40 +1067,7 @@ function doSubViewFunction(functiontext, caption, strGUID, needConfirm, subBrows
 }
 
 
-function doFunction(functiontext, nbRec, caption) {
-    var c;
-    var sAction = "";
-    if (nbRec > 0) {
-        window.status = "Looking for records... "
-        for (c = 1; c <= nbRec; c++) {
-            if (document.forms(0).CheckRecord[c - 1].checked) {
-                if (sAction == '')
-                    sAction = document.forms(0).CheckGUID[c - 1].value;
-                else
-                    sAction = sAction + ',' + document.forms(0).CheckGUID[c - 1].value;
 
-                window.status = "Looking for records. Found " + document.forms(0).CheckGUID[c - 1].value + "...";
-            }
-        }
-        window.status = "";
-    }
-    if (functiontext == 'add' || functiontext == 'edit' || functiontext == 'cancel') {
-        document.forms(0).cfunction.value = functiontext;
-        //document.forms(0).style.cursor = 'wait';
-        document.forms(0).submit();
-    }
-    else {
-        if (sAction == "")
-            showMessage("Process cannot be continue before checking the box");
-        else
-            if (confirm("Do you want to " + caption + "?") == 1) {
-                document.forms(0).cfunction.value = functiontext;
-                document.forms(0).cfunctionlist.value = sAction;
-                //document.forms(0).style.cursor = 'wait';
-                document.forms(0).submit();
-            }
-    }
-}
 
 //function doFunctionPage(vp, functiontext, nbRec, caption) {
 //    var c;
@@ -2678,69 +2623,7 @@ function executeFunction(code, GUID, action, location) {
     }
 }
 
-function saveFunction(code, guid, location, formId, afterSuccess) {
-    var tblnm = code
-    requiredname = document.getElementsByName(tblnm + "requiredname")[0];
-    var result
-    var idReq
-    if (requiredname != undefined) {
-        requiredname = requiredname.value;
-        if (requiredname != '' && requiredname != undefined) {
-            result = checkrequired(requiredname.split(', '), 'good');
-            idReq = checkrequired(requiredname.split(', '), 'id');
-        } else {
-            result = 'good'
-        }
-    } else {
-        result = 'good';
-    }
 
-    if (result == 'good') {
-        //var filename = $(":file").val();
-        var data = new FormData();
-
-        if ($(':file').length > 0) {
-            $.each($(':file')[0].files, function (key, value) {
-                data.append(key, value);
-            });
-        }
-        var thisForm = 'form';
-        if (formId != undefined) thisForm = '#' + formId;
-
-        var other_data = $(thisForm).serializeArray();
-        $.each(other_data, function (key, input) {
-            var newVal = input.value;
-            newVal = newVal.replace(/</g, '&lt;', );
-            newVal = newVal.replace(/>/g, '&gt;');
-            data.append(input.name, newVal);
-        });
-
-        $.ajax({
-            type: "POST",
-            url: "OPHCore/api/default.aspx?code=" + code + "&mode=save&cfunctionlist=" + guid + "&",
-            enctype: 'multipart/form-data',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: data,
-            success: function () {
-                //alert("Data Uploaded: ");
-            }
-        }).done(function (data) {
-            if (typeof afterSuccess == "function") afterSuccess(data);
-        });
-    }
-    else {
-        if (location == 50 || location == '50') { //saveModalForm
-            $('#notiModal').data("message", result);
-            $('#notiModal').data("colname", idReq);
-            if (typeof afterSuccess == "function") afterSuccess(data);
-        } else {
-            if (idReq) showMessage(result, '0', idReq)
-            else showMessage(result);
-        }
-    }
-}
 
 function loadReport(qCode, tcode, f) {
     qCode = (qCode == "") ? getCode() : qCode;
@@ -3095,54 +2978,6 @@ function fillChartDataSets(label, data, bgColor, borderColor, borderWidth) {
     //}]
 }
 
-//upload class
-var Upload = function (file) {
-    this.file = file;
-};
-
-Upload.prototype.getType = function () {
-    return this.file.type;
-};
-Upload.prototype.getSize = function () {
-    return this.file.size;
-};
-Upload.prototype.getName = function () {
-    return this.file.name;
-};
-Upload.prototype.doUpload = function (url, successF, errorF) {
-    var that = this;
-    var formData = new FormData();
-
-    // add assoc key values, this will be posts values
-    formData.append("file", this.file, this.getName());
-    formData.append("upload_file", true);
-
-    $.ajax({
-        type: "POST",
-        url: url,
-        xhr: function () {
-            var myXhr = $.ajaxSettings.xhr();
-            if (myXhr.upload) {
-                myXhr.upload.addEventListener('progress', that.progressHandling, false);
-            }
-            return myXhr;
-        },
-        success: function (data) {
-            if (typeof successF == "function") successF(data);
-            // your callback here
-        },
-        error: function (error) {
-            if (typeof errorF == "function") errorF(error);
-            // handle error
-        },
-        async: true,
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        timeout: 60000
-    });
-}
 
 function applySQLFilter(ini) {
     $(ini).button('loading');

@@ -189,7 +189,7 @@ Partial Class OPHCore_api_msg_rptDialog
                     For Each px In p
                         If px <> "" Then
                             Dim pp = px.Split("=")
-                            If pp(1) <> "null" Then
+                            If pp(1).ToLower <> "null" Then
                                 sqlstr = sqlstr & "'" & pp(1) & "'"
                             Else
                                 sqlstr = sqlstr & "null"

@@ -72,7 +72,7 @@
                 });                
             }
         });
-    });
+    });    
     </script>
     
     <section class="content-header visible-phone">
@@ -113,7 +113,7 @@
                     <a href="#tabDownload" data-toggle="tab">Download Template</a>
                   </li>
                   <li>
-                    <a href="#tabExport" data-toggle="tab">Export Template</a>
+                    <a href="#tabExport" data-toggle="tab" >Export Template</a>
                   </li>
                 </ul>              
             
@@ -236,7 +236,7 @@
   <xsl:template match='sqroot/body/bodyContent/tables/table'>
     <div class="row">
       <div class="col-md-12">
-        <div class="box">
+        <div class="box" id="exportStatus">
           <div class="box-header">
             <h3 class="box-title">Export Status</h3>
           </div>

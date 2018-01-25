@@ -143,7 +143,10 @@ function loadChild(code, parentKey, GUID, pageNo) {
     var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + parentKey + '=' + "'" + GUID + "'&bPageNo=" + pageNo + '&date=' + getUnique();
 
     var divName = ['child' + String(code).toLowerCase() + GUID];
-    var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
+    if (code == 'modlinfo' || code == 'modlcolminfo' || code =='modlcolm')
+        var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];
+    else
+        var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
 
     pushTheme(divName, xmldoc, xsldoc, true);
 
@@ -223,5 +226,144 @@ function loadBrowse(bCode, f) {
     document.location = url;
 }
 
+function showMessage(msg, mode, fokus) {
+    var msgType;
+    if (mode == 1) msgType = 'notice';
+    else if (mode == 2) msgType = 'success';
+    else if (mode == 4) msgType = 'error';
+    else if (mode == 3) msgType = 'warning';
+    else msgType = 'notice';
 
+    if (msg == '' && (mode == 4 || mode == 3)) msg = 'Time out.';
 
+    $("#notiTitle").text(msgType);
+    $("#notiContent").text(msg);
+    $("#notiModal").modal();
+
+    if (fokus) {
+        try {
+            document.getElementById('notiBtn').onclick = function () {
+                document.getElementById(fokus).focus();
+            };
+        }
+        catch (e) { }
+    }
+}
+
+function doFunction(functiontext, nbRec, caption) {
+    var c;
+    var sAction = "";
+    if (nbRec > 0) {
+        window.status = "Looking for records... "
+        for (c = 1; c <= nbRec; c++) {
+            if (document.forms(0).CheckRecord[c - 1].checked) {
+                if (sAction == '')
+                    sAction = document.forms(0).CheckGUID[c - 1].value;
+                else
+                    sAction = sAction + ',' + document.forms(0).CheckGUID[c - 1].value;
+
+                window.status = "Looking for records. Found " + document.forms(0).CheckGUID[c - 1].value + "...";
+            }
+        }
+        window.status = "";
+    }
+    if (functiontext == 'add' || functiontext == 'edit' || functiontext == 'cancel') {
+        document.forms(0).cfunction.value = functiontext;
+        //document.forms(0).style.cursor = 'wait';
+        document.forms(0).submit();
+    }
+    else {
+        if (sAction == "")
+            showMessage("Process cannot be continue before checking the box");
+        else
+            if (confirm("Do you want to " + caption + "?") == 1) {
+                document.forms(0).cfunction.value = functiontext;
+                document.forms(0).cfunctionlist.value = sAction;
+                //document.forms(0).style.cursor = 'wait';
+                document.forms(0).submit();
+            }
+    }
+}
+
+function saveFunction(code, guid, location, formId, afterSuccess) {
+    var tblnm = code
+    requiredname = document.getElementsByName(tblnm + "requiredname")[0];
+    var result
+    var idReq
+    if (requiredname != undefined) {
+        requiredname = requiredname.value;
+        if (requiredname != '' && requiredname != undefined) {
+            result = checkrequired(requiredname.split(', '), 'good');
+            idReq = checkrequired(requiredname.split(', '), 'id');
+        } else {
+            result = 'good'
+        }
+    } else {
+        result = 'good';
+    }
+
+    if (result == 'good') {
+        //var filename = $(":file").val();
+        var data = new FormData();
+
+        if ($(':file').length > 0) {
+            $.each($(':file')[0].files, function (key, value) {
+                data.append(key, value);
+            });
+        }
+        var thisForm = 'form';
+        if (formId != undefined) thisForm = '#' + formId;
+        if (location == 30) {
+            $("#tr1_"+code+guid).children("td.cell").each(function(i) {
+                f=$("#tr1_"+code+guid).children("td.cell").eq(i).data("field");
+                d=$("#tr1_"+code+guid).children("td.cell").eq(i).html().replace("&nbsp;"," ");
+                data.append(f, d);
+            });
+            cid=$("#cid").val();
+            data.append("cid", cid);
+        } else {
+            var other_data = $(thisForm).serializeArray();
+            $.each(other_data, function (key, input) {
+                var newVal = input.value;
+                newVal = newVal.replace(/</g, '&lt;', );
+                newVal = newVal.replace(/>/g, '&gt;');
+                data.append(input.name, newVal);
+            });
+        }
+        $.ajax({
+            type: "POST",
+            url: "OPHCore/api/default.aspx?code=" + code + "&mode=save&cfunctionlist=" + guid + "&",
+            enctype: 'multipart/form-data',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function () {
+                //alert("Data Uploaded: ");
+            }
+        }).done(function (data) {
+            if (typeof afterSuccess == "function") afterSuccess(data);
+        });
+    }
+    else {
+        if (location == 50 || location == '50') { //saveModalForm
+            $('#notiModal').data("message", result);
+            $('#notiModal').data("colname", idReq);
+            if (typeof afterSuccess == "function") afterSuccess(data);
+        } else {
+            if (idReq) showMessage(result, '0', idReq)
+            else showMessage(result);
+        }
+    }
+}
+
+function wait(ms){
+    var start = new Date().getTime();
+    var end = start;
+    while(end < start + ms) {
+        end = new Date().getTime();
+    }
+}
+function cell_delete(code) {
+
+}
