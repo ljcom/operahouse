@@ -811,8 +811,8 @@
       var code='<xsl:value-of select ="code/."/>';
       var parentKey='<xsl:value-of select ="parentkey/."/>';
       var GUID='<xsl:value-of select ="/sqroot/body/bodyContent/form/info/GUID/."/>';
-
-      loadChild(code, parentKey, GUID);
+      var browsemode='<xsl:value-of select ="browseMode/."/>';
+      loadChild(code, parentKey, GUID, browsemode);
     </script>
 
     <!--div class="col-md-12">

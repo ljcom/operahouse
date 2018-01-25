@@ -1,3 +1,8 @@
+[contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    display: block; /* For Firefox */
+}
+
 .cell-table {
     /* magic */
     width: 100%;
@@ -15,7 +20,4 @@
         text-overflow: clip;
     }
 
-[contenteditable=true]:empty:before {
-    content: attr(placeholder);
-    display: block; /* For Firefox */
-}
+

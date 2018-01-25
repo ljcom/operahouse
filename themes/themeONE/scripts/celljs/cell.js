@@ -103,7 +103,10 @@ function cell_init(code) {
 
 function cell_focus(sibling, mode) {	//mode=0 normal, mode=1 force, mode=2 save, mode=3 cancel
     if (mode == undefined) mode = 0;
+    //if (cell_added && $(sibling).parent().attr("id") != $(start).parent().attr("id")) {
+    //    showMessage("Please complete your new line, press ESC to cancel.", 1, start, function () { cell_setFocus(start); })
 
+    //}
     if (sibling != null) {
         sibling.focus();
         if (start != sibling || mode == 1) {
@@ -292,7 +295,7 @@ function cell_blur(next) {
     }
 }
 
-function cell_save(t, afterSucess) {
+function cell_save(t, afterSuccess) {
     if (cell_changed || cell_added) {
         var code = $(t).parent().data("code");
         var guid = $(t).parent().data("guid");
@@ -317,7 +320,9 @@ function cell_save(t, afterSucess) {
 
                     $(start).parent().find('.cell-recordSelector').children('span').find('ix').addClass("fa-caret-right");  //start=next setelah save selesai
 
+
                     cell_changed = false;
+                    
                 }
                 else if (retguid != guid) {//new
                     $(lastStart).parent().data("guid", retguid);
@@ -328,11 +333,14 @@ function cell_save(t, afterSucess) {
                     $(start).parent().find('.cell-recordSelector').children('span').find('ix').addClass("fa-caret-right");  //start=next setelah save selesai
 
                     cell_changed = false;
+                    cell_added = false;
                 }
+                if (typeof afterSuccess == "function") afterSuccess(data);
             }
             else {//error
                 showMessage(msg, 4);
                 cell_changed = false;
+                cell_focus(lastStart);
             }
         });
     }
@@ -351,27 +359,45 @@ function cell_clearTack(t) {
     });
 }
 
-function cell_delete(code) {
-    alert('deleted');
-}
-
 function cell_add(code, columns) {
-    var cx = columns.split(",");
-    var columns_string = "";
-    cx.forEach(function (i) {
+    if (cell_added) {
+        cell_save(start, function () {
+            cell_add(code, columns);
+        });
+    }
+    else {
+        var cx = columns.split(",");
+        var columns_string = "";
+        cx.forEach(function (i) {
 
-        ix = i.split(":")
-        if (ix[0] != " ")
-            columns_string += "<td class='cell cell-editor-" + ix[0].trim() + "' data-field='" + ix[1] + "'> </td>"
-    });
-    $("tbody#" + code + "").append("<tr id='tr1_" + code + "00000000-0000-0000-0000-000000000000' data-code='" + code + "' data-guid='00000000-0000-0000-0000-000000000000'><td class='cell-recordSelector'></td>" + columns_string + "</tr>")
-    cell_init(code);
-    n = $("#tr1_" + code + "00000000-0000-0000-0000-000000000000").find(".cell").eq(0);
-    cell_focus(n);
-    cell_added = true;
+            ix = i.split(":")
+            if (ix[0] != " ")
+                columns_string += "<td class='cell cell-editor-" + ix[0].trim() + "' data-field='" + ix[1] + "'></td>"
+        });
+        $("tbody#" + code + "").append("<tr id='tr1_" + code + "00000000-0000-0000-0000-000000000000' data-code='" + code + "' data-guid='00000000-0000-0000-0000-000000000000'><td class='cell-recordSelector'></td>" + columns_string + "</tr>")
+        cell_init(code);
+        n = $("#tr1_" + code + "00000000-0000-0000-0000-000000000000").find(".cell").eq(0);
+        cell_focus(n);
+        cell_added = true;
+    }
 }
 function cell_cancelAdded(t) {
     $(t).parent().remove();
     cell_added = false;
+    start = null;
 
+}
+
+function cell_delete(code) {
+    var guidlist = [];
+    $("tbody#" + code).children("tr").children("td.cell-recordSelector").children("span").children("ix.fa-thumb-tack").each(function (i) {
+        guidlist.push($("tbody#" + code).children("tr").children("td.cell-recordSelector").children("span").children("ix.fa-thumb-tack").eq(i).parent().parent().parent().data("guid"));
+    });
+    if (guidlist.length > 0) {
+        var g = guidlist.join(",")
+        btn_function(code, g, 'delete', null, 30, null, function (data) {
+            alert("deleted");
+        });
+    }
+    else showMessage("Please tack at least one record to be deleted.", 4)
 }

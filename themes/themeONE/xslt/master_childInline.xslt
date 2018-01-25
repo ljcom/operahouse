@@ -81,9 +81,6 @@
       */
       var columns_<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code"/>='';
 
-      function cell_add_custom(code){
-      cell_add(code, columns_<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code"/>);
-      }
     </script>
     <div class="row">
       <div class="col-md-12">
@@ -131,7 +128,7 @@
               <div class="box-footer clearfix">
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
                   <button class="btn btn-orange-a"
-                          onclick="cell_add_custom('{$lowerCode}');">ADD</button>&#160;
+                          onclick="cell_add('{$lowerCode}', columns_{/sqroot/body/bodyContent/browse/info/code});">ADD</button>&#160;
                 </xsl:if>
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowDelete/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
                   <button class="btn btn-gray-a" onclick="cell_delete('{$lowerCode}')">DELETE</button>&#160;

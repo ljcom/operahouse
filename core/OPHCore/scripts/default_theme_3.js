@@ -2236,7 +2236,7 @@ function autosuggest_onchange(ini, flag, code, GUID, formid) {
     var dataValue = $(ini).val();
 
     if (dataOld != dataValue) {
-        //$(ini).data('old', dataValue);
+        $(ini).data('old', dataValue);
         preview(flag, code, GUID, formid, ini);
         if ($(this).data("child") == 'Y') {
             $('#child_button_save').show();
@@ -2359,7 +2359,7 @@ function preview(flag, code, GUID, formid, t) {
                                 if (document.getElementById(this.tagName).type == 'select-one') {
                                     //var newOption = new Option($(this.nextSibling).text(), $(this).text(), true, true);
                                     //$("#" + this.tagName).append(newOption).trigger('change');
-                                    autosuggestSetValue(this.tagName, getCode(), this.tagName, this.textContent);
+                                    autosuggestSetValue(this.tagName, code, this.tagName, this.textContent);
                                 } else {
                                     document.getElementById(this.tagName).value = $(this).text();
                                 }
@@ -2480,25 +2480,6 @@ function checkChanges(t) {
 
 
 
-function btn_function(code, GUID, action, page, location, formId, afterSuccess) {
-    //location: 0 header; 1 child; 2 browse 
-    //location: browse:10, header form:20, browse anak:30, browse form:40
-
-    var pg = (page == "" || isNaN(page)) ? 0 : parseInt(page);
-
-    if (location == undefined || location == "") { location = 20 }
-
-    if (action == "formView") {
-        loadForm(code, GUID);
-    } else if (action == "save") {
-        //location: 0 header; 1 child; 2 browse 
-        //location: browse:10, header form:20, browse anak:30, browse form:40
-        saveFunction(code, GUID, location, formId, afterSuccess);
-    } else {
-        executeFunction(code, GUID, action, location);
-    }
-}
-
 //function btn_trash(code, GUID, action, page, isChild) {
 //    if (confirm('Are you sure you want to delete this data ?')) {
 //        var path = 'OPHCore/api/default.aspx?code=' + code + '&mode=function&cfunction=' + action + '&cfunctionlist=' + GUID + '&comment&unique=' + getUnique()
@@ -2558,68 +2539,40 @@ function btn_useractive(code, GUID, action, page) {
 //        });
 //    }
 //}
-function executeFunction(code, GUID, action, location) {
-    //location: browse:10, header form:20, browse anak:30, browse form:40
-    var successmsg = ''
-    var isAction = 1;
 
-    if (action == 'execute') {
-        successmsg = 'Approve Succesfully'
-        if ((confirm("You are about to " + action + " this record. Are you sure?") == 0)) { isAction = 0; }
-    } else if (action == 'force') {
-        successmsg = 'Close Succesfully'
-    } else if (action == 'reopen') {
-        successmsg = 'Reopen Succesfully'
-    } else if (action == 'inactivate') {
-        successmsg = 'Inactivate Succesfully'
-        if ((confirm("You are about to " + action + " this record. Are you sure?") == 0)) { isAction = 0; }
-        action = "delete"
-    } else if (action == 'delete') {
-        successmsg = 'Delete Succesfully'
-        if ((confirm("You are about to " + action + " this record. Are you sure?") == 0)) { isAction = 0; }
-    } else if (action == 'restore') {
-        successmsg = 'Restore Succesfully'
-    } else if (action == 'wipe') {
-        successmsg = 'Wipe Succesfully'
-        if ((confirm("You are about to " + action + " this record. Are you sure?") == 0)) { isAction = 0; }
-    }
 
-    var path = 'OPHCore/api/default.aspx?code=' + code + '&mode=function&cfunction=' + action + '&cfunctionlist=' + GUID + '&comment&unique=' + getUnique()
+function doFunction(functiontext, nbRec, caption) {
+    var c;
+    var sAction = "";
+    if (nbRec > 0) {
+        window.status = "Looking for records... "
+        for (c = 1; c <= nbRec; c++) {
+            if (document.forms(0).CheckRecord[c - 1].checked) {
+                if (sAction == '')
+                    sAction = document.forms(0).CheckGUID[c - 1].value;
+                else
+                    sAction = sAction + ',' + document.forms(0).CheckGUID[c - 1].value;
 
-    if (location == undefined || location == "") { location = 20 }
-    //location: 0 header; 1 child; 2 browse 
-    //location: browse:10, header form:20, browse anak:30, browse form:40
-
-    if (isAction == 1) {
-        $.post(path, function (data) {
-            var msg = $(data).find('message').text();
-            if (msg == '' || msg == 'Approval Succesfully' || msg.substring(0, 1) == '2') {
-                //location: 0 header; 1 child; 2 browse 
-                //location: browse:10, header form:20, browse anak:30, browse form:40
-                //if ($("#tr1_" + code + GUID) && location != '10' && action == "delete") {
-                if (action == "delete" && (location == 30 || location == 40)) {
-                    $("#tr1_" + code + GUID).remove();
-                    $("#tr2_" + code + GUID).remove();
-                }
-                else {
-                    if (action = 'delete' && location == 20) {
-                        //location: 0 header; 1 child; 2 browse 
-                        //location: browse:10, header form:20, browse anak:30, browse form:40
-
-                        window.location = 'index.aspx?code=' + getQueryVariable("code");
-                    }
-                    else {
-                        //showMessage(successmsg);
-                        loadContent(1);
-                        showMessage(successmsg);
-                    }
-
-                    //window.location.reload();
-                }
-            } else {
-                showMessage(msg);
+                window.status = "Looking for records. Found " + document.forms(0).CheckGUID[c - 1].value + "...";
             }
-        });
+        }
+        window.status = "";
+    }
+    if (functiontext == 'add' || functiontext == 'edit' || functiontext == 'cancel') {
+        document.forms(0).cfunction.value = functiontext;
+        //document.forms(0).style.cursor = 'wait';
+        document.forms(0).submit();
+    }
+    else {
+        if (sAction == "")
+            showMessage("Process cannot be continue before checking the box");
+        else
+            if (confirm("Do you want to " + caption + "?") == 1) {
+                document.forms(0).cfunction.value = functiontext;
+                document.forms(0).cfunctionlist.value = sAction;
+                //document.forms(0).style.cursor = 'wait';
+                document.forms(0).submit();
+            }
     }
 }
 
