@@ -754,7 +754,7 @@
       var parentKey='<xsl:value-of select ="parentkey/."/>';
       var GUID='<xsl:value-of select ="/sqroot/body/bodyContent/form/info/GUID/."/>';
       var browsemode='<xsl:value-of select ="browseMode/."/>';
-      loadChild(code, parentKey, GUID, browsemode);
+      loadChild(code, parentKey, GUID, null, browsemode);
     </script>
 
     <!--div class="col-md-12">

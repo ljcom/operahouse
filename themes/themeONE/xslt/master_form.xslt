@@ -1041,8 +1041,8 @@
         var code='<xsl:value-of select ="code/."/>';
         var parentKey='<xsl:value-of select ="parentkey/."/>';
         var GUID='<xsl:value-of select ="/sqroot/body/bodyContent/form/info/GUID/."/>';
-
-        loadChild(code, parentKey, GUID);
+        var browsemode='<xsl:value-of select ="browseMode/."/>';
+        loadChild(code, parentKey, GUID, null, browsemode);
       </script>
 
       <div class="box box-solid box-default" style="box-shadow:0px;border:none" id="child{code/.}{/sqroot/body/bodyContent/form/info/GUID/.}">

@@ -1,76 +1,78 @@
 ﻿/*xml*/
 function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
     var req = [];
-    req.push($.ajax({ url: xmldoc, error: function () { } }));
-    //$.ajax({ url: 'somefile.dat', type: 'HEAD', error: do_something });
-    xltdoc.forEach(function (item, index) {
-        req.push($.ajax({
-            url: item,
-            error: function () { console.log(item + ' is not found') }
-        }))
-    })
-    var callback = function (divnm, xml, xsl) {
-        var clean = stripXML(stripScript(xmlToString(xml)));
-        var hiddenText = findScript(xmlToString(xml));
-        var hiddenMsg = findMsg(xmlToString(xml));
-        if (hiddenText.length > 5 || clean.length < 5) {
-            if (hiddenText.length > 5) ExecuteScript(xmlToString(xml), true);
-            else top.window.location = '?';
+    if (xmldoc != '') {
+        req.push($.ajax({ url: xmldoc, error: function () { } }));
+        //$.ajax({ url: 'somefile.dat', type: 'HEAD', error: do_something });
+        xltdoc.forEach(function (item, index) {
+            req.push($.ajax({
+                url: item,
+                error: function () { console.log(item + ' is not found') }
+            }))
+        })
+
+        var callback = function (divnm, xml, xsl) {
+            var clean = stripXML(stripScript(xmlToString(xml)));
+            var hiddenText = findScript(xmlToString(xml));
+            var hiddenMsg = findMsg(xmlToString(xml));
+            if (hiddenText.length > 5 || clean.length < 5) {
+                if (hiddenText.length > 5) ExecuteScript(xmlToString(xml), true);
+                else top.window.location = '?';
+            }
+            else if (hiddenMsg.length > 0) { showMessage(hiddenMsg, 4); }
+            else {
+                if (isIE()) {
+                    var ex = TransformToHtmlText(clean, xsl.responseText)
+                    var cleanedT = stripScript(ex);
+                    cleanedT = cleanedT.split('&lt;').join('<').split('&gt;').join('>');
+                    if (document.getElementById(divnm)) document.getElementById(divnm).innerHTML = cleanedT;
+                    ExecuteScript(ex, true);
+                }
+                    // code for Mozilla, Firefox, Opera, etc.
+                else if (document.implementation && document.implementation.createDocument) {
+                    xsltProcessor = new XSLTProcessor();
+                    xsltProcessor.importStylesheet(xsl);
+                    resultDocument = xsltProcessor.transformToFragment(xml, document);
+                    ex = xmlToString(resultDocument);
+                    // added 2016 09 30
+                    ex = ex.split('&lt;').join('<').split('&gt;').join('>').split('&amp;').join('&');
+                    var cleanedT = stripScript(ex);
+                    document.getElementById(divnm).innerHTML = cleanedT;
+                    ExecuteScript(ex, true);
+                }
+            }
+            if (typeof f == "function") f();
         }
-        else if (hiddenMsg.length > 0) { showMessage(hiddenMsg, 4);}
-        else {
+
+        $.when.apply(this, req).always(function (xml, xsl1, xsl2, xsl3, xsl4, xsl5) {
             if (isIE()) {
-                var ex = TransformToHtmlText(clean, xsl.responseText)
-                var cleanedT = stripScript(ex);
-                cleanedT = cleanedT.split('&lt;').join('<').split('&gt;').join('>');
-                if (document.getElementById(divnm)) document.getElementById(divnm).innerHTML = cleanedT;
-                ExecuteScript(ex, true);
+                if (xml && $.parseXML(xml[2].responseText)) {
+                    if (xml != undefined && xsl1 != undefined) callback(divname[0], xml[2], xsl1[2]);
+                    if (xml != undefined && xsl2 != undefined) callback(divname[1], xml[2], xsl2[2]);
+                    if (xml != undefined && xsl3 != undefined) callback(divname[2], xml[2], xsl3[2]);
+                    if (xml != undefined && xsl4 != undefined) callback(divname[3], xml[2], xsl4[2]);
+                    if (xml != undefined && xsl5 != undefined) callback(divname[4], xml[2], xsl5[2]);
+
+                    // add more if needed
+                }
+                else showMessage(xml[0], 4);
+            } else {
+                if (xml && ($.isXMLDoc(xml[0]))) {
+
+                    if (xml != undefined && xsl1 != undefined) callback(divname[0], xml[0], xsl1[0]);
+                    if (xml != undefined && xsl2 != undefined) callback(divname[1], xml[0], xsl2[0]);
+                    if (xml != undefined && xsl3 != undefined) callback(divname[2], xml[0], xsl3[0]);
+                    if (xml != undefined && xsl4 != undefined) callback(divname[3], xml[0], xsl4[0]);
+                    if (xml != undefined && xsl5 != undefined) callback(divname[4], xml[0], xsl5[0]);
+
+                    // add more if needed
+
+                }
+                else showMessage(xml[0], 4);
             }
-                // code for Mozilla, Firefox, Opera, etc.
-            else if (document.implementation && document.implementation.createDocument) {
-                xsltProcessor = new XSLTProcessor();
-                xsltProcessor.importStylesheet(xsl);
-                resultDocument = xsltProcessor.transformToFragment(xml, document);
-                ex = xmlToString(resultDocument);
-                // added 2016 09 30
-                ex = ex.split('&lt;').join('<').split('&gt;').join('>').split('&amp;').join('&');
-                var cleanedT = stripScript(ex);
-                document.getElementById(divnm).innerHTML = cleanedT;
-                ExecuteScript(ex, true);
-            }
-        }
-        if (typeof f == "function") f();
+
+        })
     }
-
-    $.when.apply(this, req).always(function (xml, xsl1, xsl2, xsl3, xsl4, xsl5) {
-        if (isIE()) {
-            if (xml && $.parseXML(xml[2].responseText)) {
-                if (xml != undefined && xsl1 != undefined) callback(divname[0], xml[2], xsl1[2]);
-                if (xml != undefined && xsl2 != undefined) callback(divname[1], xml[2], xsl2[2]);
-                if (xml != undefined && xsl3 != undefined) callback(divname[2], xml[2], xsl3[2]);
-                if (xml != undefined && xsl4 != undefined) callback(divname[3], xml[2], xsl4[2]);
-                if (xml != undefined && xsl5 != undefined) callback(divname[4], xml[2], xsl5[2]);
-
-                // add more if needed
-            }
-            else showMessage(xml[0], 4);
-        } else {
-            if (xml && ($.isXMLDoc(xml[0]))) {
-
-                if (xml != undefined && xsl1 != undefined) callback(divname[0], xml[0], xsl1[0]);
-                if (xml != undefined && xsl2 != undefined) callback(divname[1], xml[0], xsl2[0]);
-                if (xml != undefined && xsl3 != undefined) callback(divname[2], xml[0], xsl3[0]);
-                if (xml != undefined && xsl4 != undefined) callback(divname[3], xml[0], xsl4[0]);
-                if (xml != undefined && xsl5 != undefined) callback(divname[4], xml[0], xsl5[0]);
-
-                // add more if needed
-
-            }
-            else showMessage(xml[0], 4);
-        }
-
-    })
-
 }
 function showXML(divname, xmldoc, xsldoc, needRunSript, clearBefore, f) {
     $.when($.ajax(xmldoc), $.ajax(xsldoc)).done(function (a1, a2) {
