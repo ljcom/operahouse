@@ -1,23 +1,43 @@
 ﻿Imports System.IO
 
 Partial Class index
+    'Inherits System.Web.UI.Page
     Inherits cl_base
 
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+        Dim curHostGUID, code, env, themeFolder, pageURL, needLogin, loginPage As String
+        Dim old = False
+        If old Then
+            getAccount(Session("hostGUID"), getQueryVar("env"), getQueryVar("code"))
+            curHostGUID = Session("hostGUID")
+            code = contentOfCode
+            env = contentOfEnv
+            themeFolder = contentOfthemeFolder
+            pageURL = contentOfthemePage
+            needLogin = contentofNeedLogin
+            loginPage = contentofsignInPage
 
-        loadAccount(getQueryVar("env"), getQueryVar("code"))
+            'Dim curODBC = contentOfdbODBC
+            'Dim DBCore = getDBCore(accountid)
+            'Dim curUserGUID = Session("userGUID")
+        Else
+            Dim HostGUID As String = Session("hostGUID")
+            Dim account As String, url As String = Request.Url.OriginalString.Replace(Request.Url.PathAndQuery, "") & "/ophcore/api/default.aspx?mode=account&code=" & getQueryVar("code") & "&env=" & getQueryVar("env") & "&hostGUID=" & HostGUID
+            Using WC As New System.Net.WebClient()
+                account = WC.DownloadString(url)
+            End Using
+            Dim x = XDocument.Parse(account)
 
-        Dim curODBC = contentOfdbODBC
-        'Dim DBCore = getDBCore(accountid)
-        Dim curHostGUID = Session("hostGUID")
-        Dim curUserGUID = Session("userGUID")
+            curHostGUID = x.<sqroot>.<hostGUID>.Value    'Session("hostGUID")
+            code = x.<sqroot>.<code>.Value 'contentOfCode
+            env = x.<sqroot>.<env>.Value 'contentOfEnv
+            themeFolder = x.<sqroot>.<themeFolder>.Value 'contentOfthemeFolder
+            pageURL = x.<sqroot>.<themePage>.Value 'contentOfthemePage
+            needLogin = x.<sqroot>.<needLogin>.Value 'contentofNeedLogin
+            loginPage = x.<sqroot>.<signInPage>.Value 'contentofsignInPage
+            Session("hostGUID") = curHostGUID
+        End If
 
-        Dim code As String = contentOfCode
-        Dim env As String = contentOfEnv
-        Dim themeFolder = contentOfthemeFolder
-        Dim pageURL As String = contentOfthemePage
-        Dim needLogin = contentofNeedLogin
-        Dim loginPage = contentofsignInPage
 
         If code = "" Then
             reloadURL("index.aspx?code=404&env=")

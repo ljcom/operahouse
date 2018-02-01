@@ -16,8 +16,8 @@ Public Class cl_base
 	Protected contentOfsequoiaCon As String
 	Protected contentOfaccountId As String
 	Protected contentOfaccountGUID As String
-	'Protected contentOfthemeCode As String
-	Protected contentOfthemeFolder As String
+
+    Protected contentOfthemeFolder As String
 	Protected contentOfthemePage As String
 	Protected contentOfdbODBC As String
 	Protected contentOfsqDB As String
@@ -29,43 +29,12 @@ Public Class cl_base
 
     Protected errorCaptcha As String
 
-    'Protected contentOfE As String
-
-    'Protected contentOfsigninPage As String
-    'Protected contentOffrontPage As String
-    'Protected contentOfdocFolder As String
-
-    'Protected wordofHeadTitle As String = "Main"
-    'Protected wordofHeadLinkHRef As String = "" '"OPHCore/styles/default.css"
-    'Protected wordofBodyOnLoad As String = ""
     Protected wordofWindowOnLoad As String = ""
 
+    Protected contentOfScripts As String
+    Protected contentofError As String = ""
 
-	'Protected wordofBodyContextMenu As String = ""
-	'Protected contentofHeadScript As String = ""
-	'Protected contentofBodyCaption As String = ""
-	Protected contentOfScripts As String
-	'Protected contentofSignOff As String = ""
-
-	''begin taskmenu var
-	'Protected contentofTaskMenu As String = ""
-	'Protected contentofTaskContent As String
-	'Protected nbSideBar As Long = 0
-	'Protected sideBarCollapse As Boolean = False
-
-	''end taskmenu var
-	'Protected contentofFreeContent As String
-
-	Protected contentofError As String = ""
-	'Protected contentofBodyMenu As String
-	'Protected contentofBodySubMenu As String
-	'Protected contentofFreeText As String
-
-
-	'Dim firsttime As Boolean = True
-	'Protected ExtraCombo(10) As String
-	'Protected digitmode, languagemode As String
-	Protected isOnDelegation As Boolean = False
+    Protected isOnDelegation As Boolean = False
 	Protected contentofHostGUID As String = ""
 	Protected contentofUserGUID As String = ""
 
@@ -915,117 +884,8 @@ Public Class cl_base
 		End If
 
 	End Function
-	'Sub checkDelegation()
-	'    loadAccount()
-	'    'Dim connection = getODBC(accountid)
 
-	'    Dim sqlstr = "select delegateuserGUID from coUSER where userGUID='" & Session("userguid") & "'"
-	'    Dim d = runSQLwithResult(sqlstr)
-	'    Dim delText As String = ""
-	'    If d <> "" Then
-	'        delText = "Your status is under delegation. Please take your control by click <a href=""" & "../../../modules/systemsetup/caUSER/caUSER_cleardelegation.aspx" & """>here</a>."
-	'        isOnDelegation = True
-	'    End If
-
-	'    sqlstr = "select userGUID, userName from coUSER where delegateUserGUID='" & Session("OriginalUserGUID") & "'"
-
-	'    Dim ds As DataSet = SelectSqlSrvRows(sqlstr)
-
-	'    If ds.Tables.Count > 0 AndAlso ds.Tables(0).Rows.Count >= 1 Then
-	'        'AddTaskMenu("Delegation List", "", True)
-	'        If Session("DelegateUserGUID") <> "" Then
-	'            'AddTaskMenu("##begina##Switch to: " & Session("OriginalUserName").ToString & "##enda##", "../../../modules/systemsetup/caUSER\caUSER_changeUser.aspx?GUID=" & Session("OriginalUserGUID").ToString, False)
-	'            'contentofDelegation &= "<a href=""" & "../../../modules/systemsetup/caUSER/caUSER_changeUser.aspx?GUID=" & Session("OriginalUserGUID").ToString & """>" & Session("OriginalUserName").ToString & "</a>"
-	'            delText = ""
-	'        End If
-	'    End If
-
-	'    If delText <> "" Then
-	'        AddTaskMenu("Status", "", True)
-	'        AddTaskMenu(delText, "", False)
-	'    End If
-	'End Sub
-	'Function ReConnect(hostGUID As String, connection As String) As Boolean
-	'    ReConnect = True
-	'    Dim sqlstr As String = "select coACCT.*, caUSER.userGUID, hostGUID, userName, caUSER.userId, skinFolder, firstPage " &
-	'        "from coACCT " &
-	'        "inner join coUSERHOST " &
-	'        "on coACCT.accountid=coUSERHOST.accountid " &
-	'        "inner join caUSER " &
-	'        "on coUSERHOST.userGUID=caUSER.userGUID " &
-	'        "inner join caSKIN " &
-	'        "on caUSER.SkinGUID=caSKIN.skinGUID " &
-	'        "where hostGUID='" & hostGUID & "'"
-	'    Dim ds As DataSet = SelectSqlSrvRows(sqlstr)
-	'    If Not ds Is Nothing Then
-	'        Try
-	'            Session("AppTitle") = ds.Tables(0).Rows(0).Item("Description").ToString
-	'            Session("HostGUID") = ds.Tables(0).Rows(0).Item("HostGUID").ToString
-	'            'Session("SiteGUID") = ds.Tables(0).Rows(0).Item("siteGUID").ToString
-	'            Session("UserGUID") = ds.Tables(0).Rows(0).Item("UserGUID").ToString
-	'            Session("OriginalUserGUID") = ds.Tables(0).Rows(0).Item("UserGUID").ToString
-	'            Session("UserName") = ds.Tables(0).Rows(0).Item("UserName").ToString
-	'            Session("OriginalUserName") = ds.Tables(0).Rows(0).Item("UserName").ToString
-	'            Session("AccountId") = ds.Tables(0).Rows(0).Item("AccountId")
-	'            Session("Folder") = ds.Tables(0).Rows(0).Item("Folder").ToString
-	'            Session("DocumentFolder") = ds.Tables(0).Rows(0).Item("DocumentFolder").ToString
-	'            Session("EngineFolder") = ds.Tables(0).Rows(0).Item("EngineFolder").ToString
-	'            Session("ReportFolder") = ds.Tables(0).Rows(0).Item("ReportFolder").ToString
-	'            Session("UploadFolder") = ds.Tables(0).Rows(0).Item("UploadFolder").ToString
-	'            Session("SkinFolder") = ds.Tables(0).Rows(0).Item("SkinFolder").ToString
-
-	'            If Session("SkinFolder") = "" Then Session("SkinFolder") = "lor-blue"
-
-	'            'Session("ODBC") = ds.Tables(0).Rows(0).Item("ODBC")
-	'            Session("Charset") = ds.Tables(0).Rows(0).Item("Charset")
-	'            Session("CodePage") = ds.Tables(0).Rows(0).Item("CodePage")
-	'            Session("FirstPage") = ds.Tables(0).Rows(0).Item("FirstPage")
-	'            Session("BackMenu") = "../../../OPH/welcome/menu/form.aspx"
-
-	'            Session("DelegateUserGUID") = ""
-
-	'        Catch ex As Exception
-	'            ReConnect = False
-	'        Finally
-
-	'        End Try
-	'        ds.Dispose()
-
-	'    End If
-	'End Function
-
-	Private Sub Page_Init(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Init
-		'Dim Connection = getODBC(accountid)
-		'If Connection = "" Then
-		'    Dim account As String = ""
-		'    If Not getQueryVar("account") Is Nothing Then account = getQueryVar("account").ToString
-		'    If Not account Is Nothing Then
-		'        Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
-		'        'static account
-		'        Connection = appSettings.Item("Connection")
-		'        'dynamic account
-		'        Dim sequoiaCon = appSettings.Item("sequoia")
-
-		'        If sequoiaCon <> "" And account <> "" Then
-		'            Dim sqlstr1 = "select ODBC from coacct where accountId='" & account & "'"
-		'            Connection = runSQLwithResult(sqlstr1, sequoiaCon)
-		'            If Connection <> "" Then
-		'                'Session("ODBC") = Connection
-		'            End If
-		'        ElseIf Connection <> "" Then
-		'            'Session("ODBC") = Connection
-		'        Else
-		'            Exit Sub
-		'        End If
-		'        ' other sessions
-		'        Dim sqlstr = "select documentFolder from coACCT where accountid='" & account & "'"
-		'        Session("DocumentFolder") = runSQLwithResult(sqlstr, Connection)
-
-		'    End If
-		'End If
-	End Sub
-
-	Function GetConnect(ByVal accountid As String, ByVal siteid As String, ByVal userid As String, Optional ByVal pwd As String = "", Optional ByVal bypasspwd As String = "", Optional connection As String = "") As Boolean
+    Function GetConnect(ByVal accountid As String, ByVal siteid As String, ByVal userid As String, Optional ByVal pwd As String = "", Optional ByVal bypasspwd As String = "", Optional connection As String = "") As Boolean
 		Dim sqlstr As String
 		sqlstr = "exec api.VerifyPassword '" & accountid & "', '" & userid & "', '" & pwd & "', " & IIf(bypasspwd = "", "", "1")
 
@@ -1051,24 +911,10 @@ Public Class cl_base
 				Session("isPwdExpired") = IIf(DateDiff("d", Today, expDate) <= 0, True, False)
 				Dim delegateUserGUID = ds.Tables(0).Rows(0).Item("delegateUserGUID").ToString()
 
-				'#AddedBy eLs ON June, 2015
-				'Dim DelegationFlag = ds.Tables(0).Rows(0).Item("DelegationFlag")
-				'Dim isDelegate = ds.Tables(0).Rows(0).Item("isDelegate")
+                If Session("SkinFolder") = "" Then Session("SkinFolder") = "lor-blue"
 
-				'Dim isDelegation As Object
-				'If (DelegationFlag = "isDelegate" Or isDelegate = 1) Then
-				'    isDelegation = 1
-				'    Session("isDelegation") = True
-				'Else
-				'    isDelegation = 0
-				'    Session("isDelegation") = False
-				'End If
-				'EndBy eLs
 
-				If Session("SkinFolder") = "" Then Session("SkinFolder") = "lor-blue"
-
-				'Session("ODBC") = ds.Tables(0).Rows(0).Item("ODBC")
-				Session("Charset") = ds.Tables(0).Rows(0).Item("Charset")
+                Session("Charset") = ds.Tables(0).Rows(0).Item("Charset")
 				Session("CodePage") = ds.Tables(0).Rows(0).Item("CodePage")
 				Session("FirstPage") = ds.Tables(0).Rows(0).Item("FirstPage")
 				Session("BackMenu") = "../../../OPH/welcome/menu/form.aspx"
@@ -1080,9 +926,7 @@ Public Class cl_base
 				MyCookie.Expires = Now.AddMonths(1)
 				Response.Cookies.Add(MyCookie)
 
-				'ds.Tables(0).Rows(0).Item("UserGUID").ToString
-
-				Dim MyCookie3 As New HttpCookie("OPH_UserGUID")
+                Dim MyCookie3 As New HttpCookie("OPH_UserGUID")
 				MyCookie3.Value = ds.Tables(0).Rows(0).Item("UserGUID").ToString
 				MyCookie3.Expires = Now.AddMonths(1)
 				Response.Cookies.Add(MyCookie3)
@@ -1112,15 +956,8 @@ Public Class cl_base
 				MyCookie6.Expires = Now.AddHours(1)
 				Response.Cookies.Add(MyCookie6)
 
-				'#AddedBy eLs On June, 2015
-				'Dim MyCookie7 As New HttpCookie("OPH_isDelegation")
-				'MyCookie7.Value = isDelegation
-				'MyCookie7.Expires = Now.AddHours(1)
-				'Response.Cookies.Add(MyCookie7)
-				'EndBy eLs
-
-				sqlstr = "update couser set verifyCode=null, verifyAction=null where userid='" & userid & "'"
-				runSQL(sqlstr, connection)
+                sqlstr = "update couser set verifyCode=null, verifyAction=null where userid='" & userid & "'"
+                runSQL(sqlstr, connection)
 
 			Catch ex As Exception
 				isValid = False
@@ -1136,26 +973,8 @@ Public Class cl_base
 
 #End Region
 #Region "SQL Section"
-	'Function populateCombo(ByVal sqlstr As String, ByVal keyField As String, ByVal nameField As String, Optional ByVal defaultValue As String = "", Optional ByVal isAllowBlank As Boolean = True) As String
-	'Dim optionstr As String = ""
-	'    Dim connection As String = getODBC(loadAccount())
-	'    Dim isPrintHeader As Boolean = True
-	'    connection = getODBC()
-	'    Dim ds As DataSet = SelectSqlSrvRows(sqlstr)
-	'    Dim r As DataRow
-	'    If isAllowBlank Then
-	'        optionstr &= "<option value=""00000000-0000-0000-0000-000000000000""></option>"
-	'    End If
-	'    For Each r In ds.Tables(0).Rows
-	'        If r.Item(keyField).ToString = defaultValue Then
-	'            optionstr &= "<option value=""" & r.Item(keyField).ToString & """ selected>" & r.Item(nameField).ToString & "</option>"
-	'        Else
-	'            optionstr &= "<option value=""" & r.Item(keyField).ToString & """>" & r.Item(nameField).ToString & "</option>"
-	'        End If
-	'    Next
-	'    Return optionstr
-	'End Function
-	Function findProperty(ByVal dss As DataSet, ByVal columnName As String, ByVal Prop As String) As String
+
+    Function findProperty(ByVal dss As DataSet, ByVal columnName As String, ByVal Prop As String) As String
 
 		Dim r As DataRow
 		Dim x As String = ""
@@ -1234,16 +1053,12 @@ Public Class cl_base
 		Dim myCommand As New SqlCommand(myInsertQuery)
 		Try
 
-			'        Dim myInsertQuery As String = "INSERT INTO Customers (CustomerID, CompanyName) Values('NWIND', 'Northwind Traders')"
-			'
-			Dim Reader As SqlClient.SqlDataReader
+
+            Dim Reader As SqlClient.SqlDataReader
 
 			myCommand.Connection = myConnection
 			myConnection.Open()
-            'Dim myCommand1 As New SqlCommand("SET ARITHABORT ON", myConnection)
-            'Dim myCommand2 As New SqlCommand("SET QUOTED_IDENTIFIER On", myConnection)
-            'myCommand1.ExecuteNonQuery()
-            'myCommand2.ExecuteNonQuery()
+
             myCommand.CommandTimeout = 600
             Reader = myCommand.ExecuteReader()
 
@@ -1355,45 +1170,91 @@ Public Class cl_base
 		Return dataSet
 
 	End Function
-	Sub loadAccount(Optional env As String = "", Optional code As String = "")
+    Sub loadAccount(Optional env As String = "", Optional code As String = "")
 
-		'prepare curHostGUID, curUserGUID
-		Dim hGUID = IIf(IsNothing(Response.Cookies("guestID").Value), Session("hostGUID"), Response.Cookies("guestID").Value)
-		If hGUID = "" Then hGUID = "null" Else hGUID = "'" & hGUID & "'"
+        'prepare curHostGUID, curUserGUID
+        Dim hGUID = IIf(IsNothing(Response.Cookies("guestID").Value), Session("hostGUID"), Response.Cookies("guestID").Value)
+        If hGUID = "" Then hGUID = "null" Else hGUID = "'" & hGUID & "'"
 
-		'If Session("sequoia") = "" Then
-		Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
-		'dynamic account
-		contentOfsequoiaCon = appSettings.Item("sequoia")
-		Session("sequoia") = contentOfsequoiaCon
+        'If Session("sequoia") = "" Then
+        Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
+        'dynamic account
+        contentOfsequoiaCon = appSettings.Item("sequoia")
+        Session("sequoia") = contentOfsequoiaCon
 
-		Dim x = Request.Url.Authority & Request.ApplicationPath
-		If x.Substring(Len(x) - 1, 1) = "/" Then x = x.Substring(0, Len(x) - 1)
+        Dim x = Request.Url.Authority & Request.ApplicationPath
+        If x.Substring(Len(x) - 1, 1) = "/" Then x = x.Substring(0, Len(x) - 1)
 
-		If env = "" Then env = "null" Else env = "'" & env & "'"
-		If code = "" Then code = "null" Else code = "'" & code & "'"
-		Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "', " & env & ", " & code & ""
-		Dim r1 As DataSet = SelectSqlSrvRows(sqlstr, contentOfsequoiaCon)
-		If r1.Tables.Count > 0 AndAlso r1.Tables(0).Rows.Count > 0 Then
-			contentOfaccountId = r1.Tables(0).Rows(0).Item(0).ToString
-			contentOfsqDB = r1.Tables(0).Rows(0).Item(1).ToString
-			contentOfdbODBC = r1.Tables(0).Rows(0).Item(2).ToString
-			contentOfthemeFolder = r1.Tables(0).Rows(0).Item(3).ToString
-			contentOfthemePage = r1.Tables(0).Rows(0).Item(4).ToString
-			contentOfEnv = r1.Tables(0).Rows(0).Item(5).ToString
-			contentOfCode = r1.Tables(0).Rows(0).Item(6).ToString
-			Session("hostGUID") = r1.Tables(0).Rows(0).Item(7).ToString
-			Session("userGUID") = r1.Tables(0).Rows(0).Item(8).ToString
-			contentofNeedLogin = r1.Tables(0).Rows(0).Item(9).ToString
+        If env = "" Then env = "null" Else env = "'" & env & "'"
+        If code = "" Then code = "null" Else code = "'" & code & "'"
+        Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "', " & env & ", " & code & ""
+        Dim r1 As DataSet = SelectSqlSrvRows(sqlstr, contentOfsequoiaCon)
+        If r1.Tables.Count > 0 AndAlso r1.Tables(0).Rows.Count > 0 Then
+            contentOfaccountId = r1.Tables(0).Rows(0).Item(0).ToString
+            contentOfsqDB = r1.Tables(0).Rows(0).Item(1).ToString
+
+
+            contentOfdbODBC = r1.Tables(0).Rows(0).Item(2).ToString
+            contentOfthemeFolder = r1.Tables(0).Rows(0).Item(3).ToString
+            contentOfthemePage = r1.Tables(0).Rows(0).Item(4).ToString
+            contentOfEnv = r1.Tables(0).Rows(0).Item(5).ToString
+            contentOfCode = r1.Tables(0).Rows(0).Item(6).ToString
+            contentofNeedLogin = r1.Tables(0).Rows(0).Item(9).ToString
             contentofsignInPage = r1.Tables(0).Rows(0).Item(10).ToString
             contentofwhiteAddress = r1.Tables(0).Rows(0).Item(11)
+
+            Session("hostGUID") = r1.Tables(0).Rows(0).Item(7).ToString
+            Session("userGUID") = r1.Tables(0).Rows(0).Item(8).ToString
+
             setCookie("isWhiteAddress", IIf(contentofwhiteAddress, 1, 0), 1)
             setCookie("skinColor", r1.Tables(0).Rows(0).Item(12).ToString, 1)
-            'Session("lastPar") = r1.Tables(0).Rows(0).Item(8).ToString
+
         End If
 
-	End Sub
-	Sub writeLog(logMessage As String)
+    End Sub
+    Sub getAccount(Optional hostGUID As String = "", Optional env As String = "", Optional code As String = "")
+
+        'prepare curHostGUID, curUserGUID
+        Dim hGUID = hostGUID 'IIf(IsNothing(Response.Cookies("guestID").Value), Session("hostGUID"), Response.Cookies("guestID").Value)
+        If hGUID = "" Then hGUID = "null" Else hGUID = "'" & hGUID & "'"
+
+        'If Session("sequoia") = "" Then
+        Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
+        'dynamic account
+        contentOfsequoiaCon = appSettings.Item("sequoia")
+        Session("sequoia") = contentOfsequoiaCon
+
+        Dim x = Request.Url.Authority & Request.ApplicationPath
+        If x.Substring(Len(x) - 1, 1) = "/" Then x = x.Substring(0, Len(x) - 1)
+
+        If env = "" Then env = "null" Else env = "'" & env & "'"
+        If code = "" Then code = "null" Else code = "'" & code & "'"
+        Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "', " & env & ", " & code & ""
+        Dim r1 As DataSet = SelectSqlSrvRows(sqlstr, contentOfsequoiaCon)
+        If r1.Tables.Count > 0 AndAlso r1.Tables(0).Rows.Count > 0 Then
+            'contentOfaccountId = r1.Tables(0).Rows(0).Item(0).ToString
+            'contentOfsqDB = r1.Tables(0).Rows(0).Item(1).ToString
+
+
+            'contentOfdbODBC = r1.Tables(0).Rows(0).Item(2).ToString
+            contentOfthemeFolder = r1.Tables(0).Rows(0).Item(3).ToString
+            contentOfthemePage = r1.Tables(0).Rows(0).Item(4).ToString
+            contentOfEnv = r1.Tables(0).Rows(0).Item(5).ToString
+            contentOfCode = r1.Tables(0).Rows(0).Item(6).ToString
+            contentofNeedLogin = r1.Tables(0).Rows(0).Item(9).ToString
+            contentofsignInPage = r1.Tables(0).Rows(0).Item(10).ToString
+            contentofwhiteAddress = r1.Tables(0).Rows(0).Item(11)
+
+            Session("hostGUID") = r1.Tables(0).Rows(0).Item(7).ToString
+            'Session("userGUID") = r1.Tables(0).Rows(0).Item(8).ToString
+
+            setCookie("isWhiteAddress", IIf(contentofwhiteAddress, 1, 0), 1)
+            setCookie("skinColor", r1.Tables(0).Rows(0).Item(12).ToString, 1)
+
+        End If
+
+    End Sub
+    Sub writeLog(logMessage As String)
 		'Dim w As TextWriter
 		Dim path = Server.MapPath("~/OPHContent/log")
 		path = path & "\" '& "OPHContent\log\"
