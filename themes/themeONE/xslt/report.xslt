@@ -36,7 +36,7 @@
       $("body").addClass("fixed");
 
 
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/admin-LTE/js/app.min.js');
+      loadScript('OPHContent/cdn/admin-LTE/js/app.min.js');
       
       document.title='<xsl:value-of select="/sqroot/header/info/title"/>';
       resetBrowseCookies();

@@ -39,44 +39,44 @@
 
 
       <!-- Ionicons -->
-      loadStyle('https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css');
+      loadStyle('OPHContent/cdn/ionicons/ionicons.min.css');
       <!-- Morris chart -->
-      //loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/morris/morris.css');
+      //loadStyle('OPHContent/cdn/morris/morris.css');
       <!-- jvectormap -->
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/jvectormap/jquery-jvectormap-1.2.2.css');
+      loadStyle('OPHContent/cdn/jvectormap/jquery-jvectormap-1.2.2.css');
       <!-- Daterange picker -->
-      //loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/daterangepicker/daterangepicker.css');
+      //loadStyle('OPHContent/cdn/daterangepicker/daterangepicker.css');
       <!-- bootstrap wysihtml5 - text editor -->
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css');
+      loadStyle('OPHContent/cdn/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css');
 
       <!-- jQuery UI 1.11.4 -->
       loadScript('https://code.jquery.com/ui/1.11.4/jquery-ui.min.js');
       <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
       <!-- Morris.js charts -->
-      //loadScript('https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js');
-      //loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/morris/morris.min.js');
-      loadScript('OPHContent/themes/themeONE/scripts/chartjs/Chart.bundle.js');
+      //loadScript('OPHContent/cdn/raphael/raphael-min.js');
+      //loadScript('OPHContent/cdn/morris/morris.min.js');
+      loadScript('OPHContent/cdn/chartjs/Chart.bundle.js');
       <!-- Sparkline -->
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/sparkline/jquery.sparkline.min.js');
+      loadScript('OPHContent/cdn/sparkline/jquery.sparkline.min.js');
       <!-- jvectormap -->
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/jvectormap/jquery-jvectormap-1.2.2.min.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/jvectormap/jquery-jvectormap-world-mill-en.js');
+      loadScript('OPHContent/cdn/jvectormap/jquery-jvectormap-1.2.2.min.js');
+      loadScript('OPHContent/cdn/jvectormap/jquery-jvectormap-world-mill-en.js');
       <!-- jQuery Knob Chart -->
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/knob/jquery.knob.js');
+      loadScript('OPHContent/cdn/knob/jquery.knob.js');
       <!-- daterangepicker -->
-      loadScript('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js');
-      //loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/daterangepicker/daterangepicker.js');
+      loadScript('OPHContent/cdn/moment/moment.min.js');
+      //loadScript('OPHContent/cdn/daterangepicker/daterangepicker.js');
       <!-- datepicker -->
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/datepicker/bootstrap-datepicker.js');
+      loadScript('OPHContent/cdn/datepicker/bootstrap-datepicker.js');
       <!-- Bootstrap WYSIHTML5 -->
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js');
+      loadScript('OPHContent/cdn/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js');
       <!-- Slimscroll -->
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/slimScroll/jquery.slimscroll.min.js');
+      loadScript('OPHContent/cdn/slimScroll/jquery.slimscroll.min.js');
       <!-- FastClick -->
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/fastclick/fastclick.js');
+      loadScript('OPHContent/cdn/fastclick/fastclick.js');
       <!-- AdminLTE App -->
       //loadScript('dist/js/adminlte.min.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/admin-LTE/js/app.min.js');
+      loadScript('OPHContent/cdn/admin-LTE/js/app.min.js');
 
       <!--$.widget.bridge('uibutton', $.ui.button);-->
 

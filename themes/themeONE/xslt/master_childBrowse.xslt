@@ -13,6 +13,8 @@
 
   <xsl:template match="/">
     <script>
+      var code='<xsl:value-of select="$lowerCode"/>';
+      cell_init(code);
 
       $(function() {
 
@@ -31,24 +33,50 @@
       else {var file = $(this)[0].files[0];
       var upload = new Upload(file);
 
-      var url='OPHCore/api/default.aspx?mode=upload&#38;code=<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code"/>&#38;GUID='+getGUID();
+      var url='OPHCore/api/default.aspx?mode=upload&#38;code=<xsl:value-of select="$lowerCode"/>&#38;GUID='+getGUID();
 
       upload.doUpload(url,
       function(data) {
       //success
-      var x = $(data).find("sqroot").children().each(function () {
-      var msg = $(this).text();
-      showMessage('Upload Success');
 
+      var err=''; s=0;
+      $(data).find("sqroot").find("message").each(function (i) {
+      var item=$(data).find("sqroot").find("message").eq(i);
+      if ($(item).text()!='') err += $(item).text()+' ';
       })
-      location.reload();
 
+      $(data).find("sqroot").find("guid").each(function (i) {
+      var sn=$(data).find("sqroot").find("guid").eq(i);
+      if (sn!='') s++;
+      })
+      var msg='Upload Status: Success: '+s+(err==''?'':' Error: '+err);
+      showMessage(msg);
+      //setTimeout(function() {location.reload()}, 5000);
 
-
+      var code='<xsl:value-of select ="$lowerCode"/>';
+      loadChild(code);
+      
       },
-      function(error) {
+      function(data) {
       //error
-      showMessage(error);
+
+      var err=''; s=0;
+      $(data).find("sqroot").find("message").each(function (i) {
+      var item=$(data).find("sqroot").find("message").eq(i);
+      if ($(item).text()!='') err += $(item).text()+' ';
+      })
+
+      $(data).find("sqroot").find("guid").each(function (i) {
+      var sn=$(data).find("sqroot").find("guid").eq(i);
+      if (sn!='') s++;
+      })
+      var msg='Upload Status: Success: '+s+(err==''?'':' Error: '+err);
+      showMessage(msg);
+      //setTimeout(function() {location.reload()}, 5000);
+
+      var code='<xsl:value-of select ="$lowerCode"/>';
+      loadChild(code);
+
       });
       }
       });
@@ -70,53 +98,54 @@
       });
 
       });
-      
+
       //spreadsheet functions
       /*
       $(.cell).onclick = function (this) {
-        alert(this.html());
+      alert(this.html());
       };
       */
     </script>
     <div class="row">
       <div class="col-md-12">
-        <div class="box-header with-border" style="background:white" data-toggle="collapse" data-target="#content_{/sqroot/body/bodyContent/browse/info/code}">
+        <div class="box-header with-border" style="background:white" data-toggle="collapse" data-target="#content_{$lowerCode}">
           <h3 class="dashboard-title">
             <xsl:value-of select="sqroot/body/bodyContent/browse/info/description"/>
           </h3>
         </div>
         <div>
-          <input style="width:200px; position:absolute; right:25px; top:5px; padding-right:25px" type="text" id="searchBox_{sqroot/body/bodyContent/browse/info/code}" name="searchBox_{sqroot/body/bodyContent/browse/info/code}" 
+          <input style="width:200px; position:absolute; right:25px; top:5px; padding-right:25px" type="text" id="searchBox_{$lowerCode}" name="searchBox_{$lowerCode}" 
             class="form-control" placeholder="Enter search key..." value="{sqroot/body/bodyContent/browse/info/search}" 
-              onkeypress="searchTextChild(event, this.value, '{sqroot/body/bodyContent/browse/info/code}');" />
-          <button id="clear{sqroot/body/bodyContent/browse/info/code}" type="button" class="btn btn-flat" style="position:absolute; right:25px; top:5px; background:none; border:none; display:none" >
+              onkeypress="searchTextChild(event, this.value, '{$lowerCode}');" />
+          <button id="clear{$lowerCode}" type="button" class="btn btn-flat" style="position:absolute; right:25px; top:5px; background:none; border:none; display:none" >
             <span aria-hidden="true">&#215;</span>
           </button>
           <script>
-            $('#clear<xsl:value-of select="sqroot/body/bodyContent/browse/info/code"/>').click(function(event) {
-              searchTextChild(event, '', '<xsl:value-of select="sqroot/body/bodyContent/browse/info/code"/>', true);
+            $('#clear<xsl:value-of select="$lowerCode"/>').click(function(event) {
+              searchTextChild(event, '', '<xsl:value-of select="$lowerCode"/>', true);
             });
             
             $(document).ready(function() {
-              if ($('#searchBox_<xsl:value-of select="sqroot/body/bodyContent/browse/info/code"/>').val() != '') {
-                $('#clear<xsl:value-of select="sqroot/body/bodyContent/browse/info/code"/>').show();
+              if ($('#searchBox_<xsl:value-of select="$lowerCode"/>').val() != '') {
+                $('#clear<xsl:value-of select="$lowerCode"/>').show();
               }
             });
           </script>
         </div>
         <div class="row">
           <div class="col-md-12">
-            <div style="border:0px none white;box-shadow:none;" id="content_{/sqroot/body/bodyContent/browse/info/code}" class="box collapse in">
+            <div style="border:0px none white;box-shadow:none;" id="content_{$lowerCode}" class="box collapse in">
               <table class="table table-condensed strip-table-browse" style="border-collapse:collapse;">
                 <thead>
                   <tr style="background:#3C8DBC; color:white">
+                    <th style="width:28px;"></th>
                     <xsl:apply-templates select="sqroot/body/bodyContent/browse/header"/>
                   </tr>
                 </thead>
-                <tbody id="{/sqroot/body/bodyContent/browse/info/code}">
+                <tbody id="{$lowerCode}">
                   <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row"/>
                   <tr>
-                    <td colspan="7" style="padding:0;">
+                    <td colspan="20" style="padding:0;">
                       <div class="browse-data accordian-body collapse"
                            id="{$lowerCode}00000000-0000-0000-0000-000000000000" aria-expanded="false">
                         Please Wait...
@@ -133,19 +162,22 @@
                           data-target="#{$lowerCode}00000000-0000-0000-0000-000000000000"
                           onclick="showChildForm('{$lowerCode}','00000000-0000-0000-0000-000000000000')">ADD</button>&#160;
                 </xsl:if>
+                <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowDelete/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
+                  <button class="btn btn-gray-a" onclick="cell_delete('{$lowerCode}')">DELETE</button>&#160;
+                </xsl:if>
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)=1 and (/sqroot/body/bodyContent/browse/info/permission/allowExport/.)=1" >
                   <button class="btn btn-gray-a"
-                          onclick="downloadChild('{/sqroot/body/bodyContent/browse/info/code}', '')">DOWNLOAD</button>&#160;
+                          onclick="downloadChild('{$lowerCode}', '')">DOWNLOAD</button>&#160;
                   <button class="btn btn-gray-a" onclick="javascript:$('#import_hidden').click();">UPLOAD...</button>&#160;
 
-                  <!--<button type="button" class="buttonCream" id="download" name="download" onclick="javascript:PrintDirect('{/sqroot/body/bodyContent/browse/info/code}', '', 3, '', '', '');">DOWNLOAD</button>
-                  <button type="button" class="buttonCream" id="upload" name="upload" onclick="javascript:showSubBrowseView('{/sqroot/body/bodyContent/browse/info/code}','',1,'');">UPLOAD</button>-->
+                  <!--<button type="button" class="buttonCream" id="download" name="download" onclick="javascript:PrintDirect('{$lowerCode}', '', 3, '', '', '');">DOWNLOAD</button>
+                  <button type="button" class="buttonCream" id="upload" name="upload" onclick="javascript:showSubBrowseView('{$lowerCode}','',1,'');">UPLOAD</button>-->
                   <input id ="import_hidden" name="import_hidden" type="file" style="visibility: hidden; width: 0; height: 0;" multiple="" />
                 </xsl:if>
                 <xsl:if test="/sqroot/body/bodyContent/browse/info/nbPages > 1">
                   <ul class="pagination pagination-sm no-margin pull-right" id="childPageNo"></ul>
                   <script>
-                    var code='<xsl:value-of select ="/sqroot/body/bodyContent/browse/info/code"/>';
+                    var code='<xsl:value-of select ="$lowerCode"/>';
                     var pageNo = '<xsl:value-of select ="/sqroot/body/bodyContent/browse/info/pageNo"/>';
                     var nbPages = '<xsl:value-of select ="/sqroot/body/bodyContent/browse/info/nbPages"/>';
                     childPageNo('childPageNo', code, pageNo, nbPages);
@@ -171,14 +203,16 @@
 
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
     
-    <tr id="tr1_{@code}{@GUID}" data-parent="#{/sqroot/body/bodyContent/browse/info/code}" data-target="#{@code}{@GUID}"
+    <tr id="tr1_{$lowerCode}{@GUID}" data-parent="#{$lowerCode}" data-target="#{$lowerCode}{@GUID}" data-code="{$lowerCode}" data-guid="{@GUID}"
         class="accordion-toggle cell"
-        onclick="showChildForm('{@code}','{@GUID}', '{/sqroot/body/bodyContent/browse/info/code}')" onmouseover="this.bgColor='lavender';this.style.cursor='pointer';" onmouseout="this.bgColor='white'">
+        onclick="showChildForm('{$lowerCode}','{@GUID}', '{$lowerCode}')" onmouseover="this.bgColor='lavender';this.style.cursor='pointer';" onmouseout="this.bgColor='white'">
+      <td class="cell-recordSelector"></td>
       <xsl:apply-templates select="fields/field"/>
     </tr>
-    <tr id="tr2_{@code}{@GUID}">
+    <tr id="tr2_{$lowerCode}{@GUID}">
+      
       <td colspan="7" style="padding:0;">
-        <div class="browse-data accordian-body collapse" id="{@code}{@GUID}" aria-expanded="false">
+        <div class="browse-data accordian-body collapse" id="{$lowerCode}{@GUID}" aria-expanded="false">
           Please Wait...
         </div>
       </td>

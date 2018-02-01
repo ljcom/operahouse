@@ -138,6 +138,17 @@ function loadContent(nbpage, f) {
 }//
 
 function loadChild(code, parentKey, GUID, pageNo, mode) {
+    if (parentKey == undefined)        {
+        parentKey=getCookie(code.toLowerCase()+'_parentKey');
+        GUID=getCookie(code.toLowerCase()+'_parentGUID');
+        mode=getCookie(code.toLowerCase()+'_browseMode');
+    }
+    else {
+        setCookie(code.toLowerCase()+'_parentKey', parentKey);
+        setCookie(code.toLowerCase()+'_parentGUID', GUID);
+        setCookie(code.toLowerCase()+'_browseMode', mode);
+    }
+
     pageNo = (pageNo == undefined) ? 1 : pageNo;
 
     var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + parentKey + '=' + "'" + GUID + "'&bPageNo=" + pageNo + '&date=' + getUnique();
@@ -283,8 +294,11 @@ function saveFunction(code, guid, location, formId, afterSuccess) {
         if (location == 30) {
             $("#tr1_"+code+guid).children("td.cell").each(function(i) {
                 f=$("#tr1_"+code+guid).children("td.cell").eq(i).data("field");
-                d=$("#tr1_"+code+guid).children("td.cell").eq(i).html().replace("&nbsp;"," ");
-                data.append(f, d);
+                if ($("#tr1_"+code+guid).children("td.cell").eq(i).hasClass("cell-editor-select2"))
+                    d=$("#tr1_"+code+guid).children("td.cell").eq(i).find("select").val();
+                else
+                    d=$("#tr1_"+code+guid).children("td.cell").eq(i).html().replace("&nbsp;"," ");
+                if(d != null) data.append(f, d);
             });
             cid=$("#cid").val();
             data.append("cid", cid);
@@ -419,4 +433,256 @@ function executeFunction(code, GUID, action, location) {
             }
         });
     }
+}
+
+//autosuggest
+function autosuggest_onchange(ini, flag, code, GUID, formid) {
+    var dataOld = $(ini).data('old');
+    var dataValue = $(ini).val();
+
+    if (dataOld != dataValue) {
+        $(ini).data('old', dataValue);
+        preview(flag, code, GUID, formid, ini);
+        if ($(this).data("child") == 'Y') {
+            $('#child_button_save').show();
+        }
+        else {
+            $('#button_save').show();
+        }
+
+    }
+}
+
+function autosuggestSetValue(SelectID, code, colKey, defaultValue, wf1, wf2){autosuggest_setValue(SelectID, code, colKey, defaultValue, wf1, wf2);}
+
+function autosuggest_setValue(SelectID, code, colKey, defaultValue, wf1, wf2) {
+    if (wf1 == '' || wf1 == undefined) wf1 = 'wf1isnone';
+    if (wf2 == '' || wf2 == undefined) wf2 = 'wf2isnone';
+    if (defaultValue!='') {
+        var aj = $.ajax({
+            url: "OPHCORE/api/msg_autosuggest.aspx",
+            data: {
+                code: code,
+                colkey: colKey,
+                defaultValue: defaultValue,
+                wf1value: ($("#" + wf1).data("value") === undefined ? "" : $("#" + wf1).data("value")),
+                wf2value: ($("#" + wf2).data("value") === undefined ? "" : $("#" + wf2).data("value")),
+
+            },
+            dataType: "json",
+            success: function (data) {
+                var newOption = new Option(data.results[0].text, data.results[0].id, true, true);
+                var InitialValue=data.results[0].id;
+                $("#" + SelectID).data("old", InitialValue);
+                $("#" + SelectID).val(InitialValue);
+                $("#" + SelectID).data("oldtext", data.results[0].text);
+                $("#" + SelectID).append(newOption).trigger('change');
+                
+            }
+        });
+    }
+
+    return aj;
+}
+
+function preview(flag, code, GUID, formid, t) {
+    if (flag > 0) {
+        var path = 'OPHCore/api/default.aspx?mode=preview&code=' + code + '&flag=' + flag + '&cfunctionlist=' + GUID;
+        var thisForm = 'form';
+        if (formid != undefined) thisForm = '#' + formid;
+        var dataForm = $(thisForm).serialize()
+
+        var dfLength = dataForm.length;
+        dataForm = dataForm.substring(0, dfLength);
+        dataForm = dataForm.split('%3C').join('%26lt%3B');
+
+        $.ajax({
+            url: path,
+            data: dataForm,
+            type: 'POST',
+            dataType: "xml",
+            timeout: 80000,
+            beforeSend: function () {
+                //setCursorWait(this);
+            },
+            success: function (data) {
+                var x = $(data).find("message").children().each(function () {
+                    $(this).text();
+                    if (document.getElementById(this.tagName)) {
+                        if (document.getElementById(this.tagName).type == "checkbox") {
+                            if ($(this).text() == "1") {
+                                document.getElementById(this.tagName).checked = true;
+                                document.getElementById(this.tagName).value = 1;
+                            } else {
+                                document.getElementById(this.tagName).checked = false;
+                                document.getElementById(this.tagName).value = 0;
+                            }
+                        } else {
+                            if (flag > 1 || $(this).text() != '') {
+
+                                if (document.getElementById(this.tagName).type == 'select-one') {
+                                    //var newOption = new Option($(this.nextSibling).text(), $(this).text(), true, true);
+                                    //$("#" + this.tagName).append(newOption).trigger('change');
+                                    autosuggestSetValue(this.tagName, code, this.tagName, this.textContent);
+                                } else {
+                                    document.getElementById(this.tagName).value = $(this).text();
+                                }
+                            }
+                            if ($(this).attr('disabled') == 'disabled') {
+
+                                $('#' + this.tagName).attr('disabled', true)
+                            }
+                            if ($(this).attr('display') == 'none') {
+                                textboxHide(this.tagName);
+                                $('#' + this.tagName).parent().parent().hide()
+                            }
+                            else if ($(this).attr('display') == 'inline') {
+                                $('#' + this.tagName).parent().parent().show()
+                            }
+                            //AddedBy eLs
+                            if ($(this).attr('style')) {
+                                var style = $(this).attr('style');
+                                $('#' + this.tagName).attr('style', style);
+                            }
+                            if ($(this).attr('hide')) {
+                                var hide = $(this).attr('hide');
+                                var IdVal = this.tagName;
+                                if (hide == 'true') {
+                                    try { document.getElementById(IdVal).style.display = "none"; }
+                                    catch (e) { }
+                                    try { document.getElementById(IdVal + "_prefix").style.display = "none"; }
+                                    catch (e) { }
+                                    try { document.getElementById(IdVal + "_suffix").style.display = "none"; }
+                                    catch (e) { }
+                                    try { $('#' + this.tagName).attr('style', 'display:none;'); }
+                                    catch (e) { }
+                                }
+                                else {
+                                    try { document.getElementById(IdVal).style.display = "inline"; }
+                                    catch (e) { }
+                                    try { document.getElementById(IdVal + "_prefix").style.display = "inline"; }
+                                    catch (e) { }
+                                    try { document.getElementById(IdVal + "_suffix").style.display = "inline"; }
+                                    catch (e) { }
+                                    try { $('#' + this.tagName).attr('style', 'display:inline;'); }
+                                    catch (e) { }
+                                }
+                            }
+                            if ($(this).attr('disabled') == 'true' || $(this).attr('disabled') == 'dsiabled') {
+                                try {
+                                    document.getElementById(this.tagName).readOnly = true;
+                                    document.getElementById(this.tagName).style.backgroundColor = "lavender";
+                                    document.getElementById(this.tagName).style.opacity = "0.4";
+                                    document.getElementById(this.tagName).style.filter = "alpha(opacity=40)";
+                                    document.getElementById(this.tagName).value = "";
+                                }
+                                catch (e) { }
+                            }
+                            if ($(this).attr('disabled') == 'false') {
+                                try {
+                                    document.getElementById(this.tagName).readOnly = false;
+                                    document.getElementById(this.tagName).style.backgroundColor = "white";
+                                    document.getElementById(this.tagName).style.opacity = "1.0";
+                                    document.getElementById(this.tagName).style.filter = "alpha(opacity=100)";
+                                }
+                                catch (e) { }
+                            }
+                            if ($(this).attr('readonly') == 'true') {
+                                try {
+                                    document.getElementById(this.tagName).readOnly = true;
+                                }
+                                catch (e) { }
+                            }
+                            if ($(this).attr('readonly') == 'false') {
+                                try {
+                                    document.getElementById(this.tagName).readOnly = false;
+                                }
+                                catch (e) { }
+                            }
+                            //EndBy eLs
+                        }
+                    }
+
+
+                });
+            }
+        });
+    }
+    else {
+        checkChanges(t);
+    }
+}
+
+function checkChanges(t) {
+    if (t) {
+        if (($("#" + t.id).prop("type") == "select-one") && (t.options[t.selectedIndex].value != $("#" + t.id).data("value"))) {
+            $("#" + t.id).data("value", t.options[t.selectedIndex].value);
+        }
+        $("input[type='text'], input[type='checkbox'], textarea, select").each(function () {
+            var tx = $(this);
+            if ($(this).data("old") != undefined) {
+
+                if (((tx.prop("type") == "text" || tx.prop("type") == "checkbox") && ($(this).val() != $(this).data("old")) && !tx[0].disabled) ||
+                    ((tx.prop("type") == "select-one") && ($(this).data("value") != $(this).data("old")))) {
+                    if ($(this).data("child") == 'Y') {
+                        $('#child_button_addSave').show();
+                        $('#child_button_save').show();
+                        $('#child_button_cancel').show();
+                        $('#child_button_save2').show();
+                        $('#child_button_cancel2').show();
+                    }
+                    else {
+                        $('#button_save').show();
+                        $('#button_cancel').show();
+                        $('#button_save2').show();
+                        $('#button_cancel2').show();
+                    }
+                }
+            }
+        })
+    }
+}
+
+
+function downloadModule(code, exportMode) {
+    window.open('OPHCore/api/msg_rptDialog.aspx?gbox=1&code=' + code + '&parameter=&outputType=1&exportMode=' + exportMode);
+}
+
+function downloadChild(code, sqlFilter) {
+    var titleName = '';
+    var subtitleName = '';
+    ParentGUID = '&parentGUID=' + getQueryVariable('GUID');
+    window.open('OPHCore/api/msg_rptDialog.aspx?gbox=1&code=' + code + '&parameter=&outputType=3&' + ParentGUID + '&titleName=' + titleName + '&subtitleName=' + subtitleName + ' ' + Date());
+}
+
+//dashboard
+function loadDashboard() {
+    if (getCode().toLowerCase() == 'dumy')
+        var xmldoc = 'OPHContent/themes/' + loadThemeFolder() + '/sample.xml';
+    else
+        var xmldoc = 'OPHCore/api/default.aspx?mode=widget&code=' + getCode() + '&date=' + getUnique();
+
+    var divname = ['contentWrapper'];
+    var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/dashboard_content.xslt'];
+
+    //sidebar
+    //divname.push('sidebarWrapper');
+    //xsldoc.push('OPHContent/themes/' + loadThemeFolder() + '/xslt/dashboard_content_sidebar.xslt');
+
+    pushTheme(divname, xmldoc, xsldoc, true);
+}
+
+function getWidgetData(dataId, f) {
+    var url = 'OPHCore/api/default.aspx?mode=data&data=' + dataId;
+    var dataForm;
+
+    $.post({
+        url: url,
+        data: dataForm,
+        success: function (data) {
+            if (typeof f == "function") f(data);
+        },
+        dataType: 'xml'
+    });
+
 }

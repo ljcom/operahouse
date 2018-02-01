@@ -11,10 +11,10 @@
   <xsl:template match="/">
     <!-- Content Header (Page header) -->
     <script>
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/scripts/daterangepicker/daterangepicker.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/scripts/select2/select2.full.min.js');
-      <!--loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/scripts/celljs/cell.js');-->
-      <!--loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/scripts/ckeditor/ckeditor.js');-->
+      loadScript('OPHContent/cdn/daterangepicker/daterangepicker.js');
+      loadScript('OPHContent/cdn/select2/select2.full.min.js');
+      <!--loadScript('OPHContent/cdn/celljs/cell.js');-->
+      <!--loadScript('OPHContent/cdn/ckeditor/ckeditor.js');-->
       var xmldoc = ""
       var xsldoc = "OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/xslt/" + getPage();
 
@@ -811,7 +811,7 @@
       });
       <xsl:if test="value!=''">
         deferreds.push(
-        autosuggestSetValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', '<xsl:value-of select='value'/>', '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
+        autosuggest_setValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', '<xsl:value-of select='value'/>', '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
         );
       </xsl:if>
     </script>

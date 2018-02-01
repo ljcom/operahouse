@@ -138,9 +138,11 @@ Partial Class OPHCore_api_msg_rptDialog
                 Dim gpath As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/")
                 If Not Directory.Exists(gpath) Then Directory.CreateDirectory(gpath)
                 Dim exportMode = Request.QueryString("exportMode")
+                'default exportMode=1
                 exportMode = IIf(Not exportMode = 0, 1, 0)
                 writeLog("gbox")
                 writeLog(gpath)
+
                 'output 0 = download Report XLS & CSV
                 'output 1 = download Module 
                 'output 2 = ???

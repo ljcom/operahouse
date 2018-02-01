@@ -45,7 +45,7 @@
       $("body").addClass("fixed");
 
 
-      loadScript('OPHContent/themes/themeONE/scripts/admin-LTE/js/app.min.js');
+      loadScript('OPHContent/cdn/admin-LTE/js/app.min.js');
 
       //loadContent();
 

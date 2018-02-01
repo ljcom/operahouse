@@ -40,41 +40,41 @@
       $("body").addClass("fixed");
 
 
-      <!--loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/bootstrap/css/bootstrap.min.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/styles/font-awesome-4.7.0/css/font-awesome.min.css');
+      <!--loadStyle('OPHContent/cdn/bootstrap/css/bootstrap.min.css');
+      loadStyle('OPHContent/cdn/font-awesome-4.7.0/css/font-awesome.min.css');
 
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/daterangepicker/daterangepicker.css');
+      loadStyle('OPHContent/cdn/daterangepicker/daterangepicker.css');
 
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/datepicker/datepicker3.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/iCheck/all.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/colorpicker/bootstrap-colorpicker.min.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/loopj-jquery-tokeninput/styles/token-input-facebook.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/loopj-jquery-tokeninput/styles/token-input-mac.css');
+      loadStyle('OPHContent/cdn/datepicker/datepicker3.css');
+      loadStyle('OPHContent/cdn/iCheck/all.css');
+      loadStyle('OPHContent/cdn/colorpicker/bootstrap-colorpicker.min.css');
+      loadStyle('OPHContent/cdn/loopj-jquery-tokeninput/styles/token-input-facebook.css');
+      loadStyle('OPHContent/cdn/loopj-jquery-tokeninput/styles/token-input-mac.css');
 
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/timepicker/bootstrap-timepicker.min.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/select2/select2.min.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/admin-LTE/css/AdminLTE.min.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/admin-LTE/css/skins/_all-skins.min.css');
-      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/styles/custom-me.css');
+      loadStyle('OPHContent/cdn/timepicker/bootstrap-timepicker.min.css');
+      loadStyle('OPHContent/cdn/select2/select2.min.css');
+      loadStyle('OPHContent/cdn/admin-LTE/css/AdminLTE.min.css');
+      loadStyle('OPHContent/cdn/admin-LTE/css/skins/_all-skins.min.css');
+      loadStyle('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/custom-me.css');
 
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/jQuery/jquery-2.2.3.min.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/bootstrap/js/bootstrap.min.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/input-mask/jquery.inputmask.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/input-mask/jquery.inputmask.date.extensions.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/input-mask/jquery.inputmask.extensions.js');
-      loadScript('https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js');
+      loadScript('OPHContent/cdn/jQuery/jquery-2.2.3.min.js');
+      loadScript('OPHContent/cdn/bootstrap/js/bootstrap.min.js');
+      loadScript('OPHContent/cdn/input-mask/jquery.inputmask.js');
+      loadScript('OPHContent/cdn/input-mask/jquery.inputmask.date.extensions.js');
+      loadScript('OPHContent/cdn/input-mask/jquery.inputmask.extensions.js');
+      loadScript('OPHContent/cdn/moment/moment.min.js');
 
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/datepicker/bootstrap-datepicker.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/colorpicker/bootstrap-colorpicker.min.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/timepicker/bootstrap-timepicker.min.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/loopj-jquery-tokeninput/src/jquery.tokeninput.js');
+      loadScript('OPHContent/cdn/datepicker/bootstrap-datepicker.js');
+      loadScript('OPHContent/cdn/colorpicker/bootstrap-colorpicker.min.js');
+      loadScript('OPHContent/cdn/timepicker/bootstrap-timepicker.min.js');
+      loadScript('OPHContent/cdn/loopj-jquery-tokeninput/src/jquery.tokeninput.js');
 
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/slimScroll/jquery.slimscroll.min.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/iCheck/icheck.min.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/fastclick/fastclick.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/upclick/upclick-min.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/custom-me.js');-->
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/admin-LTE/js/app.min.js');
+      loadScript('OPHContent/cdn/slimScroll/jquery.slimscroll.min.js');
+      loadScript('OPHContent/cdn/iCheck/icheck.min.js');
+      loadScript('OPHContent/cdn/fastclick/fastclick.js');
+      loadScript('OPHContent/cdn/upclick/upclick-min.js');
+      loadScript('OPHContent/cdn/custom-me.js');-->
+      loadScript('OPHContent/cdn/admin-LTE/js/app.min.js');
 
 
 

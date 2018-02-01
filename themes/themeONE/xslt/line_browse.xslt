@@ -18,13 +18,13 @@
 
   <xsl:template match="/">
     <script>
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/scripts/select2/select2.full.min.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/editablegrid-master/editablegrid.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/editablegrid-master/editablegrid_renderers.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/editablegrid-master/editablegrid_editors.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/editablegrid-master/editablegrid_validators.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/editablegrid-master/editablegrid_utils.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder" />/scripts/editablegrid-master/editablegrid_charts.js');
+      loadScript('OPHContent/cdn/select2/select2.full.min.js');
+      loadScript('OPHContent/cdn/editablegrid-master/editablegrid.js');
+      loadScript('OPHContent/cdn/editablegrid-master/editablegrid_renderers.js');
+      loadScript('OPHContent/cdn/editablegrid-master/editablegrid_editors.js');
+      loadScript('OPHContent/cdn/editablegrid-master/editablegrid_validators.js');
+      loadScript('OPHContent/cdn/editablegrid-master/editablegrid_utils.js');
+      loadScript('OPHContent/cdn/editablegrid-master/editablegrid_charts.js');
 
       var metadata = [];
       metadata.push({ name: "name", label: "NAME", datatype: "string", editable: true});

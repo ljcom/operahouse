@@ -11,8 +11,8 @@
   <xsl:template match="/">
     <!-- Content Header (Page header) -->
     <script>
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/scripts/daterangepicker/daterangepicker.js');
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/scripts/select2/select2.full.min.js');
+      loadScript('OPHContent/cdn/daterangepicker/daterangepicker.js');
+      loadScript('OPHContent/cdn/select2/select2.full.min.js');
       var xmldoc = ""
       var xsldoc = "OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/xslt/" + getPage();
 

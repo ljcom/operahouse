@@ -18,7 +18,7 @@
 
   <xsl:template match="/">
     <script>
-      loadScript('OPHContent/themes/<xsl:value-of select="/sqroot/header/info/themeFolder"/>/scripts/select2/select2.full.min.js');
+      loadScript('OPHContent/cdn/select2/select2.full.min.js');
     </script>
 
     <xsl:if test="/sqroot/header/info/isBrowsable = 0">
