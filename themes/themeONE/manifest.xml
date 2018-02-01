@@ -12,7 +12,7 @@
     <cssFile>OPHContent/cdn/select2/select2.min.css</cssFile>
     <cssFile>OPHContent/cdn/admin-LTE/css/AdminLTE.min.css</cssFile>
     <cssFile>OPHContent/cdn/admin-LTE/css/skins/_all-skins.min.css</cssFile>
-    <cssFile>OPHContent/cdn/celljs/cell.css</cssFile>
+    <cssFile>OPHContent/cdn/ophelements/celljs/cell.css</cssFile>
     <cssFile>OPHContent/cdn/bootstrap/datetimepicker/bootstrap-datetimepicker.min.css</cssFile>
     <!--jsFile>OPHContent/cdn/jQuery/jquery-2.2.3.min.js</jsFile-->
     <jsFile>OPHContent/cdn/bootstrap/js/bootstrap.min.js</jsFile>
@@ -29,8 +29,8 @@
     <jsFile>OPHContent/cdn/fastclick/fastclick.js</jsFile>
     <jsFile>OPHContent/cdn/upclick/upclick-min.js</jsFile>
     <jsFile>OPHContent/cdn/ckeditor/ckeditor.js</jsFile>
-    <jsFile>OPHContent/cdn/celljs/cell.js</jsFile>
-    <jsFile>OPHContent/cdn/ophupload/ophupload.js</jsFile>
+    <jsFile>OPHContent/cdn/ophelements/celljs/cell.js</jsFile>
+    <jsFile>OPHContent/cdn/ophelements/ophupload/ophupload.js</jsFile>
     <jsFile>OPHContent/cdn/bootstrap/datetimepicker/bootstrap-datetimepicker.min.js</jsFile>
     <cssFile>OPHContent/themes/themeONE/styles/icomoon/style.css</cssFile>
     <jsFile>OPHContent/themes/themeONE/custom-me.js</jsFile>
