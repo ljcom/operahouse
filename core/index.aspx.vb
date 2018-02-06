@@ -1,4 +1,4 @@
-﻿Imports System.IO
+﻿'Imports System.IO
 
 Partial Class index
     'Inherits System.Web.UI.Page
@@ -22,7 +22,11 @@ Partial Class index
             'Dim curUserGUID = Session("userGUID")
         Else
             Dim HostGUID As String = Session("hostGUID")
-            Dim account As String, url As String = Request.Url.OriginalString.Replace(Request.Url.PathAndQuery, "") & "/ophcore/api/default.aspx?mode=account&code=" & getQueryVar("code") & "&env=" & getQueryVar("env") & "&hostGUID=" & HostGUID
+            'Dim account As String, url As String = Request.Url.OriginalString.Replace(Request.Url.PathAndQuery, "") & "/ophcore/api/default.aspx?mode=account&code=" & getQueryVar("code") & "&env=" & getQueryVar("env") & "&hostGUID=" & HostGUID
+            Dim account As String, url As String = Request.Url.OriginalString.Replace(Request.Url.PathAndQuery, "") & Request.ApplicationPath
+            If url.Substring(Len(url) - 1, 1) = "/" Then url = url.Substring(0, Len(url) - 1)
+            url = url & "/ophcore/api/default.aspx?mode=account&code=" & getQueryVar("code") & "&env=" & getQueryVar("env") & "&hostGUID=" & HostGUID
+
             Using WC As New System.Net.WebClient()
                 account = WC.DownloadString(url)
             End Using
@@ -37,7 +41,6 @@ Partial Class index
             loginPage = x.<sqroot>.<signInPage>.Value 'contentofsignInPage
             Session("hostGUID") = curHostGUID
         End If
-
 
         If code = "" Then
             reloadURL("index.aspx?code=404&env=")

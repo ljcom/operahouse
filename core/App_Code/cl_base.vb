@@ -1,12 +1,12 @@
-﻿Imports Microsoft.VisualBasic
+﻿'Imports Microsoft.VisualBasic
 Imports System.IO
 Imports System.Data
 Imports System.Data.SqlClient
-Imports System.Data.SqlTypes
+'Imports System.Data.SqlTypes
 Imports System.Xml
 Imports System
 Imports System.Diagnostics
-Imports System.DirectoryServices
+'Imports System.DirectoryServices
 Imports System.DirectoryServices.AccountManagement
 Imports System.DirectoryServices.ActiveDirectory.Domain
 

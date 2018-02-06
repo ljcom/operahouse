@@ -393,11 +393,19 @@ function executeFunction(code, GUID, action, location) {
         if ((confirm("You are about to " + action + " this record. Are you sure?") == 0)) { isAction = 0; }
     }
 
+    if (action == "delete" && location == 40) {
+        if (isAction == 1) {
+            preview(1, code, GUID, "form"+code, null);
+        }
+    }
+
     var path = 'OPHCore/api/default.aspx?code=' + code + '&mode=function&cfunction=' + action + '&cfunctionlist=' + GUID + '&comment&unique=' + getUnique()
 
     if (location == undefined || location == "") { location = 20 }
     //location: 0 header; 1 child; 2 browse 
     //location: browse:10, header form:20, browse anak:30, browse form:40
+
+
 
     if (isAction == 1) {
         $.post(path, function (data) {
