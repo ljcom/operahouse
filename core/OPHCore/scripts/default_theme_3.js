@@ -2174,36 +2174,6 @@ function checkrequired(Names, output) {
     return output;
 }
 
-function showChildForm(code, guid, parent) {
-    var divnm = [code + guid];
-    //clear other childform
-    if (!$('#' + code + guid).is(":visible")) {
-
-        $("#" + divnm).html("Please Wait...");
-
-        var xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=form&GUID=" + guid
-
-        var xsldoc = ["OPHContent/themes/" + loadThemeFolder() + "/xslt/" + getPage() + "_childForm.xslt"];
-        pushTheme(divnm, xmldoc, xsldoc, true, function () {
-            $('#' + code + guid).collapse('show');
-            // $('#' + code + guid).collapse({ parent: '#' + parent, toggle: true });
-            // $('#' + code + guid).collapse('toggle');
-        });
-        //$('#' + code).find('.collapse.in').collapse('hide');
-        //$('#' + code).children().find('.collapse.in').collapse('hide');
-        $('#' + code + guid).parent().parent().parent().children().find('.collapse.in').collapse('hide');
-    }
-    else {
-        $('#' + code + guid).collapse({ parent: '#' + guid, toggle: true });
-        $('#' + code + guid).collapse('toggle');
-        $("#" + divnm).html("");
-    }
-    //setCookie("currentChild", code + guid);
-}
-function closeChildForm(code, guid) {
-    var divnm = [code + guid];
-    $('#' + divnm).collapse("hide");
-}
 
 function checkCB(checkboxname) {
     if ($("input[name='cb" + checkboxname + "'][type='checkbox']").is(":checked")) {

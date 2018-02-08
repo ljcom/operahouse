@@ -799,6 +799,7 @@
   </xsl:template>
 
   <xsl:template match="child">
+    
     <input type="hidden" id="CPKID" value="gchild{code/.}"/>
     <input type="hidden" id="childKey{code/.}" value="{parentkey/.}"/>
     <input type="hidden" id="filter{code/.}" value="{parentkey/.}='{/sqroot/body/bodyContent/form/info/GUID/.}'"/>
@@ -823,8 +824,8 @@
           </h3>
         </div>
       </div-->
-    <div class="box box-solid box-default visible-phone" style="box-shadow:0px;border:none;" id="child{code/.}{/sqroot/body/bodyContent/form/info/GUID/.}">
-      &#160;
+    <div class="box box-solid box-default visible-phone" style="box-shadow:0px;border:none;" id="child{code/.}{/sqroot/body/bodyContent/form/info/GUID/.}" data-parentguid="{/sqroot/body/bodyContent/form/info/GUID/.}">
+    &#160;
     </div>
     <!--/div-->
   </xsl:template>

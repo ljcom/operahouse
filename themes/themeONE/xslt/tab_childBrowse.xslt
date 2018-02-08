@@ -163,7 +163,7 @@
                 </xsl:if>
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)=1 and (/sqroot/body/bodyContent/browse/info/permission/allowExport/.)=1" >
                   <button class="btn btn-gray-a"
-                          onclick="downloadChild('{$lowerCode}', '')">DOWNLOAD</button>&#160;
+                          onclick="downloadChild('{$lowerCode}', this)">DOWNLOAD</button>&#160;
                   <button class="btn btn-gray-a" onclick="javascript:$('#import_hidden').click();">UPLOAD...</button>&#160;
 
                   <!--<button type="button" class="buttonCream" id="download" name="download" onclick="javascript:PrintDirect('{/sqroot/body/bodyContent/browse/info/code}', '', 3, '', '', '');">DOWNLOAD</button>
@@ -238,7 +238,7 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <td class="accordion-toggle" data-parent="#{$lowerCode}" data-target="#{$lowerCode}{@GUID}" 
+    <td class="accordion-toggle" data-parent="#{$lowerCode}" data-target="#{$lowerCode}{@GUID}" data-parentGUID="{../../@GUID}"
         onclick="showChildForm('{$lowerCode}','{../../@GUID}', '{$lowerCode}')" >
       <xsl:value-of select="$tbContent"/>&#160;
     </td>

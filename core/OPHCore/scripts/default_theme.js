@@ -656,10 +656,13 @@ function downloadModule(code, exportMode) {
     window.open('OPHCore/api/msg_rptDialog.aspx?gbox=1&code=' + code + '&parameter=&outputType=1&exportMode=' + exportMode);
 }
 
-function downloadChild(code, sqlFilter) {
+function downloadChild(code, t) {
     var titleName = '';
     var subtitleName = '';
-    ParentGUID = '&parentGUID=' + getQueryVariable('GUID');
+   
+    ParentGUID=$(t).parent().parent().parent().parent().parent().parent().parent().data("parentguid");
+    if (ParentGUID==undefined) ParentGUID=getQueryVariable('GUID');
+    ParentGUID = '&parentGUID=' + ParentGUID;
     window.open('OPHCore/api/msg_rptDialog.aspx?gbox=1&code=' + code + '&parameter=&outputType=3&' + ParentGUID + '&titleName=' + titleName + '&subtitleName=' + subtitleName + ' ' + Date());
 }
 
@@ -693,4 +696,39 @@ function getWidgetData(dataId, f) {
         dataType: 'xml'
     });
 
+}
+
+
+//childform
+
+
+function showChildForm(code, guid, parent) {
+    var divnm = [code + guid];
+    //clear other childform
+    if (!$('#' + code + guid).is(":visible")) {
+
+        $("#" + divnm).html("Please Wait...");
+
+        var xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=form&GUID=" + guid
+
+        var xsldoc = ["OPHContent/themes/" + loadThemeFolder() + "/xslt/" + getPage() + "_childForm.xslt"];
+        pushTheme(divnm, xmldoc, xsldoc, true, function () {
+            $('#' + code + guid).collapse('show');
+            // $('#' + code + guid).collapse({ parent: '#' + parent, toggle: true });
+            // $('#' + code + guid).collapse('toggle');
+        });
+        //$('#' + code).find('.collapse.in').collapse('hide');
+        //$('#' + code).children().find('.collapse.in').collapse('hide');
+        $('#' + code + guid).parent().parent().parent().children().find('.collapse.in').collapse('hide');
+    }
+    else {
+        $('#' + code + guid).collapse({ parent: '#' + guid, toggle: true });
+        $('#' + code + guid).collapse('toggle');
+        $("#" + divnm).html("");
+    }
+    //setCookie("currentChild", code + guid);
+}
+function closeChildForm(code, guid) {
+    var divnm = [code + guid];
+    $('#' + divnm).collapse("hide");
 }
