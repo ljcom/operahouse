@@ -76,7 +76,13 @@ Partial Class index
         End If
         If cartID = "" Then
             'Response.Cookies("cartID").Value = runSQLwithResult("exec api.createNewid")
-            setCookie("cartID", runSQLwithResult("exec api.createNewid"), 7)
+            Dim appSet As NameValueCollection = ConfigurationManager.AppSettings
+            'dynamic account
+            Dim getseqcon = appSet.Item("sequoia")
+            Dim newid As String
+
+            newid = runSQLwithResult("exec api.createNewid", getseqcon)
+            setCookie("cartID", newid, 7)
         Else
             'Response.Cookies("cartID").Value = Request.Cookies("cartID").Value
         End If
