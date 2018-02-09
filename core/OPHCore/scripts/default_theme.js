@@ -529,9 +529,13 @@ function preview(flag, code, GUID, formid, t) {
                             if (flag > 1 || $(this).text() != '') {
 
                                 if (document.getElementById(this.tagName).type == 'select-one') {
-                                    //var newOption = new Option($(this.nextSibling).text(), $(this).text(), true, true);
-                                    //$("#" + this.tagName).append(newOption).trigger('change');
-                                    autosuggestSetValue(this.tagName, code, this.tagName, this.textContent);
+                                    var checktext = $(this.nextSibling)[0].localName
+                                    if (checktext == this.tagName + '_name') {
+                                        var newOption = new Option($(this.nextSibling).text(), $(this).text(), true, true);
+                                        $("#" + this.tagName).append(newOption).trigger('change');
+                                    }else {
+                                        autosuggestSetValue(this.tagName, code, this.tagName, this.textContent);
+                                    }
                                 } else {
                                     document.getElementById(this.tagName).value = $(this).text();
                                 }
