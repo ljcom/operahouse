@@ -111,19 +111,20 @@
         <div class="row">
           <div class="col-md-12">
             <div style="border:0px none white;box-shadow:none;" id="content_{/sqroot/body/bodyContent/browse/info/code}" class="box collapse in">
-              <table class="table table-condensed strip-table-browse cell-table" style="border-collapse:collapse">
-                <thead>
-                  <tr style="background:#3C8DBC; color:white">
-                    <th style="width:28px;"></th>
-                    <xsl:apply-templates select="sqroot/body/bodyContent/browse/header"/>
-                  </tr>
-                </thead>
-                <tbody id="{$lowerCode}">
+              <div style="border:0px none white;box-shadow:none;overflow:auto" >
+                <table class="table table-condensed strip-table-browse cell-table" style="border-collapse:collapse">
+                  <thead>
+                    <tr style="background:#3C8DBC; color:white">
+                      <th style="width:28px;"></th>
+                      <xsl:apply-templates select="sqroot/body/bodyContent/browse/header"/>
+                    </tr>
+                  </thead>
+                  <tbody id="{$lowerCode}">
 
-                  <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row"/>
-                </tbody>
-              </table>
-
+                    <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row"/>
+                  </tbody>
+                </table>
+              </div>
               <!-- /.box-body -->
               <div class="box-footer clearfix">
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
@@ -208,17 +209,17 @@
       </xsl:choose>
     </xsl:variable>
     <xsl:choose>
-    <xsl:when test="@editor">
-      <td class="cell cell-editor-{@editor}" data-id="{@id}" data-field="{@caption}">
-        <xsl:value-of select="$tbContent"/>
-      </td>
-    </xsl:when>
+      <xsl:when test="@editor">
+        <td class="cell cell-editor-{@editor}" data-id="{@id}" data-field="{@caption}">
+          <xsl:value-of select="$tbContent"/>
+        </td>
+      </xsl:when>
       <xsl:otherwise>
         <td class="cell">
           <xsl:value-of select="$tbContent"/>
         </td>
       </xsl:otherwise>
-  </xsl:choose>
+    </xsl:choose>
 
   </xsl:template>
 

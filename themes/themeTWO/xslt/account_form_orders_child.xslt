@@ -73,7 +73,7 @@
       <xsl:when test="(@caption)='productphotos'">
         <td class="col-xs-2">
           <span class="cartImage" style="height:70px; margin:0 auto;  width:100%; text-align:center;">
-            <img src="{.}" alt="image" style="height:100%; width:auto; margin:0 auto;" />
+            <img src="OPHContent/documents/kitashop/{.}" alt="image" style="height:100%; width:auto; margin:0 auto;" />
           </span>
         </td>
       </xsl:when>

@@ -10,7 +10,11 @@
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
 
   <xsl:template match="/">
-    <div id="LimitUsers" class="hidden-xs" style="margin-top:-18px;"> &#xA0; </div>
+    <div id="LimitUsers" class="hidden-xs" style="margin-top:-18px;">
+      <a href=".limit-modal" data-toggle="modal" style=" font-size:12px; padding:0; margin:0; color:black; background:white;" onclick="runloadnewpart()">
+        Check Your Remaining Limit Here >>
+      </a>
+    </div>
     <a href="#" class="dropdown-toggle shop-cart" data-toggle="dropdown" style="">
       <ix class="fa fa-shopping-cart" style="border-left:white solid 5px; z-index:-1px">&#xA0;
         <!--<span id="totalcart" style="position:absolute; top:2px; background:red; left:30px; font-size:10px; width:10px; text-align:center; padding:2px;">0</span>-->
@@ -25,16 +29,21 @@
     </a>
     <ul class="dropdown-menu dropdown-menu-right">
       <li>
-        <span id="LimitUser"> &#xA0; </span><br/>
+        <script>
+          var hostGUIDcek = '<xsl:value-of select="sqroot/header/info/user/hostGUID/." />';
+          var hostGUID = "hostGUID = '<xsl:value-of select="sqroot/header/info/user/hostGUID/." />'";
+          if (hostGUIDcek != ''){
+          function runloadnewpart() {
+          LoadNewPart('cart_top_limit', 'limitmodalbody', 'causerlimt', hostGUID, '', '', '');
+          }
+          }
+        </script>
+        <a href=".limit-modal" data-toggle="modal" style=" font-size:12px; padding:0; margin:0; color:white;" onclick="runloadnewpart()">
+          Check Your Remaining Limit Here >>
+        </a>
+        <br/>
         Item(s) in your carts
       </li>
-      <script>
-        var hostGUIDcek = '<xsl:value-of select="sqroot/header/info/user/hostGUID/." />';
-        var hostGUID = "hostGUID = '<xsl:value-of select="sqroot/header/info/user/hostGUID/." />'";
-        if (hostGUIDcek != ''){
-        LoadNewPart('cart_top_limit', 'LimitUser', 'causerlimt', hostGUID, '', '', '');
-        }
-      </script>
       <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row"/>
       <li>
         <div class="btn-group" role="group" aria-label="..." id="buttoncarttop" >

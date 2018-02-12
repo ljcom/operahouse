@@ -23,7 +23,19 @@
   
     <ul class="dropdown-menu dropdown-menu-right">
       <li>
-        <span id="LimitUser"> &#xA0; </span><br/>
+        <script>
+          var hostGUIDcek = '<xsl:value-of select="sqroot/header/info/user/hostGUID/." />';
+          var hostGUID = "hostGUID = '<xsl:value-of select="sqroot/header/info/user/hostGUID/." />'";
+          if (hostGUIDcek != ''){
+          function runloadnewpart() {
+          LoadNewPart('cart_top_limit', 'limitmodalbody', 'causerlimt', hostGUID, '', '', '');
+          }
+          }
+        </script>
+        <a href=".limit-modal" data-toggle="modal" style=" font-size:12px; padding:0; margin:0;" onclick="runloadnewpart()">
+          Check Your Remaining Limit Here >>
+        </a>
+        <br/>
         Item(s) in your carts
       </li>
       <script>

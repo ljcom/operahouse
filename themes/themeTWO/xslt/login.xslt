@@ -8,13 +8,13 @@
 
   <xsl:template match="/">
     <script>
-      <!--loadStyle('OPHContent/cdn/jqueryui/jquery-ui-1.11.1/jquery-ui.css');
-      loadStyle('OPHContent/cdn/bootstrap/css/bootstrap.min.css');
-      loadStyle('OPHContent/cdn/font-awesome/css/font-awesome.min.css');
-      loadStyle('OPHContent/cdn/selectbox/select_option1.css');
-      loadStyle('OPHContent/cdn/rs-plugin/css/settings.css');
-      loadStyle('OPHContent/cdn/rs-plugin/css/settings.css');
-      loadStyle('OPHContent/cdn/owl-carousel/owl.carousel.css');
+      <!--loadStyle('OPHContent/themes/themeTWO/scripts/jquery-ui/jquery-ui.css');
+      loadStyle('OPHContent/themes/themeTWO/scripts/bootstrap/css/bootstrap.min.css');
+      loadStyle('OPHContent/themes/themeTWO/scripts/font-awesome/css/font-awesome.min.css');
+      loadStyle('OPHContent/themes/themeTWO/scripts/selectbox/select_option1.css');
+      loadStyle('OPHContent/themes/themeTWO/scripts/rs-plugin/css/settings.css');
+      loadStyle('OPHContent/themes/themeTWO/scripts/rs-plugin/css/settings.css');
+      loadStyle('OPHContent/themes/themeTWO/scripts/owl-carousel/owl.carousel.css');
       loadStyle('OPHContent/themes/themeTWO/styles/font-oxygen.css');
       loadStyle('OPHContent/themes/themeTWO/styles/icon-font.min.css');
 
@@ -22,20 +22,20 @@
       loadStyle('OPHContent/themes/themeTWO/styles/style.css');
       loadStyle('OPHContent/themes/themeTWO/styles/default.css')
 
-      loadScript('OPHContent/cdn/jquery/jquery.1.11.3.jquery.min.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/jquery.1.11.3.jquery.min.js');
       
-	  loadScript('OPHContent/cdn/jqueryui/jquery-ui-1.11.1/jquery-ui.js');
-      loadScript('OPHContent/cdn/bootstrap/js/bootstrap.min.js');
-      loadScript('OPHContent/cdn/rs-plugin/js/jquery.themepunch.tools.min.js');
-      loadScript('OPHContent/cdn/rs-plugin/js/jquery.themepunch.revolution.min.js');
-      loadScript('OPHContent/cdn/owl-carousel/owl.carousel.js');
-      loadScript('OPHContent/cdn/selectbox/jquery.selectbox-0.1.3.min.js');
-      loadScript('OPHContent/cdn/countdown/jquery.syotimer.js');
+	  loadScript('OPHContent/themes/themeTWO/scripts/jquery-ui/jquery-ui.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/bootstrap/js/bootstrap.min.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/rs-plugin/js/jquery.themepunch.tools.min.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/rs-plugin/js/jquery.themepunch.revolution.min.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/owl-carousel/owl.carousel.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/selectbox/jquery.selectbox-0.1.3.min.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/countdown/jquery.syotimer.js');
       loadScript('OPHContent/themes/themeTWO/scripts/js/custom.js');
       loadScript('OPHContent/themes/themeTWO/scripts/custom-me.js');-->
 
-      loadScript('OPHContent/cdn/bootstrap/js/bootstrap.min.js');
-      loadScript('OPHContent/cdn/owl-carousel/owl.carousel.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/bootstrap/js/bootstrap.min.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/owl-carousel/owl.carousel.js');
       loadScript('OPHContent/themes/themeTWO/scripts/js/custom.js');
 
       //if (getCookie("isLogin")==1) window.location='?';
@@ -203,11 +203,11 @@
               © 2016 Copyright <a style="color:white" href="http://www.loreal.com/">L'oreal Indonesia</a>
             </p>
           </div>
-          <div class="col-sm-5 col-xs-12">
+          <!--<div class="col-sm-5 col-xs-12">
             <p class="poweredby">
               Powered By <a href="http://operahouse.systems/" style="color:white">OPERAHOUSE.SYSTEMS</a>
             </p>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>
@@ -276,19 +276,20 @@
     </script>
   </xsl:template>
   <!--primary front menu-->
+
   <xsl:template match="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu">
     <li class="dropdown">
       <xsl:choose>
-        <xsl:when test="(@mode)='treeroot'">
-          <a href="{pageURL/.}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <xsl:when test="(@type)='treeroot'">
+          <a href="{pageURL/.}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="prim-{caption/.}">
             <xsl:value-of select="caption/." />
           </a>
           <ul class="dropdown-menu dropdown-menu-right">
             <xsl:apply-templates select="submenus/submenu[@mode='treeview']" />
           </ul>
         </xsl:when>
-        <xsl:when test="(@mode)='label'">
-          <a href="{pageURL/.}">
+        <xsl:when test="(@type)='label'">
+          <a href="{pageURL/.}" id="prim-{caption/.}">
             <xsl:value-of select="caption/." />
           </a>
         </xsl:when>
@@ -296,12 +297,11 @@
     </li>
   </xsl:template>
 
-  <xsl:template match="submenus/submenu[@mode='treeview']">
+  <xsl:template match="submenus/submenu[@type='treeview']">
     <li>
-      <a href="{pageURL/.}">
+      <a class="needlogin" data-toggle="modal" href="{pageURL/.}">
         <xsl:value-of select="caption/." />
       </a>
     </li>
   </xsl:template>
-
 </xsl:stylesheet>

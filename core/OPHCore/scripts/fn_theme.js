@@ -37,7 +37,7 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
                     // added 2016 09 30
                     ex = ex.split('&lt;').join('<').split('&gt;').join('>').split('&amp;').join('&');
                     var cleanedT = stripScript(ex);
-                    document.getElementById(divnm).innerHTML = cleanedT;
+                    if (document.getElementById(divnm) != null) document.getElementById(divnm).innerHTML = cleanedT;
                     ExecuteScript(ex, true);
                 }
             }

@@ -130,15 +130,14 @@
    <!--Data Content-->
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
     <!--image src-->
-    <xsl:variable name="imageprod">
-      OPHContent/documents/<xsl:value-of select="sqroot/header/info/account/." />/<xsl:value-of select="fields/field[@caption = 'productphotos']/." />
+    <xsl:variable name="imageprod">OPHContent/documents/kitashop/<xsl:value-of select="fields/field[@caption = 'productphotos']/." />
     </xsl:variable>
     
     <div class="col-xs-12">
       <div class="media">
         <div class="media-left">
           <div style="height:200px; text-align:center">
-            <img style="height:90%;  width: auto; margin:0 auto;" class="media-object" src="{$imageprod}" alt="Image" />
+            <img style="height:90%;  width: auto; margin:0 auto;" class="media-object" src="{$imageprod}" alt="Image" onerror="this.src='ophcontent/themes/themeTWO/images/white.png'" />
           </div>
           <span class="maskingImage"><a href="index.aspx?env=front&amp;code=maprodfron&amp;GUID={@GUID}" class="btn viewBtn">View</a></span>
         </div>
@@ -175,6 +174,13 @@
                 
                 </span>
                 
+              </xsl:when>
+               <xsl:when test="(fields/field[@caption = 'price']/.) != (fields/field[@caption = 'priceDiscount']/.)">
+                 <span style="text-decoration:line-through; font-size:12px; margin:0">Rp. <xsl:value-of select="format-number(fields/field[@caption = 'price']/., '#,##0', 'dot-dec')" /></span><br />
+                <!--<h3 style="font-size:20px; margin:0">Rp. <xsl:value-of select="format-number(fields/field[@caption = 'priceDiscount']/., '#,##0', 'dot-dec')" /></h3>-->
+                <span style="font-size:20px;">
+                  Rp. <xsl:value-of select="format-number(fields/field[@caption = 'priceDiscount']/., '#,##0', 'dot-dec')" />
+                </span>
               </xsl:when>
               <xsl:otherwise>
                 <span style="font-size:20px; margin:0">Rp. <xsl:value-of select="format-number(fields/field[@caption = 'price']/., '#,##0', 'dot-dec')" /></span>

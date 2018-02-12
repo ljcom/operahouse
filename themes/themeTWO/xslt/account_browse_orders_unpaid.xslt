@@ -37,7 +37,8 @@
     <tr>
       <xsl:apply-templates select="fields/field" />
       <td>
-        <a href="#" class="btn btn-default" onclick="location.href='index.aspx?env=front&amp;code=tapcs3&amp;GUID={@GUID}';">View</a>
+        <a href="#" class="btn btn-default" onclick="location.href='index.aspx?env=front&amp;code=tapcs1&amp;GUID={@GUID}';">View</a>
+        <a href="#" class="btn btn-default"  onclick="deleteRow('tapcso', '{@GUID}');">Delete</a>
       </td>
     </tr>
                  

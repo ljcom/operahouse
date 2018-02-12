@@ -20,7 +20,7 @@
                   
                   var GUIDs = '<xsl:value-of select="sqroot/body/bodyContent/form/info/GUID/." />'
                   //var GUIDs = getCookie("CartID");
-                  LoadNewPart('cart_browse_child', 'contentcart', 'tapcs1deta', "PCSOGUID = '"+GUIDs+"'", '');
+                  LoadNewPart('cart_browse_child', 'contentcart', 'tapcs1deta', "PCSOGUID = '"+GUIDs+"'", '', 1, 200);
                 </script>
               </div>
               <div class="updateArea">

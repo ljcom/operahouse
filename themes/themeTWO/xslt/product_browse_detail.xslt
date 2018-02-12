@@ -22,7 +22,7 @@
                 <div class="media-body">
                   <ul class="list-inline">
                     <li>
-                      <a href="?code=maprodfron" style="color:black;">
+                      <a onclick="goToProductBrowse()" href="#" style="color:black;" >
                         <span><ix class="fa fa-reply" aria-hidden="true"></ix>
                         </span> Continue Shopping
                       </a>
@@ -43,7 +43,7 @@
               </div>
             </div>
           </div>
-          <div class="row productsContent" id="relatedProduct">
+          <div class="row productsContent" id="relatedProduct" style="display:none;">
             Loading Please Wait...
           </div>
       </div>
@@ -94,7 +94,15 @@
           <span class="font-arial" style="text-decoration:line-through; font-size:12px; margin-left:64px;">
             Rp. <xsl:value-of select="format-number(fields/field[@caption = 'price']/., '#,##0', 'dot-dec')" />
           </span>
-
+        </xsl:when>
+        <xsl:when test="(fields/field[@caption = 'price']/.) != (fields/field[@caption = 'priceDiscount']/.)">
+          <span class="font-arial" style="font-size:20px; ">
+            Rp. <xsl:value-of select="format-number(fields/field[@caption = 'priceDiscount']/., '#,##0', 'dot-dec')" />
+          </span>
+          <br />
+          <span class="font-arial" style="text-decoration:line-through; font-size:12px; margin-left:64px;">
+            Rp. <xsl:value-of select="format-number(fields/field[@caption = 'price']/., '#,##0', 'dot-dec')" />
+          </span>
         </xsl:when>
         <xsl:otherwise>
           <span class="font-arial" style="font-size:20px;">

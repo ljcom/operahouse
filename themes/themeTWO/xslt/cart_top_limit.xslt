@@ -9,9 +9,115 @@
   <xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'" />
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
 
+
   <xsl:template match="/">
-    <span style="border-bottom:1px solid white; padding-bottom:5px;" id="theLimit">Remaining limit : Rp. <xsl:value-of select="format-number(sqroot/body/bodyContent/browse/content/row/fields/field[@caption = 'limit']/., '#,##0', 'dot-dec')"/></span>
-    <br/>
+    <!--<span style="border-bottom:1px solid white; padding-bottom:5px;" id="theLimit">
+      Remaining limit : Rp. 
+      <xsl:value-of select="format-number(sqroot/body/bodyContent/browse/content/row/fields/field[@caption = 'limit']/., '#,##0', 'dot-dec')"/>
+    </span>
+    <br/>-->
+    <!--<span style="padding-bottom:5px;" id="theLimit">
+      <a href=".limit-modal" data-toggle="modal" style=" font-size:12px; padding:0; margin:0;">
+        Check Your Remaining Limit Here >>
+      </a>
+    </span>-->
+    <table class="table">
+      <thead>
+        <tr>
+          <xsl:apply-templates select="sqroot/body/bodyContent/browse/header/column" />
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row" />
+        </tr>
+      </tbody>
+    </table>
+  </xsl:template>
+
+  <xsl:template match="sqroot/body/bodyContent/browse/header/column">
+
+    <xsl:choose>
+      <xsl:when test="(@fieldName)!='TotalSales' and (@fieldName)!='TotalQty' and (@fieldName)!='EVENPSKUGUID'">
+        <th style="width:{@width}px;  background:#47BAC1; color:white;">
+          <xsl:value-of select="translate(titleCaption/., $smallcase, $uppercase)" />
+        </th>
+      </xsl:when>
+    </xsl:choose>
+
+  </xsl:template>
+
+
+  <xsl:template match="sqroot/body/bodyContent/browse/content/row">
+
+    <tr>
+
+      <xsl:apply-templates select="fields/field" />
+
+    </tr>
+
+  </xsl:template>
+
+  <xsl:template match="fields/field">
+    <xsl:variable name="tbContent">
+      <xsl:choose>
+        <xsl:when test="@digit = 0 and .!=''">
+          <xsl:value-of select="format-number(., '#,##0', 'dot-dec')"/>
+        </xsl:when>
+        <xsl:when test="@digit  = 1 and .!=''">
+          <xsl:value-of select="format-number(., '#,##0.0', 'dot-dec')"/>
+        </xsl:when>
+        <xsl:when test="@digit  = 2 and .!=''">
+          <xsl:value-of select="format-number(., '#,##0.00', 'dot-dec')"/>
+        </xsl:when>
+        <xsl:when test="@digit  = 3 and .!=''">
+          <xsl:value-of select="format-number(., '#,##0.000', 'dot-dec')"/>
+        </xsl:when>
+        <xsl:when test="@digit  = 4 and .!=''">
+          <xsl:value-of select="format-number(., '#,##0.0000', 'dot-dec')"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="."/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:choose>
+      <xsl:when test="(@caption)='productphotos'">
+        <td class="col-xs-2">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="deleteRow('tapcsodeta', '{../../@GUID}')">
+            <span aria-hidden="true" >x</span>
+          </button>
+          <span class="cartImage" style="height:70px;">
+            <img src="OPHContent/documents/{/sqroot/header/info/account/.}/{.}" alt="image" style="height:100%; width:auto; margin:0 auto;" />
+          </span>
+        </td>
+      </xsl:when>
+      <xsl:when test="(@caption)='Qty'">
+        <td class="col-xs-2">
+          <form method="post" id="pcs2form_{../../@GUID}">
+            <input type="hidden" value="{../../@GUID}" name="PCSODETAGUID"/>
+            <input type="number" placeholder="1" value="{.}" name="{@caption}"/>
+            <script>
+              if (document.getElementById("cfunctionlist").value == ''){
+              document.getElementById("cfunctionlist").value = 'pcs2form_<xsl:value-of select="../../@GUID" />';
+              }else{
+              document.getElementById("cfunctionlist").value =  document.getElementById("cfunctionlist").value + ', ' + 'pcs2form_<xsl:value-of select="../../@GUID" />';
+              }
+            </script>
+          </form>
+        </td>
+      </xsl:when>
+      <xsl:when test="(@caption)='TotalSales' or (@caption)='TotalQty' or (@caption) ='EVENPSKUGUID'">
+        <!--kosong-->
+      </xsl:when>
+      <xsl:otherwise>
+        <td>
+          <xsl:value-of select="$tbContent" />
+        </td>
+      </xsl:otherwise>
+    </xsl:choose>
+
   </xsl:template>
 
 </xsl:stylesheet>

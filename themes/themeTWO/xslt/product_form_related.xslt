@@ -27,7 +27,7 @@
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
     <!--image src-->
     <xsl:variable name="imageprod">
-      OPHContent/documents/<xsl:value-of select="sqroot/header/info/account/." />/<xsl:value-of select="fields/field[@caption = 'productphotos']/." />
+      OPHContent/documents/kitashop/<xsl:value-of select="fields/field[@caption = 'productphotos']/." />
     </xsl:variable>
 
     <div class="col-sm-3 col-xs-12">
@@ -82,9 +82,35 @@
             </xsl:when>
           </xsl:choose>
 
-          <h3>
-            Rp. <xsl:value-of select="format-number(fields/field[@caption = 'price']/., '#,##0', 'dot-dec')" />
-          </h3>
+          <xsl:choose>
+            <xsl:when test="(fields/field[@caption = 'discount']/.)!= '0'">
+              <span style="text-decoration:line-through; font-size:12px;">
+                Rp. <xsl:value-of select="format-number(fields/field[@caption = 'price']/., '#,##0', 'dot-dec')" />
+              </span>
+              <br />
+              <span style="font-size:20px; ">
+                Rp. <xsl:value-of select="format-number(fields/field[@caption = 'priceDiscount']/., '#,##0', 'dot-dec')" />
+                <span style="font-size:12px; color:white; padding:5px; margin-top:-30px !important; margin-left:10px; background:#47bac1;">
+                  <xsl:value-of select="fields/field[@caption = 'discount']/." />%
+                </span><br />
+              </span>
+            </xsl:when>
+            <xsl:when test="(fields/field[@caption = 'price']/.) != (fields/field[@caption = 'priceDiscount']/.)">
+              <span style="text-decoration:line-through; font-size:12px;">
+                Rp. <xsl:value-of select="format-number(fields/field[@caption = 'price']/., '#,##0', 'dot-dec')" />
+              </span>
+              <br />
+              <span style="font-size:20px; ">
+                Rp. <xsl:value-of select="format-number(fields/field[@caption = 'priceDiscount']/., '#,##0', 'dot-dec')" />
+              </span>
+            </xsl:when>
+            <xsl:otherwise>
+              <span style="font-size:20px;">
+                Rp. <xsl:value-of select="format-number(fields/field[@caption = 'price']/., '#,##0', 'dot-dec')" />
+              </span>
+              <br />
+            </xsl:otherwise>
+          </xsl:choose>
         </div>
       </div>
     </div>

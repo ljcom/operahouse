@@ -50,7 +50,7 @@
 
   <xsl:template match="formRow">
     <xsl:apply-templates select="fields/field/textBox" />
-    <xsl:apply-templates select="fields/field/passwordBox" />
+    <xsl:apply-templates select="fields/field/password" />
   </xsl:template>
     
  <xsl:template match="fields/field/textBox">
@@ -71,13 +71,13 @@
   </div>
  </xsl:template>
   
- <xsl:template match="fields/field/passwordBox">
+ <xsl:template match="fields/field/password">
   <div class="form-group">
     <label for="" class="col-md-2 col-sm-3 control-label"><xsl:value-of select="titlecaption/." /></label>
     <div class="col-md-10 col-sm-9">
       <xsl:choose>
         <xsl:when test="../@isEditable = 1">
-          <input type="password" class="form-control" id="{../@fieldName}" name="{../@fieldName}" placeholder="Please type your old or new password" value="{value/.}" />
+          <input type="password" class="form-control" id="{../@fieldName}" name="{../@fieldName}" placeholder="" value="{value/.}" />
         </xsl:when>
         <xsl:otherwise>
           <input type="password" class="form-control" id="{../@fieldName}" name="{../@fieldName}" placeholder="" value="{value/.}" readonly="readonly" />

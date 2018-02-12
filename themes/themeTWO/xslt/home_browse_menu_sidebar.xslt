@@ -18,7 +18,7 @@
     <xsl:choose>
       <xsl:when test="((fields/field[@caption = 'PARNCTGRGUID']/.) !='' or (fields/field[@caption = 'PARNBRANGUID']/.) !='') and (fields/field[@caption = 'isParent']/.) ='1' ">
         <li style="border-bottom:none;">
-          <a data-toggle="collapse" href="#{@GUID}_menu" class="top-envi-lv2"  onclick="LoadNewPart('home_browse_menu_sidebar', '{@GUID}_menus', '{$code}', '', '{@GUID}', '1' , '200'); changePlusMinus(this);">
+          <a data-toggle="collapse" href="#{@GUID}_menu" class="top-envi-lv2"  onclick="LoadNewPart('home_browse_menu_sidebar', '{@GUID}_menus', '{$code}', '', '{@GUID}', '1' , '200'); changePlusMinus(this); findParent(2, '{@GUID}')">
             <!--<span style="margin-right:10px; font-size:9px; ">➤</span>-->
             <span style="width:70%; display:inline-table; line-height:14px;" onclick="goToAnotherPage('index.aspx?env=front&amp;code=maprodfron&amp;bSearchText={@GUID}')">
               <xsl:value-of select="fields/field[@caption = 'Name']/." />
@@ -34,6 +34,12 @@
           </a>
 
           <div id="{@GUID}_menu" class="panel-collapse collapse">
+            <xsl:if test="$code = 'MaCTGRFRON'">
+              <input type="hidden" id="parent_{@GUID}" value="{fields/field[@caption = 'PARNCTGRGUID']/.}"/>
+            </xsl:if>
+            <xsl:if test="$code = 'MaBRANFRON'">
+              <input type="hidden" id="parent_{@GUID}" value="{fields/field[@caption = 'PARNBRANGUID']/.}"/>
+            </xsl:if>
             <ul id="{@GUID}_menus">
             </ul>
           </div>
@@ -41,11 +47,17 @@
       </xsl:when>
       <xsl:when test="((fields/field[@caption = 'PARNCTGRGUID']/.) !='' or (fields/field[@caption = 'PARNBRANGUID']/.) !='') and (fields/field[@caption = 'isParent']/.) ='0' ">
         <li>
-          <a data-toggle="collapse" href="#{@GUID}_menu" class="top-envi-lv2" style="padding-left:45px !important;" onclick="goToAnotherPage('index.aspx?env=front&amp;code=maprodfron&amp;bSearchText={@GUID}'); changePlusMinus(this);">
+          <a data-toggle="collapse" href="#{@GUID}_menu" class="top-envi-lv2" style="padding-left:45px !important;" onclick="goToAnotherPage('index.aspx?env=front&amp;code=maprodfron&amp;bSearchText={@GUID}'); changePlusMinus(this); findParent(3, '{@GUID}')">
             <!--<span style="margin-right:10px; font-size:9px;">➤</span>-->
             <xsl:value-of select="fields/field[@caption = 'Name']/." />
           </a>
           <div id="{@GUID}_menu" class="panel-collapse collapse">
+            <xsl:if test="$code = 'MaCTGRFRON'">
+              <input type="hidden" id="parent_{@GUID}" value="{fields/field[@caption = 'PARNCTGRGUID']/.}"/>
+            </xsl:if>
+            <xsl:if test="$code = 'MaBRANFRON'">
+              <input type="hidden" id="parent_{@GUID}" value="{fields/field[@caption = 'PARNBRANGUID']/.}"/>
+            </xsl:if>
             <ul id="{@GUID}_menus">
             </ul>
           </div>
@@ -66,6 +78,12 @@
             <!--<span class="fa fa-plus" style="position:absolute; right:15px; top:18px; font-size:12px; color:#4c4c4c"></span>-->
           </a>
           <div class="panel-collapse collapse" id="{@GUID}_menu">
+            <xsl:if test="$code = 'MaCTGRFRON'">
+                <input type="hidden" id="parent_{@GUID}" value="{fields/field[@caption = 'PARNCTGRGUID']/.}"/>
+              </xsl:if>
+              <xsl:if test="$code = 'MaBRANFRON'">
+                <input type="hidden" id="parent_{@GUID}" value="{fields/field[@caption = 'PARNBRANGUID']/.}"/>
+              </xsl:if>
             <ul id="{@GUID}_menus">
 
             </ul>

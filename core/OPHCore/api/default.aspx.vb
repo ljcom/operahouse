@@ -162,7 +162,7 @@ Partial Class OPHCore_API_default
                 For Each f In Request.Files
                     Dim path = Server.MapPath("~/OPHContent/documents/temp")
                     Dim ranGUID = System.Guid.NewGuid().ToString()
-                    Dim ParentGUID = getQueryVar("GUID")
+                    Dim ParentGUID = getQueryVar("parentGUID")
                     Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & ranGUID.Replace("'", "") & "_" & Request.Files(f).FileName
                     Dim checkDir = path & "\" & contentOfaccountId & "\"
                     If Not Directory.Exists(checkDir) Then Directory.CreateDirectory(checkDir)
@@ -176,7 +176,7 @@ Partial Class OPHCore_API_default
                         xmlParameter = xmlParameter.Replace("ss3css", "<").Replace("ss3ess", ">").Replace("ss3dss", "=").Replace("ss2fss", "/").Replace("ss84ss", """")
                         sqlstr = "exec gen.uploadModule '" & curHostGUID & "', '" & code & "', " & exportMode & ", '" & fxn & "', '" & xmlParameter & "'"
                     Else
-                        sqlstr = "exec gen.uploadChild '" & curHostGUID & "', '" & code & "', '" & GUID.Replace("'", "") & "', '" & ParentGUID & "', '" & fxn & "'"
+                        sqlstr = "exec gen.uploadChild '" & curHostGUID & "', '" & code & "', '" & ParentGUID & "', '" & fxn & "'"
                     End If
                     xmlstr = getXML(sqlstr, curODBC)
                 Next

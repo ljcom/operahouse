@@ -20,7 +20,7 @@
         </script>
         <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
         <ul class="list-inline">
-          <li><a href="?code=causerfron&amp;GUID={../../../../info/user/userGUID/.}" class="btn btn-default btn-lg">
+          <li><a href="?code=causerfron&amp;GUID={/sqroot/header/info/user/userGUID/.}" class="btn btn-default btn-lg">
             <span><ix class="fa fa-user" aria-hidden="true"></ix>
             </span> <br/> Profile</a></li>
           <li><a href="?code=tapcs3" class="btn btn-default btn-lg">
@@ -32,9 +32,13 @@
         <div class="orderBox" id="orderBoxs">
           <h4>Unpaid Orders</h4>
           <script>
+            var cartID = getCookie("cartID");
+            if(cartID != '' || cartID != undefined) {
+            cartID = " and PCSOGUID != '" +cartID+ "'"
+            }
             var GUIDhidden = document.getElementById("hiddenUsrGUID").value;
-            var filterkey = "carolGUID = '"+ GUIDhidden +"' and status = 0";
-            LoadNewPart('account_browse_orders_unpaid', 'orderBoxs', 'tapcs3', filterkey, '');
+            var filterkey = "carolGUID = '"+ GUIDhidden +"' and status = '0' " + cartID;
+            LoadNewPart('account_browse_orders_unpaid', 'orderBoxs', 'tapcs3', filterkey, '', 1, 200);
           </script>
         </div>
         

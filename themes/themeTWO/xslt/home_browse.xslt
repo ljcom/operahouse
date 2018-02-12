@@ -64,7 +64,7 @@
               data-endeasing="Power1.easeIn"
               data-captionhidden="off">
               <span class="page-scroll">
-                <a href="index.aspx?code=maprodfron&amp;{link/.}" class="btn primary-btn">
+                <a href="{link/.}" class="btn primary-btn">
                   Klik Disini<ix class="glyphicon glyphicon-chevron-right"></ix>
                 </a>
               </span>
@@ -102,7 +102,7 @@
               </xsl:choose>
             </p>
             <xsl:if test="link/. != ''">
-              <a href="index.aspx?code=maprodfron&amp;{link/.}" class="btn btn-border">Shop Now</a>
+              <a href="{link/.}" class="btn btn-border">Shop Now</a>
             </xsl:if>
           </div>
         </div>

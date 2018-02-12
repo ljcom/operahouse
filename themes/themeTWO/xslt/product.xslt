@@ -8,57 +8,68 @@
   
   <xsl:template match="/">
     <script>
-      <!--loadStyle('OPHContent/cdn/jqueryui/jquery-ui-1.11.1/jquery-ui.css');
-      loadStyle('OPHContent/cdn/bootstrap/css/bootstrap.min.css');
-      loadStyle('OPHContent/cdn/font-awesome/css/font-awesome.min.css');
-      loadStyle('OPHContent/cdn/selectbox/select_option1.css');
-      loadStyle('OPHContent/cdn/rs-plugin/css/settings.css');
-      loadStyle('OPHContent/cdn/owl-carousel/owl.carousel.css');
+      <!--loadStyle('OPHContent/themes/themeTWO/scripts/jquery-ui/jquery-ui.css');
+      loadStyle('OPHContent/themes/themeTWO/scripts/bootstrap/css/bootstrap.min.css');
+      loadStyle('OPHContent/themes/themeTWO/scripts/font-awesome/css/font-awesome.min.css');
+      loadStyle('OPHContent/themes/themeTWO/scripts/selectbox/select_option1.css');
+      loadStyle('OPHContent/themes/themeTWO/scripts/rs-plugin/css/settings.css');
+      loadStyle('OPHContent/themes/themeTWO/scripts/owl-carousel/owl.carousel.css');
       loadStyle('OPHContent/themes/themeTWO/styles/font-oxygen.css');
       loadStyle('OPHContent/themes/themeTWO/styles/icon-font.min.css');
       loadStyle('OPHContent/themes/themeTWO/styles/style.css');
       loadStyle('OPHContent/themes/themeTWO/styles/default.css');
 
-      loadScript('OPHContent/cdn/jquery/jquery.1.11.3.jquery.min.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/jquery.1.11.3.jquery.min.js');
 
-      loadScript('OPHContent/cdn/jqueryui/jquery-ui-1.11.1/jquery-ui.js');
-      loadScript('OPHContent/cdn/rs-plugin/js/jquery.themepunch.tools.min.js');
-      loadScript('OPHContent/cdn/rs-plugin/js/jquery.themepunch.revolution.min.js');
-      loadScript('OPHContent/cdn/selectbox/jquery.selectbox-0.1.3.min.js');
-      loadScript('OPHContent/cdn/countdown/jquery.syotimer.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/jquery-ui/jquery-ui.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/rs-plugin/js/jquery.themepunch.tools.min.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/rs-plugin/js/jquery.themepunch.revolution.min.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/selectbox/jquery.selectbox-0.1.3.min.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/countdown/jquery.syotimer.js');
       loadScript('OPHContent/themes/themeTWO/scripts/custom-me.js');
      -->
 
-      loadScript('OPHContent/cdn/bootstrap/js/bootstrap.min.js');
-      loadScript('OPHContent/cdn/owl-carousel/owl.carousel.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/bootstrap/js/bootstrap.min.js');
+      loadScript('OPHContent/themes/themeTWO/scripts/owl-carousel/owl.carousel.js');
       loadScript('OPHContent/themes/themeTWO/scripts/js/custom.js');
-
+      
+      <!--setCookie("bpageno", "1", 0, 1, 0);-->
       var bpageno = getCookie("bpageno");
       var showpage = getCookie("showpage");
       var bSearchText = getQueryVariable("bSearchText");
-      var sortOrder = getCookie("sortOrder");
+      var sortOrder = getCookie("sortorder");
 
       if (bpageno == '' || bpageno == undefined) {bpageno = 1 ;}
       if (showpage == '' || showpage == undefined) {showpage = 21 ;}
       if (bSearchText == '' || bSearchText == undefined) {bSearchText = '' ;}
-      if (sortOrder == '' || sortOrder == undefined) {sortOrder = '' ;}
+      if (sortOrder == '' || sortOrder == undefined) {
+      sortOrder = 'Name Asc' ;
+      setCookie("sortorder", sortOrder, 0, 1, 0);
+      }
+
 
       if (getQueryVariable("GUID") != undefined &amp;&amp; getQueryVariable("GUID")){
         //loadContent2('contentWrapper');
         LoadNewPart('product_browse_detail', 'contentWrapper', 'maprodfron', "EVENPSKUGUID = '"+getQueryVariable("GUID")+"'", '', '', '', '');
       }else{
+        //added 06 june 2017
+        var sqlfilter = ''
+        if (getQueryVariable("event") != '' &amp;&amp; getQueryVariable("event") != undefined) {
+          sqlfilter = "evenGUID = " + getQueryVariable("event")
+        }
+        
         if (getQueryVariable("type") == 'list'){
-          LoadNewPart('product_browse_list', 'contentBrowse', 'maprodfron', '', bSearchText, bpageno, showpage, 'Name Asc');
+          LoadNewPart('product_browse_list', 'contentBrowse', 'maprodfron', sqlfilter, bSearchText, bpageno, showpage, sortOrder);
         }else{
-         LoadNewPart('product_browse', 'contentBrowse', 'maprodfron', '', bSearchText, bpageno, showpage, 'Name Asc');
+         LoadNewPart('product_browse', 'contentBrowse', 'maprodfron', sqlfilter, bSearchText, bpageno, showpage, sortOrder);
         }
       }
 
-      setCookie("bpageno", "1", 0, 1, 0);
-      setCookie("showpage", "21", 0, 1, 0);
+      <!--setCookie("bpageno", "1", 0, 1, 0);
+      setCookie("showpage", "21", 0, 1, 0);-->
       setCookie("bSearchText", "", 0, 1, 0);
-      setCookie("sortOrder", "", 0, 1, 0);
-      setCookie("sortorder", "name asc", 0, 1, 0);
+      <!--setCookie("sortOrder", "", 0, 1, 0);-->
+      <!--setCookie("sortorder", "name asc", 0, 1, 0);-->
        changeColorMenuFront();
     </script>
     <!-- Page script -->
@@ -113,6 +124,21 @@
       </div>
     </div>
 
+    <!--Limit Modal-->
+    <div class="modal fade limit-modal" id="limitmodal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+            <h3 class="modal-title">Remaining Limit</h3>
+          </div>
+          <div class="modal-body" id="limitmodalbody">
+            Loading Please Wait...
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!--Loading Screen-->
     <!--<div id="content-loader">
       <div class="loader" style="">
@@ -125,7 +151,11 @@
       $( document ).ajaxStop(function() {
 
     if ($(".productBox").length == '0' &amp;&amp; $(".maskingImage").length == '0' &amp;&amp; getQueryVariable("GUID") == undefined) {
-    $("div#contentBrowse" ).html("No item for selected category");
+    $("div#contentBrowse" ).html("No Item Found or Periode Has Ended");
+    if (getQueryVariable("eventcode") == 'bazaar' &amp;&amp; (getQueryVariable("bSearchText") == null || getQueryVariable("bSearchText") == '')){
+        document.getElementById("popupMsgContent").innerHTML = 'Bazaar Periode Has End';
+        $("#popupMsg").show("slow"); 
+      }
     }
     $("#content-loader").show("slow").delay(500).fadeOut();
 
@@ -150,7 +180,7 @@
                     topbutton(username);
                   </script>
                 </li>
-                <!--<li class="searchBox">
+                <li class="searchBox">
                   <a href="#"><ix class="fa fa-search"></ix></a>
                   <ul class="dropdown-menu dropdown-menu-right">
                     <li>
@@ -160,7 +190,7 @@
                       </span>
                     </li>
                   </ul>
-                </li>-->
+                </li>
                 <li class="dropdown cart-dropdown" id="carttop">
                   Loading Please Wait...
                   <script>
@@ -193,7 +223,7 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li style="width:400px; padding:10px; margin-right:70px;">
+              <!--<li style="width:400px; padding:10px; margin-right:70px;">
                 <div class="searchBox" >
                   <span class="input-group" style="border-left:1px #cccccc solid;">
                     <input type="text" id="searchText" class="form-control" placeholder="Search…" aria-describedby="basic-addon2" onkeypress="searchkeypressFront(event)" />
@@ -202,7 +232,7 @@
                     </button>
                   </span>
                 </div>
-              </li>
+              </li>-->
               <xsl:apply-templates select="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu" />
             </ul>
           </div>
@@ -248,8 +278,8 @@
                   <select name="guiest_id1" id="guiest_id1" class="select-drop" onchange="SortingBy('product', 'contentBrowse', getCode())">
                     <option value="name asc">Default sorting</option>
                     <option value="id asc">Order By Item Code</option>
-                    <option value="Price Desc">Sort from the highest price</option>
-                    <option value="Price Asc">Sort from the lowest price</option>
+                    <option value="priceDiscount Desc">Sort from the highest price</option>
+                    <option value="priceDiscount Asc">Sort from the lowest price</option>
                   </select>
                 </div>
                 <div class="col-xs-6">
@@ -334,11 +364,11 @@
               © 2016 Copyright <a style="color:white" href="http://www.loreal.com/">L'oreal Indonesia</a>
             </p>
           </div>
-          <div class="col-sm-5 col-xs-12">
+          <!--<div class="col-sm-5 col-xs-12">
             <p class="poweredby">
               Powered By <a href="http://operahouse.systems/" style="color:white">OPERAHOUSE.SYSTEMS</a>
             </p>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>
@@ -401,14 +431,14 @@
             <xsl:apply-templates select="submenus/submenu[@mode='treeview']" />
           </ul>
         </xsl:when>
-        <xsl:when test="(@type)='label'"><a href="{pageURL/.}" id="prim-{caption/.}"><xsl:value-of select="caption/." /></a></xsl:when>
+        <xsl:when test="(@type)='label'"><a href="{pageURL/.}" id="prim-{caption/.}"  onclick="clearCookies()"><xsl:value-of select="caption/." /></a></xsl:when>
       </xsl:choose>
     </li>
   </xsl:template>
   
   <xsl:template match="submenus/submenu[@type='treeview']">
     <li>
-      <a class="needlogin" data-toggle="modal" href="{pageURL/.}"><xsl:value-of select="caption/." /></a>
+      <a class="needlogin" data-toggle="modal" href="{pageURL/.}"  onclick="clearCookies()"><xsl:value-of select="caption/." /></a>
     </li>
   </xsl:template>
 

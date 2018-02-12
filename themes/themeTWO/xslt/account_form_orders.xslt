@@ -51,7 +51,7 @@
               </div>
               <div class="panel-body">
                 <address>
-                  <span>Deducted From Salary</span>
+                  <span>Credit/Debit Card</span>
                 </address>
               </div>
             </div>
@@ -95,7 +95,7 @@
                 <script>
                   var GUIDs = getQueryVariable("GUID");
                   //var GUIDs = getCookie("cartID");
-                  LoadNewPart('account_form_orders_child', 'orders', 'tapcs3deta', "PCSOGUID = '"+GUIDs+"'", '');
+                  LoadNewPart('account_form_orders_child', 'orders', 'tapcs3deta', "PCSOGUID = '"+GUIDs+"'", '', 1, 200, 'productname asc');
                 </script>
               </div>
               <div class="totalAmountArea">

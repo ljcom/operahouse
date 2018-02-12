@@ -85,18 +85,6 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-sm-6 col-xs-12">
-                      <div class="panel panel-default">
-                        <div class="panel-heading">
-                          <h4 class="panel-title">Payment Method</h4>
-                        </div>
-                        <div class="panel-body">
-                          <address>
-                            <span>Deducted From Salary</span>
-                          </address>
-                        </div>
-                      </div>
-                    </div>
                     <div class="col-xs-12">
                       <div class="panel panel-default">
                         <div class="panel-heading">
@@ -134,7 +122,7 @@
                           <script>
                             var GUIDs = '<xsl:value-of select="sqroot/body/bodyContent/form/info/GUID/." />';
                             //var GUIDs = getCookie("cartID");
-                            LoadNewPart('cart_browse_child2', 'contentcart', 'tapcs1deta', "PCSOGUID = '"+GUIDs+"'", '');
+                            LoadNewPart('cart_browse_child2', 'contentcart', 'tapcs1deta', "PCSOGUID = '"+GUIDs+"'", '', 1, 200);
                           </script>
                         </div>
                         <div class="totalAmountArea">

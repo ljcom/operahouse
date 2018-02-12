@@ -32,7 +32,7 @@
           <div class="productImage clearfix">
             <a href="single-product.html">
               <div style="height:150px; text-align:center;">
-                <img style="max-height:130px;; width:auto; margin:0 auto;" src="OPHContent/documents/{/sqroot/header/info/account/.}/{fields/field[@caption = 'productphotos']/.}" onerror="this.src='ophcontent/themes/themeTWO/images/white.png'" alt="Image" />
+                <img style="max-height:130px; width:auto; margin:0 auto;" src="OPHContent/documents/{/sqroot/header/info/account/.}/{fields/field[@caption = 'productphotos']/.}" onerror="this.src='ophcontent/themes/themeTWO/images/white.png'" alt="Image" />
               </div>
             </a>
             <div class="productMasking">
@@ -84,6 +84,15 @@
                     <span class="resize-font-7px"  style="font-size:12px; color:white; padding:5px; margin-top:-30px !important; margin-left:10%; background:#47bac1;">
                       <xsl:value-of select="fields/field[@caption = 'discount']/." />%
                     </span><br />
+                  </span>
+                </xsl:when>
+                <xsl:when test="(fields/field[@caption = 'price']/.) != (fields/field[@caption = 'priceDiscount']/.)">
+                  <span class="resize-font-7px"  style="text-decoration:line-through; font-size:0.750em;">
+                    Rp. <xsl:value-of select="format-number(fields/field[@caption = 'price']/., '#,##0', 'dot-dec')" />
+                  </span>
+                  <br />
+                  <span class="resize-font-8px"  style="font-size:1.375em; ">
+                    Rp. <xsl:value-of select="format-number(fields/field[@caption = 'priceDiscount']/., '#,##0', 'dot-dec')" />
                   </span>
                 </xsl:when>
                 <xsl:otherwise>

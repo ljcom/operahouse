@@ -32,8 +32,8 @@
       //submit ajax
       else {var file = $(this)[0].files[0];
       var upload = new Upload(file);
-
-      var url='OPHCore/api/default.aspx?mode=upload&#38;code=<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code"/>&#38;GUID='+getGUID();
+      var p=$(this).parent().parent().parent().parent().parent().parent().parent().data("parentguid");
+      var url='OPHCore/api/default.aspx?mode=upload&#38;code=<xsl:value-of select="$lowerCode"/>&#38;parentGUID='+p;
 
 
       upload.doUpload(url,
