@@ -8,6 +8,7 @@
 
   <xsl:template match="/">
     <script>
+
       <!--loadStyle('OPHContent/themes/themeTWO/scripts/jquery-ui/jquery-ui.css');
       loadStyle('OPHContent/themes/themeTWO/scripts/bootstrap/css/bootstrap.min.css');
       loadStyle('OPHContent/themes/themeTWO/scripts/font-awesome/css/font-awesome.min.css');
@@ -211,6 +212,7 @@
     <script>
       $( document ).ajaxStop(function() {
         $("#content-loader").show("slow").delay(500).fadeOut();
+         <!--$('.select2').select2();-->
       });
     </script>
   </xsl:template>

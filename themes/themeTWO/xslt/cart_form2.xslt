@@ -10,6 +10,13 @@
   <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
 
   <xsl:template match="/">
+    <script>
+
+      loadScript('OPHContent/cdn/select2/select2.full.min.js');
+
+
+      var deferreds = [];
+    </script>
     <section class="mainContent clearfix stepsWrapper" >
       <div class="container">
         <div class="row">
@@ -85,6 +92,34 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-sm-6 col-xs-12">
+
+                      <form role="form" id="formpayment" enctype="multipart/form-data">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h4 class="panel-title">Payment Method</h4>
+                          </div>
+                          <div class="panel-body">
+
+                            <address>
+                              <!--<select style="width:300px;" name="guiest_id1" id="guiest_id1" class="select-drop" onchange="SortingBy('product', 'contentBrowse', getCode())">
+                              <option value="name asc">Default sorting</option>
+                              <option value="id asc">Order By Item Code</option>
+                              <option value="priceDiscount Desc">Sort from the highest price</option>
+                              <option value="priceDiscount Asc">Sort from the lowest price</option>
+                            </select>-->
+
+                              <input type="hidden" value="{sqroot/body/bodyContent/form/info/GUID/.}" name="PCSOGUID"/>
+                              <xsl:apply-templates select="sqroot/body/bodyContent/form/formPages/formPage[@pageNo='1']/formSections/formSection/formCols/formCol[@colNo='5']/formRows/formRow[@rowNo='2']/fields/field[@fieldName = 'PAYMGUID']/autoSuggestBox" />
+
+                              <a style="cursor:pointer; background:#47BAC1; color:white; padding:7px 15px; margin-top:15px; display:inline-block;" onclick="SaveData('taPCS2','formpayment', 'index.aspx?code=tapcs2&amp;GUID={sqroot/body/bodyContent/form/info/GUID/.}', '', '0')">Change Payment Type</a>
+
+                            </address>
+
+                          </div>
+                        </div>
+                      </form>
+                    </div>
                     <div class="col-xs-12">
                       <div class="panel panel-default">
                         <div class="panel-heading">
@@ -147,7 +182,7 @@
                               <a  data-toggle="tab"  href="#tab1default">back</a>
                             </li>
                             <li class="next">
-                              <a style="cursor:pointer;" onclick="SaveData('taPCS1','cartForm', 'index.aspx?code=tapcs3')">Confirm</a>
+                              <a style="cursor:pointer;" onclick="SaveData('taPCS1','cartForm', 'index.aspx?code=tapcs3', '', '1')">Confirm</a>
                             </li>
                           </form>
                         </ul>
@@ -162,16 +197,74 @@
       </div>
     </section>
 
-
   </xsl:template>
 
+  <xsl:template match="sqroot/body/bodyContent/form/formPages/formPage[@pageNo='1']/formSections/formSection/formCols/formCol[@colNo='5']/formRows/formRow[@rowNo='2']/fields/field[@fieldName = 'PAYMGUID']/autoSuggestBox">
+    <label id="{../@fieldName}caption" style="margin:0;">
+      <xsl:value-of select="titlecaption"/>
+    </label>
+    <xsl:if test="../@isNullable = 0">
+      <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
+    </xsl:if>
+    <div>
+      <xsl:if test="button">
+        <xsl:attribute name="class">input-group</xsl:attribute>
+      </xsl:if>
+      <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}" data-type="selectBox"
+        data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}"
+          onchange="autosuggest_onchange(this, '{preview/.}', getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}', 'formheader');" >
+        <xsl:if test="../@isEditable=0">
+          <xsl:attribute name="disabled">disabled</xsl:attribute>
+        </xsl:if>
+        <option></option>
+      </select>
+      <xsl:if test="button">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" data-select2-open="multi-append">
+            <span class="fa fa-plus"></span>
+          </button>
+        </span>
+      </xsl:if>
+    </div>
 
+    <script>
+      $("#<xsl:value-of select="../@fieldName"/>").select2({
+      placeholder: 'Select <xsl:value-of select="titlecaption"/>',
+      onAdd: function(x) {
+      preview('<xsl:value-of select="preview/."/>', getCode(), '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','formheader', this);
+      },
+      onDelete: function(x) {
+      preview('<xsl:value-of select="preview/."/>', getCode(), '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','formheader', this);
+      },
+      ajax: {
+      url:"OPHCORE/api/msg_autosuggest.aspx",
+      delay : 0,
+      data: function (params) {
+      var query = {
+      code:"<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>",
+      colkey:"<xsl:value-of select="../@fieldName"/>",
+      search: params.term,
+      wf1value: ($("#<xsl:value-of select='whereFields/wf1'/>").val() === undefined ? "" : $("#<xsl:value-of select='whereFields/wf1'/>").val()),
+      wf2value: ($("#<xsl:value-of select='whereFields/wf2'/>").val() === undefined ? "" : $("#<xsl:value-of select='whereFields/wf2'/>").val()),
+      page: params.page
+      }
+      return query;
+      },
+      dataType: 'json',
+      }
+      });
+      <xsl:if test="value!=''">
+        deferreds.push(
+        autosuggest_setValue('<xsl:value-of select="../@fieldName"/>','<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>','<xsl:value-of select='../@fieldName'/>', '<xsl:value-of select='value'/>', '<xsl:value-of select='whereFields/wf1'/>', '<xsl:value-of select='whereFields/wf2'/>')
+        );
+      </xsl:if>
+    </script>
+  </xsl:template>
   <xsl:template match="sqroot/body/bodyContent/form/formPages/formPage">
     <xsl:if test="@pageNo = '1'">
       <xsl:apply-templates select="formSections/formSection" />
     </xsl:if>
   </xsl:template>
-
   <xsl:template match="formSections/formSection">
     <div class="col-xs-12">
       <div class="page-header">
@@ -199,16 +292,51 @@
       </div>
     </xsl:if>
   </xsl:template>
-
+  
+  
   <xsl:template match="formRows/formRow">
-    <div class="form-group  col-xs-12">
+    <xsl:apply-templates select="fields"/>
+
+    <!--<div class="form-group  col-xs-12">
       <label>
         <xsl:value-of select="fields/field/textBox/titlecaption/." />
       </label>
       <input type="text" class="form-control" id="PCSO_{fields/field/@fieldName/.}" value="{fields/field/textBox/value/.}" readonly="" />
+    </div>-->
+  </xsl:template>
+
+  <xsl:template match="fields">
+    <xsl:apply-templates select="field"/>
+  </xsl:template>
+
+  <xsl:template match="field">
+    <xsl:apply-templates select="textBox"/>
+    <xsl:apply-templates select="textEditor"/>
+    <xsl:apply-templates select="textArea"/>
+    <xsl:apply-templates select="dateBox"/>
+    <xsl:apply-templates select="dateTimeBox"/>
+    <xsl:apply-templates select="timeBox"/>
+    <xsl:apply-templates select="passwordBox"/>
+    <xsl:apply-templates select="checkBox"/>
+    <xsl:apply-templates select="mediaBox"/>
+    <xsl:apply-templates select="autoSuggestBox"/>
+    <xsl:apply-templates select="tokenBox"/>
+    <xsl:apply-templates select="radio"/>
+    
+  </xsl:template>
+
+
+  <xsl:template match="textBox">
+    <div class="form-group  col-xs-12">
+      <label>
+        <xsl:value-of select="titlecaption/." />
+      </label>
+      <input type="text" class="form-control" id="PCSO_{../@fieldName/.}" value="{value/.}" readonly="" />
     </div>
   </xsl:template>
-  <!--<xsl:template match="sqroot/body/bodyContent/form/formPages/formPage[@pageNo='1']/formSections/formSection[@sectionNo='1']/formCols/formCol[@colNo='1']/formRows/formRow">
+
+  
+    <!--<xsl:template match="sqroot/body/bodyContent/form/formPages/formPage[@pageNo='1']/formSections/formSection[@sectionNo='1']/formCols/formCol[@colNo='1']/formRows/formRow">
      
   </xsl:template>
 

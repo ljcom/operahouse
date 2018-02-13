@@ -2486,7 +2486,10 @@ function childPageNo(pageid, code, currentpage, totalpages) {
     $('#' + pageid).html(result);
 
 }
-function SaveData(code, formid, locations, GUID) {
+function SaveData(code, formid, locations, GUID, delcookie) {
+    if (delcookie == '') {delcookie = '0'}
+
+    if (GUID == ''){GUID = getGUID()}
     if (GUID != undefined && GUID != '') { GUID = '&cfunctionlist=' + GUID; }
     else { GUID = '' }
     var path = 'OPHCore/api/default.aspx?mode=save&code=' + code + GUID
@@ -2512,10 +2515,18 @@ function SaveData(code, formid, locations, GUID) {
                 document.getElementById("popupMsgContent").innerHTML = result;
                 $("#popupMsg").show("slow")
             } else {
-                if (getCode().toLowerCase() == 'tapcs2') {
+                if (getCode().toLowerCase() == 'tapcs2' && locations == '') {
                     //alert("test");
-                    setCookie("cartID", "", 0, 0, 0);
+                    if  (delcookie == '1') {
+                        setCookie("cartID", "", 0, 0, 0);
+                    }
                     location.replace("index.aspx?env=front&code=tapcs3");
+                } 
+                else if (location != ''){
+                     if  (delcookie == '1') {
+                        setCookie("cartID", "", 0, 0, 0);
+                     }
+                     window.location = locations
                 } else {
                     window.location.reload();
                 }

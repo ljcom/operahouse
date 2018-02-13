@@ -11,6 +11,7 @@
     <cssFile>OPHContent/themes/themeTWO/styles/icon-font.min.css</cssFile>
     <cssFile>OPHContent/themes/themeTWO/styles/style.css</cssFile>
     <cssFile>OPHContent/themes/themeTWO/styles/default.css</cssFile>
+    <cssFile>OPHContent/cdn/select2/select2.min.css</cssFile>
     <jsFile>OPHContent/themes/themeTWO/scripts/jquery-ui/jquery-ui.js</jsFile>
     <jsFile>OPHContent/themes/themeTWO/scripts/rs-plugin/js/jquery.themepunch.tools.min.js</jsFile>
     <jsFile>OPHContent/themes/themeTWO/scripts/rs-plugin/js/jquery.themepunch.revolution.min.js</jsFile>
