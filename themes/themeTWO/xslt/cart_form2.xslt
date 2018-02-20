@@ -178,11 +178,12 @@
                         <ul class="pager">
                           <form id="cartForm" method="POST">
                             <input type="hidden" value="{sqroot/body/bodyContent/form/info/GUID/.}" id="PCSOGUID" name="PCSOGUID"/>
+                            <!--<input type="text" name="gross_amount" value="{format-number(floor(/sqroot/body/bodyContent/form/formPages/formPage[@pageNo='1']/formSections/formSection/formCols/formCol[@colNo='5']/formRows/formRow[@rowNo='2']/fields/field/textBox/value/.), '#')}" />-->
                             <li class="previous">
                               <a  data-toggle="tab"  href="#tab1default">back</a>
                             </li>
                             <li class="next">
-                              <a style="cursor:pointer;" onclick="SaveData('taPCS1','cartForm', 'index.aspx?code=tapcs3', '', '1')">Confirm</a>
+                              <a style="cursor:pointer;" onclick="SaveData('taPCS1', 'cartForm', 'index.aspx?code=tapcs3', '', '1', 'tapcso')">Confirm</a>
                             </li>
                           </form>
                         </ul>

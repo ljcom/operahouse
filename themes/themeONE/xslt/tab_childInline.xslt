@@ -10,6 +10,9 @@
   <xsl:variable name="lowerCode">
     <xsl:value-of select="translate(/sqroot/body/bodyContent/browse/info/code, $uppercase, $smallcase)"/>
   </xsl:variable>
+  <xsl:variable name="nbCol">
+    <xsl:value-of select="count(/sqroot/body/bodyContent/browse/header/column)" />
+  </xsl:variable>
 
   <xsl:template match="/">
     <script>
@@ -115,7 +118,10 @@
                 <table class="table table-condensed strip-table-browse cell-table" style="border-collapse:collapse">
                   <thead>
                     <tr style="background:#3C8DBC; color:white">
-                      <th style="width:28px;"></th>
+                      <xsl:if test="count(/sqroot/body/bodyContent/browse/children/child)>0">
+                        <th style="width:18px;"></th>
+                      </xsl:if>
+                      <th style="width:18px;"></th>
                       <xsl:apply-templates select="sqroot/body/bodyContent/browse/header"/>
                     </tr>
                   </thead>
@@ -129,7 +135,7 @@
               <div class="box-footer clearfix">
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
                   <button class="btn btn-orange-a"
-                          onclick="cell_add('{$lowerCode}', columns_{/sqroot/body/bodyContent/browse/info/code});">ADD</button>&#160;
+                          onclick="cell_add('{$lowerCode}', columns_{/sqroot/body/bodyContent/browse/info/code}, {count(/sqroot/body/bodyContent/browse/children)});">ADD</button>&#160;
                 </xsl:if>
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowDelete/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
                   <button class="btn btn-gray-a" onclick="cell_delete('{$lowerCode}')">DELETE</button>&#160;
@@ -178,10 +184,48 @@
     <tr id="tr1_{@code}{@GUID}" data-parent="#{/sqroot/body/bodyContent/browse/info/code}" data-target="#{@code}{@GUID}"
         data-code="{@code}" data-guid="{@GUID}"
         onmouseover="this.bgColor='lavender';this.style.cursor='pointer';" onmouseout="this.bgColor='white'">
+
+      <xsl:if test="count(/sqroot/body/bodyContent/browse/children/child)>0">
+        <td class="cell-parentSelector"></td>
+
+      </xsl:if>
+
       <td class="cell-recordSelector"></td>
       <xsl:apply-templates select="fields/field"/>
     </tr>
+    <tr id="tr2_{@code}{@GUID}" style="display:none">
+      <xsl:variable name="parentGUID">
+        <xsl:value-of select ="@GUID"/>
+      </xsl:variable>
+      <xsl:variable name="parentCode">
+        <xsl:value-of select ="@code"/>
+      </xsl:variable>
+      <td colspan="{$nbCol}">
+        <xsl:for-each select="/sqroot/body/bodyContent/browse/children/child" >
+          <div>
+            <xsl:if test="info/permission/allowBrowse='1'">
+              <input type="hidden" id="PKID" value="child{code/.}"/>
+              <input type="hidden" id="filter{code/.}" value="{parentkey/.}='{$parentGUID}'"/>
+              <input type="hidden" id="parent{code/.}" value="{parentkey/.}"/>
+              <input type="hidden" id="PKName" value="{parentkey/.}"/>
+              <script>
+                function loadChild_<xsl:value-of select ="$parentCode"/><xsl:value-of select ="translate($parentGUID, '-', '')"/>() {
+                var code='<xsl:value-of select ="code/."/>';
+                var parentKey='<xsl:value-of select ="parentkey/."/>';
+                var GUID='<xsl:value-of select ="$parentGUID"/>';
+                var browsemode='<xsl:value-of select ="browseMode/."/>';
+                loadChild(code, parentKey, GUID, null, browsemode);
+                }
+              </script>
 
+              <div class="box box-solid box-default" style="box-shadow:0px;border:none" id="child{code/.}{$parentGUID}">
+                &#160;
+              </div>
+            </xsl:if>
+          </div>
+        </xsl:for-each>
+      </td>
+    </tr>
 
   </xsl:template>
 

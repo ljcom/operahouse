@@ -2486,10 +2486,9 @@ function childPageNo(pageid, code, currentpage, totalpages) {
     $('#' + pageid).html(result);
 
 }
-function SaveData(code, formid, locations, GUID, delcookie) {
+function SaveData(code, formid, locations, GUID, delcookie, tablename) {
     if (delcookie == '') {delcookie = '0'}
 
-    if (GUID == ''){GUID = getGUID()}
     if (GUID != undefined && GUID != '') { GUID = '&cfunctionlist=' + GUID; }
     else { GUID = '' }
     var path = 'OPHCore/api/default.aspx?mode=save&code=' + code + GUID
@@ -2512,8 +2511,13 @@ function SaveData(code, formid, locations, GUID, delcookie) {
         success: function (data) {
             var result = $(data).find("message").text();
             if (result) {
-                document.getElementById("popupMsgContent").innerHTML = result;
-                $("#popupMsg").show("slow")
+                if (result == 'gotomidtrans') {
+                    if (GUID == '') { GUID = getGUID() }
+                    generatePayment(code, tablename, formid, locations, GUID, delcookie)
+                } else {
+                    document.getElementById("popupMsgContent").innerHTML = result;
+                    $("#popupMsg").show("slow")
+                }
             } else {
                 if (getCode().toLowerCase() == 'tapcs2' && locations == '') {
                     //alert("test");

@@ -291,7 +291,7 @@ function saveFunction(code, guid, location, formId, afterSuccess) {
         }
         var thisForm = 'form';
         if (formId != undefined) thisForm = '#' + formId;
-        if (location == 30) {
+        if (location == 30) { //child and gchildren
             $("#tr1_"+code+guid).children("td.cell").each(function(i) {
                 f=$("#tr1_"+code+guid).children("td.cell").eq(i).data("field");
                 if ($("#tr1_"+code+guid).children("td.cell").eq(i).hasClass("cell-editor-select2"))
@@ -300,7 +300,12 @@ function saveFunction(code, guid, location, formId, afterSuccess) {
                     d=$("#tr1_"+code+guid).children("td.cell").eq(i).html().replace("&nbsp;"," ");
                 if(d != null) data.append(f, d);
             });
-            cid=$("#cid").val();
+            
+            if ($("#tr1_"+code+guid).parents("tr").length>0) 
+                    cid=$("#"+$("#tr1_"+code+guid).parents("tr").attr("id").split("tr2").join("tr1")).data("guid");//gchild
+            else 
+                    cid=$("#cid").val();//child
+
             data.append("cid", cid);
         } else {
             var other_data = $(thisForm).serializeArray();
@@ -735,4 +740,18 @@ function showChildForm(code, guid, parent) {
 function closeChildForm(code, guid) {
     var divnm = [code + guid];
     $('#' + divnm).collapse("hide");
+}
+
+function storeHash(code, anchor) {
+    setCookie('hash_'+code, anchor, 1);
+}
+function getHash(code){
+    hash=getCookie('hash_'+code);
+    if (hash!='')    {
+        //alert(hash);
+        $('a[href*="'+hash+'"]').trigger('click');
+
+        //$('a.'+hash).trigger("click");
+    }
+    //return hash;
 }

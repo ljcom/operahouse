@@ -77,6 +77,8 @@
       preview('1', getCode(), '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','formheader', this);
       });
 
+      var c='<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>';
+      getHash(c);
     </script>
 
     <xsl:variable name="settingmode">
@@ -142,11 +144,11 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active">
-                <a href="#tab_1" data-toggle="tab">Header</a>
+                <a href="#tab_1" data-toggle="tab"  onclick="storeHash('{/sqroot/body/bodyContent/form/info/code/.}', '');">Header</a>
               </li>
               <xsl:for-each select="sqroot/body/bodyContent/form/children/child">
                 <li>
-                  <a href="#tab_{code}" data-toggle="tab">
+                  <a href="#tab_{code}" data-toggle="tab" onclick="storeHash('{/sqroot/body/bodyContent/form/info/code/.}', '#tab_{code}');">
                     <xsl:value-of select="childTitle"/>
                   </a>
                 </li>
@@ -539,9 +541,9 @@
       <div class="input-group-addon">
         <ix class="fa fa-calendar"></ix>
       </div>
-      
 
-      
+
+
       <input type="text" class="form-control pull-right datepicker" id ="{../@fieldName}" name="{../@fieldName}" Value="{value}" data-type="dateBox" data-old="{value}"
         onblur="preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);" >
         <xsl:if test="../@isEditable=0">

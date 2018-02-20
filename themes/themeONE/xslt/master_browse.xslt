@@ -631,35 +631,37 @@
                   </xsl:if>
 
                   <!--Talks-->
-                  <xsl:variable name="talkDisplay">
-                    <xsl:if test="not(talks/talk)">
-                      collapsed-box
-                    </xsl:if>
-                  </xsl:variable>
-                  <div class="box box-danger box-solid direct-chat direct-chat-danger {$talkDisplay}" style="max-width:300px;float:left;margin: 10px 10px 10px 10px;">
-                    <div class="box-header with-border">
-                      <h3 class="box-title">Document Talk</h3>
-                      <div class="box-tools pull-right">
-                        <button class="btn btn-box-tool" data-widget="collapse">
-                          <ix class="fa fa-plus"></ix>
-                        </button>
+                  <xsl:if test="talks/talk">
+                    <xsl:variable name="talkDisplay">
+                      <xsl:if test="not(talks/talk)">
+                        collapsed-box
+                      </xsl:if>
+                    </xsl:variable>
+                    <div class="box box-danger box-solid direct-chat direct-chat-danger {$talkDisplay}" style="max-width:300px;float:left;margin: 10px 10px 10px 10px;">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Document Talk</h3>
+                        <div class="box-tools pull-right">
+                          <button class="btn btn-box-tool" data-widget="collapse">
+                            <ix class="fa fa-plus"></ix>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="box-body">
+                        <div class="direct-chat-messages" id="chatMessages{@GUID}" >
+                          <xsl:apply-templates select="talks/talk"/>
+                        </div>
+                      </div>
+                      <div class="box-footer">
+                        <div class="input-group">
+                          <input type="text" id="message{@GUID}" name="message" placeholder="Type Message ..." class="form-control" onkeypress="javascript:enterTalk('{@GUID}', event, '10')"/>
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-danger btn-flat" onclick="javascript:submitTalk('{@GUID}', '10')">Send</button>
+                          </span>
+                        </div>
                       </div>
                     </div>
-                    <div class="box-body">
-                      <div class="direct-chat-messages" id="chatMessages{@GUID}" >
-                        <xsl:apply-templates select="talks/talk"/>
-                      </div>
-                    </div>
-                    <div class="box-footer">
-                      <div class="input-group">
-                        <input type="text" id="message{@GUID}" name="message" placeholder="Type Message ..." class="form-control" onkeypress="javascript:enterTalk('{@GUID}', event, '10')"/>
-                        <span class="input-group-btn">
-                          <button type="button" class="btn btn-danger btn-flat" onclick="javascript:submitTalk('{@GUID}', '10')">Send</button>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
+                  </xsl:if>
+                
                 </div>
               </div>
             </div>
