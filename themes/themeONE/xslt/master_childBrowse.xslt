@@ -15,30 +15,7 @@
     <script>
       var code='<xsl:value-of select="$lowerCode"/>';
       cell_init(code);
-
-      $(function() {
-
-      // We can attach the `fileselect` event to all file inputs on the page
-      $(document).on('change', ':file', function() {
-      var input = $(this),
-      numFiles = input.get(0).files ? input.get(0).files.length : 1,
-      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-      input.trigger('fileselect', [numFiles, label]);
-
-      var file = this.files[0];
-      if (file.size > 1024000) {
-      alert('max upload size is 1M')
-      }
-      //submit ajax
-      else {var file = $(this)[0].files[0];
-      var upload = new Upload(file);
-      var p=$(this).parent().parent().parent().parent().parent().parent().parent().data("parentguid");
-      var url='OPHCore/api/default.aspx?mode=upload&#38;code=<xsl:value-of select="$lowerCode"/>&#38;parentGUID='+p;
-
-      upload.doUpload(url,
-      function(data) {
-      //success
-
+      upload_init(code, function(data) {
       var err=''; s=0;
       $(data).find("sqroot").find("message").each(function (i) {
       var item=$(data).find("sqroot").find("message").eq(i);
@@ -53,53 +30,13 @@
       showMessage(msg);
       //setTimeout(function() {location.reload()}, 5000);
 
-      var code='<xsl:value-of select ="$lowerCode"/>';
-      loadChild(code);
-      
-      },
-      function(data) {
-      //error
-
-      var err=''; s=0;
-      $(data).find("sqroot").find("message").each(function (i) {
-      var item=$(data).find("sqroot").find("message").eq(i);
-      if ($(item).text()!='') err += $(item).text()+' ';
-      })
-
-      $(data).find("sqroot").find("guid").each(function (i) {
-      var sn=$(data).find("sqroot").find("guid").eq(i);
-      if (sn!='') s++;
-      })
-      var msg='Upload Status: Success: '+s+(err==''?'':' Error: '+err);
-      showMessage(msg);
-      //setTimeout(function() {location.reload()}, 5000);
-
-      var code='<xsl:value-of select ="$lowerCode"/>';
+      var code='<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code"/>';
       loadChild(code);
 
       });
-      }
-      });
 
-      // We can watch for our custom `fileselect` event like this
-      $(document).ready( function() {
-      $(':file').on('fileselect', function(event, numFiles, label) {
 
-      var input = $(this).parents('.input-group').find(':text'),
-      //log = numFiles > 1 ? numFiles + ' files selected' : label;
-      log = label;
-      if( input.length ) {
-      input.val(log);
-      } else {
-      //if( log ) alert(log);
-      }
 
-      });
-      });
-
-      });
-
-      
     </script>
     <div class="row">
       <div class="col-md-12">
@@ -167,7 +104,7 @@
 
                   <!--<button type="button" class="buttonCream" id="download" name="download" onclick="javascript:PrintDirect('{$lowerCode}', '', 3, '', '', '');">DOWNLOAD</button>
                   <button type="button" class="buttonCream" id="upload" name="upload" onclick="javascript:showSubBrowseView('{$lowerCode}','',1,'');">UPLOAD</button>-->
-                  <input id ="import_hidden" name="import_hidden" type="file" style="visibility: hidden; width: 0; height: 0;" multiple="" />
+                  <input id ="import_hidden" name="import_hidden" type="file" data-code="{$lowerCode}" style="visibility: hidden; width: 0; height: 0;" multiple="" />
                 </xsl:if>
                 <xsl:if test="/sqroot/body/bodyContent/browse/info/nbPages > 1">
                   <ul class="pagination pagination-sm no-margin pull-right" id="childPageNo"></ul>
@@ -191,7 +128,7 @@
   </xsl:template>
 
   <xsl:template match="column">
-    <th>
+    <th style="cursor:pointer;" onclick="sortBrowse(this, 'child', '{../../info/code}', '{@fieldName}')" data-order="{@order}">
       <xsl:value-of select="."/>
     </th>
   </xsl:template>

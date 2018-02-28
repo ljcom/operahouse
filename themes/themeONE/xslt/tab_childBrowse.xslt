@@ -16,30 +16,7 @@
       var code='<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code"/>';
       cell_init(code);
 
-      $(function() {
-
-      // We can attach the `fileselect` event to all file inputs on the page
-      $(document).on('change', ':file', function() {
-      var input = $(this),
-      numFiles = input.get(0).files ? input.get(0).files.length : 1,
-      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-      input.trigger('fileselect', [numFiles, label]);
-
-      var file = this.files[0];
-      if (file.size > 1024000) {
-      alert('max upload size is 1M')
-      }
-      //submit ajax
-      else {var file = $(this)[0].files[0];
-      var upload = new Upload(file);
-      var p=$(this).parent().parent().parent().parent().parent().parent().parent().data("parentguid");
-      var url='OPHCore/api/default.aspx?mode=upload&#38;code=<xsl:value-of select="$lowerCode"/>&#38;parentGUID='+p;
-
-
-      upload.doUpload(url,
-      function(data) {
-      //success
-
+      upload_init(code, function(data) {
       var err=''; s=0;
       $(data).find("sqroot").find("message").each(function (i) {
       var item=$(data).find("sqroot").find("message").eq(i);
@@ -54,53 +31,12 @@
       showMessage(msg);
       //setTimeout(function() {location.reload()}, 5000);
 
-      var code='<xsl:value-of select ="/sqroot/body/bodyContent/browse/info/code/."/>';
+      var code='<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code"/>';
       loadChild(code);
-      
-      },
-      function(data) {
-      //error
-
-      var err=''; s=0;
-      $(data).find("sqroot").find("message").each(function (i) {
-      var item=$(data).find("sqroot").find("message").eq(i);
-      if ($(item).text()!='') err += $(item).text()+' ';
-      })
-
-      $(data).find("sqroot").find("guid").each(function (i) {
-      var sn=$(data).find("sqroot").find("guid").eq(i);
-      if (sn!='') s++;
-      })
-      var msg='Upload Status: Success: '+s+(err==''?'':' Error: '+err);
-      showMessage(msg);
-      //setTimeout(function() {location.reload()}, 5000);
-
-      var code='<xsl:value-of select ="/sqroot/body/bodyContent/browse/info/code/."/>';
-      loadChild(code);
-
-      });
-      }
       });
 
-      // We can watch for our custom `fileselect` event like this
-      $(document).ready( function() {
-      $(':file').on('fileselect', function(event, numFiles, label) {
 
-      var input = $(this).parents('.input-group').find(':text'),
-      //log = numFiles > 1 ? numFiles + ' files selected' : label;
-      log = label;
-      if( input.length ) {
-      input.val(log);
-      } else {
-      //if( log ) alert(log);
-      }
 
-      });
-      });
-
-      });
-
-      
     </script>
     <div class="row">
       <div class="col-md-12">
@@ -110,21 +46,21 @@
           </h3>
         </div>
         <div>
-          <input style="width:200px; position:absolute; right:25px; top:5px; padding-right:25px" type="text" id="searchBox_{sqroot/body/bodyContent/browse/info/code}" name="searchBox_{sqroot/body/bodyContent/browse/info/code}" 
-            class="form-control" placeholder="Enter search key..." value="{sqroot/body/bodyContent/browse/info/search}" 
+          <input style="width:200px; position:absolute; right:25px; top:5px; padding-right:25px" type="text" id="searchBox_{sqroot/body/bodyContent/browse/info/code}" name="searchBox_{sqroot/body/bodyContent/browse/info/code}"
+            class="form-control" placeholder="Enter search key..." value="{sqroot/body/bodyContent/browse/info/search}"
               onkeypress="searchTextChild(event, this.value, '{sqroot/body/bodyContent/browse/info/code}');" />
           <button id="clear{sqroot/body/bodyContent/browse/info/code}" type="button" class="btn btn-flat" style="position:absolute; right:25px; top:5px; background:none; border:none; display:none" >
             <span aria-hidden="true">&#215;</span>
           </button>
           <script>
             $('#clear<xsl:value-of select="sqroot/body/bodyContent/browse/info/code"/>').click(function(event) {
-              searchTextChild(event, '', '<xsl:value-of select="sqroot/body/bodyContent/browse/info/code"/>', true);
+            searchTextChild(event, '', '<xsl:value-of select="sqroot/body/bodyContent/browse/info/code"/>', true);
             });
-            
+
             $(document).ready(function() {
-              if ($('#searchBox_<xsl:value-of select="sqroot/body/bodyContent/browse/info/code"/>').val() != '') {
-                $('#clear<xsl:value-of select="sqroot/body/bodyContent/browse/info/code"/>').show();
-              }
+            if ($('#searchBox_<xsl:value-of select="sqroot/body/bodyContent/browse/info/code"/>').val() != '') {
+            $('#clear<xsl:value-of select="sqroot/body/bodyContent/browse/info/code"/>').show();
+            }
             });
           </script>
         </div>
@@ -168,7 +104,7 @@
 
                   <!--<button type="button" class="buttonCream" id="download" name="download" onclick="javascript:PrintDirect('{/sqroot/body/bodyContent/browse/info/code}', '', 3, '', '', '');">DOWNLOAD</button>
                   <button type="button" class="buttonCream" id="upload" name="upload" onclick="javascript:showSubBrowseView('{/sqroot/body/bodyContent/browse/info/code}','',1,'');">UPLOAD</button>-->
-                  <input id ="import_hidden" name="import_hidden" type="file" style="visibility: hidden; width: 0; height: 0;" multiple="" />
+                  <input id ="import_hidden" name="import_hidden" type="file" data-code="{$lowerCode}" style="visibility: hidden; width: 0; height: 0;" multiple="" />
                 </xsl:if>
                 <xsl:if test="/sqroot/body/bodyContent/browse/info/nbPages > 1">
                   <ul class="pagination pagination-sm no-margin pull-right" id="childPageNo"></ul>
@@ -198,7 +134,7 @@
   </xsl:template>
 
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
-    
+
     <tr id="tr1_{$lowerCode}{@GUID}" data-code="{$lowerCode}" data-guid="{@GUID}"
         onmouseover="this.bgColor='lavender';this.style.cursor='pointer';" onmouseout="this.bgColor='white'">
       <td class="cell-recordSelector"></td>
@@ -211,7 +147,7 @@
         </div>
       </td>
     </tr>
-    
+
 
   </xsl:template>
 

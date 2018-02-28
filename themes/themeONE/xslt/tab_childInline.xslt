@@ -19,72 +19,11 @@
       var code='<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code"/>';
       cell_init(code);
 
-      $(function() {
-
-      // We can attach the `fileselect` event to all file inputs on the page
-      $(document).on('change', ':file', function() {
-      var input = $(this),
-      numFiles = input.get(0).files ? input.get(0).files.length : 1,
-      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-      input.trigger('fileselect', [numFiles, label]);
-
-      var file = this.files[0];
-      if (file.size > 1024000) {
-      alert('max upload size is 1M')
-      }
-      //submit ajax
-      else {var file = $(this)[0].files[0];
-      var upload = new Upload(file);
-
-      var url='OPHCore/api/default.aspx?mode=upload&#38;code=<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code"/>&#38;GUID='+getGUID();
-
-      upload.doUpload(url,
-      function(data) {
-      //success
-      var x = $(data).find("sqroot").children().each(function () {
-      var msg = $(this).text();
-      showMessage('Upload Success');
-
-      })
-      location.reload();
-
-
-
-      },
-      function(error) {
-      //error
-      showMessage(error);
-      });
-      }
-      });
-
-      // We can watch for our custom `fileselect` event like this
-      $(document).ready( function() {
-      $(':file').on('fileselect', function(event, numFiles, label) {
-
-      var input = $(this).parents('.input-group').find(':text'),
-      //log = numFiles > 1 ? numFiles + ' files selected' : label;
-      log = label;
-      if( input.length ) {
-      input.val(log);
-      } else {
-      //if( log ) alert(log);
-      }
-
-      });
-      });
-
-      });
-
-      //spreadsheet functions
-      /*
-      $(.cell).onclick = function (this) {
-      alert(this.html());
-      };
-      */
       var columns_<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code"/>='';
-
+      
     </script>
+    <xsl:apply-templates select="sqroot/body/bodyContent/browse/children" />
+    
     <div class="row">
       <div class="col-md-12">
         <div class="box-header with-border" style="background:white" data-toggle="collapse" data-target="#content_{/sqroot/body/bodyContent/browse/info/code}">
@@ -135,7 +74,7 @@
               <div class="box-footer clearfix">
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
                   <button class="btn btn-orange-a"
-                          onclick="cell_add('{$lowerCode}', columns_{/sqroot/body/bodyContent/browse/info/code}, {count(/sqroot/body/bodyContent/browse/children)});">ADD</button>&#160;
+                          onclick="cell_add('{$lowerCode}', columns_{/sqroot/body/bodyContent/browse/info/code}, {count(/sqroot/body/bodyContent/browse/children)}, this);">ADD</button>&#160;
                 </xsl:if>
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowDelete/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
                   <button class="btn btn-gray-a" onclick="cell_delete('{$lowerCode}')">DELETE</button>&#160;
@@ -166,6 +105,24 @@
     </div>
   </xsl:template>
 
+  <xsl:template match="sqroot/body/bodyContent/browse/children">
+    <xsl:apply-templates select="child" />
+  </xsl:template>
+
+  <xsl:template match="child">
+    <xsl:if test="info/permission/allowBrowse='1'">
+      <script>
+        function loadChild_<xsl:value-of select ="$lowerCode"/>(GUID) {
+        var code='<xsl:value-of select ="code/."/>';
+        var pcode='<xsl:value-of select ="$lowerCode"/>';
+        var parentKey='<xsl:value-of select ="parentkey/."/>';
+        var browsemode='<xsl:value-of select ="browseMode/."/>';
+        loadChild(code, parentKey, GUID, null, browsemode, pcode);
+        }
+      </script>
+    </xsl:if>
+
+  </xsl:template>
   <xsl:template match="sqroot/body/bodyContent/browse/header">
     <xsl:apply-templates select="column"/>
   </xsl:template>
@@ -194,13 +151,14 @@
       <xsl:apply-templates select="fields/field"/>
     </tr>
     <tr id="tr2_{@code}{@GUID}" style="display:none">
-      <xsl:variable name="parentGUID">
+      <!--<xsl:variable name="parentGUID">
         <xsl:value-of select ="@GUID"/>
       </xsl:variable>
       <xsl:variable name="parentCode">
         <xsl:value-of select ="@code"/>
-      </xsl:variable>
-      <td colspan="{$nbCol}">
+      </xsl:variable>-->
+      <td colspan="100">
+        <!--
         <xsl:for-each select="/sqroot/body/bodyContent/browse/children/child" >
           <div>
             <xsl:if test="info/permission/allowBrowse='1'">
@@ -208,22 +166,13 @@
               <input type="hidden" id="filter{code/.}" value="{parentkey/.}='{$parentGUID}'"/>
               <input type="hidden" id="parent{code/.}" value="{parentkey/.}"/>
               <input type="hidden" id="PKName" value="{parentkey/.}"/>
-              <script>
-                function loadChild_<xsl:value-of select ="$parentCode"/><xsl:value-of select ="translate($parentGUID, '-', '')"/>() {
-                var code='<xsl:value-of select ="code/."/>';
-                var parentKey='<xsl:value-of select ="parentkey/."/>';
-                var GUID='<xsl:value-of select ="$parentGUID"/>';
-                var browsemode='<xsl:value-of select ="browseMode/."/>';
-                loadChild(code, parentKey, GUID, null, browsemode);
-                }
-              </script>
-
               <div class="box box-solid box-default" style="box-shadow:0px;border:none" id="child{code/.}{$parentGUID}">
                 &#160;
               </div>
             </xsl:if>
           </div>
         </xsl:for-each>
+        -->
       </td>
     </tr>
 
@@ -254,7 +203,8 @@
     </xsl:variable>
     <xsl:choose>
       <xsl:when test="@editor">
-        <td class="cell cell-editor-{@editor}" data-id="{@id}" data-field="{@caption}">
+        <td class="cell cell-editor-{@editor}" data-id="{@id}" data-field="{@caption}"
+          onblur="cell_preview('{@preview}', '{/sqroot/body/bodyContent/browse/info/code/.}', '{../../@GUID}','form{/sqroot/body/bodyContent/browse/info/code/.}', this);">
           <xsl:value-of select="$tbContent"/>
         </td>
       </xsl:when>
