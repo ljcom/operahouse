@@ -203,7 +203,7 @@ function timeIsUp() {
     //setCookie("userId", "", 0, 0, 0);
     window.location = 'index.aspx?env=acct&code=lockscreen';
 }
-setTimeout(function () { timeIsUp(); }, 1000 * 60 * 60);
+setTimeout(function () { timeIsUp(); }, 1000 * 60 * 60);    //1 hour
 
 function isGuid(stringToTest) {
     if (stringToTest[0] === "{") {
@@ -284,13 +284,15 @@ function changePassProfile() {
     var urlPath = "OPHCore/api/default.aspx?code=profile&mode=changePassword&curpass=" + curPass + "&newpass=" + newPass + "&unique=" + getUnique();
 
     $.post(urlPath, function (data) {
-        var msg = $(data).find('messages').text();
+        var msg = $(data).find('message').text();
         if (msg == '') {
-            alert("You have successfully change your password.");
-            location.reload();
-        } else {
-            alert(msg);
-        }
+            //alert("You have successfully change your password.");
+            //location.reload();
+            showMessage("You have successfully change your password", 2, undefined, function () {
+                location.reload();
+            });
+        } else
+            showMessage(msg);
     });
 }
 
@@ -342,9 +344,11 @@ function saveProfile(formId, code, guid) {
 
 function showUploadBox(divID, act) {
     if (act == 1)
-        document.getElementById(divID).style.display = "block";
+        $('#' + divID).show();
+    //document.getElementById(divID).style.display = "block";
     else
-        document.getElementById(divID).style.display = "none";
+        $('#' + divID).hide();
+        //document.getElementById(divID).style.display = "none";
 }
 
 function uploadBox(id, formId, code, guid) {
