@@ -5,6 +5,8 @@
     <jsFile>OPHCore/scripts/fn_theme.js</jsFile>
     <jsFile>OPHCore/scripts/default_theme.js</jsFile>
     <jsFile>OPHCore/scripts/default_theme_3.js</jsFile>
+    <jsFile>OPHContent/cdn/ophelements/autosuggest/autosuggest.js</jsFile>
+    <jsFile>OPHContent/cdn/ophelements/dashboard/dashboard.js</jsFile>
     <jsFile>OPHCore/scripts/doctalk_3.js</jsFile>
   </manifest>
 </sqroot>

@@ -17,9 +17,6 @@ Partial Class index
             needLogin = contentofNeedLogin
             loginPage = contentofsignInPage
 
-            'Dim curODBC = contentOfdbODBC
-            'Dim DBCore = getDBCore(accountid)
-            'Dim curUserGUID = Session("userGUID")
         Else
             Dim HostGUID As String = Session("hostGUID")
             'Dim account As String, url As String = Request.Url.OriginalString.Replace(Request.Url.PathAndQuery, "") & "/ophcore/api/default.aspx?mode=account&code=" & getQueryVar("code") & "&env=" & getQueryVar("env") & "&hostGUID=" & HostGUID

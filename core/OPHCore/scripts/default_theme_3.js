@@ -219,10 +219,6 @@ function selectAll(x, nbRec, code) {
 }
 
 
-
-
-
-
 /*browse*/
 function selectFilter(text) {
     var n = text.indexOf("-");
@@ -1703,18 +1699,6 @@ function iframewindowonload() { }
 
 
 
-/***********************************************
-* Textarea Maxlength script- © Dynamic Drive (www.dynamicdrive.com)
-* This notice must stay intact for legal use.
-* Visit http://www.dynamicdrive.com/ for full source code
-***********************************************/
-
-function ismaxlength(obj) {
-    var mlength = obj.getAttribute ? parseInt(obj.getAttribute("maxlength")) : ""
-    if (obj.getAttribute && obj.value.length > mlength)
-        obj.value = obj.value.substring(0, mlength)
-}
-
 function textboxRO(id) {
     try {
         top.document.getElementById(id).readOnly = true;
@@ -2065,69 +2049,6 @@ function displayResult() {
 function back() {
     window.location = "index.aspx?env=back&code=" + getCode();
 }
-function saveCancel() {
-    if (getGUID() == "00000000-0000-0000-0000-000000000000") back()
-    else {
-        $("input[type='text'], input[type='checkbox'], textarea, select").each(function () {
-            var t = $(this);
-            if ($(this).data("old") != undefined) {
-
-                if ((t.prop("type") == "text" || t.prop("type") == "checkbox") && ($(this).val() != $(this).data("old")) ||
-                    ((t.prop("type") == "select-one") && ($(this).data("value") != $(this).data("old")))) {
-
-                    if (t.prop("type") == "text") $(this).val($(this).data("old"));
-                    if (t.prop("type") == "checkbox") t.prop('checked', $(this).data("old"));
-                    if (t.prop("type") == "select-one") $(this).data("value", $(this).data("old"));
-                    //select
-                    var newOption = new Option($(this).data("oldtext"), $(this).data("old"), true, true);
-                    t.append(newOption).trigger('change');
-
-                    //token
-                    if ($(this).data("type") == 'tokenBox') {
-                        var tokenCode = $(this).data("code");
-                        var key = $(this).data("key");
-                        var id = $(this).data("id");
-                        var name = $(this).data("name");
-                        var search = $(this).data("old");
-
-                        var sURL = 'OPHCore/api/msg_autosuggest.aspx?mode=token&code=' + tokenCode + '&key=' + key + '&id=' + id + '&name=' + name;
-                        var cURL = 'OPHCore/api/msg_autosuggest.aspx?mode=token&code=' + tokenCode + '&key=' + key + '&id=' + id + '&name=' + name + '&search=' + search;
-                        var fieldName = $(this)[0].id
-                        $.ajax({
-                            url: cURL,
-                            dataType: 'json',
-                            success: function (data) {
-                                //var xx = '';
-                                $("#" + fieldName).tokenInput("clear");
-                                $.each(data, function (i, item) {
-                                    $("#" + fieldName).tokenInput("add", data[i]);
-                                    //xx += data[i].id + '*';
-                                });
-                                //$("#" + fieldName).val(xx);
-
-                                $('#button_save').hide();
-                                $('#button_cancel').hide();
-                                $('#button_save2').hide();
-                                $('#button_cancel2').hide();
-                                //$tokenInput(get, '');
-                            }
-                        });
-                    }
-
-                    $('#button_save').hide();
-                    $('#button_cancel').hide();
-                    $('#button_save2').hide();
-                    $('#button_cancel2').hide();
-                }
-            } else {
-                $('#button_save').hide();
-                $('#button_cancel').hide();
-                $('#button_save2').hide();
-                $('#button_cancel2').hide();
-            }
-        })
-    }
-}
 
 function saveConfirm() {
     $("input[type='text'], input[type='checkbox'], select").each(function () {
@@ -2153,11 +2074,7 @@ function saveConfirm() {
 }
 
 
-function isGuid(value) {
-    var regex = /[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}/i;
-    var match = regex.exec(value);
-    return match != null;
-}
+
 
 function checkrequired(Names, output) {
     var result = 'good'
@@ -2244,7 +2161,27 @@ function searchTextChild(e, searchvalue, code, isClear) {
         var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
 
         pushTheme(divName, xmldoc, xsldoc, true);
+    }
+}
 
+function sortBrowse(ini, loc, code, orderBy) {
+    var ordered = $(ini).data('order');
+    if (ordered == "" || ordered == undefined) ordered = "ASC"
+    else if (ordered == "ASC") ordered = "DESC"
+    else ordered = "ASC"
+    $(ini).data('order', ordered);
+
+    if (orderBy && orderBy != "") var sortOrder = orderBy + " " + ordered;
+
+    if (loc == "header") {
+        setCookie('sortOrder', sortOrder, 0, 1, 0);
+        loadContent(1);
+    } else {
+        var sqlfilter = document.getElementById("filter" + code.toLowerCase()).value;
+        var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + sqlfilter + '&sortOrder=' + sortOrder + '&bPageNo=1&date=' + getUnique();
+        var divName = ['child' + String(code).toLowerCase() + getGUID()];
+        var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
+        pushTheme(divName, xmldoc, xsldoc, true);
     }
 }
 
@@ -2346,25 +2283,6 @@ function doFunction(functiontext, nbRec, caption) {
     }
 }
 
-
-
-function loadReport(qCode, tcode, f) {
-    qCode = (qCode == "") ? getCode() : qCode;
-    tcode = (tcode == undefined) ? getQueryVariable("tcode") : tcode;
-    var xmldoc = 'OPHCore/api/default.aspx?mode=report' + '&code=' + qCode + ((tcode != undefined) ? '&tcode=' + tcode : '') + '&unique=' + getUnique();
-    var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/report_' + getMode() + '.xslt';
-    showXML('contentWrapper', xmldoc, xsldoc, true, true, function () {
-        if (typeof f == "function") f();
-    });
-
-    var xmldoc = 'OPHCore/api/default.aspx?mode=report' + '&code=' + qCode + ((tcode != undefined) ? '&tcode=' + tcode : '') + '&GUID=' + getGUID() + '&unique=' + getUnique();
-    var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/report_' + getMode() + '_sidebar.xslt';
-    //var xmldoc = 'OPHCore/api/default.aspx?mode=report&code=' + getCode() + '&GUID=' + getGUID() + '&date=' + getUnique();
-    showXML('sidebarWrapper', xmldoc, xsldoc, true, true, function () {
-        if (typeof f == "function") f();
-    });
-
-}
 
 function genReport(code, parameter, outType, query, reportName) {
     if (parameter.indexOf(':') < 0) {
@@ -2540,17 +2458,7 @@ function SaveData(code, formid, locations, GUID, delcookie, tablename) {
 
 }
 
-function signOut(f) {
 
-    var path = 'OPHCore/api/default.aspx?mode=signout' + '&unique=' + getUnique();
-    $.post(path).done(function () {
-        setCookie("cartID", "", 0, 0, 0);
-        setCookie("isLogin", "0", 0, 1, 0);
-        if (typeof f == "function") f();
-        goHome()
-    });
-
-}
 
 //use for detecting screen size : xs,sm, md, lg
 function isBreakpoint(alias) {
@@ -2603,78 +2511,6 @@ function panel_display(flag, val) {
 
 }
 
-
-function drawChart(chartId, chartType, chartLabelH, chartDatasets) {
-    var isStacked = false;
-    if (chartType == 'barStack') { chartType = 'bar'; isStacked = true; }
-    if (chartType == 'lineStack') { chartType = 'line'; isStacked = true; }
-    // chartLabelH=["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
-    //chartDatasets=[{
-    //    label: '# of Votes',
-    //    data: [12, 19, 3, 5, 2, 23],
-    //    backgroundColor: [
-    //    'rgba(255, 99, 132, 0.2)',
-    //    'rgba(54, 162, 235, 0.2)',
-    //    'rgba(255, 206, 86, 0.2)',
-    //    'rgba(75, 192, 192, 0.2)',
-    //    'rgba(153, 102, 255, 0.2)',
-    //    'rgba(255, 159, 64, 0.2)'
-    //    ],
-    //    borderColor: [
-    //    'rgba(255,99,132,1)',
-    //    'rgba(54, 162, 235, 1)',
-    //    'rgba(255, 206, 86, 1)',
-    //    'rgba(75, 192, 192, 1)',
-    //    'rgba(153, 102, 255, 1)',
-    //    'rgba(255, 159, 64, 1)'
-    //    ],
-    //    borderWidth: 1
-    //}]
-    var ctx = document.getElementById(chartId).getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: chartType,
-        data: {
-            labels: chartLabelH,
-            datasets: chartDatasets
-        },
-        options: {
-            scales: {
-                xAxes: [{
-                    stacked: isStacked,
-                }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }, stacked: isStacked
-                }]
-            }
-        }
-    });
-}
-function fillChartDataSets(label, data, bgColor, borderColor, borderWidth) {
-    return [{ label, data, bgColor, borderColor, borderWidth }]
-    //chartDatasets=[{
-    //    label: '# of Votes',
-    //    data: [12, 19, 3, 5, 2, 23],
-    //    backgroundColor: [
-    //    'rgba(255, 99, 132, 0.2)',
-    //    'rgba(54, 162, 235, 0.2)',
-    //    'rgba(255, 206, 86, 0.2)',
-    //    'rgba(75, 192, 192, 0.2)',
-    //    'rgba(153, 102, 255, 0.2)',
-    //    'rgba(255, 159, 64, 0.2)'
-    //    ],
-    //    borderColor: [
-    //    'rgba(255,99,132,1)',
-    //    'rgba(54, 162, 235, 1)',
-    //    'rgba(255, 206, 86, 1)',
-    //    'rgba(75, 192, 192, 1)',
-    //    'rgba(153, 102, 255, 1)',
-    //    'rgba(255, 159, 64, 1)'
-    //    ],
-    //    borderWidth: 1
-    //}]
-}
 
 
 function applySQLFilter(ini) {

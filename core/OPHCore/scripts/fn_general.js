@@ -471,3 +471,22 @@ function checkCookie(level) {
 }
 
 function zeroGUID() { return '00000000-0000-0000-0000-000000000000'; }
+
+function isGuid(value) {
+    var regex = /[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}/i;
+    var match = regex.exec(value);
+    return match != null;
+}
+
+
+/***********************************************
+* Textarea Maxlength script- © Dynamic Drive (www.dynamicdrive.com)
+* This notice must stay intact for legal use.
+* Visit http://www.dynamicdrive.com/ for full source code
+***********************************************/
+
+function ismaxlength(obj) {
+    var mlength = obj.getAttribute ? parseInt(obj.getAttribute("maxlength")) : ""
+    if (obj.getAttribute && obj.value.length > mlength)
+        obj.value = obj.value.substring(0, mlength)
+}
