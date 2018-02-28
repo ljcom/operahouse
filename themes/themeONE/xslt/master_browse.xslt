@@ -410,7 +410,7 @@
     <th width="10" title="{$title}">
       <table class="fixed-table">
         <tr>
-          <td>
+          <td onclick="sortBrowse(this, 'header', '{../../info/code}', '{@fieldName}')" data-order="{@order}">
             <xsl:value-of select="$title"/>
           </td>
         </tr>
