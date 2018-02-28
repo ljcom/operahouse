@@ -25,6 +25,9 @@
   
   <xsl:template match="/">
     <script>
+      Sideshow.config.language = "oph";
+      Sideshow.init();
+      
       var meta = document.createElement('meta');
       meta.charset = "UTF-8";
       loadMeta(meta);
@@ -44,15 +47,144 @@
       $("body").addClass("sidebar-mini");
       $("body").addClass("fixed");
 
-
       loadScript('OPHContent/cdn/admin-LTE/js/app.min.js');
-
-      //loadContent();
-
 
       setCookie('userURL', 'OPHContent/documents/<xsl:value-of select="sqroot/header/info/account" />/<xsl:value-of select="sqroot/header/info/user/userURL"/>', 7);
       setCookie('userName', '<xsl:value-of select="sqroot/header/info/user/userName"/>', 7);
       //setCookie('userId', '<xsl:value-of select="sqroot/header/info/user/userId"/>', 7);
+
+      Sideshow.registerWizard({
+          name: "ss_profile",
+          title: "Help Me to Use This Profile Page",
+          description: "We would like to help you how to use this profile.",
+          estimatedTime: "5 Minutes",
+          affects: [
+  		      function(){
+              //Check the condition for this Sideshow, After this checking, just return a boolean indicating if this tutorial will be available.
+              //return 1 or true --> to make avalaible || return 0 or false --> to make it unavalaible
+			        return true;
+		        }
+          ]
+      }).storyLine({
+          showStepPosition: true,
+          steps: [
+    	      {
+		          title: "Welcome to Profile Page",
+		          text: "Hello \"<xsl:value-of select="sqroot/header/info/user/userName"/>\", welcome to our profile page. Here, you can manage your account including photo profile, your biography, change password and delegation."
+            },
+            {
+	            title: "Photo Profile",
+	            text: "You can see your profile picture here. Now, try move your cursor inside the box.",
+              target: "#uploadBox",
+	            subject: "#profileBox",
+	            format:"markdown",
+              autoContinue: true, completingConditions: [
+		    	      function(){
+		    		      return $('#uploadBox').is(':visible');
+		    	      }
+		          ]              
+            },
+            {
+	            title: "Change Picture",
+	            text: "Did you see a button shown up? Yes, it is a button to change your profile picture. But, you can try it later ;)",
+	            subject: "#profileBox",
+              lockSubject:true,
+	            format:"markdown",
+              listeners: {
+		    	      beforeStep: function(){
+                  showUploadBox('uploadBox', 1);
+		    	      }
+		          }
+            },
+            {
+	            title: 'All About <xsl:value-of select="sqroot/header/info/user/userName"/>',
+	            text: "This is your information box. I'll tell you how to change it later.",
+	            subject: "#aboutMeBox",
+	            format:"markdown"	
+            },
+            {
+	            title: "Your Journal",
+	            text: "This is the list of your log activities for using this sites for a day.",
+	            subject: "#profileTabBox",
+              targets: "#journal h3",
+              lockSubject:true,
+	            format:"markdown"	
+            },
+            {
+	            title: "Your Profile",
+	            text: "##sorot tab profile## Click this tab for update your personal profile",
+	            subject: "tab profile",
+	            format:"markdown"	
+            },
+{
+	title: "Profile ##Multiple targets##",
+	text: "##profile input## If you have update your personal profile feel free to change that information in these columns",
+	subject: "profile",
+	targets: "profile inputs",
+	format:"markdown"	
+},
+{
+	title: "Tab Delegation",
+	text: "##sorot tab delegation## Click this tab for set your delagation account",
+	subject: "tab delegation",
+	format:"markdown"	
+},
+{
+	title: "Delegation",
+	text: "##sorot tombol add new delegation## Click this button for create a delegation ",
+	subject: "delegation",
+	format:"markdown"	
+},
+{
+	title: "Delegate to",
+	text: "##delegation input - kolom delegate to ## Add user name to delegated your account in this column ",
+	subject: "delegate to",
+	format:"markdown"	
+},
+{
+	title: "For Modules",
+	text: "##delegation input - kolom for modules## Add module that delegated in this column ",
+	subject: "for modules",
+	format:"markdown"	
+},
+{
+	title: "Button Save",
+	text: "##sorot button save## Click save button to record your delegation ",
+	subject: "button save",
+	format:"markdown"	
+},
+{
+	title: "Button Delete",
+	text: "##sorot button delete## Click delete button to remove your delegation ",
+	subject: "button delete",
+	format:"markdown"	
+},
+{
+	title: "Tab Change Password",
+	text: "##sorot tab Change Password## Click this tab for change your account password",
+	subject: "tab Change Password",
+	format:"markdown"	
+},
+{
+	title: "Change Password ##Multiple targets##",
+	text: "##password input## Fill these columns to change your account password. Minimum Password Requirement is 6 Characters!",
+	subject: "change password",
+	targets: "password inputs",
+	format:"markdown"	
+},
+{
+	title: "Button Submit",
+	text: "##sorot button submit## Click submit button to apply your new password ",
+	subject: "button submit",
+	format:"markdown"	
+},
+
+
+            
+	      ]
+      });
+
+
     </script>
 
     <!-- Page script -->
@@ -101,6 +233,11 @@
         </div>
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
+            <li>
+              <a href="#help" style="cursor:pointer;" onclick="Sideshow.start();" data-toggle="tooltip" data-placement="bottom" title="Help?">
+                <ix class="fa fa-question-circle fa-lg"></ix>
+              </a>
+            </li>
             <li class="dropdown user user-menu">
               <xsl:choose>
                 <xsl:when test="not(sqroot/header/info/user/userId)">
@@ -182,6 +319,26 @@
       </div>
     </div>
     
+    <!-- *** NOTIFICATION MODAL -->
+    <div id="notiModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&#215;</button>
+            <h4 class="modal-title" id="notiTitle">Modal Header</h4>
+          </div>
+          <div class="modal-body" id="notiContent">
+            <p>Some text in the modal.</p>
+          </div>
+          <div class="modal-footer">
+            <button id="notiBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- *** NOTIFICATION MODAL END -->
+
     <!-- Left side column. contains the logo and sidebar -->
     <aside  class="main-sidebar">
       <!-- sidebar: style can be found in sidebar.less -->
@@ -258,7 +415,7 @@
           <div class="col-md-3">
 
             <!-- Profile Image -->
-            <div class="box box-primary">
+            <div id="profileBox" class="box box-primary">
               <xsl:for-each select="sqroot/body/bodyContent/profile/row">
                 <xsl:if test="type = 'file'">
                   <div style="float:right;position:inherit;display:none;" id="uploadBox" onmouseover="showUploadBox('uploadBox', 1);">
@@ -284,7 +441,7 @@
             <!-- /.box -->
 
             <!-- About Me Box -->
-            <div class="box box-primary">
+            <div id="aboutMeBox" class="box box-primary">
               <div class="box-header with-border">
                 <h3 class="box-title">About Me</h3>
               </div>
@@ -329,7 +486,7 @@
             </div>
           </div>
 
-          <div class="col-md-9">
+          <div id="profileTabBox" class="col-md-9">
             <div class="nav-tabs-custom">
               <!--Menu Tab-->
               <ul class="nav nav-tabs">

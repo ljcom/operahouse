@@ -14,6 +14,8 @@
     <cssFile>OPHContent/cdn/admin-LTE/css/skins/_all-skins.min.css</cssFile>
     <cssFile>OPHContent/cdn/ophelements/celljs/cell.css</cssFile>
     <cssFile>OPHContent/cdn/bootstrap/datetimepicker/bootstrap-datetimepicker.min.css</cssFile>
+    <cssFile>OPHContent/cdn/sideshow/distr/fonts/sideshow-fontface.min.css</cssFile>
+    <cssFile>OPHContent/cdn/sideshow/distr/stylesheets/sideshow.min.css</cssFile>
     <!--jsFile>OPHContent/cdn/jQuery/jquery-2.2.3.min.js</jsFile-->
     <jsFile>OPHContent/cdn/bootstrap/js/bootstrap.min.js</jsFile>
     <jsFile>OPHContent/cdn/input-mask/jquery.inputmask.js</jsFile>
@@ -32,6 +34,9 @@
     <jsFile>OPHContent/cdn/ophelements/celljs/cell.js</jsFile>
     <jsFile>OPHContent/cdn/ophelements/ophupload/ophupload.js</jsFile>
     <jsFile>OPHContent/cdn/bootstrap/datetimepicker/bootstrap-datetimepicker.min.js</jsFile>
+    <jsFile>OPHContent/cdn/sideshow/distr/dependencies/jazz.min.js</jsFile>
+    <jsFile>OPHContent/cdn/sideshow/distr/dependencies/pagedown.min.js</jsFile>
+    <jsFile>OPHContent/cdn/sideshow/distr/sideshow.js</jsFile>
     <cssFile>OPHContent/themes/themeONE/styles/icomoon/style.css</cssFile>
     <jsFile>OPHContent/themes/themeONE/custom-me.js</jsFile>
     <cssFile>OPHContent/themes/themeONE/custom-me.css</cssFile>

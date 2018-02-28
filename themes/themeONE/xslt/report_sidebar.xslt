@@ -29,14 +29,15 @@
         </a>
       </div>
     </div>
-    <div class="input-group sidebar-form">
+    <!--Remarked coz of double id "#searchBox" while viewed in browser--> 
+    <!--<div class="input-group sidebar-form">
       <input type="text" id="searchBox" name="searchBox" class="form-control" placeholder="Search..." onkeypress="return searchText(event,this.value);" value="" />
       <span class="input-group-btn">
         <button type="button" name="search" id="search-btn" class="btn btn-flat" onclick="searchText(event);">
           <ix class="fa fa-search" aria-hidden="true"></ix>
         </button>
       </span>
-    </div>
+    </div>-->
 
     <ul class="sidebar-menu">
       <xsl:apply-templates select="sqroot/header/menus/menu[@code='sidebar']/submenus/submenu" />

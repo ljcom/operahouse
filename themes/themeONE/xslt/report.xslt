@@ -16,6 +16,9 @@
 
   <xsl:template match="/">
     <script>
+      Sideshow.config.language = "oph";
+      Sideshow.init();
+
       var meta = document.createElement('meta');
       meta.charset = "UTF-8";
       loadMeta(meta);
@@ -37,7 +40,7 @@
 
 
       loadScript('OPHContent/cdn/admin-LTE/js/app.min.js');
-      
+
       document.title='<xsl:value-of select="/sqroot/header/info/title"/>';
       resetBrowseCookies();
       var qcode = '<xsl:value-of select="/sqroot/header/info/id"/>';
@@ -93,6 +96,11 @@
         </div>
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
+            <li>
+              <a style="cursor:pointer;" onclick="Sideshow.start();" data-toggle="tooltip" data-placement="bottom" title="Help?">
+                <ix class="fa fa-question-circle fa-lg"></ix>
+              </a>
+            </li>
             <li class="dropdown user user-menu">
               <xsl:choose>
                 <xsl:when test="not(sqroot/header/info/user/userId)">

@@ -19,6 +19,9 @@
     <div style="display:none" id="themeName">&#xA0;</div>
 
     <script>
+      Sideshow.config.language = "oph";
+      Sideshow.init();
+      
       var meta = document.createElement('meta');
       meta.charset = "UTF-8";
       loadMeta(meta);
@@ -136,6 +139,11 @@
         </div>
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
+            <li>
+              <a style="cursor:pointer;" onclick="Sideshow.start();" data-toggle="tooltip" data-placement="bottom" title="Help?">
+                <ix class="fa fa-question-circle fa-lg"></ix>
+              </a>
+            </li>
             <li class="dropdown user user-menu">
               <xsl:choose>
                 <xsl:when test="not(sqroot/header/info/user/userId)">
