@@ -33,7 +33,7 @@
               </div>-->
               <div class="form-group">
                 <div class="col-md-offset-10 col-md-2 col-sm-offset-9 col-sm-3">
-                  <a class="btn btn-primary btn-block" onClick="SaveData('caUSERFRON', 'userform', '', '{/sqroot/body/bodyContent/form/info/GUID/.}')">SAVE INFO</a>
+                  <a class="btn btn-primary btn-block" onClick="SaveData('user', 'userform', '', '{/sqroot/body/bodyContent/form/info/GUID/.}')">SAVE INFO</a>
                 </div>
               </div>
             </form>
@@ -50,7 +50,7 @@
 
   <xsl:template match="formRow">
     <xsl:apply-templates select="fields/field/textBox" />
-    <xsl:apply-templates select="fields/field/password" />
+    <xsl:apply-templates select="fields/field/passwordBox" />
   </xsl:template>
     
  <xsl:template match="fields/field/textBox">
@@ -71,7 +71,7 @@
   </div>
  </xsl:template>
   
- <xsl:template match="fields/field/password">
+ <xsl:template match="fields/field/passwordBox">
   <div class="form-group">
     <label for="" class="col-md-2 col-sm-3 control-label"><xsl:value-of select="titlecaption/." /></label>
     <div class="col-md-10 col-sm-9">

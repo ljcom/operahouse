@@ -92,9 +92,8 @@
                         </div>
                       </div>
                     </div>
+                    <form role="form" id="formpayment" enctype="multipart/form-data" style="margin:0px;">
                     <div class="col-sm-6 col-xs-12">
-
-                      <form role="form" id="formpayment" enctype="multipart/form-data">
                         <div class="panel panel-default">
                           <div class="panel-heading">
                             <h4 class="panel-title">Payment Method</h4>
@@ -111,15 +110,18 @@
 
                               <input type="hidden" value="{sqroot/body/bodyContent/form/info/GUID/.}" name="PCSOGUID"/>
                               <xsl:apply-templates select="sqroot/body/bodyContent/form/formPages/formPage[@pageNo='1']/formSections/formSection/formCols/formCol[@colNo='5']/formRows/formRow[@rowNo='2']/fields/field[@fieldName = 'PAYMGUID']/autoSuggestBox" />
-
-                              <a style="cursor:pointer; background:#47BAC1; color:white; padding:7px 15px; margin-top:15px; display:inline-block;" onclick="SaveData('taPCS2','formpayment', 'index.aspx?code=tapcs2&amp;GUID={sqroot/body/bodyContent/form/info/GUID/.}', '', '0')">Change Payment Type</a>
+                              <div style="margin-top:30px;">
+                                &#xA0;
+                              </div>
+                              <!--<a style="cursor:pointer; background:#47BAC1; color:white; padding:7px 15px; margin-top:15px; display:inline-block;" onclick="SaveData('taPCS2','formpayment', 'index.aspx?code=tapcs2&amp;GUID={sqroot/body/bodyContent/form/info/GUID/.}', '', '0')">Change Payment Type</a>-->
 
                             </address>
 
                           </div>
                         </div>
-                      </form>
+                      
                     </div>
+                    </form>
                     <div class="col-xs-12">
                       <div class="panel panel-default">
                         <div class="panel-heading">
@@ -211,14 +213,18 @@
       <xsl:if test="button">
         <xsl:attribute name="class">input-group</xsl:attribute>
       </xsl:if>
+
       <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}" data-type="selectBox"
-        data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}"
-          onchange="autosuggest_onchange(this, '{preview/.}', getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}', 'formheader');" >
-        <xsl:if test="../@isEditable=0">
+        data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}">
+        <xsl:if test="../@isEditable=0 or /sqroot/header/custompermissions/custompermission/allowchangepayment/.=0">
           <xsl:attribute name="disabled">disabled</xsl:attribute>
+        </xsl:if>
+        <xsl:if test="../@isEditable=0 or /sqroot/header/custompermissions/custompermission/allowchangepayment/.=1">
+          <xsl:attribute name="onchange">autosuggest_onchange(this, '<xsl:value-of select="preview/."/>', getCode(), '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>', 'formheader'); SaveData('taPCS2','formpayment', 'index.aspx?code=tapcs2&amp;GUID=<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>', '', '0', '', '0')</xsl:attribute>
         </xsl:if>
         <option></option>
       </select>
+      
       <xsl:if test="button">
         <span class="input-group-btn">
           <button class="btn btn-default" type="button" data-select2-open="multi-append">

@@ -38,11 +38,18 @@
   <xsl:template match="sqroot/body/bodyContent/browse/header/column">
 
     <xsl:choose>
-      <xsl:when test="(@fieldName)!='TotalSales' and (@fieldName)!='TotalQty' and (@fieldName)!='EVENPSKUGUID'">
+      <xsl:when test="(/sqroot/header/custompermissions/custompermission/allowchangepayment/.) = 0">
+        <xsl:if test="(@fieldName)!='limitPointBalance'">
+          <th style="width:{@width}px;  background:#47BAC1; color:white;">
+            <xsl:value-of select="translate(titleCaption/., $smallcase, $uppercase)" />
+          </th>
+        </xsl:if>
+      </xsl:when>
+      <xsl:otherwise>
         <th style="width:{@width}px;  background:#47BAC1; color:white;">
           <xsl:value-of select="translate(titleCaption/., $smallcase, $uppercase)" />
         </th>
-      </xsl:when>
+      </xsl:otherwise>
     </xsl:choose>
 
   </xsl:template>
@@ -51,9 +58,7 @@
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
 
     <tr>
-
       <xsl:apply-templates select="fields/field" />
-
     </tr>
 
   </xsl:template>
@@ -83,33 +88,12 @@
     </xsl:variable>
 
     <xsl:choose>
-      <xsl:when test="(@caption)='productphotos'">
-        <td class="col-xs-2">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="deleteRow('tapcsodeta', '{../../@GUID}')">
-            <span aria-hidden="true" >x</span>
-          </button>
-          <span class="cartImage" style="height:70px;">
-            <img src="OPHContent/documents/{/sqroot/header/info/account/.}/{.}" alt="image" style="height:100%; width:auto; margin:0 auto;" />
-          </span>
-        </td>
-      </xsl:when>
-      <xsl:when test="(@caption)='Qty'">
-        <td class="col-xs-2">
-          <form method="post" id="pcs2form_{../../@GUID}">
-            <input type="hidden" value="{../../@GUID}" name="PCSODETAGUID"/>
-            <input type="number" placeholder="1" value="{.}" name="{@caption}"/>
-            <script>
-              if (document.getElementById("cfunctionlist").value == ''){
-              document.getElementById("cfunctionlist").value = 'pcs2form_<xsl:value-of select="../../@GUID" />';
-              }else{
-              document.getElementById("cfunctionlist").value =  document.getElementById("cfunctionlist").value + ', ' + 'pcs2form_<xsl:value-of select="../../@GUID" />';
-              }
-            </script>
-          </form>
-        </td>
-      </xsl:when>
-      <xsl:when test="(@caption)='TotalSales' or (@caption)='TotalQty' or (@caption) ='EVENPSKUGUID'">
-        <!--kosong-->
+      <xsl:when test="(/sqroot/header/custompermissions/custompermission/allowchangepayment/.) = 0">
+        <xsl:if test="(@caption)!='limitPointBalance'">
+          <td>
+            <xsl:value-of select="$tbContent" />
+          </td>
+        </xsl:if>
       </xsl:when>
       <xsl:otherwise>
         <td>

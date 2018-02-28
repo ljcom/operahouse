@@ -51,7 +51,7 @@
                   if (getCookie("isLogin") == 0){
                     document.getElementById("checkoutbutton").innerHTML = '<a data-toggle="modal" href=".login-modal" class="btn btn-primary btn-block"><span>checkout</span><ix class="fa fa-arrow-circle-right" aria-hidden="true"></ix></a>'
                   }else{
-                      document.getElementById("checkoutbutton").innerHTML = '<a data-toggle="modal" href="index.aspx?env=front&amp;code=tapcs2&amp;GUID={sqroot/body/bodyContent/form/info/GUID/.}" class="btn btn-primary btn-block"><span>checkout</span><ix class="fa fa-arrow-circle-right" aria-hidden="true"></ix></a>'
+                      document.getElementById("checkoutbutton").innerHTML = '<a data-toggle="modal" href="index.aspx?env=front&amp;code=tapcs2&amp;GUID={sqroot/body/bodyContent/form/info/GUID/.}" class="btn btn-primary btn-block"><span>checkout </span> <ix class="fa fa-arrow-circle-right" aria-hidden="true"></ix></a> <a href="index.aspx?env=front&amp;code=MaPRODFRON&amp;event=%276A293D44-E76E-4979-BAD6-A598988FB61B%27&amp;eventcode=online" class="btn btn-primary " style="position:absolute;left:50px; width:250px;"><ix class="fa fa-arrow-circle-left" aria-hidden="true">&#xA0;</ix><span> CONTINUE SHOPPING</span></a>'
                   }
                 </script>
               </div>

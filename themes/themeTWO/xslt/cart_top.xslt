@@ -32,9 +32,11 @@
           }
           }
         </script>
-        <a href=".limit-modal" data-toggle="modal" style=" font-size:12px; padding:0; margin:0;" onclick="runloadnewpart()">
-          Check Your Remaining Limit Here >>
-        </a>
+        <xsl:if test="sqroot/header/info/user/hostGUID/. != ''">
+          <a href=".limit-modal" data-toggle="modal" style=" font-size:12px; padding:0; margin:0;" onclick="runloadnewpart()">
+            Check Your Remaining Limit Here >>
+          </a>
+        </xsl:if>
         <br/>
         Item(s) in your carts
       </li>

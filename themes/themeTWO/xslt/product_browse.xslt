@@ -52,7 +52,7 @@
               <li>
                 <form method="post" id="productform_{@GUID}">
                   <!--untuk insert dipaksa ada input-->
-                  <input type="hidden" id="cartID" class="cartidclass" name="cartID" value="" />
+                  <input type="hidden" class="cartidclass" name="cartID" value="" />
                   <input type="hidden" name="Availaible" value="1" />
                   <input type="hidden" name="EVENPSKUGUID" value="{@GUID}" />
                   <input type="hidden" value="{fields/field[@caption = 'PRODGUID']/.}" name="PRODGUID"/>
