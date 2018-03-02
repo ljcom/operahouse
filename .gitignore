@@ -3,10 +3,5 @@ scripts/
 reports/
 log/
 version/
-addOns/sqlAssembly/dnsRequest/bin/
-addOns/sqlAssembly/dnsRequest/obj/
-addOns/sqlAssembly/webRequest/bin/
-addOns/sqlAssembly/webRequest/obj/
-addOns/tools/dnsRecord/bin/
-addOns/tools/dnsRecord/obj/
-addOns/tools/dnsRecord/bin/Debug/
+web.config
+thumbs.db
