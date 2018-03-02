@@ -1,0 +1,3 @@
+[submodule "themes/themeTHREE"]
+	path = themes/themeTHREE
+	url = https://github.com/ljcom/themeTHREE.git
