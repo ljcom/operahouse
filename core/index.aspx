@@ -7,12 +7,11 @@
 <head>
     <title>OPERAHOUSE</title>
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
     <%=contentOfScripts %>
 
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function () {
-           
-
             <%=wordofWindowOnLoad%>
         });
     </script>

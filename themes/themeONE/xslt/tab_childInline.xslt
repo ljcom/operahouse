@@ -58,9 +58,9 @@
                   <thead>
                     <tr style="background:#3C8DBC; color:white">
                       <xsl:if test="count(/sqroot/body/bodyContent/browse/children/child)>0">
-                        <th style="width:18px;"></th>
+                        <th style="width:28px;"></th>
                       </xsl:if>
-                      <th style="width:18px;"></th>
+                      <th style="width:28px;" class="cell-recordSelectors"></th>
                       <xsl:apply-templates select="sqroot/body/bodyContent/browse/header"/>
                     </tr>
                   </thead>
@@ -73,16 +73,19 @@
               <!-- /.box-body -->
               <div class="box-footer clearfix">
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
-                  <button class="btn btn-orange-a"
-                          onclick="cell_add('{$lowerCode}', columns_{/sqroot/body/bodyContent/browse/info/code}, {count(/sqroot/body/bodyContent/browse/children)}, this);">ADD</button>&#160;
+                  <button class="btn btn-orange-a" style="margin-right:5px;"
+                          onclick="cell_add('{$lowerCode}', columns_{/sqroot/body/bodyContent/browse/info/code}, {count(/sqroot/body/bodyContent/browse/children)}, this);">ADD</button>
                 </xsl:if>
+                <button id="child_button_save" class="btn btn-orange-a" style="display:none; margin-right:5px" onclick="cell_save();">SAVE</button>
+                <button id="child_button_cancel" class="btn btn-gray-a" style="display:none; margin-right:5px" onclick="cell_cancelSave()">CANCEL</button>
+
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowDelete/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
-                  <button class="btn btn-gray-a" onclick="cell_delete('{$lowerCode}')">DELETE</button>&#160;
+                  <button class="btn btn-gray-a" style="margin-right:5px;" onclick="cell_delete('{$lowerCode}', this)">DELETE</button>
                 </xsl:if>
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)=1 and (/sqroot/body/bodyContent/browse/info/permission/allowExport/.)=1" >
-                  <button class="btn btn-gray-a"
-                          onclick="downloadChild('{/sqroot/body/bodyContent/browse/info/code}', '')">DOWNLOAD</button>&#160;
-                  <button class="btn btn-gray-a" onclick="javascript:$('#import_hidden').click();">UPLOAD...</button>&#160;
+                  <button class="btn btn-gray-a" style="margin-right:5px;"
+                          onclick="downloadChild('{/sqroot/body/bodyContent/browse/info/code}', '')">DOWNLOAD</button>
+                  <button class="btn btn-gray-a" style="margin-right:5px;" onclick="javascript:$('#import_hidden').click();">UPLOAD...</button>
 
                   <!--<button type="button" class="buttonCream" id="download" name="download" onclick="javascript:PrintDirect('{/sqroot/body/bodyContent/browse/info/code}', '', 3, '', '', '');">DOWNLOAD</button>
                   <button type="button" class="buttonCream" id="upload" name="upload" onclick="javascript:showSubBrowseView('{/sqroot/body/bodyContent/browse/info/code}','',1,'');">UPLOAD</button>-->

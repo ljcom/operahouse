@@ -142,6 +142,7 @@ Partial Class OPHCore_api_sync
                         result = "<sqroot><source>senddata</source><message>Incorrect Data!</message></sqroot>"
                     End If
                 End If
+				case "reqcorescript"
         End Select
 
         If isXML Then

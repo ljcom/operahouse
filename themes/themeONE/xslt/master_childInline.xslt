@@ -16,72 +16,31 @@
       var code='<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code"/>';
       cell_init(code);
 
-      $(function() {
-
-      // We can attach the `fileselect` event to all file inputs on the page
-      $(document).on('change', ':file', function() {
-      var input = $(this),
-      numFiles = input.get(0).files ? input.get(0).files.length : 1,
-      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-      input.trigger('fileselect', [numFiles, label]);
-
-      var file = this.files[0];
-      if (file.size > 1024000) {
-      alert('max upload size is 1M')
-      }
-      //submit ajax
-      else {var file = $(this)[0].files[0];
-      var upload = new Upload(file);
-
-      var url='OPHCore/api/default.aspx?mode=upload&#38;code=<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code"/>&#38;GUID='+getGUID();
-
-      upload.doUpload(url,
-      function(data) {
-      //success
-      var x = $(data).find("sqroot").children().each(function () {
-      var msg = $(this).text();
-      showMessage('Upload Success');
-
+      upload_init(code, function(data) {
+      var err=''; s=0;
+      $(data).find("sqroot").find("message").each(function (i) {
+      var item=$(data).find("sqroot").find("message").eq(i);
+      if ($(item).text()!='') err += $(item).text()+' ';
       })
-      location.reload();
 
+      $(data).find("sqroot").find("guid").each(function (i) {
+      var sn=$(data).find("sqroot").find("guid").eq(i);
+      if (sn!='') s++;
+      })
+      var msg='Upload Status: Success: '+s+(err==''?'':' Error: '+err);
+      showMessage(msg);
+      //setTimeout(function() {location.reload()}, 5000);
 
-
-      },
-      function(error) {
-      //error
-      showMessage(error);
-      });
-      }
-      });
-
-      // We can watch for our custom `fileselect` event like this
-      $(document).ready( function() {
-      $(':file').on('fileselect', function(event, numFiles, label) {
-
-      var input = $(this).parents('.input-group').find(':text'),
-      //log = numFiles > 1 ? numFiles + ' files selected' : label;
-      log = label;
-      if( input.length ) {
-      input.val(log);
-      } else {
-      //if( log ) alert(log);
-      }
-
-      });
-      });
+      var code='<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code"/>';
+      loadChild(code);
 
       });
 
-      //spreadsheet functions
-      /*
-      $(.cell).onclick = function (this) {
-      alert(this.html());
-      };
-      */
       var columns_<xsl:value-of select="/sqroot/body/bodyContent/browse/info/code"/>='';
 
     </script>
+    <xsl:apply-templates select="sqroot/body/bodyContent/browse/children" />
+
     <div class="row">
       <div class="col-md-12">
         <div class="box-header with-border" style="background:white" data-toggle="collapse" data-target="#content_{/sqroot/body/bodyContent/browse/info/code}">
@@ -115,7 +74,10 @@
                 <table class="table table-condensed strip-table-browse cell-table" style="border-collapse:collapse">
                   <thead>
                     <tr style="background:#3C8DBC; color:white">
-                      <th style="width:28px;"></th>
+                      <xsl:if test="count(/sqroot/body/bodyContent/browse/children/child)>0">
+                        <th style="width:28px;"></th>
+                      </xsl:if>
+                      <th style="width:28px;" class="cell-recordSelectors"></th>
                       <xsl:apply-templates select="sqroot/body/bodyContent/browse/header"/>
                     </tr>
                   </thead>
@@ -128,16 +90,19 @@
               <!-- /.box-body -->
               <div class="box-footer clearfix">
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
-                  <button class="btn btn-orange-a"
-                          onclick="cell_add('{$lowerCode}', columns_{/sqroot/body/bodyContent/browse/info/code}, this);">ADD</button>&#160;
+                  <button class="btn btn-orange-a" style="margin-right:5px"
+                          onclick="cell_add('{$lowerCode}', columns_{/sqroot/body/bodyContent/browse/info/code}, {count(/sqroot/body/bodyContent/browse/children)}, this);">ADD</button>&#160;
                 </xsl:if>
+                <button id="child_button_save" class="btn btn-orange-a" style="display:none; margin-right:5px" onclick="cell_save();">SAVE</button>&#160;
+                <button id="child_button_cancel" class="btn btn-gray-a" style="display:none; margin-right:5px" onclick="cell_cancelSave()">CANCEL</button>&#160;
+
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowDelete/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
-                  <button class="btn btn-gray-a" onclick="cell_delete('{$lowerCode}')">DELETE</button>&#160;
+                  <button class="btn btn-gray-a" onclick="cell_delete('{$lowerCode}', this)">DELETE</button>
                 </xsl:if>
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)=1 and (/sqroot/body/bodyContent/browse/info/permission/allowExport/.)=1" >
-                  <button class="btn btn-gray-a"
-                          onclick="downloadChild('{/sqroot/body/bodyContent/browse/info/code}', '')">DOWNLOAD</button>&#160;
-                  <button class="btn btn-gray-a" onclick="javascript:$('#import_hidden').click();">UPLOAD...</button>&#160;
+                  <button class="btn btn-gray-a" style="margin-right:5px;"
+                          onclick="downloadChild('{/sqroot/body/bodyContent/browse/info/code}', '')">DOWNLOAD</button>
+                  <button class="btn btn-gray-a" style="margin-right:5px;" onclick="javascript:$('#import_hidden').click();">UPLOAD...</button>
 
                   <!--<button type="button" class="buttonCream" id="download" name="download" onclick="javascript:PrintDirect('{/sqroot/body/bodyContent/browse/info/code}', '', 3, '', '', '');">DOWNLOAD</button>
                   <button type="button" class="buttonCream" id="upload" name="upload" onclick="javascript:showSubBrowseView('{/sqroot/body/bodyContent/browse/info/code}','',1,'');">UPLOAD</button>-->
@@ -160,6 +125,24 @@
     </div>
   </xsl:template>
 
+  <xsl:template match="sqroot/body/bodyContent/browse/children">
+    <xsl:apply-templates select="child" />
+  </xsl:template>
+
+  <xsl:template match="child">
+    <xsl:if test="info/permission/allowBrowse='1'">
+      <script>
+        function loadChild_<xsl:value-of select ="$lowerCode"/>(GUID) {
+        var code='<xsl:value-of select ="code/."/>';
+        var pcode='<xsl:value-of select ="$lowerCode"/>';
+        var parentKey='<xsl:value-of select ="parentkey/."/>';
+        var browsemode='<xsl:value-of select ="browseMode/."/>';
+        loadChild(code, parentKey, GUID, null, browsemode, pcode);
+        }
+      </script>
+    </xsl:if>
+
+  </xsl:template>
   <xsl:template match="sqroot/body/bodyContent/browse/header">
     <xsl:apply-templates select="column"/>
   </xsl:template>
@@ -178,6 +161,11 @@
     <tr id="tr1_{@code}{@GUID}" data-parent="#{/sqroot/body/bodyContent/browse/info/code}" data-target="#{@code}{@GUID}"
         data-code="{@code}" data-guid="{@GUID}"
         onmouseover="this.bgColor='lavender';this.style.cursor='pointer';" onmouseout="this.bgColor='white'">
+
+      <xsl:if test="count(/sqroot/body/bodyContent/browse/children/child)>0">
+        <td class="cell-parentSelector"></td>
+
+      </xsl:if>
       
       <td class="cell-recordSelector"></td>
       <xsl:apply-templates select="fields/field"/>

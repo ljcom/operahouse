@@ -24,7 +24,7 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
                 if (isIE()) {
                     var ex = TransformToHtmlText(clean, xsl.responseText)
                     var cleanedT = stripScript(ex);
-                    cleanedT = cleanedT.split('&lt;').join('<').split('&gt;').join('>');
+                    cleanedT = cleanedT.split('&lt;').join('<').split('&gt;').join('>').split('&amp;').join('&');
                     if (document.getElementById(divnm)) document.getElementById(divnm).innerHTML = cleanedT;
                     ExecuteScript(ex, true);
                 }

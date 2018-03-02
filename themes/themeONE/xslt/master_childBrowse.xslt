@@ -46,47 +46,48 @@
           </h3>
         </div>
         <div>
-          <input style="width:200px; position:absolute; right:25px; top:5px; padding-right:25px" type="text" id="searchBox_{$lowerCode}" name="searchBox_{$lowerCode}" 
-            class="form-control" placeholder="Enter search key..." value="{sqroot/body/bodyContent/browse/info/search}" 
+          <input style="width:200px; position:absolute; right:25px; top:5px; padding-right:25px" type="text" id="searchBox_{$lowerCode}" name="searchBox_{$lowerCode}"
+            class="form-control" placeholder="Enter search key..." value="{sqroot/body/bodyContent/browse/info/search}"
               onkeypress="searchTextChild(event, this.value, '{$lowerCode}');" />
           <button id="clear{$lowerCode}" type="button" class="btn btn-flat" style="position:absolute; right:25px; top:5px; background:none; border:none; display:none" >
             <span aria-hidden="true">&#215;</span>
           </button>
           <script>
             $('#clear<xsl:value-of select="$lowerCode"/>').click(function(event) {
-              searchTextChild(event, '', '<xsl:value-of select="$lowerCode"/>', true);
+            searchTextChild(event, '', '<xsl:value-of select="$lowerCode"/>', true);
             });
-            
+
             $(document).ready(function() {
-              if ($('#searchBox_<xsl:value-of select="$lowerCode"/>').val() != '') {
-                $('#clear<xsl:value-of select="$lowerCode"/>').show();
-              }
+            if ($('#searchBox_<xsl:value-of select="$lowerCode"/>').val() != '') {
+            $('#clear<xsl:value-of select="$lowerCode"/>').show();
+            }
             });
           </script>
         </div>
         <div class="row">
           <div class="col-md-12">
             <div style="border:0px none white;box-shadow:none;" id="content_{$lowerCode}" class="box collapse in">
-              <table class="table table-condensed strip-table-browse" style="border-collapse:collapse;">
-                <thead>
-                  <tr style="background:#3C8DBC; color:white">
-                    <th style="width:28px;"></th>
-                    <xsl:apply-templates select="sqroot/body/bodyContent/browse/header"/>
-                  </tr>
-                </thead>
-                <tbody id="{$lowerCode}">
-                  <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row"/>
-                  <tr>
-                    <td colspan="20" style="padding:0;">
-                      <div class="browse-data accordian-body collapse"
-                           id="{$lowerCode}00000000-0000-0000-0000-000000000000" aria-expanded="false">
-                        Please Wait...
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
+              <div style="border:0px none white;box-shadow:none;">
+                <table class="table table-condensed strip-table-browse" style="border-collapse:collapse;">
+                  <thead>
+                    <tr style="background:#3C8DBC; color:white">
+                      <th style="width:28px;"></th>
+                      <xsl:apply-templates select="sqroot/body/bodyContent/browse/header"/>
+                    </tr>
+                  </thead>
+                  <tbody id="{$lowerCode}">
+                    <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row"/>
+                    <tr>
+                      <td colspan="20" style="padding:0;">
+                        <div class="browse-data accordian-body collapse"
+                             id="{$lowerCode}00000000-0000-0000-0000-000000000000" aria-expanded="false">
+                          Please Wait...
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
               <!-- /.box-body -->
               <div class="box-footer clearfix">
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
@@ -95,7 +96,7 @@
                           onclick="showChildForm('{$lowerCode}','00000000-0000-0000-0000-000000000000')">ADD</button>&#160;
                 </xsl:if>
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowDelete/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
-                  <button class="btn btn-gray-a" onclick="cell_delete('{$lowerCode}')">DELETE</button>&#160;
+                  <button class="btn btn-gray-a" onclick="cell_delete('{$lowerCode}, this')">DELETE</button>&#160;
                 </xsl:if>
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)=1 and (/sqroot/body/bodyContent/browse/info/permission/allowExport/.)=1" >
                   <button class="btn btn-gray-a"
@@ -134,7 +135,7 @@
   </xsl:template>
 
   <xsl:template match="sqroot/body/bodyContent/browse/content/row">
-    
+
     <tr id="tr1_{$lowerCode}{@GUID}" data-parent="#{$lowerCode}" data-target="#{$lowerCode}{@GUID}" data-code="{$lowerCode}" data-guid="{@GUID}"
         class="accordion-toggle cell"
         onclick="showChildForm('{$lowerCode}','{@GUID}', '{$lowerCode}')" onmouseover="this.bgColor='lavender';this.style.cursor='pointer';" onmouseout="this.bgColor='white'">
@@ -142,14 +143,14 @@
       <xsl:apply-templates select="fields/field"/>
     </tr>
     <tr id="tr2_{$lowerCode}{@GUID}">
-      
+
       <td colspan="7" style="padding:0;">
         <div class="browse-data accordian-body collapse" id="{$lowerCode}{@GUID}" aria-expanded="false">
           Please Wait...
         </div>
       </td>
     </tr>
-    
+
 
   </xsl:template>
 

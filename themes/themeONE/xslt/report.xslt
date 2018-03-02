@@ -17,6 +17,7 @@
   <xsl:template match="/">
     <script>
       Sideshow.config.language = "oph";
+      Sideshow.config.autoSkipIntro = true;
       Sideshow.init();
 
       var meta = document.createElement('meta');
@@ -38,7 +39,6 @@
       $("body").addClass("sidebar-mini");
       $("body").addClass("fixed");
 
-
       loadScript('OPHContent/cdn/admin-LTE/js/app.min.js');
 
       document.title='<xsl:value-of select="/sqroot/header/info/title"/>';
@@ -49,6 +49,77 @@
       setCookie('userURL', 'OPHContent/documents/<xsl:value-of select="sqroot/header/info/account" />/<xsl:value-of select="sqroot/header/info/user/userURL"/>', 7);
       setCookie('userName', '<xsl:value-of select="sqroot/header/info/user/userName"/>', 7);
       //setCookie('userId', '<xsl:value-of select="sqroot/header/info/user/userId"/>', 7);
+
+      Sideshow.registerWizard({
+        name: "ss_report",
+        title: "Download a Report",
+        description: "We would like to help you how to download \"Report <xsl:value-of select="/sqroot/header/info/title"/>\".",
+        estimatedTime: "5 Minutes",
+        affects: [
+  		    function(){
+			      return true;
+		      }
+        ]
+      }).storyLine({
+        showStepPosition: false,
+        steps: [          
+    	    {
+		        title: "Welcome to Report \"<xsl:value-of select="/sqroot/header/info/title"/>\"",
+		        text: "Hello \"<xsl:value-of select="sqroot/header/info/user/userName"/>\", are you ready to start download this report?"
+          },
+          {
+	          title: "Report Parameters",
+	          text: "Wait a second, before it you need to know about this \"Report Parameter\". This is the Report Parameters that used by this report, and each parameter will do a filter for the report. Go on try to make a change on parameter or you can go to the next step.",
+	          subject: "#reportParameter",
+            skipIf: function() {
+		    	      return $("#reportParameter").length == 0;
+			      }
+          },
+          {
+	          title: "Download Report",
+	          text: "This two button is generate different type of report just like its name. Now is the time to download your report.",
+	          subject: "#reportButton",
+            targets: "#btnPDF #btnXLS",
+            skipIf: function() {
+                if ($("#btnPDF").length == 0 || $("#btnXLS").length == 0) return true;
+                else return false;
+			      },
+            listeners:{
+              afterStep: function() { 
+                if ($("#btnPDF").length == 1 &amp;&amp; $("#btnXLS").length == 1) Sideshow.gotoStep('finish');
+              }
+            }
+          },
+          {
+	          title: "Download Report",
+	          text: "Now is the time to download your PDF Report. Click \"Show PDF\" button to start downloading.",
+	          subject: "#btnPDF",
+            skipIf: function() {
+		    	      return $("#btnPDF").length == 0;
+			      },
+            listeners:{
+              afterStep: function() { 
+                if ($("#btnPDF").length == 1) Sideshow.gotoStep("finish");
+              }
+            }
+          },          
+          {
+	          title: "Download Report",
+	          text: "Now is the time to download your Excel Report. Click \"Show XLS\" button to start downloading.",
+	          subject: "#btnXLS",
+	          format:"markdown",
+            skipIf: function() {
+		    	      return $("#btnXLS").length == 0;
+			      }
+          },          
+          {
+            name:"finish",
+	          title: "Finish",
+	          text: "That's all <xsl:value-of select="sqroot/header/info/user/userName"/>, it's the end of my help guide. Thank you for let me help you. See you again :) ",
+          }
+	      ]
+      });
+
     </script>
     <!-- Page script -->
 

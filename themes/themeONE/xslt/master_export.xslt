@@ -121,7 +121,7 @@
         <xsl:when test="sqroot/body/bodyContent/form/rows/row/fields/field">
           <div class="row">
             <div class="col-md-12">
-              <div class="nav-tabs-custom">
+              <div id="exportNavTab" class="nav-tabs-custom">
                 <!--Menu Tab-->
                 <ul class="nav nav-tabs">
                   <li class="active">

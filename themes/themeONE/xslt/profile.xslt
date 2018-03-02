@@ -60,8 +60,6 @@
           estimatedTime: "5 Minutes",
           affects: [
   		      function(){
-              //Check the condition for this Sideshow, After this checking, just return a boolean indicating if this tutorial will be available.
-              //return 1 or true --> to make avalaible || return 0 or false --> to make it unavalaible
 			        return true;
 		        }
           ]
@@ -78,7 +76,8 @@
               target: "#uploadBox",
 	            subject: "#profileBox",
 	            format:"markdown",
-              autoContinue: true, completingConditions: [
+              autoContinue: true, 
+              completingConditions: [
 		    	      function(){
 		    		      return $('#uploadBox').is(':visible');
 		    	      }
@@ -108,79 +107,54 @@
 	            subject: "#profileTabBox",
               targets: "#journal h3",
               lockSubject:true,
-	            format:"markdown"	
+	            format:"markdown",
+              listeners: {
+		    	      beforeStep: function(){
+                  $("#profileTabBox").children('div').children('ul').children('li').eq(0).children('a').click();
+		    	      }
+		          }	
             },
             {
 	            title: "Your Profile",
-	            text: "##sorot tab profile## Click this tab for update your personal profile",
-	            subject: "tab profile",
-	            format:"markdown"	
+	            text: "Here you can edit or change your profile as you wish",
+	            subject: "#profileTabBox",
+              lockSubject:true,
+              targets: "#formProfile input",
+	            format:"markdown",
+              listeners: {
+		    	      beforeStep: function(){
+                  $("#profileTabBox").children('div').children('ul').children('li').eq(1).children('a').click();
+		    	      }
+		          }	
             },
-{
-	title: "Profile ##Multiple targets##",
-	text: "##profile input## If you have update your personal profile feel free to change that information in these columns",
-	subject: "profile",
-	targets: "profile inputs",
-	format:"markdown"	
-},
-{
-	title: "Tab Delegation",
-	text: "##sorot tab delegation## Click this tab for set your delagation account",
-	subject: "tab delegation",
-	format:"markdown"	
-},
-{
-	title: "Delegation",
-	text: "##sorot tombol add new delegation## Click this button for create a delegation ",
-	subject: "delegation",
-	format:"markdown"	
-},
-{
-	title: "Delegate to",
-	text: "##delegation input - kolom delegate to ## Add user name to delegated your account in this column ",
-	subject: "delegate to",
-	format:"markdown"	
-},
-{
-	title: "For Modules",
-	text: "##delegation input - kolom for modules## Add module that delegated in this column ",
-	subject: "for modules",
-	format:"markdown"	
-},
-{
-	title: "Button Save",
-	text: "##sorot button save## Click save button to record your delegation ",
-	subject: "button save",
-	format:"markdown"	
-},
-{
-	title: "Button Delete",
-	text: "##sorot button delete## Click delete button to remove your delegation ",
-	subject: "button delete",
-	format:"markdown"	
-},
-{
-	title: "Tab Change Password",
-	text: "##sorot tab Change Password## Click this tab for change your account password",
-	subject: "tab Change Password",
-	format:"markdown"	
-},
-{
-	title: "Change Password ##Multiple targets##",
-	text: "##password input## Fill these columns to change your account password. Minimum Password Requirement is 6 Characters!",
-	subject: "change password",
-	targets: "password inputs",
-	format:"markdown"	
-},
-{
-	title: "Button Submit",
-	text: "##sorot button submit## Click submit button to apply your new password ",
-	subject: "button submit",
-	format:"markdown"	
-},
-
-
-            
+            {
+	            title: "Delegation",
+	            text: "Set Delegation is when you want to delegate your work to another user.",
+	            subject: "#profileTabBox",
+              lockSubject:true,
+	            format:"markdown",	
+              listeners: {
+		    	      beforeStep: function(){
+                  $("#profileTabBox").children('div').children('ul').children('li').eq(2).children('a').click();
+		    	      }
+		          }	
+            },
+            {
+	            title: "Change Password",
+	            text: "You can change your account password here.",
+	            subject: "#profileTabBox",
+              lockSubject:true,
+	            format:"markdown",	
+              listeners: {
+		    	      beforeStep: function(){
+                  $("#profileTabBox").children('div').children('ul').children('li').eq(3).children('a').click();
+		    	      }
+		          }	
+            },
+            {
+	            title: "Finish",
+	            text: "That's all <xsl:value-of select="sqroot/header/info/user/userName"/>, it's the end of my help guide. Thank you for let me help you. See you again :) ",
+            }
 	      ]
       });
 

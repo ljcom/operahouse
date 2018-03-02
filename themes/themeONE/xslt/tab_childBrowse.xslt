@@ -67,26 +67,27 @@
         <div class="row">
           <div class="col-md-12">
             <div style="border:0px none white;box-shadow:none;" id="content_{/sqroot/body/bodyContent/browse/info/code}" class="box collapse in">
-              <table class="table table-condensed strip-table-browse" style="border-collapse:collapse;">
-                <thead>
-                  <tr style="background:#3C8DBC; color:white">
-                    <th style="width:28px;"></th>
-                    <xsl:apply-templates select="sqroot/body/bodyContent/browse/header"/>
-                  </tr>
-                </thead>
-                <tbody id="{$lowerCode}">
-                  <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row"/>
-                  <tr>
-                    <td colspan="20" style="padding:0;">
-                      <div class="browse-data accordian-body collapse"
-                           id="{$lowerCode}00000000-0000-0000-0000-000000000000" aria-expanded="false">
-                        Please Wait...
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
+              <div style="border:0px none white;box-shadow:none;">
+                <table class="table table-condensed strip-table-browse" style="border-collapse:collapse;">
+                  <thead>
+                    <tr style="background:#3C8DBC; color:white">
+                      <th class="cell-recordSelectors" style="width:28px;"></th>
+                      <xsl:apply-templates select="sqroot/body/bodyContent/browse/header"/>
+                    </tr>
+                  </thead>
+                  <tbody id="{$lowerCode}">
+                    <xsl:apply-templates select="sqroot/body/bodyContent/browse/content/row"/>
+                    <tr>
+                      <td colspan="20" style="padding:0;">
+                        <div class="browse-data accordian-body collapse"
+                             id="{$lowerCode}00000000-0000-0000-0000-000000000000" aria-expanded="false">
+                          Please Wait...
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
               <!-- /.box-body -->
               <div class="box-footer clearfix">
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
@@ -95,7 +96,7 @@
                           onclick="showChildForm('{$lowerCode}','00000000-0000-0000-0000-000000000000')">ADD</button>&#160;
                 </xsl:if>
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowDelete/.)='1' and (/sqroot/body/bodyContent/browse/info/curState/@substateCode &lt; 500 or /sqroot/header/info/code/settingMode/. != 'T')">
-                  <button class="btn btn-gray-a" onclick="cell_delete('{$lowerCode}')">DELETE</button>&#160;
+                  <button class="btn btn-gray-a" onclick="cell_delete('{$lowerCode}', this)">DELETE</button>&#160;
                 </xsl:if>
                 <xsl:if test="(/sqroot/body/bodyContent/browse/info/permission/allowAdd/.)=1 and (/sqroot/body/bodyContent/browse/info/permission/allowExport/.)=1" >
                   <button class="btn btn-gray-a"

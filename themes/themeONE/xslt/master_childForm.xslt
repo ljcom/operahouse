@@ -112,7 +112,7 @@
             <!--location: 0 header; 1 child; 2 browse
               location: browse:10, header form:20, browse anak:30, browse form:40-->
 
-            <xsl:if test="/sqroot/body/bodyContent/form/info/permission/allowAddSave = 1">
+            <xsl:if test="/sqroot/body/bodyContent/form/info/permission/allowAdd = 1">
               <button id="child_button_addSave" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 41, 'form{sqroot/body/bodyContent/form/info/code/.}');">SAVE &amp; ADD NEW</button>&#160;
             </xsl:if>
             

@@ -2051,28 +2051,32 @@ function back() {
 }
 
 function saveConfirm() {
-    $("input[type='text'], input[type='checkbox'], select").each(function () {
-        var t = $(this);
-        if ($(this).data("old") != undefined) {
+    // kykny tdk perlu di validasi lg, krn sudah di validasi sebelumny di checkChanges
 
-            if ((t.prop("type") == "text" || t.prop("type") == "checkbox") && ($(this).val() != $(this).data("old")) ||
-                ((t.prop("type") == "select-one") && ($(this).data("value") != $(this).data("old")))) {
+    //$("input[type='text'], input[type='checkbox'], select").each(function () {
+    //    var t = $(this);
+    //    if ($(this).data("old") != undefined) {
 
-                if (t.prop("type") == "text" || t.prop("type") == "checkbox") $(this).data("old", $(this).val());
-                if (t.prop("type") == "select-one") {
-                    $(this).data("old", $(this).data("value"));
-                    $(this).data("oldtext", t[0].options[t[0].selectedIndex].text);
-                }
-                $('#button_save').hide();
-                $('#button_cancel').hide();
-                $('#button_save2').hide();
-                $('#button_cancel2').hide();
-            }
-        }
-    })
+    //        if ((t.prop("type") == "text" || t.prop("type") == "checkbox") && ($(this).val() != $(this).data("old")) ||
+    //            ((t.prop("type") == "select-one") && ($(this).data("value") != $(this).data("old")))) {
 
+    //            if (t.prop("type") == "text" || t.prop("type") == "checkbox") $(this).data("old", $(this).val());
+    //            if (t.prop("type") == "select-one") {
+    //                $(this).data("old", $(this).data("value"));
+    //                $(this).data("oldtext", t[0].options[t[0].selectedIndex].text);
+    //            }
+    //            $('#button_save').hide();
+    //            $('#button_cancel').hide();
+    //            $('#button_save2').hide();
+    //            $('#button_cancel2').hide();
+    //        }
+    //    }
+    //})
+    $('#button_save').hide();
+    $('#button_cancel').hide();
+    $('#button_save2').hide();
+    $('#button_cancel2').hide();
 }
-
 
 
 

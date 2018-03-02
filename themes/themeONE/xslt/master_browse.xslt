@@ -111,6 +111,7 @@
           <div class=" browse-dropdown-status">
             <div class="dropdown">
               <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" >
+              <!--Issue in IE
                 <ix class="icon-doc-draft">
                   <span class="path1"></span>
                   <span class="path2"></span>
@@ -127,8 +128,9 @@
                   <span class="path13"></span>
                   <span class="path14"></span>
                   <span class="path15"></span>
-                </ix>&#160;
-                <span>
+                </ix>&#160;-->
+                <ix class="fa fa-file-text-o" aria-hidden="true"></ix>&#160;
+                <span style="font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:bold; font-size:smaller">
                   <xsl:value-of select="translate(sqroot/body/bodyContent/browse/info/curState/@substateName, $smallcase, $uppercase)"/>
                 </span>
                 &#160;
@@ -141,7 +143,7 @@
           </div>
           <div class="box-tools">
             <xsl:if test="sqroot/body/bodyContent/browse/info/permission/allowExport = 1">
-              <button type="button" style="margin-top:10px;" class="btn btn-success" onclick="window.location='?code={sqroot/header/info/code/id}&amp;mode=export'">
+              <button id="btnExport" type="button" style="margin-top:10px;" class="btn btn-success" data-clicked="0" onclick="window.location='?code={sqroot/header/info/code/id}&amp;mode=export'">
                 <strong>EXPORT DATA</strong>
               </button>
             </xsl:if>
@@ -188,7 +190,7 @@
       <div class="row visible-phone">
         <div class="col-md-12">
           <div class="box" style="border:0px none white;box-shadow:none;">
-            <table class="table table-condensed strip-table-browse browse-table-an" style="border-collapse:collapse; margin:auto;">
+            <table id="tblBrowse" class="table table-condensed strip-table-browse browse-table-an" style="border-collapse:collapse; margin:auto;">
               <thead>
                 <tr>
                   <xsl:apply-templates select="sqroot/body/bodyContent/browse/header/column[@mandatory=1]" />
