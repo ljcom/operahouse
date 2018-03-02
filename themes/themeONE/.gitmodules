@@ -1,0 +1,3 @@
+[submodule "themeone"]
+	path = themeone
+	url = https://github.com/ljcom/themeone.git

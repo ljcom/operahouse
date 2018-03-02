@@ -191,7 +191,7 @@
         <div class="col-md-12">
           <div class="box" style="border:0px none white;box-shadow:none;">
             <table id="tblBrowse" class="table table-condensed strip-table-browse browse-table-an" style="border-collapse:collapse; margin:auto;">
-              <thead>
+              <thead id="browseHead">
                 <tr>
                   <xsl:apply-templates select="sqroot/body/bodyContent/browse/header/column[@mandatory=1]" />
                   <th>
@@ -441,7 +441,7 @@
         <xsl:if test="count(fields/field[@mandatory=0])>0">
           <table class="fixed-table">
             <tr>
-              <td id="summary{@GUID}">
+              <td id="summary{@GUID}" name="summary">
                 <xsl:apply-templates select="fields/field[@mandatory=0]" />&#160;
               </td>
             </tr>

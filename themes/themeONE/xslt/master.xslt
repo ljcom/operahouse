@@ -226,23 +226,56 @@
           },
           {
 	          title: "Table Browse",
-	          text: "Here is your table browse. In this table browse you can see your data.",
+	          text: "Here is your table browse. In this table browse you can see your data. Try scroll the page up adn down if you dont see the highlight.",
 	          subject: "#tblBrowse",
             lockSubject:true
           },
           {
 	          title: "Sorting The Data",
-	          text: "To sort your data, you can click it's field title except for Summary and Action fields.",
-	          subject: "#tblBrowse th",
-            targets: "#tblBrowse th",
-            lockSubject:true
+	          text: "To sort your data, you can click it's field title except for Summary and Action fields. Try scroll the page up and down if you dont see the highlight.",
+	          subject: "#browseHead",
+            targets: "td[onclick*='sort']"
           },
           {
 	          title: "Summary",
-	          text: "If you click the summary, you can view the detail will be expanded.",
-	          subject: "#tblBrowse",
-            targets: "#tblBrowse td",
-            lockSubject:true
+	          text: "If you click the summary, you can view the detail will be expanded. Try Click under the red marked arrow to see the differents.",
+	          subject: "#browseContent",
+            targets: "td[id^='summary']", 
+            autoContinue: true,
+            completingConditions: [
+		    	    function(){
+		    		    return $("div[id^='brodeta']").is(':visible');
+		    	    }
+		        ]              
+          },
+          {
+	          title: "Summary Content",
+	          text: "In this summary content box you can see the detail of summary content it self.",
+	          subject: "div[id^='brodeta']:visible",
+            lockSubjects:true
+          },
+          {
+	          title: "Action Button Inactive",
+	          text: "This button function is to make one of your data becomes incative",
+	          subject: "td[class='browse-action-button']:eq(0)",
+            lockSubject:true,
+            targets: "a[href*='inactivate']:eq(0)"
+          },
+          {
+	          title: "Action Button Edit",
+	          text: "This button function is to modify one of your data or you can just view what is the more detail that this data has.",
+	          subject: "td[class='browse-action-button']:eq(0)",
+            lockSubject:true,
+            targets: "a[id^='edit']:eq(0)"
+          },
+          {
+	          title: "Page Numbers",
+	          text: "This is the page number. You can switch between the page by clikcing the number you want.",
+	          subject: "#pagenumbers",
+            lockSubject:true,
+            skipIf: function() {
+		    	      return $("#pagenumbers").children().length == 0;
+			      },
           },
           {
 	          title: "Finish",

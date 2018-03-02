@@ -1,3 +1,9 @@
 [submodule "themes/themeTHREE"]
 	path = themes/themeTHREE
 	url = https://github.com/ljcom/themeTHREE.git
+[submodule "themes/themeFIVE"]
+	path = themes/themeFIVE
+	url = https://github.com/ljcom/themeFIVE.git
+[submodule "themes/themeFOUR"]
+	path = themes/themeFOUR
+	url = https://github.com/ljcom/themeFOUR.git
