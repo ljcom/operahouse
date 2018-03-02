@@ -7,3 +7,6 @@
 [submodule "themes/themeFOUR"]
 	path = themes/themeFOUR
 	url = https://github.com/ljcom/themeFOUR.git
+[submodule "themes/themeTWO"]
+	path = themes/themeTWO
+	url = https://github.com/ljcom/themeTWO.git
