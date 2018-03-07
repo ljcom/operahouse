@@ -126,73 +126,6 @@ function getUnique() {
     return [year, month, day, h, n, s].join('');
 }
 
-//connection
-function signIn(withCapcay) {
-    //if (top.document.domain == window.location.hostname) {
-    withCapcay = (withCapcay == 1) ? 1 : 0;
-    var uid = getCookie('userId');
-    if ($("#userid").val() != "") uid = $("#userid").val();
-    if (getCode() == 'lockscreen') uid = getCookie('userId');
-    var pwd = $("#pwd").val();
-
-    var dataForm = $('form').serialize() + '&source=' + window.location.toString().replace('&', '*').replace('?', '*') //.split('_').join('');
-
-    var dfLength = dataForm.length;
-    dataForm = dataForm.substring(2, dfLength);
-    dataForm = dataForm.split('%3C').join('%26lt%3B');
-    path = "OPHCore/api/default.aspx?mode=signin&userid=" + uid + "&pwd=" + pwd + "&withCaptcha=" + withCapcay;
-
-    $.ajax({
-        url: path,
-        data: dataForm,
-        type: 'POST',
-        dataType: "xml",
-        timeout: 80000,
-        beforeSend: function () {
-            //setCursorWait(this);
-        },
-        success: function (data) {
-            var x = $(data).find("sqroot").children().each(function () {
-                var msg = $(this).text();
-
-                var landingPage = (getCookie('lastPar') == null || getCookie('lastPar') == '') ? '?' : getCookie('lastPar');
-
-                if (msg != '') {
-                    if ($(this)[0].nodeName == "userGUID") {
-                        //setCookie('userId', $("#userid").val(), 7);
-                        setCookie('userId', uid, 7);
-                        window.location = landingPage;
-                    }
-                    if ($(this)[0].nodeName == "message") showMessage(msg, 4);
-                }
-                else {
-
-                }
-            });
-
-
-        }
-    });
-
-}
-
-function clearLoginText() {
-    $("#userid").val('');
-    $("#pwd").val('');
-}
-
-function signOut(f) {
-
-    var path = 'OPHCore/api/default.aspx?mode=signout' + '&unique=' + getUnique();
-    $.post(path).done(function () {
-        setCookie("cartID", "", 0, 0, 0);
-        setCookie("isLogin", "0", 0, 1, 0);
-        if (typeof f == "function") f();
-        goHome()
-    });
-
-}
-
 //interface
 function loadContent(nbpage, f) {
     //main content
@@ -454,7 +387,8 @@ function preview(flag, code, GUID, formid, t) {
     
 }
 
-function previewFunction(flag, code, GUID, formid, dataFrm, t) {
+function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
+    if (flag == undefined) flag = 1;
     if (flag > 0) {
         var path = 'OPHCore/api/default.aspx?mode=preview&code=' + code + '&flag=' + flag + '&cfunctionlist=' + GUID;
         var thisForm = 'form';
@@ -470,22 +404,27 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t) {
             var dataForm = new FormData();
             dataFrm.split('&').forEach(function (i) {
                 d = i.split('=');
-                dataForm.append(d[0], d[1]);
+                dataForm.append(d[0].toString(), d[1].toString());
             });
         } 
+
 
         $.ajax({
             url: path,
             data: dataForm,
             type: 'POST',
-            dataType: "xml",
+            enctype: 'multipart/form-data',
+            cache: false,
+            contentType: false,
+            processData: false,
+            //dataType: "xml",
             timeout: 80000,
             beforeSend: function () {
                 //setCursorWait(this);
             },
             success: function (data) {
                 var x = $(data).find("message").children().each(function () {
-                    $(this).text();
+                    //$(this).text();
                     if (document.getElementById(this.tagName)) {
                         if (document.getElementById(this.tagName).type == "checkbox") {
                             if ($(this).text() == "1") {
@@ -584,7 +523,7 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t) {
                             //EndBy eLs
                         }
                     }
-
+                    if (typeof afterSuccess == "function") afterSuccess(data);
 
                 });
             }

@@ -293,6 +293,8 @@ Partial Class OPHCore_API_default
                     xmlstr = getXML(sqlstr)
                     isSingle = False
                 End If
+            Case "gConnect"
+
             Case Else 'signin
                 Dim userid = getQueryVar("userid")
                 Dim pwd = getQueryVar("pwd")
