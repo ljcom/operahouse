@@ -1084,67 +1084,71 @@ Public Class cl_base
 		'GC.Collect()
 		Return result
 	End Function
-	Public Function getXML(ByVal sqlstr As String, Optional ByVal sqlconstr As String = "") As String
-		Dim result As String
+    Public Function getXML(ByVal sqlstr As String, Optional ByVal sqlconstr As String = "", Optional isXML As Boolean = 1) As String
+        Dim result As String
 
-		Dim myConnectionString As String
-		' If the connection string is null, usse a default.
-		myConnectionString = contentOfdbODBC
-		If myConnectionString = "" And sqlconstr = "" Then
-			'SignOff()
-			Return Nothing
-			Exit Function
-		End If
+        Dim myConnectionString As String
+        ' If the connection string is null, usse a default.
+        myConnectionString = contentOfdbODBC
+        If myConnectionString = "" And sqlconstr = "" Then
+            'SignOff()
+            Return Nothing
+            Exit Function
+        End If
 
 
-		If sqlconstr <> "" Then
-			myConnectionString = sqlconstr
-		End If
+        If sqlconstr <> "" Then
+            myConnectionString = sqlconstr
+        End If
 
-		Dim myConnection As New SqlConnection(myConnectionString)
-		Dim myInsertQuery As String = sqlstr
+        Dim myConnection As New SqlConnection(myConnectionString)
+        Dim myInsertQuery As String = sqlstr
 
-		Dim myCommand As New SqlCommand(myInsertQuery)
-		Try
-			'Dim Reader As SqlClient.SqlDataReader
-			myCommand.Connection = myConnection
-			myConnection.Open()
-			myCommand.CommandTimeout = 600
-			Dim r As XmlReader = myCommand.ExecuteXmlReader()
+        Dim myCommand As New SqlCommand(myInsertQuery)
+        Try
+            'Dim Reader As SqlClient.SqlDataReader
+            myCommand.Connection = myConnection
+            myConnection.Open()
+            myCommand.CommandTimeout = 600
+            Dim r As XmlReader = myCommand.ExecuteXmlReader()
 
-			'Reader = myCommand.ExecuteReader()
+            'Reader = myCommand.ExecuteReader()
 
-			'Reader.Read()
-			r.Read()
-			'Dim RegularExp = "[^\x09\x0A\x0D\x20-\xD7FF\xE000-\xFFFD\x10000-x10FFFF]"
-			'Return Regex.Replace(StrInput, RegularExp, String.Empty)
-			'result = Regex.Replace(r.ReadOuterXml(), "[^\x08\x09\x0A\x0D\x20-\xD7FF\xE000-\xFFFD\x10000-x10FFFF]", "")
-			result = r.ReadOuterXml()
+            'Reader.Read()
+            r.Read()
+            'Dim RegularExp = "[^\x09\x0A\x0D\x20-\xD7FF\xE000-\xFFFD\x10000-x10FFFF]"
+            'Return Regex.Replace(StrInput, RegularExp, String.Empty)
+            'result = Regex.Replace(r.ReadOuterXml(), "[^\x08\x09\x0A\x0D\x20-\xD7FF\xE000-\xFFFD\x10000-x10FFFF]", "")
+            If isXML Then
+                result = r.ReadOuterXml()
+            Else
+                result = r.Value
+            End If
 
-			'If Reader.HasRows Then
-			'result = Reader.Item(0)
-			'Else
-			'result = Nothing
-			'End If
+            'If Reader.HasRows Then
+            'result = Reader.Item(0)
+            'Else
+            'result = Nothing
+            'End If
 
-		Catch ex As SqlException
-			'Response.Write(ex.Message)
-			contentofError = ex.Message & "<br>"
-			Return Nothing
-		Catch ex As Exception
-			'Response.Write(ex.Message)
-			contentofError = ex.Message & "<br>"
-			Return Nothing
-		Finally
-			myCommand.Connection.Close()
-			myConnection.Close()
-		End Try
-		'GC.Collect()
-		Return result
+        Catch ex As SqlException
+            'Response.Write(ex.Message)
+            contentofError = ex.Message & "<br>"
+            Return Nothing
+        Catch ex As Exception
+            'Response.Write(ex.Message)
+            contentofError = ex.Message & "<br>"
+            Return Nothing
+        Finally
+            myCommand.Connection.Close()
+            myConnection.Close()
+        End Try
+        'GC.Collect()
+        Return result
 
-	End Function
+    End Function
 
-	Public Function SelectSqlSrvRows(ByVal query As String, ByVal Optional sqlconstr As String = "") As DataSet
+    Public Function SelectSqlSrvRows(ByVal query As String, ByVal Optional sqlconstr As String = "") As DataSet
 
 		Dim myConnectionString As String = sqlconstr
 		If sqlconstr = "" Then myConnectionString = contentOfdbODBC

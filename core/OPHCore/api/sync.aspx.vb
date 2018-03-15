@@ -37,7 +37,7 @@ Partial Class OPHCore_api_sync
                 End If
             Case "reqcorescript"
                 sqlstr = "exec core.createDB '" & accountId & "', @isScriptOnly=1"
-                xmlstr = runSQLwithResult(sqlstr, contentOfsequoiaCon)
+                xmlstr = getXML(sqlstr, contentOfsequoiaCon, 0)
 
                 result = xmlstr.Replace("&lt;", "<").Replace("&gt;", ">")
                 isXML = False

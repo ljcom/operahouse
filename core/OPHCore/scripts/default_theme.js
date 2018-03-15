@@ -54,9 +54,9 @@ function getMode() {
     if (mode == 'export') {
         var ret = 'export'
     } else {
-        if (getGUID() && getGUID != '') 
+        if (getGUID() && getGUID != '')
             var ret = 'form'
-        else 
+        else
             var ret = 'browse'
     }
     return ret
@@ -151,20 +151,19 @@ function loadContent(nbpage, f) {
 }//
 
 function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
-    if (parentKey == undefined)        {
-        parentKey=getCookie(code.toLowerCase()+'_parentKey');
-        GUID=getCookie(code.toLowerCase()+'_parentGUID');
+    if (parentKey == undefined) {
+        parentKey = getCookie(code.toLowerCase() + '_parentKey');
+        GUID = getCookie(code.toLowerCase() + '_parentGUID');
         mode = getCookie(code.toLowerCase() + '_browseMode');
-        pcode= getCookie(code.toLowerCase() + '_pcode');
+        pcode = getCookie(code.toLowerCase() + '_pcode');
     }
     else {
-        setCookie(code.toLowerCase()+'_parentKey', parentKey);
-        setCookie(code.toLowerCase()+'_parentGUID', GUID);
-        setCookie(code.toLowerCase()+'_pcode', pcode);
+        setCookie(code.toLowerCase() + '_parentKey', parentKey);
+        setCookie(code.toLowerCase() + '_parentGUID', GUID);
+        setCookie(code.toLowerCase() + '_pcode', pcode);
     }
     d = '<div><div class="box box-solid box-default" style="box-shadow:0px;border:none" id="child' + code + GUID + '"></div></div>';
-    if ($('#child' + code + GUID).length==0)
-    {
+    if ($('#child' + code + GUID).length == 0) {
         $('#tr2_' + pcode + GUID).children("td").append(d);
     }
     pageNo = (pageNo == undefined) ? 1 : pageNo;
@@ -173,7 +172,7 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
 
     var divName = ['child' + String(code).toLowerCase() + GUID];
     //if (code == 'modlinfo' || code == 'modlcolminfo' || code =='modlcolm')
-    if(mode=='inline')
+    if (mode == 'inline')
         var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];
     else
         var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
@@ -349,7 +348,7 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
         else {
             var data = new FormData();
             dataFrm.split('&').forEach(function (i) {
-                d=i.split('=');
+                d = i.split('=');
                 data.append(d[0], d[1]);
             });
         }
@@ -383,30 +382,31 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
 
 function preview(flag, code, GUID, formid, t) {
 
-    previewFunction(flag, code, GUID, formid, null, t); 
-    
+    previewFunction(flag, code, GUID, formid, null, t);
+
 }
 
 function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
     if (flag == undefined) flag = 1;
+    if (GUID == undefined) GUID = "00000000-0000-0000-0000-000000000000"
     if (flag > 0) {
         var path = 'OPHCore/api/default.aspx?mode=preview&code=' + code + '&flag=' + flag + '&cfunctionlist=' + GUID;
         var thisForm = 'form';
         if (dataFrm == null) {
             if (formid != undefined) thisForm = '#' + formid;
-            var dataForm = $(thisForm).serialize()
+             dataFrm = $(thisForm).serialize()
 
-            var dfLength = dataForm.length;
-            dataForm = dataForm.substring(0, dfLength);
-            dataForm = dataForm.split('%3C').join('%26lt%3B');
+            //var dfLength = dataFrm.length;
+            //dataFrm = dataFrm.substring(0, dfLength);
+            //dataFrm = dataFrm.split('%3C').join('%26lt%3B');
         }
-        else {
-            var dataForm = new FormData();
-            dataFrm.split('&').forEach(function (i) {
-                d = i.split('=');
-                dataForm.append(d[0].toString(), d[1].toString());
-            });
-        } 
+        //else {
+        var dataForm = new FormData();
+        dataFrm.split('&').forEach(function (i) {
+            d = i.split('=');
+            dataForm.append(d[0].toString(), d[1].toString());
+        });
+        //} 
 
 
         $.ajax({
@@ -442,7 +442,7 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
                                     if (checktext == this.tagName + '_name') {
                                         var newOption = new Option($(this.nextSibling).text(), $(this).text(), true, true);
                                         $("#" + this.tagName).append(newOption).trigger('change');
-                                    }else {
+                                    } else {
                                         autosuggestSetValue(this.tagName, code, this.tagName, this.textContent);
                                     }
                                 } else {
@@ -656,7 +656,7 @@ function executeFunction(code, GUID, action, location) {
 
     if (action == "delete" && location == 40) {
         if (isAction == 1) {
-            preview(1, code, GUID, "form"+code, null);
+            preview(1, code, GUID, "form" + code, null);
         }
     }
 
@@ -676,8 +676,8 @@ function executeFunction(code, GUID, action, location) {
                 //location: browse:10, header form:20, browse anak:30, browse form:40
                 //if ($("#tr1_" + code + GUID) && location != '10' && action == "delete") {
                 if (action == "delete" && (location == 30 || location == 40)) {
-                    var g=GUID.split(",");
-                    g.forEach(function(i){
+                    var g = GUID.split(",");
+                    g.forEach(function (i) {
                         $("#tr1_" + code + i).remove();
                         $("#tr2_" + code + i).remove();
                     })
@@ -711,9 +711,9 @@ function downloadModule(code, exportMode) {
 function downloadChild(code, t) {
     var titleName = '';
     var subtitleName = '';
-   
-    ParentGUID=$(t).parent().parent().parent().parent().parent().parent().parent().data("parentguid");
-    if (ParentGUID==undefined) ParentGUID=getQueryVariable('GUID');
+
+    ParentGUID = $(t).parent().parent().parent().parent().parent().parent().parent().data("parentguid");
+    if (ParentGUID == undefined) ParentGUID = getQueryVariable('GUID');
     ParentGUID = '&parentGUID=' + ParentGUID;
     window.open('OPHCore/api/msg_rptDialog.aspx?gbox=1&code=' + code + '&parameter=&outputType=3&' + ParentGUID + '&titleName=' + titleName + '&subtitleName=' + subtitleName + ' ' + Date());
 }
@@ -721,22 +721,22 @@ function downloadChild(code, t) {
 //other
 
 function storeHash(code, anchor) {
-    setCookie('hash_'+code, anchor, 1);
+    setCookie('hash_' + code, anchor, 1);
 }
-function getHash(code){
-    hash=getCookie('hash_'+code);
-    if (hash!='')    {
+function getHash(code) {
+    hash = getCookie('hash_' + code);
+    if (hash != '') {
         //alert(hash);
-        $('a[href*="'+hash+'"]').trigger('click');
+        $('a[href*="' + hash + '"]').trigger('click');
 
         //$('a.'+hash).trigger("click");
     }
     //return hash;
 }
-function wait(ms){
+function wait(ms) {
     var start = new Date().getTime();
     var end = start;
-    while(end < start + ms) {
+    while (end < start + ms) {
         end = new Date().getTime();
     }
 }

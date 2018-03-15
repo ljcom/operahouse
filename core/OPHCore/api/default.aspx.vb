@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Net
 'Imports System.Net
 
 Partial Class OPHCore_API_default
@@ -112,7 +113,7 @@ Partial Class OPHCore_API_default
                 Next
 
                 sqlstr = populateSaveXML(1, code, preview, fieldattachment, GUID)
-                sqlstr = sqlstr.Replace("#95#", "_")
+                sqlstr = sqlstr.Replace("#95#", "_").Replace("%2F", "/")
                 sqlstr = sqlstr & ", @preview=" & IIf(preview = "", 0, preview)
                 xmlstr = runSQLwithResult(sqlstr, curODBC)
 
@@ -294,7 +295,25 @@ Partial Class OPHCore_API_default
                     isSingle = False
                 End If
             Case "gConnect"
-
+                Dim tokenid = getQueryVar("gid")
+                'Dim tokenid = "eyJhbGciOiJSUzI1NiIsImtpZCI6ImFjMmI2M2ZhZWZjZjgzNjJmNGM1MjhlN2M3ODQzMzg3OTM4NzAxNmIifQ.eyJhenAiOiIyMzQ4MTgyMzE2NDQtajRmZXFwYzZjM2dnMGlrczk1ODA4ZWc1bnV0bGZxdXUuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIyMzQ4MTgyMzE2NDQtajRmZXFwYzZjM2dnMGlrczk1ODA4ZWc1bnV0bGZxdXUuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDA4MzQyMDY2MjE0NDc2ODk1OTUiLCJlbWFpbCI6InNhbXVlbC5zdXJ5YUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6IkdnVDhXWlZpaTBKZXlSQm5BRUY0eVEiLCJleHAiOjE1MjA0MjA2ODcsImlzcyI6ImFjY291bnRzLmdvb2dsZS5jb20iLCJqdGkiOiI1M2YyOGY3NWUyM2EwOWU4NjcxOGRjNTIxNjQ5N2YxMmZmNWNkN2FiIiwiaWF0IjoxNTIwNDE3MDg3LCJuYW1lIjoiU2FtdWVsIFN1cnlhIiwicGljdHVyZSI6Imh0dHBzOi8vbGg2Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tYTk2ckZuRUpOVUkvQUFBQUFBQUFBQUkvQUFBQUFBQUFWRkkvUXhleU1YNndxc3cvczk2LWMvcGhvdG8uanBnIiwiZ2l2ZW5fbmFtZSI6IlNhbXVlbCIsImZhbWlseV9uYW1lIjoiU3VyeWEiLCJsb2NhbGUiOiJlbiJ9.Rcml4KiTJ-znmGTYsjlCLdumbuSF-TD1dwju6ORQmETQx44T7hdJer5FSS-a9-EDzzqzY0nLDktMPvhh5n6hoxdYS2Tn4liNPsrsdGFSIE2M3KyrHNYut6QyCuQ1M0NgKDCLQ2Yp8XK6AWry3wMaJ-64fMMnvsx2ozDpNzeVMIXV6NHT718wFnOywW-mTb6YbfIjEOajRhhAPu6nvGM7vtmTUKlvRe8q2VlYU_QbC2TS8Ppn_arCbCOqd_Zmk9GaN8twsMcTapCxwZWzNAGcM5o68KErfYkxswgF678hzUBADeKM3YBPR0sfFTsb59XvPs89tQpsRGqtbvHBrkEgBQ"
+                Dim client As WebClient = New WebClient()
+                Dim url = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=" & tokenid
+                Dim result As String = client.DownloadString(url)
+                Dim userid = "", pwd = "12345678"
+                For Each rx In result.Split(",")
+                    If rx.Split(":")(0).IndexOf("email""") > 0 Then
+                        userid = rx.Split(":")(1).Replace("""", "").Replace(" ", "")
+                    End If
+                Next
+                sqlstr = "exec api.verifyPassword '" & curHostGUID & "', '" & userid & "', '" & pwd & "', " & 1
+                xmlstr = getXML(sqlstr, curODBC)
+                If xmlstr IsNot Nothing And xmlstr <> "" Then
+                    curUserGUID = XDocument.Parse(xmlstr).Element("sqroot").Element("userGUID").Value
+                    Session("userGUID") = curUserGUID
+                    'Response.Cookies("hostGUID").Value = curHostGUID
+                    Response.Cookies("isLogin").Value = 1
+                End If
             Case Else 'signin
                 Dim userid = getQueryVar("userid")
                 Dim pwd = getQueryVar("pwd")
