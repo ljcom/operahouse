@@ -1,19 +1,22 @@
 ﻿
+Imports System.IO
+
 Partial Class OPHCore_api_sync
-	Inherits cl_base
+    Inherits cl_base
 
-	Private Sub OPHCore_api_sync_Load(sender As Object, e As EventArgs) Handles Me.Load
-		loadAccount()
+    Private Sub OPHCore_api_sync_Load(sender As Object, e As EventArgs) Handles Me.Load
+        loadAccount()
 
-		Dim curODBC = contentOfdbODBC
-		Dim DBCore = contentOfsqDB
+        Dim curODBC = contentOfdbODBC
+        Dim DBCore = contentOfsqDB
 
-		Dim curHostGUID = Session("hostGUID")
-		Dim curUserGUID = Session("userGUID")
-		Dim result = "", sqlstr = "", xmlstr = ""
-		Dim mode = getQueryVar("mode")
-		Dim accountId = contentOfaccountId
-		Dim sessionToken = getQueryVar("token")
+        Dim curHostGUID = Session("hostGUID")
+        Dim curUserGUID = Session("userGUID")
+        Dim result = "", sqlstr = "", xmlstr = ""
+        Dim mode = getQueryVar("mode")
+        Dim accountId = contentOfaccountId
+        Dim sessionToken = getQueryVar("token")
+        If sessionToken = "" Then sessionToken = "null" Else sessionToken = "'" & sessionToken & "'"
         writeLog(mode)
         Dim isXML = True
 
@@ -35,6 +38,16 @@ Partial Class OPHCore_api_sync
                     End If
 
                 End If
+            Case "dblist"
+                sqlstr = "exec api.sync_dblist '" & accountId & "', " & sessionToken & ""
+                xmlstr = getXML(sqlstr, contentOfsequoiaCon)
+
+                If xmlstr IsNot Nothing And xmlstr <> "" Then
+                    'result = "<sqroot>" & xmlstr & "</sqroot>"
+                    result = xmlstr
+                Else
+                    result = "<sqroot><source>dblist</source><message>Incorrect Data!</message></sqroot>"
+                End If
             Case "reqcorescript"
                 sqlstr = "exec core.createDB '" & accountId & "', @isScriptOnly=1"
                 xmlstr = getXML(sqlstr, contentOfsequoiaCon, 0)
@@ -42,10 +55,14 @@ Partial Class OPHCore_api_sync
                 result = xmlstr.Replace("&lt;", "<").Replace("&gt;", ">")
                 isXML = False
                 Response.ContentType = "text/plain"
-
+            Case "webrequestfile"
+                Dim r = download("../../ophcontent/documents/sync/", "webrequest.dll")
+            Case "webrequestSETUP"
+                sqlstr = "exec core.webrequestsetup"
+                xmlstr = getXML(sqlstr, contentOfsequoiaCon, 0)
             Case "checklatestevent"
                 Dim lvl = getQueryVar("lvl")
-                sqlstr = "exec [api].[sync_checklatestevent] '" & accountId & "', '" & sessionToken & "', '" & lvl & "'"
+                sqlstr = "exec [api].[sync_checklatestevent] '" & accountId & "', " & sessionToken & ", '" & lvl & "'"
 
                 xmlstr = getXML(sqlstr, contentOfdbODBC)
 
@@ -59,7 +76,7 @@ Partial Class OPHCore_api_sync
             Case "reqcodeprop"
                 Dim code = getQueryVar("code")
 
-                sqlstr = "exec [api].[sync_reqcodeprop] '" & accountId & "', '" & sessionToken & "', '" & code & "'"
+                sqlstr = "exec [api].[sync_reqcodeprop] '" & accountId & "', " & sessionToken & ", '" & code & "'"
 
                 xmlstr = getXML(sqlstr, contentOfdbODBC)
 
@@ -75,7 +92,7 @@ Partial Class OPHCore_api_sync
                     Dim dataxml = Request.Form("dataXML").ToString.Replace("%26lt;", "<").Replace("%26gt;", ">").Replace("%26", "&").Replace("&lt;", "<").Replace("&gt;", ">")
                     writeLog(Len(Request.Form("dataXML")).ToString & " " & Len(dataxml).ToString & " " + dataxml)
 
-                    sqlstr = "exec [api].[sync_sendcodeprop] '" & accountId & "', '" & sessionToken & "', '" & code & "', '" & dataxml.Replace("'", "''") & "'"
+                    sqlstr = "exec [api].[sync_sendcodeprop] '" & accountId & "', " & sessionToken & ", '" & code & "', '" & dataxml.Replace("'", "''") & "'"
 
                     writeLog(sqlstr)
                     xmlstr = getXML(sqlstr, contentOfdbODBC)
@@ -94,7 +111,7 @@ Partial Class OPHCore_api_sync
                 Dim code = getQueryVar("code")
                 Dim pg = getQueryVar("page")
 
-                sqlstr = "exec [api].[sync_reqheader] '" & accountId & "', '" & sessionToken & "', '" & code & "', " & IIf(pg = "", 1, pg) & ""
+                sqlstr = "exec [api].[sync_reqheader] '" & accountId & "', " & sessionToken & ", '" & code & "', " & IIf(pg = "", 1, pg) & ""
                 writeLog(sqlstr)
 
                 xmlstr = getXML(sqlstr, contentOfdbODBC)
@@ -111,7 +128,7 @@ Partial Class OPHCore_api_sync
                 Dim guid = Request.Form("guid")
                 'Dim pg = getQueryVar("page")
 
-                sqlstr = "exec [api].[sync_reqdata] '" & accountId & "', '" & sessionToken & "', '" & code & "', '" & guid & "'"
+                sqlstr = "exec [api].[sync_reqdata] '" & accountId & "', " & sessionToken & ", '" & code & "', '" & guid & "'"
 
                 xmlstr = getXML(sqlstr, contentOfdbODBC)
 
@@ -129,7 +146,7 @@ Partial Class OPHCore_api_sync
                     Dim dataxml = Request.Form("dataXML").ToString.Replace("%26lt;", "<").Replace("%26gt;", ">").Replace("%26", "&").Replace("&lt;", "<").Replace("&gt;", ">")
                     writeLog(Len(Request.Form("dataXML")).ToString & " " & Len(dataxml).ToString & " " + dataxml)
 
-                    sqlstr = "exec [api].[sync_sendData] '" & accountId & "', '" & sessionToken & "', '" & code & "', '" & dataxml.Replace("'", "''") & "'"
+                    sqlstr = "exec [api].[sync_sendData] '" & accountId & "', " & sessionToken & ", '" & code & "', '" & dataxml.Replace("'", "''") & "'"
                     writeLog(sqlstr)
                     xmlstr = getXML(sqlstr, contentOfdbODBC)
                     writeLog(xmlstr)
@@ -142,7 +159,7 @@ Partial Class OPHCore_api_sync
                         result = "<sqroot><source>senddata</source><message>Incorrect Data!</message></sqroot>"
                     End If
                 End If
-				case "reqcorescript"
+            Case "reqcorescript"
         End Select
 
         If isXML Then
@@ -153,4 +170,21 @@ Partial Class OPHCore_api_sync
         Response.Write(result)
 
     End Sub
+    Protected Function download(path As String, f1 As String) As Boolean
+        Dim bytes() As Byte
+        Dim fInfo As New FileInfo(Server.MapPath(path) & f1)
+        Dim numBytes As Long = fInfo.Length
+        Dim fStream As New FileStream(Server.MapPath(path) & f1, FileMode.Open, FileAccess.Read)
+        Dim br As New BinaryReader(fStream)
+        bytes = br.ReadBytes(CInt(numBytes))
+
+        Response.Buffer = True
+        Response.Charset = ""
+        Response.Cache.SetCacheability(HttpCacheability.NoCache)
+        Response.AddHeader("content-disposition", "attachment;filename=" & f1)
+        Response.BinaryWrite(bytes)
+        Response.Flush()
+        Response.End()
+        Return True
+    End Function
 End Class
