@@ -146,7 +146,7 @@ function loadContent(nbpage, f) {
     //sidebar
     divname.push('sidebarWrapper');
     xsldoc.push('OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '_sidebar.xslt');
-
+    
     pushTheme(divname, xmldoc, xsldoc, true);
 }//
 

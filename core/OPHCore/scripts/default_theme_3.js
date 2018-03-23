@@ -2173,7 +2173,7 @@ function sortBrowse(ini, loc, code, orderBy) {
     if (ordered == "" || ordered == undefined) ordered = "ASC"
     else if (ordered == "ASC") ordered = "DESC"
     else ordered = "ASC"
-    $(ini).data('order', ordered);
+    $(ini).data('order', ordered).attr('disabled', true);
 
     if (orderBy && orderBy != "") var sortOrder = orderBy + " " + ordered;
 
@@ -2185,7 +2185,7 @@ function sortBrowse(ini, loc, code, orderBy) {
         var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + sqlfilter + '&sortOrder=' + sortOrder + '&bPageNo=1&date=' + getUnique();
         var divName = ['child' + String(code).toLowerCase() + getGUID()];
         var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
-        pushTheme(divName, xmldoc, xsldoc, true);
+        pushTheme(divName, xmldoc, xsldoc, true);        
     }
 }
 
