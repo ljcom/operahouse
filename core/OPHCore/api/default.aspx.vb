@@ -113,7 +113,7 @@ Partial Class OPHCore_API_default
                 Next
 
                 sqlstr = populateSaveXML(1, code, preview, fieldattachment, GUID)
-                sqlstr = sqlstr.Replace("#95#", "_").Replace("%2F", "/")
+                sqlstr = sqlstr.Replace("#95#", "_").Replace("%2F", "/").Replace("%2C", "")
                 sqlstr = sqlstr & ", @preview=" & IIf(preview = "", 0, preview)
                 xmlstr = runSQLwithResult(sqlstr, curODBC)
 
