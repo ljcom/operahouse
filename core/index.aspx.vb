@@ -71,14 +71,17 @@ Partial Class index
             setCookie("cartID", "", 0)
             'Response.Cookies("cartID").Value = ""
         End If
+
+        Dim appSet As NameValueCollection = ConfigurationManager.AppSettings
+        'dynamic account
+        Dim cdnLocation = appSet.Item("cdnLocation")
+        Dim getseqcon = appSet.Item("sequoia")
+
         If cartID = "" Then
             'Response.Cookies("cartID").Value = runSQLwithResult("exec api.createNewid")
-            Dim appSet As NameValueCollection = ConfigurationManager.AppSettings
-            'dynamic account
-            Dim getseqcon = appSet.Item("sequoia")
             Dim newid As String
 
-            newid = runSQLwithResult("exec api.createNewid", getseqcon)
+            newid = runSQLwithResult("exec api.createNewid", getseqcon) '//tidak boleh ada, taruh di atas, kalau masih dipakai
             setCookie("cartID", newid, 7)
         Else
             'Response.Cookies("cartID").Value = Request.Cookies("cartID").Value
@@ -87,7 +90,7 @@ Partial Class index
         Dim GUID = "" 'getQueryVar("GUID") 
         WindowOnLoad = "initTheme('" & code & "', '" & GUID & "', '" & curHostGUID & "');"
         Response.Cookies("themeFolder").Value = themeFolder
-        loadManifest(themeFolder)
+        loadManifest(themeFolder, cdnLocation)
         Response.Cookies("page").Value = pageURL
 
     End Sub

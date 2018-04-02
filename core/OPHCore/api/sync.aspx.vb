@@ -56,7 +56,7 @@ Partial Class OPHCore_api_sync
                 isXML = False
                 Response.ContentType = "text/plain"
             Case "webrequestfile"
-                Dim r = download("../../ophcontent/documents/sync/", "webrequest.dll")
+                Dim r = download("../../ophcontent/documents/sync/", "sync.zip")
             Case "webrequestSETUP"
                 sqlstr = "exec core.webrequestsetup"
                 xmlstr = getXML(sqlstr, contentOfsequoiaCon, 0)

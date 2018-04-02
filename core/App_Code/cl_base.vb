@@ -6,7 +6,6 @@ Imports System.Data.SqlClient
 Imports System.Xml
 Imports System
 Imports System.Diagnostics
-'Imports System.DirectoryServices
 Imports System.DirectoryServices.AccountManagement
 Imports System.DirectoryServices.ActiveDirectory.Domain
 
@@ -180,64 +179,64 @@ Public Class cl_base
 
 	End Sub
 
-	Sub loadManifest(themeFolder As String)
+    Sub loadManifest(themeFolder As String, cdnLocation As String)
 
-		Dim path = Server.MapPath("~/")
-		contentOfScripts = ""
-		'core
-		path = path.Substring(0, Len(path) - 5) & "core\OPHCore"
-		Dim manifestPath = path & "\manifest.xml"
-		Dim manifest As String = "", lastVer As String = ""
-		contentOfScripts = loadManifestFile(manifestPath, manifest, lastVer)
+        Dim path = Server.MapPath("~/")
+        contentOfScripts = ""
+        'core
+        path = path.Substring(0, Len(path) - 5) & "core\OPHCore"
+        Dim manifestPath = path & "\manifest.xml"
+        Dim manifest As String = "", lastVer As String = ""
+        contentOfScripts = loadManifestFile(manifestPath, manifest, lastVer, cdnLocation)
 
-		'selected theme
-		path = Server.MapPath("~/")
-		path = path.Substring(0, Len(path) - 5) & "themes\" & themeFolder
-		manifestPath = path & "\manifest.xml"
-		contentOfScripts &= loadManifestFile(manifestPath, manifest, lastVer)
+        'selected theme
+        path = Server.MapPath("~/")
+        path = path.Substring(0, Len(path) - 5) & "themes\" & themeFolder
+        manifestPath = path & "\manifest.xml"
+        contentOfScripts &= loadManifestFile(manifestPath, manifest, lastVer, cdnLocation)
 
-		If lastVer > Session("latestCache") Then
-			Session("latestCache") = lastVer
-			Session("cacheManifest") = manifest
-		End If
+        If lastVer > Session("latestCache") Then
+            Session("latestCache") = lastVer
+            Session("cacheManifest") = manifest
+        End If
 
-	End Sub
-	Function loadManifestFile(path As String, ByRef manifest As String, ByRef latestVer As String) As String
-		Dim str As String = "" ', manstr As String = ""
-		If System.IO.File.Exists(path) Then
-			Dim lastMod = System.IO.File.GetLastWriteTime(path).ToString("yyyyMMddhhmmss")
-			If lastMod > latestVer Then latestVer = lastMod
-			If Session("manifest" & path.Replace("/", "").Replace("\", "").Replace(".", "").Replace(":", "") & lastMod) Is Nothing Then
-				Dim doc As XmlDocument = New XmlDocument()
-				doc.Load(path)
+    End Sub
+    Function loadManifestFile(path As String, ByRef manifest As String, ByRef latestVer As String, cdnLocation As String) As String
+        Dim str As String = "" ', manstr As String = ""
+        If System.IO.File.Exists(path) Then
+            Dim lastMod = System.IO.File.GetLastWriteTime(path).ToString("yyyyMMddhhmmss")
+            If lastMod > latestVer Then latestVer = lastMod
+            If Session("manifest" & path.Replace("/", "").Replace("\", "").Replace(".", "").Replace(":", "") & lastMod) Is Nothing Then
+                Dim doc As XmlDocument = New XmlDocument()
+                doc.Load(path)
 
-				Dim jsFile As XmlNode
-				Dim cssFile As XmlNode
+                Dim jsFile As XmlNode
+                Dim cssFile As XmlNode
 
-				Dim sqroot As XmlNode = doc.DocumentElement
+                Dim sqroot As XmlNode = doc.DocumentElement
 
-				For Each cssFile In doc.SelectNodes("//cssFile")
-					'jsFile.InnerText = (jsFile.InnerText)
-					'contentOfScripts = jsFile.InnerText
-					str &= "<link rel=""stylesheet"" href=""" & cssFile.InnerText & """ type=""text/css"" />" & vbCrLf
-					manifest &= cssFile.InnerText & vbCrLf
-				Next
+                For Each cssFile In doc.SelectNodes("//cssFile")
+                    'jsFile.InnerText = (jsFile.InnerText)
+                    'contentOfScripts = jsFile.InnerText
+                    str &= "<link rel=""stylesheet"" href=""" & cssFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & """ type=""text/css"" />" & vbCrLf
+                    manifest &= cssFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & vbCrLf
+                Next
 
-				For Each jsFile In doc.SelectNodes("//jsFile")
-					'jsFile.InnerText = (jsFile.InnerText)
-					'contentOfScripts = jsFile.InnerText
-					str &= "<script type=""text/javascript"" src=""" & jsFile.InnerText & """></script>" & vbCrLf
-					manifest &= jsFile.InnerText & vbCrLf
-				Next
-				Session("manifest" & path.Replace("/", "").Replace("\", "").Replace(".", "").Replace(":", "") & lastMod) = str
-				'Session("manifestCache") = manstr
-			Else
-				str = Session("manifest" & path.Replace("/", "").Replace("\", "").Replace(".", "").Replace(":", "") & lastMod)
-			End If
-		End If
-		Return str
-	End Function
-	Function checkWinLogin(username As String, userpass As String) As Boolean
+                For Each jsFile In doc.SelectNodes("//jsFile")
+                    'jsFile.InnerText = (jsFile.InnerText)
+                    'contentOfScripts = jsFile.InnerText
+                    str &= "<script type=""text/javascript"" src=""" & jsFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & """></script>" & vbCrLf
+                    manifest &= jsFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & vbCrLf
+                Next
+                Session("manifest" & path.Replace("/", "").Replace("\", "").Replace(".", "").Replace(":", "") & lastMod) = str
+                'Session("manifestCache") = manstr
+            Else
+                str = Session("manifest" & path.Replace("/", "").Replace("\", "").Replace(".", "").Replace(":", "") & lastMod)
+            End If
+        End If
+        Return str
+    End Function
+    Function checkWinLogin(username As String, userpass As String) As Boolean
 		Dim success = False
 
 		Try

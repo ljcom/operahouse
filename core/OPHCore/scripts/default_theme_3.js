@@ -2408,8 +2408,9 @@ function childPageNo(pageid, code, currentpage, totalpages) {
     $('#' + pageid).html(result);
 
 }
-function SaveData(code, formid, locations, GUID, delcookie, tablename) {
-    if (delcookie == '') {delcookie = '0'}
+function SaveData(code, formid, locations, GUID, delcookie, tablename, reloadpage) {
+    if (reloadpage == '' || reloadpage == undefined) { reloadpage = '1' }
+    if (delcookie == '') { delcookie = '0' }
 
     if (GUID != undefined && GUID != '') { GUID = '&cfunctionlist=' + GUID; }
     else { GUID = '' }
@@ -2436,25 +2437,32 @@ function SaveData(code, formid, locations, GUID, delcookie, tablename) {
                 if (result == 'gotomidtrans') {
                     if (GUID == '') { GUID = getGUID() }
                     generatePayment(code, tablename, formid, locations, GUID, delcookie)
-                } else {
+                } else if (result == 'gotodoku') {
+                    document.getElementById("submit").click()
+                }
+                else {
                     document.getElementById("popupMsgContent").innerHTML = result;
                     $("#popupMsg").show("slow")
                 }
             } else {
                 if (getCode().toLowerCase() == 'tapcs2' && locations == '') {
                     //alert("test");
-                    if  (delcookie == '1') {
+                    if (delcookie == '1') {
                         setCookie("cartID", "", 0, 0, 0);
                     }
                     location.replace("index.aspx?env=front&code=tapcs3");
-                } 
-                else if (location != ''){
-                     if  (delcookie == '1') {
+                }
+                else if (location != '') {
+                    if (delcookie == '1') {
                         setCookie("cartID", "", 0, 0, 0);
-                     }
-                     window.location = locations
+                    }
+                    if (reloadpage == 1) {
+                        window.location = locations
+                    }
                 } else {
-                    window.location.reload();
+                    if (reloadpage == 1) {
+                        window.location.reload();
+                    }
                 }
             }
         }
