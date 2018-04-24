@@ -38,8 +38,8 @@ Partial Class OPHCore_api_sync
                     End If
 
                 End If
-            Case "dblist"
-                sqlstr = "exec api.sync_dblist '" & accountId & "', " & sessionToken & ""
+            Case "dbinfo"
+                sqlstr = "exec api.sync_dbinfo '" & accountId & "', " & sessionToken & ""
                 xmlstr = getXML(sqlstr, contentOfsequoiaCon)
 
                 If xmlstr IsNot Nothing And xmlstr <> "" Then

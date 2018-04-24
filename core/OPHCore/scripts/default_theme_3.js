@@ -2156,24 +2156,26 @@ function searchText(e, searchvalue) {
 function searchTextChild(e, searchvalue, code, isClear) {
     if (e.keyCode == 13 || isClear) {
         var bSearchText = searchvalue;
-
+        var mode = getCookie(code.toLowerCase() + '_browseMode');
         var sqlfilter = document.getElementById("filter" + code.toLowerCase()).value;
         var pageNo = (pageNo == undefined) ? 1 : pageNo;
 
         var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + sqlfilter + '&bPageNo=' + pageNo + '&bSearchText=' + bSearchText + '&date=' + getUnique();
         var divName = ['child' + String(code).toLowerCase() + getGUID()];
-        var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
-
+        //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
+        if (mode == 'inline')
+            var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];
+        else
+            var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
         pushTheme(divName, xmldoc, xsldoc, true);
     }
 }
-
 function sortBrowse(ini, loc, code, orderBy) {
     var ordered = $(ini).data('order');
     if (ordered == "" || ordered == undefined) ordered = "ASC"
     else if (ordered == "ASC") ordered = "DESC"
     else ordered = "ASC"
-    $(ini).data('order', ordered).attr('disabled', true);
+    $(ini).data('order', ordered).attr('disabled', true).css("cursor", "progress");
 
     if (orderBy && orderBy != "") var sortOrder = orderBy + " " + ordered;
 
@@ -2524,98 +2526,3 @@ function panel_display(flag, val) {
 }
 
 
-
-function applySQLFilter(ini) {
-    $(ini).button('loading');
-    var form = $(ini).parents('form:first');
-    var form_data = $(form).serializeArray();
-
-    var sqlFilter = "";
-    $.each(form_data, function (key, input) {
-        if (input.value != "NULL" && input.value != undefined) {
-            if (sqlFilter == "") {
-                sqlFilter = input.name + " = '" + input.value + "'";
-            } else {
-                sqlFilter = sqlFilter + " and " + input.name + " = '" + input.value + "'";
-            }
-        }
-    });
-    setCookie('sqlFilter', sqlFilter, 0, 0, 10);
-    $.when($.ajax(loadContent(1))).done(function () { $(ini).button('reset'); });
-}
-
-function resetSQLFilter(ini) {
-    $(ini).button('loading');
-    var divname = ['contentWrapper'];
-    var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + getCode() + '&stateid=' + getState() + '&bSearchText=' + getSearchText() + '&date=' + getUnique();
-    var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
-    setCookie('sqlFilter', "", 0, 0, 0);
-    $.when($.ajax(loadContent(1))).done(function () {
-        $(ini).button('reset');
-    });
-}
-
-function delegatorModal(isRevoke) {
-    var kukis = getCode() + '_dmc';
-    if (isRevoke == true) {
-        $('#btnRevoke').button('loading');
-        var url = "OPHCore/api/default.aspx?code=" + getCode() + "&mode=revokeDelegation" + "&unique=" + getUnique();
-        var revoking = $.post(url)
-            .done(function (data) {
-                var msg = $(data).find('message').text();
-                if (msg == "" || msg == undefined || isGuid(msg) == true) {
-                    $('#btnRevoke').button('reset');
-                    window.location.reload();
-                } else {
-                    $('#delegatorModal h3').text('Oops! Something went wrong.')
-                    $('#delegatorModal .modal-body').text("We are very sorry for the inconvenience. You have to revoke your delegation manually in your profile menu. Thank you for your understanding.")
-                    $('#btnRevokeLater').text("Close");
-                    $('#btnRevoke').hide();
-                }
-            });
-    } else {
-        setCookie(kukis, "yes", 1);
-    }
-}
-
-function loadModalForm(divID, code, guid) {
-    var xmldoc = 'OPHCore/api/default.aspx?mode=form&code=' + code + '&guid=' + guid + '&unique=' + getUnique();
-    var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_form_modal.xslt';
-
-    if (code.indexOf('par') == 0) {
-        $('#' + divID).text('| Parameter : ' + code );
-    } else {
-        showXML(divID, xmldoc, xsldoc, true, true);
-    }
-}
-
-function saveModalForm(ini, selectID, code, guid) {
-    $(ini).button('loading');
-    var selectID = $(ini).parents("div[id*='addNew']").attr('id');
-    selectID = selectID.split('addNew').join('');
-    var md = "#addNew" + selectID;    
-    var formId = $('#modalForm' + selectID).children('form:first').attr('id');
-
-    saveFunction(code, guid, 50, formId, function (data) {
-        var msg = $(data).children().find("message").text();
-        var retguid = $(data).children().find("guid").text();
-        msg = (msg == "") ? $('#notiModal').data('message') : msg;
-
-        if (isGuid(retguid)) {
-            $(ini).button('reset');
-            $(md).modal('hide');
-            autosuggestSetValue(selectID, getCode(), selectID, retguid);
-        } else {
-            if (msg != "") {
-                //show error message
-                $('#modalFormAlert' + code + ' p').text(msg);
-                $('#modalFormAlert' + code).show();
-                $(md).animate({ scrollTop: 0 }, 'slow');
-                $(ini).button('reset');
-            } else {
-                $(ini).button('reset');
-            }
-        }
-    })
-    
-}

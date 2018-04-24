@@ -161,6 +161,7 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
         setCookie(code.toLowerCase() + '_parentKey', parentKey);
         setCookie(code.toLowerCase() + '_parentGUID', GUID);
         setCookie(code.toLowerCase() + '_pcode', pcode);
+        setCookie(code.toLowerCase() + '_browseMode', mode);
     }
     d = '<div><div class="box box-solid box-default" style="box-shadow:0px;border:none" id="child' + code + GUID + '"></div></div>';
     if ($('#child' + code + GUID).length == 0) {
@@ -295,6 +296,11 @@ function btn_function(code, GUID, action, page, location, formId, afterSuccess) 
         //location: browse:10, header form:20, browse anak:30, browse form:40
         saveFunction(code, GUID, location, formId, afterSuccess);
     } else {
+        if (GUID == null) {
+            var arGUID = Array.from($("input:checked").not("#pinnedAll").map(function () { return this.dataset.guid }));
+            GUID = arGUID.join();
+        }
+
         executeFunction(code, GUID, action, location);
     }
 }
@@ -630,8 +636,7 @@ function saveCancel() {
 
 function executeFunction(code, GUID, action, location) {
     //location: browse:10, header form:20, browse anak:30, browse form:40
-    var successmsg = ''
-    var isAction = 1;
+    var successmsg = '', isAction = 1;
 
     if (action == 'execute') {
         successmsg = 'Approve Succesfully'
@@ -738,5 +743,64 @@ function wait(ms) {
     var end = start;
     while (end < start + ms) {
         end = new Date().getTime();
+    }
+}
+
+// advanced Filter
+
+
+function applySQLFilter(ini) {
+    $(ini).button('loading');
+    var form = $(ini).parents('form:first');
+    var form_data = $(form).serializeArray();
+
+    var sqlFilter = "";
+    $.each(form_data, function (key, input) {
+        if (input.value != "NULL" && input.value != undefined) {
+            if (sqlFilter == "") {
+                sqlFilter = input.name + "='" + input.value + "'";
+            } else {
+                sqlFilter = sqlFilter + " and " + input.name + "='" + input.value + "'";
+            }
+        }
+    });
+    setCookie('sqlFilter', sqlFilter, 0, 0, 10);
+    //loadContent(1)
+    $.when($.ajax(loadContent(1))).done(function () { $(ini).button('reset'); });
+}
+
+function resetSQLFilter(ini) {
+    $(ini).button('loading');
+    var divname = ['contentWrapper'];
+    var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + getCode() + '&stateid=' + getState() + '&bSearchText=' + getSearchText() + '&date=' + getUnique();
+    var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
+    setCookie('sqlFilter', "", 0, 0, 0);
+    $.when($.ajax(loadContent(1))).done(function () {
+        $(ini).button('reset');
+    });
+}
+
+// popup delegator
+
+function delegatorModal(isRevoke) {
+    var kukis = getCode() + '_dmc';
+    if (isRevoke == true) {
+        $('#btnRevoke').button('loading');
+        var url = "OPHCore/api/default.aspx?code=" + getCode() + "&mode=revokeDelegation" + "&unique=" + getUnique();
+        var revoking = $.post(url)
+            .done(function (data) {
+                var msg = $(data).find('message').text();
+                if (msg == "" || msg == undefined || isGuid(msg) == true) {
+                    $('#btnRevoke').button('reset');
+                    window.location.reload();
+                } else {
+                    $('#delegatorModal h3').text('Oops! Something went wrong.')
+                    $('#delegatorModal .modal-body').text("We are very sorry for the inconvenience. You have to revoke your delegation manually in your profile menu. Thank you for your understanding.")
+                    $('#btnRevokeLater').text("Close");
+                    $('#btnRevoke').hide();
+                }
+            });
+    } else {
+        setCookie(kukis, "yes", 1);
     }
 }

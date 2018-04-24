@@ -65,7 +65,8 @@ Partial Class OPHCore_API_default
                 If searchText = "null" Or searchText = "search" Then searchText = ""
                 If bpage = "" Then bpage = 1
 
-                Dim rpp = 20 'IIf(code.Length() > 6 And String.IsNullOrWhiteSpace(sqlfilter) = False, 10, 20)
+                Dim rpp = IIf(code.Length() > 6 And String.IsNullOrWhiteSpace(sqlfilter) = False, 10, 20)
+
                 'add showpage untuk frontend
                 Dim showpage = getQueryVar("showpage")
                 If showpage <> "" Then

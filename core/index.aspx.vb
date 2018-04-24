@@ -39,9 +39,9 @@ Partial Class index
             Session("hostGUID") = curHostGUID
         End If
 
-        If code = "" Then
+        If code = "" And getQueryVar("code") <> "404" Then
             reloadURL("index.aspx?code=404&env=")
-        ElseIf getQueryVar("code") = "" Or getQueryVar("code").ToLower() <> code.ToLower() Or getQueryVar("env").ToLower() <> env.ToLower() Then
+        ElseIf (getQueryVar("code") = "" Or getQueryVar("code").ToLower() <> code.ToLower() Or getQueryVar("env").ToLower() <> env.ToLower()) And getQueryVar("code") <> "404" Then
 
             Dim reloadStr = Request.RawUrl & IIf(InStr(Request.RawUrl, "?") = 0, "?", IIf(Right(Request.RawUrl, 1) = "&", "", "&"))
 
