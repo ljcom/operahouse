@@ -1,0 +1,22 @@
+<sqroot>
+  <manifest>
+    <cssFile>OPHContent/cdn/bootstrap/css/bootstrap.min.css</cssFile>
+    <cssFile>OPHContent/themes/themeSIX/styles/style.css</cssFile>
+    <cssFile>OPHContent/themes/themeSIX/styles/responsive.css</cssFile>
+    <cssFile>OPHContent/themes/themeSIX/styles/colors/color1.css</cssFile>
+    <!--jsFile>OPHContent/cdn/jQuery/jquery-1.12.4.min.js</jsFile-->
+    <jsFile>OPHContent/cdn/tether/tether.min.js</jsFile>
+    <jsFile>OPHContent/cdn/bootstrap/js/bootstrap4.0.0-a6.min.js</jsFile>
+    <jsFile>OPHContent/cdn/jquery-validate/jquery-validate.js</jsFile>
+    <jsFile>OPHContent/cdn/waypoints/waypoints.min.js</jsFile>
+    <jsFile>OPHContent/cdn/easing/easing.js</jsFile>
+    <jsFile>OPHContent/cdn/jquery-flexslider/jquery.flexslider-min.js</jsFile>
+    <jsFile>OPHContent/cdn/owl-carousel/owl.carousel.js</jsFile>
+    <jsFile>OPHContent/cdn/parallax/parallax.js</jsFile>
+    <jsFile>OPHContent/cdn/jquery-final-countdown/jquery.final-countdown.js</jsFile>
+    <jsFile>OPHContent/cdn/jquery-cookie/jquery.cookie.js</jsFile>
+    
+  </manifest>
+</sqroot>
+
+
