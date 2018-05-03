@@ -116,6 +116,8 @@ Partial Class OPHCore_API_default
                 sqlstr = populateSaveXML(1, code, preview, fieldattachment, GUID)
                 sqlstr = sqlstr.Replace("#95#", "_").Replace("%2F", "/").Replace("%2C", "")
                 sqlstr = sqlstr & ", @preview=" & IIf(preview = "", 0, preview)
+
+
                 xmlstr = runSQLwithResult(sqlstr, curODBC)
 
                 If Not xmlstr.Contains("<sqroot>") Or xmlstr.Contains("<root>") Then
@@ -187,10 +189,10 @@ Partial Class OPHCore_API_default
             Case "report"
                 sqlstr = "exec [api].[theme_report] '" & curHostGUID & "', '" & code & "'"
                 xmlstr &= runSQLwithResult(sqlstr, curODBC)
-            'Case "date"
-            '    Dim field = getQueryVar("FieldName")
-            '    sqlstr = "select '" & field & "' from '" & code & "'"
-            '    xmlstr &= runSQLwithResult(sqlstr, curODBC)
+                'Case "date"
+                '    Dim field = getQueryVar("FieldName")
+                '    sqlstr = "select '" & field & "' from '" & code & "'"
+                '    xmlstr &= runSQLwithResult(sqlstr, curODBC)
                 'Case "uploader"
                 '    Dim QueryCode = getQueryVar("QueryCode")
                 '    If QueryCode = "" Then
@@ -213,12 +215,12 @@ Partial Class OPHCore_API_default
                 'Case "calculate"
                 '    sqlstr = "exec [xml].[browsecount]  '" & code & "'," & curHostGUID & ""
                 'Case "countnew"
-            '    sqlstr = "exec [xml].[countnew]  " & curHostGUID & ",'" & getQueryVar("caption") & "','" & getQueryVar("formnow") & "'"
-            'Case "sidebar"
-            '    sqlstr = "exec [api].[sidebar] " & curHostGUID & ", '" & code & "', " & GUID
-            'Case "widget"
-            '    sqlstr = "exec [api].[theme_widget] '" & curHostGUID & "', '" & code & "'"
-            '    xmlstr = runSQLwithResult(sqlstr, curODBC)
+                '    sqlstr = "exec [xml].[countnew]  " & curHostGUID & ",'" & getQueryVar("caption") & "','" & getQueryVar("formnow") & "'"
+                'Case "sidebar"
+                '    sqlstr = "exec [api].[sidebar] " & curHostGUID & ", '" & code & "', " & GUID
+                'Case "widget"
+                '    sqlstr = "exec [api].[theme_widget] '" & curHostGUID & "', '" & code & "'"
+                '    xmlstr = runSQLwithResult(sqlstr, curODBC)
 
             Case "codeSearch"
                 Dim searchValue As String = getQueryVar("searchValue")

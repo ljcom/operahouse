@@ -236,31 +236,32 @@ Public Class cl_base
         End If
         Return str
     End Function
-    Function checkWinLogin(username As String, userpass As String) As Boolean
-		Dim success = False
+    'unremark if you need this, not compatible for ophbox - please find solution to download ref imports
+    'Function checkWinLogin(username As String, userpass As String) As Boolean
+    '    Dim success = False
 
-		Try
-			Dim domains = GetCurrentDomain.Name.ToString
-			If InStr(username, "\") > 0 Then
-				domains = Left(username, InStr(username, "\") - 1)
-				username = username.Replace(domains & "\", "")
-			End If
+    '    Try
+    '        Dim domains = GetCurrentDomain.Name.ToString
+    '        If InStr(username, "\") > 0 Then
+    '            domains = Left(username, InStr(username, "\") - 1)
+    '            username = username.Replace(domains & "\", "")
+    '        End If
 
-			'username = "superuser"
-			'userpass = "ljcom2x"
-			'Dim domains = "libertyjayaone.local"
-			Dim domainContext As PrincipalContext = New PrincipalContext(ContextType.Domain, domains)
-			success = domainContext.ValidateCredentials(username, userpass)
-			'Else
-			' Return False
-			' End If
-		Catch ex As Exception
-			Debug.Print(ex.Message)
-		End Try
-		Return success  'changePassword(username, userpass, "ljcomljcom")
+    '        'username = "superuser"
+    '        'userpass = "ljcom2x"
+    '        'Dim domains = "libertyjayaone.local"
+    '        Dim domainContext As PrincipalContext = New PrincipalContext(ContextType.Domain, domains)
+    '        success = domainContext.ValidateCredentials(username, userpass)
+    '        'Else
+    '        ' Return False
+    '        ' End If
+    '    Catch ex As Exception
+    '        Debug.Print(ex.Message)
+    '    End Try
+    '    Return success  'changePassword(username, userpass, "ljcomljcom")
 
-	End Function
-	Function changePassword(username As String, oldpassword As String, newpassword As String) As Boolean
+    'End Function
+    Function changePassword(username As String, oldpassword As String, newpassword As String) As Boolean
 		Dim domains = GetCurrentDomain.Name.ToString
 		If InStr(username, "\") > 0 Then
 			domains = Left(username, InStr(username, "\") - 1)
