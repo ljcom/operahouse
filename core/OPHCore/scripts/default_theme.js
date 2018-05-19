@@ -459,13 +459,24 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
 
                                 $('#' + this.tagName).attr('disabled', true)
                             }
-                            if ($(this).attr('display') == 'none') {
-                                textboxHide(this.tagName);
-                                $('#' + this.tagName).parent().parent().hide()
+
+                            /* Remodified by eLs
+                                if ($(this).attr('display') == 'none') {
+                                    textboxHide(this.tagName);
+                                    $('#' + this.tagName).parent().parent().hide()
+                                }
+                                else if ($(this).attr('display') == 'inline') {
+                                    $('#' + this.tagName).parent().parent().show()
+                                }
+                            */
+
+                            if ($(this).attr('display') == 'show') {
+                                $('#' + this.tagName).parent().show();
                             }
-                            else if ($(this).attr('display') == 'inline') {
-                                $('#' + this.tagName).parent().parent().show()
+                            else if ($(this).attr('display') == 'hide') {
+                                $('#' + this.tagName).parent().hide();
                             }
+
                             //AddedBy eLs
                             if ($(this).attr('style')) {
                                 var style = $(this).attr('style');
@@ -639,7 +650,9 @@ function executeFunction(code, GUID, action, location) {
     var successmsg = '', isAction = 1;
 
     if (action == 'execute') {
-        successmsg = 'Approve Succesfully'
+        if (getState() == "" || getState == "0") successmsg = 'Submited Succesfully';
+        else if (getState() == '300') successmsg = 'Re-Submited Succesfully';
+        else successmsg = 'Approve Succesfully';
         if ((confirm("You are about to " + action + " this record. Are you sure?") == 0)) { isAction = 0; }
     } else if (action == 'force') {
         successmsg = 'Close Succesfully'
@@ -802,5 +815,26 @@ function delegatorModal(isRevoke) {
             });
     } else {
         setCookie(kukis, "yes", 1);
+    }
+}
+
+function sortBrowse(ini, loc, code, orderBy) {
+    var ordered = (loc == 'child') ? $(ini).data('order') : $(ini).parent().data('order');
+    if (ordered == "" || ordered == undefined) ordered = "ASC"
+    else if (ordered == "ASC") ordered = "DESC"
+    else ordered = "ASC"
+    $(ini).data('order', ordered).attr('disabled', true).css("cursor", "progress");
+
+    if (orderBy && orderBy != "") var sortOrder = orderBy + " " + ordered;
+
+    if (loc == "header") {
+        setCookie('sortOrder', sortOrder, 0, 1, 0);
+        loadContent(1);
+    } else {
+        var sqlfilter = document.getElementById("filter" + code.toLowerCase()).value;
+        var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + sqlfilter + '&sortOrder=' + sortOrder + '&bPageNo=1&date=' + getUnique();
+        var divName = ['child' + String(code).toLowerCase() + getGUID()];
+        var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
+        pushTheme(divName, xmldoc, xsldoc, true);
     }
 }

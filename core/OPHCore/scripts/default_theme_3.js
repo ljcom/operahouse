@@ -2170,26 +2170,6 @@ function searchTextChild(e, searchvalue, code, isClear) {
         pushTheme(divName, xmldoc, xsldoc, true);
     }
 }
-function sortBrowse(ini, loc, code, orderBy) {
-    var ordered = $(ini).data('order');
-    if (ordered == "" || ordered == undefined) ordered = "ASC"
-    else if (ordered == "ASC") ordered = "DESC"
-    else ordered = "ASC"
-    $(ini).data('order', ordered).attr('disabled', true).css("cursor", "progress");
-
-    if (orderBy && orderBy != "") var sortOrder = orderBy + " " + ordered;
-
-    if (loc == "header") {
-        setCookie('sortOrder', sortOrder, 0, 1, 0);
-        loadContent(1);
-    } else {
-        var sqlfilter = document.getElementById("filter" + code.toLowerCase()).value;
-        var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + sqlfilter + '&sortOrder=' + sortOrder + '&bPageNo=1&date=' + getUnique();
-        var divName = ['child' + String(code).toLowerCase() + getGUID()];
-        var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
-        pushTheme(divName, xmldoc, xsldoc, true);        
-    }
-}
 
 
 

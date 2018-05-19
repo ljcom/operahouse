@@ -25,6 +25,7 @@
 
       $("body").addClass("header_sticky");
       document.title='<xsl:value-of select="/sqroot/header/info/title"/>';
+      loadContent(1);
     </script>
 
     <!-- Boostrap style -->
@@ -36,311 +37,63 @@
       <div class="dizzy-gillespie"></div>
     </div>
     <!-- /.preloader -->
+    
+    <!-- *** NOTIFICATION MODAL -->
+    <div id="notiModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&#215;</button>
+            <h4 class="modal-title" id="notiTitle">Modal Header</h4>
+          </div>
+          <div class="modal-body" id="notiContent">
+            <p>Some text in the modal.</p>
+          </div>
+          <div class="modal-footer">
+            <button id="notiBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
     <div class="boxed">
 
       <section id="header" class="header">
         <div class="container-fluid">
-          <div id="logo" class="logo float-left">
+          <div id="logo" class="logo float-left" style="float:left;">
             <a href="index.html" title="Yolo">
               L'OREAL
             </a>
           </div>
-          <!-- /.logo -->
-          <div class="menu-extra">
-            <div class="box-search">
-              <span class="icon_search"></span>
-              <form action="#" method="get" accept-charset="utf-8">
-                <div class="input-search">
-                  <input type="text" name="search" placeholder="|Enter Your Search..."/>
-                  <span class="ti-close delete"></span>
-                </div>
-              </form>
-            </div>
-            <div class="box-cart">
-              <span class="icon_bag_alt"></span>
-              <div class="subcart">
-                <ul class="product-choose">
-                  <li class="overflow">
-                    <div class="img-product float-left">
-                      <img src="images/shop/s-01.jpg" alt=""/>
-                    </div>
-                    <div class="info-product float-left overflow">
-                      <div class="price">
-                        $60.00 x <span>1</span>
-                      </div>
-                      <div class="name">
-                        <a href="#" title="">Kabino Bedside Table</a>
-                      </div>
-                    </div>
-                    <div class="delete">
-                      <img src="images/shop/delete.png" alt=""/>
-                    </div>
-                  </li>
-                  <li class="overflow">
-                    <div class="img-product float-left">
-                      <img src="images/shop/s-02.jpg" alt=""/>
-                    </div>
-                    <div class="info-product float-left overflow">
-                      <div class="price">
-                        $80.00 x <span>1</span>
-                      </div>
-                      <div class="name">
-                        <a href="#" title="">Kabino Bedside Table</a>
-                      </div>
-                    </div>
-                    <div class="delete">
-                      <img src="images/shop/delete.png" alt=""/>
-                    </div>
-                  </li>
-                </ul>
-                <div class="total-cart overflow">
-                  <p class="float-left">TOTAL:</p>
-                  <p class="float-right">$460.00</p>
-                </div>
-                <div class="btn-cart">
-                  <a href="#" class="view-cart" title="">VIEW CARD</a>
-                  <a href="#" class="check-out" title="">CHECK OUT</a>
-                </div>
-              </div>
-            </div>
-            <div class="box-canvas">
-              <span class="ti-align-right"></span>
-            </div>
-          </div>
           <!-- /.icon-header -->
           <ul class="flat-infomation">
-            <li class="phone">
-              <a href="#" title="">
-                <i class="fa fa-tty" aria-hidden="true"></i> 021 29886666
-              </a>
-            </li>
-            <li class="purchase">
-              <a href="#" title="">INVOICE SUBMISSION</a>
-            </li>
+            <xsl:apply-templates select="sqroot/header/menus/menu[@code='specialfront']/submenus/submenu" />
           </ul>
           <!-- /.flat-infomation -->
           <div class="nav-wrap">
             <div class="btn-menu">
-              <span></span>
+              <span>dssadas</span>
             </div>
             <!-- //mobile menu button -->
             <div id="mainnav" class="mainnav">
-              <ul class="menu">
-                <li class="has-menu-mega">
-                  <a href="index.html" title="">
-                    Home
-                  </a>
-                  <div class="menu-mega overflow">
-                    <ul class="menu-mega-child one-four">
-                      <li>
-                        <a href="index.html" title="">Home 01</a>
-                      </li>
-                      <li>
-                        <a href="index-v2.html" title="">Home 02</a>
-                      </li>
-                      <li>
-                        <a href="index-v3.html" title="">Home 03</a>
-                      </li>
-                      <li>
-                        <a href="index-v4.html" title="">Home 04</a>
-                      </li>
-                      <li>
-                        <a href="index-v5.html" title="">Home 05</a>
-                      </li>
-                      <li>
-                        <a href="agency-simple.html" title="">Agency Simple</a>
-                      </li>
-                      <li>
-                        <a href="corporate-agency.html" title="">Corporate Agency</a>
-                      </li>
-                      <li>
-                        <a href="agency-classic.html" title="">Agency Classic</a>
-                      </li>
-                    </ul>
-                    <!-- /.menu-mega-child one-four -->
-                    <ul class="menu-mega-child one-four">
-                      <li>
-                        <a href="digital-agency.html" title="">Digital Agency</a>
-                      </li>
-                      <li>
-                        <a href="business-consulting.html" title="">Business Consulting</a>
-                      </li>
-                      <li>
-                        <a href="startup-business.html" title="">StartUp Business</a>
-                      </li>
-                      <li>
-                        <a href="creative-agency.html" title="">Creative Agency</a>
-                      </li>
-                      <li>
-                        <a href="personal-dark.html" target="_blank" title="">Personal Dark</a>
-                      </li>
-                      <li>
-                        <a href="personal-white.html" target="_blank" title="">Personal White</a>
-                      </li>
-                      <li>
-                        <a href="studio.html" target="_blank" title="">Studio</a>
-                      </li>
-                      <li>
-                        <a href="architecture.html" title="">Architecture</a>
-                      </li>
-                    </ul>
-                    <!-- /.menu-mega-child one-four -->
-                    <ul class="menu-mega-child one-four">
-                      <li>
-                        <a href="education-online.html" title="">Education Online</a>
-                      </li>
-                      <li>
-                        <a href="portfolio-masonry-home.html" target="_blank" title="">Portfolio Masonry</a>
-                      </li>
-                      <li>
-                        <a href="portfolio-textbox-home.html" target="_blank" title="">Portfolio Textbox</a>
-                      </li>
-                      <li>
-                        <a href="photography-white.html" target="_blank" title="">Photography White</a>
-                      </li>
-                      <li>
-                        <a href="photography-dark.html" target="_blank" title="">Photography Dark</a>
-                      </li>
-                      <li>
-                        <a href="photography-fullscreen.html" target="_blank" title="">Photography FullScreen</a>
-                      </li>
-                      <li>
-                        <a href="photography-thumbnails.html" target="_blank" title="">Photography</a>
-                      </li>
-                    </ul>
-                    <!-- /.menu-mega-child one-four -->
-                    <ul class="menu-mega-child one-four">
-                      <li>
-                        <a href="video.html" target="_blank" title="">Video</a>
-                      </li>
-                      <li>
-                        <a href="blog-minimals.html" target="_blank" title="">Blog Minimals</a>
-                      </li>
-                      <li>
-                        <a href="blog-creative.html" target="_blank" title="">Blog Creative</a>
-                      </li>
-                      <li>
-                        <a href="shop-minimals.html" title="">Shop Minimal</a>
-                      </li>
-                      <li>
-                        <a href="shop-minimals-02.html" title="">Shop Minimal02</a>
-                      </li>
-                      <li>
-                        <a href="shop-minimals-03.html" title="">Shop Minimal03</a>
-                      </li>
-                      <li>
-                        <a href="shop-metro.html" title="">Shop Funiture Metro</a>
-                      </li>
-                      <li>
-                        <a href="comming-soon.html" target="_blank" title="">Comming Soon</a>
-                      </li>
-                    </ul>
-                    <!-- /.menu-mega-child one-four -->
-                  </div>
-                  <!-- /.submenu menu-mega -->
-                </li>
-                <!-- /.has-menu-mega -->
-                <li class="has-submenu">
+              <ul class="menu flat-unstyled" style="margin-right:0;">
+                <xsl:apply-templates select="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu" />
+                
+                <li class="login" style="margin-left:20px;">
                   <a href="#" title="">
-                    How To Submit
+                    Account <i class="fa fa-angle-down" aria-hidden="true"></i>
                   </a>
-                  <div class="submenu">
-                    <ul>
-                      <li>
-                        <a href="faqs.html" title="">Term and Conditions</a>
-                      </li>
-                      <li>
-                        <a href="faqs.html" title="">FAQS</a>
-                      </li>
-                    </ul>
-                  </div>
+                  <ul class="unstyled border-radius-5 box-shadow">
+                    <li>
+                      <a href="#" title="">Profile</a>
+                    </li>
+                    <li>
+                      <a href="javascript:signOut()" title="">Log Out</a>
+                    </li>
+                  </ul>
                 </li>
-                <!-- /.has-submenu -->
-                <li class="active has-submenu">
-                  <a href="#" title="">
-                    Invoice List
-                  </a>
-                  <div class="submenu">
-                    <ul>
-                      <li class="has-submenu-child">
-                        <a href="portfolio-outside01.html" title="">Title OutSide</a>
-                        <ul class="submenu-child">
-                          <li>
-                            <a href="portfolio-outside01.html" title="">Grid 01 Title Outside</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-outside02.html" title="">Grid 02 Title Outside</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-outside03.html" title="">Grid 03 Title Outside</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li class="has-submenu-child">
-                        <a href="portfolio-inside01.html" title="">Title Inside</a>
-                        <ul class="submenu-child">
-                          <li>
-                            <a href="portfolio-inside01.html" title="">Grid 01 Title Inside</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-inside02.html" title="">Grid 02 Title Inside</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-inside03.html" title="">Grid 03 Title Inside</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li class="has-submenu-child">
-                        <a href="portfolio-hover01.html" title="">Title Hover</a>
-                        <ul class="submenu-child">
-                          <li>
-                            <a href="portfolio-hover01.html" title="">Grid 01 Hover</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-hover02.html" title="">Grid 02 Hover</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-hover03.html" title="">Grid 03 Hover</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li>
-                        <a href="portfolio-masonry.html" title="">Masonry</a>
-                      </li>
-                      <li>
-                        <a href="portfolio-textbox.html" title="">TextBox</a>
-                      </li>
-                      <li class="has-submenu-child">
-                        <a href="portfolio-metro03.html" title="">Metro</a>
-                        <ul class="submenu-child">
-                          <li>
-                            <a href="portfolio-metro03.html" title="">Metro 03</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-metro04.html" title="">Metro 04</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li class="has-submenu-child">
-                        <a href="portfolio-simple.html" title="">Portfolio Single</a>
-                        <ul class="submenu-child">
-                          <li>
-                            <a href="portfolio-simple.html" title="">Single Simple</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-scroll.html" title="">Single Scroll</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-single-fullwidth.html" title="">Single Fullwidth</a>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <!-- /.has-submenu -->
-
               </ul>
               <!-- /.menu -->
             </div>
@@ -350,7 +103,7 @@
           <div class="clearfix"></div>
         </div>
         <!-- /.container-fluid -->
-        <div class="menu-canvas">
+        <!--<div class="menu-canvas">
           <div class="close">
             <i class="fa fa-times" aria-hidden="true"></i>
           </div>
@@ -403,20 +156,24 @@
             </ul>
             <p class="copyright">Copyright ©2017 Yolo. All Rights Reserved</p>
           </div>
-        </div>
+        </div>-->
       </section>
       <!-- /.header -->
 
-      <section class="page-title parallax parallax2" style="background-image='url(../images/parallax/bg-02.png)'">
+      <section class="page-title parallax" style="background-image: url('{sqroot/header/info/code/imgHeader/.}'); ">
         <div class="title-heading">
           <div class="container">
             <div class="row">
               <div class="col-md-12">
                 <div class="box-title style1">
-                  <h1>
-                    Invoice Submission
-                  </h1>
-                  <div class="breadcrumbs">
+                  <h2 style="color:#000000cc; margin-bottom:10px;">
+                    <xsl:value-of select="sqroot/header/info/code/name/." />
+                  </h2>
+                  <p style="color:#000000cc; font-size:25px; letter-spacing: 3px; ">
+                    <xsl:value-of select="sqroot/header/info/code/titleTag/." />
+                  </p>
+                  <br/>
+                  <!--<div class="breadcrumbs">
                     <ul>
                       <li>
                         <a href="index.html" title="">Home</a>
@@ -430,7 +187,7 @@
                         <a href="#" title="">Contact Simple</a>
                       </li>
                     </ul>
-                  </div>
+                  </div>-->
                   <!-- /.breadcrumbs -->
                 </div>
                 <!-- /.box-title -->
@@ -445,67 +202,17 @@
         <div class="overlay-black"></div>
       </section>
       <!-- /.page-title parallax -->
-
-      <div class="divider100"></div>
-
-      <div class="flat-contact-simple">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="contact-classic">
-                <p class="color-default">VENDOR SERVICE</p>
-                <h2 class="font-weight-3">Submit Your Invoice Now!</h2>
-
-              </div>
-              <!-- /.contact-classic -->
-            </div>
-            <!-- /.col-md-6 -->
-            <div class="col-md-6">
-              <div class="form-contact-form style4">
-                <form id="contactform" action="./contact/contact-process.php" method="post" accept-charset="utf-8">
-                  <div class="subscribe-content">
-                    <div class="contact-form-name contact-form">
-                      <input type="text" name="PO Number" id="PO Number" placeholder="Enter the PO Number" required="" />
-                    </div>
-                    <div class="contact-form-name contact-form">
-                      <input type="text" name="Invoice Number" id="Invoice Number" placeholder="Enter Your Invoice Number" required="" />
-                    </div>
-                    <div class="contact-form-name contact-form">
-                      <input type="text" name="Invoice Total" id="Invoice Total" placeholder="Enter Your Invoice Total" required="" />
-                    </div>
-                    <div class="contact-form-comment contact-form">
-                      <textarea name="Invoice Description" id="Invoice Description" placeholder="Description" required=""></textarea>
-                    </div>
-                    <div class="contact-form-email contact-form">
-                      <label>Document Submission</label>
-                    </div>
-                    <div class="contact-form-email contact-form">
-                      <input type="button" name="email" id="email" value="PO" required="" />
-                      <input type="button" name="email" id="email" placeholder="Upload Your Invoice Here" value="Invoice" required="" />
-                      <input type="button" name="email" id="email" placeholder="Upload Your Delivery Note Here" value="Surat Jalan" required="" />
-                    </div>
-                    <div class="contact-form-email contact-form">
-                      <input type="button" name="email" id="email" placeholder="Upload Your Delivery Note Here" value="Faktur Pajak" required="" />
-                      <input type="button" name="email" id="email" placeholder="Upload Your Delivery Note Here" value="DGT Form" required="" />
-                    </div>
-                    <div class="btn-contact-form left">
-                      <button type="submit" class="border-radius-2">SUBMIT</button>
-                    </div>
-                  </div>
-                </form>
-                <!-- /form -->
-              </div>
-              <!-- /.form-contact-form -->
-            </div>
-            <!-- /.col-md-6 -->
+      <div id="contentWrapper">
+        <section class="flat-row flat-contact-form style5">
+          <div class="container" style="text-align:center">
+            <i class="fa fa-spinner fa-spin fa fa-fw">&#xA0;</i>
+            <br/>
+            Loading Please Wait...
           </div>
-          <!-- /.row -->
-        </div>
-        <!-- /.container -->
+        </section>
       </div>
-      <!-- /.flat-contact-simple -->
+      
 
-      <div class="divider100"></div>
 
       <section class="flat-partner background">
         <div class="container">
@@ -721,5 +428,61 @@
     <!-- /.boxed -->
 
 
+  </xsl:template>
+
+  <xsl:template match="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu">
+    <xsl:choose>
+      <xsl:when test="(@type)='treeroot'">
+        <li class="login">
+          <a href="#" title="">
+            <xsl:value-of select="caption/." /><i class="fa fa-angle-down" aria-hidden="true"></i>
+          </a>
+          <ul class="unstyled border-radius-5 box-shadow">
+            <xsl:apply-templates select="submenus/submenu[@type='treeview']" />
+          </ul>
+        </li>
+      </xsl:when>
+      <xsl:when test="(@type)='label'">
+        <li class="has-menu-mega">
+          <a href="{pageURL/.}" title="">
+            <xsl:value-of select="caption/." />
+          </a>
+        </li>
+      </xsl:when>
+    </xsl:choose>
+    <!--<li class="dropdown">
+      <xsl:choose>
+        <xsl:when test="(@type)='treeroot'">
+          <a href="{pageURL/.}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="prim-{caption/.}">
+            <xsl:value-of select="caption/." />
+          </a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <xsl:apply-templates select="submenus/submenu[@mode='treeview']" />
+          </ul>
+        </xsl:when>
+        <xsl:when test="(@type)='label'">
+          <a href="{pageURL/.}" id="prim-{caption/.}"  onclick="clearCookies()">
+            <xsl:value-of select="caption/." />
+          </a>
+        </xsl:when>
+      </xsl:choose>
+    </li>-->
+  </xsl:template>
+
+
+  <xsl:template match="sqroot/header/menus/menu[@code='specialfront']/submenus/submenu">
+    <li class="{@type}">
+      <a href="{pageURL/.}" title="">
+        <xsl:value-of select="caption/." />
+      </a>
+    </li>
+  </xsl:template>
+
+  <xsl:template match="submenus/submenu[@type='treeview']">
+    <li>
+      <a href="{pageURL/.}" title="">
+        <xsl:value-of select="caption/." />
+      </a>
+    </li>
   </xsl:template>
 </xsl:stylesheet>

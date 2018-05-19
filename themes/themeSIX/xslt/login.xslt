@@ -4,8 +4,7 @@
 
   <xsl:template match="/">
     <script>
-      $("body").addClass("header_sticky");
-      document.title='<xsl:value-of select="/sqroot/header/info/title"/>';
+
 
       var meta = document.createElement('meta');
       meta.charset = "UTF-8";
@@ -23,7 +22,10 @@
 
 
       loadScript('OPHContent/themes/themeSIX/js/main.js');
-      //loadScript('OPHContent/themes/themeSIX/js/switcher.js');
+
+      $("body").addClass("header_sticky");
+      document.title='<xsl:value-of select="/sqroot/header/info/title"/>';
+      //loadContent(1);
     </script>
 
     <!-- Boostrap style -->
@@ -36,310 +38,50 @@
     </div>
     <!-- /.preloader -->
 
+    <!-- *** NOTIFICATION MODAL -->
+    <div id="notiModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&#215;</button>
+            <h4 class="modal-title" id="notiTitle">Modal Header</h4>
+          </div>
+          <div class="modal-body" id="notiContent">
+            <p>Some text in the modal.</p>
+          </div>
+          <div class="modal-footer">
+            <button id="notiBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
     <div class="boxed">
 
       <section id="header" class="header">
         <div class="container-fluid">
-          <div id="logo" class="logo float-left">
+          <div id="logo" class="logo float-left" style="float:left;">
             <a href="index.html" title="Yolo">
               L'OREAL
             </a>
           </div>
-          <!-- /.logo -->
-          <div class="menu-extra">
-            <div class="box-search">
-              <span class="icon_search"></span>
-              <form action="#" method="get" accept-charset="utf-8">
-                <div class="input-search">
-                  <input type="text" name="search" placeholder="|Enter Your Search..."/>
-                  <span class="ti-close delete"></span>
-                </div>
-              </form>
-            </div>
-            <div class="box-cart">
-              <span class="icon_bag_alt"></span>
-              <div class="subcart">
-                <ul class="product-choose">
-                  <li class="overflow">
-                    <div class="img-product float-left">
-                      <img src="images/shop/s-01.jpg" alt=""/>
-                    </div>
-                    <div class="info-product float-left overflow">
-                      <div class="price">
-                        $60.00 x <span>1</span>
-                      </div>
-                      <div class="name">
-                        <a href="#" title="">Kabino Bedside Table</a>
-                      </div>
-                    </div>
-                    <div class="delete">
-                      <img src="images/shop/delete.png" alt=""/>
-                    </div>
-                  </li>
-                  <li class="overflow">
-                    <div class="img-product float-left">
-                      <img src="images/shop/s-02.jpg" alt=""/>
-                    </div>
-                    <div class="info-product float-left overflow">
-                      <div class="price">
-                        $80.00 x <span>1</span>
-                      </div>
-                      <div class="name">
-                        <a href="#" title="">Kabino Bedside Table</a>
-                      </div>
-                    </div>
-                    <div class="delete">
-                      <img src="images/shop/delete.png" alt=""/>
-                    </div>
-                  </li>
-                </ul>
-                <div class="total-cart overflow">
-                  <p class="float-left">TOTAL:</p>
-                  <p class="float-right">$460.00</p>
-                </div>
-                <div class="btn-cart">
-                  <a href="#" class="view-cart" title="">VIEW CARD</a>
-                  <a href="#" class="check-out" title="">CHECK OUT</a>
-                </div>
-              </div>
-            </div>
-            <div class="box-canvas">
-              <span class="ti-align-right"></span>
-            </div>
-          </div>
           <!-- /.icon-header -->
           <ul class="flat-infomation">
-            <li class="phone">
-              <a href="#" title="">
-                <i class="fa fa-tty" aria-hidden="true"></i> 021 29886666
-              </a>
-            </li>
-            <li class="purchase">
-              <a href="#" title="">USER LOGIN</a>
-            </li>
+            <xsl:apply-templates select="sqroot/header/menus/menu[@code='specialfront']/submenus/submenu" />
+            
           </ul>
           <!-- /.flat-infomation -->
           <div class="nav-wrap">
             <div class="btn-menu">
-              <span></span>
+              <span>dssadas</span>
             </div>
             <!-- //mobile menu button -->
             <div id="mainnav" class="mainnav">
-              <ul class="menu">
-                <li class="has-menu-mega">
-                  <a href="index.html" title="">
-                    Home
-                  </a>
-                  <div class="menu-mega overflow">
-                    <ul class="menu-mega-child one-four">
-                      <li>
-                        <a href="index.html" title="">Home 01</a>
-                      </li>
-                      <li>
-                        <a href="index-v2.html" title="">Home 02</a>
-                      </li>
-                      <li>
-                        <a href="index-v3.html" title="">Home 03</a>
-                      </li>
-                      <li>
-                        <a href="index-v4.html" title="">Home 04</a>
-                      </li>
-                      <li>
-                        <a href="index-v5.html" title="">Home 05</a>
-                      </li>
-                      <li>
-                        <a href="agency-simple.html" title="">Agency Simple</a>
-                      </li>
-                      <li>
-                        <a href="corporate-agency.html" title="">Corporate Agency</a>
-                      </li>
-                      <li>
-                        <a href="agency-classic.html" title="">Agency Classic</a>
-                      </li>
-                    </ul>
-                    <!-- /.menu-mega-child one-four -->
-                    <ul class="menu-mega-child one-four">
-                      <li>
-                        <a href="digital-agency.html" title="">Digital Agency</a>
-                      </li>
-                      <li>
-                        <a href="business-consulting.html" title="">Business Consulting</a>
-                      </li>
-                      <li>
-                        <a href="startup-business.html" title="">StartUp Business</a>
-                      </li>
-                      <li>
-                        <a href="creative-agency.html" title="">Creative Agency</a>
-                      </li>
-                      <li>
-                        <a href="personal-dark.html" target="_blank" title="">Personal Dark</a>
-                      </li>
-                      <li>
-                        <a href="personal-white.html" target="_blank" title="">Personal White</a>
-                      </li>
-                      <li>
-                        <a href="studio.html" target="_blank" title="">Studio</a>
-                      </li>
-                      <li>
-                        <a href="architecture.html" title="">Architecture</a>
-                      </li>
-                    </ul>
-                    <!-- /.menu-mega-child one-four -->
-                    <ul class="menu-mega-child one-four">
-                      <li>
-                        <a href="education-online.html" title="">Education Online</a>
-                      </li>
-                      <li>
-                        <a href="portfolio-masonry-home.html" target="_blank" title="">Portfolio Masonry</a>
-                      </li>
-                      <li>
-                        <a href="portfolio-textbox-home.html" target="_blank" title="">Portfolio Textbox</a>
-                      </li>
-                      <li>
-                        <a href="photography-white.html" target="_blank" title="">Photography White</a>
-                      </li>
-                      <li>
-                        <a href="photography-dark.html" target="_blank" title="">Photography Dark</a>
-                      </li>
-                      <li>
-                        <a href="photography-fullscreen.html" target="_blank" title="">Photography FullScreen</a>
-                      </li>
-                      <li>
-                        <a href="photography-thumbnails.html" target="_blank" title="">Photography</a>
-                      </li>
-                    </ul>
-                    <!-- /.menu-mega-child one-four -->
-                    <ul class="menu-mega-child one-four">
-                      <li>
-                        <a href="video.html" target="_blank" title="">Video</a>
-                      </li>
-                      <li>
-                        <a href="blog-minimals.html" target="_blank" title="">Blog Minimals</a>
-                      </li>
-                      <li>
-                        <a href="blog-creative.html" target="_blank" title="">Blog Creative</a>
-                      </li>
-                      <li>
-                        <a href="shop-minimals.html" title="">Shop Minimal</a>
-                      </li>
-                      <li>
-                        <a href="shop-minimals-02.html" title="">Shop Minimal02</a>
-                      </li>
-                      <li>
-                        <a href="shop-minimals-03.html" title="">Shop Minimal03</a>
-                      </li>
-                      <li>
-                        <a href="shop-metro.html" title="">Shop Funiture Metro</a>
-                      </li>
-                      <li>
-                        <a href="comming-soon.html" target="_blank" title="">Comming Soon</a>
-                      </li>
-                    </ul>
-                    <!-- /.menu-mega-child one-four -->
-                  </div>
-                  <!-- /.submenu menu-mega -->
-                </li>
-                <!-- /.has-menu-mega -->
-                <li class="has-submenu">
-                  <a href="#" title="">
-                    How To Submit
-                  </a>
-                  <div class="submenu">
-                    <ul>
-                      <li>
-                        <a href="faqs.html" title="">Term and Conditions</a>
-                      </li>
-                      <li>
-                        <a href="faqs.html" title="">FAQS</a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <!-- /.has-submenu -->
-                <li class="active has-submenu">
-                  <a href="#" title="">
-                    Invoice List
-                  </a>
-                  <div class="submenu">
-                    <ul>
-                      <li class="has-submenu-child">
-                        <a href="portfolio-outside01.html" title="">Title OutSide</a>
-                        <ul class="submenu-child">
-                          <li>
-                            <a href="portfolio-outside01.html" title="">Grid 01 Title Outside</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-outside02.html" title="">Grid 02 Title Outside</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-outside03.html" title="">Grid 03 Title Outside</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li class="has-submenu-child">
-                        <a href="portfolio-inside01.html" title="">Title Inside</a>
-                        <ul class="submenu-child">
-                          <li>
-                            <a href="portfolio-inside01.html" title="">Grid 01 Title Inside</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-inside02.html" title="">Grid 02 Title Inside</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-inside03.html" title="">Grid 03 Title Inside</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li class="has-submenu-child">
-                        <a href="portfolio-hover01.html" title="">Title Hover</a>
-                        <ul class="submenu-child">
-                          <li>
-                            <a href="portfolio-hover01.html" title="">Grid 01 Hover</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-hover02.html" title="">Grid 02 Hover</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-hover03.html" title="">Grid 03 Hover</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li>
-                        <a href="portfolio-masonry.html" title="">Masonry</a>
-                      </li>
-                      <li>
-                        <a href="portfolio-textbox.html" title="">TextBox</a>
-                      </li>
-                      <li class="has-submenu-child">
-                        <a href="portfolio-metro03.html" title="">Metro</a>
-                        <ul class="submenu-child">
-                          <li>
-                            <a href="portfolio-metro03.html" title="">Metro 03</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-metro04.html" title="">Metro 04</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li class="has-submenu-child">
-                        <a href="portfolio-simple.html" title="">Portfolio Single</a>
-                        <ul class="submenu-child">
-                          <li>
-                            <a href="portfolio-simple.html" title="">Single Simple</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-scroll.html" title="">Single Scroll</a>
-                          </li>
-                          <li>
-                            <a href="portfolio-single-fullwidth.html" title="">Single Fullwidth</a>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <!-- /.has-submenu -->
-
+              <ul class="menu flat-unstyled" style="margin-right:0;">
+                <xsl:apply-templates select="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu" />
+                
               </ul>
               <!-- /.menu -->
             </div>
@@ -349,72 +91,37 @@
           <div class="clearfix"></div>
         </div>
         <!-- /.container-fluid -->
-        <div class="menu-canvas">
-          <div class="close">
-            <i class="fa fa-times" aria-hidden="true"></i>
-          </div>
-          <div class="widget-about">
-            <h5>We Are yolo</h5>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim.</p>
-          </div>
-          <div class="widget-contact">
-            <h5>Contact Us</h5>
-            <ul>
-              <li>88 Landsriver St, Califonia, USA</li>
-              <li>(04) 122 00 111</li>
-              <li>
-                <a href="#" title="">support@elegant.com</a>
-              </li>
-            </ul>
-          </div>
-          <div class="share-link">
-            <ul class="social-ft">
-              <li>
-                <a href="" title="Facebook">
-                  <i class="ti-facebook" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li>
-                <a href="" title="Twitter">
-                  <i class="ti-twitter-alt" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li>
-                <a href="" title="Google Plus">
-                  <i class="ti-google" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li>
-                <a href="" title="Instagram">
-                  <i class="fa fa-instagram" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li>
-                <a href="" title="Dribble">
-                  <i class="ti-dribbble" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li>
-                <a href="" title="Pinterest">
-                  <i class="ti-pinterest" aria-hidden="true"></i>
-                </a>
-              </li>
-            </ul>
-            <p class="copyright">Copyright ©2017 Yolo. All Rights Reserved</p>
-          </div>
-        </div>
+        
       </section>
       <!-- /.header -->
 
-      <section class="page-title parallax parallax1">
+      <section class="page-title parallax" style="background-image: url('{sqroot/header/info/code/imgHeader/.}'); ">
         <div class="title-heading">
           <div class="container">
             <div class="row">
               <div class="col-md-12">
                 <div class="box-title style1">
-                  <h1>
-                    User Login
-                  </h1>
+                  <h2 style="color:#000000cc; margin-bottom:10px;">
+                    <xsl:value-of select="sqroot/header/info/code/name/." />
+                  </h2>
+                  <p style="color:#000000cc; font-size:25px; letter-spacing: 3px; ">
+                    <xsl:value-of select="sqroot/header/info/code/titleTag/." />
+                  </p>
+                  <!--<div class="breadcrumbs">
+                    <ul>
+                      <li>
+                        <a href="index.html" title="">Home</a>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                      </li>
+                      <li>
+                        <a href="element.html" title="">Element</a>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                      </li>
+                      <li>
+                        <a href="#" title="">Contact Simple</a>
+                      </li>
+                    </ul>
+                  </div>-->
                   <!-- /.breadcrumbs -->
                 </div>
                 <!-- /.box-title -->
@@ -431,50 +138,52 @@
       <!-- /.page-title parallax -->
 
       <div class="divider100"></div>
+      
+      <div id="contentWrapper">
+        <div class="flat-contact-simple">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="contact-classic">
+                  <p class="color-default">INVOICE PORTAL</p>
+                  <h2 class="font-weight-3">Use a local account to sign in</h2>
 
-      <div class="flat-contact-simple">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="contact-classic">
-                <p class="color-default">INVOICE PORTAL</p>
-                <h2 class="font-weight-3">Use a local account to sign in</h2>
-
+                </div>
+                <!-- /.contact-classic -->
               </div>
-              <!-- /.contact-classic -->
-            </div>
-            <!-- /.col-md-6 -->
-            <div class="col-md-6">
-              <div class="form-contact-form style4">
-                <form id="contactform" action="./contact/contact-process.php" method="post" accept-charset="utf-8">
-                  <div class="subscribe-content">
-                    <div class="contact-form-name contact-form">
-                      <input type="text" name="username" id="username" placeholder="Enter your email address" required="" />
+              <!-- /.col-md-6 -->
+              <div class="col-md-6">
+                <div class="form-contact-form style3 v2 two">
+                  <form id="formlogin" onsubmit="return signInFrontEnd();">
+                    <div class="form-group enabled-input contact-form-name contact-form">
+                      <label>User Name</label>
+                      <input type="text" class="form-control" name="userid" id="userid" autofocus="autofocus" onkeypress="return checkenter(event)" />
+
                     </div>
-                    <div class="contact-form-name contact-form">
-                      <input type="password" name="password" id="password" placeholder="Enter Your Password" required="" />
+                    <div class="form-group enabled-input contact-form-name contact-form">
+                      <label>Password</label>
+                      <input type="password" class="form-control" name="pwd" id="pwd" autofocus="autofocus" onkeypress="return checkenter(event)" />
+
                     </div>
-                    
-                      <button type="submit" class="border-radius-2" style="margin-right:5px">SUBMIT</button>
-                    
-                  
-                      <button type="submit" class="border-radius-2">CANCEL</button>
-                  
+                  </form>
+                  <div class="btn-contact-form" style="text-align:center">
+                    <button id="btn_submitLogin" class="flat-button-form border-radius-2" onclick="signInFrontEnd()">SUBMIT</button>&#160;
                   </div>
-                </form>
-                <!-- /form -->
+                  <!-- /form -->
+                </div>
+                <!-- /.form-contact-form -->
               </div>
-              <!-- /.form-contact-form -->
+              <!-- /.col-md-6 -->
             </div>
-            <!-- /.col-md-6 -->
+            <!-- /.row -->
           </div>
-          <!-- /.row -->
+          <!-- /.container -->
         </div>
-        <!-- /.container -->
       </div>
-      <!-- /.flat-contact-simple -->
+
 
       <div class="divider100"></div>
+
 
       <section class="flat-partner background">
         <div class="container">
@@ -482,23 +191,23 @@
             <div class="col-md-12">
               <!--<ul class="owl-carousel">
                 <li>
-                  <img src="images/partner/01.png" alt=""/>
-                </li>
+                  <img src="images/partner/01.png" alt="">
+							</li>
                 <li>
-                  <img src="images/partner/02.png" alt=""/>
-                </li>
+                  <img src="images/partner/02.png" alt="">
+							</li>
                 <li>
-                  <img src="images/partner/03.png" alt=""/>
-                </li>
+                  <img src="images/partner/03.png" alt="">
+							</li>
                 <li>
-                  <img src="images/partner/04.png" alt=""/>
-                </li>
+                  <img src="images/partner/04.png" alt="">
+							</li>
                 <li>
-                  <img src="images/partner/05.png" alt=""/>
-                </li>
+                  <img src="images/partner/05.png" alt="">
+							</li>
                 <li>
-                  <img src="images/partner/06.png" alt=""/>
-                </li>
+                  <img src="images/partner/06.png" alt="">
+							</li>
               </ul>-->
               <!-- /.owl-carousel -->
             </div>
@@ -690,5 +399,61 @@
     <!-- /.boxed -->
 
 
+  </xsl:template>
+
+  <xsl:template match="sqroot/header/menus/menu[@code='primaryfront']/submenus/submenu">
+    <xsl:choose>
+      <xsl:when test="(@type)='treeroot'">
+        <li class="login">
+          <a href="#" title="">
+            <xsl:value-of select="caption/." /><i class="fa fa-angle-down" aria-hidden="true"></i>
+          </a>
+          <ul class="unstyled border-radius-5 box-shadow">
+            <xsl:apply-templates select="submenus/submenu[@type='treeview']" />
+          </ul>
+        </li>
+      </xsl:when>
+      <xsl:when test="(@type)='label'">
+        <li class="has-menu-mega">
+          <a href="{pageURL/.}" title="">
+            <xsl:value-of select="caption/." />
+          </a>
+        </li>
+      </xsl:when>
+    </xsl:choose>
+    <!--<li class="dropdown">
+      <xsl:choose>
+        <xsl:when test="(@type)='treeroot'">
+          <a href="{pageURL/.}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="prim-{caption/.}">
+            <xsl:value-of select="caption/." />
+          </a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <xsl:apply-templates select="submenus/submenu[@mode='treeview']" />
+          </ul>
+        </xsl:when>
+        <xsl:when test="(@type)='label'">
+          <a href="{pageURL/.}" id="prim-{caption/.}"  onclick="clearCookies()">
+            <xsl:value-of select="caption/." />
+          </a>
+        </xsl:when>
+      </xsl:choose>
+    </li>-->
+  </xsl:template>
+
+
+  <xsl:template match="sqroot/header/menus/menu[@code='specialfront']/submenus/submenu">
+    <li class="{@type}">
+      <a href="{pageURL/.}" title="">
+        <xsl:value-of select="caption/." />
+      </a>
+    </li>
+  </xsl:template>
+
+  <xsl:template match="submenus/submenu[@type='treeview']">
+    <li>
+      <a href="{pageURL/.}" title="">
+        <xsl:value-of select="caption/." />
+      </a>
+    </li>
   </xsl:template>
 </xsl:stylesheet>

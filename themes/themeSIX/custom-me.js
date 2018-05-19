@@ -628,3 +628,47 @@ function loadExtraButton(buttons, location)
         })
     })
 }
+
+
+function signInFrontEnd() {
+    var uid = document.getElementById("userid").value;
+    var pwd = document.getElementById("pwd").value;
+    var cartID = ''//getCookie("cartID");
+    var remember = ''//document.getElementById("rememberme");
+
+    var dataForm = $('#signinForm').serialize() //.split('_').join('');
+
+    var dfLength = dataForm.length;
+    dataForm = dataForm.substring(2, dfLength);
+    dataForm = dataForm.split('%3C').join('%26lt%3B');
+    path = "OPHCore/api/default.aspx?mode=signin&userid=" + uid + "&pwd=" + pwd + "&cartID=" + cartID + '&withCaptcha=0'
+//    LoadWave('show');
+    $.ajax({
+        url: path,
+        data: dataForm,
+        type: 'POST',
+        dataType: "xml",
+        timeout: 80000,
+        beforeSend: function () {
+            //setCursorWait(this);
+        },
+        success: function (data) {
+            var result = $(data).find("hostGUID").text();
+            //            LoadWave('hide')
+            if (result) {
+                if (remember.checked == true) { setCookie("userID", uid, 30, 0, 0); }
+                if (getQueryVariable("launch") != undefined && getQueryVariable("launch") != "") {
+                    var landingPage = 'index.aspx?code=' + getQueryVariable("launch") + '&package=' + getQueryVariable("package") + '&plan=' + getQueryVariable("plan");
+                } else {
+                    var landingPage = (getCookie('lastPar') == null || getCookie('lastPar') == '') ? '?' : getCookie('lastPar');
+                }
+                window.location = landingPage;
+            } else {
+                //alert('Invalid User or password!');
+                document.getElementById("notiContent").innerHTML = 'Invalid User ID or password!';
+                $("#notiTitle").html('Warning!');
+                $('#notiModal').modal()
+            }
+        }
+    });
+}
