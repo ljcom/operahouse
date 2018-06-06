@@ -1182,6 +1182,7 @@ Public Class cl_base
 
         'If Session("sequoia") = "" Then
         Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
+
         'dynamic account
         contentOfsequoiaCon = appSettings.Item("sequoia")
         Session("sequoia") = contentOfsequoiaCon

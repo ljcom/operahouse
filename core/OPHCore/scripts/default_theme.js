@@ -175,6 +175,8 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
     //if (code == 'modlinfo' || code == 'modlcolminfo' || code =='modlcolm')
     if (mode == 'inline')
         var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];
+    else if (mode != undefined && mode.indexOf('custom') >= 0) 
+        var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() +"_"+ mode +".xslt"];
     else
         var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
 
@@ -306,7 +308,6 @@ function btn_function(code, GUID, action, page, location, formId, afterSuccess) 
 }
 
 function saveFunction(code, guid, location, formId, afterSuccess) {
-
     saveFunction1(code, guid, location, formId, null, afterSuccess);
 }
 
@@ -701,7 +702,7 @@ function executeFunction(code, GUID, action, location) {
                     })
                 }
                 else {
-                    if (action = 'delete' && location == 20) {
+                    if (action == 'delete' && location == 20) {
                         //location: 0 header; 1 child; 2 browse 
                         //location: browse:10, header form:20, browse anak:30, browse form:40
 

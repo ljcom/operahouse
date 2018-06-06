@@ -22,7 +22,9 @@ Public Class cl_base_view
             If fieldattachment.Contains(Request.Form.Keys(x)) Then
                 info = info.Replace("#element#", "<field id=""" & colName & """><value>" & code & "_" & colName & "/" & szFilename & "/" & GUID & "_" & Request.Form(x).Replace("'", "''").Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
             Else
-                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & Request.Form(x).Replace("'", "&#39;").Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
+                Dim reqForm = IIf(Request.Form(x) = "NULL", "", Request.Form(x).Replace("'", "&#39;").Replace("&", "&amp;"))
+                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & IIf(reqForm = "NULL", "", reqForm) & "</value></field>#element#")
+                'info = info.Replace("#element#", "<field id=""" & colName & """><value>" & Request.Form(x).Replace("'", "&#39;").Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
             End If
         Next
         info = info.Replace("#element#", "")

@@ -2165,6 +2165,8 @@ function searchTextChild(e, searchvalue, code, isClear) {
         //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
         if (mode == 'inline')
             var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];
+        else if (mode != undefined && mode.indexOf('custom') >= 0)
+            var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_" + mode + ".xslt"];
         else
             var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
         pushTheme(divName, xmldoc, xsldoc, true);

@@ -94,7 +94,7 @@ Partial Class OPHCore_API_default
                     Dim curField = ""
 
                     For Each n In Request.Form
-                        If Request.Form(n) = Request.Files(f).FileName Then
+                        If Request.Form(n) = Request.Files(f).FileName Or Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then
                             curField = n
                             fieldattachment.Add(curField)
                             Exit For
@@ -116,7 +116,7 @@ Partial Class OPHCore_API_default
                 sqlstr = populateSaveXML(1, code, preview, fieldattachment, GUID)
                 sqlstr = sqlstr.Replace("#95#", "_").Replace("%2F", "/").Replace("%2C", "")
                 sqlstr = sqlstr & ", @preview=" & IIf(preview = "", 0, preview)
-
+                writeLog(sqlstr)
 
                 xmlstr = runSQLwithResult(sqlstr, curODBC)
 
