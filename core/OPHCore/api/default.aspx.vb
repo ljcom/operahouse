@@ -79,6 +79,7 @@ Partial Class OPHCore_API_default
 
             Case "view", "form"
                 sqlstr = "exec [api].[theme_form] '" & curHostGUID & "', '" & code & "', " & GUID '& ", " & editMode
+                writeLog("mode form : " & sqlstr)
 
             Case "save", "preview"
                 isSingle = False
@@ -88,27 +89,25 @@ Partial Class OPHCore_API_default
                 Dim fieldattachment As New List(Of String)
                 Dim f As String
                 For Each f In Request.Files
-                    Dim path As String
-                    path = Server.MapPath("~/OPHContent/documents")
-
-                    Dim curField = ""
-
+                    Dim path As String = Server.MapPath("~/OPHContent/documents")
+                    Dim theDate As DateTime = DateTime.Now
+                    Dim szFilename = Year(theDate) & "\" & Month(theDate)
+                    Dim curField = "", fileName = ""
                     For Each n In Request.Form
-                        If Request.Form(n) = Request.Files(f).FileName Or Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then
+                        'If Request.Form(n) = Request.Files(f).FileName Or Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then
+                        If Request.Form(n) = Request.Files(f).FileName Or Request.Files(f).FileName.IndexOf(Request.Form(n).ToString()) > 0 Or Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then
                             curField = n
+                            fileName = IIf(Request.Form(n).Equals(""), Request.Files(f).FileName, Request.Form(n))
                             fieldattachment.Add(curField)
                             Exit For
                         End If
                     Next
-                    Dim theDate As DateTime = DateTime.Now
 
-                    Dim szFilename = Year(theDate) & "\" & Month(theDate)
-
-                    Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & GUID.Replace("'", "") & "_" & Request.Files(f).FileName
-
+                    Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & GUID.Replace("'", "") & "_" & fileName
                     Dim checkDir = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\"
                     If Not Directory.Exists(checkDir) Then Directory.CreateDirectory(checkDir)
                     If Directory.Exists(checkDir) Then
+                        writeLog("upload_attachment: " & fxn)
                         If fxn <> "" Then Request.Files(f).SaveAs(fxn)
                     End If
                 Next
@@ -130,12 +129,20 @@ Partial Class OPHCore_API_default
             Case "function"
                 Dim functionName = IIf(String.IsNullOrWhiteSpace(Request.Form("cfunction")), getQueryVar("cfunction"), Request.Form("cfunction"))
                 Dim functionlist = IIf(String.IsNullOrWhiteSpace(Request.Form("cfunctionlist")), getQueryVar("cfunctionlist"), Request.Form("cfunctionlist"))
+                Dim approvaluserguid = IIf(String.IsNullOrWhiteSpace(Request.Form("approvaluserguid")), getQueryVar("approvaluserguid"), Request.Form("approvaluserguid"))
+                Dim pwd = IIf(String.IsNullOrWhiteSpace(Request.Form("pwd")), getQueryVar("pwd"), Request.Form("pwd"))
                 Dim comment = getQueryVar("comment")
+
+                If approvaluserguid = "undefined" Or approvaluserguid = "null" Then approvaluserguid = "NULL" Else approvaluserguid = "'" & approvaluserguid & "'"
+                If pwd = "undefined" Then pwd = "NULL" Else pwd = "'" & pwd & "'"
+
                 Dim fl = functionlist.Split(",")
                 For Each f In fl
                     If f = "" Then f = "null" Else f = "'" & f & "'"
-                    sqlstr = "exec api.[function] @hostGUID='" & curHostGUID & "', @mode='" & functionName & "', @code='" & code & "', @GUID=" & f & ", @comment='" & comment & "'"
+                    'add approvaluserguid and pwd
+                    sqlstr = "exec api.[function] @hostGUID='" & curHostGUID & "', @mode='" & functionName & "', @code='" & code & "', @GUID=" & f & ", @comment='" & comment & "'" & IIf(approvaluserguid = "NULL", "", ", @approvaluserguid=" & approvaluserguid & ", @pwd= " & pwd & " ")
                     xmlstr &= runSQLwithResult(sqlstr, curODBC)
+                    writeLog("function " & functionName & " : " & sqlstr)
                 Next
                 Dim msg = xmlstr
                 xmlstr = "<messages><message>" & xmlstr & "</message></messages>"

@@ -55,6 +55,9 @@ Partial Class OPHCore_api_msg_rptDialog
 			End If
 
             If dplx = 1 Then
+                Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
+                Dim cete = appSettings.Item("ceTe.LicenseKey").ToString
+                Document.AddLicense(cete)
                 Dim Parameters As ParameterDictionary = New ParameterDictionary
                 Dim pathDPLX As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/" & reportName & ".dplx")
 
@@ -131,8 +134,11 @@ Partial Class OPHCore_api_msg_rptDialog
                 End Try
             ElseIf gbox = 1 Then
 
+                Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
+                SpreadsheetInfo.SetLicense(appSettings.Item("gBox.LicenseKey").ToString)
+                'SpreadsheetInfo.SetLicense("ESWM-UQ6R-26SR-4WB1")
+
                 Dim g = System.Guid.NewGuid().ToString
-                SpreadsheetInfo.SetLicense("ESWM-UQ6R-26SR-4WB1")
                 Dim Parameters As ParameterDictionary = New ParameterDictionary
                 Dim gfile As String = "", gext As String = ""
                 Dim gpath As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/")

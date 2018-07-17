@@ -324,8 +324,12 @@ function Right(str, n) {
     }
 }
 
-function isIE() { return ((navigator.appName == 'Microsoft Internet Explorer') || ((navigator.appName == 'Netscape') && (new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null))); }
+function isIE() { return ((navigator.appName == 'Microsoft Internet Explorer') 	
+	|| ((navigator.appName == 'Netscape') 
+	&& (new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null))); }
 
+function isEdge() {return window.navigator.userAgent.indexOf("Edge") > -1	}
+	
 function isMSIE() {
     return '\v' == 'v';
 }

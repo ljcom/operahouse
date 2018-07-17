@@ -1389,26 +1389,6 @@ function changerowReadOnlyFont(substring, rowno, Bold) {
     while (index > 0)
 }
 
-function changeSumField(rowno) {
-    var TableSumfield, field, index, result
-    result = ""
-    TableSumfield = eval('document.all.SumField.innerHTML')
-    do {
-        index = TableSumfield.indexOf("SumFormula_")
-        if (index <= 0)
-            break;
-        TableSumfield = TableSumfield.substring(index + 11, TableSumfield.length);
-        field = TableSumfield.substring(0, TableSumfield.indexOf('>'));
-        if (field.indexOf(' ') > 0) {
-            field = field.substring(0, field.indexOf(' '));
-        }
-        if (field != "")
-            result += 'window.document.all.ReadOnly' + field + rowno + '.innerText=eval(window.document.all.SumFormula_' + field + '.value),';
-    }
-    while (index > 0)
-    return result;
-}
-
 function changeRowTotal(rowno, operand) {
     var Total, field, index;
     Total = eval('document.all.TotalRecord.innerHTML');
@@ -2050,35 +2030,6 @@ function back() {
     window.location = "index.aspx?env=back&code=" + getCode();
 }
 
-function saveConfirm() {
-    // kykny tdk perlu di validasi lg, krn sudah di validasi sebelumny di checkChanges
-
-    //$("input[type='text'], input[type='checkbox'], select").each(function () {
-    //    var t = $(this);
-    //    if ($(this).data("old") != undefined) {
-
-    //        if ((t.prop("type") == "text" || t.prop("type") == "checkbox") && ($(this).val() != $(this).data("old")) ||
-    //            ((t.prop("type") == "select-one") && ($(this).data("value") != $(this).data("old")))) {
-
-    //            if (t.prop("type") == "text" || t.prop("type") == "checkbox") $(this).data("old", $(this).val());
-    //            if (t.prop("type") == "select-one") {
-    //                $(this).data("old", $(this).data("value"));
-    //                $(this).data("oldtext", t[0].options[t[0].selectedIndex].text);
-    //            }
-    //            $('#button_save').hide();
-    //            $('#button_cancel').hide();
-    //            $('#button_save2').hide();
-    //            $('#button_cancel2').hide();
-    //        }
-    //    }
-    //})
-    $('#button_save').hide();
-    $('#button_cancel').hide();
-    $('#button_save2').hide();
-    $('#button_cancel2').hide();
-}
-
-
 
 function checkrequired(Names, output) {
     var result = 'good'
@@ -2110,11 +2061,6 @@ function checkCB(checkboxname) {
 }
 
 
-function changestateid(stateid) {
-    setCookie('stateid', stateid, 0, 1, 0);
-    setCookie('bSearchText', '', 0, 1, 0);
-    loadContent(1);
-}
 
 function resetBrowseCookies() {
     //setCookie('stateid', '399', 0, 1, 0);
@@ -2353,7 +2299,7 @@ function genReport(code, parameter, outType, query, reportName) {
 
 function childPageNo(pageid, code, currentpage, totalpages) {
     var result = "";
-
+    var mode = '&quot;' + getCookie(code.toLowerCase() + '_browseMode')+'&quot;';
     var before = "";
     var after = "";
     var parentKey = '&quot;' + document.getElementById('PKName').value + '&quot;';
@@ -2361,21 +2307,21 @@ function childPageNo(pageid, code, currentpage, totalpages) {
     var guid = '&quot;' + getQueryVariable("GUID") + '&quot;';
     var code = '&quot;' + code + '&quot;';
 
-    if (currentpage != 1) result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 1) + ")'>&#171;</a></li>";
+    if (currentpage != 1) result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 1) + "," + mode + ")'>&#171;</a></li>";
     if (parseInt(currentpage) - 2 > 0)
-        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 2) + ")'>" + (parseInt(currentpage) - 2) + "</a></li>";
+        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 2) + "," + mode + ")'>" + (parseInt(currentpage) - 2) + "</a></li>";
 
     if (parseInt(currentpage) - 1 > 0)
-        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 1) + ")'>" + (parseInt(currentpage) - 1) + "</a></li>";
+        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 1) + "," + mode + ")'>" + (parseInt(currentpage) - 1) + "</a></li>";
 
-    result += "<li><a style ='background-color:#3c8dbc;color:white;'href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + currentpage + ")'>" + currentpage + "</a></li>";
+    result += "<li><a style ='background-color:#3c8dbc;color:white;'href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + currentpage + "," + mode + ")'>" + currentpage + "</a></li>";
 
     if (parseInt(currentpage) + 1 <= totalpages)
-        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 1) + ")'>" + (parseInt(currentpage) + 1) + "</a></li>";
+        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 1) + "," + mode + ")'>" + (parseInt(currentpage) + 1) + "</a></li>";
     if (parseInt(currentpage) + 2 <= totalpages)
-        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 2) + ")'>" + (parseInt(currentpage) + 2) + "</a></li>";
+        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 2) + "," + mode + ")'>" + (parseInt(currentpage) + 2) + "</a></li>";
 
-    if (parseInt(currentpage) != totalpages) result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 1) + ")'>&#187;</a></li>";
+    if (parseInt(currentpage) != totalpages) result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 1) + "," + mode + ")'>&#187;</a></li>";
 
     result += "<li>&nbsp;&nbsp;&nbsp;</li>"
 

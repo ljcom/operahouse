@@ -13,3 +13,6 @@
 [submodule "themes/themeONE"]
 	path = themes/themeONE
 	url = https://github.com/ljcom/themeONE.git
+[submodule "themes/themeSIX"]
+	path = themes/themeSIX
+	url = https://github.com/ljcom/themeSIX.git	

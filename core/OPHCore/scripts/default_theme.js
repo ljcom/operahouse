@@ -63,7 +63,7 @@ function getMode() {
     //return (getGUID() == '' || getGUID() == undefined) ? 'browse' : 'form'
 }
 
-function getCode() { return (getCookie('code') == undefined ? getQueryVariable("code") : getQueryVariable("code")) }
+function getCode() { return (getQueryVariable("code") == undefined ? getCookie("code") : getQueryVariable("code")) }
 
 function lastCode() { return getCookie('lastCode'); }
 
@@ -79,6 +79,14 @@ function getPage() {
 }
 
 function getState() { return (getQueryVariable("stateid") == undefined ? getCookie('stateid') : getQueryVariable("stateid")) }
+
+function changestateid(stateid) {
+    setCookie('stateid', stateid);
+    setCookie(getCode().toLowerCase() + '_curstateid', stateid);
+    setCookie('bSearchText', '');
+    loadContent(1);
+}
+
 
 function getSearchText() { return (getQueryVariable("bSearchText") == undefined ? getCookie('bSearchText') : getQueryVariable("bSearchText")) }
 
@@ -146,7 +154,7 @@ function loadContent(nbpage, f) {
     //sidebar
     divname.push('sidebarWrapper');
     xsldoc.push('OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '_sidebar.xslt');
-    
+
     pushTheme(divname, xmldoc, xsldoc, true);
 }//
 
@@ -175,8 +183,8 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
     //if (code == 'modlinfo' || code == 'modlcolminfo' || code =='modlcolm')
     if (mode == 'inline')
         var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];
-    else if (mode != undefined && mode.indexOf('custom') >= 0) 
-        var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() +"_"+ mode +".xslt"];
+    else if (mode != undefined && mode.indexOf('custom') >= 0)
+        var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_" + mode + ".xslt"];
     else
         var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
 
@@ -203,6 +211,26 @@ function loadBrowse(bCode, f) {
     document.location = url;
 }
 
+
+function changeSumField(rowno) {
+    var TableSumfield, field, index, result
+    result = ""
+    TableSumfield = eval('document.all.SumField.innerHTML')
+    do {
+        index = TableSumfield.indexOf("SumFormula_")
+        if (index <= 0)
+            break;
+        TableSumfield = TableSumfield.substring(index + 11, TableSumfield.length);
+        field = TableSumfield.substring(0, TableSumfield.indexOf('>'));
+        if (field.indexOf(' ') > 0) {
+            field = field.substring(0, field.indexOf(' '));
+        }
+        if (field != "")
+            result += 'window.document.all.ReadOnly' + field + rowno + '.innerText=eval(window.document.all.SumFormula_' + field + '.value),';
+    }
+    while (index > 0)
+    return result;
+}
 
 function loadReport(qCode, tcode, f) {
     qCode = (qCode == "") ? getCode() : qCode;
@@ -247,6 +275,19 @@ function showMessage(msg, mode, fokus, afterMessage) {
     }
 }
 
+function rejectPopup(code, GUID, action, page, location, formId, afterSuccess) {
+
+    $("#rejectModal").modal();
+    document.getElementById('rejectComment').onkeyup = function () {
+        $('#rejectBtn').css('visibility', $('#rejectComment').val() != '' ? 'visible' : 'hidden');
+    }
+
+    document.getElementById('rejectBtn').onclick = function () {
+        var comment = $('#rejectComment').val();
+        btn_function(code, GUID, action, page, location, formId, comment, afterSuccess);
+    };
+
+}
 
 //childform
 
@@ -262,6 +303,8 @@ function showChildForm(code, guid, parent) {
         var xsldoc = ["OPHContent/themes/" + loadThemeFolder() + "/xslt/" + getPage() + "_childForm.xslt"];
         pushTheme(divnm, xmldoc, xsldoc, true, function () {
             $('#' + code + guid).collapse('show');
+            var form = 'form' + code
+            //preview(1, code, guid, form, this);
             // $('#' + code + guid).collapse({ parent: '#' + parent, toggle: true });
             // $('#' + code + guid).collapse('toggle');
         });
@@ -283,7 +326,7 @@ function closeChildForm(code, guid) {
 
 //functions
 
-function btn_function(code, GUID, action, page, location, formId, afterSuccess) {
+function btn_function(code, GUID, action, page, location, formId, comment, afterSuccess) {
     //location: 0 header; 1 child; 2 browse 
     //location: browse:10, header form:20, browse anak:30, browse form:40
 
@@ -299,11 +342,15 @@ function btn_function(code, GUID, action, page, location, formId, afterSuccess) 
         saveFunction(code, GUID, location, formId, afterSuccess);
     } else {
         if (GUID == null) {
-            var arGUID = Array.from($("input:checked").not("#pinnedAll").map(function () { return this.dataset.guid }));
+            if (isIE()) {
+                var arGUID = [].slice.call($("input:checked").not("#pinnedAll").map(function () { return this.dataset.guid }))
+            } else {
+                var arGUID = Array.from($("input:checked").not("#pinnedAll").map(function () { return this.dataset.guid }));
+            }
             GUID = arGUID.join();
         }
 
-        executeFunction(code, GUID, action, location);
+        executeFunction(code, GUID, action, location, null, null, comment);
     }
 }
 
@@ -329,17 +376,15 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
     }
 
     if (result == 'good') {
-        //var filename = $(":file").val();
         if (dataFrm == null) {
             var data = new FormData();
+            var thisForm = (formId != undefined) ? '#' + formId : 'form';
 
-            if ($(':file').length > 0) {
-                $.each($(':file')[0].files, function (key, value) {
+            if ($(thisForm + ' :file').length > 0) {
+                $.each($(thisForm + ' :file')[0].files, function (key, value) {
                     data.append(key, value);
                 });
             }
-            var thisForm = 'form';
-            if (formId != undefined) thisForm = '#' + formId;
             if (location == 30) { //child and gchildren
                 //move to celljs
             } else {
@@ -401,7 +446,7 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
         var thisForm = 'form';
         if (dataFrm == null) {
             if (formid != undefined) thisForm = '#' + formid;
-             dataFrm = $(thisForm).serialize()
+            dataFrm = $(thisForm).serialize()
 
             //var dfLength = dataFrm.length;
             //dataFrm = dataFrm.substring(0, dfLength);
@@ -450,26 +495,17 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
                                         var newOption = new Option($(this.nextSibling).text(), $(this).text(), true, true);
                                         $("#" + this.tagName).append(newOption).trigger('change');
                                     } else {
-                                        autosuggestSetValue(this.tagName, code, this.tagName, this.textContent);
+                                        var defer = []
+                                        autosuggestSetValue(defer, this.tagName, code, this.tagName, this.textContent);
                                     }
                                 } else {
                                     document.getElementById(this.tagName).value = $(this).text();
                                 }
                             }
-                            if ($(this).attr('disabled') == 'disabled') {
+                            //if ($(this).attr('disabled') == 'disabled') {
 
-                                $('#' + this.tagName).attr('disabled', true)
-                            }
-
-                            /* Remodified by eLs
-                                if ($(this).attr('display') == 'none') {
-                                    textboxHide(this.tagName);
-                                    $('#' + this.tagName).parent().parent().hide()
-                                }
-                                else if ($(this).attr('display') == 'inline') {
-                                    $('#' + this.tagName).parent().parent().show()
-                                }
-                            */
+                            //    $('#' + this.tagName).attr('disabled', true)
+                            //}
 
                             if ($(this).attr('display') == 'show') {
                                 $('#' + this.tagName).parent().show();
@@ -478,65 +514,18 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
                                 $('#' + this.tagName).parent().hide();
                             }
 
-                            //AddedBy eLs
+                            if ($(this).attr('readonly') == 'true' || $(this).attr('readonly') == '1') {
+                                $('#' + this.tagName).parent().removeClass('enabled-input').addClass('disabled-input');
+                                $('#' + this.tagName).attr('disabled', 'disabled');
+                            }
+                            if ($(this).attr('readonly') == 'false' || $(this).attr('readonly') == '0') {
+                                $('#' + this.tagName).parent().removeClass('disabled-input').addClass('enabled-input');
+                                $('#' + this.tagName).removeAttr('disabled');
+                            }
+
                             if ($(this).attr('style')) {
                                 var style = $(this).attr('style');
                                 $('#' + this.tagName).attr('style', style);
-                            }
-                            if ($(this).attr('hide')) {
-                                var hide = $(this).attr('hide');
-                                var IdVal = this.tagName;
-                                if (hide == 'true') {
-                                    try { document.getElementById(IdVal).style.display = "none"; }
-                                    catch (e) { }
-                                    try { document.getElementById(IdVal + "_prefix").style.display = "none"; }
-                                    catch (e) { }
-                                    try { document.getElementById(IdVal + "_suffix").style.display = "none"; }
-                                    catch (e) { }
-                                    try { $('#' + this.tagName).attr('style', 'display:none;'); }
-                                    catch (e) { }
-                                }
-                                else {
-                                    try { document.getElementById(IdVal).style.display = "inline"; }
-                                    catch (e) { }
-                                    try { document.getElementById(IdVal + "_prefix").style.display = "inline"; }
-                                    catch (e) { }
-                                    try { document.getElementById(IdVal + "_suffix").style.display = "inline"; }
-                                    catch (e) { }
-                                    try { $('#' + this.tagName).attr('style', 'display:inline;'); }
-                                    catch (e) { }
-                                }
-                            }
-                            if ($(this).attr('disabled') == 'true' || $(this).attr('disabled') == 'dsiabled') {
-                                try {
-                                    document.getElementById(this.tagName).readOnly = true;
-                                    document.getElementById(this.tagName).style.backgroundColor = "lavender";
-                                    document.getElementById(this.tagName).style.opacity = "0.4";
-                                    document.getElementById(this.tagName).style.filter = "alpha(opacity=40)";
-                                    document.getElementById(this.tagName).value = "";
-                                }
-                                catch (e) { }
-                            }
-                            if ($(this).attr('disabled') == 'false') {
-                                try {
-                                    document.getElementById(this.tagName).readOnly = false;
-                                    document.getElementById(this.tagName).style.backgroundColor = "white";
-                                    document.getElementById(this.tagName).style.opacity = "1.0";
-                                    document.getElementById(this.tagName).style.filter = "alpha(opacity=100)";
-                                }
-                                catch (e) { }
-                            }
-                            if ($(this).attr('readonly') == 'true') {
-                                try {
-                                    document.getElementById(this.tagName).readOnly = true;
-                                }
-                                catch (e) { }
-                            }
-                            if ($(this).attr('readonly') == 'false') {
-                                try {
-                                    document.getElementById(this.tagName).readOnly = false;
-                                }
-                                catch (e) { }
                             }
                             //EndBy eLs
                         }
@@ -573,6 +562,7 @@ function checkChanges(t) {
                     else {
                         $('#button_save').show();
                         $('#button_cancel').show();
+                        $('#button_submit').hide();
                         $('#button_save2').show();
                         $('#button_cancel2').show();
                     }
@@ -581,6 +571,37 @@ function checkChanges(t) {
         })
     }
 }
+
+
+function saveConfirm() {
+    // kykny tdk perlu di validasi lg, krn sudah di validasi sebelumny di checkChanges
+
+    //$("input[type='text'], input[type='checkbox'], select").each(function () {
+    //    var t = $(this);
+    //    if ($(this).data("old") != undefined) {
+
+    //        if ((t.prop("type") == "text" || t.prop("type") == "checkbox") && ($(this).val() != $(this).data("old")) ||
+    //            ((t.prop("type") == "select-one") && ($(this).data("value") != $(this).data("old")))) {
+
+    //            if (t.prop("type") == "text" || t.prop("type") == "checkbox") $(this).data("old", $(this).val());
+    //            if (t.prop("type") == "select-one") {
+    //                $(this).data("old", $(this).data("value"));
+    //                $(this).data("oldtext", t[0].options[t[0].selectedIndex].text);
+    //            }
+    //            $('#button_save').hide();
+    //            $('#button_cancel').hide();
+    //            $('#button_save2').hide();
+    //            $('#button_cancel2').hide();
+    //        }
+    //    }
+    //})
+    $('#button_save').hide();
+    $('#button_cancel').hide();
+    $('#button_submit').show();
+    $('#button_save2').hide();
+    $('#button_cancel2').hide();
+}
+
 
 function saveCancel() {
     if (getGUID() == "00000000-0000-0000-0000-000000000000") back()
@@ -624,6 +645,7 @@ function saveCancel() {
 
                                 $('#button_save').hide();
                                 $('#button_cancel').hide();
+                                $('#button_submit').show();
                                 $('#button_save2').hide();
                                 $('#button_cancel2').hide();
                                 //$tokenInput(get, '');
@@ -633,12 +655,14 @@ function saveCancel() {
 
                     $('#button_save').hide();
                     $('#button_cancel').hide();
+                    $('#button_submit').show();
                     $('#button_save2').hide();
                     $('#button_cancel2').hide();
                 }
             } else {
                 $('#button_save').hide();
                 $('#button_cancel').hide();
+                $('#button_submit').show();
                 $('#button_save2').hide();
                 $('#button_cancel2').hide();
             }
@@ -646,17 +670,33 @@ function saveCancel() {
     }
 }
 
-function executeFunction(code, GUID, action, location) {
-    //location: browse:10, header form:20, browse anak:30, browse form:40
+function executeFunction(code, GUID, action, location, approvaluserguid, pwd, comment) {
+    //add parameter approvaluserguid and pwd
+    //location: browse:10, header form:20, header sidebar: 21, browse anak:30, browse form:40
     var successmsg = '', isAction = 1;
 
     if (action == 'execute') {
-        if (getState() == "" || getState == "0") successmsg = 'Submited Succesfully';
-        else if (getState() == '300') successmsg = 'Re-Submited Succesfully';
-        else successmsg = 'Approve Succesfully';
-        if ((confirm("You are about to " + action + " this record. Are you sure?") == 0)) { isAction = 0; }
+        if (getState() == "" || getState == "0") {
+            successmsg = 'Submited Succesfully';
+            if ((confirm("You are about to Submit this record. Are you sure?") == 0)) { isAction = 0; }
+        }
+        else if (getState() == '300') {
+            successmsg = 'Re-Submited Succesfully';
+            if ((confirm("You are about to Re-Submit this record. Are you sure?") == 0)) { isAction = 0; }
+        }
+        else {
+            successmsg = 'Approve Succesfully';
+            if ((confirm("You are about to Approve this record. Are you sure?") == 0)) { isAction = 0; }
+        }
     } else if (action == 'force') {
-        successmsg = 'Close Succesfully'
+        if (getCookie(code.toLowerCase() + '_curstateid') >= '400') {
+            successmsg = 'Close/Archive Succesfully';
+            if ((confirm("You are about to Close/Archive this record. Are you sure?") == 0)) { isAction = 0; }
+        }
+        else {
+            successmsg = 'Rejected Succesfully';
+            if ((confirm("You are about to Reject this record. Are you sure?") == 0)) { isAction = 0; }
+        }
     } else if (action == 'reopen') {
         successmsg = 'Reopen Succesfully'
     } else if (action == 'inactivate') {
@@ -678,12 +718,12 @@ function executeFunction(code, GUID, action, location) {
             preview(1, code, GUID, "form" + code, null);
         }
     }
-
-    var path = 'OPHCore/api/default.aspx?code=' + code + '&mode=function&cfunction=' + action + '&cfunctionlist=' + GUID + '&comment&unique=' + getUnique()
+    //add approvaluserguid and pwd and comment
+    var path = 'OPHCore/api/default.aspx?code=' + code + '&mode=function&cfunction=' + action + '&cfunctionlist=' + GUID + '&comment=' + comment + '&unique=' + getUnique() + '&approvaluserguid=' + approvaluserguid + '&pwd=' + pwd
 
     if (location == undefined || location == "") { location = 20 }
     //location: 0 header; 1 child; 2 browse 
-    //location: browse:10, header form:20, browse anak:30, browse form:40
+    //location: browse:10, header form:20, header sidebar: 21, browse anak:30, browse form:40
 
 
 
@@ -704,10 +744,15 @@ function executeFunction(code, GUID, action, location) {
                 else {
                     if (action == 'delete' && location == 20) {
                         //location: 0 header; 1 child; 2 browse 
-                        //location: browse:10, header form:20, browse anak:30, browse form:40
+                        //location: browse:10, header form:20, header sidebar:21, browse anak:30, browse form:40
 
                         window.location = 'index.aspx?code=' + getQueryVariable("code");
                     }
+                    //if (action == 'execute' && location == 21) {
+                    //		//refresh sidebar
+                    //                   loadContent(1);
+                    //                   showMessage(successmsg);
+                    //}
                     else {
                         //showMessage(successmsg);
                         loadContent(1);
@@ -716,7 +761,8 @@ function executeFunction(code, GUID, action, location) {
 
                     //window.location.reload();
                 }
-            } else {
+            }
+            else {
                 showMessage(msg);
             }
         });
