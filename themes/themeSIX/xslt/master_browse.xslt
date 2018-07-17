@@ -178,7 +178,7 @@
                     <i class="fa fa-angle-right" aria-hidden="true">&#xA0;</i>
                   </li>
                   <li>
-                    <a href="#">
+                    <a href="#"  style="pointer-events: none;">
                       <xsl:value-of select="sqroot/header/info/code/name/." /> List
                     </a>
                   </li>
@@ -192,7 +192,7 @@
                   <ul class="menu flat-unstyled" style="margin-right:0; padding-right:0; text-align:center;">
                     <li class="login"  style="margin-left:0;float:none;">
                       <ix class="fa fa-file-text-o" aria-hidden="true">&#xA0;</ix>&#160;
-                      <a href="#" title="">
+                      <a href="#" title="" style="pointer-events:none;">
                           <xsl:value-of select="translate(sqroot/body/bodyContent/browse/info/curState/@substateName, $smallcase, $uppercase)"/>
 
                         <i class="fa fa-angle-down" aria-hidden="true">&#xA0;</i>

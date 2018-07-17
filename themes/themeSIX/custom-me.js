@@ -672,3 +672,82 @@ function signInFrontEnd() {
         }
     });
 }
+
+function batchUpload(code, guid, location, formId, eid, dataFrm, afterSuccess) {
+    saveBatchUpload(code, guid, location, formId, eid, dataFrm, afterSuccess);
+}
+
+function saveBatchUpload(code, guid, location, formId, eid, dataFrm, afterSuccess) {
+    var tblnm = code
+    requiredname = document.getElementsByName(tblnm + "requiredname")[0];
+    var result
+    var idReq
+    if (requiredname != undefined) {
+        requiredname = requiredname.value;
+        if (requiredname != '' && requiredname != undefined) {
+            result = checkrequired(requiredname.split(', '), 'good');
+            idReq = checkrequired(requiredname.split(', '), 'id');
+        } else {
+            result = 'good'
+        }
+    } else {
+        result = 'good';
+    }
+
+    if (result == 'good') {
+        //var filename = $(":file").val();
+        if (dataFrm == null) {
+
+
+            if ($(':file').length > 0) {
+                $(":file").each(function (i) {
+
+                    $.each($(':file')[i].files, function (key, value) {
+                        var textfile = $('#' + eid + $(':file')[i].name.replace('_hidden', ''))
+                        var length = $(':file')[i].files.length
+                        var data = new FormData();
+                        var thisForm = 'form';
+                        thisForm = '#' + formId;
+
+                        data.append(key, value);
+                        textfile.val(value.name);
+
+                        var other_data = $(thisForm).serializeArray();
+
+                        $.each(other_data, function (key, input) {
+                            var newVal = input.value;
+                            newVal = newVal.replace(/</g, '&lt;');
+                            newVal = newVal.replace(/>/g, '&gt;');
+                            data.append(input.name, newVal);
+                        });
+
+                        //                    data.append('parentdocguid', getGUID());
+
+
+                        //alert(value.name);
+
+                        $.ajax({
+                            type: "POST",
+                            url: "OPHCore/api/default.aspx?code=" + code + "&mode=save&cfunctionlist=" + guid + "&",
+                            enctype: 'multipart/form-data',
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            data: data,
+                            success: function () {
+                                //alert("Data Uploaded: ");
+                            }
+                        }).done(function (data) {
+                            if (typeof afterSuccess == "function") afterSuccess(data);
+                            if (length != 0 && length != '' && length == key + 1) {
+                                window.location.reload();
+                            }
+                        });
+                    });
+                });
+            }
+           
+        }
+    }        
+       
+}

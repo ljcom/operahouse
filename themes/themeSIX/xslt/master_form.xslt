@@ -67,10 +67,18 @@
               <i class="fa fa-angle-right" aria-hidden="true">&#xA0;</i>
             </li>
             <li>
-              <a href="#" title="">
+              <a href="#" title="" style="pointer-events: none; font-weight:200px;">
                 <xsl:value-of select="sqroot/header/info/code/name/." /> Form
               </a>
+              <!--<i class="fa fa-angle-right" aria-hidden="true">&#xA0;</i>-->
             </li>
+            <!--<li>
+              
+              <a href="?code={sqroot/header/info/code/id/.}">
+                Create New 
+              </a>
+             
+            </li>-->
           </ul>
         </div>
         <!--content-->

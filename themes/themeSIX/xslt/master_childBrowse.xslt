@@ -181,7 +181,16 @@
           <xsl:value-of select="format-number(., '#,##0.0000', 'dot-dec')"/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:value-of select="."/>
+
+          <xsl:choose>
+            <xsl:when test="@editor = 'attachment' and .!=''">
+              View
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="."/>
+            </xsl:otherwise>
+          </xsl:choose>
+
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>

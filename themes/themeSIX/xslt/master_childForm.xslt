@@ -33,6 +33,7 @@
       defaultTime: false
       });-->
 
+      <!--
       $(function() {
 
       // We can attach the `fileselect` event to all file inputs on the page
@@ -40,7 +41,9 @@
       var input = $(this),
       numFiles = input.get(0).files ? input.get(0).files.length : 1,
       label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+      
       input.trigger('fileselect', [numFiles, label]);
+      alert(label);
 
       //var file = this.files[0];
       //if (file.size > 1024 {
@@ -65,8 +68,8 @@
       });
 
       });
-
-
+-->
+      upload_init('<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>');
       preview(1, '<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>', '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','form<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>', this);
 
     </script>
@@ -88,10 +91,10 @@
             <xsl:if test="/sqroot/body/bodyContent/form/info/permission/allowAdd = 1">
               <button id="child_button_addSave" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 41, 'form{sqroot/body/bodyContent/form/info/code/.}');">SAVE &amp; ADD NEW</button>&#160;
             </xsl:if>
-            
+
             <button id="child_button_save" class="btn btn-orange-a" onclick="saveThemeONE('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}', 40, 'form{sqroot/body/bodyContent/form/info/code/.}');">SAVE</button>&#160;
             <button id="child_button_cancel" class="btn btn-gray-a" onclick="closeChildForm('{sqroot/body/bodyContent/form/info/code/.}','{sqroot/body/bodyContent/form/info/GUID/.}')">CANCEL</button>&#160;
-            
+
             <xsl:if test="(/sqroot/body/bodyContent/form/info/GUID/.)!='00000000-0000-0000-0000-000000000000' and (/sqroot/body/bodyContent/form/info/permission/allowDelete/.)=1" >
               <button id="child_button_delete" class="btn btn-gray-a"
                   onclick="btn_function('{sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}', 'delete', 1, 40)">
@@ -160,15 +163,15 @@
   </xsl:template>
 
   <xsl:template match="formSection ">
-    <div class="box box-solid box-default" style="box-shadow:0px;border:none;">     
-        <div class="col-md-12">
-          <xsl:if test="@rowTitle/.!=''">
-            <h3>
-              <xsl:value-of select="@rowTitle/."/>&#160;
-            </h3>
-          </xsl:if>
-          <xsl:apply-templates select="formCols"/>
-        </div>
+    <div class="box box-solid box-default" style="box-shadow:0px;border:none;">
+      <div class="col-md-12">
+        <xsl:if test="@rowTitle/.!=''">
+          <h3>
+            <xsl:value-of select="@rowTitle/."/>&#160;
+          </h3>
+        </xsl:if>
+        <xsl:apply-templates select="formCols"/>
+      </div>
     </div>
   </xsl:template>
 
@@ -334,7 +337,7 @@
     </input>
   </xsl:template>
 
-  <xsl:template match="textEditor">    
+  <xsl:template match="textEditor">
     <label id="{../@fieldName}caption" data-toggle="collapse" data-target="#section_{@sectionNo}">
       <xsl:value-of select="titlecaption"/>
     </label>
@@ -349,25 +352,25 @@
         </xsl:when>
         <xsl:otherwise>&#160;</xsl:otherwise>
       </xsl:choose>
-    </textarea>  
+    </textarea>
 
     <script type="text/javascript">
       CKEDITOR.replace('<xsl:value-of select="../@fieldName"/>');
       CKEDITOR.instances['<xsl:value-of select="../@fieldName"/>'].on('blur', function() {
-        var teOldData = $('#<xsl:value-of select="../@fieldName"/>').html();
-        var teData = CKEDITOR.instances['<xsl:value-of select="../@fieldName"/>'].getData();
-        teData = teData.trim();
-        $('#<xsl:value-of select="../@fieldName"/>').html(teData);
-        if (teOldData != teData) {
-          $('#button_save').show();
-          $('#button_cancel').show();
-          $('#button_save2').show();
-          $('#button_cancel2').show();
-        }
-        preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);
+      var teOldData = $('#<xsl:value-of select="../@fieldName"/>').html();
+      var teData = CKEDITOR.instances['<xsl:value-of select="../@fieldName"/>'].getData();
+      teData = teData.trim();
+      $('#<xsl:value-of select="../@fieldName"/>').html(teData);
+      if (teOldData != teData) {
+      $('#button_save').show();
+      $('#button_cancel').show();
+      $('#button_save2').show();
+      $('#button_cancel2').show();
+      }
+      preview('{preview/.}',getCode(), '{/sqroot/body/bodyContent/form/info/GUID/.}','formheader', this);
       });
     </script>
-</xsl:template>
+  </xsl:template>
 
   <xsl:template match="textArea">
     <label id="{../@fieldName}caption">
@@ -450,7 +453,7 @@
       </input>
     </div>
   </xsl:template>
-  
+
   <xsl:template match="timeBox">
     <script>//timebox</script>
     <label id="{../@fieldName}caption">
@@ -498,7 +501,7 @@
     <div class="input-group">
       <label class="input-group-btn">
         <span class="btn btn-primary">
-          Browse <input id ="{../@fieldName}_hidden" name="{../@fieldName}_hidden" type="file" style="display: none;" multiple="" />
+          Browse <input id ="{../@fieldName}_hidden" name="{../@fieldName}_hidden" type="file" data-code="{/sqroot/body/bodyContent/form/info/code/.}" style="display: none;" multiple="" />
         </span>
       </label>
       <input id ="{../@fieldName}" name="{../@fieldName}" Value="{value}" type="text" class="form-control" readonly="" />
@@ -521,7 +524,7 @@
     <xsl:if test="../@isNullable = 0">
       <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
-    
+
     <select class="form-control select2" style="width: 100%;" name="{../@fieldName}" id="{../@fieldName}"
       data-type="selectBox" data-old="{value/.}" data-oldText="{value/.}" data-value="{value/.}" data-child="Y"
         onchange="autosuggest_onchange(this, '{preview/.}', '{/sqroot/body/bodyContent/form/info/code/.}', '{/sqroot/body/bodyContent/form/info/GUID/.}','form{/sqroot/body/bodyContent/form/info/code/.}', this);">
@@ -606,8 +609,8 @@
       });
       });
     </script>-->
-    
-    <script type="text/javascript">   
+
+    <script type="text/javascript">
       var sURL<xsl:value-of select="../@fieldName"/>='OPHCore/api/msg_autosuggest.aspx?mode=token&amp;code=<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>&amp;colkey=<xsl:value-of select="../@fieldName"/>'
       var noPrepopulate<xsl:value-of select="../@fieldName"/>=1;
       <xsl:if test="value">
@@ -644,17 +647,17 @@
       );
       }
       });
-      });      
+      });
     </script>
 
     <label id="{../@fieldName}caption">
       <xsl:value-of select="titlecaption"/>
     </label>
-    
+
     <xsl:if test="../@isNullable = 0">
       <span id="rfm_{../@fieldName}" style="color:red;float:right;">required field</span>
     </xsl:if>
-    
+
     <!--digit-->
     <xsl:variable name="tbContent">
       <xsl:value-of select="value"/>

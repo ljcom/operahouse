@@ -1,16 +1,25 @@
 <sqroot>
   <manifest>
     <cssFile>OPHContent/cdn/bootstrap/css/bootstrap.min.css</cssFile>
-
+      
     <cssFile>OPHContent/cdn/font-awesome-4.7.0/css/font-awesome.min.css</cssFile>
     <cssFile>OPHContent/themes/themeSIX/styles/style.css</cssFile>
     <cssFile>OPHContent/themes/themeSIX/styles/responsive.css</cssFile>
     <cssFile>OPHContent/themes/themeSIX/styles/colors/color1.css</cssFile>
     <cssFile>OPHContent/cdn/select2/select2.min.css</cssFile>
+    <cssFile>OPHContent/cdn/datepicker/datepicker3.css</cssFile>
+    <cssFile>OPHContent/cdn/ophelements/celljs/cell.css</cssFile>
+    <cssFile>OPHContent/cdn/revolution/css/layers.css</cssFile>
+    <cssFile>OPHContent/cdn/revolution/css/settings.css</cssFile>
+    
+    <cssFile>OPHContent/themes/themeSIX/custom-me.css</cssFile>
+    
     <!--jsFile>OPHContent/cdn/jQuery/jquery-1.12.4.min.js</jsFile-->
+    <!--<jsFile>OPHContent/cdn/yolo/js/jquery.min.js</jsFile>-->
     <jsFile>OPHContent/cdn/tether/tether.min.js</jsFile>
+    <jsFile>OPHContent/cdn/ophelements/celljs/cell.js</jsFile>
+    <jsFile>OPHContent/cdn/ophelements/ophupload/ophupload.js</jsFile>
     <!--<jsFile>OPHContent/cdn/bootstrap/js/bootstrap4.0.0-a6.min.js</jsFile>-->
-
     <jsFile>OPHContent/cdn/bootstrap/js/bootstrap.min.js</jsFile>
     <jsFile>OPHContent/cdn/jquery-validate/jquery-validate.js</jsFile>
     <jsFile>OPHContent/cdn/waypoints/waypoints.min.js</jsFile>
@@ -22,8 +31,7 @@
     <jsFile>OPHContent/cdn/jquery-cookie/jquery.cookie.js</jsFile>
     <jsFile>OPHContent/themes/themeSIX/custom-me.js</jsFile>
     <jsFile>OPHContent/cdn/datepicker/bootstrap-datepicker.js</jsFile>
-    <cssFile>OPHContent/cdn/datepicker/datepicker3.css</cssFile>
-    <cssFile>OPHContent/themes/themeSIX/custom-me.css</cssFile>
+    
   </manifest>
 </sqroot>
 
