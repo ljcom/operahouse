@@ -25,9 +25,10 @@ Public Class cl_base
 	Protected contentofNeedLogin As Boolean
 	Protected contentofsignInPage As String
     Protected contentofwhiteAddress As Boolean
-
+    Protected contentofManifest As String
+    Protected contentofLastVer As String
     Protected errorCaptcha As String
-
+    Protected contentofOfflineCode As String
     Protected wordofWindowOnLoad As String = ""
 
     Protected contentOfScripts As String
@@ -137,8 +138,8 @@ Public Class cl_base
 	End Function
 	Sub reloadURL(url As String)
 		Dim x = Request.ApplicationPath
-		writeLog(x)
-		writeLog(url)
+        'writeLog(x)
+        'writeLog(url)
 		Dim newURL = url.Substring(InStr(url, "?"))
 
 		Dim par = newURL.Split("&")
@@ -179,8 +180,9 @@ Public Class cl_base
 
 	End Sub
 
-    Sub loadManifest(themeFolder As String, cdnLocation As String)
-
+    Sub loadManifest(themeFolder As String, cdnLocation As String, Optional isOffline As Boolean = False)
+        'themeFolder = IIf(themeFolder = "", contentOfthemeFolder, themeFolder)
+        'cdnLocation = IIf(cdnLocation = "", "OPHContent/cdn", "")
         Dim path = Server.MapPath("~/")
         contentOfScripts = ""
         'core
@@ -195,12 +197,32 @@ Public Class cl_base
         manifestPath = path & "\manifest.xml"
         contentOfScripts &= loadManifestFile(manifestPath, manifest, lastVer, cdnLocation)
 
+        'If isOffline Then
+
+        'End If
+
         If lastVer > Session("latestCache") Then
             Session("latestCache") = lastVer
             Session("cacheManifest") = manifest
+            contentofLastVer = lastVer
+            contentofManifest = manifest
         End If
 
     End Sub
+    Function loadOfflineData()
+        Dim sqlstr = "select moduleid from modl where parentmoduleguid is null"
+        Dim scripts = ""
+        Dim ds As DataSet = SelectSqlSrvRows(sqlstr)
+        If ds.Tables.Count > 0 Then
+            Dim r As DataRow
+            For Each r In ds.Tables(0).Rows
+                scripts &= "OPHCore/api/default.aspx?mode=master&code=" & r.Item(0) & "&stateid=0" & vbCrLf
+                scripts &= "OPHCore/api/default.aspx?mode=form&code=" & r.Item(0) & "&GUID=00000000-0000-0000-0000-000000000000&stateid=null&bPageNo=1&bSearchText=&sqlFilter=&sortOrder=" & vbCrLf
+
+            Next
+        End If
+        Return scripts
+    End Function
     Function loadManifestFile(path As String, ByRef manifest As String, ByRef latestVer As String, cdnLocation As String) As String
         Dim str As String = "" ', manstr As String = ""
         If System.IO.File.Exists(path) Then
@@ -1179,10 +1201,7 @@ Public Class cl_base
         'prepare curHostGUID, curUserGUID
         Dim hGUID = IIf(IsNothing(Response.Cookies("guestID").Value), Session("hostGUID"), Response.Cookies("guestID").Value)
         If hGUID = "" Then hGUID = "null" Else hGUID = "'" & hGUID & "'"
-
-        'If Session("sequoia") = "" Then
         Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
-
         'dynamic account
         contentOfsequoiaCon = appSettings.Item("sequoia")
         Session("sequoia") = contentOfsequoiaCon
@@ -1190,9 +1209,13 @@ Public Class cl_base
         Dim x = Request.Url.Authority & Request.ApplicationPath
         If x.Substring(Len(x) - 1, 1) = "/" Then x = x.Substring(0, Len(x) - 1)
 
+        Dim autouserloginid = Request.ServerVariables(5)
         If env = "" Then env = "null" Else env = "'" & env & "'"
         If code = "" Then code = "null" Else code = "'" & code & "'"
-        Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "', " & env & ", " & code & ""
+        Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "', " & env & ", " & code & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "")
+        'Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "', " & env & ", " & code & ""
+        'writeLog(sqlstr)
+        'writeLog(contentOfsequoiaCon)
         Dim r1 As DataSet = SelectSqlSrvRows(sqlstr, contentOfsequoiaCon)
         If r1.Tables.Count > 0 AndAlso r1.Tables(0).Rows.Count > 0 Then
             contentOfaccountId = r1.Tables(0).Rows(0).Item(0).ToString
@@ -1207,6 +1230,7 @@ Public Class cl_base
             contentofNeedLogin = r1.Tables(0).Rows(0).Item(9).ToString
             contentofsignInPage = r1.Tables(0).Rows(0).Item(10).ToString
             contentofwhiteAddress = r1.Tables(0).Rows(0).Item(11)
+            'contentofOfflineCode = r1.Tables(0).Rows(0).Item(13)
 
             Session("hostGUID") = r1.Tables(0).Rows(0).Item(7).ToString
             Session("userGUID") = r1.Tables(0).Rows(0).Item(8).ToString
@@ -1223,7 +1247,7 @@ Public Class cl_base
         Dim hGUID = hostGUID 'IIf(IsNothing(Response.Cookies("guestID").Value), Session("hostGUID"), Response.Cookies("guestID").Value)
         If hGUID = "" Then hGUID = "null" Else hGUID = "'" & hGUID & "'"
 
-        'If Session("sequoia") = "" Then
+        Dim autouserloginid = Request.ServerVariables(5)
         Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
         'dynamic account
         contentOfsequoiaCon = appSettings.Item("sequoia")
@@ -1234,13 +1258,11 @@ Public Class cl_base
 
         If env = "" Then env = "null" Else env = "'" & env & "'"
         If code = "" Then code = "null" Else code = "'" & code & "'"
-        Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "', " & env & ", " & code & ""
+        Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "', " & env & ", " & code & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "")
         Dim r1 As DataSet = SelectSqlSrvRows(sqlstr, contentOfsequoiaCon)
         If r1.Tables.Count > 0 AndAlso r1.Tables(0).Rows.Count > 0 Then
             'contentOfaccountId = r1.Tables(0).Rows(0).Item(0).ToString
             'contentOfsqDB = r1.Tables(0).Rows(0).Item(1).ToString
-
-
             'contentOfdbODBC = r1.Tables(0).Rows(0).Item(2).ToString
             contentOfthemeFolder = r1.Tables(0).Rows(0).Item(3).ToString
             contentOfthemePage = r1.Tables(0).Rows(0).Item(4).ToString
@@ -1249,13 +1271,9 @@ Public Class cl_base
             contentofNeedLogin = r1.Tables(0).Rows(0).Item(9).ToString
             contentofsignInPage = r1.Tables(0).Rows(0).Item(10).ToString
             contentofwhiteAddress = r1.Tables(0).Rows(0).Item(11)
-
             Session("hostGUID") = r1.Tables(0).Rows(0).Item(7).ToString
-            'Session("userGUID") = r1.Tables(0).Rows(0).Item(8).ToString
-
             setCookie("isWhiteAddress", IIf(contentofwhiteAddress, 1, 0), 1)
             setCookie("skinColor", r1.Tables(0).Rows(0).Item(12).ToString, 1)
-
         End If
 
     End Sub

@@ -49,6 +49,7 @@ Partial Class OPHCore_API_default
                     "<themeFolder>" & contentOfthemeFolder & "</themeFolder><themePage>" & contentOfthemePage & "</themePage><needLogin>" & contentofNeedLogin & "</needLogin><signInPage>" & contentofsignInPage & "</signInPage></sqroot>"
             Case "master"
                 sqlstr = "exec [api].[theme] '" & curHostGUID & "', '" & code & "', " & GUID
+                writeLog("mode master: " & sqlstr)
             Case "browse"
                 Dim sqlfilter = getQueryVar("sqlFilter")
                 Dim sortOrder = getQueryVar("sortOrder")

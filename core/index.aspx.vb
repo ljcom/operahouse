@@ -3,8 +3,21 @@
 Partial Class index
     'Inherits System.Web.UI.Page
     Inherits cl_base
-
+    Protected isOfflineMode As Boolean = False
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+
+        'offline
+        If getQueryVar("offline") = "1" Then
+            setCookie("offline", "1", 1)
+            isOfflineMode = True
+        ElseIf getQueryVar("offline") = "0" Then
+            setCookie("offline", "0", 1)
+        End If
+
+        If Not IsNothing(Request.Cookies("offline")) Then
+            isOfflineMode = Request.Cookies("offline").Value = "1"
+        End If
+
         Dim curHostGUID, code, env, themeFolder, pageURL, needLogin, loginPage As String
         Dim old = False
         If old Then
@@ -18,13 +31,13 @@ Partial Class index
             loginPage = contentofsignInPage
 
         Else
-            Dim HostGUID As String = Session("hostGUID")
-            'Dim account As String, url As String = Request.Url.OriginalString.Replace(Request.Url.PathAndQuery, "") & "/ophcore/api/default.aspx?mode=account&code=" & getQueryVar("code") & "&env=" & getQueryVar("env") & "&hostGUID=" & HostGUID
             Dim account As String, url As String = Request.Url.OriginalString.Replace(Request.Url.PathAndQuery, "") & Request.ApplicationPath
             If url.Substring(Len(url) - 1, 1) = "/" Then url = url.Substring(0, Len(url) - 1)
+            Dim HostGUID As String = MyBase.Session("hostGUID")
             url = url & "/ophcore/api/default.aspx?mode=account&code=" & getQueryVar("code") & "&env=" & getQueryVar("env") & "&hostGUID=" & HostGUID
-
+            'writeLog(url)
             Using WC As New System.Net.WebClient()
+                If Request.ServerVariables(5) <> "" Then WC.UseDefaultCredentials = True
                 account = WC.DownloadString(url)
             End Using
             Dim x = XDocument.Parse(account)
@@ -90,8 +103,9 @@ Partial Class index
         Dim GUID = "" 'getQueryVar("GUID") 
         WindowOnLoad = "initTheme('" & code & "', '" & GUID & "', '" & curHostGUID & "');"
         Response.Cookies("themeFolder").Value = themeFolder
-        loadManifest(themeFolder, cdnLocation)
-        Response.Cookies("page").Value = pageURL
+        loadManifest(themeFolder, cdnLocation, isOfflineMode)
+        setCookie("page", pageURL, "1")
+        'Response.Cookies("page").Value = pageURL
 
     End Sub
 End Class

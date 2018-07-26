@@ -1,17 +1,21 @@
 ﻿/*xml*/
 function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
     var req = [];
-    if (xmldoc != '') {
+    if (xmldoc !== '') {
         req.push($.ajax({ url: xmldoc, error: function () { } }));
         //$.ajax({ url: 'somefile.dat', type: 'HEAD', error: do_something });
         xltdoc.forEach(function (item, index) {
             req.push($.ajax({
                 url: item,
-                error: function () { console.log(item + ' is not found') }
+                error: function () {
+                    if (item.indexOf('sidebar') < 0)
+                        console.log(item + ' is not found')
+                }
             }))
         })
 
         var callback = function (divnm, xml, xsl) {
+            var cleanT = '';
             var clean = stripXML(stripScript(xmlToString(xml)));
             var hiddenText = findScript(xmlToString(xml));
             var hiddenMsg = findMsg(xmlToString(xml));
@@ -23,13 +27,14 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
             else {
                 if (isIE()) {
                     var ex = TransformToHtmlText(clean, xsl.responseText)
-                    var cleanedT = stripScript(ex);
+                    cleanedT = stripScript(ex);
                     cleanedT = cleanedT.split('&lt;').join('<').split('&gt;').join('>').split('&amp;').join('&');
                     if (document.getElementById(divnm)) document.getElementById(divnm).innerHTML = cleanedT;
                     ExecuteScript(ex, true);
                 }
-                    // code for Mozilla, Firefox, Opera, etc.
+                // code for Mozilla, Firefox, Opera, etc.
                 else if (document.implementation && document.implementation.createDocument) {
+                    xsl = checkXSLInclude(xsl);
                     xsltProcessor = new XSLTProcessor();
                     xsltProcessor.importStylesheet(xsl);
                     resultDocument = xsltProcessor.transformToFragment(xml, document);
@@ -37,45 +42,82 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
                     // added 2016 09 30
                     if (ex)
                         ex = ex.split('&lt;').join('<').split('&gt;').join('>').split('&amp;').join('&');
-                    var cleanedT = stripScript(ex);
-                    if (document.getElementById(divnm) != null) document.getElementById(divnm).innerHTML = cleanedT;
+                    cleanedT = stripScript(ex);
+                    if (document.getElementById(divnm) !== null) document.getElementById(divnm).innerHTML = cleanedT;
                     ExecuteScript(ex, true);
                 }
             }
-            if (typeof f == "function") f();
+            if (typeof f === "function") f();
         }
 
         $.when.apply(this, req).always(function (xml, xsl1, xsl2, xsl3, xsl4, xsl5) {
             if (isIE()) {
                 if (xml && $.parseXML(xml[2].responseText)) {
-                    if (xml != undefined && xsl1 != undefined) callback(divname[0], xml[2], xsl1[2]);
-                    if (xml != undefined && xsl2 != undefined) callback(divname[1], xml[2], xsl2[2]);
-                    if (xml != undefined && xsl3 != undefined) callback(divname[2], xml[2], xsl3[2]);
-                    if (xml != undefined && xsl4 != undefined) callback(divname[3], xml[2], xsl4[2]);
-                    if (xml != undefined && xsl5 != undefined) callback(divname[4], xml[2], xsl5[2]);
+                    if (xml !== undefined && xsl1 !== undefined) callback(divname[0], xml[2], xsl1[2]);
+                    if (xml !== undefined && xsl2 !== undefined) callback(divname[1], xml[2], xsl2[2]);
+                    if (xml !== undefined && xsl3 !== undefined) callback(divname[2], xml[2], xsl3[2]);
+                    if (xml !== undefined && xsl4 !== undefined) callback(divname[3], xml[2], xsl4[2]);
+                    if (xml !== undefined && xsl5 !== undefined) callback(divname[4], xml[2], xsl5[2]);
 
                     // add more if needed
                 }
-                else showMessage(xml[0], 4);
+                //else showMessage(xml[0], 4);
             } else {
                 if (xml && ($.isXMLDoc(xml[0]))) {
 
-                    if (xml != undefined && xsl1 != undefined) callback(divname[0], xml[0], xsl1[0]);
-                    if (xml != undefined && xsl2 != undefined) callback(divname[1], xml[0], xsl2[0]);
-                    if (xml != undefined && xsl3 != undefined) callback(divname[2], xml[0], xsl3[0]);
-                    if (xml != undefined && xsl4 != undefined) callback(divname[3], xml[0], xsl4[0]);
-                    if (xml != undefined && xsl5 != undefined) callback(divname[4], xml[0], xsl5[0]);
+                    if (xml !== undefined && xsl1 !== undefined) callback(divname[0], xml[0], xsl1[0]);
+                    if (xml !== undefined && xsl2 !== undefined) callback(divname[1], xml[0], xsl2[0]);
+                    if (xml !== undefined && xsl3 !== undefined) callback(divname[2], xml[0], xsl3[0]);
+                    if (xml !== undefined && xsl4 !== undefined) callback(divname[3], xml[0], xsl4[0]);
+                    if (xml !== undefined && xsl5 !== undefined) callback(divname[4], xml[0], xsl5[0]);
 
                     // add more if needed
 
                 }
-                else showMessage(xml[0], 4);
+                //else showMessage(xml[0], 4);
             }
 
         })
     }
 }
+
+function checkXSLInclude(doc) {
+    var newDoc = doc;
+    var idoc, k;
+    $(doc.childNodes[0].children).each(function (key, i) {
+
+        if (i.tagName == 'xsl:include') {
+            k = key;
+            //var url = document.location.href;
+            //url = url.substring(0, url.indexOf('?') - 1);
+            //url=
+            var url = i.getAttribute("href");
+            idoc = $.ajax({
+                type: "GET",
+                url: url,
+                async: false
+            }).responseText;
+
+        }
+        else {
+            //newDoc.appendChild(i);
+        }
+    });
+    if (idoc) {
+        parser = new DOMParser();
+        xslDoc = parser.parseFromString(idoc, "text/xml");
+        newDoc.childNodes[0].removeChild(doc.childNodes[0].children[k])
+
+        $(xslDoc.childNodes[0].children).each(function (n, i) {
+            newDoc.childNodes[0].appendChild(i)
+        });
+        //doc.childNodes[0].childNodes[k] = xslDoc.childNodes[0].childNodes;
+        //doc.childNodes[0].replaceChild(xslDoc.childNodes[0].childNodes, doc.childNodes[0].childNodes[k])
+    }
+    return newDoc;
+}
 function showXML(divname, xmldoc, xsldoc, needRunSript, clearBefore, f) {
+    var cleanedT = '';
     $.when($.ajax(xmldoc), $.ajax(xsldoc)).done(function (a1, a2) {
         // code for IE
         var xml
@@ -98,12 +140,12 @@ function showXML(divname, xmldoc, xsldoc, needRunSript, clearBefore, f) {
         else {
             if (isIE()) {
                 var ex = TransformToHtmlText(clean, xsl.responseText)
-                var cleanedT = stripScript(ex);
+                cleanedT = stripScript(ex);
                 cleanedT = cleanedT.split('&lt;').join('<').split('&gt;').join('>');
                 if (document.getElementById(divname)) document.getElementById(divname).innerHTML = cleanedT;
                 ExecuteScript(ex, needRunSript);
             }
-                // code for Mozilla, Firefox, Opera, etc.
+            // code for Mozilla, Firefox, Opera, etc.
             else if (document.implementation && document.implementation.createDocument) {
                 xsltProcessor = new XSLTProcessor();
                 xsltProcessor.importStylesheet(xsl);
@@ -111,14 +153,14 @@ function showXML(divname, xmldoc, xsldoc, needRunSript, clearBefore, f) {
                 ex = xmlToString(resultDocument);
                 // added 2016 09 30
                 ex = ex.split('&lt;').join('<').split('&gt;').join('>');
-                var cleanedT = stripScript(ex);
+                cleanedT = stripScript(ex);
                 document.getElementById(divname).innerHTML = cleanedT;
                 ExecuteScript(ex, needRunSript);
 
             }
         }
 
-        if (typeof f == "function") f();
+        if (typeof f === "function") f();
         //}
     });
 
@@ -126,12 +168,12 @@ function showXML(divname, xmldoc, xsldoc, needRunSript, clearBefore, f) {
 
 function TransformToHtmlText(xmlDoc, xsltDoc) {
     // 1.
-    if (typeof (XSLTProcessor) != "undefined") {
+    if (typeof (XSLTProcessor) !== "undefined") {
         var xsltProcessor = new XSLTProcessor();
         xsltProcessor.importStylesheet(xsltDoc);
         var xmlFragment = xsltProcessor.transformToFragment(xmlDoc, document);
 
-        if (typeof (GetXmlStringFromXmlDoc) != "undefined") {
+        if (typeof (GetXmlStringFromXmlDoc) !== "undefined") {
             return GetXmlStringFromXmlDoc(xmlFragment);
         }
         else {
@@ -150,13 +192,13 @@ function TransformToHtmlText(xmlDoc, xsltDoc) {
         }
     }
     // 2.
-    if (typeof (xmlDoc.transformNode) != "undefined") {
+    if (typeof (xmlDoc.transformNode) !== "undefined") {
         return xmlDoc.transformNode(xsltDoc);
     }
     else {
 
         var activeXOb = null;
-        try { activeXOb = new ActiveXObject("Msxml2.XSLTemplate"); } catch (ex) { }
+        try { activeXOb = new ActiveXObject("Msxml2.XSLTemplate"); } catch (ex) { console.log(ex); }
 
         try {
             // 3
@@ -338,44 +380,42 @@ function clearGreyCheckBox(t) {
     //    var gno = t.groupCheckBox;
     // added 2016 09 30
     var gno = t.alt;
-    if (gno != '') {
-        if ($(t).data('checked') == 1) {
+    if (gno !== '') {
+        if ($(t).data('checked') === 1) {
             $(t).data('checked', 2);
             $(t).prop('indeterminate', false);
             $(t).prop('checked', true);
 
             $("input[groupCheckBox='" + gno + "']").each(
-            function (index) {
-                el = $(this)
-                //alert(el.prop('indeterminate'));
-                if (el.prop('indeterminate')) {
-                    el.data('checked', 0);
-                    el.prop('indeterminate', false);
-                    el.prop('checked', false);
-                }
-            });
+                function (index) {
+                    el = $(this)
+                    //alert(el.prop('indeterminate'));
+                    if (el.prop('indeterminate')) {
+                        el.data('checked', 0);
+                        el.prop('indeterminate', false);
+                        el.prop('checked', false);
+                    }
+                });
 
         }
         else {
             xx = 0;
             $("input[groupCheckBox='" + gno + "']").each(
-        function (index) {
-            el = $(this)
-            //alert(el.prop('indeterminate'));
-            if (this.checked) xx++;
-        });
-            if (xx == 0) {
+                function (index) {
+                    el = $(this)
+                    //alert(el.prop('indeterminate'));
+                    if (this.checked) xx++;
+                });
+            if (xx === 0) {
                 $("input[groupCheckBox='" + gno + "']").each(
-            function (index) {
-                el = $(this)
-                el.data('checked', 1);
-                el.prop('indeterminate', true);
-                el.prop('checked', false);
-            });
+                    function (index) {
+                        el = $(this)
+                        el.data('checked', 1);
+                        el.prop('indeterminate', true);
+                        el.prop('checked', false);
+                    });
             }
-            else {
 
-            }
         }
         //alert(gno);
     }
@@ -396,7 +436,7 @@ function xmlToString(xml) {
 
 
 function checkDevMode() {
-    if (getQueryVariable("dev") == 1) {
+    if (getQueryVariable("dev") === 1) {
         $('.devMode').css('display', 'inline');
     }
 }
