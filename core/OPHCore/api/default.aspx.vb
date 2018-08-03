@@ -9,7 +9,7 @@ Partial Class OPHCore_API_default
         If getQueryVar("hostGUID") <> "" Then
             getAccount(getQueryVar("hostGUID"), getQueryVar("env"), getQueryVar("code"))
         Else
-            loadAccount()
+            loadAccount(getQueryVar("env"), getQueryVar("code"))
         End If
 
 
@@ -325,12 +325,15 @@ Partial Class OPHCore_API_default
                     'Response.Cookies("hostGUID").Value = curHostGUID
                     Response.Cookies("isLogin").Value = 1
                 End If
+            Case "signoff"
+                Session.Abandon()
             Case Else 'signin
                 Dim userid = getQueryVar("userid")
                 Dim pwd = getQueryVar("pwd")
                 Dim source As String = getQueryVar("source")
-                Dim withCaptcha = getQueryVar("withCaptcha")
-                withCaptcha = IIf(String.IsNullOrWhiteSpace(withCaptcha), 0, withCaptcha)
+                'Dim withCaptcha = getQueryVar("withCaptcha")
+                Dim withcaptcha = Not contentofwhiteAddress
+                'withcaptcha = IIf(String.IsNullOrWhiteSpace(withCaptcha), 0, withCaptcha)
                 Dim captcha = Request.Form("g-recaptcha-response")
                 If userid = "" And pwd = "" And captcha = "" Then
                     reloadURL("index.aspx?")

@@ -1,4 +1,4 @@
-﻿var form_added=false, form_edited=false;
+﻿var form_added = false, form_edited = false;
 
 function initTheme(bCode, bGUID, guestID, f) { //bmode, bcode, bguid hanya dipakai kalau mau pindah lokasi saja
     var unique = (getCookie("offline") == 1) ? '' : '&unique=' + getUnique();
@@ -150,7 +150,7 @@ function loadContent(nbpage, f) {
     if (getCode().toLowerCase() == 'dumy')
         var xmldoc = 'OPHContent/themes/' + loadThemeFolder() + '/sample.xml';
     else
-        var xmldoc = 'OPHCore/api/default.aspx?mode=' + getMode() + '&code=' + getCode() + '&GUID=' + getGUID() + '&stateid=' + getState() + '&bPageNo=' + nbpage + '&bSearchText=' + getSearchText() + '&sqlFilter=' + getFilter() + '&sortOrder=' + getOrder()+unique;
+        var xmldoc = 'OPHCore/api/default.aspx?mode=' + getMode() + '&code=' + getCode() + '&GUID=' + getGUID() + '&stateid=' + getState() + '&bPageNo=' + nbpage + '&bSearchText=' + getSearchText() + '&sqlFilter=' + getFilter() + '&sortOrder=' + getOrder() + unique;
 
     var divname = ['contentWrapper'];
     var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
@@ -183,7 +183,7 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
     }
     pageNo = (pageNo == undefined) ? 1 : pageNo;
 
-    var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + parentKey + '=' + "'" + GUID + "'&bPageNo=" + pageNo+unique;
+    var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + parentKey + '=' + "'" + GUID + "'&bPageNo=" + pageNo + unique;
 
     var divName = ['child' + String(code).toLowerCase() + GUID];
     //if (code == 'modlinfo' || code == 'modlcolminfo' || code =='modlcolm')
@@ -214,7 +214,8 @@ function loadBrowse(bCode, f) {
     //OPH4 --refreshHeader
     //evn=back harus di revisi
     var url = "index.aspx?env=back&code=" + bCode;
-    document.location = url;
+    goTo(url);
+    //document.location = url;
 }
 
 
@@ -249,7 +250,7 @@ function loadReport(qCode, tcode, f) {
         if (typeof f == "function") f();
     });
 
-    var xmldoc = 'OPHCore/api/default.aspx?mode=report' + '&code=' + qCode + ((tcode != undefined) ? '&tcode=' + tcode : '') + '&GUID=' + getGUID()+unique;
+    var xmldoc = 'OPHCore/api/default.aspx?mode=report' + '&code=' + qCode + ((tcode != undefined) ? '&tcode=' + tcode : '') + '&GUID=' + getGUID() + unique;
     var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/report_' + getMode() + '_sidebar.xslt';
     //var xmldoc = 'OPHCore/api/default.aspx?mode=report&code=' + getCode() + '&GUID=' + getGUID() + '&date=' + getUnique();
     showXML('sidebarWrapper', xmldoc, xsldoc, true, true, function () {
@@ -558,9 +559,9 @@ function checkChanges(t) {
             var tx = $(this);
             if ($(this).data("old") != undefined) {
 
-                if (((tx.prop("type") == "text" || tx.prop("type") == "checkbox") 
-					&& ($(this).val() != $(this).data("old")) && !tx[0].disabled && !$(tx).attr("readonly")) 
-					|| ((tx.prop("type") == "select-one") && ($(this).data("value") != $(this).data("old")))) {
+                if (((tx.prop("type") == "text" || tx.prop("type") == "checkbox")
+                    && ($(this).val() != $(this).data("old")) && !tx[0].disabled && !$(tx).attr("readonly"))
+                    || ((tx.prop("type") == "select-one") && ($(this).data("value") != $(this).data("old")))) {
                     if ($(this).data("child") == 'Y') {
                         $('#child_button_addSave').show();
                         $('#child_button_save').show();
@@ -577,7 +578,7 @@ function checkChanges(t) {
                         $('#button_delete').hide();
                         $('#button_save2').show();
                         $('#button_cancel2').show();
-                        
+
                     }
                     form_edited = true;
                 }
@@ -685,13 +686,15 @@ function saveCancel() {
                 $('#button_cancel2').hide();
             }
         })
-        form_edited = false;    
+        form_edited = false;
     }
 }
 
 function executeFunction(code, GUID, action, location, approvaluserguid, pwd, comment) {
     var unique = (getCookie("offline") == 1) ? '' : '&unique=' + getUnique();
 
+    if (approvaluserguid != undefined || approvaluserguid !=null) { pwd = document.getElementById("txtpwd" + approvaluserguid).value}
+    
     //add parameter approvaluserguid and pwd
     //location: browse:10, header form:20, header sidebar: 21, browse anak:30, browse form:40
     var successmsg = '', isAction = 1;
@@ -711,7 +714,8 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
             if ((confirm("You are about to Approve this record. Are you sure?") == 0)) { isAction = 0; }
         }
     } else if (action == 'force') {
-        if (docState >= '400') {7
+        if (docState >= '400') {
+            7
             successmsg = 'Close/Archive Succesfully';
             if ((confirm("You are about to Close/Archive this record. Are you sure?") == 0)) { isAction = 0; }
         }
@@ -741,7 +745,7 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
         }
     }
     //add approvaluserguid and pwd and comment
-    var path = 'OPHCore/api/default.aspx?code=' + code + '&mode=function&cfunction=' + action + '&cfunctionlist=' + GUID + '&comment=' + comment + '&approvaluserguid=' + approvaluserguid + '&pwd=' + pwd+unique;
+    var path = 'OPHCore/api/default.aspx?code=' + code + '&mode=function&cfunction=' + action + '&cfunctionlist=' + GUID + '&comment=' + comment + '&approvaluserguid=' + approvaluserguid + '&pwd=' + pwd + unique;
 
     if (location == undefined || location == "") { location = 20 }
     //location: 0 header; 1 child; 2 browse 
@@ -856,7 +860,7 @@ function resetSQLFilter(ini) {
 
     $(ini).button('loading');
     var divname = ['contentWrapper'];
-    var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + getCode() + '&stateid=' + getState() + '&bSearchText=' + getSearchText()+unique;
+    var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + getCode() + '&stateid=' + getState() + '&bSearchText=' + getSearchText() + unique;
     var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
     setCookie('sqlFilter', "", 0, 0, 0);
     $.when($.ajax(loadContent(1))).done(function () {
@@ -872,7 +876,7 @@ function delegatorModal(isRevoke) {
     var kukis = getCode() + '_dmc';
     if (isRevoke == true) {
         $('#btnRevoke').button('loading');
-        var url = "OPHCore/api/default.aspx?code=" + getCode() + "&mode=revokeDelegation"+unique;
+        var url = "OPHCore/api/default.aspx?code=" + getCode() + "&mode=revokeDelegation" + unique;
         var revoking = $.post(url)
             .done(function (data) {
                 var msg = $(data).find('message').text();
@@ -907,7 +911,7 @@ function sortBrowse(ini, loc, code, orderBy) {
         loadContent(1);
     } else {
         var sqlfilter = document.getElementById("filter" + code.toLowerCase()).value;
-        var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + sqlfilter + '&sortOrder=' + sortOrder + '&bPageNo=1'+unique;
+        var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + sqlfilter + '&sortOrder=' + sortOrder + '&bPageNo=1' + unique;
         var divName = ['child' + String(code).toLowerCase() + getGUID()];
         var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
         pushTheme(divName, xmldoc, xsldoc, true);
@@ -926,3 +930,24 @@ function sortBrowse(ini, loc, code, orderBy) {
 //        return message;
 //    }
 //}
+
+
+function goTo(url) {
+    window.location = url;
+
+    //urlsplit = url.split('?');
+    //urlonly = urlsplit[0];
+    //parform = urlsplit[1];
+    //par = parform.split('&');
+
+
+    //$('body').append($('<form/>')
+    //    .attr({ 'action': urlonly, 'method': 'post', 'id': 'replacer' }));
+    //par.forEach(function (x) {
+    //    $('#replacer').append($('<input/>')
+    //        .attr({ 'type': 'hidden', 'name': x.split('=')[0], 'value': x.split('=')[1] })
+    //    );
+
+    //})
+    //$('#replacer').submit();
+}
