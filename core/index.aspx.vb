@@ -21,7 +21,7 @@ Partial Class index
         Dim curHostGUID, code, env, themeFolder, pageURL, needLogin, loginPage As String
         Dim old = False
         If old Then
-            getAccount(Session("hostGUID"), getQueryVar("env"), getQueryVar("code"))
+            loadAccount(getQueryVar("env"), getQueryVar("code"))
             curHostGUID = Session("hostGUID")
             code = contentOfCode
             env = contentOfEnv
@@ -38,7 +38,10 @@ Partial Class index
             'writeLog(url)
             Using WC As New System.Net.WebClient()
                 If Request.ServerVariables(5) <> "" Then WC.UseDefaultCredentials = True
-                account = WC.DownloadString(url)
+				try
+					account = WC.DownloadString(url)
+				Catch exc As Exception
+				end try
             End Using
             Dim x = XDocument.Parse(account)
 
@@ -52,9 +55,19 @@ Partial Class index
             Session("hostGUID") = curHostGUID
         End If
 
+        'If code = "" Then
+        '    code = "404"
+        '    reloadURL("?code=" & code)
+        'ElseIf code <> loginPage And needLogin Then
+        '    setCookie("lastPar", "?code=" & code, 1)
+        '    Session("lastPar") = "?code=" & code
+        '    code = loginPage
+        '    reloadURL("?code=" & code)
+        'End If
+
         If code = "" And getQueryVar("code") <> "404" Then
             reloadURL("index.aspx?code=404&env=")
-        ElseIf (getQueryVar("code") = "" Or getQueryVar("code").ToLower() <> code.ToLower() Or getQueryVar("env").ToLower() <> env.ToLower()) And getQueryVar("code") <> "404" Then
+        ElseIf (getQueryVar("code") = "") And getQueryVar("code") <> "404" Then
 
             Dim reloadStr = Request.RawUrl & IIf(InStr(Request.RawUrl, "?") = 0, "?", IIf(Right(Request.RawUrl, 1) = "&", "", "&"))
 
