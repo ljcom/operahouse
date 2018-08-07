@@ -240,14 +240,15 @@ Public Class cl_base
                 For Each cssFile In doc.SelectNodes("//cssFile")
                     'jsFile.InnerText = (jsFile.InnerText)
                     'contentOfScripts = jsFile.InnerText
-                    str &= "<link rel=""stylesheet"" href=""" & cssFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & """ type=""text/css"" />" & vbCrLf
+                    str &= "<link rel=""stylesheet"" href=""" & cssFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & "?unique=" & format(now(), "yyyyMMddhhmmss") & """ type=""text/css"" />" & vbCrLf
                     manifest &= cssFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & vbCrLf
                 Next
+
 
                 For Each jsFile In doc.SelectNodes("//jsFile")
                     'jsFile.InnerText = (jsFile.InnerText)
                     'contentOfScripts = jsFile.InnerText
-                    str &= "<script type=""text/javascript"" src=""" & jsFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & """></script>" & vbCrLf
+                    str &= "<script type=""text/javascript"" src=""" & jsFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & "?unique=" & format(now(), "yyyyMMddhhmmss") & """></script>" & vbCrLf
                     manifest &= jsFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & vbCrLf
                 Next
                 Session("manifest" & path.Replace("/", "").Replace("\", "").Replace(".", "").Replace(":", "") & lastMod) = str
