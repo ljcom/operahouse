@@ -146,7 +146,7 @@ Partial Class OPHCore_api_sync
                     Dim dataxml = Request.Form("dataXML").ToString.Replace("%26lt;", "<").Replace("%26gt;", ">").Replace("%26", "&").Replace("&lt;", "<").Replace("&gt;", ">")
                     writeLog(Len(Request.Form("dataXML")).ToString & " " & Len(dataxml).ToString & " " + dataxml)
 
-                    sqlstr = "exec [api].[sync_sendData] '" & accountId & "', " & sessionToken & ", '" & code & "', '" & dataxml.Replace("'", "''") & "'"
+                    sqlstr = "exec [api].[sync_sendData] '" & accountId & "', " & sessionToken & ", '" & code & "', '" & dataxml.Replace("'", "''") & "', 1"
                     writeLog(sqlstr)
                     xmlstr = getXML(sqlstr, contentOfdbODBC)
                     writeLog(xmlstr)

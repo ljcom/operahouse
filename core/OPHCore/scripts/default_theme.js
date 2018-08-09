@@ -517,26 +517,32 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
                             //}
 
                             if ($(this).attr('display') == 'show') {
-                                $('#' + this.tagName).parent().show();
+                                if ($('[name=' + this.tagName + ']').data("type") == 'dateBox')
+                                    $('[name=' + this.tagName + ']').parent().parent().show();
+                                else
+                                    $('[name=' + this.tagName + ']').parent().show();
                             }
                             else if ($(this).attr('display') == 'hide') {
-                                $('#' + this.tagName).parent().hide();
+                                if ($('[name=' + this.tagName + ']').data("type") == 'dateBox')
+                                    $('[name=' + this.tagName + ']').parent().parent().hide();
+                                else
+                                    $('[name=' + this.tagName + ']').parent().hide();
                             }
 
                             if ($(this).attr('readonly') == 'true' || $(this).attr('readonly') == '1') {
-                                $('#' + this.tagName).parent().removeClass('enabled-input').addClass('disabled-input');
-                                $('#' + this.tagName).attr('disabled', 'disabled');
+                                $('[name=' + this.tagName + ']').parent().removeClass('enabled-input').addClass('disabled-input');
+                                $('[name=' + this.tagName + ']').parent().attr('disabled', 'disabled');
                             }
                             if ($(this).attr('readonly') == 'false' || $(this).attr('readonly') == '0') {
-                                $('#' + this.tagName).parent().removeClass('disabled-input').addClass('enabled-input');
-                                $('#' + this.tagName).removeAttr('disabled');
+                                $('[name=' + this.tagName + ']').parent().removeClass('disabled-input').addClass('enabled-input');
+                                $('[name=' + this.tagName + ']').parent().removeAttr('disabled');
                             }
 
                             if ($(this).attr('style')) {
                                 var style = $(this).attr('style');
-                                $('#' + this.tagName).attr('style', style);
+                                $('[name=' + this.tagName + ']').parent().attr('style', style);
                             }
-                            //EndBy eLs
+                            //EndBy eLs updated by samuel 20180808
                         }
                     }
                     if (typeof afterSuccess == "function") afterSuccess(data);
@@ -549,40 +555,75 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
         checkChanges(t);
     }
 }
-
 function checkChanges(t) {
+    if (t) {
+        var curdata = '';
+        var olddata = $(this).data("old") == undefined ? "" : $(this).data("old");
+        if (($("#" + t.id).prop("type") == "select-one") && (t.options[t.selectedIndex].value != $("#" + t.id).data("value"))) {
+            curdata = t.options[t.selectedIndex].value;
+            //$("#" + t.id).data("value", t.options[t.selectedIndex].value);
+        }
+        else 
+            curdata = $(t).val();
+        
+        if (curdata != olddata) {
+            if ($(t).data("child") == 'Y') {
+                $('#child_button_addSave').show();
+                $('#child_button_save').show();
+                $('#child_button_cancel').show();
+                $('#child_button_delete').hide();
+                $('#child_button_save2').show();
+                $('#child_button_cancel2').show();
+                $('#child_button_delete2').hide();
+            }
+            else {
+                $('#button_save').show();
+                $('#button_cancel').show();
+                $('#button_submit').hide();
+                $('#button_delete').hide();
+                $('#button_save2').show();
+                $('#button_cancel2').show();
+
+            }
+            form_edited = true;
+        }
+
+        
+    }
+}
+function checkChanges_old(t) {
     if (t) {
         if (($("#" + t.id).prop("type") == "select-one") && (t.options[t.selectedIndex].value != $("#" + t.id).data("value"))) {
             $("#" + t.id).data("value", t.options[t.selectedIndex].value);
         }
         $("input[type='text'], input[type='checkbox'], textarea, select").each(function () {
             var tx = $(this);
-            if ($(this).data("old") != undefined) {
-
-                if (((tx.prop("type") == "text" || tx.prop("type") == "checkbox")
-                    && ($(this).val() != $(this).data("old")) && !tx[0].disabled && !$(tx).attr("readonly"))
-                    || ((tx.prop("type") == "select-one") && ($(this).data("value") != $(this).data("old")))) {
-                    if ($(this).data("child") == 'Y') {
-                        $('#child_button_addSave').show();
-                        $('#child_button_save').show();
-                        $('#child_button_cancel').show();
-                        $('#child_button_delete').hide();
-                        $('#child_button_save2').show();
-                        $('#child_button_cancel2').show();
-                        $('#child_button_delete2').hide();
-                    }
-                    else {
-                        $('#button_save').show();
-                        $('#button_cancel').show();
-                        $('#button_submit').hide();
-                        $('#button_delete').hide();
-                        $('#button_save2').show();
-                        $('#button_cancel2').show();
-
-                    }
-                    form_edited = true;
+            //if ($(this).data("old") != undefined) {
+            var old = $(this).data("old") == undefined ? "" : $(this).data("old");
+            if (((tx.prop("type") == "text" || tx.prop("type") == "checkbox" || tx.prop("file"))
+                && ($(this).val() != old) && !tx[0].disabled && !$(tx).attr("readonly"))
+                || ((tx.prop("type") == "select-one") && ($(this).data("value") != old))) {
+                if ($(this).data("child") == 'Y') {
+                    $('#child_button_addSave').show();
+                    $('#child_button_save').show();
+                    $('#child_button_cancel').show();
+                    $('#child_button_delete').hide();
+                    $('#child_button_save2').show();
+                    $('#child_button_cancel2').show();
+                    $('#child_button_delete2').hide();
                 }
+                else {
+                    $('#button_save').show();
+                    $('#button_cancel').show();
+                    $('#button_submit').hide();
+                    $('#button_delete').hide();
+                    $('#button_save2').show();
+                    $('#button_cancel2').show();
+
+                }
+                form_edited = true;
             }
+            //}
         })
     }
 }
@@ -693,8 +734,8 @@ function saveCancel() {
 function executeFunction(code, GUID, action, location, approvaluserguid, pwd, comment) {
     var unique = (getCookie("offline") == 1) ? '' : '&unique=' + getUnique();
 
-    if (approvaluserguid != undefined || approvaluserguid !=null) { pwd = document.getElementById("txtpwd" + approvaluserguid).value}
-    
+    if (approvaluserguid != undefined || approvaluserguid != null) { pwd = document.getElementById("txtpwd" + approvaluserguid).value }
+
     //add parameter approvaluserguid and pwd
     //location: browse:10, header form:20, header sidebar: 21, browse anak:30, browse form:40
     var successmsg = '', isAction = 1;

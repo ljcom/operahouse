@@ -55,14 +55,18 @@ Partial Class OPHCore_api_msg_download
             path = path
             If dt.Tables(0).Rows.Count > 0 Then
                 Dim filename = dt.Tables(0).Rows(0)(fieldAttachment).ToString()
-                Dim revfilename = StrReverse(filename).Replace("/", "\")
-                Dim lengthfile = revfilename.IndexOf("\")
-                path = path & Left(filename, Len(filename) - lengthfile)
-                filename = Right(filename, lengthfile)
+                If filename <> "" Then
+                    Dim revfilename = StrReverse(filename).Replace("/", "\")
+                    Dim lengthfile = revfilename.IndexOf("\")
+                    path = path & Left(filename, Len(filename) - lengthfile)
+                    filename = Right(filename, lengthfile)
 
-                download(path, filename)
+                    download(path, filename)
+                Else
+                    Response.Write("File is not exists.")
+                End If
             End If
-        Else
+            Else
                 Dim querysql As String = getQueryVar("querysql")
             Dim sqlexec = "exec " & querysql & " '" & curHostGUID & "', '" & tGUID & "' ,1"
             runSQL(sqlexec, con)
