@@ -64,19 +64,19 @@ Partial Class OPHCore_API_default
 
                 If searchText = "null" Or searchText = "search" Then searchText = ""
                 If bpage = "" Then bpage = 1
+                If code <> "" Then
+                    Dim rpp = IIf(code.Length() > 6 And String.IsNullOrWhiteSpace(sqlfilter) = False, 10, 20)
 
-                Dim rpp = IIf(code.Length() > 6 And String.IsNullOrWhiteSpace(sqlfilter) = False, 10, 20)
+                    'add showpage untuk frontend
+                    Dim showpage = getQueryVar("showpage")
+                    If showpage <> "" Then
+                        rpp = showpage
+                    End If
+                    sqlstr = "exec [api].[theme_browse] '" & curHostGUID & "', '" & code & "', '" & sqlfilter.Replace("'", "''") & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", " & rpp & ", '" & sortOrder & "', '" & stateid & "'"
 
-                'add showpage untuk frontend
-                Dim showpage = getQueryVar("showpage")
-                If showpage <> "" Then
-                    rpp = showpage
+                    'isSingle = False
+                    'xmlstr = getXML(sqlstr, curODBC)
                 End If
-                sqlstr = "exec [api].[theme_browse] '" & curHostGUID & "', '" & code & "', '" & sqlfilter.Replace("'", "''") & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", " & rpp & ", '" & sortOrder & "', '" & stateid & "'"
-
-                'isSingle = False
-                'xmlstr = getXML(sqlstr, curODBC)
-
             Case "view", "form"
                 sqlstr = "exec [api].[theme_form] '" & curHostGUID & "', '" & code & "', " & GUID '& ", " & editMode
                 writeLog("mode form : " & sqlstr)
@@ -86,7 +86,8 @@ Partial Class OPHCore_API_default
                 Dim preview = getQueryVar("flag")
                 GUID = System.Guid.NewGuid().ToString()
 
-                Dim fieldattachment As New List(Of String)
+                Dim fieldAttachment As New List(Of String)
+                'Dim fileAttachment As New List(Of String)
                 Dim f As String
                 For Each f In Request.Files
                     Dim path As String = Server.MapPath("~/OPHContent/documents")
@@ -97,22 +98,26 @@ Partial Class OPHCore_API_default
                         'If Request.Form(n) = Request.Files(f).FileName Or Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then
                         If Request.Form(n) = Request.Files(f).FileName Or Request.Files(f).FileName.IndexOf(Request.Form(n).ToString()) > 0 Or Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then
                             curField = n
-                            fileName = IIf(Request.Form(n).Equals(""), Request.Files(f).FileName, Request.Form(n))
-                            fieldattachment.Add(curField)
-                            Exit For
+
+                            fileName = Trim(IIf(Request.Form(n).Equals(""), Request.Files(f).FileName, Request.Form(n).split(",")(1)))
+                            fieldAttachment.Add(curField)
+                            'fileAttachment.Add(fileName)
+
+                            Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & GUID.Replace("'", "") & "_" & fileName
+                            Dim checkDir = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\"
+                            If Not Directory.Exists(checkDir) Then Directory.CreateDirectory(checkDir)
+                            If Directory.Exists(checkDir) Then
+                                writeLog("upload_attachment: " & fxn)
+                                If fxn <> "" Then Request.Files(f).SaveAs(fxn)
+                            End If
+                            'Exit For
                         End If
                     Next
 
-                    Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & GUID.Replace("'", "") & "_" & fileName
-                    Dim checkDir = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\"
-                    If Not Directory.Exists(checkDir) Then Directory.CreateDirectory(checkDir)
-                    If Directory.Exists(checkDir) Then
-                        writeLog("upload_attachment: " & fxn)
-                        If fxn <> "" Then Request.Files(f).SaveAs(fxn)
-                    End If
+
                 Next
 
-                sqlstr = populateSaveXML(1, code, preview, fieldattachment, GUID)
+                sqlstr = populateSaveXML(1, code, preview, fieldAttachment, GUID)
                 sqlstr = sqlstr.Replace("#95#", "_").Replace("%2F", "/").Replace("%2C", "")
                 sqlstr = sqlstr & ", @preview=" & IIf(preview = "", 0, preview)
                 writeLog(sqlstr)
@@ -337,7 +342,7 @@ Partial Class OPHCore_API_default
                 If userid = "" And pwd = "" And captcha = "" Then
                     reloadURL("index.aspx?")
                 Else
-                    If withCaptcha = 0 Or (withCaptcha = 1 And captcha <> "" And IsGoogleCaptchaValid()) Then 'Or (source.ToLower.IndexOf("localhost") > 0) Then
+                    If withcaptcha = 0 Or (withcaptcha = 1 And captcha <> "" And IsGoogleCaptchaValid()) Then 'Or (source.ToLower.IndexOf("localhost") > 0) Then
                         Dim bypass = 0
                         'If checkWinLogin(userid, pwd) Then
                         '    bypass = 1

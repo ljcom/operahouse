@@ -49,14 +49,14 @@ Partial Class OPHCore_api_sync
                     result = "<sqroot><source>dblist</source><message>Incorrect Data!</message></sqroot>"
                 End If
             Case "reqcorescript"
-                sqlstr = "exec core.createDB '" & accountId & "', @isScriptOnly=1"
+                sqlstr = "exec core.createDB '" & accountId & "', @isScriptOnly=1, @token=" & sessionToken & ""
                 xmlstr = getXML(sqlstr, contentOfsequoiaCon, 0)
 
                 result = xmlstr.Replace("&lt;", "<").Replace("&gt;", ">")
                 isXML = False
                 Response.ContentType = "text/plain"
             Case "webrequestfile"
-                Dim r = download("../../ophcontent/documents/sync/", "sync.zip")
+                Dim r = download("../../ophcontent/documents/sync/", "sync.data")
             Case "webrequestSETUP"
                 sqlstr = "exec core.webrequestsetup"
                 xmlstr = getXML(sqlstr, contentOfsequoiaCon, 0)
@@ -129,9 +129,9 @@ Partial Class OPHCore_api_sync
                 'Dim pg = getQueryVar("page")
 
                 sqlstr = "exec [api].[sync_reqdata] '" & accountId & "', " & sessionToken & ", '" & code & "', '" & guid & "'"
-
+                writeLog(sqlstr)
                 xmlstr = getXML(sqlstr, contentOfdbODBC)
-
+                writeLog(xmlstr)
                 If xmlstr IsNot Nothing And xmlstr <> "" Then
                     'result = "<sqroot>" & xmlstr & "</sqroot>"
                     result = xmlstr

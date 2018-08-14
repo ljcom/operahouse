@@ -11,48 +11,48 @@ Imports GemBox.Spreadsheet
 Imports System.Data.SqlClient
 
 Partial Class OPHCore_api_msg_rptDialog
-	Inherits cl_base
-	Protected ReportName As String
-	Protected printerpath As String
-	Protected PathName As String
-	Protected ReportGUID As String
-	Protected status As String = 0
-	Protected isPrintOnly As String = 0
-	Dim sqlstr As String = ""
-	Dim hostGUID As String = "NULL"
+    Inherits cl_base
+    Protected ReportName As String
+    Protected printerpath As String
+    Protected PathName As String
+    Protected ReportGUID As String
+    Protected status As String = 0
+    Protected isPrintOnly As String = 0
+    Dim sqlstr As String = ""
+    Dim hostGUID As String = "NULL"
 
-	Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-		loadAccount()
+    Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        loadAccount()
 
-		Dim curHostGUID = Session("hostGUID")
-		Dim curUserGUID = Session("userGUID")
+        Dim curHostGUID = Session("hostGUID")
+        Dim curUserGUID = Session("userGUID")
 
-		If Request.QueryString("code") Is Nothing Then
-			'SignOff()
-			'Response.Write("<script>" & contentofSignOff & "</script>")
-		Else
-
-
-			isPrintOnly = Request.QueryString("isPrintOnly") '--> to be hidden
-			Dim code = Request.QueryString("code")  'code
-			'Dim query = Request.QueryString("query")    'querySQL --> to be hidden -- untuk xls/csv only
-			'If query<>"" And code="" then 
-			Dim outputType = Request.QueryString("outputType")
-			Dim dplx = Request.QueryString("dplx") '--> to be hidden
-			Dim gbox = Request.QueryString("gbox") '--> to be hidden
-			Dim reportName = Request.QueryString("reportName") '--> to be hidden
-			Dim parameterid As String = Request.QueryString("Parameter")
+        If Request.QueryString("code") Is Nothing Then
+            'SignOff()
+            'Response.Write("<script>" & contentofSignOff & "</script>")
+        Else
 
 
+            isPrintOnly = Request.QueryString("isPrintOnly") '--> to be hidden
+            Dim code = Request.QueryString("code")  'code
+            'Dim query = Request.QueryString("query")    'querySQL --> to be hidden -- untuk xls/csv only
+            'If query<>"" And code="" then 
+            Dim outputType = Request.QueryString("outputType")
+            Dim dplx = Request.QueryString("dplx") '--> to be hidden
+            Dim gbox = Request.QueryString("gbox") '--> to be hidden
+            Dim reportName = Request.QueryString("reportName") '--> to be hidden
+            Dim parameterid As String = Request.QueryString("Parameter")
 
 
-			Dim Connections As String = contentOfdbODBC
 
-			If parameterid = "" Then
-				parameterid = "hostGUID:" & curHostGUID
-			Else
-				parameterid = "hostGUID:" & curHostGUID & "," & parameterid
-			End If
+
+            Dim Connections As String = contentOfdbODBC
+
+            If parameterid = "" Then
+                parameterid = "hostGUID:" & curHostGUID
+            Else
+                parameterid = "hostGUID:" & curHostGUID & "," & parameterid
+            End If
 
             If dplx = 1 Then
                 Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
@@ -110,7 +110,7 @@ Partial Class OPHCore_api_msg_rptDialog
                         Dim MyDocument As Document = reportDocument.Run(Parameters)
                         Dim g = System.Guid.NewGuid().ToString
                         Dim savesPath As String = Request.PhysicalApplicationPath & "documents\temp\" & g & "_" & reportName & ".pdf"
-			savesPath = savesPath.Replace("core\", "")
+                        savesPath = savesPath.Replace("core\", "")
                         If Request.QueryString("dontdelete") = 1 Then
                             Response.Write(savesPath)
                             MyDocument.Draw(savesPath)
@@ -301,42 +301,42 @@ Partial Class OPHCore_api_msg_rptDialog
                 Catch ex As Exception
                     writeLog(ex.Message)
                     Response.Write("<script>alert('" & ex.Message.Replace("'", "\'") & "')</script>")
-				End Try
-			End If
-		End If
+                End Try
+            End If
+        End If
 
-	End Sub
-	Function parValId(ByVal par As ParameterDictionary, ByVal pp0 As String, ByVal pp1 As String) As String
-		Dim x As Integer = Len(pp1)
-		If x = 36 Then
-			Dim Gdt As Guid = New Guid(pp1)
-			par.Add(pp0, Gdt)
-		ElseIf pp1.ToLower = "null" Then
-			'Dim Gdt As Guid = New Guid("00000000-0000-0000-0000-000000000000")
-			'par.Add(pp0, Gdt)
-			par.Add(pp0, System.Guid.Empty)
-		ElseIf x = 0 Then
-			par.Add(pp0, System.Guid.Empty)
-		Else
-			par.Add(pp0, pp1)
-		End If
-		Return True
-	End Function
-	Protected Function download(path As String, f1 As String) As Boolean
-		Dim bytes() As Byte
-		Dim fInfo As New FileInfo(Server.MapPath(path) & f1)
-		Dim numBytes As Long = fInfo.Length
-		Dim fStream As New FileStream(Server.MapPath(path) & f1, FileMode.Open, FileAccess.Read)
-		Dim br As New BinaryReader(fStream)
-		bytes = br.ReadBytes(CInt(numBytes))
+    End Sub
+    Function parValId(ByVal par As ParameterDictionary, ByVal pp0 As String, ByVal pp1 As String) As String
+        Dim x As Integer = Len(pp1)
+        If x = 36 Then
+            Dim Gdt As Guid = New Guid(pp1)
+            par.Add(pp0, Gdt)
+        ElseIf pp1.ToLower = "null" Then
+            'Dim Gdt As Guid = New Guid("00000000-0000-0000-0000-000000000000")
+            'par.Add(pp0, Gdt)
+            par.Add(pp0, System.Guid.Empty)
+        ElseIf x = 0 Then
+            par.Add(pp0, System.Guid.Empty)
+        Else
+            par.Add(pp0, pp1)
+        End If
+        Return True
+    End Function
+    Protected Function download(path As String, f1 As String) As Boolean
+        Dim bytes() As Byte
+        Dim fInfo As New FileInfo(Server.MapPath(path) & f1)
+        Dim numBytes As Long = fInfo.Length
+        Dim fStream As New FileStream(Server.MapPath(path) & f1, FileMode.Open, FileAccess.Read)
+        Dim br As New BinaryReader(fStream)
+        bytes = br.ReadBytes(CInt(numBytes))
 
-		Response.Buffer = True
-		Response.Charset = ""
-		Response.Cache.SetCacheability(HttpCacheability.NoCache)
-		Response.AddHeader("content-disposition", "attachment;filename=" & f1)
-		Response.BinaryWrite(bytes)
-		Response.Flush()
-		Response.End()
-		Return True
-	End Function
+        Response.Buffer = True
+        Response.Charset = ""
+        Response.Cache.SetCacheability(HttpCacheability.NoCache)
+        Response.AddHeader("content-disposition", "attachment;filename=" & f1)
+        Response.BinaryWrite(bytes)
+        Response.Flush()
+        Response.End()
+        Return True
+    End Function
 End Class
