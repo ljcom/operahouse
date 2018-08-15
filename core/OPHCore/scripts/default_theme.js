@@ -958,20 +958,20 @@ function sortBrowse(ini, loc, code, orderBy) {
         pushTheme(divName, xmldoc, xsldoc, true);
     }
 }
-
-//window.onbeforeunload = function (event) {
-//    if (form_added || form_changed) {
-//        var message = 'Some data not yet saved. Are you sure want to leave?';
-//        if (typeof event == 'undefined') {
-//            event = window.event;
-//        }
-//        if (event) {
-//            event.returnValue = message;
-//        }
-//        return message;
-//    }
-//}
-
+function form_init() {
+    window.onbeforeunload = function (event) {
+        if (form_added || form_changed) {
+            var message = 'Some data not yet saved. Are you sure want to leave?';
+            if (typeof event == 'undefined') {
+                event = window.event;
+            }
+            if (event) {
+                event.returnValue = message;
+            }
+            return message;
+        }
+    }
+}
 
 function goTo(url) {
     window.location = url;
