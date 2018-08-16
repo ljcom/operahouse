@@ -830,6 +830,7 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                 }
             }
             else {
+                loadContent(1);
                 showMessage(msg);
             }
         });

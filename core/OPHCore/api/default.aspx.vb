@@ -3,7 +3,7 @@ Imports System.Net
 'Imports System.Net
 
 Partial Class OPHCore_API_default
-    Inherits cl_base_view
+    Inherits cl_base
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         If getQueryVar("hostGUID") <> "" Then
             getAccount(getQueryVar("hostGUID"), getQueryVar("env"), getQueryVar("code"))
