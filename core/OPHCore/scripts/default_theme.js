@@ -159,7 +159,7 @@ function loadContent(nbpage, f) {
     divname.push('sidebarWrapper');
     xsldoc.push('OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '_sidebar.xslt');
 
-    pushTheme(divname, xmldoc, xsldoc, true);
+    setTimeout(function () { pushTheme(divname, xmldoc, xsldoc, true); }, 100);
 }//
 
 function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
@@ -350,7 +350,7 @@ function btn_function(code, GUID, action, page, location, formId, comment, after
         //location: browse:10, header form:20, browse anak:30, browse form:40
         saveFunction(code, GUID, location, formId, afterSuccess);
     } else {
-        if (GUID == null) {
+        if (GUID == null || GUID == '') {
             if (isIE()) {
                 var arGUID = [].slice.call($("input:checked").not("#pinnedAll").map(function () { return this.dataset.guid }))
             } else {
