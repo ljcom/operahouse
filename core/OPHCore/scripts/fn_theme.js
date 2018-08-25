@@ -2,7 +2,26 @@
 function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
     var req = [];
     if (xmldoc !== '') {
-        req.push($.ajax({ url: xmldoc, error: function () { } }));
+        urlsplit = xmldoc.split('?');
+        urlonly = urlsplit[0];
+        parform = urlsplit[1];
+        var data = new FormData();
+        if (parform != undefined) {
+            parform.split('&').forEach(function (i) {
+                d = i.split('=');
+                dx = d[1] + (d.length == 3 ? '='+d[2] : '');
+                data.append(d[0], dx);
+            });
+        }
+        req.push($.ajax({
+            type: "POST",
+            url: urlonly,
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: data,
+            error: function () { }
+        }));
         //$.ajax({ url: 'somefile.dat', type: 'HEAD', error: do_something });
         xltdoc.forEach(function (item, index) {
             req.push($.ajax({

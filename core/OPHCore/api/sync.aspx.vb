@@ -143,7 +143,7 @@ Partial Class OPHCore_api_sync
                     Dim code = getQueryVar("code")
                     writeLog(code)
                     If Not IsNothing(Request.Form("dataXML")) Then
-                        Dim dataxml = Request.Form("dataXML").ToString.Replace("%26lt;", "<").Replace("%26gt;", ">").Replace("%26", "&").Replace("&lt;", "<").Replace("&gt;", ">")
+                        Dim dataxml = Request.Form("dataXML").ToString.Replace("&lt;", "<").Replace("&gt;", ">")
                         writeLog(Len(Request.Form("dataXML")).ToString & " " & Len(dataxml).ToString & " " + dataxml)
 
                         sqlstr = "exec [api].[sync_sendData] '" & accountId & "', " & sessionToken & ", '" & code & "', '" & dataxml.Replace("'", "''") & "', 1"

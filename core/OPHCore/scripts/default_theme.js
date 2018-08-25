@@ -563,9 +563,9 @@ function checkChanges(t) {
             curdata = t.options[t.selectedIndex].value;
             //$("#" + t.id).data("value", t.options[t.selectedIndex].value);
         }
-        else 
+        else
             curdata = $(t).val();
-        
+
         if (curdata != olddata) {
             if ($(t).data("child") == 'Y') {
                 $('#child_button_addSave').show();
@@ -588,7 +588,7 @@ function checkChanges(t) {
             form_edited = true;
         }
 
-        
+
     }
 }
 function checkChanges_old(t) {
@@ -974,22 +974,27 @@ function form_init() {
     }
 }
 
-function goTo(url) {
-    window.location = url;
+function goTo(url, isPost) {
+    if (isPost) {
+        urlsplit = url.split('?');
+        urlonly = urlsplit[0];
+        parform = urlsplit[1];
+        par = parform.split('&');
 
-    //urlsplit = url.split('?');
-    //urlonly = urlsplit[0];
-    //parform = urlsplit[1];
-    //par = parform.split('&');
+
+        $('body').append($('<form/>')
+            .attr({ 'action': urlonly, 'method': 'post', 'id': 'replacer' }));
+        par.forEach(function (x) {
+            $('#replacer').append($('<input/>')
+                .attr({ 'type': 'hidden', 'name': x.split('=')[0], 'value': x.split('=')[1] })
+            );
+
+        })
+        $('#replacer').submit();
+    }
+    else
+        window.location = url;
 
 
-    //$('body').append($('<form/>')
-    //    .attr({ 'action': urlonly, 'method': 'post', 'id': 'replacer' }));
-    //par.forEach(function (x) {
-    //    $('#replacer').append($('<input/>')
-    //        .attr({ 'type': 'hidden', 'name': x.split('=')[0], 'value': x.split('=')[1] })
-    //    );
-
-    //})
-    //$('#replacer').submit();
 }
+
