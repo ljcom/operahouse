@@ -1,5 +1,5 @@
-﻿
-Imports System.IO
+﻿Imports System.IO
+Imports System.IO.Compression
 
 Partial Class OPHCore_api_sync
     Inherits cl_base
@@ -51,8 +51,11 @@ Partial Class OPHCore_api_sync
                 Case "reqcorescript"
                     sqlstr = "exec core.createDB '" & accountId & "', @isScriptOnly=1, @token=" & sessionToken & ""
                     xmlstr = getXML(sqlstr, contentOfsequoiaCon, 0)
+                    If Not IsNothing(xmlstr) Then
+                        result = xmlstr.Replace("&amp;", "&").Replace("&lt;", "<").Replace("&gt;", ">")
+                        'writeFile(accountId, "install_" & accountId & ".sql", xmlstr)
+                    End If
 
-                    result = xmlstr.Replace("&amp;", "&").Replace("&lt;", "<").Replace("&gt;", ">")
                     isXML = False
                     Response.ContentType = "text/plain"
                 Case "webrequestfile"
@@ -126,9 +129,10 @@ Partial Class OPHCore_api_sync
                 Case "reqdata"
                     Dim code = getQueryVar("code")
                     Dim guid = Request.Form("guid")
+                    Dim delMode = Request.Form("delMode")
                     'Dim pg = getQueryVar("page")
 
-                    sqlstr = "exec [api].[sync_reqdata] '" & accountId & "', " & sessionToken & ", '" & code & "', '" & guid & "'"
+                    sqlstr = "exec [api].[sync_reqdata] @accountid='" & accountId & "', @token=" & sessionToken & ", @code='" & code & "', @guid='" & guid & "', @delMode=" & IIf(delMode = "1", "1", "0")
                     writeLog(sqlstr)
                     xmlstr = getXML(sqlstr, contentOfdbODBC)
                     writeLog(xmlstr)

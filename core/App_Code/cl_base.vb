@@ -1,13 +1,18 @@
 ﻿'Imports Microsoft.VisualBasic
-Imports System.IO
-Imports System.Data
-Imports System.Data.SqlClient
-'Imports System.Data.SqlTypes
-Imports System.Xml
 Imports System
 Imports System.Diagnostics
 Imports System.DirectoryServices.AccountManagement
 Imports System.DirectoryServices.ActiveDirectory.Domain
+
+Imports System.IO
+Imports System.IO.Compression
+
+Imports System.Data
+Imports System.Data.SqlClient
+
+Imports System.Xml
+
+
 
 Public Class cl_base
     Inherits System.Web.UI.Page
@@ -1300,6 +1305,46 @@ Public Class cl_base
             Debug.Write(ex.Message.ToString)
         End Try
     End Sub
+    Sub writeFile(accountid As String, filename As String, content As String, Optional isOverwrite As Boolean = True)
+        'Dim w As TextWriter
+        Dim path = Server.MapPath("~/OPHContent/documents")
+        path = path & "\" & accountid & "\"
+        'Dim logFilepath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\" & Right("0" & DateTime.Now().Day, 2) & ".txt"
+        'Dim logPath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\"
+
+        If (Not System.IO.Directory.Exists(path)) Then
+            System.IO.Directory.CreateDirectory(path)
+        End If
+        Dim saveFile = filename
+        If isOverwrite And File.Exists(path & saveFile) Then
+            File.Delete(path & saveFile)
+        End If
+
+        Try
+            Using w As StreamWriter = File.AppendText(path & saveFile)
+                w.Write(content)
+            End Using
+
+        Catch ex As Exception
+            Debug.Write(ex.Message.ToString)
+        End Try
+
+
+    End Sub
+    'Function zipFiles(path As String, filename As String, Optional isOverwrite As Boolean)
+    '    --zip
+    '    If isOverwrite And File.Exists(path & filename) Then
+    '        File.Delete(path & filename)
+    '    End If
+    '    Dim startPath As String = @"c:\example\start"
+    '    Dim zipPath As String = @"c:\example\result.zip"
+    '        Dim extractPath As String = @"c:\example\extract"
+
+    '        ZipFile.CreateFromDirectory(startPath, zipPath)
+
+    '    zipFile.ExtractToDirectory(zipPath, extractPath)
+
+    'End Function
     Function getQueryVar(key As String) As String
         Dim r = ""
 
