@@ -52,11 +52,11 @@ Partial Class OPHCore_api_sync
                     sqlstr = "exec core.createDB '" & accountId & "', @isScriptOnly=1, @token=" & sessionToken & ""
                     xmlstr = getXML(sqlstr, contentOfsequoiaCon, 0)
                     If Not IsNothing(xmlstr) Then
-                        result = xmlstr.Replace("&amp;", "&").Replace("&lt;", "<").Replace("&gt;", ">")
+                        Dim result1 = xmlstr.Replace("&amp;", "&").Replace("&lt;", "<").Replace("&gt;", ">")
                         Dim newid = Guid.NewGuid().ToString
                         Dim path = Server.MapPath("~/OPHContent/documents") & "\temp\"
                         Dim filename = "install_" & accountId & "_" & newid & ".sql"
-                        writeFile(path, filename, result)
+                        writeFile(path, filename, result1)
                         Dim r = download("../../ophcontent/documents/temp/", filename)
                     End If
                 Case "webrequestfile"
