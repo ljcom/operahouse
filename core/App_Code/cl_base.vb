@@ -1305,10 +1305,10 @@ Public Class cl_base
             Debug.Write(ex.Message.ToString)
         End Try
     End Sub
-    Sub writeFile(accountid As String, filename As String, content As String, Optional isOverwrite As Boolean = True)
+    Sub writeFile(path As String, filename As String, content As String, Optional isOverwrite As Boolean = True)
         'Dim w As TextWriter
-        Dim path = Server.MapPath("~/OPHContent/documents")
-        path = path & "\" & accountid & "\"
+        'Dim path = Server.MapPath("~/OPHContent/documents")
+        'path = path & "\" & accountid & "\"
         'Dim logFilepath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\" & Right("0" & DateTime.Now().Day, 2) & ".txt"
         'Dim logPath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\"
 

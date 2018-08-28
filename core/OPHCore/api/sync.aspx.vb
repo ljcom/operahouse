@@ -53,11 +53,12 @@ Partial Class OPHCore_api_sync
                     xmlstr = getXML(sqlstr, contentOfsequoiaCon, 0)
                     If Not IsNothing(xmlstr) Then
                         result = xmlstr.Replace("&amp;", "&").Replace("&lt;", "<").Replace("&gt;", ">")
-                        'writeFile(accountId, "install_" & accountId & ".sql", xmlstr)
+                        Dim newid = Guid.NewGuid().ToString
+                        Dim path = Server.MapPath("~/OPHContent/documents") & "\temp\"
+                        Dim filename = "install_" & accountId & "_" & newid & ".sql"
+                        writeFile(path, filename, result)
+                        Dim r = download("../../ophcontent/documents/temp/", filename)
                     End If
-
-                    isXML = False
-                    Response.ContentType = "text/plain"
                 Case "webrequestfile"
                     Dim r = download("../../ophcontent/documents/sync/", "sync.data")
                 Case "webrequestSETUP"
