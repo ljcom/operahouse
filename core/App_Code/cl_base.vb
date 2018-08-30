@@ -1447,7 +1447,7 @@ Public Class cl_base
         Return info
 
     End Function
-    Function populateSaveXML(ByVal vp As Long, ByVal Tablename As String, Optional ispreview As String = "", Optional fieldattachment As List(Of String) = Nothing, Optional GUID As String = "", Optional ByVal connection As String = "") As String
+    Function populateSaveXML(ByVal vp As Long, ByVal Tablename As String, Optional ispreview As String = "", Optional fieldattachment As List(Of String) = Nothing, Optional ByVal connection As String = "") As String
 
         loadAccount()
         Dim DBCore = contentOfsqDB
@@ -1455,11 +1455,11 @@ Public Class cl_base
         Dim curUserGUID = Session("userGUID")
 
         'Tablename = Left(Tablename, 1) & "o" & Mid(Tablename, 3, Len(Tablename) - 2)
-        Dim saveXML = writeXMLFromRequestForm("sqroot", fieldattachment, GUID, Tablename)
+        Dim saveXML = writeXMLFromRequestForm("sqroot", fieldattachment, Tablename)
         saveXML = saveXML.Replace("&amp;lt;", "&lt;").Replace("&amp;gt;", "&gt;").Replace("&amp;#39;", "&#39;")
         Dim contentofSaveString As String = ""
-        Dim mainguid = Request.QueryString("cfunctionlist")
-        Dim hostGUID As String
+        Dim mainguid = getQueryVar("cfunctionlist")
+        'Dim hostGUID As String
 
         If mainguid = "" Or Request.Form("gen_newid") = "1" Then
             'contentofSaveString = " exec api.[save] '" & Session("HostGUID").ToString & "', '" & Tablename & "', null, '" & saveXML & "'"

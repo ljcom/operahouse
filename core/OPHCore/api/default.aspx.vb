@@ -84,7 +84,8 @@ Partial Class OPHCore_API_default
             Case "save", "preview"
                 isSingle = False
                 Dim preview = getQueryVar("flag")
-                GUID = System.Guid.NewGuid().ToString()
+                'GUID = getQueryVar("guid")
+                'GUID = System.Guid.NewGuid().ToString()
 
                 Dim fieldAttachment As New List(Of String)
                 'Dim fileAttachment As New List(Of String)
@@ -117,7 +118,7 @@ Partial Class OPHCore_API_default
 
                 Next
 
-                sqlstr = populateSaveXML(1, code, preview, fieldAttachment, GUID)
+                sqlstr = populateSaveXML(1, code, preview, fieldAttachment)
                 sqlstr = sqlstr.Replace("#95#", "_").Replace("%2F", "/").Replace("%2C", "")
                 sqlstr = sqlstr & ", @preview=" & IIf(preview = "", 0, preview)
                 writeLog(sqlstr)

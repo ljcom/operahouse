@@ -410,13 +410,20 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
             var data = new FormData();
             dataFrm.split('&').forEach(function (i) {
                 d = i.split('=');
-                data.append(d[0], d[1]);
+                var newVal = d[1];
+                newVal = newVal.replace(/</g, '&lt;');
+                newVal = newVal.replace(/>/g, '&gt;');
+                data.append(d[0], newVal);
             });
         }
 
+        //data.append('code', code);
+        data.append('mode', 'save');
+        data.append('cfunctionlist', guid);
+        //data.append('guid', guid);
         $.ajax({
             type: "POST",
-            url: "OPHCore/api/default.aspx?code=" + code + "&mode=save&cfunctionlist=" + guid + "&",
+            url: "OPHCore/api/default.aspx?code="+code,
             enctype: 'multipart/form-data',
             cache: false,
             contentType: false,
@@ -451,8 +458,7 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
     if (flag == undefined) flag = 1;
     if (GUID == undefined) GUID = "00000000-0000-0000-0000-000000000000"
     if (flag > 0) {
-        var path = 'OPHCore/api/default.aspx?mode=preview&code=' + code + '&flag=' + flag + '&cfunctionlist=' + GUID;
-        var thisForm = 'form';
+
         if (dataFrm == null) {
             if (formid != undefined) thisForm = '#' + formid;
             dataFrm = $(thisForm).serialize()
@@ -465,9 +471,18 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
         var dataForm = new FormData();
         dataFrm.split('&').forEach(function (i) {
             d = i.split('=');
+            var newVal = d[1];
+            newVal = newVal.replace(/</g, '&lt;');
+            newVal = newVal.replace(/>/g, '&gt;');
             dataForm.append(d[0].toString(), d[1].toString());
         });
         //} 
+        dataForm.append('mode', 'preview');
+        //dataForm.append('code', code);
+        dataForm.append('flag', flag);
+        dataForm.append('cfunctionlist', GUID);
+        var path = 'OPHCore/api/default.aspx?code'+code;
+        var thisForm = 'form';
 
 
         $.ajax({
