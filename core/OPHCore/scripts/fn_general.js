@@ -110,7 +110,7 @@ function cekinput(datatype, id) {
             event.keyCode = '';
             eval('document.all.' + id + '.value=value');
         }
-        if ((event.keyCode == 45 && value.indexOf('-') == 0) || (event.keyCode == 46 && value.indexOf('.') > 0)) {
+        if ((event.keyCode === 45 && value.indexOf('-') === 0) || (event.keyCode === 46 && value.indexOf('.') > 0)) {
             event.keyCode = '';
             eval('document.all.' + id + '.value=value');
         }
@@ -130,8 +130,8 @@ function cektanda(datatype, id) {
     value = document.getElementById(id).value;
     minus = value.indexOf('-');
     titik = value.indexOf('.');
-    if (datatype == 'Single' || datatype == 'Double' || datatype == 'Decimal' || datatype.substring(0, 3) == 'Int') {
-        if (titik == 0 || (titik == 1 && minus == 0)) {
+    if (datatype === 'Single' || datatype=== 'Double' || datatype === 'Decimal' || datatype.substring(0, 3) === 'Int') {
+        if (titik === 0 || (titik=== 1 && minus === 0)) {
             value = value.replace(value.substring(titik, titik + 1), '');
             eval('document.all.' + id + '.value=value');
         }
@@ -152,7 +152,7 @@ function addHTML(id, textbelow, htmlText) {
 }
 
 function activateField(linkedfield, field) {
-    if (eval('document.all.' + field + '.checked') == true)
+    if (eval('document.all.' + field + '.checked') === true)
         eval('document.all.' + linkedfield + '.readOnly=false');
     else
         eval('document.all.' + linkedfield + '.readOnly=true');
@@ -160,7 +160,7 @@ function activateField(linkedfield, field) {
 
 function fn_global(number, digit, mode) {
     var jmldigit, jmlkoma, index, result, number1, isdecimal, isminus;
-    if (mode == 'ID')
+    if (mode === 'ID')
         number = number.replace('.', '');
     else
         number = number.replace(',', '');
@@ -172,7 +172,7 @@ function fn_global(number, digit, mode) {
         isminus = '-';
         number = number.substring(1, number.length);
     }
-    if (mode == 'ID') {
+    if (mode === 'ID') {
         decimalmode = ',';
         separatormode = '.';
     }
@@ -200,7 +200,7 @@ function fn_global(number, digit, mode) {
             result += number.substring(index - 1, index);
             jmldigit--;
 
-            if (jmldigit % 3 == 0 && jmlkoma > 1) {
+            if (jmldigit % 3 === 0 && jmlkoma > 1) {
                 result += separatormode;
                 jmlkoma--;
             }
@@ -210,7 +210,7 @@ function fn_global(number, digit, mode) {
 
     if (isminus != '') result = isminus + result;
 
-    if (isdecimal == 1 && digit > 0)
+    if (isdecimal === 1 && digit > 0)
         result += decimalmode + number1.substring(number1.indexOf('.') + 1, number1.indexOf('.') + 1 + digit);
 
     return result;
@@ -243,9 +243,9 @@ function IsNumeric(sText) {
     var Char;
 
 
-    for (i = 0; i < sText.length && IsNumber == true; i++) {
+    for (i = 0; i < sText.length && IsNumber === true; i++) {
         Char = sText.charAt(i);
-        if (ValidChars.indexOf(Char) == -1) {
+        if (ValidChars.indexOf(Char) === -1) {
             IsNumber = false;
         }
     }
@@ -303,7 +303,7 @@ function getQueryVariable(variable) {
     var vars = query.split("&");
     for (var i = 0; i < vars.length; i++) {
         var pair = vars[i].split("=");
-        if (pair[0].toLowerCase() == variable.toLowerCase()) {
+        if (pair[0].toLowerCase() === variable.toLowerCase()) {
             return unescape(pair[1]);
         }
     }
@@ -324,10 +324,14 @@ function Right(str, n) {
     }
 }
 
-function isIE() { return ((navigator.appName == 'Microsoft Internet Explorer') || ((navigator.appName == 'Netscape') && (new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null))); }
+function isIE() { return ((navigator.appName === 'Microsoft Internet Explorer') 	
+	|| ((navigator.appName === 'Netscape') 
+	&& (new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})").exec(navigator.userAgent) != null))); }
 
+function isEdge() {return window.navigator.userAgent.indexOf("Edge") > -1	}
+	
 function isMSIE() {
-    return '\v' == 'v';
+    return '\v' === 'v';
 }
 function isWebKit() { return ((/Chrome[\/\s](\d+\.\d+)/.test(navigator.userAgent)) || (/Safari[\/\s](\d+\.\d+)/.test(navigator.userAgent))); }
 
@@ -415,7 +419,7 @@ function getScrollBarWidth() {
     var w1 = inner.offsetWidth;
     outer.style.overflow = 'scroll';
     var w2 = inner.offsetWidth;
-    if (w1 == w2) w2 = outer.clientWidth;
+    if (w1 === w2) w2 = outer.clientWidth;
 
     document.body.removeChild(outer);
 
@@ -426,16 +430,16 @@ function getScrollBarWidth() {
 function getCookie(c_name) {
     var c_value = document.cookie;
     var c_start = c_value.indexOf(" " + c_name + "=");
-    if (c_start == -1) {
+    if (c_start === -1) {
         c_start = c_value.indexOf(c_name + "=");
     }
-    if (c_start == -1) {
+    if (c_start === -1) {
         c_value = null;
     }
     else {
         c_start = c_value.indexOf("=", c_start) + 1;
         var c_end = c_value.indexOf(";", c_start);
-        if (c_end == -1) {
+        if (c_end === -1) {
             c_end = c_value.length;
         }
         c_value = unescape(c_value.substring(c_start, c_end));
@@ -449,7 +453,7 @@ function setCookie(c_name, value, exdays, exHours, exMinutes) {
     exdate.setDate(exdate.getDate() + exdays);
     exdate.setHours(exdate.getHours() + exHours);
     exdate.setMinutes(exdate.getMinutes() + exMinutes);
-    var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString() + "; path=/");
+    var c_value = escape(value) + ((exdays === null) ? "" : "; expires=" + exdate.toUTCString() + "; path=/");
     document.cookie = c_name + "=" + c_value;
 }
 
@@ -458,13 +462,13 @@ function checkCookie(level) {
     var button_selected = getCookie("button_" + level);
 
     //Latu 20130524: check, cookie exist or not
-    if (button_selected != null && button_selected != "") {
+    if (button_selected !== null && button_selected !== "") {
         alert("button_" + level + " = " + button_selected);
         return button_selected;
     }
     else {
         button_selected = prompt("Please enter your name:", "");
-        if (button_selected != null && button_selected != "") {
+        if (button_selected !== null && button_selected !== "") {
             setCookie("button_" + level, button_selected, 30, 0, 0);
         }
     }
@@ -475,7 +479,7 @@ function zeroGUID() { return '00000000-0000-0000-0000-000000000000'; }
 function isGuid(value) {
     var regex = /[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}/i;
     var match = regex.exec(value);
-    return match != null;
+    return match !== null;
 }
 
 
@@ -489,4 +493,33 @@ function ismaxlength(obj) {
     var mlength = obj.getAttribute ? parseInt(obj.getAttribute("maxlength")) : ""
     if (obj.getAttribute && obj.value.length > mlength)
         obj.value = obj.value.substring(0, mlength)
+}
+function checkOffline() {
+    var appCache = window.applicationCache;
+
+    switch (appCache.status) {
+        case appCache.UNCACHED: // UNCACHED == 0
+            return 'UNCACHED';
+            //break;
+        case appCache.IDLE: // IDLE == 1
+            return 'IDLE';
+            //break;
+        case appCache.CHECKING: // CHECKING == 2
+            return 'CHECKING';
+            //break;
+        case appCache.DOWNLOADING: // DOWNLOADING == 3
+            document.getElementById("progress").style.width = "100%";
+            return 'DOWNLOADING';
+            //break;
+        case appCache.UPDATEREADY:  // UPDATEREADY == 4
+            document.getElementById("progress").style.width = "0%";
+            return 'UPDATEREADY';
+            //break;
+        case appCache.OBSOLETE: // OBSOLETE == 5
+            return 'OBSOLETE';
+            //break;
+        default:
+            return 'UKNOWN CACHE STATUS';
+            //break;
+    };
 }

@@ -3,13 +3,12 @@ Imports System.Net
 'Imports System.Net
 
 Partial Class OPHCore_API_default
-    Inherits cl_base_view
-
+    Inherits cl_base
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         If getQueryVar("hostGUID") <> "" Then
             getAccount(getQueryVar("hostGUID"), getQueryVar("env"), getQueryVar("code"))
         Else
-            loadAccount()
+            loadAccount(getQueryVar("env"), getQueryVar("code"))
         End If
 
 
@@ -49,6 +48,7 @@ Partial Class OPHCore_API_default
                     "<themeFolder>" & contentOfthemeFolder & "</themeFolder><themePage>" & contentOfthemePage & "</themePage><needLogin>" & contentofNeedLogin & "</needLogin><signInPage>" & contentofsignInPage & "</signInPage></sqroot>"
             Case "master"
                 sqlstr = "exec [api].[theme] '" & curHostGUID & "', '" & code & "', " & GUID
+                writeLog("mode master: " & sqlstr)
             Case "browse"
                 Dim sqlfilter = getQueryVar("sqlFilter")
                 Dim sortOrder = getQueryVar("sortOrder")
@@ -64,57 +64,65 @@ Partial Class OPHCore_API_default
 
                 If searchText = "null" Or searchText = "search" Then searchText = ""
                 If bpage = "" Then bpage = 1
+                If code <> "" Then
+                    Dim rpp = IIf(code.Length() > 6 And String.IsNullOrWhiteSpace(sqlfilter) = False, 10, 20)
 
-                Dim rpp = 20 'IIf(code.Length() > 6 And String.IsNullOrWhiteSpace(sqlfilter) = False, 10, 20)
-                'add showpage untuk frontend
-                Dim showpage = getQueryVar("showpage")
-                If showpage <> "" Then
-                    rpp = showpage
+                    'add showpage untuk frontend
+                    Dim showpage = getQueryVar("showpage")
+                    If showpage <> "" Then
+                        rpp = showpage
+                    End If
+                    sqlstr = "exec [api].[theme_browse] '" & curHostGUID & "', '" & code & "', '" & sqlfilter.Replace("'", "''") & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", " & rpp & ", '" & sortOrder & "', '" & stateid & "'"
+
+                    'isSingle = False
+                    'xmlstr = getXML(sqlstr, curODBC)
                 End If
-                sqlstr = "exec [api].[theme_browse] '" & curHostGUID & "', '" & code & "', '" & sqlfilter.Replace("'", "''") & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", " & rpp & ", '" & sortOrder & "', '" & stateid & "'"
-
-                'isSingle = False
-                'xmlstr = getXML(sqlstr, curODBC)
-
             Case "view", "form"
                 sqlstr = "exec [api].[theme_form] '" & curHostGUID & "', '" & code & "', " & GUID '& ", " & editMode
+                writeLog("mode form : " & sqlstr)
 
             Case "save", "preview"
                 isSingle = False
                 Dim preview = getQueryVar("flag")
-                GUID = System.Guid.NewGuid().ToString()
+                'GUID = getQueryVar("guid")
+                'GUID = System.Guid.NewGuid().ToString()
 
-                Dim fieldattachment As New List(Of String)
+                Dim fieldAttachment As New List(Of String)
+                'Dim fileAttachment As New List(Of String)
                 Dim f As String
                 For Each f In Request.Files
-                    Dim path As String
-                    path = Server.MapPath("~/OPHContent/documents")
-
-                    Dim curField = ""
-
+                    Dim path As String = Server.MapPath("~/OPHContent/documents")
+                    Dim theDate As DateTime = DateTime.Now
+                    Dim szFilename = Year(theDate) & "\" & Month(theDate)
+                    Dim curField = "", fileName = ""
                     For Each n In Request.Form
-                        If Request.Form(n) = Request.Files(f).FileName Then
+                        'If Request.Form(n) = Request.Files(f).FileName Or Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then
+                        If Request.Form(n) = Request.Files(f).FileName Or Request.Files(f).FileName.IndexOf(Request.Form(n).ToString()) > 0 Or Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then
                             curField = n
-                            fieldattachment.Add(curField)
-                            Exit For
+
+                            fileName = Trim(IIf(Request.Form(n).Equals(""), Request.Files(f).FileName, Request.Form(n).split(",")(1)))
+                            fieldAttachment.Add(curField)
+                            'fileAttachment.Add(fileName)
+
+                            Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & GUID.Replace("'", "") & "_" & fileName
+                            Dim checkDir = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\"
+                            If Not Directory.Exists(checkDir) Then Directory.CreateDirectory(checkDir)
+                            If Directory.Exists(checkDir) Then
+                                writeLog("upload_attachment: " & fxn)
+                                If fxn <> "" Then Request.Files(f).SaveAs(fxn)
+                            End If
+                            'Exit For
                         End If
                     Next
-                    Dim theDate As DateTime = DateTime.Now
 
-                    Dim szFilename = Year(theDate) & "\" & Month(theDate)
 
-                    Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & GUID.Replace("'", "") & "_" & Request.Files(f).FileName
-
-                    Dim checkDir = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\"
-                    If Not Directory.Exists(checkDir) Then Directory.CreateDirectory(checkDir)
-                    If Directory.Exists(checkDir) Then
-                        If fxn <> "" Then Request.Files(f).SaveAs(fxn)
-                    End If
                 Next
 
-                sqlstr = populateSaveXML(1, code, preview, fieldattachment, GUID)
+                sqlstr = populateSaveXML(1, code, preview, fieldAttachment)
                 sqlstr = sqlstr.Replace("#95#", "_").Replace("%2F", "/").Replace("%2C", "")
                 sqlstr = sqlstr & ", @preview=" & IIf(preview = "", 0, preview)
+                writeLog(sqlstr)
+
                 xmlstr = runSQLwithResult(sqlstr, curODBC)
 
                 If Not xmlstr.Contains("<sqroot>") Or xmlstr.Contains("<root>") Then
@@ -127,12 +135,20 @@ Partial Class OPHCore_API_default
             Case "function"
                 Dim functionName = IIf(String.IsNullOrWhiteSpace(Request.Form("cfunction")), getQueryVar("cfunction"), Request.Form("cfunction"))
                 Dim functionlist = IIf(String.IsNullOrWhiteSpace(Request.Form("cfunctionlist")), getQueryVar("cfunctionlist"), Request.Form("cfunctionlist"))
+                Dim approvaluserguid = IIf(String.IsNullOrWhiteSpace(Request.Form("approvaluserguid")), getQueryVar("approvaluserguid"), Request.Form("approvaluserguid"))
+                Dim pwd = IIf(String.IsNullOrWhiteSpace(Request.Form("pwd")), getQueryVar("pwd"), Request.Form("pwd"))
                 Dim comment = getQueryVar("comment")
+
+                If approvaluserguid = "undefined" Or approvaluserguid = "null" Then approvaluserguid = "NULL" Else approvaluserguid = "'" & approvaluserguid & "'"
+                If pwd = "undefined" Then pwd = "NULL" Else pwd = "'" & pwd & "'"
+
                 Dim fl = functionlist.Split(",")
                 For Each f In fl
                     If f = "" Then f = "null" Else f = "'" & f & "'"
-                    sqlstr = "exec api.[function] @hostGUID='" & curHostGUID & "', @mode='" & functionName & "', @code='" & code & "', @GUID=" & f & ", @comment='" & comment & "'"
+                    'add approvaluserguid and pwd
+                    sqlstr = "exec api.[function] @hostGUID='" & curHostGUID & "', @mode='" & functionName & "', @code='" & code & "', @GUID=" & f & ", @comment='" & comment & "'" & IIf(approvaluserguid = "NULL", "", ", @approvaluserguid=" & approvaluserguid & ", @pwd= " & pwd & " ")
                     xmlstr &= runSQLwithResult(sqlstr, curODBC)
+                    writeLog("function " & functionName & " : " & sqlstr)
                 Next
                 Dim msg = xmlstr
                 xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
@@ -186,10 +202,10 @@ Partial Class OPHCore_API_default
             Case "report"
                 sqlstr = "exec [api].[theme_report] '" & curHostGUID & "', '" & code & "'"
                 xmlstr &= runSQLwithResult(sqlstr, curODBC)
-            'Case "date"
-            '    Dim field = getQueryVar("FieldName")
-            '    sqlstr = "select '" & field & "' from '" & code & "'"
-            '    xmlstr &= runSQLwithResult(sqlstr, curODBC)
+                'Case "date"
+                '    Dim field = getQueryVar("FieldName")
+                '    sqlstr = "select '" & field & "' from '" & code & "'"
+                '    xmlstr &= runSQLwithResult(sqlstr, curODBC)
                 'Case "uploader"
                 '    Dim QueryCode = getQueryVar("QueryCode")
                 '    If QueryCode = "" Then
@@ -212,12 +228,12 @@ Partial Class OPHCore_API_default
                 'Case "calculate"
                 '    sqlstr = "exec [xml].[browsecount]  '" & code & "'," & curHostGUID & ""
                 'Case "countnew"
-            '    sqlstr = "exec [xml].[countnew]  " & curHostGUID & ",'" & getQueryVar("caption") & "','" & getQueryVar("formnow") & "'"
-            'Case "sidebar"
-            '    sqlstr = "exec [api].[sidebar] " & curHostGUID & ", '" & code & "', " & GUID
-            'Case "widget"
-            '    sqlstr = "exec [api].[theme_widget] '" & curHostGUID & "', '" & code & "'"
-            '    xmlstr = runSQLwithResult(sqlstr, curODBC)
+                '    sqlstr = "exec [xml].[countnew]  " & curHostGUID & ",'" & getQueryVar("caption") & "','" & getQueryVar("formnow") & "'"
+                'Case "sidebar"
+                '    sqlstr = "exec [api].[sidebar] " & curHostGUID & ", '" & code & "', " & GUID
+                'Case "widget"
+                '    sqlstr = "exec [api].[theme_widget] '" & curHostGUID & "', '" & code & "'"
+                '    xmlstr = runSQLwithResult(sqlstr, curODBC)
 
             Case "codeSearch"
                 Dim searchValue As String = getQueryVar("searchValue")
@@ -314,17 +330,20 @@ Partial Class OPHCore_API_default
                     'Response.Cookies("hostGUID").Value = curHostGUID
                     Response.Cookies("isLogin").Value = 1
                 End If
+            Case "signoff"
+                Session.Abandon()
             Case Else 'signin
                 Dim userid = getQueryVar("userid")
                 Dim pwd = getQueryVar("pwd")
                 Dim source As String = getQueryVar("source")
-                Dim withCaptcha = getQueryVar("withCaptcha")
-                withCaptcha = IIf(String.IsNullOrWhiteSpace(withCaptcha), 0, withCaptcha)
+                'Dim withCaptcha = getQueryVar("withCaptcha")
+                Dim withcaptcha = Not contentofwhiteAddress
+                'withcaptcha = IIf(String.IsNullOrWhiteSpace(withCaptcha), 0, withCaptcha)
                 Dim captcha = Request.Form("g-recaptcha-response")
                 If userid = "" And pwd = "" And captcha = "" Then
                     reloadURL("index.aspx?")
                 Else
-                    If withCaptcha = 0 Or (withCaptcha = 1 And captcha <> "" And IsGoogleCaptchaValid()) Then 'Or (source.ToLower.IndexOf("localhost") > 0) Then
+                    If withcaptcha = 0 Or (withcaptcha = 1 And captcha <> "" And IsGoogleCaptchaValid()) Then 'Or (source.ToLower.IndexOf("localhost") > 0) Then
                         Dim bypass = 0
                         'If checkWinLogin(userid, pwd) Then
                         '    bypass = 1

@@ -1,0 +1,105 @@
+/**
+  * Color
+  * Border Color
+  * Background Color  
+*/
+
+/* Color
+-------------------------------------------------------------- */
+/* a:hover,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+.switcher-container h2 i,
+.switcher-container h2 a.active:after,
+.flat-infomation float-right li a:hover,
+.flat-social li a:hover, .show-search > button.active:before,
+.show-search > button:hover, #mainnav .menu > li > a:hover,
+#mainnav .menu > li.active > a, .page-title.style2 .breadcrumbs li.active a, 
+.page-title.style2 .breadcrumbs li a:hover, .footer-bottom .copyright a,
+.widget-services ul.one-half li a:hover, .footer-bottom ul.menu-ft li a:hover,
+.widget-infomation ul.infomation-ft li a:hover,
+.iconbox .box-header .box-title h3 a:hover,
+.content-post h4.post-title a:hover,
+.content-post .post-button a, .testimonial .testimonial-content .name,
+.page-title ul.breadcrumbs li a:hover, .page-title .breadcrumbs li.active a,
+.imagebox.style3 .imagebox-button a, .imagebox.style3 .imagebox-title a:hover,
+.widget-testimonial .testimonial-author .testimonial-info .name,
+.portfolio-item .portfolio-content .portfolio-title a:hover,
+.portfolio-item .portfolio-content ul.categories li a:hover,
+.direction .tags-name a, article.comment-body .comment-text .comment-meta h5 a
+ {
+	color: #247abb;
+} */
+
+/* Border Color
+-------------------------------------------------------------- */
+/* .contact-form .wrap-type-input div input:focus,
+.contact-form .wrap-textarea textarea:focus,
+.owl-theme .owl-dots .owl-dot span,
+.flat-callback-form .flat-field .field-one-half.field-select select:focus, 
+.flat-callback-form .flat-field .field-one-half.field-phone input:focus, 
+.flat-callback-form .flat-field .field-one-half.field-email input:focus {
+	border-color: #247abb;
+} 
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+#form-email-footer:focus {
+	border: 1px solid #247abb;
+} */
+
+/* Background Color
+-------------------------------------------------------------- */
+/* button, 
+input[type="button"], 
+input[type="reset"], 
+input[type="submit"],
+.tp-caption.flat-button-slider.bg-blue,
+.tp-caption.flat-button-slider:after,
+#mainnav .menu > li > .sub-menu > li > a:hover, 
+.contact-form .wrap-type-input .input-submit a,
+.widget-subscribe form button, .widget-about .social-ft li a:after,
+.imagebox.style1 .imagebox-title a,
+.imagebox.style1 .imagebox-content .imagebox-button a,
+.iconbox .box-header .iconbox-icon:after,
+.flat-row-title h2:after, .imagebox.style2 .imagebox-title a:before,
+.owl-theme .owl-dots .owl-dot.active span, 
+.owl-theme .owl-dots .owl-dot:hover span,
+.widget-nav-menu ul.nav-menu li.menu-item a:hover, 
+.widget-nav-menu ul.nav-menu li.menu-item.active a,
+.member .view-member a, .widget-brochure .btn-download a,
+.widget-testimonial .testimonial-author .testimonial-button a,
+.accordion-toggle .toggle-title, .menu-tab li:after,
+.load-more a, .widget h3.widget-title:after,
+.entry-content p a, .widget-tag .tag-cloud a,
+.flat-pagination li a:hover, .flat-pagination li a.active,
+.comment-respond h3:after,
+.btn-menu:before, .btn-menu:after, .btn-menu span
+ {
+	background-color: #247abb;
+}
+
+
+.imagebox .imagebox-image .overlay,
+.portfolio-item .portfolio-image a .overlay {
+	background-color: rgba(36, 122, 187, 0.5);
+}
+
+.go-top {
+	background-color: rgba(36, 122, 187, 1);
+} */
+

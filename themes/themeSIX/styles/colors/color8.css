@@ -1,0 +1,157 @@
+/**
+  * Color
+  * Border Color
+  * Background Color  
+*/
+
+/* Color
+-------------------------------------------------------------- */
+a:hover,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+#btn-message a,
+.top-title .top-post,
+.iconbox.style1.v3 .box-header .icon span,
+.testimonial-item blockquote > span,
+#header.style1.v1 .get-quote a,
+.box-about .more-link a,
+.widget-ft h3.title, .square .numb-count,
+.imagebox.style2.border .imagebox-content ul li a,
+.menu-mega ul.menu-mega-child li a:before,
+.submenu > ul > li > .submenu-child li a:before,
+.box-about .btn-more a,
+.menu-ft li a:hover, .video-title h6,
+.testimonial-item blockquote .info-author .option,
+.title-iconbox.style1.v1 .view a,
+.team-member.style2.v1 .info .option,
+.testimonial-item.style4 blockquote .info-author .option {
+	color: #65b184;
+}
+
+/* Border Color
+-------------------------------------------------------------- */
+.box-cart .inner-box > a:hover > div.icon-cart,
+.box-cart .inner-box ul.menu-compare-wishlist li a:hover,
+.box-cart .inner-box .dropdown-box .btn-cart a.view-cart,
+#header.style1.v1 .get-quote a,
+.box-call-action .btn-more a,
+.box-cart .subcart .btn-cart a.check-out,
+.box-cart .subcart .btn-cart a:hover {
+	border-color: #65b184;
+}
+
+.mainnav ul.menu > li > a,
+.tp-bullet {
+	border-color: #fff;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+#form-email-footer:focus {
+	border-color: #65b184;
+}
+
+/* Background Color
+-------------------------------------------------------------- */
+button,
+input[type="button"], 
+input[type="reset"], 
+input[type="submit"],
+.flat-video-fancybox a.fancybox:hover:after,
+.tp-caption.flat-button-slider.bg-blue,
+.iconbox.style1.v3.border-bottom:before,
+.iconbox.style1.v1:hover,
+.iconbox.center.style1.v1.custom-padding:before,
+.progres .progress-item .progress-bar .progress-animate,
+.portfolio-item .portfolio-image:before,
+.box-call-action .btn-more a:after,
+.imagebox.style3 .imagebox-image:before,
+.box-cart .subcart .btn-cart a.check-out:after,
+footer.style4 ul.social-ft.style1.v1 li a:hover,
+.wrap-portfolio.grid.style5.v1 .portfolio-item .imagebox.style1 .imagebox-header .add-cart a:hover
+ {
+	background: #65b184;
+	
+}
+
+/* .imagebox.style3 .imagebox-image:before, */
+.subscrible-email button,
+.go-top,
+.team-member .avatar:after,
+.box-cart .subcart .btn-cart a.check-out:after,
+.box-cart .subcart .btn-cart a:hover:after {
+	background: -webkit-linear-gradient(60deg, #68b6b7 30%, #73cc61 70%);
+    background: -moz-linear-gradient(60deg, #68b6b7 30%, #73cc61 70%);
+    background: -ms-linear-gradient(60deg, #68b6b7 30%, #73cc61 70%);
+    background: -o-linear-gradient(60deg, #68b6b7 30%, #73cc61 70%);
+    background: linear-gradient(60deg, #68b6b7 30%, #73cc61 70%);
+}
+
+.iconbox.style1 .box-header .icon span,
+.wrap-counter.style1.v2 .square > span,
+.title-iconbox span {
+    background: -webkit-linear-gradient(60deg, #68b6b7 30%, #73cc61 70%);
+    background: -moz-linear-gradient(60deg, #68b6b7 30%, #73cc61 70%);
+    background: -ms-linear-gradient(60deg, #68b6b7 30%, #73cc61 70%);
+    background: -o-linear-gradient(60deg, #68b6b7 30%, #73cc61 70%);
+    background: linear-gradient(60deg, #68b6b7 30%, #73cc61 70%);
+    color:transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.portfolio-item:hover .portfolio-image:before,
+.imagebox.style3 .imagebox-image:before,
+.team-member:hover .avatar:after {
+	opacity: 0.9;
+}
+
+.tp-bullet {
+	background: transparent;
+}
+
+.tp-bullet.selected, .tp-bullet:hover {
+	background: #fff;
+}
+
+.title-iconbox.style1 .view a:after, 
+button.flat-button-form:after, .read-more a:after, 
+.info-text .more-link a:after, .box-services .btn-more a:after, 
+.wrap-error .content-error .btn-more a:after, .base:after, 
+.call-action .form-action .wrap-input-email button:after, 
+.wrap-sign-in .btn-submit button:after, 
+.tp-caption.flat-button-slider:after, 
+.form-call-back .btn-submit button:after, .get-quote a:after, 
+.box-call-action .btn-more a:after, 
+.box-cart .subcart .btn-cart a:after, 
+ul.flat-infomation > li.purchase a:after, 
+.contact-classic.style1 .btn-submit a:after, 
+.call-actions.style4 .btn-more a:after, 
+.view-project a:after, 
+.widget-contact-me .btn-contact a:after, 
+.text-me.style1 .text-header a:after,
+button.flat-button-form:after, .read-more a:after, 
+.info-text .more-link a:after, 
+.box-services .btn-more a:after, 
+.wrap-error .content-error .btn-more a:after, 
+.tp-caption.flat-button-slider:after, 
+.form-call-back .btn-submit button:after, 
+.box-cart .subcart .btn-cart a.check-out, 
+ul.flat-infomation > li.purchase a:after
+ {
+    background: #5bb680;
+}

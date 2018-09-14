@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <html>
+<!--html <%=IIf(isOfflineMode, "manifest=""manifest.aspx""", "") %>-->
 <!--html manifest="manifest.aspx"-->
 <head>
     <title>OPERAHOUSE</title>

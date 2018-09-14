@@ -8,10 +8,14 @@ Partial Class OPH_welcome_default_master_manifest
 
     Private Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         Response.Cache.SetCacheability(HttpCacheability.NoCache)
-        'loadManifest()
+        loadAccount()
+
+        'loadManifest("", "") 'pindah dari index.aspx
         'putManifest()
+
         contentofCacheManifest = Session("cacheManifest")
-        contentofLatestUpdate = Session("latestCache")
+        contentofCacheManifest &= loadOfflineData()
+        contentofLatestUpdate = Session("latestCache") + 5
     End Sub
 
 End Class

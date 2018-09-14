@@ -4,78 +4,8 @@ Imports System.Data.SqlClient
 
 Public Class cl_base_view
     Inherits cl_base
-    Protected contentofSaveString As String = ""
 
-    Function writeXMLFromRequestForm(root As String, Optional fieldattachment As List(Of String) = Nothing, Optional GUID As String = "", Optional code As String = "") As String
-        Dim info = "<" & root & ">#element#</" & root & ">"
-        Dim theDate As DateTime = DateTime.Now
-        Dim szFilename = Year(theDate) & "/" & Month(theDate)
 
-        For x = 0 To Request.Form.Count - 1
-            Dim colName As String = Request.Form.Keys(x)
-            Dim ix As Integer
-
-            'for Radio Button
-            'ix = colName.ToLower().IndexOf("_radio")
-            'If ix > 0 Then colName = Left(colName, ix)
-
-            If fieldattachment.Contains(Request.Form.Keys(x)) Then
-                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & code & "_" & colName & "/" & szFilename & "/" & GUID & "_" & Request.Form(x).Replace("'", "''").Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
-            Else
-                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & Request.Form(x).Replace("'", "&#39;").Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
-            End If
-        Next
-        info = info.Replace("#element#", "")
-
-        Return info
-
-    End Function
-    Function populateSaveXML(ByVal vp As Long, ByVal Tablename As String, Optional ispreview As String = "", Optional fieldattachment As List(Of String) = Nothing, Optional GUID As String = "", Optional ByVal connection As String = "") As String
-
-        loadAccount()
-        Dim DBCore = contentOfsqDB
-        Dim curHostGUID = Session("hostGUID")
-        Dim curUserGUID = Session("userGUID")
-
-        'Tablename = Left(Tablename, 1) & "o" & Mid(Tablename, 3, Len(Tablename) - 2)
-        Dim saveXML = writeXMLFromRequestForm("sqroot", fieldattachment, GUID, Tablename)
-        saveXML = saveXML.Replace("&amp;lt;", "&lt;").Replace("&amp;gt;", "&gt;").Replace("&amp;#39;", "&#39;")
-        Dim contentofSaveString As String = ""
-        Dim mainguid = Request.QueryString("cfunctionlist")
-        Dim hostGUID As String
-
-        If mainguid = "" Or Request.Form("gen_newid") = "1" Then
-            'contentofSaveString = " exec api.[save] '" & Session("HostGUID").ToString & "', '" & Tablename & "', null, '" & saveXML & "'"
-            contentofSaveString = "exec api.[save] '" & curHostGUID & "', '" & Tablename & "', null, '" & saveXML & "'"
-        Else
-            If mainguid.IndexOf(",") > 0 Then
-                Stop
-                'should be cannot save more than one row
-                'contentofSaveString &= " exec oph." & Tablename & "_save '" & mainguid.Substring(0, mainguid.IndexOf(",")) & "', '" & Session("HostGUID").ToString & "', '" & saveXML & "'"
-                'mainguid = mainguid.Substring(mainguid.IndexOf(",") + 1, mainguid.Length - (mainguid.IndexOf(",") + 1))
-            Else
-                'contentofSaveString &= " exec api.[save] '" & Session("HostGUID").ToString & "', '" & Tablename & "', '" & mainguid & "', '" & saveXML & "'"
-                contentofSaveString &= " exec api.[save] '" & curHostGUID & "', '" & Tablename & "', '" & mainguid & "', '" & saveXML & "'"
-            End If
-        End If
-
-        'save file
-        'Dim storedFilename As String = ""
-        'If Not (f Is Nothing) AndAlso f.HasFile Then
-        '    If Left(Request.Form("cfunction"), 4) = "save" Then
-        '        If Dir(Server.MapPath(folder) & "\" & mainguid & "_" & f.FileName) <> "" Then
-        '            Kill(Server.MapPath(folder) & "\" & mainguid & "_" & f.FileName)
-        '        End If
-        '        If f.FileName <> "" Then
-        '            f.SaveAs(Server.MapPath(folder) & "\" & mainguid & "_" & f.FileName.Replace("'", "_").Replace("+", "_"))
-        '            storedFilename = mainguid & "_" & f.FileName.Replace("'", "_").Replace("+", "_")
-        '        End If
-        '    End If
-        'End If
-
-        Return contentofSaveString
-
-    End Function
     'Function populateSaveString(ByVal vp As Long, ByVal Tablename As String, Optional ByVal f As FileUpload = Nothing, Optional ByVal folder As String = "", Optional ByVal connection As String = "") As String
     '    Dim tablestr As String = "" 'syawal for padc
     '    Dim GUIDPK As String = "" 'syawal for padc

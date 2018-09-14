@@ -29,13 +29,13 @@ Partial Class OPHCore_api_msg_autosuggest
 
         If Request("code") <> "" Then
             Dim appSettings = ConfigurationManager.AppSettings
-
+            Dim nbRow = getQueryVar("nbRow").ToString
             Dim search = getQueryVar("search") & " " & getQueryVar("q")
-            Dim dv = getQueryVar("defaultValue")
-            Dim code = getQueryVar("code")
-            Dim colkey = getQueryVar("colkey")
+            Dim dv = getQueryVar("defaultValue").ToString
+            Dim code = getQueryVar("code").ToString
+            Dim colkey = getQueryVar("colkey").ToString
             'Dim sqlstr = "exec api.autosuggest_old '" & curHostGUID & "', '" & getQueryVar("code") & "','" & getQueryVar("key") & "','" & getQueryVar("id") & "','" & getQueryVar("name") & "','" & search & "','" & wf1 & "'," & wf1value & ",'" & wf2 & "'," & wf2value & ""
-            Dim sqlstr = "exec api.autosuggest '" & curHostGUID & "', '" & code & "','" & colkey & "', '" & dv & "', '" & Trim(search) & "', " & wf1value & ""
+            Dim sqlstr = "exec api.autosuggest @hostguid='" & curHostGUID & "', @code='" & code & "', @colkey='" & colkey & "', @defaultValue='" & dv & "', @searchText='" & Trim(search) & "', @wf1Value=" & wf1value & ", @wf2value=" & wf2value & IIf(nbRow <> "", ", @nbRow=" & nbRow, "")
 
             Dim xmlstr = getXML(sqlstr)
             Dim json = ""

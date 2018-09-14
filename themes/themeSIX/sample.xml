@@ -1,0 +1,1637 @@
+﻿<sqroot>
+  <header>
+    <info>
+      <account>EFORM</account>
+      <company>OPERAHOUSE</company>
+      <themeFolder>themeONE</themeFolder>
+      <user>
+        <userId>Sam</userId>
+        <userName>Samuel Surya</userName>
+        <userURL></userURL>
+        <oriUserId />
+        <oriUserName />
+        <hostGUID>3394C92E-C9C2-4F29-8889-E705A832C383</hostGUID>
+      </user>
+      <title>REPORT</title>
+      <code>
+        <id>YHRRC</id>
+        <name>REQUEST FOR RECRUITMENT</name>
+      </code>
+    </info>
+    <environments>
+      <environment GUID="1629C2F5-49FC-4EF2-93B9-0163519E9065">
+        <code>INVT</code>
+        <caption>INVENTORY</caption>
+        <pageURL>mode=browse&amp;code=TaEPND&amp;ndb=1&amp;mg=INVT&amp;acc=EF_INVT&amp;option=4&amp;fact=</pageURL>
+        <nbNew>0</nbNew>
+        <lvl>10</lvl>
+        <permission>
+        </permission>
+        <submenus>
+          <submenu GUID="1629C2F5-49FC-4EF2-93B9-0163519E9065">
+            <MenuGUID>1629C2F5-49FC-4EF2-93B9-0163519E9065</MenuGUID>
+            <code>INVT</code>
+            <caption>Inventory</caption>
+          </submenu>
+          <submenu GUID="69073C10-AD35-4989-80E8-07B676E62D2E">
+            <MenuGUID>69073C10-AD35-4989-80E8-07B676E62D2E</MenuGUID>
+            <code>SAPV</code>
+            <caption>SAP Validation</caption>
+            <pageURL>mode=browse&amp;code=VEND&amp;ndb=1&amp;mg=SAPV&amp;option=4&amp;fact=</pageURL>
+            <nbNew>1</nbNew>
+            <lvl>10</lvl>
+          </submenu>
+          <submenu GUID="2C4900AA-4F8F-4E1C-B938-21F735C8CC8B">
+            <MenuGUID>2C4900AA-4F8F-4E1C-B938-21F735C8CC8B</MenuGUID>
+            <code>FXAS</code>
+            <caption>Fixed Asset</caption>
+            <pageURL>mode=browse&amp;code=TaFASC&amp;ndb=1&amp;mg=FSAX&amp;acc=EF_FXAS&amp;option=4&amp;fact=</pageURL>
+            <nbNew>0</nbNew>
+            <lvl>10</lvl>
+          </submenu>
+          <submenu GUID="5723268A-98CE-47B7-A005-47105750CA13">
+            <MenuGUID>5723268A-98CE-47B7-A005-47105750CA13</MenuGUID>
+            <code>EHRD</code>
+            <caption>Human Resources</caption>
+            <pageURL>mode=browse&amp;code=taHRRR&amp;ndb=1&amp;mg=EHRD&amp;acc=EF_EHRD&amp;option=4&amp;fact=</pageURL>
+            <nbNew>0</nbNew>
+            <lvl>10</lvl>
+          </submenu>
+          <submenu GUID="24E727CF-29ED-4968-A7C4-8DF5BEE2ED8A">
+            <MenuGUID>24E727CF-29ED-4968-A7C4-8DF5BEE2ED8A</MenuGUID>
+            <code>ITEQ</code>
+            <caption>IT Equipment</caption>
+            <pageURL>mode=browse&amp;code=taIERQ&amp;ndb=1&amp;mg=ITEQ&amp;acc=EF_ITEQ&amp;option=4&amp;fact=</pageURL>
+            <nbNew>0</nbNew>
+            <lvl>10</lvl>
+          </submenu>
+          <submenu GUID="C96F2DB4-C7CE-444F-91BC-F45ACD31A45A">
+            <MenuGUID>C96F2DB4-C7CE-444F-91BC-F45ACD31A45A</MenuGUID>
+            <code>STRD</code>
+            <caption>STRAD Scientific</caption>
+            <pageURL>mode=browse&amp;code=MaPAD9&amp;ndb=1&amp;mg=STRD&amp;acc=EF_STRD&amp;option=4&amp;fact=</pageURL>
+            <nbNew>0</nbNew>
+            <lvl>10</lvl>
+          </submenu>
+          <submenu GUID="29C52B16-622A-42E0-B98B-F9C4EED5C261">
+            <MenuGUID>29C52B16-622A-42E0-B98B-F9C4EED5C261</MenuGUID>
+            <code>PROJ</code>
+            <caption>Project</caption>
+            <pageURL>mode=browse&amp;code=TaPREQ&amp;ndb=1&amp;mg=PROJ&amp;acc=EF_PROJ&amp;option=4&amp;fact=</pageURL>
+            <nbNew>0</nbNew>
+            <lvl>10</lvl>
+          </submenu>
+          <submenu GUID="4E2BFE53-00D7-450C-9440-BC1D1790542B">
+            <MenuGUID>4E2BFE53-00D7-450C-9440-BC1D1790542B</MenuGUID>
+            <code>FINA</code>
+            <caption>Finance</caption>
+            <pageURL>mode=browse&amp;code=TaDEDU&amp;ndb=1&amp;mg=FINA&amp;acc=EF_FINA&amp;option=4&amp;fact=</pageURL>
+            <nbNew>0</nbNew>
+            <lvl>10</lvl>
+          </submenu>
+        </submenus>
+      </environment>
+      <environment GUID="69073C10-AD35-4989-80E8-07B676E62D2E">
+        <code>SAPV</code>
+        <caption>SAP VALIDATION</caption>
+        <pageURL>mode=browse&amp;code=TaEPND&amp;ndb=1&amp;mg=INVT&amp;acc=EF_INVT&amp;option=4&amp;fact=</pageURL>
+        <nbNew>0</nbNew>
+        <lvl>10</lvl>
+        <permission>
+        </permission>
+        <submenus></submenus>
+      </environment>
+      <environment>
+        <code>SAPV</code>
+        <caption>SAP VALIDATION</caption>
+        <pageURL>mode=browse&amp;code=VEND&amp;ndb=1&amp;mg=SAPV&amp;option=4&amp;fact=</pageURL>
+        <nbNew>0</nbNew>
+        <lvl>10</lvl>
+        <permission>
+        </permission>
+        <submenus></submenus>
+      </environment>
+      <environment>
+        <code>SAPV</code>
+        <caption>SAP VALIDATION</caption>
+        <pageURL>mode=browse&amp;code=VEND&amp;ndb=1&amp;mg=SAPV&amp;option=4&amp;fact=</pageURL>
+        <nbNew>0</nbNew>
+        <lvl>10</lvl>
+        <permission>
+        </permission>
+        <submenus></submenus>
+      </environment>
+    </environments>
+    <menus>
+      <menu code="sidebar">
+        <submenus>
+          <submenu mode="label">
+            <caption>MAIN NAVIGATION</caption>
+          </submenu>
+          <submenu GUID="">
+            <caption>Dashboard</caption>
+            <pageURL>#</pageURL>
+            <icon>
+              <fa>fa-dashboard</fa>
+            </icon>
+          </submenu>
+          <submenu GUID="" mode="treeroot">
+            <caption>Modules</caption>
+            <pageURL>#</pageURL>
+            <icon>
+              <fa>fa-tasks</fa>
+            </icon>
+            <submenus>
+              <submenu GUID="" mode="treeview">
+                <mode>treeview</mode>
+                <caption>Inventory</caption>
+                <pageURL>#</pageURL>
+                <icon>
+                  <fa></fa>
+                </icon>
+                <submenus>
+                  <submenu GUID="" mode="treeview">
+                    <caption>Consignment P&#038;D</caption>
+                    <pageURL>#</pageURL>
+                    <icon>
+                      <fa></fa>
+                    </icon>
+                  </submenu>
+                  <submenu GUID="" mode="treeview">
+                    <caption>Direct P &#038; D</caption>
+                    <pageURL>#</pageURL>
+                    <icon>
+                      <fa></fa>
+                    </icon>
+                  </submenu>
+                  <submenu GUID="" mode="treeview">
+                    <caption>PR/PVL Purchase</caption>
+                    <pageURL>#</pageURL>
+                    <icon>
+                      <fa></fa>
+                    </icon>
+                  </submenu>
+                </submenus>
+              </submenu>
+              <submenu GUID="" mode="treeview">
+                <mode>treeview</mode>
+                <caption>SAP Validation</caption>
+                <pageURL>#</pageURL>
+                <icon>
+                  <fa></fa>
+                </icon>
+                <submenus>
+                  <submenu GUID="" mode="treeview">
+                    <caption>New Vendor Request</caption>
+                    <pageURL>#</pageURL>
+                    <icon>
+                      <fa></fa>
+                    </icon>
+                  </submenu>
+                </submenus>
+              </submenu>
+            </submenus>
+          </submenu>
+          <submenu GUID="" mode="treeroot">
+            <caption>Reports</caption>
+            <pageURL>#</pageURL>
+            <icon>
+              <fa>fa-book</fa>
+            </icon>
+          </submenu>
+          <submenu GUID="">
+            <caption>Settings</caption>
+            <pageURL>#</pageURL>
+            <icon>
+              <fa>fa-cog</fa>
+            </icon>
+          </submenu>
+        </submenus>
+      </menu>
+      <menu code="newdocument">
+        <submenus>
+          <submenu GUID="69073C10-AD35-4989-80E8-07B676E62D2E">
+            <code>SAPV</code>
+            <caption>SAP Validation</caption>
+            <pageURL>mode=browse&amp;code=VEND&amp;ndb=1&amp;mg=SAPV&amp;option=4&amp;fact=</pageURL>
+            <nbNew>1</nbNew>
+            <lvl>10</lvl>
+          </submenu>
+          <submenu GUID="2C4900AA-4F8F-4E1C-B938-21F735C8CC8B">
+            <code>FXAS</code>
+            <caption>Fixed Asset</caption>
+            <pageURL>mode=browse&amp;code=TaFASC&amp;ndb=1&amp;mg=FSAX&amp;acc=EF_FXAS&amp;option=4&amp;fact=</pageURL>
+            <nbNew>0</nbNew>
+            <lvl>10</lvl>
+          </submenu>
+          <submenu GUID="5723268A-98CE-47B7-A005-47105750CA13">
+            <code>EHRD</code>
+            <caption>Human Resources</caption>
+            <pageURL>mode=browse&amp;code=taHRRR&amp;ndb=1&amp;mg=EHRD&amp;acc=EF_EHRD&amp;option=4&amp;fact=</pageURL>
+            <nbNew>0</nbNew>
+            <lvl>10</lvl>
+          </submenu>
+          <submenu GUID="24E727CF-29ED-4968-A7C4-8DF5BEE2ED8A">
+            <code>ITEQ</code>
+            <caption>IT Equipment</caption>
+            <pageURL>mode=browse&amp;code=taIERQ&amp;ndb=1&amp;mg=ITEQ&amp;acc=EF_ITEQ&amp;option=4&amp;fact=</pageURL>
+            <nbNew>0</nbNew>
+            <lvl>10</lvl>
+          </submenu>
+          <submenu GUID="C96F2DB4-C7CE-444F-91BC-F45ACD31A45A">
+            <code>STRD</code>
+            <caption>STRAD Scientific</caption>
+            <pageURL>mode=browse&amp;code=MaPAD9&amp;ndb=1&amp;mg=STRD&amp;acc=EF_STRD&amp;option=4&amp;fact=</pageURL>
+            <nbNew>0</nbNew>
+            <lvl>10</lvl>
+          </submenu>
+          <submenu GUID="29C52B16-622A-42E0-B98B-F9C4EED5C261">
+            <code>PROJ</code>
+            <caption>Project</caption>
+            <pageURL>mode=browse&amp;code=TaPREQ&amp;ndb=1&amp;mg=PROJ&amp;acc=EF_PROJ&amp;option=4&amp;fact=</pageURL>
+            <nbNew>0</nbNew>
+            <lvl>10</lvl>
+          </submenu>
+          <submenu GUID="4E2BFE53-00D7-450C-9440-BC1D1790542B">
+            <code>FINA</code>
+            <caption>Finance</caption>
+            <pageURL>mode=browse&amp;code=TaDEDU&amp;ndb=1&amp;mg=FINA&amp;acc=EF_FINA&amp;option=4&amp;fact=</pageURL>
+            <nbNew>0</nbNew>
+            <lvl>10</lvl>
+          </submenu>
+        </submenus>
+      </menu>
+      <menu code="primary">
+        <submenus>
+          <submenu>
+            <caption>xx</caption>
+            <pageURL>#</pageURL>
+            <submenus>
+              <submenu GUID="">
+                <caption>My Profile</caption>
+                <pageURL>#</pageURL>
+              </submenu>
+              <submenu GUID="">
+                <caption>Account</caption>
+                <pageURL>#</pageURL>
+              </submenu>
+              <submenu GUID="">
+                <caption>Log Off</caption>
+                <pageURL>#</pageURL>
+              </submenu>
+            </submenus>
+          </submenu>
+        </submenus>
+      </menu>
+      <menu code="footer">
+        <submenus>
+          <submenu>
+            <caption>About Us</caption>
+            <pageURL>#</pageURL>
+          </submenu>
+          <submenu>
+            <caption>Help</caption>
+            <pageURL>#</pageURL>
+          </submenu>
+        </submenus>
+      </menu>
+    </menus>
+  </header>
+  <body>
+    <bodyContent>
+      <dashboard></dashboard>
+      <browse>
+        <info>
+          <code>VEND</code>
+          <description>New Vendor Request</description>
+          <state code="0">DRAFT</state>
+          <searchText />
+          <nbRows>10</nbRows>
+          <pageNo>1</pageNo>
+          <nbPages>1</nbPages>
+          <permission>
+            <allowAdd>1</allowAdd>
+            <allowEdit>1</allowEdit>
+            <allowDelete>1</allowDelete>
+            <allowWipe>1</allowWipe>
+            <allowArchieve>1</allowArchieve>
+            <allowBatchInsert>1</allowBatchInsert>
+          </permission>
+          <states>
+            <state code="100" name="Pending">
+              <substates>
+                <substate code="0">Draft</substate>
+                <substate code="100">On Approval</substate>
+                <substate code="300">Rejected</substate>
+                <substate code="399">Pending Release</substate>
+              </substates>
+            </state>
+            <state code="400" name="Approved">
+              <substates>
+                <substate code="400">Approved</substate>
+              </substates>
+            </state>
+            <state code="500" name="Closed">
+              <substates>
+                <substate code="500">Closed</substate>
+              </substates>
+            </state>
+            <state code="999" name="Deleted">
+              <substates>
+                <substate code="999">Deleted</substate>
+              </substates>
+            </state>
+          </states>
+        </info>
+        <filters>
+          <filter key="" fieldId="" fieldName="">
+            <caption>CATEGORY</caption>
+            <code>CTGR</code>
+          </filter>
+          <filter key="" fieldId="" fieldName="">
+            <caption>BRAND</caption>
+            <code>BRND</code>
+          </filter>
+        </filters>
+        <columns>
+          <column fieldName="DocNo" mandatory="1" width="80">Doc No</column>
+          <column fieldName="RefNo" mandatory="1" width="80">Ref No</column>
+          <column fieldName="DocDate" mandatory="1" width="80">Date</column>
+          <column fieldName="VendorNo" mandatory="0">Vendor No</column>
+          <column fieldName="VendorName" mandatory="0">Vendor Name</column>
+          <column fieldName="PurposeDescription" mandatory="0">Purpose Description</column>
+          <column fieldName="docStatus" mandatory="0" docStatus="1" width="80" text-align="center">Status</column>
+        </columns>
+        <rows>
+          <row code="VEND" GUID="CF549076-2773-4FF8-8129-230B6263479C" edit="1" delete="1" wipe="0" restore="0" force="0" reopen="0" approve="0" reject="0">
+            <fields>
+              <field caption="Doc No" mandatory="1">VQ10B0017</field>
+              <field caption="Ref No" mandatory="1">VQ10B0007</field>
+              <field caption="Doc Date" mandatory="1">01/01/2015</field>
+              <field caption="Vendor No">VENDORID</field>
+              <field caption="Vendor Name">PT VENDOR NAME</field>
+              <field caption="Purpose Description">THIS IS COMMENT</field>
+            </fields>
+            <docStatus labelColor="success" title="RELEASE">Open/Draft. You cannot generate any Vendor since you don't have any approval level above you. Please make sure y</docStatus>
+            <approvals>
+              <approval name="" date="" level="" status="" />
+              <approval name="" date="" level="" status="" />
+              <approval name="" date="" level="" status="" />
+              <approval name="" date="" level="" status="" />
+            </approvals>
+            <talks>
+              <talk GUID="555209CB-E2E4-47C1-8B09-4025D8DE2349">
+                <Message>88</Message>
+                <userid>Sam</userid>
+                <username>samuel</username>
+                <sentdate>05 Dec 2016</sentdate>
+              </talk>
+              <talk GUID="EF39B46F-4A5F-425D-AF8B-E6C80C39B765">
+                <Message>0000</Message>
+                <userid>Sam</userid>
+                <username>samuel</username>
+                <sentdate>05 Dec 2016</sentdate>
+              </talk>
+            </talks>
+
+          </row>
+          <row code="VEND" GUID="0581F451-5731-4F81-AE5A-84E5B8DEA359">
+            <fields>
+              <field caption="Doc No" mandatory="1">VQ10B0027</field>
+              <field caption="Ref No" mandatory="1">VQ10B0007</field>
+              <field caption="Doc Date" mandatory="1">01/01/2015</field>
+              <field caption="Vendor No" mandatory="0">VENDORID</field>
+              <field caption="Vendor Name" mandatory="0">PT VENDOR NAME</field>
+              <field caption="Purpose Description" mandatory="0">THIS IS COMMENT</field>
+            </fields>
+            <docStatus labelColor="info" title="OPEN/DRAFT">Open/Draft. You cannot generate any Vendor since you don't have any approval level above you. Please make sure y</docStatus>
+
+          </row>
+          <row code="VEND" GUID="4822119E-89B3-43F7-94B9-53492508CED0">
+            <fields>
+              <field caption="Doc No" mandatory="1">VQ10B0037</field>
+              <field caption="Ref No" mandatory="1">VQ10B0007</field>
+              <field caption="Doc Date" mandatory="1">01/01/2015</field>
+              <field caption="Vendor No" mandatory="0">VENDORID</field>
+              <field caption="Vendor Name" mandatory="0">PT VENDOR NAME</field>
+              <field caption="Purpose Description" mandatory="0">THIS IS COMMENT</field>
+            </fields>
+            <docStatus labelColor="warning" title="PENDING">Open/Draft. You cannot generate any Vendor since you don't have any approval level above you. Please make sure y</docStatus>
+          </row>
+          <row code="VEND" GUID="13C66D59-A9DC-4D1E-8B68-3AFF719BAD4C">
+            <fields>
+              <field caption="Doc No" mandatory="1">VQ10B0047</field>
+              <field caption="Ref No" mandatory="1">VQ10B0007</field>
+              <field caption="Doc Date" mandatory="1">01/01/2015</field>
+              <field caption="Vendor No" mandatory="0">VENDORID</field>
+              <field caption="Vendor Name" mandatory="0">PT VENDOR NAME</field>
+              <field caption="Purpose Description" mandatory="0">THIS IS COMMENT</field>
+            </fields>
+            <docStatus labelColor="danger" title="REJECTED">Rejected. You cannot generate any Vendor since you don't have any approval level above you. Please make sure y</docStatus>
+
+          </row>
+          <row code="VEND" GUID="8FF53F06-C6CB-4921-81B7-6A4DC16A30E0">
+            <fields>
+              <field caption="Doc No" mandatory="1">VQ10B0057</field>
+              <field caption="Ref No" mandatory="1">VQ10B0007</field>
+              <field caption="Doc Date" mandatory="1">01/01/2015</field>
+              <field caption="Vendor No" mandatory="0">VENDORID</field>
+              <field caption="Vendor Name" mandatory="0">PT VENDOR NAME</field>
+              <field caption="Purpose Description" mandatory="0">THIS IS COMMENT</field>
+            </fields>
+            <docStatus labelColor="warning" title="PENDING">Open/Draft. You cannot generate any Vendor since you don't have any approval level above you. Please make sure y</docStatus>
+          </row>
+        </rows>
+      </browse>
+      <form>
+        <info>
+          <code>VEND</code>
+          <description>New Vendor Request</description>
+          <parentKey />
+          <GUID>CF549076-2773-4FF8-8129-230B6263479C</GUID>
+          <state code="0">DRAFT</state>
+          <isRequester>1</isRequester>
+          <permission>
+            <allowAdd>1</allowAdd>
+            <allowEdit>1</allowEdit>
+            <allowDelete>1</allowDelete>
+            <allowWipe>1</allowWipe>
+            <allowArchieve>1</allowArchieve>
+          </permission>
+        </info>
+        <formPages>
+          <formPage pageNo="1">
+            <formSections>
+              <formSection sectionNo="1" rowTitle="Vendor Information">
+                <formCols>
+                  <formCol colNo="1">
+                    <formRows>
+                      <formRow rowNo="1">
+                        <fields>
+                          <field fieldName="VendorNo" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value>VQ10B0007</value>
+                              <titlecaption>Vendor No</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>20</cols>
+                                <rows>1</rows>
+                                <length>20</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue>(Auto Number)</defaultValue>
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="2">
+                        <fields>
+                          <field fieldName="VendorRefNo" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value />
+                              <titlecaption>Vendor Ref No</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>20</cols>
+                                <rows>1</rows>
+                                <length>20</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue>(Auto Number)</defaultValue>
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="3">
+                        <fields>
+                          <field fieldName="VendorDate" isEditable="0" isNullable="1" fieldNo="1">
+                            <dateBox>
+                              <value>2010-02-17T14:29:00</value>
+                              <titlecaption>Request Date</titlecaption>
+                              <hiddenZone />
+                              <dateType>40</dateType>
+                              <preview>0</preview>
+                            </dateBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="4">
+                        <fields>
+                          <field fieldName="VendorName" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value>3454</value>
+                              <titlecaption>Vendor Name</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>35</cols>
+                                <rows>1</rows>
+                                <length>35</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="5">
+                        <fields>
+                          <field fieldName="VendorName2" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value />
+                              <titlecaption>Vendor Name 2</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>35</cols>
+                                <rows>1</rows>
+                                <length>35</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="6">
+                        <fields>
+                          <field fieldName="VendorName3" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value />
+                              <titlecaption>Vendor Name (in NPWP)</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>35</cols>
+                                <rows>1</rows>
+                                <length>35</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="7">
+                        <fields>
+                          <field fieldName="VendorName4" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value />
+                              <titlecaption>Vendor Name 4</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>35</cols>
+                                <rows>1</rows>
+                                <length>35</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="8">
+                        <fields>
+                          <field fieldName="VendorAlias" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value>66</value>
+                              <titlecaption>Search Term</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>20</cols>
+                                <rows>1</rows>
+                                <length>20</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                    </formRows>
+                  </formCol>
+                  <formCol colNo="2">
+                    <formRows>
+                      <formRow rowNo="1">
+                        <fields>
+                          <field fieldName="VendorHeadGUID" isEditable="0" isNullable="1" fieldNo="1">
+                            <autoSuggestBox>
+                              <titlecaption>Vendor Title</titlecaption>
+                              <value>8A96F8AC-BEF0-457F-B8CA-266EFBC43EDC</value>
+                              <value>8A96F8AC-BEF0-457F-B8CA-266EFBC43EDC</value>
+                              <id>CP</id>
+                              <name>Company</name>
+                              <code>paVHED</code>
+                              <width>40</width>
+                              <defaultValue>
+                                <GUID />
+                                <id />
+                                <name />
+                              </defaultValue>
+                              <button></button>
+                              <filter />
+                              <hiddenZone />
+                              <preview>0</preview>
+                            </autoSuggestBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="2">
+                        <fields>
+                          <field fieldName="VendorTypeGUID" isEditable="0" isNullable="1" fieldNo="1">
+                            <autoSuggestBox>
+                              <titlecaption>Account Group</titlecaption>
+                              <value>50247B6D-BDD0-4C81-AAE2-9A620932D34C</value>
+                              <value>50247B6D-BDD0-4C81-AAE2-9A620932D34C</value>
+                              <id>Z002</id>
+                              <name>LOCAL</name>
+                              <code>paVTYP</code>
+                              <width>40</width>
+                              <defaultValue>
+                                <GUID />
+                                <id />
+                                <name />
+                              </defaultValue>
+                              <filter />
+                              <hiddenZone />
+                              <preview>0</preview>
+                            </autoSuggestBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="3">
+                        <fields>
+                          <field fieldName="EmployeeRefNo" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value />
+                              <titlecaption>Employee Ref No</titlecaption>
+                              <suffixcaption>(for Employee Account Group only)</suffixcaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>8</cols>
+                                <rows>1</rows>
+                                <length>8</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="4">
+                        <fields>
+                          <field fieldName="PurposeDescription" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value>454</value>
+                              <titlecaption>Purpose Description</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>40</cols>
+                                <rows>1</rows>
+                                <length>40</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                    </formRows>
+                  </formCol>
+                </formCols>
+              </formSection>
+              <formSection sectionNo="2" rowTitle="Vendor Address">
+                <formCols>
+                  <formCol colNo="1">
+                    <formRows>
+                      <formRow rowNo="1">
+                        <fields>
+                          <field fieldName="Address1" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value>3454</value>
+                              <titlecaption>Address 1</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>35</cols>
+                                <rows>1</rows>
+                                <length>35</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="2">
+                        <fields>
+                          <field fieldName="Address2" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value>345</value>
+                              <titlecaption>Address 2</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>35</cols>
+                                <rows>1</rows>
+                                <length>35</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="3">
+                        <fields>
+                          <field fieldName="Address3" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value />
+                              <titlecaption>Address 3</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>35</cols>
+                                <rows>1</rows>
+                                <length>35</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="4">
+                        <fields>
+                          <field fieldName="Address4" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value />
+                              <titlecaption>Address 4</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>35</cols>
+                                <rows>1</rows>
+                                <length>35</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="5">
+                        <fields>
+                          <field fieldName="Address5" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value />
+                              <titlecaption>Address 5</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>35</cols>
+                                <rows>1</rows>
+                                <length>35</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="6">
+                        <fields>
+                          <field fieldName="ContactName" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value>6</value>
+                              <titlecaption>Contact Name</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>30</cols>
+                                <rows>1</rows>
+                                <length>30</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="7">
+                        <fields>
+                          <field fieldName="EstYearlyTrxValue" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value>60.00</value>
+                              <titlecaption>Est Yearly Trx. Value</titlecaption>
+                              <suffixcaption>mio. IDR</suffixcaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>20</cols>
+                                <rows>1</rows>
+                                <length>20</length>
+                              </width>
+                              <align>2</align>
+                              <digit>2</digit>
+                              <defaultValue>0</defaultValue>
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="8">
+                        <fields>
+                          <field fieldName="CommLang" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value>EN</value>
+                              <titlecaption>Communication Language</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>40</cols>
+                                <rows>1</rows>
+                                <length>40</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue>EN</defaultValue>
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                    </formRows>
+                  </formCol>
+                  <formCol colNo="2">
+                    <formRows>
+                      <formRow rowNo="1">
+                        <fields>
+                          <field fieldName="District" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value />
+                              <titlecaption>District</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>35</cols>
+                                <rows>1</rows>
+                                <length>35</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="2">
+                        <fields>
+                          <field fieldName="City" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value>345</value>
+                              <titlecaption>City</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>40</cols>
+                                <rows>1</rows>
+                                <length>40</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="3">
+                        <fields>
+                          <field fieldName="CountryGUID" isEditable="0" isNullable="1" fieldNo="1">
+                            <autoSuggestBox>
+                              <titlecaption>Country</titlecaption>
+                              <value>AD638424-FE05-4DA5-9613-FF632A7ADD21</value>
+                              <value>AD638424-FE05-4DA5-9613-FF632A7ADD21</value>
+                              <id>29</id>
+                              <name>Indonesia</name>
+                              <code>MaCOUN</code>
+                              <width>20</width>
+                              <defaultValue>
+                                <GUID />
+                                <id />
+                                <name />
+                              </defaultValue>
+                              <filter />
+                              <hiddenZone />
+                              <preview>0</preview>
+                            </autoSuggestBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="4">
+                        <fields>
+                          <field fieldName="PostalCode" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value>345</value>
+                              <titlecaption>Postal Code</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>10</cols>
+                                <rows>1</rows>
+                                <length>10</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="5">
+                        <fields>
+                          <field fieldName="Phone" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value>4</value>
+                              <titlecaption>Phone No</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>30</cols>
+                                <rows>1</rows>
+                                <length>30</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="6">
+                        <fields>
+                          <field fieldName="Fax" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value>4</value>
+                              <titlecaption>Fax No</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>30</cols>
+                                <rows>1</rows>
+                                <length>30</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="7">
+                        <fields>
+                          <field fieldName="Email" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value>4</value>
+                              <titlecaption>Email Address</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>40</cols>
+                                <rows>1</rows>
+                                <length>40</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                    </formRows>
+                  </formCol>
+                </formCols>
+              </formSection>
+              <formSection sectionNo="3" rowTitle="Payment And Tax Information">
+                <formCols>
+                  <formCol colNo="1">
+                    <formRows>
+                      <formRow rowNo="1">
+                        <fields>
+                          <field fieldName="TraderPartner" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value />
+                              <titlecaption>Trading Partner</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>6</cols>
+                                <rows>1</rows>
+                                <length>6</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="2">
+                        <fields>
+                          <field fieldName="TaxNo" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value>7</value>
+                              <titlecaption>NPWP No</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>15</cols>
+                                <rows>1</rows>
+                                <length>15</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="3">
+                        <fields>
+                          <field fieldName="TaxNo2" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value />
+                              <titlecaption>Tax No 2</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>11</cols>
+                                <rows>1</rows>
+                                <length>11</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="4">
+                        <fields>
+                          <field fieldName="WHTaxCodeGUID" isEditable="0" isNullable="1" fieldNo="1">
+                            <autoSuggestBox>
+                              <titlecaption>W/H Tax Type</titlecaption>
+                              <value />
+                              <value />
+                              <id />
+                              <name />
+                              <code>paVTAX</code>
+                              <width>40</width>
+                              <defaultValue>
+                                <GUID />
+                                <id />
+                                <name />
+                              </defaultValue>
+                              <filter />
+                              <hiddenZone />
+                              <preview>0</preview>
+                            </autoSuggestBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="5">
+                        <fields>
+                          <field fieldName="IndustryKey" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value />
+                              <titlecaption>Industry Key</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>4</cols>
+                                <rows>1</rows>
+                                <length>4</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                    </formRows>
+                  </formCol>
+                  <formCol colNo="2">
+                    <formRows>
+                      <formRow rowNo="1">
+                        <fields>
+                          <field fieldName="TOPGUID" isEditable="0" isNullable="1" fieldNo="1">
+                            <autoSuggestBox>
+                              <titlecaption>Payment Terms</titlecaption>
+                              <value>4E2FD6D6-511D-4E60-BF1A-971F863BAD90</value>
+                              <value>4E2FD6D6-511D-4E60-BF1A-971F863BAD90</value>
+                              <id>Z014</id>
+                              <name>14 Days</name>
+                              <code>MaTOPY</code>
+                              <width>40</width>
+                              <defaultValue>
+                                <GUID />
+                                <id />
+                                <name />
+                              </defaultValue>
+                              <filter />
+                              <hiddenZone />
+                              <preview>0</preview>
+                            </autoSuggestBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="2">
+                        <fields>
+                          <field fieldName="PaymentMechGUID" isEditable="0" isNullable="1" fieldNo="1">
+                            <autoSuggestBox>
+                              <titlecaption>Payment Method</titlecaption>
+                              <value>7421269C-6B26-45ED-8756-CEB9932698B6</value>
+                              <value>7421269C-6B26-45ED-8756-CEB9932698B6</value>
+                              <id>G</id>
+                              <name>Local Currency</name>
+                              <code>paPYMC1</code>
+                              <width>40</width>
+                              <defaultValue>
+                                <GUID />
+                                <id />
+                                <name />
+                              </defaultValue>
+                              <filter />
+                              <hiddenZone />
+                              <preview>0</preview>
+                            </autoSuggestBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="3">
+                        <fields>
+                          <field fieldName="isPOrg01" isEditable="0" isNullable="1" fieldNo="1">
+                            <checkBox>
+                              <value>0</value>
+                              <titlecaption>PORG I001</titlecaption>
+                              <hiddenZone />
+                            </checkBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="4">
+                        <fields>
+                          <field fieldName="isPOrg02" isEditable="0" isNullable="1" fieldNo="1">
+                            <checkBox>
+                              <value>0</value>
+                              <titlecaption>PORG I002</titlecaption>
+                              <hiddenZone />
+                            </checkBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                    </formRows>
+                  </formCol>
+                </formCols>
+              </formSection>
+              <formSection sectionNo="4" rowTitle="Bank Information">
+                <formCols>
+                  <formCol colNo="1">
+                    <formRows>
+                      <formRow rowNo="1">
+                        <fields>
+                          <field fieldName="BankCountryGUID" isEditable="0" isNullable="1" fieldNo="1">
+                            <autoSuggestBox>
+                              <titlecaption>Bank Country</titlecaption>
+                              <value>D205F7D3-F0DE-433A-9F90-863C4369CDA4</value>
+                              <value>D205F7D3-F0DE-433A-9F90-863C4369CDA4</value>
+                              <id>CN</id>
+                              <name>China</name>
+                              <code>maCOUN</code>
+                              <width>40</width>
+                              <defaultValue>
+                                <GUID />
+                                <id />
+                                <name />
+                              </defaultValue>
+                              <filter />
+                              <hiddenZone />
+                              <preview>0</preview>
+                            </autoSuggestBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="2">
+                        <fields>
+                          <field fieldName="BankKeyGUID" isEditable="0" isNullable="1" fieldNo="1">
+                            <autoSuggestBox>
+                              <titlecaption>Swift Code</titlecaption>
+                              <value>F6F8221A-388A-4BDE-8348-8ACC0E127CE0</value>
+                              <value>F6F8221A-388A-4BDE-8348-8ACC0E127CE0</value>
+                              <id>ABOCCNBJ103</id>
+                              <name>AGRICULTURAL BANK OF CHINA-SUZHOU</name>
+                              <code>MaBANK</code>
+                              <width>40</width>
+                              <defaultValue>
+                                <GUID />
+                                <id />
+                                <name />
+                              </defaultValue>
+                              <filter>BankCountryGUID</filter>
+                              <hiddenZone />
+                              <preview>0</preview>
+                            </autoSuggestBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="3">
+                        <fields>
+                          <field fieldName="BankAccount" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value>56757</value>
+                              <titlecaption>Bank Account</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>30</cols>
+                                <rows>1</rows>
+                                <length>30</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="4">
+                        <fields>
+                          <field fieldName="AccountHolder" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value>67</value>
+                              <titlecaption>Account Holder</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>40</cols>
+                                <rows>1</rows>
+                                <length>40</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="5">
+                        <fields>
+                          <field fieldName="IBAN" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value />
+                              <titlecaption>IBAN</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>34</cols>
+                                <rows>1</rows>
+                                <length>34</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                    </formRows>
+                  </formCol>
+                  <formCol colNo="2">
+                    <formRows>
+                      <formRow rowNo="1">
+                        <fields>
+                          <field fieldName="CurrencyGUID" isEditable="0" isNullable="1" fieldNo="1">
+                            <autoSuggestBox>
+                              <titlecaption>Currency</titlecaption>
+                              <value>E3EE233E-A6A9-446B-8B76-66996AAE1E34</value>
+                              <value>E3EE233E-A6A9-446B-8B76-66996AAE1E34</value>
+                              <id>AUD</id>
+                              <name>AUSTRALIA                     </name>
+                              <code>MaCURR</code>
+                              <width>20</width>
+                              <defaultValue>
+                                <GUID />
+                                <id />
+                                <name />
+                              </defaultValue>
+                              <filter />
+                              <hiddenZone />
+                              <preview>0</preview>
+                            </autoSuggestBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="2">
+                        <fields>
+                          <field fieldName="BankRefGUID" isEditable="0" isNullable="1" fieldNo="1">
+                            <autoSuggestBox>
+                              <titlecaption>Reference Details</titlecaption>
+                              <value>3ECA9AE0-747D-4753-BBCA-A72D325A1C13</value>
+                              <value>3ECA9AE0-747D-4753-BBCA-A72D325A1C13</value>
+                              <id>SKN/1/0</id>
+                              <name>Dalam Negeri</name>
+                              <code>MaPRMTREFR</code>
+                              <width>40</width>
+                              <defaultValue>
+                                <GUID />
+                                <id />
+                                <name />
+                              </defaultValue>
+                              <filter />
+                              <hiddenZone />
+                              <preview>0</preview>
+                            </autoSuggestBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="3">
+                        <fields>
+                          <field fieldName="ReconAccount" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value />
+                              <titlecaption>Reconciliation Accounts</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>10</cols>
+                                <rows>1</rows>
+                                <length>10</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                      <formRow rowNo="4">
+                        <fields>
+                          <field fieldName="MinorityIndic" isEditable="0" isNullable="1" fieldNo="1">
+                            <textBox>
+                              <value />
+                              <titlecaption>Minority Indic.</titlecaption>
+                              <hiddenZone />
+                              <width>
+                                <cols>3</cols>
+                                <rows>1</rows>
+                                <length>3</length>
+                              </width>
+                              <align>0</align>
+                              <defaultValue />
+                              <preview>0</preview>
+                            </textBox>
+                          </field>
+                        </fields>
+                      </formRow>
+                    </formRows>
+                  </formCol>
+                </formCols>
+              </formSection>
+              <formSection sectionNo="5" rowTitle="Legal Department">
+                <formCols>
+                  <formCol>
+                    <formRows>
+                      <formRow rowNo="1">
+                        <fields>
+                          <field fieldName="legalContractRadio" isEditable="0" isNullable="1" fieldNo="1">
+                            <radio>
+                              <value></value>
+                              <titlecaption>Legal Department</titlecaption>
+                              <defaultValue></defaultValue>
+                              <radioSections>
+                                <radioSection radioNo="1" radioRowTitle="Need Legal Contract">
+                                  <radioRows>
+                                    <radioRow rowNo="1">
+                                      <fields>
+                                        <field fieldName="needSIUPP" isEditable="0" isNullable="1" fieldNo="1">
+                                          <checkBox>
+                                            <value />
+                                            <titlecaption>SIUPP?</titlecaption>
+                                          </checkBox>
+                                        </field>
+                                        <field fieldName="needKTP" isEditable="0" isNullable="1" fieldNo="2">
+                                          <checkBox>
+                                            <value />
+                                            <titlecaption>KTP?</titlecaption>
+                                          </checkBox>
+                                        </field>
+                                        <field fieldName="needNPWP" isEditable="0" isNullable="1" fieldNo="3">
+                                          <checkBox>
+                                            <value />
+                                            <titlecaption>NPWP?</titlecaption>
+                                          </checkBox>
+                                        </field>
+                                      </fields>
+                                    </radioRow>
+                                  </radioRows>
+                                </radioSection>
+                                <radioSection radioNo="2" radioRowTitle="No need Legal Contract">
+                                  <radioRows>
+                                    <radioRow rowNo="1">
+                                      <fields>
+                                        <field fieldName="Radio2" isEditable="0" isNullable="1" fieldNo="1">
+                                          <radio>
+                                            <value />
+                                            <titlecaption>Radio 2</titlecaption>
+                                            <defaultValue></defaultValue>
+                                            <radioSections>
+                                              <radioSection radioNo="1" radioRowTitle="Option 1" />
+                                              <radioSection radioNo="2" radioRowTitle="Option 2" />
+                                            </radioSections>
+                                          </radio>
+                                        </field>
+                                      </fields>
+                                    </radioRow>
+                                  </radioRows>
+                                </radioSection>
+                              </radioSections>
+                            </radio>
+                          </field>
+
+                        </fields>
+                      </formRow>
+                    </formRows>
+                  </formCol>
+                </formCols>
+
+              </formSection>
+            </formSections>
+          </formPage>
+        </formPages>
+        <children>
+          <child>
+            <code>VENDDOCM</code>
+            <childTitle>Attachment</childTitle>
+            <info>
+              <permission>
+                <allowAdd>1</allowAdd>
+                <allowEdit>1</allowEdit>
+                <allowDelete>1</allowDelete>
+                <allowPrint>0</allowPrint>
+                <allowExport>0</allowExport>
+              </permission>
+              <UDF1>
+                <allow>0</allow>
+              </UDF1>
+              <allow>0</allow>
+              <UDF3>
+                <allow>0</allow>
+              </UDF3>
+            </info>
+          </child>
+        </children>
+        <approvals>
+          <approval name="" date="" level="" status="" />
+          <approval name="" date="" level="" status="" />
+          <approval name="" date="" level="" status="" />
+          <approval name="" date="" level="" status="" />
+        </approvals>
+      </form>
+      <query>
+        <info>
+          <code>PnD Detail</code>
+          <code>EPNDLI</code>
+          <isUploader>0</isUploader>
+          <isFilter>1</isFilter>
+          <isMAP>0</isMAP>
+          <permission>
+            <allowPDF>0</allowPDF>
+            <allowXLS>1</allowXLS>
+            <allowDownload>0</allowDownload>
+          </permission>
+        </info>
+        <queryPages>
+          <queryPage>
+            <querySections>
+              <querySection sectionNo="1" rowTitle="QUERY PARAMETERS">
+                <queryCols>
+                  <queryCol colNo="1">
+                    <queryRows>
+                      <queryRow rowNo="1">
+                        <fields>
+                          <field fieldName="divisionGUID" isEditable="1" isNullable="1" fieldNo="1">
+                            <autoSuggestBox>
+                              <titlecaption>Division Name</titlecaption>
+                              <value>8A96F8AC-BEF0-457F-B8CA-266EFBC43EDC</value>
+                              <value>8A96F8AC-BEF0-457F-B8CA-266EFBC43EDC</value>
+                              <id>divisionId</id>
+                              <name>divisionName</name>
+                              <code>maDIVN2</code>
+                              <width>40</width>
+                              <defaultValue>
+                                <GUID />
+                                <id />
+                                <name />
+                              </defaultValue>
+                              <filter />
+                              <hiddenZone />
+                              <preview>0</preview>
+                            </autoSuggestBox>
+                          </field>
+                        </fields>
+                      </queryRow>
+                      <queryRow rowNo="2">
+                        <fields>
+                          <field fieldName="ParameterValueGUID" isEditable="1" isNullable="1" fieldNo="1">
+                            <autoSuggestBox>
+                              <titlecaption>Date Type</titlecaption>
+                              <value>8A96F8AC-BEF0-457F-B8CA-266EFBC43EDC</value>
+                              <value>8A96F8AC-BEF0-457F-B8CA-266EFBC43EDC</value>
+                              <id>parValueId</id>
+                              <name>parValueDesc</name>
+                              <code>PaPNDD</code>
+                              <width>40</width>
+                              <defaultValue>
+                                <GUID />
+                                <id />
+                                <name />
+                              </defaultValue>
+                              <filter />
+                              <hiddenZone />
+                              <preview>0</preview>
+                            </autoSuggestBox>
+                          </field>
+                        </fields>
+                      </queryRow>
+                      <queryRow rowNo="3">
+                        <fields>
+                          <field fieldName="startdate" isEditable="1" isNullable="1" fieldNo="1">
+                            <dateBox>
+                              <value>2017-03-20T14:29:35.030</value>
+                              <titlecaption>Start Date</titlecaption>
+                              <hiddenZone />
+                              <dateType>40</dateType>
+                              <preview>0</preview>
+                            </dateBox>
+                          </field>
+                        </fields>
+                      </queryRow>
+                      <queryRow rowNo="4">
+                        <fields>
+                          <field fieldName="enddate" isEditable="1" isNullable="1" fieldNo="1">
+                            <dateBox>
+                              <value>2017-03-20T14:29:35.030</value>
+                              <titlecaption>End Date</titlecaption>
+                              <hiddenZone />
+                              <dateType>40</dateType>
+                              <preview>0</preview>
+                            </dateBox>
+                          </field>
+                        </fields>
+                      </queryRow>
+                      <queryRow rowNo="5">
+                        <fields>
+                          <field fieldName="selectedUserGUID" isEditable="1" isNullable="1" fieldNo="1">
+                            <autoSuggestBox>
+                              <titlecaption>Date Type</titlecaption>
+                              <value>8A96F8AC-BEF0-457F-B8CA-266EFBC43EDC</value>
+                              <value>8A96F8AC-BEF0-457F-B8CA-266EFBC43EDC</value>
+                              <id>selectedUserId</id>
+                              <name>selectedUserName</name>
+                              <code>caUSERSELE</code>
+                              <width>40</width>
+                              <defaultValue>
+                                <GUID />
+                                <id />
+                                <name />
+                              </defaultValue>
+                              <filter />
+                              <hiddenZone />
+                              <preview>0</preview>
+                            </autoSuggestBox>
+                          </field>
+                        </fields>
+                      </queryRow>
+                    </queryRows>
+                  </queryCol>
+                </queryCols>
+              </querySection>
+            </querySections>
+          </queryPage>
+        </queryPages>
+      </query>
+    </bodyContent>
+  </body>
+  <footer>
+    <info></info>
+
+  </footer>
+  <widgets>
+    <widget code="TALK">
+      <talks GUID="CF549076-2773-4FF8-8129-230B6263479C">
+        <talk DocGUID="555209CB-E2E4-47C1-8B09-4025D8DE2349">
+          <Message>88</Message>
+          <userid>Sam</userid>
+          <username>samuel</username>
+          <sentdate>05 Dec 2016</sentdate>
+        </talk>
+        <talk DocGUID="EF39B46F-4A5F-425D-AF8B-E6C80C39B765">
+          <Message>0000</Message>
+          <userid>Sam</userid>
+          <username>samuel</username>
+          <sentdate>05 Dec 2016</sentdate>
+        </talk>
+      </talks>
+    </widget>
+  </widgets>
+</sqroot>

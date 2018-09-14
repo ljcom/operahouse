@@ -5,7 +5,7 @@ Imports System.Web.HttpCookie
 Imports System.Globalization
 
 Partial Class OPH_welcome_default_xml_tableview
-    Inherits cl_base_view
+    Inherits cl_base
 
 
 End Class
