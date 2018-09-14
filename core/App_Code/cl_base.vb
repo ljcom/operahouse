@@ -12,8 +12,6 @@ Imports System.Data.SqlClient
 
 Imports System.Xml
 
-
-
 Public Class cl_base
     Inherits System.Web.UI.Page
 
