@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" id="YoIncomeStatement" author="YuniarPu" subject="LibertyPT" title="Profit and Loss" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageSize="a4" bottomMargin="30" leftMargin="30" rightMargin="30" topMargin="30">
+		<query id="Query1">
+			<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoIncomeStatement"><parameter type="uniqueIdentifier" name="hostGUID" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="startDate" value="#Parameters[&quot;startDate&quot;]#" type="dateTime"/><parameter name="endDate" value="#Parameters[&quot;endDate&quot;]#" type="dateTime"/><parameter type="bit" name="ShowBy" value="#Parameters[&quot;ShowBy&quot;]#"/></storedProcedure></query>
+		<template id="Template1"/>
+		<header id="Header1" height="51">
+			<label fontSize="20" y="10" height="25" font="HelveticaBold" id="Label1" x="5" text="Profit and Loss" width="160"/>
+			<label height="14" y="20" text="between" width="45" id="Label2" fontSize="11" align="center" x="165"/>
+			<recordBox dataFormat="" field="" height="14" y="20" id="RecordBox1" fontSize="11" width="100" x="212"/>
+			<label height="14" y="20" text="and" width="20" id="Label3" fontSize="11" align="center" x="315"/>
+			<recordBox dataFormat="" field="" height="14" y="20" id="RecordBox2" fontSize="11" width="100" x="338"/>
+		</header>
+		<detail id="Detail1" height="246">
+			<subReport id="SubReport1" y="0" width="535" x="1">
+				<query id="Query2"><storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoIncomeStatement"><parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="startDate" value="#Parameters[&quot;startDate&quot;]#" type="dateTime"/><parameter name="endDate" value="#Parameters[&quot;endDate&quot;]#" type="dateTime"/><parameter type="bigInt" name="ShowBy" value="#Parameters[&quot;ShowBy&quot;]#"/></storedProcedure></query><header id="Header2"/>
+				<detail id="Detail2" height="201">
+					<recordBox id="RecordBox3" dataFormat="" field="" height="14" x="5" y="5" font="HelveticaBold" fontSize="11" width="150"/>
+					<recordBox id="RecordBox4" dataFormat="" field="" height="14" y="22" font="HelveticaBold" x="15" fontSize="11" width="150"/>
+					<subReport id="SubReport2" x="0" y="40" width="535">
+						<header id="Header3" height="1"/>
+						<detail id="Detail3" height="137">
+							<recordBox id="RecordBox6" dataFormat="" field="" height="14" font="HelveticaBold" x="25" y="5" fontSize="10" width="150"/>
+							<subReport id="SubReport3" x="0" width="535" y="30">
+								<header id="Header4"/>
+								<detail id="Detail4" height="80">
+									<recordBox id="RecordBox8" dataFormat="" field="" height="14" x="35" y="5" fontSize="9" width="150"/>
+									<subReport id="SubReport4" x="0" width="535" y="30">
+										<header id="Header5"/>
+										<detail id="Detail5" height="24">
+											<recordBox id="RecordBox10" dataFormat="" field="" height="14" fontSize="9" x="45" y="5" width="150"/>
+											<recordBox dataFormat="" field="" height="14" fontSize="9" id="RecordBox11" y="5" align="right" x="215" width="100"/>
+										</detail>
+										<footer id="Footer5"/>
+									</subReport>
+									<rectangle height="14" x="15" y="60" borderColor="whiteSmoke" fillColor="whiteSmoke" width="510" id="Rectangle1"/>
+									<recordBox dataFormat="" field="" height="14" x="35" fontSize="9" y="60" width="150" font="HelveticaBold" id="RecordBox9"/>
+									<recordBox dataFormat="" field="" height="14" fontSize="9" y="60" align="right" x="315" width="100" font="HelveticaBold" id="RecordBox12"/>
+								</detail>
+								<footer id="Footer4"/>
+							</subReport>
+							<rectangle height="14" borderColor="lightGrey" fillColor="lightGrey" y="115" x="15" width="510" id="Rectangle2"/>
+							<recordBox dataFormat="" field="" height="14" font="HelveticaBold" x="25" fontSize="10" y="115" width="150" id="RecordBox7"/>
+							<recordBox dataFormat="" field="" height="14" fontSize="9" y="115" align="right" width="100" x="415" id="RecordBox13"/>
+						</detail>
+						<footer id="Footer3"/>
+					</subReport>
+					<rectangle height="14" borderColor="gray" fillColor="gray" x="15" width="510" id="Rectangle3" y="180"/>
+					<recordBox dataFormat="" field="" height="14" font="HelveticaBold" x="15" width="150" fontSize="10" id="RecordBox5" y="180"/>
+					<recordBox dataFormat="" field="" height="14" align="right" fontSize="10" width="100" x="415" font="HelveticaBold" id="RecordBox14" y="180"/>
+				</detail>
+				<footer id="Footer2"/>
+			</subReport>
+			<label id="Label4" height="14" width="100" text="total" align="right" x="245" y="205" font="HelveticaBold" fontSize="10"/>
+			<label height="14" width="100" fontSize="11" align="right" x="245" font="HelveticaBold" id="Label5" y="222" text="net profit/loss"/>
+			<recordBox id="RecordBox15" dataFormat="" field="" height="14" y="205" align="right" font="HelveticaBold" fontSize="10" x="415" width="100"/>
+			<recordBox dataFormat="" field="" height="14" id="RecordBox16" y="222" align="right" font="HelveticaBold" fontSize="10" width="100" x="415"/>
+		</detail>
+		<footer id="Footer1" height="22">
+			<pageNumberingLabel align="right" height="14" y="1" text="Page %%CP%% of %%TP%%" width="200" id="PageNumberingLabel1" fontSize="10" x="335"/>
+			<recordBox dataFormat="" field="" y="1" height="14" x="10" width="150" fontSize="11" id="RecordBox17"/>
+		</footer>
+	</report>
+</document>

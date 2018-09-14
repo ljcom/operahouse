@@ -3,7 +3,6 @@ Imports System.Data
 Imports System.Data.SqlClient
 
 Public Class cl_base_view
-    Inherits cl_base
 
 
     'Function populateSaveString(ByVal vp As Long, ByVal Tablename As String, Optional ByVal f As FileUpload = Nothing, Optional ByVal folder As String = "", Optional ByVal connection As String = "") As String

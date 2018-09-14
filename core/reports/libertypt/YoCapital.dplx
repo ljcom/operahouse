@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" keywords="" title="" subject="" author="Imas" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" bottomMargin="30" leftMargin="30" rightMargin="30" topMargin="30" pageSize="a4">
+		<query id="Query1">
+			<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoCapital_header">
+				<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="startDate" type="dateTime" value="#Parameters[&quot;startDate&quot;]#"/>
+				<parameter name="endDate" type="dateTime" value="#Parameters[&quot;endDate&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="38">
+			<label id="Label1" text="Capital Statement" height="36" fontSize="24" width="224" x="1" y="-3"/>
+			<recordBox id="RecordBox1" dataFormat="" height="14" x="245" y="10" width="78" field="startDate"/><label id="Label3" height="14" x="321" y="10" text="and" width="32"/><recordBox id="RecordBox2" dataFormat="" x="356" y="10" height="14" field="endDate" width="59"/><label id="Label2" height="14" x="194" y="9" text="between" width="61"/></header>
+		<detail id="Detail1" height="261">
+			<label fontSize="20" height="25" x="4" id="Label4" y="6" text="PASSIVA" width="106.1"/>
+			<label height="14" text="Laba Tahun Berjalan" width="170.1" fontSize="14" id="Label5" x="65" y="39"/>
+			<recordBox dataFormat="" height="14" width="152" id="RecordBox3" x="319" y="42" field="Name1"/>
+			<label height="14" width="170.1" fontSize="14" text="Laba Tahun Lalu" id="Label6" x="65" y="66"/>
+			<recordBox dataFormat="" width="152" height="17" id="RecordBox4" x="319" y="65" field="laba2"/>
+			<label height="14" width="170.1" fontSize="14" text="Modal" id="Label7" x="65" y="91"/>
+			<recordBox dataFormat="" width="152" height="17" id="RecordBox5" x="319" y="93" field="modal"/>
+			<label height="14" width="170.1" fontSize="14" text="Prive" id="Label8" x="65" y="115"/>
+			<recordBox dataFormat="" width="152" height="17" id="RecordBox6" x="319" y="117" field="prive"/>
+			<label width="100" text="MODAL" fontSize="20" height="25.1" id="Label9" y="146" x="29"/>
+			<recordBox dataFormat="" height="14" x="374" width="137" id="RecordBox7" y="152" field="totalmodal"/>
+			<label text="total" fontSize="16" width="67.1" height="25" x="228" id="Label10" y="173"/>
+			<recordBox dataFormat="" height="14" x="374" width="137" id="RecordBox8" y="180" field="total"/>
+			<label fontSize="16" height="25" x="228" width="114.1" text="net profit / loss" id="Label11" y="202"/>
+			<recordBox dataFormat="" height="14" x="374" width="137" id="RecordBox9" y="207" field="totallabarugi"/>
+		</detail>
+		<footer id="Footer1" height="22">
+			<recordBox id="RecordBox10" dataFormat="" x="2" width="136.1" height="18" field="Date" y="6"/>
+		</footer>
+	</report>
+</document>

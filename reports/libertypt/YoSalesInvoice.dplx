@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" id="YoSalesInvoice" author="YuniarPu" title="Faktur Penjualan" subject="LibertyPT" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" bottomMargin="30" pageOrientation="landscape" leftMargin="30" pageSize="a4" rightMargin="30" topMargin="30">
+		<query id="Query1">
+			<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoSalesInvoice_header">
+				<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="startDate" type="dateTime" value="#Parameters[&quot;startDate&quot;]#"/>
+				<parameter name="endDate" type="dateTime" value="#Parameters[&quot;endDate&quot;]#"/>
+				<parameter name="DocNo" type="uniqueIdentifier" value="#Parameters[&quot;DocNo&quot;]#"/>
+				<parameter name="BNRCNo" type="uniqueIdentifier" value="#Parameters[&quot;BNRCNo&quot;]#"/>
+				<parameter name="Slsm" type="uniqueIdentifier" value="#Parameters[&quot;Slsm&quot;]#"/>
+				<parameter name="prov" type="uniqueIdentifier" value="#Parameters[&quot;prov&quot;]#"/>
+				<parameter name="lasDetail" value="#Parameters[&quot;lasDetail&quot;]#" type="bit"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="129"><label align="center" font="HelveticaBold" fontSize="20" text="Faktur Penjualan" x="0" y="5" width="782" height="25" id="Label1"/>
+			<label height="14" text="Periode:" x="5" y="40" font="HelveticaBold" width="70" id="Label2"/>
+			<label height="14" x="5" font="HelveticaBold" text="Start Date:" y="57" width="70" id="Label3"/>
+			<label height="14" x="5" font="HelveticaBold" width="70" text="End Date:" y="74" id="Label4"/>
+			<recordBox dataFormat="" field="" height="14" font="HelveticaBold" x="75" y="40" width="200" id="RecordBox1"/>
+			<recordBox dataFormat="" field="" height="14" font="HelveticaBold" x="75" y="57" width="200" id="RecordBox2"/>
+			<recordBox dataFormat="" field="" height="14" font="HelveticaBold" x="75" y="74" width="200" id="RecordBox3"/>
+			<line width="2" x1="0" x2="782" y1="95" y2="95" id="Line1"/>
+			<rectangle fillColor="lightBlue" borderColor="lightBlue" width="60" height="25" id="Rectangle1" x="3" y="100"/>
+			<rectangle fillColor="lightBlue" borderColor="lightBlue" width="60" height="25" id="Rectangle2" x="66" y="100"/>
+			<rectangle fillColor="lightBlue" borderColor="lightBlue" width="60" height="25" id="Rectangle3" x="129" y="100"/>
+			<rectangle fillColor="lightBlue" borderColor="lightBlue" width="80" height="25" id="Rectangle4" x="192" y="100"/>
+			<rectangle fillColor="lightBlue" borderColor="lightBlue" width="60" height="25" id="Rectangle5" x="275" y="100"/>
+			<rectangle fillColor="lightBlue" borderColor="lightBlue" width="60" height="25" id="Rectangle6" x="338" y="100"/>
+			<rectangle fillColor="lightBlue" borderColor="lightBlue" width="60" height="25" id="Rectangle7" x="401" y="100"/>
+			<rectangle fillColor="lightBlue" borderColor="lightBlue" width="60" height="25" id="Rectangle8" x="464" y="100"/>
+			<rectangle fillColor="lightBlue" borderColor="lightBlue" width="60" height="25" id="Rectangle9" x="527" y="100"/>
+			<rectangle fillColor="lightBlue" borderColor="lightBlue" width="30" height="25" id="Rectangle10" x="590" y="100"/>
+			<rectangle fillColor="lightBlue" borderColor="lightBlue" width="60" height="25" id="Rectangle11" x="623" y="100"/>
+			<rectangle fillColor="lightBlue" borderColor="lightBlue" width="30" height="25" id="Rectangle12" x="686" y="100"/>
+			<rectangle fillColor="lightBlue" borderColor="lightBlue" width="60" height="25" id="Rectangle13" x="719" y="100"/>
+			<label fontSize="9" font="HelveticaBold" text="Invoice No" width="60" align="center" height="25" id="Label5" x="3" y="100"/>
+			<label fontSize="9" font="HelveticaBold" width="60" align="center" text="BNRC No" height="25" id="Label6" x="66" y="100"/>
+			<label fontSize="9" font="HelveticaBold" width="60" align="center" text="INV Date" height="25" id="Label7" x="129" y="100"/>
+			<label fontSize="9" font="HelveticaBold" align="center" text="Customer" width="80" height="25" id="Label8" x="192" y="100"/>
+			<label fontSize="9" font="HelveticaBold" align="center" text="Salesman" width="60" height="25" id="Label9" x="275" y="100"/>
+			<label fontSize="9" font="HelveticaBold" align="center" width="60" text="Total Invoice" height="25" id="Label10" x="338" y="100"/>
+			<label fontSize="9" font="HelveticaBold" align="center" width="60" text="Sisa Invoice Sebelumnya" height="25" id="Label11" x="401" y="100"/>
+			<label fontSize="9" font="HelveticaBold" align="center" width="60" height="25" text="Invoice Paid" id="Label12" x="464" y="100"/>
+			<label fontSize="9" font="HelveticaBold" align="center" width="60" height="25" text="Balance" id="Label13" x="527" y="100"/>
+			<label fontSize="9" font="HelveticaBold" align="center" height="25" text="Term" width="30" id="Label14" x="590" y="100"/>
+			<label fontSize="9" font="HelveticaBold" align="center" height="25" text="Due Date" width="60" id="Label15" x="623" y="100"/>
+			<label fontSize="9" font="HelveticaBold" align="center" height="25" text="ODD" width="30" id="Label16" x="686" y="100"/>
+			<label fontSize="9" font="HelveticaBold" align="center" height="25" text="Reception Date" width="60" id="Label17" x="719" y="100"/>
+		</header>
+		<detail id="Detail1" autoSplit="true" height="54">
+			<subReport id="SubReport1" width="782" x="0" y="0">
+				<query id="Query2">
+					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoSalesInvoice_detail">
+						<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+						<parameter name="startDate" type="dateTime" value="#Parameters[&quot;startDate&quot;]#"/>
+						<parameter name="endDate" type="dateTime" value="#Parameters[&quot;endDate&quot;]#"/>
+						<parameter name="DocNo" type="uniqueIdentifier" value="#Parameters[&quot;DocNo&quot;]#"/>
+						<parameter name="BNRCNo" type="uniqueIdentifier" value="#Parameters[&quot;BNRCNo&quot;]#"/>
+						<parameter name="Slsm" type="uniqueIdentifier" value="#Parameters[&quot;Slsm&quot;]#"/>
+						<parameter name="prov" type="uniqueIdentifier" value="#Parameters[&quot;Prov&quot;]#"/>
+						<parameter name="lasDetail" value="#Parameters[&quot;lasDetail&quot;]#" type="bit"/>
+					</storedProcedure>
+				</query>
+				<header id="Header2">
+				</header>
+				<detail id="Detail2" height="23" autoSplit="true">
+					<recordBox dataFormat="" height="14" fontSize="9" x="3" width="60" id="RecordBox4" y="5" field="InvNo"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="60" x="66" id="RecordBox5" y="5" field="BNRCNo"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="60" x="129" id="RecordBox6" y="5" field="INVDate"/>
+					<recordBox dataFormat="" height="14" fontSize="9" x="192" width="80" id="RecordBox7" y="5" field="CustName"/>
+					<recordBox dataFormat="" height="14" fontSize="9" x="275" width="60" id="RecordBox8" y="5" field="SalesName"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="60" x="338" id="RecordBox9" y="5" field="SubTotal"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="60" x="401" id="RecordBox10" y="5" field="PembayaranSebelum"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="60" x="464" id="RecordBox11" y="5" field="totalpaid"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="60" x="527" id="RecordBox12" y="5" field="balance"/>
+					<recordBox dataFormat="" height="14" fontSize="9" x="590" width="30" id="RecordBox13" y="5" field="Term"/>
+					<recordBox dataFormat="" height="14" fontSize="9" x="623" width="60" id="RecordBox14" y="5" field="DueDate"/>
+					<recordBox dataFormat="" height="14" fontSize="9" x="686" width="30" id="RecordBox15" y="5" field="ODD"/>
+					<recordBox dataFormat="" height="14" fontSize="9" x="719" width="60" id="RecordBox16" y="5" field="BNRCDate"/>
+				</detail>
+				<footer id="Footer2" height="1"/>
+			</subReport>
+			<line id="Line2" x1="5" x2="779" y1="30" y2="30"/>
+			<label id="Label18" height="14" fontSize="9" font="HelveticaBold" x="275" width="60" text="Total:" align="center" y="35"/>
+			<recordBox id="RecordBox17" dataFormat="" field="" height="14" fontSize="9" font="HelveticaBold" width="60" x="338" y="35"/>
+		</detail>
+		<footer id="Footer1" height="22">
+			<pageNumberingLabel align="right" height="14" y="1" text="Page %%CP%% of %%TP%%" width="200" fontSize="10" x="580" id="PageNumberingLabel1"/>
+			<recordBox dataFormat="" field="" y="1" height="14" width="150" fontSize="10" x="5" id="RecordBox18"/>
+		</footer>
+	</report>
+</document>

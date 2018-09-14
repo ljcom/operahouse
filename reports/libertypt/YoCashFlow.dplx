@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" keywords="" title="" subject="" author="Imas" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageOrientation="landscape" bottomMargin="30" leftMargin="30" rightMargin="30" topMargin="30" pageSize="a4">
+		<query id="Query1">
+			<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoCashFlow_header">
+				<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter type="bigInt" name="Periode" value="#Parameters[&quot;periode&quot;]#"/><parameter name="SiteId" type="uniqueIdentifier" value="#Parameters[&quot;SiteId&quot;]#"/></storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="126">
+			<label id="Label1" text="Report Cash Flow" fontSize="20" align="center" font="HelveticaBold" x="0" y="0" width="782" height="25"/>
+			<line id="Line1" x1="0" x2="776" y1="90" y2="90"/>
+			<rectangle height="22.1" fillColor="lightSkyBlue" borderColor="darkGray" id="Rectangle1" width="80" x="1.1" y="99"/>
+			<label height="14" text="GL" align="center" fontSize="11" id="Label4" width="76.1" x="3" y="103"/>
+			<rectangle height="22.1" fillColor="lightSkyBlue" borderColor="gray" id="Rectangle2" width="48" x="87" y="99"/>
+			<label align="center" text="January" fontSize="11" id="Label5" width="48" height="13" x="88" y="104"/>
+			<rectangle height="22.1" fillColor="lightSkyBlue" borderColor="gray" id="Rectangle3" width="49.1" x="141" y="100"/>
+			<label height="14" align="center" text="February" fontSize="11" id="Label6" width="49" x="143" y="103"/>
+			<rectangle height="22.1" fillColor="lightSkyBlue" borderColor="gray" id="Rectangle4" width="48" x="194" y="99"/>
+			<label height="14" align="center" text="March" fontSize="11" id="Label7" width="45" x="197" y="103"/>
+			<rectangle height="22.1" fillColor="lightSkyBlue" borderColor="gray" id="Rectangle5" width="45.1" x="245" y="99"/>
+			<label height="14" align="center" text="April" fontSize="11" id="Label8" width="39" x="248" y="103"/>
+			<rectangle height="22.1" fillColor="lightSkyBlue" borderColor="gray" id="Rectangle6" width="49.1" x="294" y="99"/>
+			<label height="14" align="center" text="May" fontSize="11" id="Label9" width="47.1" x="297" y="103"/>
+			<rectangle height="22.1" fillColor="lightSkyBlue" borderColor="gray" id="Rectangle7" width="45.1" x="348" y="99"/>
+			<label height="14" align="center" text="June" fontSize="11" id="Label10" width="42" x="351" y="103"/>
+			<rectangle height="22.1" fillColor="lightSkyBlue" borderColor="gray" id="Rectangle8" width="54" x="398" y="99"/>
+			<label align="center" text="July" fontSize="11" id="Label11" width="47" height="11" x="401" y="104"/>
+			<rectangle height="22.1" fillColor="lightSkyBlue" borderColor="gray" id="Rectangle9" width="58" x="455" y="99"/>
+			<label height="14" align="center" text="Agust" fontSize="11" id="Label12" width="49" x="458" y="103"/>
+			<rectangle height="22.1" fillColor="lightSkyBlue" borderColor="gray" id="Rectangle10" width="69" x="516" y="98"/>
+			<label height="14" align="center" text="September" fontSize="11" id="Label13" width="64.1" x="519" y="102"/>
+			<rectangle height="22.1" fillColor="lightSkyBlue" borderColor="gray" id="Rectangle11" width="58" x="589" y="98"/>
+			<label align="center" text="October" fontSize="11" id="Label14" width="54" height="13" x="592" y="103"/>
+			<rectangle height="22.1" fillColor="lightSkyBlue" borderColor="gray" id="Rectangle12" width="67" x="651" y="98"/>
+			<label height="14" align="center" fontSize="11" text="November" id="Label15" width="61" x="654" y="102"/>
+			<rectangle height="22.1" fillColor="lightSkyBlue" borderColor="gray" id="Rectangle13" width="61" x="720" y="98"/>
+			<label height="14" align="center" fontSize="11" text="December" id="Label16" width="58" x="723" y="101"/>
+			<label height="14" y="50" font="HelveticaBold" text="Periode:" width="50" x="5" id="Label2"/><label height="14" font="HelveticaBold" width="50" y="70" text="Site:" x="5" id="Label3"/><recordBox dataFormat="" field="" height="14" width="100" y="50" x="65" id="RecordBox33"/><recordBox dataFormat="" field="" height="14" width="100" y="70" x="65" id="RecordBox34"/></header>
+		<detail id="Detail1" autoSplit="true" height="90">
+			<subReport id="SubReport2" width="782" x="0" y="0"><header id="Header3" height="1"/><detail id="Detail3" autoSplit="true" height="86"><recordBox dataFormat="" field="" height="14" width="100" id="RecordBox32" x="0" y="0"/><label text="Total Financing" height="20" font="HelveticaBold" width="94" x="0" id="Label17" y="46"/>
+					<recordBox dataFormat="" field="" width="50" height="14" x="96" id="RecordBox14" y="46"/>
+					<recordBox dataFormat="" field="" height="14" width="50" x="718" id="RecordBox15" y="46"/>
+					<recordBox dataFormat="" field="" width="50" height="14" x="148" id="RecordBox16" y="46"/>
+					<recordBox dataFormat="" field="" width="50" height="14" x="200" id="RecordBox17" y="46"/>
+					<recordBox dataFormat="" field="" width="50" height="14" x="200" id="RecordBox18" y="46"/>
+					<recordBox dataFormat="" field="" width="50" height="14" x="252" id="RecordBox19" y="46"/>
+					<recordBox dataFormat="" field="" width="50" height="14" x="302" id="RecordBox20" y="46"/>
+					<recordBox dataFormat="" field="" width="50" height="14" x="354" id="RecordBox21" y="46"/>
+					<recordBox dataFormat="" field="" width="50" height="14" x="406" id="RecordBox22" y="46"/>
+					<recordBox dataFormat="" field="" width="50" height="14" x="458" id="RecordBox23" y="46"/>
+					<recordBox dataFormat="" field="" width="50" height="14" x="510" id="RecordBox24" y="46"/>
+					<recordBox dataFormat="" field="" width="50" height="14" x="562" id="RecordBox25" y="46"/>
+					<recordBox dataFormat="" field="" width="50" height="14" x="614" id="RecordBox26" y="46"/>
+					<recordBox dataFormat="" field="" width="50" height="14" x="666" id="RecordBox27" y="46"/>
+					<recordBox dataFormat="" field="" width="50" height="14" x="666" id="RecordBox28" y="46"/>
+					<recordBox dataFormat="" field="" width="50" height="14" x="718" id="RecordBox30" y="68"/>
+					<line x1="1" x2="778" id="Line2" y1="40" y2="40"/>
+					<subReport id="SubReport1" x="0" width="782" y="17">
+						<query id="Query2">
+							<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoCashFlow_detail">
+								<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+								<parameter type="bigInt" name="Periode" value="#Parameters[&quot;periode&quot;]#"/><parameter name="SiteId" type="uniqueIdentifier" value="#Parameters[&quot;SiteId&quot;]#"/></storedProcedure>
+						</query>
+						<header height="2" id="Header2"/>
+						<detail id="Detail2" autoSplit="true" height="23">
+							<recordBox dataFormat="" height="14" x="4" y="5" width="72.1" fontSize="10" field="GLAccountCode&#xA;GLAccountCode" id="RecordBox1"/>
+							<recordBox dataFormat="" height="14" y="5" field="JanDB" fontSize="10" x="85" width="50" id="RecordBox2"/>
+							<recordBox dataFormat="" height="14" y="5" fontSize="10" x="137" width="57" field="FebDB" id="RecordBox3"/>
+							<recordBox dataFormat="" height="14" y="5" fontSize="10" x="197" width="45" field="MarDB" id="RecordBox4"/>
+							<recordBox dataFormat="" height="14" y="5" fontSize="10" x="197" width="45" field="MarDB" id="RecordBox5"/>
+							<recordBox dataFormat="" height="14" y="5" fontSize="10" width="45" field="AprDB" x="248" id="RecordBox6"/>
+							<recordBox dataFormat="" height="14" y="5" fontSize="10" width="45" field="MayDB" x="300" id="RecordBox7"/>
+							<recordBox dataFormat="" height="14" y="5" fontSize="10" width="45" x="351" field="JunDB" id="RecordBox8"/>
+							<recordBox dataFormat="" height="14" y="5" fontSize="10" x="400" field="JulDB" width="55" id="RecordBox9"/>
+							<recordBox dataFormat="" height="14" y="5" fontSize="10" x="460" width="55" field="AugDB" id="RecordBox10"/>
+							<recordBox dataFormat="" height="14" y="5" fontSize="10" x="520" width="65" field="SepDB" id="RecordBox11"/>
+							<recordBox dataFormat="" height="14" y="5" fontSize="10" width="65" x="587" field="OctDB" id="RecordBox12"/>
+							<recordBox dataFormat="" height="14" y="5" fontSize="10" width="65" x="655" field="NovDB" id="RecordBox13"/>
+							<recordBox dataFormat="" height="14" y="5" fontSize="10" width="65" x="722" field="DecDB" id="RecordBox31"/>
+						</detail>
+						<footer height="2" id="Footer2"/>
+					</subReport>
+				</detail><footer id="Footer3"/></subReport></detail>
+		<footer id="Footer1" height="23">
+			<recordBox id="RecordBox29" dataFormat="" height="14" width="142" x="3" y="9" field=""/>
+			<pageNumberingLabel align="right" height="14" text="Page %%CP%% of %%TP%%" width="200" fontSize="10" id="PageNumberingLabel1" x="584" y="2"/>
+		</footer>
+	</report>
+</document>

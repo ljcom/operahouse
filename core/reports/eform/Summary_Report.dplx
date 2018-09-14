@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" id="YoSUMM" author="eLs" title="SUMMARY REPORT" subject="DEDUCTION" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" bottomMargin="20" leftMargin="10" rightMargin="10" topMargin="10" pageWidth="1200" pageSize="custom" pageHeight="842">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" name="rp_YoSUMM" connectionString="#Global.AppSettings[&quot;connection&quot;]#">
+				<parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="@DivisionGUID" type="uniqueIdentifier" value="#Parameters[&quot;DivisionGUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1">
+			<rectangle fillColor="turquoise" height="20" width="75" x="275" id="PoS" y="60"/>
+			<label font="HelveticaBold" align="center" vAlign="center" width="71" fontSize="10" id="Label5" text="Proof of Serv" height="20" x="277" y="61"/>
+			<rectangle fillColor="turquoise" height="20" width="75" x="200" id="Scan" y="60"/>
+			<label font="HelveticaBold" align="center" vAlign="center" width="71" fontSize="10" id="Label17" text="Scan Sales" height="20" x="201" y="61"/>
+			<rectangle fillColor="turquoise" height="20" width="75" x="350" id="Agree" y="60"/>
+			<label height="16" id="Label1" font="HelveticaBold" width="169" x="9" text="PT L'ORÉAL INDONESIA  -" y="0"/>
+			<rectangle height="20" x="0" id="summaryRpt" width="1180" y="20"/>
+			<label text="SUMMARY REPORT" font="HelveticaBold" align="center" vAlign="center" height="20" x="0" id="lbl_Summary" width="1180" y="20"/>
+			<rectangle x="0" width="125" height="40" fillColor="turquoise" id="customer" y="40"/>
+			<rectangle width="75" height="40" fillColor="turquoise" id="WKAM" x="950" y="40"/>
+			<rectangle x="125" fillColor="turquoise" height="20" width="75" id="Invoice" y="60"/>
+			<rectangle width="75" height="40" fillColor="turquoise" id="SDD" x="500" y="40"/>
+			<rectangle width="75" height="40" fillColor="turquoise" id="WPoA" x="575" y="40"/>
+			<rectangle width="75" height="40" fillColor="turquoise" id="PLD" x="425" y="40"/>
+			<rectangle width="75" height="40" fillColor="turquoise" id="SAcc" x="875" y="40"/>
+			<rectangle width="75" height="40" fillColor="turquoise" id="Others" x="725" y="40"/>
+			<rectangle width="75" height="40" fillColor="turquoise" id="PiC" x="800" y="40"/>
+			<rectangle height="40" fillColor="turquoise" id="Total" width="80" x="1100" y="40"/>
+			<rectangle width="75" height="40" fillColor="turquoise" id="Dispute" x="650" y="40"/>
+			<label id="Label4" fontSize="10" font="HelveticaBold" text="Customer" x="0" width="125" align="center" vAlign="center" height="40" y="39"/>
+			<label fontSize="10" font="HelveticaBold" align="center" vAlign="center" id="Label6" width="70" text="P-List Discrepency" height="40" x="428" y="39"/>
+			<label fontSize="10" font="HelveticaBold" align="center" vAlign="center" id="Label7" width="70" text="Supporting Docs Discrepancy" height="40" x="503" y="39"/>
+			<label fontSize="10" font="HelveticaBold" align="center" vAlign="center" id="Label8" width="70" text="Waiting for&#xA;PO Approval" height="40" x="578" y="39"/>
+			<label fontSize="10" font="HelveticaBold" align="center" vAlign="center" id="Label9" height="40" text="Dispute" width="69" x="654" y="39"/>
+			<label font="HelveticaBold" align="center" vAlign="center" id="Label10" x="125" width="71" fontSize="10" text="Invoice" height="20" y="61"/>
+			<label fontSize="10" font="HelveticaBold" align="center" vAlign="center" id="Label11" width="70" height="40" text="Others" x="728" y="39"/>
+			<label fontSize="10" font="HelveticaBold" align="center" vAlign="center" id="Label12" width="70" height="40" text="Pending in Controller" x="802" y="40"/>
+			<label fontSize="10" font="HelveticaBold" align="center" vAlign="center" id="Label13" width="70" height="40" text="Sent to Accenture" x="879" y="39"/>
+			<label fontSize="10" font="HelveticaBold" align="center" vAlign="center" id="Label14" width="70" height="40" text="Waiting for KAM&#xA;Approval" x="953" y="39"/>
+			<label fontSize="10" font="HelveticaBold" align="center" vAlign="center" id="Label15" width="75" text="Total" height="40" x="1100" y="40.5"/>
+			<label font="HelveticaBold" align="center" vAlign="center" width="71" fontSize="10" id="Label3" text="Agreement" height="20" x="352" y="61"/>
+			<rectangle fillColor="turquoise" height="20" id="incomplete" x="125" width="300" y="40"/>
+			<label font="HelveticaBold" align="center" vAlign="center" fontSize="10" height="20" id="Label18" width="280" text="Document Incomplete" x="125" y="40"/>
+			<rectangle x="1025" width="75" height="40" id="WaitClose" fillColor="turquoise" y="40"/><label fontSize="10" font="HelveticaBold" align="center" vAlign="center" width="75" height="40" id="Label2" x="1025.5" text="Pending in&#xA;Credit for&#xA;Close" y="39.5"/>
+		</template>
+		<header id="Header1" height="79">
+			<recordBox id="RecordBox12" dataFormat="" width="100" field="DivisionName" height="16" font="HelveticaBold" x="164" y="0"/>
+		</header>
+		<detail id="Detail1" height="30" autoSplit="true">
+			<subReport id="SubReport1" x="0" y="0" width="1180">
+				<header id="Header2"/>
+				<detail id="Detail2" height="15">
+					<rectangle width="125" height="15" y="0" id="Rectangle24" x="0"/>
+					<rectangle height="15" y="0" id="LKam" x="950" width="75"/>
+					<rectangle height="15" y="0" x="125" width="75" id="LInvoice"/>
+					<rectangle height="15" y="0" id="LSdd" width="75" x="500"/>
+					<rectangle height="15" y="0" id="LWpoA" width="75" x="575"/>
+					<rectangle height="15" y="0" id="LPld" width="75" x="425"/>
+					<rectangle height="15" y="0" id="LSa" x="875" width="75"/>
+					<rectangle height="15" y="0" id="LOthers" width="75" x="725"/>
+					<rectangle height="15" y="0" id="LPic" x="800" width="75"/>
+					<rectangle height="15" y="0" id="LST" width="80" x="1100"/>
+					<rectangle height="15" y="0" id="LDispute" width="75" x="650"/>
+					<recordBox id="RecordBox1" dataFormat="" y="0" height="15" fontSize="10" field="Customer" vAlign="center" x="3" width="122"/>
+					<recordBox y="0" height="15" fontSize="10" vAlign="center" align="right" field="PLD" dataFormat="#,##" id="RPld" width="73" x="425"/>
+					<recordBox y="0" height="15" fontSize="10" vAlign="center" align="right" field="SDD" dataFormat="#,##" id="RSDD" width="73" x="500"/>
+					<recordBox y="0" height="15" fontSize="10" vAlign="center" align="right" field="WpoA" dataFormat="#,##" id="RWpoA" width="73" x="575"/>
+					<recordBox y="0" height="15" fontSize="10" vAlign="center" align="right" field="Dispute" dataFormat="#,##" id="RDispute" width="73" x="650"/>
+					<recordBox y="0" height="15" fontSize="10" vAlign="center" align="right" dataFormat="#,##" field="Invoice" id="RInvoice" x="125" width="73"/>
+					<recordBox y="0" height="15" fontSize="10" vAlign="center" align="right" field="Others" dataFormat="#,##" id="ROthers" x="725" width="73"/>
+					<recordBox y="0" height="15" fontSize="10" vAlign="center" field="PIC" align="right" dataFormat="#,##" id="RPic" width="73" x="800"/>
+					<recordBox y="0" height="15" fontSize="10" vAlign="center" align="right" field="SA" dataFormat="#,##" id="RSa" width="73" x="875"/>
+					<recordBox y="0" height="15" fontSize="10" vAlign="center" align="right" dataFormat="#,##" field="KAM" id="RKam" width="73" x="950"/>
+					<recordBox y="0" height="15" fontSize="10" vAlign="center" align="right" dataFormat="#,##" field="SideTotal" id="RST" width="78" x="1100"/>
+					<rectangle height="15" y="0" width="75" x="200" id="LScan"/>
+					<recordBox y="0" height="15" fontSize="10" vAlign="center" align="right" dataFormat="#,##" field="ScanSales" id="RScan" width="73" x="200"/>
+					<rectangle height="15" y="0" id="LPoS" width="75" x="275"/>
+					<recordBox y="0" height="15" fontSize="10" vAlign="center" align="right" dataFormat="#,##" field="PoS" id="RPoS" width="73" x="275"/>
+					<rectangle height="15" y="0" id="LAggre" width="75" x="350"/>
+					<recordBox y="0" height="15" fontSize="10" vAlign="center" align="right" dataFormat="#,##" field="Agreement" id="RAgree" width="73" x="350"/>
+					<rectangle height="15" y="0" width="75" id="PICC" x="1025"/>
+					<recordBox y="0" height="15" fontSize="10" vAlign="center" align="right" dataFormat="#,##" width="73" x="1025" id="RPICC" field="PICC"/>
+				</detail>
+				<footer id="Footer2"/>
+			</subReport>
+			<subReport id="SubReport2" x="0" y="15" width="1180">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" name="rp_YoSUMM" connectionString="#Global.AppSettings[&quot;connection&quot;]#">
+						<parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+						<parameter name="@DivisionGUID" type="uniqueIdentifier" value="#Parameters[&quot;DivisionGUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header id="Header3" height="17">
+					<rectangle x="0" width="125" height="15" id="Rectangle35" y="0"/>
+					<label fontSize="10" font="HelveticaBold" text="Total" height="15" align="center" vAlign="center" x="0" width="125" id="Label16" y="0"/>
+					<rectangle height="15" y="0" id="LSUMKAM" width="75" x="950"/>
+					<rectangle height="15" y="0" x="125" id="LSUMI" width="75"/>
+					<rectangle height="15" y="0" id="LSUMSDD" width="75" x="500"/>
+					<rectangle height="15" y="0" id="LSUMWpA" width="75" x="575"/>
+					<rectangle height="15" y="0" id="LSUMPLD" width="75" x="425"/>
+					<rectangle height="15" y="0" id="LSUMSA" width="75" x="875"/>
+					<rectangle height="15" y="0" id="LSUMOTH" width="75" x="725"/>
+					<rectangle height="15" y="0" id="LSUMPIC" width="75" x="800"/>
+					<rectangle height="15" y="0" id="LSUMTOT" width="80" x="1100"/>
+					<rectangle height="15" y="0" id="LSUMDIS" width="75" x="650"/>
+					<recordBox height="15" fontSize="10" vAlign="center" align="right" dataFormat="#,##" y="0" field="sumPLD" font="HelveticaBold" id="RSUMPLD" width="73" x="425"/>
+					<recordBox height="15" fontSize="10" vAlign="center" align="right" dataFormat="#,##" field="sumSDD" y="0" font="HelveticaBold" id="RSUMSDD" width="73" x="500"/>
+					<recordBox height="15" fontSize="10" vAlign="center" align="right" dataFormat="#,##" field="sumWpoA" y="0" font="HelveticaBold" id="RSUMWPA" width="73" x="575"/>
+					<recordBox height="15" fontSize="10" vAlign="center" align="right" dataFormat="#,##" field="sumDispute" font="HelveticaBold" y="0" id="RSUMDIS" width="73" x="650"/>
+					<recordBox height="15" fontSize="10" align="right" dataFormat="#,##" vAlign="center" font="HelveticaBold" field="sumInvoice" x="125" y="0" width="73" id="RSUMI"/>
+					<recordBox height="15" fontSize="10" vAlign="center" align="right" dataFormat="#,##" field="sumOthers" y="0" font="HelveticaBold" id="RSUMOTH" width="73" x="725"/>
+					<recordBox height="15" fontSize="10" vAlign="center" align="right" dataFormat="#,##" field="sumPIC" y="0" font="HelveticaBold" id="RSUMPIC" x="800" width="73"/>
+					<recordBox height="15" fontSize="10" vAlign="center" align="right" dataFormat="#,##" y="0" field="sumStoA" font="HelveticaBold" id="RSUMSA" width="73" x="875"/>
+					<recordBox height="15" fontSize="10" vAlign="center" align="right" dataFormat="#,##" field="sumKAM" y="0" font="HelveticaBold" id="RSUMKAM" width="73" x="950"/>
+					<recordBox height="15" fontSize="10" vAlign="center" align="right" dataFormat="#,##" field="AllTotal" y="0" font="HelveticaBold" id="RSUMTOT" width="78" x="1100"/>
+					<rectangle height="15" y="0" id="LSUMSCAN" width="75" x="200"/>
+					<recordBox height="15" fontSize="10" align="right" dataFormat="#,##" vAlign="center" font="HelveticaBold" field="sumScanSales" y="0" id="RSUMSCAN" width="73" x="200"/>
+					<rectangle height="15" y="0" id="LSUMPOS" width="75" x="275"/>
+					<recordBox height="15" fontSize="10" align="right" dataFormat="#,##" vAlign="center" font="HelveticaBold" field="sumPoS" y="0" id="RSUMPOS" width="73" x="275"/>
+					<rectangle height="15" y="0" id="LSUMAG" width="75" x="350"/>
+					<recordBox height="15" fontSize="10" align="right" dataFormat="#,##" vAlign="center" font="HelveticaBold" field="sumAgreement" id="RSUMAG" width="73" x="350" y="0"/>
+					<rectangle height="15" y="0" width="75" x="1025" id="LSUMPICC"/>
+					<recordBox height="15" fontSize="10" vAlign="center" align="right" dataFormat="#,##" y="0" font="HelveticaBold" width="73" id="RecordBox2" x="1025" field="sumPICC"/>
+				</header>
+				<detail id="Detail3" height="1"/>
+				<footer id="Footer3"/>
+			</subReport>
+		</detail>
+		<footer id="Footer1">
+		</footer>
+	</report>
+</document>

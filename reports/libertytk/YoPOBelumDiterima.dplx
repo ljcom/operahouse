@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" id="YoPOBelumDiterima" author="Ellin" subject="LibertyTK" title="Report Laporan Barang Belum Di Terima" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageOrientation="landscape" pageSize="a4" bottomMargin="30" leftMargin="30" rightMargin="30" topMargin="30">
+		<query id="Query1">
+			<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoPOBelumDiterima_header"><parameter name="HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="SPPLId" type="uniqueIdentifier" value="#Parameters[&quot;SPPLId&quot;]#"/><parameter name="startDate" type="dateTime" value="#Parameters[&quot;startDate&quot;]#"/><parameter name="endDate" type="dateTime" value="#Parameters[&quot;endDate&quot;]#"/><parameter name="PORDNo" type="uniqueIdentifier" value="#Parameters[&quot;PORDNo&quot;]#"/><parameter name="Product" type="uniqueIdentifier" value="#Parameters[&quot;Product&quot;]#"/></storedProcedure></query>
+		<template id="Template1"/>
+		<header id="Header1" height="120.5"><label fontSize="20" font="HelveticaBold" height="25" x="5" width="737" text="Laporan Barang Belum Di Terima" y="0" id="Label11"/>
+			<line x1="4" x2="778" y1="30" y2="30" id="Line2"/>
+			<label height="15.1" font="HelveticaBold" width="73.5" x="7.5" text="Periode    :" y="35" id="Label16"/>
+			<label height="15.1" font="HelveticaBold" x="7" width="74.6" text="Start Date :" y="53" id="Label17"/>
+			<label height="15.1" font="HelveticaBold" x="7" text="End Date  :" width="75.6" y="72" id="Label18"/>
+			<recordBox dataFormat="" height="15" width="109" x="86" y="35" id="RecordBox13" field="tahun"/>
+			<recordBox dataFormat="" height="15" width="109" x="86" field="startDate" y="54" id="RecordBox15"/>
+			<recordBox dataFormat="" height="15" width="109" x="86" field="endDate" y="73" id="RecordBox16"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" width="88.1" x="153.6" id="Rectangle1" y="100" height="15.6"/>
+			<label align="center" font="HelveticaBold" fontSize="9" text="Supplier" width="89" x="153.5" id="Label2" height="11" y="102"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" width="75" x="245.6" id="Rectangle3" y="100.5" height="15.1"/>
+			<label align="center" font="HelveticaBold" width="76" fontSize="9" x="245.5" text="Address" id="Label3" height="13.5" y="102.5"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" x="324.1" width="79" id="Rectangle4" y="101" height="15.1"/>
+			<label align="center" font="HelveticaBold" fontSize="9" height="13.6" x="323.5" width="80.5" text="City" id="Label4" y="102.5"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" x="77.1" width="73" id="Rectangle5" y="100" height="15.6"/>
+			<label align="center" font="HelveticaBold" fontSize="9" x="76.5" width="74.5" text="Purchase Date" id="Label7" height="10.5" y="102"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" x="6.1" width="66.1" id="Rectangle6" y="100" height="15.6"/>
+			<label align="center" font="HelveticaBold" fontSize="9" x="5.5" width="68.5" height="12.1" text="Purchase No" id="Label8" y="101.5"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" x="406.6" width="78" id="Rectangle7" height="15.6" y="100.5"/>
+			<label align="center" font="HelveticaBold" fontSize="9" height="13.5" x="407.5" text="Product Code" width="77.1" id="Label9" y="103.5"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" x="488.6" width="92.1" id="Rectangle8" y="100.5" height="15.6"/>
+			<label align="center" font="HelveticaBold" fontSize="9" text="Description" x="488" width="93.5" id="Label10" height="12" y="102.5"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" width="55.5" x="584.1" id="Rectangle9" y="100.5" height="15.6"/>
+			<label height="14.5" align="center" font="HelveticaBold" fontSize="9" width="56.1" text="Qty Ordered" x="583.5" id="Label13" y="102"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" x="642.6" width="72.5" id="Rectangle10" y="100.5" height="15.6"/>
+			<label height="14.5" align="center" font="HelveticaBold" fontSize="9" text="Qty Received" x="642" width="74.1" id="Label14" y="102"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" width="56.5" x="719.1" id="Rectangle11" y="101" height="15.1"/>
+			<label align="center" font="HelveticaBold" fontSize="9" height="13.5" width="58.6" x="718.5" text="Qty Sisa" id="Label26" y="102.5"/>
+		</header>
+		<detail id="Detail1" height="24">
+			<recordBox dataFormat="" fontSize="9" height="13.5" x="6" width="66.6" field="PORDNo" id="RecordBox8" y="5"/>
+			<recordBox dataFormat="" fontSize="9" height="13" x="76.5" width="74.1" field="PORDDate" id="RecordBox9" y="5.5"/>
+			<recordBox dataFormat="" fontSize="9" height="13" x="154.5" width="88.6" field="Supplier" id="RecordBox17" y="5.5"/>
+			<recordBox dataFormat="" fontSize="9" x="245" width="76.1" height="13.5" field="Address" id="RecordBox18" y="5.5"/>
+			<recordBox dataFormat="" fontSize="9" height="13.5" x="323" width="80.6" field="CityName" id="RecordBox19" y="5.5"/>
+			<recordBox dataFormat="" fontSize="9" height="13.5" x="488.5" width="93" field="SKUName" id="RecordBox25" y="5.5"/>
+			<recordBox dataFormat="" fontSize="9" align="right" height="14.5" x="584" width="57.1" field="QtyOrdered" id="RecordBox26" y="5"/>
+			<recordBox dataFormat="" fontSize="9" height="13" x="406.5" width="78.6" field="SKUCode" id="RecordBox27" y="6"/>
+			<recordBox dataFormat="" fontSize="9" align="right" height="14" x="643.5" width="74.1" field="QtyReceived" id="RecordBox28" y="5"/>
+			<recordBox dataFormat="" height="14" fontSize="9" x="719.5" width="56.6" align="right" field="QtySisa" id="RecordBox29" y="5"/>
+		</detail>
+		<footer id="Footer1" height="22">
+			<pageNumberingLabel align="right" height="14" text="Page %%CP%% of %%TP%%" width="200" fontSize="10" id="PageNumberingLabel1" x="578" y="4"/>
+			<recordBox dataFormat="" height="14" width="150" fontSize="10" id="RecordBox6" x="8" y="5" field=""/>
+			<line x1="4" x2="778" id="Line1" y1="2" y2="2"/>
+		</footer>
+	</report>
+</document>

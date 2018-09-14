@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" id="YoStockMovement" author="Ellin" subject="LibertyTK" title="Report Stock Movement" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageOrientation="landscape" pageSize="a4" bottomMargin="30" leftMargin="30" rightMargin="30" topMargin="30">
+		<query id="Query1">
+			<sql connectionString="" dataProvider="msSql"/>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="102"><label x="0" fontSize="20" align="center" font="HelveticaBold" width="742" height="25" y="6" text="STOCK MOVEMENT" id="Label11"/>
+			<line x1="0" width="2" x2="781" y1="36" y2="36" id="Line2"/>
+			<label text="Start Date :" height="15.1" y="41" font="HelveticaBold" x="7" width="67" id="Label12"/>
+			<label x="8" height="15.1" y="59" font="HelveticaBold" text="End Date  :" width="66.1" id="Label13"/>
+			<recordBox dataFormat="" x="77" y="41" height="15" width="109" id="RecordBox17" field="startDate"/>
+			<recordBox dataFormat="" x="77" height="15" width="109" y="60" id="RecordBox18" field="endDate"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" x="6.1" width="57" height="11.1" id="Rectangle9" y="85"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" height="12.1" width="96" x="68.1" id="Rectangle10" y="85"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" height="12.1" width="194.1" x="168.6" id="Rectangle11" y="85"/>
+			<label text="CODE" align="center" font="HelveticaBold" x="6" width="58.5" height="13" id="Label1" y="84.5"/>
+			<label text="DESCRIPTION" align="center" font="HelveticaBold" height="13.5" width="196" x="168.5" id="Label5" y="84.5"/>
+			<label align="center" text="DATE" font="HelveticaBold" width="97.5" x="68" height="14" id="Label6" y="84"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" height="12.1" width="75" x="367.6" id="Rectangle12" y="85"/>
+			<label align="center" font="HelveticaBold" text="NO" height="14" x="367.5" width="76" id="Label14" y="84.5"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" height="12.1" width="105" x="446.6" id="Rectangle13" y="86"/>
+			<label align="center" font="HelveticaBold" width="106.5" text="STATUS" x="446" height="13.1" id="Label15" y="85.5"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" height="12.1" width="105" x="555.6" id="Rectangle14" y="86"/>
+			<label height="14.5" align="center" font="HelveticaBold" width="106.5" text="QTY" x="556.5" id="Label16" y="85.5"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" height="12.1" x="665.1" width="111.5" id="Rectangle15" y="86"/>
+			<label height="14.5" align="center" font="HelveticaBold" text="SALDO" x="665" width="112.5" id="Label17" y="85"/>
+		</header>
+		<detail id="Detail1" height="43">
+			<recordBox dataFormat="" field="" fontSize="9" y="6" height="13.5" width="57.6" x="7" id="RecordBox8"/>
+			<recordBox dataFormat="" field="" fontSize="9" height="13" y="6.5" x="68" width="96.1" id="RecordBox9"/>
+			<recordBox dataFormat="" field="" fontSize="9" x="169.5" y="6.5" height="13" width="194.1" id="RecordBox19"/>
+			<rectangle height="14" y="24" fillColor="whiteSmoke" borderColor="whiteSmoke" x="6" width="769.1" id="Rectangle16"/>
+			<recordBox dataFormat="" field="" fontSize="9" height="13.5" width="57.6" x="7" y="24" id="RecordBox20"/>
+			<recordBox dataFormat="" field="" fontSize="9" height="13" x="68" width="96.1" y="24.5" id="RecordBox21"/>
+			<recordBox dataFormat="" field="" fontSize="9" x="169.5" height="13" width="194.1" y="24.5" id="RecordBox22"/>
+			<rectangle height="14" y="24" fillColor="whiteSmoke" borderColor="whiteSmoke" x="6" width="769.1" id="Rectangle17"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" width="106.1" x="446" y="5.5" id="RecordBox23"/>
+			<recordBox dataFormat="" field="" fontSize="9" width="105.5" x="555.5" y="6" height="13.5" align="right" id="RecordBox24"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" x="368" width="75.6" y="23.5" id="RecordBox25"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" width="106.1" x="446" y="23.5" id="RecordBox26"/>
+			<recordBox dataFormat="" field="" fontSize="9" width="105.5" x="555.5" height="13.5" y="24" align="right" id="RecordBox27"/>
+			<rectangle height="14" y="24" fillColor="whiteSmoke" borderColor="whiteSmoke" x="6" width="769.1" id="Rectangle18"/>
+			<recordBox dataFormat="" field="" fontSize="9" align="right" y="6" x="665.5" width="111.1" height="13.5" id="RecordBox28"/>
+			<recordBox dataFormat="" field="" fontSize="9" align="right" x="665.5" width="111.1" height="13.5" y="24" id="RecordBox29"/>
+			<recordBox dataFormat="" field="" fontSize="9" x="169.5" height="13" width="194.1" y="24.5" id="RecordBox30"/>
+			<recordBox dataFormat="" field="" fontSize="9" height="13.5" width="57.6" x="7" y="24" id="RecordBox31"/>
+			<recordBox dataFormat="" field="" fontSize="9" height="13" x="68" width="96.1" y="24.5" id="RecordBox32"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" x="368" width="75.6" y="23.5" id="RecordBox33"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" width="106.1" x="446" y="23.5" id="RecordBox34"/>
+			<recordBox dataFormat="" field="" fontSize="9" width="105.5" x="555.5" height="13.5" y="24" align="right" id="RecordBox35"/>
+			<recordBox dataFormat="" field="" fontSize="9" align="right" x="665.5" width="111.1" height="13.5" y="24" id="RecordBox36"/>
+		</detail>
+		<footer id="Footer1" height="22">
+			<pageNumberingLabel align="right" height="14" text="Page %%CP%% of %%TP%%" width="200" fontSize="10" id="PageNumberingLabel1" x="578" y="3"/>
+			<recordBox dataFormat="" field="" height="14" width="150" fontSize="10" id="RecordBox6" y="4" x="4"/>
+		</footer>
+	</report>
+</document>

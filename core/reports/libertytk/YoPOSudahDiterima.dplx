@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" id="YoPOSudahDiterima" author="Ellin" subject="LibertyTK" title="Report PO Sudah Di Terima" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageOrientation="landscape" pageSize="a4" bottomMargin="30" leftMargin="30" rightMargin="30" topMargin="30">
+		<query id="Query1">
+			<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoPOSudahDiterima_header"><parameter name="HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="SPPLId" type="uniqueIdentifier" value="#Parameters[&quot;SPPLId&quot;]#"/><parameter name="startDate" type="dateTime" value="#Parameters[&quot;startDate&quot;]#"/><parameter name="endDate" value="#Parameters[&quot;endDate&quot;]#" type="dateTime"/><parameter name="PORDNo" type="uniqueIdentifier" value="#Parameters[&quot;PORDNo&quot;]#"/><parameter name="PRCPNo" value="#Parameters[&quot;PRCPNo&quot;]#" type="uniqueIdentifier"/><parameter type="uniqueIdentifier" value="#Parameters[&quot;Product&quot;]#" name="Product"/></storedProcedure></query>
+		<template id="Template1"/>
+		<header id="Header1" height="118.5"><label fontSize="20" font="HelveticaBold" height="25" y="6" x="5" width="737" text="PO Sudah Di Terima" id="Label11"/>
+			<line x1="4" x2="778" y1="36" y2="36" id="Line3"/>
+			<label height="15.1" font="HelveticaBold" width="73.5" x="7.5" text="Periode    :" y="41.5" id="Label15"/>
+			<label height="15.1" font="HelveticaBold" x="7" width="74.6" text="Start Date :" y="59.5" id="Label16"/>
+			<label height="15.1" font="HelveticaBold" x="7" text="End Date  :" width="75.6" y="78.5" id="Label17"/>
+			<recordBox dataFormat="" height="15" width="109" x="86" field="tahun" y="41.5" id="RecordBox13"/>
+			<recordBox dataFormat="" height="15" width="109" x="86" field="startDate" y="60.5" id="RecordBox14"/>
+			<recordBox dataFormat="" height="15" width="109" y="79" x="86" field="endDate" id="RecordBox15"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" width="88.1" x="153.6" id="Rectangle2" y="97" height="16.6"/>
+			<label align="center" font="HelveticaBold" fontSize="9" width="89" x="153.5" height="13.5" text="Reception Date" id="Label1" y="98.5"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" width="75" x="245.6" id="Rectangle11" y="97" height="16.6"/>
+			<label align="center" font="HelveticaBold" width="76" fontSize="9" x="245.5" height="13.5" text="No. Surat Jalan" id="Label5" y="98.5"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" x="77.1" width="73" id="Rectangle12" y="97" height="16.6"/>
+			<label align="center" font="HelveticaBold" fontSize="9" height="13.5" x="76.5" width="74.5" text="Reception No" id="Label6" y="99"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" x="6.1" width="66.1" id="Rectangle13" y="97" height="16.6"/>
+			<label align="center" font="HelveticaBold" fontSize="9" x="5.5" width="68.5" height="12.1" text="Purchase No" id="Label12" y="99.5"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" x="324.1" width="79" id="Rectangle14" y="97" height="16.6"/>
+			<label align="center" font="HelveticaBold" fontSize="9" height="13.6" x="323.5" width="80.5" text="Supplier" id="Label18" y="98.5"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" width="87" x="406.6" id="Rectangle15" y="97" height="16.6"/>
+			<label align="center" font="HelveticaBold" fontSize="9" width="87.5" height="13.5" x="407.5" text="Address" id="Label19" y="98.5"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" x="497.1" width="60.1" id="Rectangle16" y="97" height="16.6"/>
+			<label align="center" font="HelveticaBold" fontSize="9" x="497" width="62" height="14" text="City" id="Label20" y="98.5"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" x="562.1" width="137" id="Rectangle17" y="97" height="16.6"/>
+			<label height="14.5" align="center" font="HelveticaBold" fontSize="9" x="561.5" text="Description" width="139.1" id="Label21" y="98"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" x="703.1" width="70.1" id="Rectangle18" y="98" height="15.6"/>
+			<label height="14.5" align="center" font="HelveticaBold" fontSize="9" text="Qty" x="702.5" width="72.6" id="Label22" y="99"/>
+		</header>
+		<detail id="Detail1" height="19">
+			<recordBox dataFormat="" fontSize="9" height="13.5" width="66.6" x="7" id="RecordBox8" y="2.5" field="PORDNo"/>
+			<recordBox dataFormat="" fontSize="9" height="13" width="75.1" x="77.5" id="RecordBox9" y="3.5" field="PRCPNo"/>
+			<recordBox dataFormat="" fontSize="9" height="13" width="88.6" x="155.5" id="RecordBox16" y="3.5" field="PRCPDate"/>
+			<recordBox dataFormat="" field="" fontSize="9" width="76.1" height="13.5" x="246" id="RecordBox17" y="3.5"/>
+			<recordBox dataFormat="" fontSize="9" height="13.5" width="80.1" x="324.5" id="RecordBox18" y="3.5" field="Supplier"/>
+			<recordBox dataFormat="" fontSize="9" height="13" x="406.5" width="88.1" id="RecordBox19" y="4" field="Address"/>
+			<recordBox dataFormat="" fontSize="9" width="62" height="13.5" x="498" id="RecordBox20" y="3.5" field="CityName"/>
+			<recordBox dataFormat="" fontSize="9" height="14.5" x="562.5" width="137.1" id="RecordBox21" y="3" field="SKUName"/>
+			<recordBox dataFormat="" fontSize="9" align="right" height="14" x="703" width="72.6" id="RecordBox22" y="3" field="Qty"/>
+		</detail>
+		<footer id="Footer1" height="22">
+			<pageNumberingLabel align="right" height="14" text="Page %%CP%% of %%TP%%" width="200" fontSize="10" id="PageNumberingLabel1" x="578" y="4"/>
+			<recordBox dataFormat="" field="" height="14" width="150" fontSize="10" id="RecordBox6" x="6" y="4"/>
+			<line x1="4" x2="778" id="Line1" y1="2" y2="2"/>
+		</footer>
+	</report>
+</document>
