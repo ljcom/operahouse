@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="eLs" title="HRRR Release Report" subject="TeHRRR" keywords="eL" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<openTypeFont name="Wingdings" path="C:\Windows\Fonts\wingding.ttf"/><report id="Report1" bottomMargin="20" topMargin="30" leftMargin="30" rightMargin="30" pageHeight="900" pageSize="custom" pageWidth="595">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="TeHRRR_rptbrowse">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;RecruitRequestGUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1">
+			<label font="HelveticaBold" id="Label1" x="0" y="0" width="150" height="18" text="PT L'ORÉAL INDONESIA"/>
+			<rectangle id="Rectangle1" height="18" y="0" width="100" x="435"/>
+			<label fontSize="8" id="Label2" width="18" vAlign="center" height="18" y="0" text="No." x="440"/>
+			<rectangle id="Rectangle2" width="100" height="25" y="18" x="435"/>
+			<label id="Label3" fontSize="8" text="Date :" x="440" width="90" height="24" y="19"/>
+			<label y="20" id="Label4" x="0" width="200" fontSize="8" height="40" text="DBS Bank Tower 29th Floor Ciputra World 1&#xA;Jln. Prof. Dr. Satrio Kav 3 - 5, Jakarta - 12940&#xA;Tlp : (+62) 21 2988 6666"/>
+			<label font="HelveticaBold" x="0" height="18" id="Label5" y="55" align="center" text="REQUEST FOR RECRUITMENT" width="535"/>
+			<rectangle id="Rectangle3" x="0" y="75" width="535" height="750"/>
+		</template>
+		<header id="Header1" height="75">
+			<recordBox id="RecordBox1" dataFormat="" width="100" field="DocNo" y="0" height="18" align="center" vAlign="center" font="HelveticaBold" fontSize="10" x="435"/>
+			<recordBox dataFormat="" width="100" align="center" font="HelveticaBold" fontSize="10" id="RecordBox2" y="18" vAlign="bottom" field="DocDate" x="435" height="24"/>
+		</header>
+		<detail id="Detail1" height="750" autoSplit="true">
+			<rectangle width="515" x="10" id="Rectangle47" height="50" y="517"/>
+			<rectangle width="515" id="Rectangle44" x="10" height="45" y="472"/>
+			<rectangle width="515" x="10" id="Rectangle10" height="63" y="409"/>
+			<rectangle width="515" id="Rectangle14" height="85" x="10" y="324"/>
+			<rectangle id="Rectangle30" width="515" height="65" x="10" y="259"/>
+			<label id="Label6" fontSize="8" height="12" x="5" y="5" width="80" text="Position"/>
+			<label fontSize="8" height="12" x="5" width="80" id="Label7" y="17" text="Category"/>
+			<label fontSize="8" height="12" width="80" id="Label8" x="5" y="29" text="Carol Job"/>
+			<label fontSize="8" height="12" width="80" id="Label9" text="Global Position" x="5" y="41"/>
+			<label fontSize="8" height="12" width="80" id="Label10" text="PC/CC (Cost Center)" x="5" y="65"/>
+			<label fontSize="8" height="12" width="80" id="Label11" text="Employment Status" y="90" x="5"/>
+			<label fontSize="8" height="12" width="80" id="Label12" text="Reason" y="78" x="5"/>
+			<label fontSize="8" height="12" width="80" id="Label13" text="Direct Superior" x="5" y="53"/>
+			<label fontSize="8" height="12" y="5" id="Label14" x="85" width="5" text=":"/>
+			<label fontSize="8" height="12" y="17" id="Label15" x="85" width="5" text=":"/>
+			<label fontSize="8" height="12" y="29" id="Label16" x="85" text=":" width="5"/>
+			<label fontSize="8" height="12" y="41" id="Label17" x="85" text=":" width="5"/>
+			<label fontSize="8" height="12" id="Label18" x="85" text=":" width="5" y="66"/>
+			<label fontSize="8" height="12" y="54" id="Label21" x="85" text=":" width="5"/>
+			<rectangle id="Rectangle4" height="8" width="8" borderColor="darkGray" y="79" x="90"/>
+			<label fontSize="8" height="12" id="Label22" textColor="darkGray" width="60" text="New Headcount" y="79" x="101"/>
+			<rectangle id="Rectangle5" height="8" width="8" borderColor="darkGray" y="79" x="170"/>
+			<label fontSize="8" height="12" textColor="darkGray" id="Label23" width="60" text="Replacement" y="79" x="181"/>
+			<label fontSize="8" height="12" textColor="darkGray" width="60" id="Label24" text="Permanent" y="91" x="101"/>
+			<rectangle id="Rectangle6" height="8" width="8" borderColor="darkGray" y="91" x="90"/>
+			<rectangle id="Rectangle7" height="8" width="8" borderColor="darkGray" y="91" x="170"/>
+			<label fontSize="8" height="12" textColor="darkGray" id="Label25" text="Temporary Contract for" y="91" x="181" width="90"/>
+			<label fontSize="8" height="12" textColor="darkGray" id="Label26" text="month (s)" width="40" y="91" x="287"/>
+			<rectangle id="Rectangle8" height="30" x="0" y="105" width="535"/>
+			<label id="Label27" height="14" font="HelveticaBold" fontSize="8" underline="true" text="MAIN RESPONSIBILITIES" width="100" x="5" y="107"/>
+			<label height="14" font="HelveticaBold" fontSize="8" y="107" id="Label28" text=":" width="10" x="103"/>
+			<rectangle id="Rectangle9" height="55" width="535" x="0" y="135"/>
+			<label height="14" font="HelveticaBold" fontSize="8" underline="true" id="Label29" text="BACKGROUND REQUIREMENT" x="5" y="137" width="130"/>
+			<label height="14" font="HelveticaBold" fontSize="8" text=":" width="10" id="Label30" y="137" x="128"/>
+			<label fontSize="8" height="12" x="5" id="Label31" y="150" width="40" text="Education"/>
+			<label fontSize="8" height="12" x="5" width="80" id="Label32" y="162" text="Major"/>
+			<label fontSize="8" height="12" width="80" x="5" id="Label33" y="174" text="Working Experience"/>
+			<label fontSize="8" height="12" x="85" width="5" text=":" id="Label34" y="150"/>
+			<label fontSize="8" height="12" x="85" width="5" text=":" id="Label35" y="162"/>
+			<label fontSize="8" height="12" x="85" text=":" width="5" id="Label36" y="174"/>
+			<label fontSize="8" height="12" y="150" width="40" id="Label37" text="(Degree)" font="HelveticaOblique" x="43"/>
+			<rectangle id="Rectangle13" height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" y="274"/>
+			<label font="HelveticaBold" width="57.1" text="1. INNOVATOR" id="Label43" fontSize="8" height="12" x="15" y="260"/>
+			<label id="Label44" fontSize="8" height="12" x="35" width="225" text="Imagination / Thinks Out of The Box" y="272"/>
+			<label text="Vision /  Anticipation" id="Label45" height="12" fontSize="8" x="35" width="225" y="284"/>
+			<label id="Label46" fontSize="8" height="12" x="36" width="225" text="Flexibility / Open-Mindedness" y="296"/>
+			<label id="Label47" x="35" height="12" fontSize="8" width="225" text="Analytical Thinking / Problem Solving Attitude" y="308"/>
+			<rectangle id="Rectangle23" height="8" width="8" borderColor="darkGray" x="308" y="274"/>
+			<rectangle id="Rectangle99" height="14" x="10" width="515" y="245"/>
+			<label fontSize="8" id="Label69" height="14" vAlign="center" text="COMPETENCIES" font="HelveticaBold" width="70" x="20" y="245"/>
+			<label fontSize="8" height="14" vAlign="center" id="Label70" x="89" width="180" y="245" text="(Prioritizes 4 or 5 are Competencies For The Job)"/>
+			<label fontSize="8" height="14" vAlign="center" id="Label71" text="Priority 1" align="center" width="85" x="270" font="HelveticaBold" y="245"/>
+			<label fontSize="8" height="14" vAlign="center" align="center" id="Label72" text="Priority 2" width="85" x="355" font="HelveticaBold" y="245"/>
+			<label fontSize="8" height="14" vAlign="center" align="center" id="Label73" text="Priority 3" width="85" x="440" font="HelveticaBold" y="245"/>
+			<line id="Line2" x1="270" x2="270" y1="245" y2="567"/>
+			<line id="Line3" x1="355" x2="355" y1="245" y2="567"/>
+			<line id="Line4" x1="440" x2="440" y1="245" y2="567"/>
+			<rectangle height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" id="Rectangle11" y="286"/>
+			<rectangle height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" id="Rectangle12" y="298"/>
+			<rectangle height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" id="Rectangle17" y="310"/>
+			<rectangle height="8" width="8" borderColor="darkGray" x="308" id="Rectangle18" y="286"/>
+			<rectangle height="8" borderColor="darkGray" x="308" id="Rectangle19" width="8" y="298"/>
+			<rectangle height="8" borderColor="darkGray" x="308" id="Rectangle20" width="8" y="310"/>
+			<rectangle height="8" width="8" borderColor="darkGray" id="Rectangle21" x="393" y="274"/>
+			<rectangle height="8" width="8" borderColor="darkGray" id="Rectangle22" x="393" y="286"/>
+			<rectangle height="8" borderColor="darkGray" id="Rectangle24" x="393" width="8" y="298"/>
+			<rectangle height="8" borderColor="darkGray" width="8" id="Rectangle25" x="393" y="310"/>
+			<rectangle height="8" width="8" borderColor="darkGray" id="Rectangle26" x="478" y="274"/>
+			<rectangle height="8" width="8" borderColor="darkGray" id="Rectangle27" x="478" y="286"/>
+			<rectangle height="8" borderColor="darkGray" id="Rectangle28" x="478" width="8" y="298"/>
+			<rectangle height="8" borderColor="darkGray" width="8" id="Rectangle29" x="478" y="310"/>
+			<rectangle height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" id="Rectangle31" y="339"/>
+			<label font="HelveticaBold" fontSize="8" height="12" x="15" id="Label38" text="2. SENSITIVITY TO OUR “METIER”" width="150" y="325"/>
+			<label fontSize="8" id="Label40" width="225" x="35" height="20" text="Sensitive to beauty, demanding with respect to design and &#xA;to “staging”" y="337"/>
+			<label height="12" fontSize="8" x="35" id="Label41" text="Sensitive to product to the expectations of consumers" width="225" y="356"/>
+			<label fontSize="8" height="12" x="35" id="Label42" text="Concerned by quality / the importance of detail" width="225" y="368"/>
+			<label x="35" height="12" fontSize="8" id="Label48" text="Taste for arts and culture / open to diversity in" width="225" y="380"/>
+			<rectangle height="8" width="8" borderColor="darkGray" x="308" id="Rectangle78" y="339"/>
+			<rectangle height="8" borderColor="darkGray" width="8" x="478" id="Rectangle79" y="382"/>
+			<rectangle height="8" borderColor="darkGray" x="478" width="8" id="Rectangle100" y="370"/>
+			<rectangle height="8" width="8" borderColor="darkGray" x="478" id="Rectangle101" y="358"/>
+			<rectangle height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" id="Rectangle102" y="358"/>
+			<rectangle height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" id="Rectangle103" y="370"/>
+			<rectangle height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" id="Rectangle104" y="382"/>
+			<rectangle height="8" width="8" borderColor="darkGray" x="308" id="Rectangle105" y="358"/>
+			<rectangle height="8" borderColor="darkGray" x="308" id="Rectangle106" width="8" y="370"/>
+			<rectangle height="8" borderColor="darkGray" x="308" width="8" id="Rectangle107" y="382"/>
+			<rectangle height="8" width="8" borderColor="darkGray" x="393" id="Rectangle108" y="339"/>
+			<rectangle height="8" width="8" borderColor="darkGray" x="393" id="Rectangle109" y="358"/>
+			<rectangle height="8" borderColor="darkGray" x="393" width="8" id="Rectangle110" y="370"/>
+			<rectangle height="8" borderColor="darkGray" width="8" x="393" id="Rectangle111" y="382"/>
+			<rectangle height="8" width="8" borderColor="darkGray" x="478" id="Rectangle112" y="339"/>
+			<label x="35" height="12" fontSize="8" width="225" id="Label49" text="Touch with contemporary lifestyles and trends" y="392"/>
+			<rectangle height="8" borderColor="darkGray" width="8" x="478" id="Rectangle113" y="394"/>
+			<rectangle height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" id="Rectangle114" y="394"/>
+			<rectangle height="8" borderColor="darkGray" x="308" width="8" id="Rectangle115" y="394"/>
+			<rectangle height="8" borderColor="darkGray" width="8" x="393" id="Rectangle116" y="394"/>
+			<label font="HelveticaBold" fontSize="8" height="12" x="15" width="150" id="Label50" text="3. ENTREPRENEUR" y="410"/>
+			<label height="12" fontSize="8" x="35" width="225" id="Label52" text="Initiative" y="420"/>
+			<label fontSize="8" height="12" x="35" width="225" id="Label53" text="Ambition / Challenge Seeking" y="432"/>
+			<label height="12" fontSize="8" width="225" id="Label54" text="Courage and Conviction" y="444" x="35.5"/>
+			<rectangle height="8" borderColor="darkGray" width="8" x="478" id="Rectangle32" y="446"/>
+			<rectangle height="8" borderColor="darkGray" x="478" width="8" id="Rectangle33" y="434"/>
+			<rectangle height="8" width="8" borderColor="darkGray" x="478" id="Rectangle34" y="422"/>
+			<rectangle height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" id="Rectangle35" y="422"/>
+			<rectangle height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" id="Rectangle36" y="434"/>
+			<rectangle height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" id="Rectangle37" y="446"/>
+			<rectangle height="8" width="8" borderColor="darkGray" x="308" id="Rectangle38" y="422"/>
+			<rectangle height="8" borderColor="darkGray" x="308" id="Rectangle39" width="8" y="434"/>
+			<rectangle height="8" borderColor="darkGray" x="308" width="8" id="Rectangle40" y="446"/>
+			<rectangle height="8" width="8" borderColor="darkGray" x="393" id="Rectangle42" y="422"/>
+			<rectangle height="8" borderColor="darkGray" x="393" width="8" id="Rectangle80" y="434"/>
+			<rectangle height="8" borderColor="darkGray" width="8" x="393" id="Rectangle81" y="446"/>
+			<label x="35" height="12" fontSize="8" width="225" id="Label55" text="Business Orientation" y="456"/>
+			<rectangle height="8" borderColor="darkGray" width="8" x="478" id="Rectangle83" y="458"/>
+			<rectangle height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" id="Rectangle84" y="458"/>
+			<rectangle height="8" borderColor="darkGray" x="308" width="8" id="Rectangle85" y="458"/>
+			<rectangle height="8" borderColor="darkGray" width="8" x="393" id="Rectangle86" y="458"/>
+			<label font="HelveticaBold" fontSize="8" height="12" x="15" width="150" id="Label51" text="4. LEADER" y="473"/>
+			<label height="12" fontSize="8" x="35" width="225" id="Label56" text="Federator / Persuasion" y="483"/>
+			<label fontSize="8" x="35" width="225" id="Label57" height="20" text="Team Spirit / Listening / Respect for the Other Individual Communication and Impact" y="495"/>
+			<rectangle height="8" borderColor="darkGray" x="478" width="8" id="Rectangle15" y="497"/>
+			<rectangle height="8" width="8" borderColor="darkGray" x="478" id="Rectangle16" y="485"/>
+			<rectangle height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" id="Rectangle41" y="485"/>
+			<rectangle height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" id="Rectangle43" y="497"/>
+			<rectangle height="8" width="8" borderColor="darkGray" x="308" id="Rectangle45" y="485"/>
+			<rectangle height="8" borderColor="darkGray" x="308" id="Rectangle46" width="8" y="497"/>
+			<rectangle height="8" width="8" borderColor="darkGray" x="393" id="Rectangle48" y="485"/>
+			<rectangle height="8" borderColor="darkGray" x="393" width="8" id="Rectangle49" y="497"/>
+			<label font="HelveticaBold" fontSize="8" height="12" x="15" width="150" id="Label60" text="5. ACHIEVER" y="518"/>
+			<label height="12" fontSize="8" x="35" width="225" id="Label74" text="Energy / Resilience / Determination" y="528"/>
+			<label fontSize="8" height="12" x="35" width="225" id="Label75" text="Rigour" y="540"/>
+			<label x="35" height="12" fontSize="8" width="225" id="Label76" text="Pragmatic / Operational / Action Orientation" y="552"/>
+			<rectangle height="8" borderColor="darkGray" width="8" x="478" id="Rectangle76" y="554"/>
+			<rectangle height="8" borderColor="darkGray" x="478" width="8" id="Rectangle77" y="542"/>
+			<rectangle height="8" width="8" borderColor="darkGray" x="478" id="Rectangle82" y="530"/>
+			<rectangle height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" id="Rectangle87" y="530"/>
+			<rectangle height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" id="Rectangle88" y="542"/>
+			<rectangle height="8" width="8" borderColor="darkGray" cornerRadius="45" x="22" id="Rectangle89" y="554"/>
+			<rectangle height="8" width="8" borderColor="darkGray" x="308" id="Rectangle90" y="530"/>
+			<rectangle height="8" borderColor="darkGray" x="308" id="Rectangle91" width="8" y="542"/>
+			<rectangle height="8" borderColor="darkGray" x="308" width="8" id="Rectangle92" y="554"/>
+			<rectangle height="8" width="8" borderColor="darkGray" x="393" id="Rectangle93" y="530"/>
+			<rectangle height="8" borderColor="darkGray" x="393" width="8" id="Rectangle94" y="542"/>
+			<rectangle height="8" borderColor="darkGray" width="8" x="393" id="Rectangle95" y="554"/>
+			<rectangle id="Rectangle50" height="14" x="0" width="535" y="572"/>
+			<label height="14" font="HelveticaBold" fontSize="8" text=":" width="10" id="Label58" x="55" y="573"/>
+			<label height="14" font="HelveticaBold" fontSize="8" underline="true" x="5" id="Label59" text="RECRUITER" width="50" y="574"/>
+			<rectangle height="14" x="0" width="535" id="Rectangle51" y="586"/>
+			<label height="14" font="HelveticaBold" fontSize="8" text=":" width="10" id="Label61" x="35" y="587"/>
+			<label height="14" font="HelveticaBold" fontSize="8" underline="true" x="5" id="Label62" text="NOTES" width="30" y="588"/>
+			<label height="14" font="HelveticaBold" fontSize="8" underline="true" x="5" id="Label64" y="602" text="APPROVED BY :" width="63.5"/>
+			<recordBox id="RecordBox3" dataFormat="" y="5" height="12" fontSize="8" x="90" width="200" field="Position"/>
+			<recordBox dataFormat="" height="12" fontSize="8" x="90" width="200" id="RecordBox4" y="17" field="Category"/>
+			<recordBox dataFormat="" height="12" fontSize="8" x="90" width="200" id="RecordBox5" y="29" field="CarolJob"/>
+			<recordBox dataFormat="" height="12" fontSize="8" x="90" width="200" id="RecordBox6" y="41" field="GlobalPosition"/>
+			<recordBox dataFormat="" height="12" fontSize="8" x="90" width="200" id="RecordBox7" y="53" field="DirectSuperior"/>
+			<recordBox dataFormat="" height="12" fontSize="8" x="90" width="200" id="RecordBox8" y="65" field="CostCenter"/>
+			<recordBox id="RecordBox9" dataFormat="" field="R1" expandable="true" font="Wingdings" align="center" vAlign="center" fontSize="8" height="8" width="8" y="79" x="90"/>
+			<recordBox dataFormat="" expandable="true" font="Wingdings" align="center" vAlign="center" fontSize="8" height="8" width="8" y="79" id="RecordBox10" x="170" field="R2"/>
+			<recordBox dataFormat="" expandable="true" font="Wingdings" align="center" vAlign="center" fontSize="8" height="8" width="8" x="90" id="RecordBox11" y="91" field="E1"/>
+			<recordBox dataFormat="" expandable="true" font="Wingdings" align="center" vAlign="center" fontSize="8" height="8" width="8" x="170" id="RecordBox12" y="91" field="E2"/>
+			<recordBox id="RecordBox13" dataFormat="" height="12" fontSize="8" x="5" y="119" width="525" expandable="true" field="MainResponsibilities"/><recordBox dataFormat="" height="12" fontSize="8" id="RecordBox14" y="91" field="Duration" width="20" x="263" align="center"/>
+			<recordBox dataFormat="" height="12" fontSize="8" width="200" id="RecordBox15" x="90" y="150" field="Education"/>
+			<recordBox dataFormat="" height="12" fontSize="8" width="200" id="RecordBox16" x="90" y="162" field="Major"/>
+			<recordBox dataFormat="" height="12" fontSize="8" id="RecordBox17" x="90" y="174" field="WorkingExperience" expandable="true" width="400"/>
+			<label height="14" font="HelveticaBold" fontSize="8" underline="true" x="5" id="Label19" y="192" text="KNOWLEDGE/SKILL REQUIREMENT" width="143.5"/>
+			<label height="14" font="HelveticaBold" fontSize="8" text=":" width="10" id="Label20" y="192" x="148"/>
+			<label fontSize="8" height="12" x="5" id="Label65" y="205" text="Languague" width="53.5"/>
+			<label fontSize="8" height="12" x="5" width="80" id="Label66" y="217" text="Computer"/>
+			<label fontSize="8" height="12" width="80" x="5" id="Label67" y="229" text="Other"/>
+			<label fontSize="8" height="12" x="85" width="5" text=":" id="Label77" y="205"/>
+			<label fontSize="8" height="12" x="85" width="5" text=":" id="Label78" y="217"/>
+			<label fontSize="8" height="12" x="85" text=":" width="5" id="Label79" y="229"/>
+			<recordBox dataFormat="" height="12" fontSize="8" x="90" id="RecordBox18" y="205" field="Languague" width="400"/>
+			<recordBox dataFormat="" height="12" fontSize="8" x="90" id="RecordBox19" y="217" field="Computer" width="400"/>
+			<recordBox dataFormat="" height="12" fontSize="8" x="90" width="400" id="RecordBox20" y="229" field="Other"/>
+			<recordBox id="RecordBox21" dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" y="273" field="IP1" x="308"/><recordBox id="RecordBox22" dataFormat="" y="274" field="Imagination" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" font="Wingdings"/><recordBox dataFormat="" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" id="RecordBox23" y="286" font="Wingdings" field="Vision"/><recordBox dataFormat="" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" id="RecordBox24" y="298" font="Wingdings" field="Flexibility"/><recordBox dataFormat="" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" id="RecordBox25" y="310" font="Wingdings" field="Analytical"/><recordBox dataFormat="" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" id="RecordBox26" y="339" font="Wingdings" field="SensyBeauty"/><recordBox dataFormat="" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" id="RecordBox27" y="358" font="Wingdings" field="SensyProduct"/><recordBox dataFormat="" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" id="RecordBox28" y="370" font="Wingdings" field="Concerned"/><recordBox dataFormat="" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" id="RecordBox29" y="382" font="Wingdings" field="TasteArt"/><recordBox dataFormat="" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" id="RecordBox30" y="394" font="Wingdings" field="TouchContempt"/><recordBox dataFormat="" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" id="RecordBox31" y="422" font="Wingdings" field="Initiative"/><recordBox dataFormat="" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" id="RecordBox32" y="434" font="Wingdings" field="Ambition"/><recordBox dataFormat="" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" id="RecordBox33" y="446" font="Wingdings" field="Courage"/><recordBox dataFormat="" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" id="RecordBox34" y="458" font="Wingdings" field="Business"/><recordBox dataFormat="" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" id="RecordBox35" y="485" font="Wingdings" field="Federator"/><recordBox dataFormat="" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" id="RecordBox36" y="497" font="Wingdings" field="TeamSpirit"/><recordBox dataFormat="" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" id="RecordBox37" y="530" font="Wingdings" field="Energy"/><recordBox dataFormat="" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" id="RecordBox38" y="542" font="Wingdings" field="Rigour"/><recordBox dataFormat="" fontSize="8" height="8" width="8" vAlign="center" align="center" x="22" id="RecordBox39" y="554" font="Wingdings" field="Pragmatic"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" id="RecordBox40" y="285" field="VP1" x="308"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" id="RecordBox41" y="297" field="FP1" x="308"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" id="RecordBox42" y="309" field="AP1" x="308"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" y="309" id="RecordBox43" x="393" field="AP2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" y="297" id="RecordBox44" x="393" field="FP2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" y="285" id="RecordBox45" x="393" field="VP2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" y="273" id="RecordBox46" x="393" field="IP2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" y="309" id="RecordBox47" x="478" field="AP3"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" y="297" id="RecordBox48" x="478" field="FP3"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" y="285" id="RecordBox49" x="478" field="VP3"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" y="273" id="RecordBox50" x="478" field="IP3"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="478" id="RecordBox51" y="457" field="BP3"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="478" id="RecordBox52" y="445" field="CR3"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="478" id="RecordBox53" y="433" field="AT3"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="478" id="RecordBox54" y="421" field="IV3"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="393" id="RecordBox55" y="457" field="BP2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="393" id="RecordBox56" y="445" field="CR2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="393" id="RecordBox57" y="433" field="AT2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="393" id="RecordBox58" y="421" field="IV2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="308" id="RecordBox59" y="457" field="BP1"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="308" id="RecordBox60" y="445" field="CR1"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="308" id="RecordBox61" y="433" field="AT1"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="308" id="RecordBox62" y="421" field="IV1"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" id="RecordBox63" x="478" y="381" field="TA3"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" id="RecordBox64" x="478" y="369" field="CC3"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" id="RecordBox65" x="478" y="357" field="SP3"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="478" id="RecordBox66" y="338" field="SB3"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" id="RecordBox67" x="393" y="381" field="TA2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" id="RecordBox68" x="393" y="369" field="CC2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" id="RecordBox69" x="393" y="357" field="SP2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="393" id="RecordBox70" y="338" field="SB2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" id="RecordBox71" x="308" y="381" field="TA1"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" id="RecordBox72" x="308" y="369" field="CC1"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" id="RecordBox73" x="308" y="357" field="SP1"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="308" id="RecordBox74" y="338" field="SB1"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="478" id="RecordBox76" y="553" field="PP3"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="478" id="RecordBox77" y="541" field="RP3"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" id="RecordBox78" y="529" x="478.5" field="EP3"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="393" id="RecordBox80" y="553" field="PP2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="393" id="RecordBox81" y="541" field="RP2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="393" id="RecordBox82" y="529" field="EP2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="308" id="RecordBox84" y="553" field="PP1"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="308" id="RecordBox85" y="541" field="RP1"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="308" id="RecordBox86" y="529" field="EP1"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="308" id="RecordBox75" y="484" field="FD1"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="308" id="RecordBox79" y="496" field="TS1"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="393" id="RecordBox83" y="496" field="TS2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="393" id="RecordBox87" y="484" field="FD2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="478" id="RecordBox88" y="484" field="FD3"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="478" id="RecordBox89" y="496" field="TS3"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="308" id="RecordBox90" y="393" field="TC1"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="393" id="RecordBox91" y="393" field="TC2"/><recordBox dataFormat="" font="ZapfDingbats" vAlign="center" align="center" height="10" width="10" x="478" id="RecordBox92" y="393" field="TC3"/><recordBox dataFormat="" height="12" fontSize="8" width="400" id="RecordBox93" y="574" x="61" field="Recruiter"/>
+			<recordBox dataFormat="" width="400" id="RecordBox94" field="Approvals" expandable="true" x="71" y="602" fontSize="8" height="8"/>
+		</detail>
+		<footer id="Footer1"/>
+	</report>
+</document>

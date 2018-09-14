@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" id="YoSalesProductTerlaris" author="YuniarPu" subject="LibertyTK" title="Report Product Terlaris" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageOrientation="landscape" pageSize="a4" bottomMargin="30" leftMargin="30" rightMargin="30" topMargin="30">
+		<query id="Query1">
+			<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoSalesProductTerlaris_header">
+				<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="startDate" type="dateTime" value="#Parameters[&quot;startDate&quot;]#"/>
+				<parameter name="endDate" type="dateTime" value="#Parameters[&quot;endDate&quot;]#"/>
+				<parameter name="ProductName" type="uniqueIdentifier" value="#Parameters[&quot;ProductName&quot;]#"/>
+				<parameter name="SKUCode" type="uniqueIdentifier" value="#Parameters[&quot;SKUCode&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="83">
+			<label x="0" fontSize="20" align="center" font="HelveticaBold" y="5" height="25" id="Label1" text="Report Product Terlaris" width="782"/>
+			<rectangle id="Rectangle1" height="14" fillColor="lightBlue" borderColor="lightBlue" y="60" width="50" x="5"/>
+			<rectangle height="14" fillColor="lightBlue" borderColor="lightBlue" y="60" id="Rectangle2" x="58" width="125"/>
+			<rectangle height="14" fillColor="lightBlue" borderColor="lightBlue" y="60" id="Rectangle3" x="186" width="220"/>
+			<rectangle height="14" fillColor="lightBlue" borderColor="lightBlue" id="Rectangle4" y="60" x="409" width="120"/>
+			<rectangle height="14" fillColor="lightBlue" borderColor="lightBlue" y="60" id="Rectangle5" x="532" width="120"/>
+			<rectangle height="14" fillColor="lightBlue" borderColor="lightBlue" id="Rectangle6" y="60" x="655" width="120"/>
+			<line id="Line1" x1="0" x2="782" y1="80" y2="80"/>
+			<label id="Label2" y="60" height="14" align="center" text="No" x="5" width="50" font="HelveticaBold" fontSize="11"/>
+			<label y="60" height="14" align="center" font="HelveticaBold" id="Label3" text="SKU Product" fontSize="11" x="58" width="125"/>
+			<label y="60" height="14" align="center" font="HelveticaBold" id="Label4" text="Product" fontSize="11" x="186" width="220"/>
+			<label y="60" height="14" align="center" font="HelveticaBold" id="Label5" text="Quantity" fontSize="11" x="409" width="120"/>
+			<label y="60" height="14" align="center" font="HelveticaBold" id="Label6" text="Harga" fontSize="11" x="532" width="120"/>
+			<label y="60" height="14" align="center" font="HelveticaBold" fontSize="11" id="Label7" text="Total" x="655" width="120"/>
+		</header>
+		<detail id="Detail1" autoSplit="true" height="61">
+			<rectangle id="Rectangle7" height="14" width="100" fillColor="lightBlue" borderColor="lightBlue" x="306" y="30"/>
+			<label id="Label8" height="14" width="100" align="center" font="HelveticaBold" fontSize="11" text="Grand Total" x="306" y="30"/>
+			<subReport id="SubReport1" x="0" y="0" width="782">
+				<header id="Header2" height="1"/>
+				<detail id="Detail2" height="17">
+					<recordBox dataFormat="" height="14" x="58" fontSize="9" width="125" y="0" field="SKUCode" id="RecordBox1"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="220" x="186" y="0" field="SKUName" id="RecordBox2"/>
+					<recordBox dataFormat="" height="14" align="right" fontSize="9" x="409" width="120" y="0" field="Quantity" id="RecordBox3"/>
+					<recordBox dataFormat="" height="14" align="right" fontSize="9" x="532" width="120" y="0" field="Price" id="RecordBox4"/>
+					<recordBox dataFormat="" height="14" align="right" fontSize="9" x="655" width="120" y="0" field="total" id="RecordBox5"/>
+				</detail>
+				<footer id="Footer2"/>
+			</subReport>
+			<recordBox id="RecordBox6" dataFormat="" height="14" fontSize="10" width="120" x="409" y="30" align="right" font="HelveticaBold" field="total1"/><recordBox dataFormat="" height="14" fontSize="10" width="120" y="30" id="RecordBox7" x="532" font="HelveticaBold" field="total2" align="right"/><recordBox dataFormat="" height="14" fontSize="10" width="120" y="30" id="RecordBox8" x="655" align="right" field="total3" font="HelveticaBold"/></detail>
+		<footer id="Footer1" height="22">
+			<pageNumberingLabel align="right" height="14" y="1" text="Page %%CP%% of %%TP%%" width="200" id="PageNumberingLabel1" fontSize="10" x="580"/>
+			<recordBox dataFormat="" field="" y="1" height="14" width="150" id="RecordBox10" fontSize="10" x="5"/>
+		</footer>
+	</report>
+</document>

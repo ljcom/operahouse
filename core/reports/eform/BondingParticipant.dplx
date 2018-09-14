@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="Guisti Linggar" keywords="eLs" subject="HRTR" title="Bonding Acknowledge" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageSize="a4">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="YoBOND">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;TrainingAutoZGUID&quot;]#"/><parameter name="@TrainingPartGUID" type="uniqueIdentifier" value="#Parameters[&quot;TrainingPartGUID&quot;]#"/></storedProcedure>
+		</query>
+		<template id="Template1"><rectangle width="100" y="0" height="18" x="395" id="Rectangle1"/><label text="PT L'ORÉAL INDONESIA" height="16" font="HelveticaBold" width="179.1" x="0" y="0" id="Label17"/><label fontSize="8" height="18" y="0" vAlign="center" x="400" id="Label24" width="14.5" text="DN."/><rectangle width="100" y="18" height="30" x="395" id="Rectangle2"/><label text="Tanggal/Date" align="center" width="100" fontSize="8" height="12.1" x="395" y="18" id="Label25" vAlign="bottom"/><label fontSize="8" x="0" id="Label26" height="42.1" y="15" text="DBS Bank Tower 29    Floor&#xA;Ciputra World 1, Jl. Prof. Dr. Satrio Kav 3-5&#xA;Jakarta 12940" width="165"/><label fontSize="7" text="th" width="13" height="10" id="Label27" x="74" y="14"/><label text="LEARNING BONDING ACKNOWLEDGEMENT" width="495" fontSize="14" height="16" align="center" font="HelveticaBold" id="Label1" x="0" y="80"/>
+			<line id="Line1" x2="140" x1="1" y1="13" y2="13"/><line id="Line2" width="1.5" x1="98" x2="396" y1="95" y2="95"/></template>
+		<header id="Header1"/>
+		<detail id="Detail1" height="650">
+			<label id="Label2" height="14" text="I the undersigned," width="100" x="0" y="120"/>
+			<label height="14" id="Label3" text="Name" width="33" x="20" y="156"/>
+			<label height="14" id="Label4" width="70" text="Carol ID" x="20" y="138"/>
+			<label height="14" id="Label5" text=":" align="center" width="10" x="65" y="156"/>
+			<label height="14" id="Label6" text=":" align="center" width="10" x="65" y="138"/>
+			<label height="14" width="100" x="0" id="Label7" text="Agree that :" y="190"/>
+			<label height="14" x="0" id="Label8" text="1." width="14" y="210"/>
+			<recordBox id="RecordBox1" dataFormat="" height="14" field="NamePart" width="300" x="78" y="156"/>
+			<recordBox dataFormat="" height="14" id="RecordBox2" field="CarolID" width="50" font="HelveticaBold" x="78" y="138"/>
+			<formattedRecordArea id="FormattedRecordArea1" x="20" width="475" expandable="true" height="14" y="210">
+				<initialStyle>
+					<font/>
+					<line/>
+					<paragraph/>
+				</initialStyle>
+				<text><![CDATA[<P>I will be attending "<B>#TrainingAutoZTopic#</B>", conducted by <B><I>#TrainingAutoZTrainer#.</I></B></P>]]></text>
+			</formattedRecordArea>
+			<label height="14" width="14" id="Label9" x="20" text="a)" y="230"/>
+			<label id="Label10" height="14" x="40" text="Date" width="29" y="230"/><label height="14" text=":" align="center" width="10" id="Label11" x="87" y="230"/>
+			<label height="14" width="14" x="20" id="Label12" text="b)" y="248"/>
+			<label height="14" x="40" id="Label13" text="Location" width="46.5" y="248"/><label height="14" text=":" align="center" width="10" id="Label14" x="87" y="248"/>
+			<label height="14" width="14" x="20" id="Label15" text="c)" y="266"/>
+			<label height="14" x="40" id="Label16" text="Estimated program fee :" width="130.1" y="266"/><label id="Label18" font="TimesItalic" x="20" fontSize="10" width="475" height="36" y="286" text="Note: The above are the estimated cost only. If in case there is a different between the estimated and the actual cost, the total cost to be borne by employee will refer to the actual cost.&#xA;"/><label height="14" x="0" width="14" id="Label19" text="2." y="320"/>
+			<formattedRecordArea x="20" width="475" expandable="true" id="FormattedRecordArea2" height="42" y="320">
+				<initialStyle>
+					<font/>
+					<line/>
+					<paragraph align="justify"/>
+				</initialStyle>
+				<text><![CDATA[<P>I am willing to be borne the amount of all actual expenses occurred on pro-rate basis, if I leave the company for whatever reasons within&nbsp;#BondingPeriod# months, effectively from the end of the program.</P>]]></text>
+			</formattedRecordArea>
+			<recordBox dataFormat="" height="14" width="300" id="RecordBox3" x="98" field="DatePeriod" y="230"/>
+			<recordBox dataFormat="" height="14" width="300" id="RecordBox4" x="98" field="TrainingAutoZVenue" y="248"/>
+			<label height="14" x="0" width="14" id="Label20" text="3." y="376"/>
+			<label id="Label22" width="475" x="20" height="32" align="justify" y="376" text="I agree to uphold the confidentiality of the learning program and contents during and after my employment in L’Oreal.&#xA;"/><label height="14" x="0" width="14" id="Label21" text="4." y="422"/>
+			<label width="475" height="32" id="Label23" align="justify" x="20" y="422" text="I will return all the materials given related to the program to the company (LFD) if due to whatever reason I leave the company.&#xA;"/><recordArea id="RecordArea1" height="14" width="228" x="173" y="266"><text>#Amount# IDR</text></recordArea><recordBox dataFormat="" height="18" y="0" fontSize="10" vAlign="center" field="DocNo" x="415" width="80" id="RecordBox5"/><recordBox dataFormat="" fontSize="10" align="center" x="395" width="100" vAlign="center" height="18" y="30" field="DocDate" id="RecordBox6"/></detail>
+		<footer id="Footer1"/>
+	</report>
+</document>

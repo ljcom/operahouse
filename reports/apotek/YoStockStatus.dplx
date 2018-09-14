@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" author="YuniarPu" subject="Apotek" id="YoStockStatus" title="Stock Status" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" bottomMargin="30" leftMargin="30" pageOrientation="landscape" pageSize="a4" rightMargin="30" topMargin="30">
+		<query id="Query1">
+			<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoStockStatus_header">
+				<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="startDate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/><parameter name="endDate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/><parameter name="Status" type="uniqueIdentifier" value="#Parameters[&quot;status&quot;]#"/></storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="124">
+			<label align="center" font="HelveticaBold" height="25" text="STOCK STATUS" width="781" x="0" id="Label1" y="0" fontSize="20" vAlign="center"/>
+			<line x1="0" id="Line1" width="2" x2="782" y1="40" y2="40"/>
+			<label font="HelveticaBold" id="Label2" y="45" x="0" height="14" width="65" text="Start Date:"/>
+			<label font="HelveticaBold" id="Label3" height="14" width="65" x="0" text="End Date:" y="65"/>
+			<recordBox dataFormat="" field="" height="14" id="RecordBox1" y="45" x="70" width="200"/>
+			<recordBox dataFormat="" field="" id="RecordBox2" x="70" height="14" width="200" y="65"/>
+			<label id="Label4" height="14" width="100" text="Value in '000" y="45" align="right" font="HelveticaBold" x="680" fontSize="11"/>
+			<rectangle height="30" x="0" fillColor="lightBlue" id="Rectangle1" y="90" width="70"/>
+			<rectangle height="30" fillColor="lightBlue" id="Rectangle2" x="70" y="90" width="200"/>
+			<rectangle height="15" fillColor="lightBlue" id="Rectangle3" x="270" y="90" width="400"/>
+			<rectangle height="15" fillColor="lightBlue" id="Rectangle4" x="270" y="105" width="50"/>
+			<rectangle height="15" fillColor="lightBlue" id="Rectangle5" x="320" y="105" width="50"/>
+			<rectangle height="15" fillColor="lightBlue" id="Rectangle6" x="370" y="105" width="50"/>
+			<rectangle height="15" fillColor="lightBlue" id="Rectangle7" x="420" y="105" width="50"/>
+			<rectangle height="15" fillColor="lightBlue" id="Rectangle8" x="470" y="105" width="50"/>
+			<rectangle height="15" fillColor="lightBlue" id="Rectangle9" x="520" y="105" width="50"/>
+			<rectangle height="15" fillColor="lightBlue" id="Rectangle10" x="570" y="105" width="50"/>
+			<rectangle height="15" fillColor="lightBlue" id="Rectangle11" x="620" y="105" width="50"/>
+			<rectangle height="30" fillColor="lightBlue" id="Rectangle19" y="90" x="670" width="55"/>
+			<label font="HelveticaBold" align="center" text="CODE" vAlign="center" x="0" height="30" fontSize="9" id="Label5" y="90" width="70"/>
+			<label font="HelveticaBold" align="center" text="DESCRIPTION" height="30" vAlign="center" fontSize="9" id="Label6" x="70" y="90" width="200"/>
+			<label height="15" text="STOCK" font="HelveticaBold" align="center" vAlign="center" fontSize="9" id="Label7" x="270" y="90" width="400"/>
+			<label font="HelveticaBold" align="center" vAlign="center" text="BEGIN" height="15" fontSize="9" id="Label8" x="270" y="105" width="50"/>
+			<label font="HelveticaBold" align="center" vAlign="center" height="15" fontSize="9" text="PCH" id="Label9" x="320" y="105" width="50"/>
+			<label font="HelveticaBold" align="center" vAlign="center" height="15" fontSize="9" text="PRE" id="Label10" x="370" y="105" width="50"/>
+			<label font="HelveticaBold" align="center" vAlign="center" height="15" fontSize="9" text="SALES" id="Label11" x="420" y="105" width="50"/>
+			<label font="HelveticaBold" align="center" vAlign="center" height="15" fontSize="9" text="SRE" id="Label12" x="470" y="105" width="50"/>
+			<label font="HelveticaBold" align="center" vAlign="center" height="15" fontSize="9" text="ADJ" id="Label13" x="520" y="105" width="50"/>
+			<label font="HelveticaBold" align="center" vAlign="center" height="15" fontSize="9" text="CON" id="Label14" x="570" y="105" width="50"/>
+			<label font="HelveticaBold" align="center" vAlign="center" height="15" fontSize="9" text="END" id="Label15" x="620" y="105" width="50"/>
+			<rectangle height="30" fillColor="lightBlue" id="Rectangle20" y="90" x="725" width="55"/>
+			<label font="HelveticaBold" align="center" vAlign="center" fontSize="9" height="30" text="NSA" id="Label23" y="90" x="670" width="55"/>
+			<label font="HelveticaBold" align="center" vAlign="center" fontSize="9" height="30" text="R" id="Label24" y="90" x="725" width="55"/>
+		</header>
+		<detail id="Detail1" autoSplit="true" height="50">
+			<subReport id="SubReport1" x="0" width="782" y="1">
+				<query id="Query2">
+					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoStockStatus_detail">
+						<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+						<parameter name="startDate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/>
+						<parameter name="endDate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/>
+						<parameter name="Status" type="uniqueIdentifier" value="#Parameters[&quot;status&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header id="Header2" height="1"/>
+				<detail id="Detail2" autoSplit="true" height="23">
+					<recordBox id="RecordBox3" dataFormat="" field="" x="0" y="0" height="15" width="70" fontSize="9"/>
+					<recordBox dataFormat="" field="" height="15" id="RecordBox4" x="70" y="0" width="200" fontSize="9"/>
+					<recordBox dataFormat="" height="15" id="RecordBox5" align="right" field="BeginQty" x="270" y="0" width="50" fontSize="9"/>
+					<recordBox dataFormat="" height="15" id="RecordBox6" align="right" field="PurchaseQty" x="320" y="0" width="50" fontSize="9"/>
+					<recordBox dataFormat="" height="15" align="right" id="RecordBox7" field="PReturnQty" x="370" y="0" width="50" fontSize="9"/>
+					<recordBox dataFormat="" height="15" align="right" id="RecordBox8" field="SalesQty" x="420" y="0" width="50" fontSize="9"/>
+					<recordBox dataFormat="" height="15" align="right" id="RecordBox9" field="ReturnQty" x="470" y="0" width="50" fontSize="9"/>
+					<recordBox dataFormat="" height="15" align="right" id="RecordBox10" field="ADJQty" x="520" width="50" y="0" fontSize="9"/>
+					<recordBox dataFormat="" height="15" align="right" id="RecordBox11" field="CONQty" x="570" y="0" width="50" fontSize="9"/>
+					<recordBox dataFormat="" field="" height="15" align="right" id="RecordBox12" x="620" width="50" y="0" fontSize="9"/>
+					<recordBox dataFormat="" y="0" height="15" align="right" id="RecordBox19" field="NSA" x="670" width="55" fontSize="9"/>
+					<recordBox dataFormat="" y="0" height="15" align="right" id="RecordBox20" field="R" x="725" width="55" fontSize="9"/>
+					<line id="Line2" x1="0" x2="782" y1="17" y2="17"/>
+				</detail>
+				<footer id="Footer2"/>
+			</subReport>
+			<label id="Label16" height="14" fontSize="9" text="Total" font="HelveticaBold" x="370" y="30" width="50" align="center"/>
+			<recordBox id="RecordBox13" dataFormat="" field="" height="14" fontSize="9" font="HelveticaBold" align="right" x="470" y="30" width="50"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" font="HelveticaBold" align="right" y="30" width="50" id="RecordBox14" x="520"/>
+		</detail>
+		<footer id="Footer1" height="22">
+			<pageNumberingLabel align="right" height="14" text="Page %%CP%% of %%TP%%" width="200" fontSize="10" id="PageNumberingLabel1" y="0" x="580"/>
+			<recordBox dataFormat="" field="" height="14" width="150" fontSize="10" id="RecordBox21" y="0" x="0"/>
+		</footer>
+	</report>
+</document>

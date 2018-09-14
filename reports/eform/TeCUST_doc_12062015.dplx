@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageSize="a4" leftMargin="30" rightMargin="30" topMargin="20">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="TeCUST_rptbrowse">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;CustomerGUID&quot;]#"/></storedProcedure>
+		</query>
+		<template id="Template1">
+			<label height="16" align="center" vAlign="center" font="HelveticaBold" width="515" x="10" id="Label56" y="48" text="NEW CUSTOMER CREATION"/>
+			<label height="16" font="HelveticaBold" width="179.1" id="Label53" fontSize="14" x="0" y="0" text="PT L`ORÉAL INDONESIA"/>
+			<rectangle height="16" id="Rectangle15" width="110" y="0" x="425"/>
+			<label id="Label54" fontSize="10" height="16" vAlign="center" y="0" x="428" width="17.5" text="No."/>
+			<rectangle id="Rectangle16" width="110" height="32" x="425" y="16"/>
+			<label id="Label55" fontSize="10" height="16" x="428" y="16" text="Date :" width="35" vAlign="center"/>
+		</template>
+		<header id="Header1" height="1"/>
+		<detail id="Detail1" height="790">
+			<rectangle width="535" x="0" y="641" id="Rectangle18" height="43.5"/>
+			<rectangle width="535" height="571" id="Rectangle2" y="70" x="0"/>
+			<subReport id="SubReport1" width="516" x="20" y="663">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="TaCUSTAPRV_rptbrowse">
+						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;CustomerGUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header id="Header2" height="1"/>
+				<detail id="Detail2" height="12.5">
+					<recordBox dataFormat="" id="RecordBox14" x="0" y="0" width="121.5" field="UserName" height="12" fontSize="10" expandable="true"/>
+					<recordBox dataFormat="" y="0" width="121.5" id="RecordBox15" field="UserStatusDescription" height="12.5" fontSize="10" expandable="true" x="169"/>
+					<recordBox dataFormat="" id="RecordBox16" y="0" width="127.5" field="updatedDate" height="11" fontSize="10" expandable="true" x="350"/>
+					<label id="Label33" height="14" fontSize="10" text="on" width="27.5" y="0" x="310"/></detail>
+				<footer id="Footer2" height="1"/>
+			</subReport>
+			<recordBox dataFormat="" field="EstDate" id="RecordBox1" width="100" fontSize="10" height="14" x="350" y="104"/>
+			<recordBox dataFormat="" field="AcctPhone" id="RecordBox2" x="55" width="100" fontSize="10" height="14" y="175"/>
+			<recordBox dataFormat="" id="RecordBox3" x="310" width="220" expandable="true" field="addr" fontSize="10" y="190" height="14"/>
+			<recordBox dataFormat="" field="Address1" id="RecordBox4" x="310" width="220" y="162" fontSize="10" height="28" expandable="true"/>
+			<recordBox field="TurnOver" dataFormat=".00" width="199.1" id="RecordBox5" x="215" fontSize="10" height="14" y="580"/>
+			<recordBox dataFormat="" field="TOPGUIDcbNm" id="RecordBox6" width="126" fontSize="10" height="14" x="277" y="594"/>
+			<recordBox field="CreditLimit" dataFormat=".00" width="259.5" id="RecordBox7" x="215" fontSize="10" height="14" y="608"/>
+			<recordBox dataFormat="" field="ChannelGUIDcbNm" id="RecordBox8" width="230" fontSize="10" height="14" x="55" y="495"/>
+			<recordBox dataFormat="" field="SubChannelGUIDcbNm" id="RecordBox9" width="230" fontSize="10" height="14" x="55" y="509"/>
+			<recordBox dataFormat="" field="ChainGUIDcbNm" id="RecordBox10" width="230" fontSize="10" height="14" x="55" y="523"/>
+			<recordBox dataFormat="" field="SubChainGUIDcbNm" id="RecordBox11" width="230" x="55" fontSize="10" height="14" y="537"/>
+			<recordBox dataFormat="" field="PaymentScheduleSelect" id="RecordBox13" width="350" fontSize="10" height="14" x="150" y="420"/>
+			<recordBox dataFormat="" id="RecordBox19" x="55" field="ContactName" width="100" y="162" fontSize="10" height="14"/>
+			<recordBox dataFormat="" field="AcctEmail" id="RecordBox20" x="55" width="100" height="14" fontSize="10" y="188"/>
+			<recordBox dataFormat="" field="CustomerHeadGUIDcbNm" id="RecordBox21" width="410" x="95" fontSize="10" height="14" y="118"/>
+			<recordBox dataFormat="" field="LegalRegisterNo" id="RecordBox22" width="120" x="95" height="14" fontSize="10" y="104"/>
+			<recordBox dataFormat="" field="CustomerName" id="RecordBox23" fontSize="10" height="14" x="350" width="180" y="90"/>
+			<recordBox dataFormat="" field="CustomerRefNo" id="RecordBox24" width="120" x="95" fontSize="10" height="14" y="90"/>
+			<recordBox dataFormat="" id="RecordBox34" field="TOPCode" x="215" fontSize="10" height="14" width="50" y="594"/>
+			<recordBox id="RecordBox12" dataFormat="" field="a" align="center" height="14" width="14" font="Symbol" angle="10" x="32" y="253"/>
+			<recordBox dataFormat="" align="center" id="RecordBox25" field="b" width="14" height="14" vAlign="center" font="Symbol" y="271" angle="10" x="32"/>
+			<recordBox dataFormat="" align="center" id="RecordBox26" field="c" width="14" height="14" vAlign="center" font="Symbol" y="289.5" angle="10" x="32"/>
+			<recordBox dataFormat="" align="center" id="RecordBox27" field="d" height="14" width="14" vAlign="center" font="Symbol" y="307" angle="10" x="32"/>
+			<recordBox dataFormat="" align="center" id="RecordBox28" field="e" height="14" width="14" vAlign="center" font="Symbol" y="325" angle="10" x="32"/>
+			<recordBox dataFormat="" align="center" id="RecordBox29" field="f" height="14" width="14" vAlign="center" font="Symbol" y="343" angle="10" x="32"/>
+			<recordBox dataFormat="" align="center" id="RecordBox30" field="g" height="14" width="14" vAlign="center" font="Symbol" y="361" angle="10" x="32"/>
+			<recordBox dataFormat="" align="center" id="RecordBox31" field="h" height="14" width="14" vAlign="center" font="Symbol" y="379" angle="10" x="32"/>
+			<recordBox dataFormat="" align="center" id="RecordBox32" height="14" width="14" field="j" vAlign="center" font="Symbol" y="397" angle="10" x="32"/>
+			<recordBox id="RecordBox35" dataFormat="" y="0" height="16" vAlign="center" field="CustomerNo" width="85" x="447"/><recordBox id="RecordBox36" dataFormat="" height="14" fontSize="10" field="CustDate" y="33" x="425" width="110" align="center"/><recordBox dataFormat=".00" width="259.5" x="215" fontSize="10" height="14" id="RecordBox33" field="Requestor" y="622"/>
+			<label text="Approved by :" width="77.1" fontSize="10" height="14" x="5" y="644" id="Label1"/>
+			<rectangle fillColor="gray" x="0" height="16" width="535" y="70" id="Rectangle1"/>
+			<label height="16" align="center" vAlign="center" font="HelveticaBold" width="515" x="10" y="70" text="PROFILE" id="Label2"/>
+			<label x="5" width="100" fontSize="10" height="14" y="90" id="Label3" text="Customer Ref No"/>
+			<label width="110" x="250" fontSize="10" height="14" y="90" id="Label4" text="Customer Name"/>
+			<label align="center" width="5" fontSize="10" height="14" x="340" y="90" id="Label5" text=":"/>
+			<label width="100" text="Legal Register No" x="5" fontSize="10" height="14" y="104" id="Label6"/>
+			<label width="100" text="Legal Status" x="5" fontSize="10" height="14" y="118" id="Label7"/>
+			<label text=":" align="center" width="5" fontSize="10" height="14" x="87.5" y="90" id="Label8"/>
+			<label text=":" align="center" width="5" fontSize="10" height="14" x="87.5" y="104" id="Label9"/>
+			<label text=":" align="center" width="5" fontSize="10" height="14" x="87.5" y="118" id="Label10"/>
+			<label text="Legal Register Date" width="110" x="250" fontSize="10" height="14" y="104" id="Label11"/>
+			<label align="center" width="5" text=":" fontSize="10" height="14" x="340" y="104" id="Label12"/>
+			<rectangle fillColor="gray" width="535" x="0" height="16" y="141" id="Rectangle3"/>
+			<label text="Accounting Contact Details" align="center" font="HelveticaBold" height="16" x="10" width="515" vAlign="center" y="141" id="Label13"/>
+			<label text="Email" x="5" fontSize="10" height="14" width="32" y="190" id="Label14"/>
+			<label width="50" text="Phone" x="5" fontSize="10" height="14" y="176" id="Label15"/>
+			<label x="5" width="50" text="Name" fontSize="10" height="14" y="162" id="Label16"/>
+			<label x="45" text=":" align="center" width="5" fontSize="10" height="14" y="190" id="Label17"/>
+			<label x="45" align="center" width="5" text=":" fontSize="10" height="14" y="176" id="Label18"/>
+			<label x="45" width="5" align="center" text=":" fontSize="10" height="14" y="162" id="Label19"/>
+			<label text="Address for" width="100" x="200" fontSize="10" height="14" y="162" id="Label20"/>
+			<label text="Billing Submission" width="100" x="200" fontSize="10" height="14" y="190" id="Label21"/>
+			<label text=":" width="5" align="center" x="300" fontSize="10" height="14" y="162" id="Label22"/>
+			<label align="center" width="5" text=":" x="300" fontSize="10" height="14" y="190" id="Label23"/>
+			<rectangle fillColor="gray" height="16" x="0" width="535" y="218" id="Rectangle4"/>
+			<label text="Credit Information" font="HelveticaBold" height="16" x="10" width="515" align="center" y="218" vAlign="center" id="Label24"/>
+			<label text="Requested Document to be Submitted :" width="215.1" x="5" fontSize="10" height="14" y="238" id="Label25"/>
+			<label x="48" text="Original Commercial &amp; Tax Invoice (Signed &amp; Stamp)" width="297.1" fontSize="10" height="14" y="255" id="Label26"/>
+			<label x="48" text="Copy Commercial &amp; Tax Invoice" width="181.1" fontSize="10" height="14" y="273" id="Label27"/>
+			<label x="48" text="DN (Delivery Note) Signed &amp; Chopped by Receiving Department" width="363.6" fontSize="10" height="14" y="291.5" id="Label28"/>
+			<label x="48" text="Good Receiving Report by Customer" width="237.6" fontSize="10" height="14" y="309" id="Label29"/>
+			<label width="347.1" x="48" text="Customer PO" fontSize="10" height="14" y="327" id="Label30"/>
+			<label text="Customer’s due date basis" width="146" x="5" fontSize="10" height="14" y="420" id="Label31"/>
+			<label x="5" width="165" height="14" fontSize="10" y="438" id="Label32" text="Customer's payment schedule"/>
+			<label x="5" text="Invoice submission schedule" width="160" fontSize="10" height="14" y="456" id="Label34"/>
+			<rectangle height="14" width="14" x="30" y="254" id="Rectangle5"/>
+			<rectangle height="14" width="14" x="30" y="272" id="Rectangle6"/>
+			<rectangle height="14" width="14" x="30" y="290" id="Rectangle7"/>
+			<rectangle height="14" width="14" x="30" y="308" id="Rectangle8"/>
+			<rectangle height="14" width="14" x="30" y="326" id="Rectangle9"/>
+			<rectangle height="14" width="14" x="30" y="344" id="Rectangle10"/>
+			<rectangle height="14" width="14" x="30" y="362" id="Rectangle11"/>
+			<rectangle height="14" width="14" x="30" y="380" id="Rectangle12"/>
+			<rectangle height="14" width="14" x="30" y="398" id="Rectangle13"/>
+			<label width="347.1" text="Specific Form Required by Customer" fontSize="10" height="14" id="Label35" x="48" y="399"/>
+			<label x="48" width="363.6" text="OPO Signed &amp; Chopped by Customer Receiving" fontSize="10" height="14" y="381.5" id="Label36"/>
+			<label x="48" width="181.1" text="Original PO (OPO)" fontSize="10" height="14" y="363" id="Label37"/>
+			<label x="48" width="368.6" text="Original LPB/GR/RR Issued by Customer RCV Dept" fontSize="10" height="14" y="345" id="Label38"/>
+			<label text=":" align="center" width="5" fontSize="10" height="14" x="140" y="420" id="Label39"/>
+			<label align="center" text=":" width="5" fontSize="10" height="14" x="140" y="438" id="Label40"/>
+			<label align="center" width="5" text=":" fontSize="10" height="14" x="140" y="456" id="Label41"/>
+			<rectangle fillColor="gray" height="16" x="0" width="535" y="475" id="Rectangle14"/>
+			<label text="SAP Customer hierarchy" height="16" x="10" width="515" font="HelveticaBold" align="center" vAlign="center" y="475" id="Label42"/>
+			<label text="LEVEL 1 :" x="5" width="55" fontSize="10" height="14" y="495" id="Label43"/>
+			<label text="LEVEL 2 :" x="5" width="55" fontSize="10" height="14" y="509" id="Label44"/>
+			<label text="LEVEL 3 :" x="5" width="55" fontSize="10" height="14" y="523" id="Label45"/>
+			<label text="LEVEL 4 :" x="5" width="55" fontSize="10" height="14" y="537" id="Label46"/>
+			<rectangle fillColor="gray" height="16" x="0" width="535" y="560" id="Rectangle17"/>
+			<label text="Credit Information" height="16" font="HelveticaBold" align="center" vAlign="center" x="10" width="515" y="560" id="Label47"/>
+			<label height="16" x="5" text="Estimated Turnover per month (in mio. IDR)" width="241.5" fontSize="10" y="580" id="Label48"/>
+			<label height="16" width="97.1" x="5" fontSize="10" y="594" id="Label49" text="Term of Payment"/>
+			<label height="16" text="Credit Limit (in mio. IDR)" x="5" width="136.1" fontSize="10" y="608" id="Label50"/>
+			<label height="16" x="5" width="97.1" fontSize="10" y="622" id="Label51" text="Requested by"/>
+			<label height="16" align="center" width="5" text=":" fontSize="10" x="205" y="622" id="Label52"/>
+			<label height="16" align="center" text=":" width="5" fontSize="10" x="205" y="608" id="Label57"/>
+			<label height="16" align="center" text=":" width="5" fontSize="10" x="205" y="594" id="Label58"/>
+			<label height="16" text=":" align="center" width="5" fontSize="10" y="580" x="205" id="Label59"/>
+			<label height="16" align="center" text="-" width="10" fontSize="10" x="265" y="594" id="Label60"/>
+			<recordBox dataFormat="" width="350" fontSize="10" height="14" x="150" id="RecordBox17" y="438" field="CustPaySchedule	&#xA;"/>
+			<recordBox dataFormat="" width="350" fontSize="10" height="14" x="150" id="RecordBox18" y="456" field="InvSub&#xA;"/>
+		</detail>
+		<footer id="Footer1"/>
+	</report>
+</document>

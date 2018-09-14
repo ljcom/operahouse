@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" author="" keywords="" id="YoOVTM" subject="Overtime" title="Overtime Report" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" rightMargin="20" leftMargin="20">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="rp_yoOVTM">
+				<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter value="#Parameters[&quot;StartDate&quot;]#" name="StartDate" type="dateTime"/>
+				<parameter name="DepartementGUID" value="#Parameters[&quot;DepartementGUID&quot;]#" type="uniqueIdentifier"/>
+				<parameter name="EndDate" type="dateTime" value="#Parameters[&quot;EndDate&quot;]#"/></storedProcedure></query>
+		<template id="Template1">
+			<recordBox id="RecordBox1" dataFormat="" field="" height="14" width="100" x="57" y="848"/>
+		</template>
+		<header id="Header1" height="112.5">
+			<label font="HelveticaBold" align="center" vAlign="center" height="27.1" id="Label11" width="458.6" text="Laporan Lembur Karyawan Tetap" x="64.5" y="4.5"/>
+			<rectangle id="Rectangle4" height="25.5" fillColor="skyBlue" y="64" x="200.5" width="168.6"/>
+			<rectangle height="22.5" id="Rectangle7" width="36.6" fillColor="skyBlue" y="89.25" x="332.75"/>
+			<rectangle id="Rectangle1" width="28.1" height="48.5" y="64" fillColor="skyBlue" x="84"/>
+			<label font="HelveticaBold" align="center" vAlign="center" id="Label1" height="27.1" text="No." width="34.1" y="68.5" x="83"/>
+			<label font="HelveticaBold" align="center" vAlign="center" id="Label4" height="22.6" text="Jam Lembur" width="129.6" y="64.5" x="223.5"/>
+			<label font="HelveticaBold" align="center" vAlign="center" height="22.6" width="29.1" id="Label9" text="Total" y="89.75" x="337.5"/>
+			<rectangle width="88.1" id="Rectangle10" height="48" fillColor="skyBlue" y="64" x="434.25"/>
+			<label font="HelveticaBold" align="center" vAlign="center" id="Label10" width="88.6" height="49.1" text="Jumlah &#xA;(Rp.)" y="63.85" x="435"/>
+			<rectangle height="22.5" id="Rectangle6" width="34.1" fillColor="skyBlue" y="89.5" x="200.5"/>
+			<rectangle width="33.1" height="22.5" id="Rectangle8" fillColor="skyBlue" y="89.5" x="233.5"/>
+			<rectangle width="33.1" height="22.5" id="Rectangle9" fillColor="skyBlue" y="89.5" x="266.5"/>
+			<rectangle width="33.1" height="22.5" id="Rectangle11" fillColor="skyBlue" y="89.25" x="299.75"/>
+			<label font="HelveticaBold" align="center" vAlign="center" height="22.6" id="Label5" text="1,5 x" width="29.1" y="88" x="203.75"/>
+			<label font="HelveticaBold" align="center" vAlign="center" height="22.6" width="29.1" id="Label7" text="3 x" y="89" x="268.5"/>
+			<label font="HelveticaBold" align="center" vAlign="center" height="22.6" width="29.1" id="Label6" text="2 x" y="89" x="236.5"/>
+			<label font="HelveticaBold" align="center" vAlign="center" height="22.6" width="29.1" id="Label8" text="4 x" y="89.25" x="302.5"/>
+			<recordBox id="RecordBox11" dataFormat="" height="14" field="startdate" width="68.25" fontSize="11" align="center" y="29.5" x="242.5"/>
+			<label font="HelveticaBold" align="center" vAlign="center" id="Label12" width="75.6" height="28.1" text="Periode :" x="175.75" y="21.5"/>
+			<label font="HelveticaBold" align="center" vAlign="center" width="75.6" height="28.1" id="Label13" text="S/D" y="22" x="290.5"/>
+			<recordBox dataFormat="" height="14" width="68.25" id="RecordBox12" field="EndDate" fontSize="11" y="29.75" align="center" x="345.5"/>
+			<rectangle fillColor="skyBlue" id="Rectangle12" width="65.1" y="64" x="369" height="47.1"/>
+			<label font="HelveticaBold" align="center" vAlign="center" height="22.6" id="Label15" text="Kompensasi" width="71.6" fontSize="10" y="77" x="366.5"/>
+			<rectangle height="48.5" id="Rectangle2" y="64" width="88.6" fillColor="skyBlue" x="112"/>
+			<label font="HelveticaBold" align="center" vAlign="center" height="27.1" id="Label2" text="Nama" width="77.6" x="120.5" y="76"/>
+		</header>
+		<detail id="Detail1" autoSplit="true" height="43.5">
+			<subReport id="SubReport1" width="559.1" x="0" y="0">
+				<header id="Header2"/>
+				<detail id="Detail2" height="18.5">
+					<recordBox dataFormat="" height="14" align="right" fontSize="11" width="81" id="RecordBox2" field="JumlahRp" x="439.5" y="2"/>
+					<recordBox dataFormat="" height="14" field="EmployeName" width="81.5" id="RecordBox3" fontSize="10" x="117" y="1.25"/>
+					<recordBox dataFormat="" field="1.5x" align="center" width="28" height="14.25" fontSize="11" id="RecordBox5" y="1.5" x="203.25"/>
+					<recordBox dataFormat="" height="14" field="Total" width="26.5" align="center" fontSize="11" id="RecordBox6" x="336" y="1.75"/>
+					<recordBox dataFormat="" height="14" align="center" width="28" field="2x" fontSize="11" id="RecordBox7" y="1.75" x="236.5"/>
+					<recordBox dataFormat="" height="14" align="center" width="28" field="3x" fontSize="11" id="RecordBox8" x="269" y="1.75"/>
+					<recordBox dataFormat="" height="14" align="center" width="28" field="4x" fontSize="11" id="RecordBox9" y="1.75" x="302.5"/>
+					<recordBox dataFormat="" height="12.25" width="21.5" align="center" field="no" vAlign="center" fontSize="11" id="RecordBox10" x="88.25" y="2.75"/>
+					<recordBox dataFormat="" height="14" width="26.5" align="center" fontSize="11" id="RecordBox14" field="komp" x="404" y="0.75"/>
+					<rectangle height="17.5" id="Rectangle3" x="83.75" width="28.25" y="0"/>
+					<rectangle height="17.5" id="Rectangle13" x="111.75" y="0" width="89.25"/>
+					<rectangle height="17.5" id="Rectangle14" x="200.75" y="0" width="33.25"/>
+					<rectangle height="17.5" id="Rectangle15" width="32.25" y="0" x="233.75"/>
+					<rectangle height="17.5" id="Rectangle16" x="265.75" y="0" width="34.25"/>
+					<rectangle height="17.5" y="0" id="Rectangle17" x="299.75" width="33.25"/>
+					<rectangle height="17.5" id="Rectangle18" y="0" x="332.75" width="36.25"/>
+					<rectangle height="17.5" id="Rectangle19" y="0" x="368.75" width="65.75"/>
+					<rectangle height="17.5" id="Rectangle20" y="0" x="434.25" width="88.25"/>
+				</detail>
+				<footer id="Footer2" height="1"/>
+			</subReport>
+			<subReport id="SubReport2" width="544.5" x="21.1" y="22">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="rp_YoOVTM">
+						<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+						<parameter name="StartDate" type="dateTime" value="#Parameters[&quot;StartDate&quot;]#"/>
+						<parameter name="DepartementGUID" type="uniqueIdentifier" value="#Parameters[&quot;DepartementGUID&quot;]#"/>
+						<parameter name="EndDate" type="dateTime" value="#Parameters[&quot;EndDate&quot;]#"/></storedProcedure></query>
+				<header id="Header3" height="19">
+					<rectangle height="17.5" id="Rectangle21" width="155.75" x="345.75" y="-0.25"/>
+					<rectangle height="17.5" id="Rectangle5" x="62.25" y="-0.25" width="283.25"/>
+					<label font="HelveticaBold" align="center" vAlign="center" text="Total" height="22.6" id="Label14" y="-1.5" x="72.5" width="264.6"/>
+					<recordBox dataFormat="" height="14" align="right" fontSize="11" id="RecordBox13" field="Jumlahs" y="1" x="387.5" width="111.5"/></header>
+				<detail id="Detail3" height="0"/>
+				<footer id="Footer3"/>
+			</subReport>
+		</detail>
+		<footer id="Footer1" height="30">
+			<label vAlign="center" id="Label16" height="13.6" fontSize="10" text="Printed Date" width="58.1" y="0.5" x="380"/>
+			<recordBox dataFormat="" height="14" id="RecordBox15" field="printdate" fontSize="10" width="99.75" y="0.75" x="450"/>
+			<label vAlign="center" height="13.6" fontSize="10" id="Label17" text=":" width="11.1" y="0.1" x="438.5"/>
+			<label vAlign="center" height="13.6" fontSize="10" width="58.1" x="380" id="Label18" y="13.5" text="Printed by"/>
+			<recordBox dataFormat="" height="14" fontSize="10" width="99.75" x="450" id="RecordBox16" y="13.75" field="username"/>
+			<label vAlign="center" height="13.6" fontSize="10" text=":" width="11.1" id="Label19" y="13.1" x="438.5"/>
+		</footer>
+	</report>
+</document>

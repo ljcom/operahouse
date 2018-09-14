@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="YoDailySalesByCust" author="YuniarPu" subject="LibertyPT" title="Daily Sales By Customer">
+	<report id="Report1" pageOrientation="landscape" rightMargin="30" pageSize="a4" bottomMargin="30" leftMargin="30" topMargin="30">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="" name="doc.YoDailySalesByCust_header">
+				<parameter name="HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="startDate" type="dateTime" value="#Parameters[&quot;startDate&quot;]#"/>
+				<parameter name="endDate" type="dateTime" value="#Parameters[&quot;endDate&quot;]#"/>
+				<parameter name="CustName" type="uniqueIdentifier" value="#Parameters[&quot;CustName&quot;]#"/>
+				<parameter name="CASHNo" type="uniqueIdentifier" value="#Parameters[&quot;CASHNo&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="96">
+			<label id="Label1" height="43" width="297" text="DAILY SALES BY CUSTOMER" fontSize="20" y="3" x="305" font="HelveticaBold" align="center"/>
+			<label id="Label2" height="14" width="100" text="Periode :" x="5" y="54" fontSize="10"/>
+			<label id="Label3" height="14" width="100" text="Bulan    :" x="5" y="71" fontSize="10"/>
+			<recordBox id="RecordBox1" dataFormat="" height="14" width="99.1" x="58" y="56" fontSize="10" field=""/>
+			<recordBox id="RecordBox2" dataFormat="" height="14" width="100" x="59" y="76" fontSize="10" field=""/>
+			<recordBox id="RecordBox3" dataFormat="" height="14" width="100" x="185" y="76" fontSize="10" field=""/>
+			<line id="Line1" x1="1" x2="909" y1="93" y2="93"/>
+			<label id="Label11" height="14" text="s/d" width="25" x="166" y="75"/>
+			<rectangle id="Rectangle12" x="817" width="89" fillColor="lightSkyBlue" borderColor="lightSkyBlue" y="113" height="23.08"/>
+			<label text="RECEIVED BY" align="center" width="85.5" height="19" id="Label15" fontSize="10" x="816.48" y="116"/>
+			<image id="Image1" path="Logo Liberty.jpg" x="0" y="1" width="174.636" height="46.778"/>
+		</header>
+		<detail id="Detail1" autoSplit="true" height="109">
+			<subReport id="SubReport2" x="0" y="0" width="782"><header id="Header3"/><detail id="Detail3" autoSplit="true" height="84"><recordBox dataFormat="" height="14" width="100" fontSize="10" field="" id="RecordBox4" y="0" x="30"/>
+					<label height="14" fontSize="10" id="Label4" x="0" y="0" text="Date:" width="30"/>
+					<subReport width="911" x="0" id="SubReport1" y="20">
+						<query id="Query2">
+							<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.yoDailySalesByCust_detail">
+								<parameter name="HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+								<parameter name="startDate" type="dateTime" value="#Parameters[&quot;startDate&quot;]#"/>
+								<parameter name="endDate" type="dateTime" value="#Parameters[&quot;endDate&quot;]#"/>
+								<parameter name="CustName" type="uniqueIdentifier" value="#Parameters[&quot;CustName&quot;]#"/>
+								<parameter name="CASHNo" type="uniqueIdentifier" value="#Parameters[&quot;CASHNo&quot;]#"/>
+							</storedProcedure>
+						</query>
+						<header id="Header2" height="18"><rectangle fillColor="lightBlue" borderColor="lightBlue" x="3" width="90" height="14" y="0" id="Rectangle1"/><rectangle fillColor="lightBlue" borderColor="lightBlue" x="96" width="90" height="14" y="0" id="Rectangle2"/><rectangle fillColor="lightBlue" borderColor="lightBlue" width="80" x="189" height="14" y="0" id="Rectangle3"/><rectangle fillColor="lightBlue" borderColor="lightBlue" width="80" x="272" height="14" y="0" id="Rectangle4"/><rectangle fillColor="lightBlue" borderColor="lightBlue" width="80" x="355" height="14" y="0" id="Rectangle5"/><rectangle fillColor="lightBlue" borderColor="lightBlue" width="80" x="438" height="14" y="0" id="Rectangle6"/><rectangle fillColor="lightBlue" borderColor="lightBlue" width="80" x="521" height="14" y="0" id="Rectangle7"/><rectangle fillColor="lightBlue" borderColor="lightBlue" x="604" width="90" height="14" y="0" id="Rectangle8"/><rectangle fillColor="lightBlue" borderColor="lightBlue" width="80" x="697" height="14" y="0" id="Rectangle9"/><label align="center" text="CASH NO" font="HelveticaBold" x="3" fontSize="8" width="90" height="14" y="0" id="Label5"/><label align="center" font="HelveticaBold" text="CUSTOMER" fontSize="8" x="96" width="90" height="14" y="0" id="Label6"/><label align="center" font="HelveticaBold" text="SUBTOTAL" width="80" fontSize="8" x="189" height="13.1" y="0" id="Label7"/><label align="center" font="HelveticaBold" text="DISCOUNT" width="80" fontSize="8" x="272" height="14" y="0" id="Label8"/><label align="center" font="HelveticaBold" text="ROUND TOTAL" width="80" fontSize="8" x="355" height="14" y="0" id="Label9"/><label align="center" font="HelveticaBold" text="NOTES" width="80" fontSize="8" x="438" height="14" y="0" id="Label10"/><label align="center" font="HelveticaBold" text="CREATED BY" width="80" fontSize="8" x="521" height="14" y="0" id="Label12"/><label align="center" font="HelveticaBold" fontSize="8" x="604" width="90" text="PAYMENT RECEIVED" height="14" y="0" id="Label13"/><label align="center" font="HelveticaBold" width="80" fontSize="8" text="RECEIVED BY" x="697" height="14" y="0" id="Label14"/></header>
+						<detail id="Detail2" height="20">
+							<recordBox dataFormat="" height="20" align="center" field="receivedby" width="76.1" x="829" y="3.005" fontSize="10" id="RecordBox14"/>
+							<recordBox dataFormat="" x="5" height="15" width="90" fontSize="9" field="CashNo" y="0" id="RecordBox5"/><recordBox dataFormat="" height="15" width="90" x="96" fontSize="9" field="CustName" y="0" id="RecordBox6"/><recordBox dataFormat="" width="80" height="15" align="right" x="189" fontSize="9" field="SubTotal" y="0" id="RecordBox7"/><recordBox dataFormat="" width="80" height="15" align="right" x="272" fontSize="9" field="TotalDiscount" y="0" id="RecordBox8"/><recordBox dataFormat="" width="80" height="15" align="right" x="355" fontSize="9" field="RoundTotal" y="0" id="RecordBox9"/><recordBox dataFormat="" width="80" height="15" x="438" fontSize="9" field="Remarks" y="0" id="RecordBox10"/><recordBox dataFormat="" width="80" height="15" x="521" fontSize="9" field="CreatedUser" y="0" id="RecordBox11"/><recordBox dataFormat="" height="15" align="right" x="604" width="90" fontSize="9" y="0" field="PaymentReceived" id="RecordBox12"/><recordBox dataFormat="" width="80" height="15" x="697" fontSize="9" field="ReceivedBy" y="0" id="RecordBox13"/></detail>
+						<footer height="2" id="Footer2"/>
+					</subReport>
+					<recordBox dataFormat="" field="" fontSize="8" height="15" align="right" x="604" width="90" y="65" id="RecordBox15"/><label height="14" fontSize="8" font="HelveticaBold" text="TOTAL" align="center" width="90" x="96" y="65" id="Label16"/><recordBox dataFormat="" field="" fontSize="8" width="80" height="15" align="right" x="189" y="65" id="RecordBox16"/><recordBox dataFormat="" field="" fontSize="8" width="80" height="15" align="right" x="272" y="65" id="RecordBox17"/><recordBox dataFormat="" field="" fontSize="8" height="15" align="right" width="80" x="355" y="65" id="RecordBox18"/></detail><footer id="Footer3"/></subReport><label height="14" text="GRAND TOTAL" font="HelveticaBold" align="center" fontSize="10" width="90" x="97" y="90" id="Label17"/><recordBox dataFormat="" field="" height="14" font="TimesBold" align="right" width="80" x="189" y="90" id="RecordBox19"/><recordBox dataFormat="" field="" height="14" font="TimesBold" align="right" width="80" x="272" y="90" id="RecordBox20"/><recordBox dataFormat="" field="" height="14" font="TimesBold" align="right" width="80" x="355" y="90" id="RecordBox21"/><recordBox dataFormat="" field="" height="14" font="TimesBold" align="right" x="604" width="90" y="90" id="RecordBox22"/></detail>
+		<footer id="Footer1" height="22">
+			<pageNumberingLabel align="right" height="14" text="Page %%CP%% of %%TP%%" width="200" y="1" fontSize="10" x="582" id="PageNumberingLabel1"/><recordBox dataFormat="" field="" y="1" height="14" width="150" fontSize="10" x="3" id="RecordBox23"/></footer>
+	</report>
+</document>

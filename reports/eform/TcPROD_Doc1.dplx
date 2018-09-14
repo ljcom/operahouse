@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" leftMargin="70.875" rightMargin="70.875" topMargin="70.875" bottomMargin="70.875" pageSize="a4">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="TcPROD_rptbrowse">
+				<parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;ProductGUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1">
+		</template>
+		<header id="Header1" height="1">
+		</header>
+		<detail id="Detail1" autoSplit="true" height="850">
+			<recordBox fontSize="10" height="13.1" align="center" y="28" field="ProductDate" width="58.5" x="365" dataFormat="" id="RecordBox4"/>
+			<recordBox dataFormat="" width="92.5" fontSize="10" height="13.1" align="center" x="346" y="3.5" field="ProductRefNo" id="RecordBox1"/>
+			<subReport id="SubReport3" x="-23" width="479" y="87"><header id="Header4" height="2"/><detail id="Detail4" autoSplit="true" height="686"><label text=":" fontSize="11" height="15.5" width="8" x="93" id="Label6" y="109.5"/>
+					<recordBox dataFormat="" height="12.5" width="141.299" fontSize="8" x="99" id="RecordBox9" y="50.5" field="ProductRefNo"/>
+					<recordBox dataFormat="" height="12.5" field="ProductDate" fontSize="8" x="99" id="RecordBox10" y="65.5" width="141.799"/>
+					<recordBox dataFormat="" height="12.5" width="141.299" fontSize="8" field="DivisionGUIDcbNm" x="100" id="RecordBox17" y="79.5"/>
+					<recordBox dataFormat="" height="12.5" width="141.299" fontSize="8" field="SignatureGUIDcbNM" x="99" id="RecordBox18" y="95.5"/>
+					<recordBox dataFormat="" height="12.5" width="141.299" fontSize="8" field="BrandGUIDcbNm" x="99" id="RecordBox19" y="111.5"/>
+					<label fontSize="8" height="12.5" width="54.6" text="Brand" x="16" id="Label7" y="112.5"/>
+					<rectangle height="14.5" fillColor="gray" width="428.6" x="0" id="Rectangle3" y="2"/>
+					<label fontSize="9" height="14" width="216" text="Internal Launch Form" x="6.5" id="Label9" y="2.5"/>
+					<label width="191.5" fontSize="8" text="(Please attach extra page if the space is not enough)" height="12.5" x="7" id="Label10" y="17.5"/>
+					<label fontSize="8" height="12.5" text="A. Product Description" width="80.5" x="7" id="Label11" y="36.5"/>
+					<label text=":" fontSize="11" height="15.5" width="8" x="93" id="Label12" y="34.5"/>
+					<label text=":" fontSize="11" height="15.5" width="8" x="93" id="Label13" y="49.5"/>
+					<label fontSize="8" height="12.5" width="63.1" text="Product Code" x="17" id="Label14" y="51.5"/>
+					<label fontSize="8" height="12.5" width="54.6" text="Product Date" x="17" id="Label15" y="65.5"/>
+					<label text=":" fontSize="11" height="15.5" width="8" x="93" id="Label16" y="63.5"/>
+					<label fontSize="8" height="12.5" width="54.6" text="Division" x="17" id="Label17" y="81.5"/>
+					<label text=":" fontSize="11" height="15.5" width="8" x="93" id="Label18" y="79.5"/>
+					<label text=":" fontSize="11" height="15.5" width="8" x="93" id="Label19" y="94.5"/>
+					<label fontSize="8" height="12.5" width="54.6" text="Signature" x="16" id="Label20" y="96.5"/>
+					<subReport width="451.1" id="SubReport4" y="131" x="4"><query id="Query2"><storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="sp_taPRODAPRV_doc"><parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;ProductGUID&quot;]#"/></storedProcedure></query><header height="37" id="Header5"><label fontSize="8" text="Name" width="40" height="12.5" x="19" y="20" id="Label21"/>
+							<label width="39" fontSize="8" height="11.5" text="Status" x="147.5" y="20.5" id="Label22"/>
+							<label width="39" fontSize="8" height="11.5" text="Date" x="272.5" y="20.5" id="Label23"/>
+							<rectangle height="14.5" fillColor="gray" width="428.6" x="1.5" y="4" id="Rectangle4"/>
+							<label fontSize="9" height="14" width="216" text="Approval" x="6.5" y="6.5" id="Label24"/>
+						</header><detail height="14" id="Detail5"><recordBox dataFormat="" field="UserName" width="64" fontSize="8" x="13" height="10.5" y="1" id="RecordBox2"/>
+							<recordBox dataFormat="" field="UserStatusDescription" fontSize="8" x="147" height="10" width="80.5" y="1" id="RecordBox3"/>
+							<recordBox dataFormat="" field="updatedDate" fontSize="8" x="271.5" y="0" id="RecordBox5" width="160.5" height="8.1"/>
+						</detail><footer height="1" id="Footer5"/></subReport><subReport width="454" id="SubReport1" x="0" y="185"><query id="Query4"><storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="sp_TaPRODISKU_doc"><parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;ProductGUID&quot;]#"/></storedProcedure></query><header height="1" id="Header2"/><detail autoSplit="true" id="Detail2" height="499.5"><recordBox height="12.5" width="58.5" fontSize="8" field="Royalty" align="right" dataFormat="0.00" x="95" y="442.5" id="RecordBox6"/>
+							<recordBox height="12.5" width="58.5" fontSize="8" field="Rate" align="right" dataFormat="0.00" x="95" y="402.5" id="RecordBox7"/>
+							<recordBox height="12.5" width="58.5" fontSize="8" field="Freight" align="right" dataFormat="0.00" x="95" y="415.5" id="RecordBox8"/>
+							<recordBox height="12.5" width="58.5" fontSize="8" field="Custom" align="right" dataFormat="0.00" x="95" y="428.5" id="RecordBox11"/>
+							<label height="12" fontSize="9" text="IDR" width="16.6" x="409" y="428.5" id="Label25"/>
+							<label height="12" fontSize="9" text="IDR" width="16.6" x="409" y="416.5" id="Label26"/>
+							<label height="12" fontSize="9" text="IDR" width="16.6" x="409" y="402.5" id="Label27"/>
+							<label height="12" fontSize="9" width="65" text="Total Comp Val" x="21" y="481.5" id="Label28"/>
+							<label text="" height="11.5" width="0.5" x="57" y="503" id="Label29"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="89" y="481.5" id="Label30"/>
+							<label height="12" fontSize="9" width="62.6" text="Royalty" x="23" y="443.5" id="Label31"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="91" y="442.5" id="Label32"/>
+							<label height="12" fontSize="9" text="%" width="9.6" x="157" y="442.5" id="Label33"/>
+							<rectangle height="13.5" width="429" fillColor="gray" x="4" y="466.5" id="Rectangle5"/>
+							<label height="12" width="428" fontSize="9" text="Component" x="6" y="466.5" id="Label34"/>
+							<recordBox height="12.5" width="58.5" fontSize="8" align="right" field="TotalCompVal" dataFormat="0.00" x="93" y="481.5" id="RecordBox12"/>
+							<rectangle height="13.5" fillColor="gray" width="429" x="4" y="1" id="Rectangle6"/>
+							<label height="12" text="Purchase Info Record" fontSize="9" width="428" x="5" y="1" id="Label35"/>
+							<label height="12" fontSize="9" text="SAP Code" width="51.5" x="22" y="18" id="Label36"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="18" id="Label37"/>
+							<label height="12" fontSize="9" text="Customer Desc" width="62.1" x="22" y="30" id="Label38"/>
+							<label height="12" fontSize="9" width="50.1" text="EAN Code" x="22" y="43" id="Label39"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="30" id="Label40"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="42" id="Label41"/>
+							<recordBox dataFormat="" height="8.5" width="243.1" fontSize="8" field="ItemMARACode" x="92" y="19" id="RecordBox13"/>
+							<recordBox dataFormat="" width="108.5" height="8.5" field="CustomerDesc" fontSize="8" x="92" y="31" id="RecordBox14"/>
+							<recordBox dataFormat="" width="80" height="9" field="Barcode" fontSize="8" x="91.5" y="43.5" id="RecordBox15"/>
+							<label height="12" fontSize="9" width="62.1" text="Country" x="221" y="30" id="Label42"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="287" y="30" id="Label43"/>
+							<recordBox dataFormat="" height="8.5" width="80.5" fontSize="8" field="CountryName" x="291" y="33" id="RecordBox16"/>
+							<label height="12" fontSize="9" width="62.1" text="FP Currency" x="221" y="44" id="Label44"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="287" y="44" id="Label45"/>
+							<recordBox dataFormat="" height="7" width="81.5" fontSize="8" field="CurrencyName" x="291" y="47.5" id="RecordBox20"/>
+							<label height="12" fontSize="9" width="62.1" text="Purchase Price" x="221" y="57" id="Label46"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="287" y="57" id="Label47"/>
+							<recordBox width="82.5" height="8" field="PurchasePrice" fontSize="8" dataFormat="0.00" x="291" y="59.5" id="RecordBox21"/>
+							<label height="12" fontSize="9" text="Vendor Material" width="62.6" x="22" y="57" id="Label48"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="56" id="Label49"/>
+							<recordBox dataFormat="" width="80" height="7.1" field="VendorMaterial" fontSize="8" x="92" y="58.5" id="RecordBox22"/>
+							<label height="12" fontSize="9" width="62.6" text="Vendor Name" x="22" y="70" id="Label50"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="69" id="Label51"/>
+							<recordBox dataFormat="" height="7.5" width="241.5" fontSize="8" field="SORCName" x="91.5" y="72" id="RecordBox23"/>
+							<rectangle height="13.5" width="429" fillColor="gray" x="4" y="93" id="Rectangle7"/>
+							<label height="12" width="428" fontSize="9" text="Unit of Measurement" x="6" y="93" id="Label52"/>
+							<recordBox dataFormat="" height="12.5" width="26.5" field="LengthUnit" fontSize="8" align="right" x="92" y="110" id="RecordBox24"/>
+							<label height="12" fontSize="9" width="51.5" text="Length Unit" x="22" y="110" id="Label53"/>
+							<label height="12" fontSize="9" width="62.1" text="Width Unit" x="22" y="122" id="Label54"/>
+							<label height="12" fontSize="9" width="50.1" text="Height Unit" x="22" y="135" id="Label55"/>
+							<label height="12" fontSize="9" width="62.6" text="Lenght Pallet" x="22" y="149" id="Label56"/>
+							<label height="12" fontSize="9" width="62.6" text="Width Pallet" x="22" y="162" id="Label57"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="109" id="Label58"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="121" id="Label59"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="134" id="Label60"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="148" id="Label61"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="161" id="Label62"/>
+							<label height="12" fontSize="9" text="mm" width="15.5" x="121" y="110" id="Label63"/>
+							<recordBox dataFormat="" height="12.5" width="26.5" field="WidthUnit" fontSize="8" align="right" x="92" y="121" id="RecordBox25"/>
+							<label height="12" fontSize="9" text="mm" width="15.5" x="121" y="121" id="Label64"/>
+							<recordBox dataFormat="" height="12.5" width="26.5" field="HeightUnit" fontSize="8" align="right" x="92" y="134" id="RecordBox26"/>
+							<label height="12" fontSize="9" text="mm" width="15.5" x="121" y="134" id="Label65"/>
+							<recordBox dataFormat="" height="12.5" width="26.5" field="LengthPallet" fontSize="8" align="right" x="92" y="148" id="RecordBox27"/>
+							<label height="12" fontSize="9" text="mm" width="15.5" x="121" y="148" id="Label66"/>
+							<recordBox dataFormat="" height="12.5" width="26.5" field="WidthPallet" fontSize="8" align="right" x="92" y="161" id="RecordBox28"/>
+							<label height="12" fontSize="9" text="mm" width="15.5" x="121" y="161" id="Label67"/>
+							<recordBox dataFormat="" height="12.5" width="53.1" field="LenghtCarton" fontSize="8" align="right" x="293" y="110" id="RecordBox29"/>
+							<label height="12" fontSize="9" text="Length Carton" width="56.5" x="212" y="110" id="Label68"/>
+							<label height="12" fontSize="9" width="62.1" text="Width Carton" x="212" y="122" id="Label69"/>
+							<label height="12" fontSize="9" text="Height Carton" width="58.6" x="212" y="135" id="Label70"/>
+							<label height="12" fontSize="9" width="62.6" text="Unit / Carton" x="212" y="149" id="Label71"/>
+							<label height="12" fontSize="9" width="62.6" text="Weight per Unit" x="212" y="162" id="Label72"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="289" y="109" id="Label73"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="289" y="121" id="Label74"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="289" y="134" id="Label75"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="289" y="148" id="Label76"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="289" y="161" id="Label77"/>
+							<label height="12" fontSize="9" text="mm" width="17.5" x="349" y="110" id="Label78"/>
+							<recordBox dataFormat="" height="12.5" width="53.1" field="WidthCarton" fontSize="8" align="right" x="293" y="121" id="RecordBox30"/>
+							<label height="12" fontSize="9" text="mm" width="18.5" x="349" y="121" id="Label79"/>
+							<recordBox dataFormat="" height="12.5" width="53.1" field="HeightCarton" fontSize="8" align="right" x="293" y="134" id="RecordBox31"/>
+							<label height="12" fontSize="9" text="mm" width="17.5" x="349" y="134" id="Label80"/>
+							<recordBox dataFormat="" height="12.5" width="53.1" field="UnitCarton" fontSize="8" align="right" x="293" y="148" id="RecordBox32"/>
+							<label height="12" fontSize="9" text="unit" width="17.5" x="349" y="148" id="Label81"/>
+							<recordBox dataFormat="" height="12.5" width="53.1" field="WeightPerUnit" fontSize="8" align="right" x="293" y="161" id="RecordBox33"/>
+							<label height="12" fontSize="9" width="15.5" text="gr" x="349" y="161" id="Label82"/>
+							<label height="12" fontSize="9" width="62.6" text="Height Pallet" x="22" y="175" id="Label83"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="174" id="Label84"/>
+							<recordBox dataFormat="" height="12.5" width="26.5" field="HeightPallet" fontSize="8" align="right" x="92" y="174" id="RecordBox34"/>
+							<label height="12" fontSize="9" text="mm" width="15.5" x="121" y="174" id="Label85"/>
+							<label height="12" fontSize="9" text="Weight per Carton" width="74.1" x="212" y="175" id="Label86"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="289" y="174" id="Label87"/>
+							<recordBox dataFormat="" height="12.5" width="53.1" field="WeightPerCarton" fontSize="8" align="right" x="293" y="174" id="RecordBox35"/>
+							<label height="12" fontSize="9" width="15.5" text="gr" x="349" y="174" id="Label88"/>
+							<rectangle height="13.5" width="429" fillColor="gray" x="4" y="196" id="Rectangle8"/>
+							<label height="12" width="428" fontSize="9" text="Sales Information" x="6" y="196" id="Label89"/>
+							<recordBox dataFormat="" height="12.5" width="89" fontSize="8" field="MPGName" x="92" y="211" id="RecordBox36"/>
+							<label height="12" fontSize="9" width="51.5" text="MPG1" x="22" y="211" id="Label90"/>
+							<label height="12" fontSize="9" width="62.1" text="MRP Group" x="22" y="225" id="Label91"/>
+							<label height="12" fontSize="9" text="Product Class" width="56.1" x="22" y="238" id="Label92"/>
+							<label height="12" fontSize="9" width="62.6" text="DChain" x="22" y="252" id="Label93"/>
+							<label height="12" fontSize="9" width="62.6" text="DChain Date" x="22" y="265" id="Label94"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="210" id="Label95"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="224" id="Label96"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="237" id="Label97"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="251" id="Label98"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="264" id="Label99"/>
+							<recordBox dataFormat="" height="12.5" width="88.5" fontSize="8" field="MRPGroupId" x="92" y="224" id="RecordBox37"/>
+							<recordBox dataFormat="" height="12.5" width="46.5" fontSize="8" field="ProductClassCode" x="92" y="237" id="RecordBox38"/>
+							<recordBox dataFormat="" height="12.5" fontSize="8" width="120.5" field="DChainGUIDcbNm" x="92" y="251" id="RecordBox39"/>
+							<recordBox dataFormat="" height="12.5" fontSize="8" width="42.1" x="92" y="264" id="RecordBox40" field="dcn"/>
+							<recordBox dataFormat="" height="12.5" width="53.5" field="RoundingVal" fontSize="8" align="right" x="296" y="213" id="RecordBox41"/>
+							<label height="12" fontSize="9" text="Rounding Value" width="67" x="215" y="213" id="Label100"/>
+							<label height="12" fontSize="9" width="62.1" text="Re-Order Point" x="215" y="225" id="Label101"/>
+							<label height="12" fontSize="9" text="Planned Delivery" width="70.1" x="215" y="238" id="Label102"/>
+							<label height="12" fontSize="9" width="62.6" text="Target Stock" x="215" y="252" id="Label103"/>
+							<label height="12" fontSize="9" width="62.6" text="Safety Time" x="215" y="265" id="Label104"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="292" y="212" id="Label105"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="292" y="224" id="Label106"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="292" y="237" id="Label107"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="292" y="251" id="Label108"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="292" y="264" id="Label109"/>
+							<recordBox dataFormat="" height="12.5" width="53.5" field="ReOrderPoint" fontSize="8" align="right" x="296" y="224" id="RecordBox42"/>
+							<recordBox dataFormat="" height="12.5" width="53.5" align="right" field="PlannedDelTime" fontSize="8" x="296" y="237" id="RecordBox43"/>
+							<recordBox dataFormat="" height="12.5" align="right" width="53.1" field="TargetStockDays" fontSize="8" x="296" y="251" id="RecordBox44"/>
+							<recordBox dataFormat="" height="12.5" width="53.1" field="SafetyTime" fontSize="8" align="right" x="296" y="264" id="RecordBox45"/>
+							<label height="12" fontSize="9" width="62.6" text="MMPP" x="22" y="278" id="Label110"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="277" id="Label111"/>
+							<recordBox dataFormat="" height="12.5" fontSize="8" width="121.5" field="MMPPGUIDcbNm" x="92" y="277" id="RecordBox46"/>
+							<label height="12" fontSize="9" width="74.1" text="Safety Stock" x="215" y="278" id="Label112"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="292" y="277" id="Label113"/>
+							<recordBox dataFormat="" height="12.5" width="53.1" field="SafetyStock" fontSize="8" align="right" x="296" y="277" id="RecordBox47"/>
+							<label height="12" fontSize="9" width="62.6" text="MMPP Date" x="22" y="291" id="Label114"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="88" y="290" id="Label115"/>
+							<recordBox dataFormat="" height="12.5" fontSize="8" width="42.5" x="92.5" y="289.5" id="RecordBox48" field="mpp"/>
+							<label height="12" fontSize="9" width="74.1" text="HS Code" x="215" y="291" id="Label116"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="292" y="290" id="Label117"/>
+							<recordBox dataFormat="" height="12.5" width="42.5" field="HSCode" fontSize="8" x="296" y="290" id="RecordBox49"/>
+							<rectangle height="13.5" width="429" fillColor="gray" x="4" y="311.5" id="Rectangle9"/>
+							<label height="12" width="428" fontSize="9" text="Marketing Section" x="6" y="311.5" id="Label118"/>
+							<recordBox dataFormat="" height="12.5" width="58.5" fontSize="8" field="VASPackTypeGUIDcbNm" x="95" y="326.5" id="RecordBox50"/>
+							<label height="12" fontSize="9" text="Packing Product" width="65" x="23" y="326.5" id="Label119"/>
+							<label height="12" fontSize="9" width="62.1" text="Vas" x="23" y="340.5" id="Label120"/>
+							<label height="12" fontSize="9" width="56.1" text="CL Code" x="23" y="353.5" id="Label121"/>
+							<label height="12" fontSize="9" width="62.6" text="HET" x="23" y="367.5" id="Label122"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="91" y="326.5" id="Label123"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="91" y="339.5" id="Label124"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="91" y="352.5" id="Label125"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="91" y="366.5" id="Label126"/>
+							<recordBox dataFormat="" height="12.5" width="58.5" field="VASGUIDcbNm" fontSize="8" x="95" y="339.5" id="RecordBox51"/>
+							<recordBox dataFormat="" height="12.5" fontSize="8" x="95" y="352.5" id="RecordBox52" width="116.5" field="CLCodeGUIDcbId"/>
+							<recordBox height="12.5" align="right" field="HETPrice" fontSize="8" dataFormat="0.00" width="58" x="95" y="366.5" id="RecordBox53"/>
+							<label height="12" fontSize="9" text="IDR" width="16.6" x="157" y="366.5" id="Label127"/>
+							<rectangle height="13.5" width="429" fillColor="gray" x="4" y="387.5" id="Rectangle10"/>
+							<label height="12" width="428" fontSize="9" text="Controller Section" x="6" y="387.5" id="Label128"/>
+							<label height="12" fontSize="9" width="65" text="Rate" x="23" y="402.5" id="Label129"/>
+							<label height="12" fontSize="9" width="62.1" text="Freight" x="23" y="416.5" id="Label130"/>
+							<label height="12" fontSize="9" width="56.1" text="Custom" x="23" y="429.5" id="Label131"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="91" y="402.5" id="Label132"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="91" y="415.5" id="Label133"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="91" y="428.5" id="Label134"/>
+							<label height="12" fontSize="9" text="%" width="9.6" x="157" y="428.5" id="Label135"/>
+							<label height="12" fontSize="9" text="%" width="9.6" x="157" y="416.5" id="Label136"/>
+							<label height="12" fontSize="9" text="IDR" width="16.6" x="157" y="402.5" id="Label137"/>
+							<recordBox height="12.5" align="right" width="115" fontSize="8" field="Stickering" dataFormat="0.00" x="288" y="402.5" id="RecordBox54"/>
+							<label height="12" fontSize="9" width="65" text="Stickering" x="216" y="402.5" id="Label138"/>
+							<label height="12" fontSize="9" width="62.1" text="COGs" x="216" y="416.5" id="Label139"/>
+							<label height="12" fontSize="9" width="62.6" text="List Price" x="216" y="429.5" id="Label140"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="284" y="402.5" id="Label141"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="284" y="415.5" id="Label142"/>
+							<label height="12" fontSize="9" text=":" width="6.6" x="284" y="428.5" id="Label143"/>
+							<recordBox height="12.5" align="right" width="115" fontSize="8" field="COGS" dataFormat="0.00" x="288" y="415.5" id="RecordBox55"/>
+							<recordBox height="12.5" align="right" width="115" field="ListPrice" fontSize="8" dataFormat="0.00" x="288" y="428.5" id="RecordBox56"/>
+							<recordBox dataFormat="" height="12.5" fontSize="8" y="352.5" id="RecordBox64" x="215" width="200" field="CLCodeGUIDcbNm"/>
+						</detail><footer id="Footer2"/></subReport></detail><footer id="Footer4" height="1"/></subReport><subReport width="446" id="SubReport5" x="-19" y="788"><query id="Query3"><storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="sp_TaPRODLINK_doc"><parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;ProductGUID&quot;]#"/></storedProcedure></query><header height="12" id="Header6"><label height="12" fontSize="9" y="0" x="1" text="Product" width="40" id="Label2"/>
+					<label height="12" fontSize="9" text="SAP Component" x="124" y="1" width="90" id="Label3"/>
+					<label fontSize="9" text="Qty" y="1" width="25" height="11" x="252" id="Label144"/>
+					<label fontSize="9" y="1" width="25" height="11" text="COGs" x="287" id="Label145"/>
+					<label fontSize="9" y="1" height="11" x="343" text="Total COGs" width="54" id="Label146"/>
+				</header><detail id="Detail6" height="38"><recordBox fontSize="8" y="2" x="3" width="48.1" dataFormat="" field="ItemMARACode" id="RecordBox57" height="31.5"/>
+					<recordBox fontSize="8" y="2" x="127" field="ItemCode" dataFormat="" width="41" id="RecordBox58" height="29.5"/>
+					<recordBox fontSize="8" y="2" height="10.5" width="25.1" x="251" field="Qty" dataFormat="" id="RecordBox59"/>
+					<recordBox fontSize="8" field="COGS" dataFormat="0.00" height="10.5" y="3" width="48.1" x="290" id="RecordBox60"/>
+					<recordBox fontSize="8" dataFormat="0.00" height="10.5" y="3" x="347" id="RecordBox61" field="TotCOGS" width="93.1"/>
+					<recordBox fontSize="8" dataFormat="" y="2" x="57" width="66.1" field="ItemMARAName" id="RecordBox62" height="30.5"/>
+					<recordBox fontSize="8" y="2" dataFormat="" x="170" width="71" field="ItemName" id="RecordBox63" height="29.5"/>
+				</detail><footer id="Footer6"/></subReport><label x="1" y="1.5" text="PT L'ORÉAL INDONESIA" height="16" font="HelveticaBold" width="179.1" id="Label1"/>
+			<label height="10" width="12" text="No" fontSize="8" x="331" y="6" id="Label4"/>
+			<rectangle x="344" width="97.5" y="1.5" height="18.5" id="Rectangle1"/>
+			<rectangle x="344" y="25" width="98" height="28.5" id="Rectangle2"/>
+			<label x="348" y="42" text="Tanggal/Date" fontSize="7" height="9" width="90.5" align="center" id="Label5"/>
+			<label height="17" align="center" fontSize="14" width="379" font="HelveticaBold" text="Internal Launch Form" y="63" x="30.5" id="Label8"/>
+		</detail>
+		<footer id="Footer1" height="1.5">
+		</footer>
+	</report>
+</document>
