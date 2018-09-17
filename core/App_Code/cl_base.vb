@@ -1432,7 +1432,7 @@ Public Class cl_base
             'ix = colName.ToLower().IndexOf("_radio")
             'If ix > 0 Then colName = Left(colName, ix)
 
-            If fieldattachment.Contains(Request.Form.Keys(x)) Then
+            If Not fieldattachment Is Nothing AndAlso fieldattachment.Contains(Request.Form.Keys(x)) Then
                 info = info.Replace("#element#", "<field id=""" & colName & """><value>" & code & "_" & colName & "/" & szFilename & "/" & GUID & "_" & Trim(Request.Form(x).Split(",")(1)).Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
             Else
                 Dim reqForm = IIf(Request.Form(x) = "NULL", "", Request.Form(x).Replace("'", "&#39;").Replace("&", "&amp;"))

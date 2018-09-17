@@ -66,17 +66,17 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
                     ExecuteScript(ex, true);
                 }
             }
-            if (typeof f === "function") f();
+            if (typeof f === "function") f(xml);
         }
 
         $.when.apply(this, req).always(function (xml, xsl1, xsl2, xsl3, xsl4, xsl5) {
             if (isIE()) {
                 if (xml && $.parseXML(xml[2].responseText)) {
-                    if (xml !== undefined && xsl1 !== undefined) callback(divname[0], xml[2], xsl1[2]);
-                    if (xml !== undefined && xsl2 !== undefined) callback(divname[1], xml[2], xsl2[2]);
-                    if (xml !== undefined && xsl3 !== undefined) callback(divname[2], xml[2], xsl3[2]);
-                    if (xml !== undefined && xsl4 !== undefined) callback(divname[3], xml[2], xsl4[2]);
-                    if (xml !== undefined && xsl5 !== undefined) callback(divname[4], xml[2], xsl5[2]);
+                    if (xml != undefined && xsl1 != undefined) callback(divname[0], xml[2], xsl1[2]);
+                    if (xml != undefined && xsl2 != undefined) callback(divname[1], xml[2], xsl2[2]);
+                    if (xml != undefined && xsl3 != undefined) callback(divname[2], xml[2], xsl3[2]);
+                    if (xml != undefined && xsl4 != undefined) callback(divname[3], xml[2], xsl4[2]);
+                    if (xml != undefined && xsl5 != undefined) callback(divname[4], xml[2], xsl5[2]);
 
                     // add more if needed
                 }
@@ -84,11 +84,11 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
             } else {
                 if (xml && ($.isXMLDoc(xml[0]))) {
 
-                    if (xml !== undefined && xsl1 !== undefined) callback(divname[0], xml[0], xsl1[0]);
-                    if (xml !== undefined && xsl2 !== undefined) callback(divname[1], xml[0], xsl2[0]);
-                    if (xml !== undefined && xsl3 !== undefined) callback(divname[2], xml[0], xsl3[0]);
-                    if (xml !== undefined && xsl4 !== undefined) callback(divname[3], xml[0], xsl4[0]);
-                    if (xml !== undefined && xsl5 !== undefined) callback(divname[4], xml[0], xsl5[0]);
+                    if (xml != undefined && xsl1 != undefined) callback(divname[0], xml[0], xsl1[0]);
+                    if (xml != undefined && xsl2 != undefined) callback(divname[1], xml[0], xsl2[0]);
+                    if (xml != undefined && xsl3 != undefined) callback(divname[2], xml[0], xsl3[0]);
+                    if (xml != undefined && xsl4 != undefined) callback(divname[3], xml[0], xsl4[0]);
+                    if (xml != undefined && xsl5 != undefined) callback(divname[4], xml[0], xsl5[0]);
 
                     // add more if needed
 

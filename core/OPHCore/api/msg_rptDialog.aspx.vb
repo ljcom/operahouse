@@ -1,53 +1,55 @@
 Imports System.Data
 Imports System.IO
-Imports System
+
 Imports ceTe.DynamicPDF
 Imports ceTe.DynamicPDF.ReportWriter
-Imports ceTe.DynamicPDF.ReportWriter.Data.ParameterType
-Imports System.Xml
-Imports System.Text
-Imports System.Drawing
 Imports GemBox.Spreadsheet
-Imports System.Data.SqlClient
 
 Partial Class OPHCore_api_msg_rptDialog
     Inherits cl_base
-    Protected ReportName As String
-    Protected printerpath As String
-    Protected PathName As String
-    Protected ReportGUID As String
-    Protected status As String = 0
-    Protected isPrintOnly As String = 0
-    Dim sqlstr As String = ""
-    Dim hostGUID As String = "NULL"
+    'Protected ReportName As String
+    'Protected printerpath As String
+    'Protected PathName As String
+    'Protected ReportGUID As String
+    'Protected status As String = 0
+    'Protected isPrintOnly As String = 0
+    'Dim sqlstr As String = ""
+    'Dim hostGUID As String = "NULL"
+    Protected pdfFile As String = ""
 
     Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         loadAccount()
 
         Dim curHostGUID = Session("hostGUID")
         Dim curUserGUID = Session("userGUID")
-
+        If IsNothing(curHostGUID) Then
+            curHostGUID = "null"
+        Else
+            curHostGUID = "'" & curHostGUID & "'"
+        End If
         'If getQueryVar("code") Is Nothing Then
         'SignOff()
         'Response.Write("<script>" & contentofSignOff & "</script>")
         'Else
-        'outputtype=0 pdf
-        'outputtype=1 xls/csv
-        'outputtype=2 txt
+        'mode=0 pdf
+        'mode=1 xls/csv
+        'mode=2 txt
 
 
         'isPrintOnly = getQueryVar("isPrintOnly") '--> to be hidden
         Dim code = getQueryVar("code")  'code
         'Dim query = getQueryVar("query")    'querySQL --> to be hidden -- untuk xls/csv only
         'If query<>"" And code="" then 
-        Dim outputType = getQueryVar("outputType")
+        Dim mode = getQueryVar("mode")
         'Dim dplx = getQueryVar("dplx") '--> to be hidden
         'Dim gbox = getQueryVar("gbox") '--> to be hidden
         Dim reportName = "" 'getQueryVar("reportName") '--> to be hidden
-        Dim parXML As String = getQueryVar("parXML")
+        'Dim parXML As String = getQueryVar("parXML")
         Dim parameterid As String = "" 'getQueryVar("Parameter")
+        Dim fieldattachment As List(Of String) = Nothing
 
-        Dim sqlstr = "exec [api].[getReport] '" & hostGUID & "', '" & code & "', '" & parXML & "'"
+        Dim parXML = writeXMLFromRequestForm("sqroot", fieldattachment, "")
+        Dim sqlstr = "exec [api].[getReport] " & curHostGUID & ", '" & code & "', '" & parXML & "'"
         Dim ds1 = SelectSqlSrvRows(sqlstr)
         If ds1.Tables.Count > 0 Then
             If ds1.Tables(0).Rows.Count > 0 Then
@@ -59,12 +61,12 @@ Partial Class OPHCore_api_msg_rptDialog
             Dim Connections As String = contentOfdbODBC
 
             If parameterid = "" Then
-                parameterid = "hostGUID:" & curHostGUID
+                parameterid = "hostGUID:" & Session("hostGUID")
             Else
-                parameterid = "hostGUID:" & curHostGUID & "," & parameterid
+                parameterid = "hostGUID:" & Session("hostGUID") & "," & parameterid
             End If
 
-            If outputType = 0 Then
+            If mode = "pdf" Then
                 Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
                 Dim cete = appSettings.Item("ceTe.LicenseKey").ToString
                 Document.AddLicense(cete)
@@ -121,16 +123,18 @@ Partial Class OPHCore_api_msg_rptDialog
                         Dim g = System.Guid.NewGuid().ToString
                         Dim savesPath As String = Request.PhysicalApplicationPath & "documents\temp\" & g & "_" & reportName & ".pdf"
                         savesPath = savesPath.Replace("core\", "")
-                        If getQueryVar("dontdelete") = 1 Then
+                        If getQueryVar("dontdelete") = "1" Then
                             Response.Write(savesPath)
                             MyDocument.Draw(savesPath)
                         Else
-                            Response.ClearHeaders()
-                            Response.AddHeader("Cache-Control", " no-store, no-cache ")
-                            Response.ContentType = "application/pdf"
-                            Response.AddHeader("Content-Disposition", "attachment; filename=" & reportName & ".pdf")
+                            'Response.ClearHeaders()
+                            'Response.AddHeader("Cache-Control", " no-store, no-cache ")
+                            'Response.ContentType = "application/pdf"
+                            'Response.AddHeader("Content-Disposition", "attachment; filename=" & reportName & ".pdf")
 
-                            MyDocument.DrawToWeb(savesPath)
+                            pdfFile = Request.Url.AbsoluteUri.Replace("msg_rptDialog.aspx", "") & "../../OPHContent/documents/temp/" & g & "_" & reportName & ".pdf"
+                            MyDocument.Draw(savesPath)
+
                         End If
                     End If
 
@@ -143,7 +147,7 @@ Partial Class OPHCore_api_msg_rptDialog
 
 
                 End Try
-            ElseIf outputType = 1 Then
+            ElseIf mode = "xls" Then
 
                 Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
                 SpreadsheetInfo.SetLicense(appSettings.Item("gBox.LicenseKey").ToString)
@@ -165,7 +169,7 @@ Partial Class OPHCore_api_msg_rptDialog
                 'output 2 = ???
                 'output 3 = download Child
 
-                If outputType = 1 Then  'xls/csv/txt
+                If mode = 1 Then  'xls/csv/txt
                     If reportName = "" Then reportName = code
                     gext = Right(reportName, reportName.Length - InStr(reportName, "."))
                     If gext = "txt" Then
@@ -174,7 +178,7 @@ Partial Class OPHCore_api_msg_rptDialog
                         gfile = g & "_" & reportName & ".xlsx"
                     End If
                     sqlstr = "exec gen.downloadModule '" & curHostGUID & "', '" & code & "', " & exportMode.ToString
-                ElseIf outputType = 3 Then
+                ElseIf mode = 3 Then
                     Dim ParentGUID As String = getQueryVar("ParentGUID").ToString
 
                     If reportName = "" Then reportName = code
@@ -239,7 +243,7 @@ Partial Class OPHCore_api_msg_rptDialog
                                     ws.Cells(rows, cols).Value = head.ToString
                                     cols = cols + 1
                                 Next
-                                ws.Rows(rows).Hidden = IIf(outputType = 0 Or exportMode = 0, False, True)
+                                ws.Rows(rows).Hidden = IIf(mode = 0 Or exportMode = 0, False, True)
                                 rows = rows + 1
                             End If
                         End If
@@ -255,7 +259,7 @@ Partial Class OPHCore_api_msg_rptDialog
                         For n = 0 To ds.Tables(0).Columns.Count - 1
                             ws.Columns.Item(n).AutoFit()
                         Next
-                        ws.Columns(0).Hidden = IIf(outputType = 0 Or exportMode = 0, False, True)
+                        ws.Columns(0).Hidden = IIf(mode = 0 Or exportMode = 0, False, True)
                         ws.Columns.Item(0).AutoFit()
                         ef.Save(pathGBOX)
                         If Not getQueryVar("output") Is Nothing Then
