@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<report id="Report1" rightMargin="14.175" pageSize="custom" topMargin="0" bottomMargin="0" pageHeight="141.75" leftMargin="14.175" pageWidth="226.8">
+	<report id="Report1" rightMargin="14.175" pageSize="custom" topMargin="0" bottomMargin="0" leftMargin="14.175" pageWidth="226.8" pageHeight="141.75">
 		<query id="Query1">
 			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCashInv_report">
 				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>

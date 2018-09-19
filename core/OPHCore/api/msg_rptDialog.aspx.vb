@@ -150,8 +150,8 @@ Partial Class OPHCore_api_msg_rptDialog
             ElseIf mode = "xls" Then
 
                 Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
-                SpreadsheetInfo.SetLicense(appSettings.Item("gBox.LicenseKey").ToString)
-                'SpreadsheetInfo.SetLicense("ESWM-UQ6R-26SR-4WB1")
+                'SpreadsheetInfo.SetLicense(appSettings.Item("gBox.LicenseKey").ToString)
+                SpreadsheetInfo.SetLicense("ESWM-UQ6R-26SR-4WB1")
 
                 Dim g = System.Guid.NewGuid().ToString
                 Dim Parameters As ParameterDictionary = New ParameterDictionary
@@ -169,15 +169,15 @@ Partial Class OPHCore_api_msg_rptDialog
                 'output 2 = ???
                 'output 3 = download Child
 
-                If mode = 1 Then  'xls/csv/txt
+                If mode = "xls" Then  'xls/csv/txt
                     If reportName = "" Then reportName = code
                     gext = Right(reportName, reportName.Length - InStr(reportName, "."))
                     If gext = "txt" Then
                         gfile = g & "_" & reportName & ".csv"
                     Else
-                        gfile = g & "_" & reportName & ".xlsx"
+                        gfile = g & "_" & reportName & ".xls"
                     End If
-                    sqlstr = "exec gen.downloadModule '" & curHostGUID & "', '" & code & "', " & exportMode.ToString
+                    sqlstr = "exec gen.downloadModule " & curHostGUID & ", '" & code & "', " & exportMode.ToString
                 ElseIf mode = 3 Then
                     Dim ParentGUID As String = getQueryVar("ParentGUID").ToString
 
@@ -243,7 +243,7 @@ Partial Class OPHCore_api_msg_rptDialog
                                     ws.Cells(rows, cols).Value = head.ToString
                                     cols = cols + 1
                                 Next
-                                ws.Rows(rows).Hidden = IIf(mode = 0 Or exportMode = 0, False, True)
+                                ws.Rows(rows).Hidden = IIf(mode = "xls" Or exportMode = 0, False, True)
                                 rows = rows + 1
                             End If
                         End If
@@ -259,10 +259,10 @@ Partial Class OPHCore_api_msg_rptDialog
                         For n = 0 To ds.Tables(0).Columns.Count - 1
                             ws.Columns.Item(n).AutoFit()
                         Next
-                        ws.Columns(0).Hidden = IIf(mode = 0 Or exportMode = 0, False, True)
+                        ws.Columns(0).Hidden = IIf(mode = "xls" Or exportMode = 0, False, True)
                         ws.Columns.Item(0).AutoFit()
                         ef.Save(pathGBOX)
-                        If Not getQueryVar("output") Is Nothing Then
+                        If getQueryVar("output") <> "" Then
                             If Dir(getQueryVar("output")) <> "" Then Kill(getQueryVar("output"))
                             If gext = "txt" Then
                                 Dim latin1 As Encoding = Encoding.GetEncoding(28591)
@@ -278,7 +278,7 @@ Partial Class OPHCore_api_msg_rptDialog
                             pathGBOX = Left(pathGBOX, Len(pathGBOX) - 4)
                         End If
 
-                        If getQueryVar("dontdelete") = 1 Then
+                        If getQueryVar("dontdelete") = "1" Then
                             If Not getQueryVar("output") Is Nothing Then
                                 Response.Write(getQueryVar("output"))
                             Else
