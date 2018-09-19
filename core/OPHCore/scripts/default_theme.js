@@ -614,6 +614,8 @@ function checkChanges(t) {
                 $('#button_cancel').show();
                 $('#button_submit').hide();
                 $('#button_delete').hide();
+                $('#button_approve').hide();
+                $('#button_reject').hide();
                 $('#button_save2').show();
                 $('#button_cancel2').show();
 
@@ -650,6 +652,8 @@ function checkChanges_old(t) {
                     $('#button_cancel').show();
                     $('#button_submit').hide();
                     $('#button_delete').hide();
+                    $('#button_approve').hide();
+                    $('#button_reject').hide();
                     $('#button_save2').show();
                     $('#button_cancel2').show();
 
@@ -688,6 +692,8 @@ function saveConfirm() {
     $('#button_cancel').hide();
     $('#button_submit').show();
     $('#button_delete').show();
+    $('#button_approve').show();
+    $('#button_reject').show();
     $('#button_save2').hide();
     $('#button_cancel2').hide();
 }
@@ -737,6 +743,8 @@ function saveCancel() {
                                 $('#button_cancel').hide();
                                 $('#button_submit').show();
                                 $('#button_delete').show();
+                                $('#button_approve').show();
+                                $('#button_reject').show();
                                 $('#button_save2').hide();
                                 $('#button_cancel2').hide();
                                 //$tokenInput(get, '');
@@ -748,6 +756,8 @@ function saveCancel() {
                     $('#button_cancel').hide();
                     $('#button_submit').show();
                     $('#button_delete').show();
+                    $('#button_approve').show();
+                    $('#button_reject').show();
                     $('#button_save2').hide();
                     $('#button_cancel2').hide();
                 }
@@ -756,6 +766,8 @@ function saveCancel() {
                 $('#button_cancel').hide();
                 $('#button_submit').show();
                 $('#button_delete').show();
+                $('#button_approve').show();
+                $('#button_reject').show();
                 $('#button_save2').hide();
                 $('#button_cancel2').hide();
             }
