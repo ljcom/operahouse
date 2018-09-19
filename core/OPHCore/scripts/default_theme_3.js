@@ -2361,17 +2361,6 @@ function show_aprvList(guid) {
     }
 }
 
-function panel_display(flag, val) {
-    if (val == 1) {
-        try {
-            document.getElementById(flag).style.display = 'block';
-        } catch (e) { }
-    } else {
-        try {
-            document.getElementById(flag).style.display = 'none';
-        } catch (e) { }
-    }
 
-}
 
 

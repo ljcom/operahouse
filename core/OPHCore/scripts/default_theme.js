@@ -1156,3 +1156,37 @@ function genReport(code, outputType) {
     //window.open('OPHCore/api/msg_rptDialog.aspx?' + mode + '=1&code=' + code + '&parameter=' + parameter + '&outputType=' + outType + '&query=' + query + '&reportName=' + reportName);
     //window.open('OPHCore/api/msg_rptDialog.aspx?mode=' + outputType + '&code=' + code);
 }
+
+//radio
+function panel_display(t, val) {
+    //if (val == 1) {
+    try {
+        document.getElementById('accordion_' + t).style.display = 'block';
+        //$('#' + t).val(val);
+    } catch (e) { }
+    //} else {
+    //    try {
+    //        document.getElementById('accordion_'+flag).style.display = 'none';
+    //    } catch (e) { }
+    //}
+    if ($(t).data("child") === 'Y') {
+        $('#child_button_addSave').show();
+        $('#child_button_save').show();
+        $('#child_button_cancel').show();
+        $('#child_button_delete').hide();
+        $('#child_button_save2').show();
+        $('#child_button_cancel2').show();
+        $('#child_button_delete2').hide();
+    }
+    else {
+        $('#button_save').show();
+        $('#button_cancel').show();
+        $('#button_submit').hide();
+        $('#button_delete').hide();
+        $('#button_approve').hide();
+        $('#button_reject').hide();
+        $('#button_save2').show();
+        $('#button_cancel2').show();
+
+    }
+}
