@@ -11,4 +11,7 @@ core/App_Data/
 core/BuildProcessTemplates/
 core/OPHContent/log
 themes/
+reports/*/temp
+reports/*/*.pdf
+reports/*/*.xls
 
