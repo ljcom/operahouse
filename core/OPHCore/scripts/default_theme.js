@@ -2,7 +2,7 @@
 var themeXML;
 
 function initTheme(bCode, bGUID, guestID, f) { //bmode, bcode, bguid hanya dipakai kalau mau pindah lokasi saja
-    var unique = getCookie("offline") === 1 ? '' : '&unique=' + getUnique();
+    var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
     if (bCode != undefined) setCookie('code', bCode, 0, 1, 0);
     if (bGUID != undefined) setCookie('GUID', bGUID, 0, 1, 0);
     var tcode = getQueryVariable('tcode');
@@ -143,7 +143,7 @@ function getUnique() {
 //interface
 function loadContent(nbpage, f) {
     var xmldoc;
-    var unique = getCookie("offline") === 1 ? '' : '&unique=' + getUnique();
+    var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
 
     //main content
     if (lastCode() !== getCode()) {
@@ -170,7 +170,7 @@ function loadContent(nbpage, f) {
 function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
     var xmldoc;
     var xsldoc;
-    var unique = getCookie("offline") === 1 ? '' : '&unique=' + getUnique();
+    var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
 
     if (parentKey == undefined) {
         parentKey = getCookie(code.toLowerCase() + '_parentKey');
@@ -185,7 +185,7 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
         setCookie(code.toLowerCase() + '_browseMode', mode);
     }
     d = '<div><div class="box box-solid box-default" style="box-shadow:0px;border:none" id="child' + code + GUID + '"></div></div>';
-    if ($('#child' + code + GUID).length === 0) {
+    if ($('#child' + code + GUID).length == 0) {
         $('#tr2_' + pcode + GUID).children("td").append(d);
     }
     pageNo = pageNo == undefined ? 1 : pageNo;
@@ -249,7 +249,7 @@ function changeSumField(rowno) {
 function loadReport(qCode, tcode, f) {
     var xmldoc;
     var xsldoc;
-    var unique = getCookie("offline") === 1 ? '' : '&unique=' + getUnique();
+    var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
 
     qCode = (qCode === "") ? getCode() : qCode;
     tcode = (tcode == undefined) ? getQueryVariable("tcode") : tcode;
@@ -270,13 +270,13 @@ function loadReport(qCode, tcode, f) {
 
 function showMessage(msg, mode, fokus, afterMessage) {
     var msgType;
-    if (mode === 1) msgType = 'notice';
-    else if (mode === 2) msgType = 'success';
-    else if (mode === 4) msgType = 'error';
-    else if (mode === 3) msgType = 'warning';
+    if (mode == 1) msgType = 'notice';
+    else if (mode == 2) msgType = 'success';
+    else if (mode == 4) msgType = 'error';
+    else if (mode == 3) msgType = 'warning';
     else msgType = 'notice';
 
-    if (msg === '' && (mode === 4 || mode === 3)) msg = 'Time out.';
+    if (msg === '' && (mode == 4 || mode == 3)) msg = 'Time out.';
 
     $("#notiTitle").text(msgType);
     $("#notiContent").text(msg);
@@ -409,7 +409,7 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
                     data.append(key, value);
                 });
             }
-            if (location === 30) { //child and gchildren
+            if (location == 30) { //child and gchildren
                 //move to celljs
             } else {
                 var other_data = $(thisForm).serializeArray();
@@ -452,7 +452,7 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
         });
     }
     else {
-        if (location === 50 || location === '50') { //saveModalForm
+        if (location == 50 || location === '50') { //saveModalForm
             $('#notiModal').data("message", result);
             $('#notiModal').data("colname", idReq);
             if (typeof afterSuccess === "function") afterSuccess(data);
@@ -765,7 +765,7 @@ function saveCancel() {
 }
 
 function executeFunction(code, GUID, action, location, approvaluserguid, pwd, comment) {
-    var unique = getCookie("offline") === 1 ? '' : '&unique=' + getUnique();
+    var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
 
     if (approvaluserguid != undefined || approvaluserguid !== null) { pwd = document.getElementById("txtpwd" + approvaluserguid).value; }
 
@@ -777,44 +777,44 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
     if (action === 'execute') {
         if (docState === "" || docState === "0") {
             successmsg = 'Submited Succesfully';
-            if (confirm("You are about to Submit this record. Are you sure?") === 0) { isAction = 0; }
+            if (confirm("You are about to Submit this record. Are you sure?") == 0) { isAction = 0; }
         }
         else if (docState === '300') {
             successmsg = 'Re-Submited Succesfully';
-            if (confirm("You are about to Re-Submit this record. Are you sure?") === 0) { isAction = 0; }
+            if (confirm("You are about to Re-Submit this record. Are you sure?") == 0) { isAction = 0; }
         }
         else {
             successmsg = 'Approve Succesfully';
-            if (confirm("You are about to Approve this record. Are you sure?") === 0) { isAction = 0; }
+            if (confirm("You are about to Approve this record. Are you sure?") == 0) { isAction = 0; }
         }
     } else if (action === 'force') {
         if (docState >= '400') {
             7;
             successmsg = 'Close/Archive Succesfully';
-            if (confirm("You are about to Close/Archive this record. Are you sure?") === 0) { isAction = 0; }
+            if (confirm("You are about to Close/Archive this record. Are you sure?") == 0) { isAction = 0; }
         }
         else {
             successmsg = 'Rejected Succesfully';
-            if (confirm("You are about to Reject this record. Are you sure?") === 0) { isAction = 0; }
+            if (confirm("You are about to Reject this record. Are you sure?") == 0) { isAction = 0; }
         }
     } else if (action === 'reopen') {
         successmsg = 'Reopen Succesfully';
     } else if (action === 'inactivate') {
         successmsg = 'Inactivate Succesfully';
-        if (confirm("You are about to " + action + " this record. Are you sure?") === 0) { isAction = 0; }
+        if (confirm("You are about to " + action + " this record. Are you sure?") == 0) { isAction = 0; }
         action = "delete";
     } else if (action === 'delete') {
         successmsg = 'Delete Succesfully';
-        if (confirm("You are about to " + action + " this record. Are you sure?") === 0) { isAction = 0; }
+        if (confirm("You are about to " + action + " this record. Are you sure?") == 0) { isAction = 0; }
     } else if (action === 'restore') {
         successmsg = 'Restore Succesfully';
     } else if (action === 'wipe') {
         successmsg = 'Wipe Succesfully';
-        if (confirm("You are about to " + action + " this record. Are you sure?") === 0) { isAction = 0; }
+        if (confirm("You are about to " + action + " this record. Are you sure?") == 0) { isAction = 0; }
     }
 
-    if (action === "delete" && location === 40) {
-        if (isAction === 1) {
+    if (action === "delete" && location == 40) {
+        if (isAction == 1) {
             preview(1, code, GUID, "form" + code, null);
         }
     }
@@ -827,14 +827,14 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
 
 
 
-    if (isAction === 1) {
+    if (isAction == 1) {
         $.post(path, function (data) {
             var msg = $(data).find('message').text();
             if (msg === '' || msg === 'Approval Succesfully' || msg.substring(0, 1) === '2') {
                 //location: 0 header; 1 child; 2 browse 
                 //location: browse:10, header form:20, browse anak:30, browse form:40
                 //if ($("#tr1_" + code + GUID) && location !== '10' && action === "delete") {
-                if (action === "delete" && (location === 30 || location === 40)) {
+                if (action === "delete" && (location == 30 || location == 40)) {
                     var g = GUID.split(",");
                     g.forEach(function (i) {
                         $("#tr1_" + code + i).remove();
@@ -842,13 +842,13 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                     });
                 }
                 else {
-                    if (action === 'delete' && location === 20) {
+                    if (action === 'delete' && location == 20) {
                         //location: 0 header; 1 child; 2 browse 
                         //location: browse:10, header form:20, header sidebar:21, browse anak:30, browse form:40
 
                         window.location = 'index.aspx?code=' + getQueryVariable("code");
                     }
-                    //if (action === 'execute' && location === 21) {
+                    //if (action === 'execute' && location == 21) {
                     //		//refresh sidebar
                     //                   loadContent(1);
                     //                   showMessage(successmsg);
@@ -871,7 +871,7 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
 }
 
 function downloadModule(code, exportMode) {
-    window.open('OPHCore/api/msg_rptDialog.aspx?gbox=1&code=' + code + '&parameter=&outputType=1&exportMode=' + exportMode);
+    window.open('OPHCore/api/msg_rptDialog.aspx?gbox=1&code=' + code + '&mode=xls&exportMode=' + exportMode);
 }
 
 function downloadChild(code, t) {
@@ -931,7 +931,7 @@ function applySQLFilter(ini) {
 }
 
 function resetSQLFilter(ini) {
-    var unique = getCookie("offline") === 1 ? '' : '&unique=' + getUnique();
+    var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
 
     $(ini).button('loading');
     var divname = ['contentWrapper'];
@@ -946,7 +946,7 @@ function resetSQLFilter(ini) {
 // popup delegator
 
 function delegatorModal(isRevoke) {
-    var unique = getCookie("offline") === 1 ? '' : '&unique=' + getUnique();
+    var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
 
     var kukis = getCode() + '_dmc';
     if (isRevoke === true) {
@@ -971,7 +971,7 @@ function delegatorModal(isRevoke) {
 }
 
 function sortBrowse(ini, loc, code, orderBy) {
-    var unique = getCookie("offline") === 1 ? '' : '&unique=' + getUnique();
+    var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
 
     var ordered = loc === 'child' ? $(ini).data('order') : $(ini).parent().data('order');
     if (ordered === "" || ordered == undefined) ordered = "ASC";

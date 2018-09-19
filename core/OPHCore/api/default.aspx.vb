@@ -51,6 +51,7 @@ Partial Class OPHCore_API_default
                 writeLog("mode master: " & sqlstr)
             Case "browse"
                 Dim sqlfilter = getQueryVar("sqlFilter")
+
                 Dim sortOrder = getQueryVar("sortOrder")
                 Dim stateid = getQueryVar("stateid")
                 Dim bpage = getQueryVar("bPageNo")
