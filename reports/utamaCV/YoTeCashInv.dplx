@@ -8,7 +8,7 @@
 		<template id="Template1"/>
 		<header id="Header1"/>
 		<detail id="Detail1" autoSplit="true" height="334.5">
-			<contentGroup id="ContentGroup1" width="211.775" x="0" y="0" height="94.5">
+			<contentGroup id="ContentGroup1" width="211.775" height="94.5" x="-9" y="10.5">
 				<label width="197.6" align="center" fontSize="10" font="HelveticaBold" id="Label1" height="21.015" text="CV UTAMA" y="11.34" x="10.5"/>
 				<label align="center" fontSize="9" id="Label2" height="11.34" width="211.775" y="26.355" x="4.5" text="Jl. Semangka 43 A-B Panorama Bengkulu"/>
 				<line x1="0" y1="50" y2="50" id="Line1" x2="211.775"/>
@@ -21,7 +21,7 @@
 					<text><![CDATA[<P>Invoice No: #InvNo#</P><P>Invoice Date: #InvDate#</P>]]></text>
 				</formattedRecordArea>
 				<line id="Line7" x1="1" y1="90" y2="90" x2="212"/></contentGroup>
-			<formattedRecordArea id="FormattedRecordArea1" height="31.1" expandable="true" width="211.6" x="1" y="246">
+			<formattedRecordArea id="FormattedRecordArea1" height="31.1" expandable="true" width="211.6" x="-8" y="261">
 				<initialStyle>
 					<font size="9"/>
 					<line/>
@@ -29,8 +29,8 @@
 				</initialStyle>
 				<text><![CDATA[<P>Customer Name: #Customer#</P><P>Sales by: #HostName#</P><P>Printed on: #printDate#</P>]]></text>
 			</formattedRecordArea>
-			<label align="center" id="Label7" text="Thank you for your purchase.&#xA;See you again soon!" x="0" width="211" fontSize="8" height="20.18" y="281"/>
-			<subReport id="SubReport1" width="210.275" x="2" y="94">
+			<label align="center" id="Label7" text="Thank you for your purchase.&#xA;See you again soon!" width="211" fontSize="8" height="20.18" x="-9" y="297"/>
+			<subReport id="SubReport1" width="210.275" x="-7" y="105">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCashInv_report_sub1">
 						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
@@ -49,7 +49,7 @@
 				</detail>
 				<footer id="Footer2" height="1"/>
 			</subReport>
-			<contentGroup id="ContentGroup2" width="211.775" x="1.5" y="137.5" height="103.963">
+			<contentGroup id="ContentGroup2" width="211.775" height="103.963" x="-7.5" y="151.5">
 				<line x1="0" y1="0" y2="0" id="Line4" x2="211.775"/>
 				<line x1="0" id="Line5" y1="28" y2="28" x2="211.775"/>
 				<label fontSize="9" id="Label5" align="right" height="11.34" width="56.7" text="Sub Total" x="93.555" y="2"/>
