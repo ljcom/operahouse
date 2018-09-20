@@ -160,9 +160,11 @@ function loadContent(nbpage, f) {
     var divname = ['contentWrapper'];
     var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
 
-    //sidebar
-    divname.push('sidebarWrapper');
-    xsldoc.push('OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '_sidebar.xslt');
+    //sidebar only for form
+    if (getMode() == 'form') {
+        divname.push('sidebarWrapper');
+        xsldoc.push('OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '_sidebar.xslt');
+    }
 
     setTimeout(function () { pushTheme(divname, xmldoc, xsldoc, true); }, 100);
 }//
@@ -246,25 +248,25 @@ function changeSumField(rowno) {
     return result;
 }
 
-function loadReport(qCode, tcode, f) {
+function loadReport(qCode, f) {
     var xmldoc;
     var xsldoc;
     var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
 
     qCode = (qCode === "") ? getCode() : qCode;
-    tcode = (tcode == undefined) ? getQueryVariable("tcode") : tcode;
-    xmldoc = 'OPHCore/api/default.aspx?mode=report' + '&code=' + qCode + ((tcode != undefined) ? '&tcode=' + tcode : '') + unique;
+    //tcode = (tcode == undefined) ? getQueryVariable("tcode") : tcode;
+    xmldoc = 'OPHCore/api/default.aspx?mode=report' + '&code=' + qCode + unique;    //+ ((tcode != undefined) ? '&tcode=' + tcode : '') + unique;
     xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/report_' + getMode() + '.xslt';
     showXML('contentWrapper', xmldoc, xsldoc, true, true, function () {
         if (typeof f === "function") f();
     });
 
-    xmldoc = 'OPHCore/api/default.aspx?mode=report' + '&code=' + qCode + ((tcode != undefined) ? '&tcode=' + tcode : '') + '&GUID=' + getGUID() + unique;
-    xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/report_' + getMode() + '_sidebar.xslt';
+    //xmldoc = 'OPHCore/api/default.aspx?mode=report' + '&code=' + qCode + ((tcode != undefined) ? '&tcode=' + tcode : '') + '&GUID=' + getGUID() + unique;
+    //xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/report_' + getMode() + '_sidebar.xslt';
     //var xmldoc = 'OPHCore/api/default.aspx?mode=report&code=' + getCode() + '&GUID=' + getGUID() + '&date=' + getUnique();
-    showXML('sidebarWrapper', xmldoc, xsldoc, true, true, function () {
-        if (typeof f === "function") f();
-    });
+    //showXML('sidebarWrapper', xmldoc, xsldoc, true, true, function () {
+        //if (typeof f === "function") f();
+    //});
 
 }
 
@@ -892,9 +894,9 @@ function downloadChild(code, t) {
 
     ParentGUID = $(t).parent().parent().parent().parent().parent().parent().parent().data("parentguid");
     if (ParentGUID == undefined) ParentGUID = getQueryVariable('GUID');
-    
+
     //window.open('OPHCore/api/msg_rptDialog.aspx?gbox=1&code=' + code + '&parameter=&outputType=3&' + ParentGUID + '&titleName=' + titleName + '&subtitleName=' + subtitleName + ' ' + Date());
-	window.open('OPHCore/api/msg_rptDialog.aspx?mode=child&code=' + code + '&parentGUID=' + ParentGUID);
+    window.open('OPHCore/api/msg_rptDialog.aspx?mode=child&code=' + code + '&parentGUID=' + ParentGUID);
 }
 
 //other
@@ -1046,80 +1048,7 @@ function goTo(url, isPost) {
 
 
 function genReport(code, outputType) {
-    //if (parameter.indexOf(':') < 0) {
-    //    var parvalue1 = "";
-    //    var parameter = parameter.substring(0, (parameter.length - 1));
-    //    do {
-    //        if (parameter.indexOf(',') > -1) {
-    //            parid = parameter.substring(0, parameter.indexOf(','));
-    //            parid1 = parid
 
-    //            do {
-    //                parid1 = parid1.replace('*', '');
-    //            }
-    //            while (parid1.indexOf('*') > -1)
-    //            if (parid1.substring(0, 1) == '#') {
-    //                parid1 = parid1.replace("#", "");
-    //                parid1 = parid1.replace("#", "");
-    //                parvalue = parid1;
-    //            }
-    //            else {
-    //                if (document.getElementById(parid1).type == 'checkbox') {
-    //                    var r = document.getElementById(parid1).checked ? "True" : "False";
-    //                    parvalue = "" + r + "";
-    //                }
-    //                else {
-    //                    parvalue = document.getElementById(parid1).value;
-
-    //                }
-    //                parid = parid1.replace(parid1, parvalue);
-
-    //            }
-
-    //            if (outType == 1)
-    //                parvalue1 += parid1 + ":''" + parvalue + "'',";
-    //            else
-    //                parvalue1 += parid1 + ":''" + parvalue + "'',";
-    //            parameter = parameter.substring(parameter.indexOf(',') + 1, parameter.length);
-    //        }
-    //        else {
-    //            if (parameter.length > 0) {
-    //                do {
-    //                    parameter = parameter.replace('*', '');
-    //                }
-    //                while (parameter.indexOf('*') > -1)
-    //                if (parameter.substring(0, 1) == '#') {
-    //                    parameter = parameter.replace("#", "");
-    //                    parameter = parameter.replace("#", "");
-    //                    parvalue1 += "''" + parameter + "''";
-    //                }
-    //                else {
-    //                    if (eval("document.getElementById('" + parameter + "').type") == 'checkbox') {
-    //                        var r = (eval("document.getElementById('" + parameter + "').checked")) ? "True" : "False";
-    //                        if (outType == 1)
-    //                            parvalue1 += parameter + ":" + r + "";
-    //                        else
-    //                            parvalue1 += parameter + ":" + r + "";
-    //                    }
-    //                    else {
-    //                        if (outType == 1)
-    //                            parvalue1 += parameter + ":''" + eval("document.getElementById('" + parameter + "').value") + "''";
-    //                        else
-    //                            parvalue1 += parameter + ":''" + eval("document.getElementById('" + parameter + "').value") + "''";
-    //                    }
-    //                }
-    //                parameter = parvalue1;
-
-    //            }
-    //            break;
-    //        }
-    //    }
-    //    while (parameter.indexOf(',') > -2)
-    //}
-    //parameter = parameter.replace("''''", "null").replace("''''", "null").replace("''''", "null").replace("''''", "null").replace("''''", "null").replace("''''", "null").replace("''''", "null");
-    //var ParentGUID = '';
-    //mode = (outType == 1) ? 'dplx' : 'gbox';
-    //if (outputType == 'child') ParentGUID = '&parentGUID=' + getQueryVariable('GUID');
     url = 'OPHCore/api/msg_rptDialog.aspx?mode=' + outputType + '&code=' + code;
 
     urlsplit = url.split('?');
@@ -1152,24 +1081,13 @@ function genReport(code, outputType) {
 
     $('#report').submit();
     $('#report').remove();
-
-
-    //window.open('OPHCore/api/msg_rptDialog.aspx?' + mode + '=1&code=' + code + '&parameter=' + parameter + '&outputType=' + outType + '&query=' + query + '&reportName=' + reportName);
-    //window.open('OPHCore/api/msg_rptDialog.aspx?mode=' + outputType + '&code=' + code);
 }
 
 //radio
 function panel_display(t, val, isdv) {
-    //if (val == 1) {
     try {
         document.getElementById('accordion_' + t).style.display = 'block';
-        //$('#' + t).val(val);
     } catch (e) { }
-    //} else {
-    //    try {
-    //        document.getElementById('accordion_'+flag).style.display = 'none';
-    //    } catch (e) { }
-    //}
     if (!isdv) {
         if ($(t).data("child") === 'Y') {
             $('#child_button_addSave').show();

@@ -165,6 +165,11 @@ Partial Class OPHCore_api_msg_rptDialog
             'default exportMode=1
             exportMode = IIf(Not exportMode = "0", "1", "0")
 
+            'output 0 = download Report XLS & CSV
+            'output 1 = download Module 
+            'output 2 = ???
+            'output 3 = download Child
+
             If mode = "parent" Then  'xls/csv/txt
                 If reportName = "" Then reportName = code
                 gext = Right(reportName, reportName.Length - InStr(reportName, "."))
