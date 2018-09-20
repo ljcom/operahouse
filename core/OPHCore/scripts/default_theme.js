@@ -885,7 +885,7 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
 }
 
 function downloadModule(code, exportMode) {
-    window.open('OPHCore/api/msg_rptDialog.aspx?gbox=1&code=' + code + '&mode=xls&exportMode=' + exportMode);
+    window.open('OPHCore/api/msg_rptDialog.aspx?code=' + code + '&mode=parent&exportMode=' + exportMode);
 }
 
 function downloadChild(code, t) {
