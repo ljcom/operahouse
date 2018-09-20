@@ -190,7 +190,7 @@ Partial Class OPHCore_api_msg_rptDialog
                     gfile = g & "_" & reportName & ".xls"
                 End If
 
-                sqlstr = "exec gen.downloadChild '" & curHostGUID & "', '" & code & "','" & ParentGUID & "'"
+                sqlstr = "exec gen.downloadChild " & curHostGUID & ", '" & code & "','" & ParentGUID & "'"
             Else
                 If InStr(reportName, ".") = 0 Then reportName = reportName & ".xls"
                 gext = LCase(Right(reportName, reportName.Length - InStr(reportName, ".")))
@@ -225,8 +225,9 @@ Partial Class OPHCore_api_msg_rptDialog
                     End If
                     n += 1
                 Next
+                sqlstr = sqlstr.replace("''", "null")
             End If
-            sqlstr = sqlstr.replace("''", "null")
+
 
             Dim pathGBOX As String = gpath & gfile
             Try

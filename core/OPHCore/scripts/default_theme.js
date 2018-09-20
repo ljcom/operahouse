@@ -887,13 +887,14 @@ function downloadModule(code, exportMode) {
 }
 
 function downloadChild(code, t) {
-    var titleName = '';
-    var subtitleName = '';
+    //var titleName = '';
+    //var subtitleName = '';
 
     ParentGUID = $(t).parent().parent().parent().parent().parent().parent().parent().data("parentguid");
     if (ParentGUID == undefined) ParentGUID = getQueryVariable('GUID');
-    ParentGUID = '&parentGUID=' + ParentGUID;
-    window.open('OPHCore/api/msg_rptDialog.aspx?gbox=1&code=' + code + '&parameter=&outputType=3&' + ParentGUID + '&titleName=' + titleName + '&subtitleName=' + subtitleName + ' ' + Date());
+    
+    //window.open('OPHCore/api/msg_rptDialog.aspx?gbox=1&code=' + code + '&parameter=&outputType=3&' + ParentGUID + '&titleName=' + titleName + '&subtitleName=' + subtitleName + ' ' + Date());
+	window.open('OPHCore/api/msg_rptDialog.aspx?mode=child&code=' + code + '&parentGUID=' + ParentGUID);
 }
 
 //other
