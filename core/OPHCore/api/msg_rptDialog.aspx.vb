@@ -53,7 +53,7 @@ Partial Class OPHCore_api_msg_rptDialog
         Dim ds1 = SelectSqlSrvRows(sqlstr)
         If ds1.Tables.Count > 0 Then
             If ds1.Tables(0).Rows.Count > 0 Then
-                parameterid = ds1.Tables(0).Rows(0).Item("parameters")
+                parameterid = ds1.Tables(0).Rows(0).Item("parameters").replace("%2F", "/")
                 reportName = ds1.Tables(0).Rows(0).Item("reportName")
             End If
 
@@ -147,20 +147,19 @@ Partial Class OPHCore_api_msg_rptDialog
 
 
                 End Try
-            ElseIf mode = "xls" Then
+            ElseIf mode = "xls" Or mode = "child" Or mode = "parent" Then
 
                 Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
-                'SpreadsheetInfo.SetLicense(appSettings.Item("gBox.LicenseKey").ToString)
-                SpreadsheetInfo.SetLicense("ESWM-UQ6R-26SR-4WB1")
+                SpreadsheetInfo.SetLicense(appSettings.Item("gBox.LicenseKey").ToString)
 
                 Dim g = System.Guid.NewGuid().ToString
                 Dim Parameters As ParameterDictionary = New ParameterDictionary
                 Dim gfile As String = "", gext As String = ""
                 Dim gpath As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/")
                 If Not Directory.Exists(gpath) Then Directory.CreateDirectory(gpath)
-                Dim exportMode = getQueryVar("exportMode")
+                Dim exportMode = getQueryVar("exportMode").ToString()
                 'default exportMode=1
-                exportMode = IIf(Not exportMode = 0, 1, 0)
+                exportMode = IIf(Not exportMode = "0", "1", "0")
                 writeLog("gbox")
                 writeLog(gpath)
 
@@ -169,7 +168,7 @@ Partial Class OPHCore_api_msg_rptDialog
                 'output 2 = ???
                 'output 3 = download Child
 
-                If mode = "xls" Then  'xls/csv/txt
+                If mode = "parent" Then  'xls/csv/txt
                     If reportName = "" Then reportName = code
                     gext = Right(reportName, reportName.Length - InStr(reportName, "."))
                     If gext = "txt" Then
@@ -178,7 +177,7 @@ Partial Class OPHCore_api_msg_rptDialog
                         gfile = g & "_" & reportName & ".xls"
                     End If
                     sqlstr = "exec gen.downloadModule " & curHostGUID & ", '" & code & "', " & exportMode.ToString
-                ElseIf mode = 3 Then
+                ElseIf mode = "child" Then
                     Dim ParentGUID As String = getQueryVar("ParentGUID").ToString
 
                     If reportName = "" Then reportName = code
@@ -225,6 +224,7 @@ Partial Class OPHCore_api_msg_rptDialog
                         n += 1
                     Next
                 End If
+                sqlstr = sqlstr.replace("''", "null")
 
                 Dim pathGBOX As String = gpath & gfile
                 writeLog("after try")
