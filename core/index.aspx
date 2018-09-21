@@ -23,5 +23,6 @@
         <div id="frameMaster">Loading. Please wait...</div>
         <div id="frameBrowse"></div>
     </form>--%>
+    <input type="hidden" id="unique" value="<%=Now().ToString("yyyyMMddhhmmss")%>" />
 </body>
 </html>

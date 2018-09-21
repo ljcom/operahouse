@@ -2069,35 +2069,7 @@ function resetBrowseCookies() {
 
 }
 
-function searchText(e, searchvalue) {
-    if (e.keyCode == 13 || e.type == 'click') {
-        searchvalue = (searchvalue == undefined) ? $('#searchBox').val() : searchvalue;
-        searchvalue.split("'").join("");
-        if (searchvalue.indexOf('@') >= 0 || searchvalue.indexOf('*') >= 0) {
-            var url = "OPHCore/api/default.aspx?mode=codeSearch&searchValue=" + searchvalue + '&unique=' + getUnique();
-            var posting = $.post(url);
-            posting.done(function (data) {
-                var regex = $(data).find('search').attr('regex');
-                var code = $(data).find('code').text();
-                var msg = $(data).find('message').text();
 
-                if (msg == "" || msg == undefined) {
-                    //valid
-                    var withGUID = (regex == '*') ? '&GUID=' + zeroGUID() : '';
-                    code = (code == undefined || code == "") ? getCode() : code;
-                    window.location.replace('?code=' + code + withGUID);
-                } else {
-                    //invalid
-                    showMessage(msg);
-                }
-            });
-        }
-        else {
-            setCookie('bSearchText', searchvalue, 0, 1, 0);
-            loadContent(1);
-        }
-    }
-}
 
 function searchTextChild(e, searchvalue, code, isClear) {
     if (e.keyCode == 13 || isClear) {

@@ -64,6 +64,7 @@ Partial Class OPHCore_API_default
                 End If
 
                 If searchText = "null" Or searchText = "search" Then searchText = ""
+                searchText = searchText.Replace("%2B", "+")
                 If bpage = "" Then bpage = 1
                 If code <> "" Then
                     Dim rpp = IIf(code.Length() > 6 And String.IsNullOrWhiteSpace(sqlfilter) = False, 10, 20)
@@ -73,6 +74,7 @@ Partial Class OPHCore_API_default
                     If showpage <> "" Then
                         rpp = showpage
                     End If
+
                     sqlstr = "exec [api].[theme_browse] '" & curHostGUID & "', '" & code & "', '" & sqlfilter.Replace("'", "''") & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", " & rpp & ", '" & sortOrder & "', '" & stateid & "'"
 
                     'isSingle = False

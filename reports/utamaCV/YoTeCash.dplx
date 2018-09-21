@@ -7,10 +7,10 @@
 		</query>
 		<template id="Template1"/>
 		<header id="Header1"/>
-		<detail id="Detail1" autoSplit="true" height="277.5">
+		<detail id="Detail1" autoSplit="true" height="334.5">
 			<contentGroup id="ContentGroup1" y="0" height="92" x="2.5" width="195.275">
-				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" height="21.015" width="173.6" x="12.5" y="5.34" text="CV UTAMA"/>
-				<label align="center" fontSize="9" id="Label2" y="26.355" height="22.84" width="186.275" x="5" text="Jl. Semangka 43 A-B Panorama Bengkulu"/>
+				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" height="21.015" width="173.6" x="12.5" y="5.34" text="LIBERTY JAYA"/>
+				<label align="center" fontSize="9" id="Label2" y="26.355" text="Jl. Danau Indah Barat Blok A1/1 Sunter Jaya Jakarta Utara 14350" height="22.84" width="186.275" x="5"/>
 				<line x1="0" y1="50" y2="50" id="Line1" x2="211.775"/>
 				<formattedRecordArea id="FormattedRecordArea3" x="0" height="22" width="145.5" y="56">
 					<initialStyle>
@@ -21,7 +21,7 @@
 					<text><![CDATA[<P>Invoice No: #InvNo#</P><P>Invoice Date: #InvDate#</P>]]></text>
 				</formattedRecordArea>
 				<line id="Line7" x1="1" y1="90" y2="90" x2="212"/></contentGroup>
-			<formattedRecordArea id="FormattedRecordArea1" height="31.1" expandable="true" width="192.1" x="3.1" y="202">
+			<formattedRecordArea id="FormattedRecordArea1" height="31.1" expandable="true" width="192.1" x="3.1" y="245">
 				<initialStyle>
 					<font size="9"/>
 					<line/>
@@ -29,7 +29,7 @@
 				</initialStyle>
 				<text><![CDATA[<P>Customer Name: #Customer#</P><P>Sales by: #HostName#</P><P>Printed on: #printDate#</P>]]></text>
 			</formattedRecordArea>
-			<label align="center" id="Label7" text="Thank you for your purchase.&#xA;See you again soon!" fontSize="8" height="20.18" x="1" width="196.1" y="235"/>
+			<label align="center" id="Label7" text="Thank you for your purchase.&#xA;See you again soon!" fontSize="8" height="20.18" y="281" x="1" width="196.1"/>
 			<subReport id="SubReport1" y="94" x="2.6" width="194.775">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCash_report_sub1">
@@ -49,7 +49,7 @@
 				</detail>
 				<footer id="Footer2" height="1"/>
 			</subReport>
-			<contentGroup id="ContentGroup2" y="137.5" width="193.775" x="2.5" height="61.463">
+			<contentGroup id="ContentGroup2" y="137.5" height="103.963" x="3" width="193.775">
 				<line x1="0" y1="0" y2="0" id="Line4" x2="211.775"/>
 				<line x1="0" id="Line5" y1="28" y2="28" x2="211.775"/>
 				<label fontSize="9" id="Label5" align="right" height="11.34" width="56.7" text="Sub Total" y="2" x="71.555"/>
@@ -65,7 +65,12 @@
 				<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" id="RecordBox6" field="shippingcost" y="29.35" x="133.925"/>
 				<line x1="0" x2="211.775" id="Line8" y1="54" y2="54"/>
 				<line x1="0" x2="211.775" id="Line9" y1="54" y2="54"/>
-			</contentGroup>
+				<label fontSize="9" align="right" height="11.34" width="56.7" id="Label6" y="74.35" text="Less Paid" x="-12.445"/>
+				<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" id="RecordBox5" y="74.35" field="balance" x="133.925"/>
+				<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" id="RecordBox7" y="61.35" field="Payrec" x="133.925"/>
+				<label fontSize="9" align="right" height="11.34" width="56.7" id="Label10" y="88.35" text="Change" x="-20.445"/>
+				<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" id="RecordBox8" y="88.35" field="Change" x="133.925"/>
+				<recordArea id="RecordArea1" height="11.5" width="78.1" fontSize="9" y="62" x="-4"><text>    Paid #Payment#</text></recordArea></contentGroup>
 		</detail>
 		<footer id="Footer1"/>
 	</report>

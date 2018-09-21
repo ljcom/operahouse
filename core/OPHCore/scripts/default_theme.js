@@ -434,10 +434,10 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
             });
         }
 
-        //data.append('code', code);
         data.append('mode', 'save');
         data.append('cfunctionlist', guid);
-        //data.append('guid', guid);
+        data.append('unique', $("#unique").val());
+        
         $.ajax({
             type: "POST",
             url: "OPHCore/api/default.aspx?code=" + code,
@@ -839,10 +839,15 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
     //location: 0 header; 1 child; 2 browse 
     //location: browse:10, header form:20, header sidebar: 21, browse anak:30, browse form:40
 
+    data = new formdata();
 
+    data.append('mode', 'function');
+    data.append('function', action);
+    data.append('cfunctionlist', action);
+    data.append('unique', $("#unique").val());
 
     if (isAction == 1) {
-        $.post(path, function (data) {
+        $.post(path, formData, function (data) {
             var msg = $(data).find('message').text();
             if (msg === '' || msg === 'Approval Succesfully' || msg.substring(0, 1) === '2') {
                 //location: 0 header; 1 child; 2 browse 
@@ -1107,6 +1112,35 @@ function panel_display(t, val, isdv) {
             $('#button_reject').hide();
             $('#button_save2').show();
             $('#button_cancel2').show();
+        }
+    }
+}
+function searchText(e, searchvalue) {
+    if (e.keyCode == 13 || e.type == 'click') {
+        searchvalue = (searchvalue == undefined) ? $('#searchBox').val() : searchvalue;
+        searchvalue.split("'").join("");
+        if (searchvalue.indexOf('@') >= 0 || searchvalue.indexOf('*') >= 0) {
+            var url = "OPHCore/api/default.aspx?mode=codeSearch&searchValue=" + searchvalue + '&unique=' + getUnique();
+            var posting = $.post(url);
+            posting.done(function (data) {
+                var regex = $(data).find('search').attr('regex');
+                var code = $(data).find('code').text();
+                var msg = $(data).find('message').text();
+
+                if (msg == "" || msg == undefined) {
+                    //valid
+                    var withGUID = (regex == '*') ? '&GUID=' + zeroGUID() : '';
+                    code = (code == undefined || code == "") ? getCode() : code;
+                    window.location.replace('?code=' + code + withGUID);
+                } else {
+                    //invalid
+                    showMessage(msg);
+                }
+            });
+        }
+        else {
+            setCookie('bSearchText', searchvalue.split('+').join('%2B'), 0, 1, 0);
+            loadContent(1);
         }
     }
 }
