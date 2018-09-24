@@ -341,17 +341,17 @@ function showUploaderTemplate(bCode, QueryCode, bpageNo, mode, caption) {
 }
 
 function clearSnapbox(e) {
-    var keynum
-    var keychar
-    var numcheck
+    var keynum;
+    var keychar;
+    var numcheck;
 
     if (window.event) // IE
     {
-        keynum = e.keyCode
+        keynum = e.keyCode;
     }
     else if (e.which) // Netscape/Firefox/Opera
     {
-        keynum = e.which
+        keynum = e.which;
     }
     if (keynum == 27) {
         showForm(false);
@@ -2333,6 +2333,46 @@ function show_aprvList(guid) {
     }
 }
 
+
+function checkChanges_old(t) {
+    if (t) {
+        if (($("#" + t.id).prop("type") === "select-one") && (t.options[t.selectedIndex].value !== $("#" + t.id).data("value"))) {
+            $("#" + t.id).data("value", t.options[t.selectedIndex].value);
+        }
+        $("input[type='text'], input[type='checkbox'], textarea, select").each(function () {
+            var tx = $(this);
+            //if ($(this).data("old") != undefined) {
+            var old = $(this).data("old") == undefined ? "" : $(this).data("old");
+            if (((tx.prop("type") === "text" || tx.prop("type") === "checkbox" || tx.prop("file"))
+                && $(this).val() !== old && !tx[0].disabled && !$(tx).attr("readonly"))
+                || tx.prop("type") === "select-one" && $(this).data("value") !== old) {
+                if ($(this).data("child") === 'Y') {
+                    $('#child_button_addSave').show();
+                    $('#child_button_save').show();
+                    $('#child_button_cancel').show();
+                    $('#child_button_delete').hide();
+                    $('#child_button_save2').show();
+                    $('#child_button_cancel2').show();
+                    $('#child_button_delete2').hide();
+                }
+                else {
+                    $('#button_save').show();
+                    $('#button_cancel').show();
+                    $('#button_submit').hide();
+                    $('#button_delete').hide();
+                    $('#button_approve').hide();
+                    $('#button_reject').hide();
+                    $('#button_close').hide();
+                    $('#button_save2').show();
+                    $('#button_cancel2').show();
+
+                }
+                form_edited = true;
+            }
+            //}
+        });
+    }
+}
 
 
 

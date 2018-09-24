@@ -265,7 +265,7 @@ function loadReport(qCode, f) {
     //xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/report_' + getMode() + '_sidebar.xslt';
     //var xmldoc = 'OPHCore/api/default.aspx?mode=report&code=' + getCode() + '&GUID=' + getGUID() + '&date=' + getUnique();
     //showXML('sidebarWrapper', xmldoc, xsldoc, true, true, function () {
-        //if (typeof f === "function") f();
+    //if (typeof f === "function") f();
     //});
 
 }
@@ -437,7 +437,7 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
         data.append('mode', 'save');
         data.append('cfunctionlist', guid);
         data.append('unique', $("#unique").val());
-        
+
         $.ajax({
             type: "POST",
             url: "OPHCore/api/default.aspx?code=" + code,
@@ -539,7 +539,7 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
                                         var defer = [];
                                         autosuggestSetValue(defer, this.tagName, code, this.tagName, this.textContent);
                                     }
-                                } else if (document.getElementById(this.tagName).type != "") {
+                                } else if (document.getElementById(this.tagName).type != undefined) {
                                     document.getElementById(this.tagName).value = $(this).text();
                                 } else {
                                     document.getElementById(this.tagName).innerHTML = $(this).text();
@@ -593,7 +593,7 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
 function checkChanges(t) {
     if (t) {
         var curdata = '';
-        var olddata = $(this).data("old") == undefined ? "" : $(this).data("old");
+        var olddata = $(t).data("old") == undefined ? "" : $(t).data("old");
         if (($("#" + t.id).prop("type") === "select-one") && (t.options[t.selectedIndex].value !== $("#" + t.id).data("value"))) {
             curdata = t.options[t.selectedIndex].value;
             //$("#" + t.id).data("value", t.options[t.selectedIndex].value);
@@ -618,6 +618,7 @@ function checkChanges(t) {
                 $('#button_delete').hide();
                 $('#button_approve').hide();
                 $('#button_reject').hide();
+                $('#button_close').hide();
                 $('#button_save2').show();
                 $('#button_cancel2').show();
 
@@ -626,44 +627,6 @@ function checkChanges(t) {
         }
 
 
-    }
-}
-function checkChanges_old(t) {
-    if (t) {
-        if (($("#" + t.id).prop("type") === "select-one") && (t.options[t.selectedIndex].value !== $("#" + t.id).data("value"))) {
-            $("#" + t.id).data("value", t.options[t.selectedIndex].value);
-        }
-        $("input[type='text'], input[type='checkbox'], textarea, select").each(function () {
-            var tx = $(this);
-            //if ($(this).data("old") != undefined) {
-            var old = $(this).data("old") == undefined ? "" : $(this).data("old");
-            if (((tx.prop("type") === "text" || tx.prop("type") === "checkbox" || tx.prop("file"))
-                && $(this).val() !== old && !tx[0].disabled && !$(tx).attr("readonly"))
-                || tx.prop("type") === "select-one" && $(this).data("value") !== old) {
-                if ($(this).data("child") === 'Y') {
-                    $('#child_button_addSave').show();
-                    $('#child_button_save').show();
-                    $('#child_button_cancel').show();
-                    $('#child_button_delete').hide();
-                    $('#child_button_save2').show();
-                    $('#child_button_cancel2').show();
-                    $('#child_button_delete2').hide();
-                }
-                else {
-                    $('#button_save').show();
-                    $('#button_cancel').show();
-                    $('#button_submit').hide();
-                    $('#button_delete').hide();
-                    $('#button_approve').hide();
-                    $('#button_reject').hide();
-                    $('#button_save2').show();
-                    $('#button_cancel2').show();
-
-                }
-                form_edited = true;
-            }
-            //}
-        });
     }
 }
 
@@ -696,6 +659,7 @@ function saveConfirm() {
     $('#button_delete').show();
     $('#button_approve').show();
     $('#button_reject').show();
+    $('#button_close').show();
     $('#button_save2').hide();
     $('#button_cancel2').hide();
 }
@@ -747,6 +711,7 @@ function saveCancel() {
                                 $('#button_delete').show();
                                 $('#button_approve').show();
                                 $('#button_reject').show();
+                                $('#button_close').show();
                                 $('#button_save2').hide();
                                 $('#button_cancel2').hide();
                                 //$tokenInput(get, '');
@@ -760,6 +725,7 @@ function saveCancel() {
                     $('#button_delete').show();
                     $('#button_approve').show();
                     $('#button_reject').show();
+                    $('#button_close').show();
                     $('#button_save2').hide();
                     $('#button_cancel2').hide();
                 }
@@ -770,6 +736,7 @@ function saveCancel() {
                 $('#button_delete').show();
                 $('#button_approve').show();
                 $('#button_reject').show();
+                $('#button_close').show();
                 $('#button_save2').hide();
                 $('#button_cancel2').hide();
             }
@@ -785,46 +752,45 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
 
     //add parameter approvaluserguid and pwd
     //location: browse:10, header form:20, header sidebar: 21, browse anak:30, browse form:40
-    var successmsg = '', isAction = 1;
+    var successmsg = '', isAction = true;
     var docState = getCookie(code.toLowerCase() + '_curstateid');
 
     if (action === 'execute') {
         if (docState === "" || docState === "0") {
             successmsg = 'Submited Succesfully';
-            if (confirm("You are about to Submit this record. Are you sure?") == 0) { isAction = 0; }
+            isAction = confirm("You are about to Submit this record. Are you sure?");
         }
         else if (docState === '300') {
             successmsg = 'Re-Submited Succesfully';
-            if (confirm("You are about to Re-Submit this record. Are you sure?") == 0) { isAction = 0; }
+            isAction = confirm("You are about to Re-Submit this record. Are you sure?");
         }
         else {
             successmsg = 'Approve Succesfully';
-            if (confirm("You are about to Approve this record. Are you sure?") == 0) { isAction = 0; }
+            isAction = confirm("You are about to Approve this record. Are you sure?");
         }
     } else if (action === 'force') {
         if (docState >= '400') {
-            7;
             successmsg = 'Close/Archive Succesfully';
-            if (confirm("You are about to Close/Archive this record. Are you sure?") == 0) { isAction = 0; }
+            isAction = confirm("You are about to Close/Archive this record. Are you sure?");
         }
         else {
             successmsg = 'Rejected Succesfully';
-            if (confirm("You are about to Reject this record. Are you sure?") == 0) { isAction = 0; }
+            isAction = confirm("You are about to Reject this record. Are you sure?");
         }
     } else if (action === 'reopen') {
         successmsg = 'Reopen Succesfully';
     } else if (action === 'inactivate') {
         successmsg = 'Inactivate Succesfully';
-        if (confirm("You are about to " + action + " this record. Are you sure?") == 0) { isAction = 0; }
+        isAction = confirm("You are about to " + action + " this record. Are you sure?");
         action = "delete";
     } else if (action === 'delete') {
         successmsg = 'Delete Succesfully';
-        if (confirm("You are about to " + action + " this record. Are you sure?") == 0) { isAction = 0; }
+        isAction = confirm("You are about to " + action + " this record. Are you sure?");
     } else if (action === 'restore') {
         successmsg = 'Restore Succesfully';
     } else if (action === 'wipe') {
         successmsg = 'Wipe Succesfully';
-        if (confirm("You are about to " + action + " this record. Are you sure?") == 0) { isAction = 0; }
+        isAction = confirm("You are about to " + action + " this record. Are you sure?");
     }
 
     if (action === "delete" && location == 40) {
@@ -833,59 +799,72 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
         }
     }
     //add approvaluserguid and pwd and comment
-    var path = 'OPHCore/api/default.aspx?code=' + code + '&mode=function&cfunction=' + action + '&cfunctionlist=' + GUID + '&comment=' + comment + '&approvaluserguid=' + approvaluserguid + '&pwd=' + pwd + unique;
+    //var path = 'OPHCore/api/default.aspx?code=' + code + '&mode=function&cfunction=' + action + '&cfunctionlist=' + GUID + '&comment=' + comment + '&approvaluserguid=' + approvaluserguid + '&pwd=' + pwd + unique;
+    var path = 'OPHCore/api/default.aspx?code=' + code + unique;
 
     if (location == undefined || location === "") { location = 20; }
     //location: 0 header; 1 child; 2 browse 
     //location: browse:10, header form:20, header sidebar: 21, browse anak:30, browse form:40
 
-    data = new formdata();
-
-    data.append('mode', 'function');
-    data.append('function', action);
-    data.append('cfunctionlist', action);
-    data.append('unique', $("#unique").val());
-
     if (isAction == 1) {
-        $.post(path, formData, function (data) {
-            var msg = $(data).find('message').text();
-            if (msg === '' || msg === 'Approval Succesfully' || msg.substring(0, 1) === '2') {
-                //location: 0 header; 1 child; 2 browse 
-                //location: browse:10, header form:20, browse anak:30, browse form:40
-                //if ($("#tr1_" + code + GUID) && location !== '10' && action === "delete") {
-                if (action === "delete" && (location == 30 || location == 40)) {
-                    var g = GUID.split(",");
-                    g.forEach(function (i) {
-                        $("#tr1_" + code + i).remove();
-                        $("#tr2_" + code + i).remove();
-                    });
+        var frmData = new FormData();
+        frmData.append('mode', 'function');
+        frmData.append('cfunction', action);
+        frmData.append('cfunctionlist', GUID);
+        frmData.append('comment', comment);
+        frmData.append('approvaluserguid', approvaluserguid);
+        frmData.append('pwd', pwd);
+        frmData.append('unique', $("#unique").val());
+
+        $.ajax({
+            type: "POST",
+            url: path,
+            enctype: 'multipart/form-data',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: frmData,
+            success: function (data) {
+                var msg = $(data).find('message').text();
+                if (msg === '' || msg === 'Approval Succesfully' || msg.substring(0, 1) === '2') {
+                    //location: 0 header; 1 child; 2 browse 
+                    //location: browse:10, header form:20, browse anak:30, browse form:40
+                    //if ($("#tr1_" + code + GUID) && location !== '10' && action === "delete") {
+                    if (action === "delete" && (location == 30 || location == 40)) {
+                        var g = GUID.split(",");
+                        g.forEach(function (i) {
+                            $("#tr1_" + code + i).remove();
+                            $("#tr2_" + code + i).remove();
+                        });
+                    }
+                    else {
+                        if (action === 'delete' && location == 20) {
+                            //location: 0 header; 1 child; 2 browse 
+                            //location: browse:10, header form:20, header sidebar:21, browse anak:30, browse form:40
+
+                            window.location = 'index.aspx?code=' + getQueryVariable("code");
+                        }
+                        //if (action === 'execute' && location == 21) {
+                        //		//refresh sidebar
+                        //                   loadContent(1);
+                        //                   showMessage(successmsg);
+                        //}
+                        else {
+                            //showMessage(successmsg);
+                            loadContent(1);
+                            showMessage(successmsg);
+                        }
+
+                        //window.location.reload();
+                    }
                 }
                 else {
-                    if (action === 'delete' && location == 20) {
-                        //location: 0 header; 1 child; 2 browse 
-                        //location: browse:10, header form:20, header sidebar:21, browse anak:30, browse form:40
-
-                        window.location = 'index.aspx?code=' + getQueryVariable("code");
-                    }
-                    //if (action === 'execute' && location == 21) {
-                    //		//refresh sidebar
-                    //                   loadContent(1);
-                    //                   showMessage(successmsg);
-                    //}
-                    else {
-                        //showMessage(successmsg);
-                        loadContent(1);
-                        showMessage(successmsg);
-                    }
-
-                    //window.location.reload();
+                    loadContent(1);
+                    showMessage(msg);
                 }
             }
-            else {
-                loadContent(1);
-                showMessage(msg);
-            }
         });
+
     }
 }
 
@@ -1110,6 +1089,7 @@ function panel_display(t, val, isdv) {
             $('#button_delete').hide();
             $('#button_approve').hide();
             $('#button_reject').hide();
+            $('#button_close').hide();
             $('#button_save2').show();
             $('#button_cancel2').show();
         }
