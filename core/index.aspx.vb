@@ -55,16 +55,6 @@ Partial Class index
             Session("hostGUID") = curHostGUID
         End If
 
-        'If code = "" Then
-        '    code = "404"
-        '    reloadURL("?code=" & code)
-        'ElseIf code <> loginPage And needLogin Then
-        '    setCookie("lastPar", "?code=" & code, 1)
-        '    Session("lastPar") = "?code=" & code
-        '    code = loginPage
-        '    reloadURL("?code=" & code)
-        'End If
-
         If code = "" And getQueryVar("code") <> "404" Then
             reloadURL("index.aspx?code=404&env=")
         ElseIf (getQueryVar("code") = "") And getQueryVar("code") <> "404" Then
@@ -84,8 +74,9 @@ Partial Class index
             End If
             reloadURL(reloadStr)
         ElseIf code <> "" And needLogin Then
-            setCookie("lastPar", Request.Url.PathAndQuery, 1)
-            Session("lastPar") = Request.Url.PathAndQuery
+
+            setCookie(Request.ApplicationPath.Replace("/", "") & "_lastPar", Request.Url.PathAndQuery, 1)
+            'Session(Request.ApplicationPath & "_lastPar") = Request.Url.PathAndQuery
             reloadURL("index.aspx?env=" & "&code=" & loginPage)
         End If
 
