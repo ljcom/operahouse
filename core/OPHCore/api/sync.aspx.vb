@@ -28,6 +28,7 @@ Partial Class OPHCore_api_sync
                         result = "<sqroot><message>Wrong Parameter Input!</message></sqroot>"
                     Else
                         sqlstr = "exec api.sync_reqtoken '" & accountId & "', '" & userId & "', '" & pwd & "'"
+                        writeLog(sqlstr)
                         xmlstr = getXML(sqlstr, contentOfsequoiaCon)
 
                         If xmlstr IsNot Nothing And xmlstr <> "" Then
