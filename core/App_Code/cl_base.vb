@@ -168,18 +168,6 @@ Public Class cl_base
         newURL = IIf(Right(newURL, 2) = "/?", Replace(newURL, "/?", ""), newURL)
         newURL = IIf(Right(newURL, 1) = "&", newURL.Substring(0, Len(newURL) - 1), newURL)
 
-        'If (Not System.IO.Directory.Exists(logPath)) Then
-        '    System.IO.Directory.CreateDirectory(logPath)
-        'End If
-
-        'Using w As StreamWriter = File.AppendText(logFilepath)
-        '    writeLog(x, w)
-        '    writeLog(newURL, w)
-        '    'writeLog(Request.Url.Authority & Request.ApplicationPath, w)
-        '    'writeLog(Request.ApplicationPath, w)
-        '    'writeLog(reloadStr, w)
-        'End Using
-
         Response.Redirect(newURL)
 
     End Sub
@@ -213,7 +201,7 @@ Public Class cl_base
         End If
 
     End Sub
-    Function loadOfflineData()
+    Function loadOfflineData() As String
         Dim sqlstr = "select moduleid from modl where parentmoduleguid is null"
         Dim scripts = ""
         Dim ds As DataSet = SelectSqlSrvRows(sqlstr)
@@ -295,9 +283,9 @@ Public Class cl_base
     '        username = username.Replace(domains & "\", "")
     '    End If
 
-        'username = "superuser"
-        'userpass = "ljcom2x"
-        'Dim domains = "libertyjayaone.local"
+    'username = "superuser"
+    'userpass = "ljcom2x"
+    'Dim domains = "libertyjayaone.local"
     '    Dim domainContext As PrincipalContext = New PrincipalContext(ContextType.Domain, domains)
     '    Dim user As UserPrincipal = UserPrincipal.FindByIdentity(domainContext, username)
     '    Dim success = False
@@ -372,334 +360,6 @@ Public Class cl_base
         Return result
     End Function
 
-    'Sub AddBodyMenu(ByVal rowNo As Long, ByVal ColNo As Long, ByVal orderNo As Long, ByVal title As String, ByVal picture As String, ByVal content As String, Optional ByVal iscolored As Boolean = False)
-    '    Dim str As String
-    '    If contentofBodyMenu = "" Then
-    '        str = "<table border=0 width=""210"" height=""100%"" valign=""top""></table>"
-    '    Else
-    '        str = contentofBodyMenu
-    '    End If
-    '    If ColNo = 1 And orderNo = 1 Then
-    '        str = Left(str, Len(str) - 8)   '"</table>"
-    '        str &= "<tr><td height=1 valign=""top""></td></tr></table>"
-    '    End If
-    '    If ColNo <> 1 And orderNo = 1 Then
-    '        str = Left(str, Len(str) - 8 - 5) '"</tr></table>"
-    '        str &= "<td height=1 valign=""top""></td></tr></table>"
-    '    End If
-    '    If orderNo = 1 Then
-    '        str = Left(str, Len(str) - 8 - 5 - 5) '"</td></tr></table>"
-    '        If picture = "" Then
-    '            str &= "<table border=0 width=""210"" height=""100%"" valign=""top""><tr valign=top"
-    '            If iscolored Then
-    '                str &= "class=""MainMenuBG"""
-    '            End If
-    '            str &= "><td "
-    '            If iscolored Then
-    '                str &= "class=""MenuBG"" "
-    '            End If
-    '            str &= "height=1><span Class=MainMenuTitle>" & title & "</span></td></tr><tr valign=top><td height=1 "
-    '            If iscolored Then
-    '                str &= "class=""MenuBG"""
-    '            End If
-    '            str &= ">" & content & "</td></tr><tr><td>&#160;</td></tr></table></td></tr></table>"
-    '        Else
-    '            str &= "<table border=0 width=""210"" height=""100%""><tr valign=top"
-    '            If iscolored Then
-    '                str &= "class=""MainMenuBG"""
-    '            End If
-    '            str &= "><td height=1 Class=MainMenuTitle>" & title & "</td></tr><tr valign=top><td height=1 "
-    '            If iscolored Then
-    '                str &= "class=""MenuBG"""
-    '            End If
-    '            str &= "><img src=""" & picture & """></td></tr><tr><td height=1 valign=""top"">" & content & "</td></tr><tr><td>&#160;</td></tr></table></td></tr></table>"
-    '        End If
-
-    '    Else
-    '        str = Left(str, Len(str) - 8 - 5 - 5 - 8 - 24) '"<tr><td>&#160;</td></tr></table></td></tr></table>"
-    '        If picture = "" Then
-    '            str &= "<tr"
-    '            If iscolored Then
-    '                str &= "class=""MainMenuBG"""
-    '            End If
-    '            str &= "><td height=1 Class=MainMenuTitle>" & title & "</td></tr><tr valign=top><td height=1 "
-    '            If iscolored Then
-    '                str &= "class=""MenuBG"""
-    '            End If
-    '            str &= ">" & content & "</td></tr><tr><td>&#160;</td></tr></table></td></tr></table>"
-    '        Else
-    '            str &= "<tr "
-    '            If iscolored Then
-    '                str &= "class=""MainMenuBG"""
-    '            End If
-    '            str &= "><td height=1 Class=MainMenuTitle>" & title & "</td></tr><tr valign=top><td height=1 "
-    '            If iscolored Then
-    '                str &= "class=""MenuBG"""
-    '            End If
-    '            str &= "><img src=""" & picture & """></td></tr><tr><td height=1 valign=""top"">" & content & "</td></tr><tr><td>&#160;</td></tr></table></td></tr></table>"
-    '        End If
-
-    '    End If
-    '    str = str.Replace("##br##", "<br />")
-    '    contentofBodyMenu = str
-    '    contentofBodySubMenu = ""
-    'End Sub
-    'Sub AddBodySubMenu(ByVal content As String, Optional ByVal URLPath As String = "", Optional ByVal isSubTitle As Boolean = 0)
-    '    Dim str As String
-    '    str = contentofBodySubMenu
-
-    '    If isSubTitle Then
-    '        If str <> "" Then
-    '            str &= "<br><span Class=subMenuContent><b>" & content & "</b></span>"
-    '        Else
-    '            str &= "<span Class=subMenuContent><b>" & content & "</b></span>"
-    '        End If
-
-    '    Else
-    '        If URLPath <> "" Then
-    '            'content = "<a Class=""arial10pt"" href=""" & URLPath & """>" & content & "</a>"
-    '            If Not content.Contains("##begina##") And Not content.Contains("##enda##") Then
-    '                content = "##begina##" & content & "##enda##"
-    '            End If
-    '        End If
-    '        If str <> "" Then
-    '            If str.Substring(Len(str) - 5, 5) = "</ul>" Then
-    '                str = Left(str, Len(str) - 5)
-    '                str &= "<li><span Class=subMenuContent>" & content & "</span></li></ul>"
-    '            Else
-    '                str &= "<ul><li><span Class=subMenuContent>" & content & "</span></li></ul>"
-    '            End If
-    '        Else
-    '            str &= "<ul><li><span Class=subMenuContent>" & content & "</span></li></ul>"
-    '        End If
-
-    '    End If
-    '    Dim n, n1 As Long
-    '    Dim txtn = "", valn = ""
-    '    n = str.IndexOf("##beginspan##")
-    '    n1 = str.IndexOf("##endspan##")
-    '    If n > 0 And n1 > 0 Then
-    '        txtn = str.Substring(n + 13, n1 - n - 13)
-    '    End If
-    '    If txtn <> "" Then
-    '        If Not Session(txtn) Is Nothing Then
-    '            valn = "(" & Session(txtn) & ")"
-    '        Else
-    '            valn = "<img src=""OPHContent/themes/" & Session("skinFolder") & "/images/load-small.gif"" alt=""loading. please wait..."">"
-    '        End If
-    '    End If
-
-    '    str = str.Replace("##beginspan##", "<span id=""")
-    '    str = str.Replace("##endspan##", """>" & valn & "</span>")
-    '    If URLPath <> "" Then
-    '        str = str.Replace("##begina##", "<a Class=""arial10pt"" href=""" & URLPath & """>")
-    '        str = str.Replace("##enda##", "</a>")
-    '    Else
-    '        str = str.Replace("##begina##", "")
-    '        str = str.Replace("##enda##", "")
-    '    End If
-
-    '    contentofBodySubMenu = str
-    'End Sub
-
-    'Public Sub AddTaskMenu(ByVal content As String, ByVal href As String, Optional ByVal isTitle As Boolean = False, Optional ByVal isReset As Boolean = False, Optional ByVal isCollapse As Boolean = False)
-    '    Dim tablename As String = "", access As String = ""
-    '    'If content = "Home" Then Exit Sub
-    '    If InStr(href, "_") > 0 Then
-    '        If InStr(href, "javascript:jumpTo") = 1 Then
-
-    '            If InStr(href, "master_") > 0 Then
-    '                tablename = Mid(href, InStr(href, "tablename") + 10, Len(href) - InStr(href, "tablename") - 1 - 10)
-    '                If InStr(tablename, "&") > 0 Then
-    '                    tablename = Mid(tablename, 1, InStr(tablename, "&") - 1)
-    '                End If
-    '            Else
-    '                tablename = Mid(href, InStr(href, "'") + 1, InStr(href, "_") - InStr(href, "'") - 1)
-    '                Do While InStr(tablename, "/") > 0
-    '                    tablename = Mid(tablename, InStr(tablename, "/") + 1, Len(tablename) - InStr(tablename, "/"))
-    '                Loop
-
-    '            End If
-    '        Else
-    '            tablename = Left(href, InStr(href, "_") - 1)
-    '        End If
-
-    '        If InStr(href, "?new=1") <> 0 Then
-    '            access = "add"
-    '        Else
-    '            Select Case Mid(tablename, 2, 1)
-    '                Case "a"
-    '                    access = "browse"
-    '                Case "d"
-    '                    access = "delete"
-    '                Case "h"
-    '                    access = "hold"
-    '            End Select
-    '        End If
-    '        tablename = tablename.Replace(Mid(tablename, 2, 1), "a")
-
-    '        If access = "delete" Then
-    '            If ValidAccess(tablename, access, False) <> 1 _
-    '                And ValidAccess(tablename, "wipe", False) <> 1 Then Exit Sub
-    '        ElseIf InStr(href, "changepassword") <> 0 Or InStr(href, "changeUser") <> 0 Then
-    '            access = ""
-    '        ElseIf InStr(href, "caUSER") <> 0 And InStr(href, Session("UserGUID")) <> 0 Then
-    '            access = ""
-    '        Else
-    '            If ValidAccess(tablename, access, False) <> 1 Then Exit Sub
-    '        End If
-    '    End If
-
-    '    If isReset Then
-    '        contentofTaskContent = ""
-    '    End If
-
-    '    If isTitle Then
-    '        If isReset Then
-    '            nbSideBar = 1
-    '            sideBarCollapse = isCollapse
-    '            contentofTaskContent = contentofTaskContent & "<tr class=""SideBarTitleCollapse1"">" &
-    '                    "<td height=19 class=""SideBarTitle1"">" & content & "</td></tr><tr><td><table class=""SideBarTable1"" style=""display: " & IIf(isCollapse, "none", "inline") & """><tr class=""SideBarContent1"" style=""height:1px""><td></td></tr></table></td></tr>" '<tr><td class=""SideBarContentBorder""><table border=0 width=100%></table></td></tr><tr><td height=1 style=""font-size:6"">&#160;</td></tr></table></td></tr><tr><td></td></tr></table>"
-    '        Else
-    '            nbSideBar += 1
-    '            sideBarCollapse = isCollapse
-    '            contentofTaskContent &= "<tr >" &
-    '                    "<td height=1 class=""SideBarBottom"">&#160;</td></tr>"
-
-    '            contentofTaskContent &= "<tr class=""SideBarTitleCollapse" & nbSideBar & """>" &
-    '                    "<td height=""19px"" class=""SideBarTitle" & nbSideBar & """>" & content & "</td></tr><tr><td><table class=""SideBarTable" & nbSideBar & """ style=""display: " & IIf(isCollapse, "none", "inline") & """><tr class=""SideBarContent" & nbSideBar & """ style=""height:1px""><td></td></tr></table></td></tr>" '<tr><td class=""SideBarContentBorder""><table border=0 width=100%></table></td></tr><tr><td height=1 style=""font-size:6"">&#160;</td></tr></table></td></tr><tr><td></td></tr></table>"
-    '        End If
-    '    Else
-    '        contentofTaskContent = Left(contentofTaskContent, Len(contentofTaskContent) - 79)    '<tr class=""SideBarContent" & nbSideBar & """ style=""height:1px""><td></td></tr></table></td></tr>
-    '        '                                                                                    '12345678901 23456789012345    6             789012345 67890123456 7890123456789012345678901234567890
-
-    '        If href <> "" Then
-    '            If content.Contains("##begina##") Then
-    '            Else
-    '                content = "##begina##" & content & "##enda##"
-    '            End If
-
-    '            contentofTaskContent &= "<tr><td height=""22px"" class=""SideBarContent" & nbSideBar & """ valign=middle>" & content & "</td></tr>" '</table></td></tr><tr><td height=1 style=""font-size:6"">&#160;</td></tr></table></td></tr><tr><td></td></tr></table>"
-    '            contentofTaskContent = contentofTaskContent.Replace("##begina##", "<a class=""arial8pt-menu"" href=""" & href & """ onmouseover=""javascript:this.className='arial8pt-selected';"" onmouseout=""javascript:this.className='arial8pt-menu';"">")
-    '            contentofTaskContent = contentofTaskContent.Replace("##enda##", "</a>")
-    '        Else
-    '            contentofTaskContent &= "<tr><td height=""22px"" class=""SideBarContent" & nbSideBar & """ valign=middle>" & content & "</td></tr>" '</table></td></tr><tr><td height=1 style=""font-size:6"">&#160;</td></tr></table></td></tr><tr><td></td></tr></table>"
-    '            contentofTaskContent = contentofTaskContent.Replace("##begina##", "<span class=""arial10pt"">")
-    '            contentofTaskContent = contentofTaskContent.Replace("##enda##", "</span>")
-    '        End If
-    '        contentofTaskContent &= "<tr class=""SideBarContent" & nbSideBar & """ style=""height:1px""><td></td></tr></table></td></tr>"
-
-    '    End If
-    '    Dim str = contentofTaskContent
-
-    '    Dim n, n1 As Long
-    '    Dim txtn = "", valn = ""
-    '    n = str.IndexOf("##beginspan##")
-    '    n1 = str.IndexOf("##endspan##")
-    '    If n > 0 And n1 > 0 Then
-    '        txtn = str.Substring(n + 13, n1 - n - 13)
-    '    End If
-    '    If txtn <> "" Then
-    '        If Not Session(txtn) Is Nothing Then
-    '            valn = "(" & Session(txtn) & ")"
-    '        Else
-    '            valn = "<img src=""OPHContent/themes/" & Session("skinFolder") & "/images/load-small.gif"" alt=""loading. please wait..."">"
-    '        End If
-    '    End If
-
-    '    str = str.Replace("##beginspan##", "<span id=""")
-    '    str = str.Replace("##endspan##", """>" & valn & "</span>")
-    '    'If URLPath <> "" Then
-    '    '    str = str.Replace("##begina##", "<a class=""arial10pt"" href=""" & href & """>")
-    '    '    Str = Str.Replace("##enda##", "</a>")
-    '    'Else
-    '    '    Str = Str.Replace("##begina##", "")
-    '    '    Str = Str.Replace("##enda##", "")
-    '    'End If
-
-    '    contentofTaskMenu = "<table border=""0"" width=""100%"" height=""1"" cellpadding=""0"" cellspacing=""0""><tr><td><table border=""0"" width=""214px"" height=""19px"" cellpadding=""0"" cellspacing=""0"">" & str & "<tr><td height=1 class=""SideBarBottom"">&#160;</td></tr></table></td></tr><tr><td></td></tr></table>"
-
-    'End Sub
-    'Public Sub AddImage(ByVal src As String, alt As String)
-    '    contentofFreeContent = "<img src=""" & src & """ alt=""" & alt & """ />"
-
-    'End Sub
-
-    'Public Sub AddFreeContent(ByVal content As String, Optional ByVal isTitle As Boolean = False, Optional isErrText As Boolean = False)
-    '    If isTitle Then
-    '        contentofFreeContent = "<p class=""freeTitleContent"">" & content & "</p>"
-    '    ElseIf isErrText Then
-    '        contentofFreeContent &= "<p class=""freeErrContent"">" & content & "</p>"
-    '    Else
-    '        contentofFreeContent &= "<p class=""freeContent"">" & content & "</p>"
-    '    End If
-
-    'End Sub
-
-
-    'Function SelectBox(ByVal id As String, ByVal SelectKey As String, ByVal SelectName As String, ByVal tableName As String,
-    '         Optional ByVal type As String = "select", Optional ByVal EditMode As Long = 1,
-    '         Optional ByVal fieldId As String = "", Optional ByVal fieldKey As String = "", Optional ByVal fieldName As String = "",
-    '         Optional ByVal inputValueId As String = "", Optional ByVal inputValueKey As String = "", Optional ByVal inputValueName As String = "",
-    '         Optional ByVal sizeKey As String = "5", Optional ByVal sizeName As String = "20", Optional ByVal isAllowBlank As Boolean = True,
-    '         Optional ByVal ComboWhereField1 As String = "", Optional ByVal ComboWhereRequired1 As Long = 0,
-    '         Optional ByVal ComboWhereField2 As String = "", Optional ByVal ComboWhereRequired2 As Long = 0,
-    '         Optional ByVal IsDisabled As Boolean = False) As String
-
-    '    Dim retval As String, optionVal1 As String, optionVal2 As String, sqlstr As String
-    '    retval = "<table border=0 width=100% cellpadding=0 cellspacing=0><tr>"
-    '    If EditMode = 1 Then
-    '        sqlstr = "select * from " & tableName
-    '        optionVal1 = populateCombo(sqlstr, fieldId, fieldKey, inputValueId, isAllowBlank)
-    '        If fieldName = "" Then
-    '            optionVal2 = ""
-    '        Else
-    '            optionVal2 = populateCombo(sqlstr, fieldId, fieldName, inputValueId, isAllowBlank)
-    '        End If
-    '        If sizeKey = "" Then sizeKey = 1
-    '        retval &= "<td width=1><SELECT name=""" & SelectKey & """ value = """ & inputValueId & """ id=""" & SelectKey & """ class=""textBoxStandard"" style=""width:" & sizeKey * 10 & "px"" onchange=""javascript:comboSync(document.all." & id & ", document.all." & SelectKey & ", document.all." & SelectName & ")""" & IIf(IsDisabled = True, " disabled ", "") & ">" & optionVal1 & "</select>" &
-    '            "<td width=1>&#160;</td>" &
-    '            "<td width=1>" & IIf(SelectKey = SelectName Or fieldKey = fieldId Or SelectName = "" Or fieldName = "", "", "<SELECT name = """ & SelectName & """ value = """ & inputValueId & """ id=""" & SelectName & """ class=""textBoxStandard"" style=""width:" & IIf(sizeName = "", 0, sizeName) * 10 & "px"" onchange=""javascript:comboSync(document.all." & id & ", document.all." & SelectName & ", document.all." & SelectKey & ")""" & IIf(IsDisabled = True, " disabled ", "") & ">" & optionVal2 & "</select>") & "</td>" &
-    '            "<td><INPUT id=""" & id & """ type=""hidden"" value = """ & inputValueId & """ name=""" & id & """>&#160;</td></tr></table>"
-    '    ElseIf EditMode = 2 Then
-
-    '        If inputValueId <> "" Then
-    '            retval &= "<td width=1><INPUT id=""" & SelectKey & """ type=""text"" value = """ & inputValueKey & """ name=""" & SelectKey & """ class=""textBoxReadOnly"" size=" & sizeKey & " readonly>" & "</td>" &
-    '                "<td width=1>&#160;</td>" &
-    '                "<td width=1>" & "<INPUT id= """ & SelectName & """ type=""" & IIf(fieldKey = fieldId Or SelectName = "", "hidden", "text") & """ value = """ & inputValueName & """ name=""" & SelectName & """ class=""textBoxReadOnly"" size=" & sizeName & " readonly>" & "</td>" &
-    '                "<td width=1  ID=""img_docombo" & id & """ valign=""top""><a border=0 href=""javascript:doCombo('../../master/Lookup/" & tableName & "_Lookup.aspx', '" & id & "', '" & SelectKey & "', '" & SelectName & "', '" & ComboWhereField1 & "', '" & ComboWhereRequired1 & "', '" & ComboWhereField2 & "', '" & ComboWhereRequired2 & "')""><img border=0 src=""OPHContent/themes/" & Session("skinFolder") & "/images/Lookup.gif"" onmouseover=""javascript:this.style.cursor='hand';""></a></td>" &
-    '                "<td width=1  ID=""img_clear" & id & """ valign=""top""><a href=""javascript:clearCombo('" & id & "', '" & SelectKey & "', '" & SelectName & "');""><img border=0 src=""OPHContent/themes/" & Session("skinFolder") & "/images/clear.gif"" onmouseover=""javascript:this.style.cursor='hand';""></a></td>" &
-    '                "<td><INPUT id=""" & id & """ type=""hidden"" value = """ & inputValueId & """ name=""" & id & """>" &
-    '                "&#160;</td></tr></table>"
-    '            '   For i = 0 To UBound(ExtraCombo)
-    '            '  retval &= "<INPUT name=""" & ExtraCombo(i) & "_extra"" type=""hidden"" id=""" & ExtraCombo(i) & "_extra"">"
-    '            '                Next
-
-    '        Else
-    '            retval &= "<td width=1><INPUT id=""" & SelectKey & """ type=""text"" value = """ & inputValueKey & """ name=""" & SelectKey & """ class=""textBoxStandard"" size=" & sizeKey & " " & IIf(IsDisabled = True, " disabled ", "") & ">" & "</td>" &
-    '                "<td width=1>&#160;</td>" &
-    '                "<td width=1>" & "<INPUT id= """ & SelectName & """ type=""" & IIf(fieldKey = fieldName Or SelectName = "", "hidden", "text") & """ value = """ & inputValueName & """ name=""" & SelectName & """ class=""textBoxStandard"" size=" & sizeName & "" & IIf(IsDisabled = True, " disabled ", "") & ">" & "</td>" &
-    '                "<td width=1 " & IIf(IsDisabled = True, " style=display:none", "") & " ID=""img_docombo" & id & """><a href=""javascript:doCombo('../../master/Lookup/" & tableName & "_Lookup.aspx', '" & id & "', '" & SelectKey & "', '" & SelectName & "', '" & ComboWhereField1 & "', '" & ComboWhereRequired1 & "', '" & ComboWhereField2 & "', '" & ComboWhereRequired2 & "')""><img border=0 src=""OPHContent/themes/" & Session("skinFolder") & "/images/Lookup.gif"" onmouseover=""javascript:this.style.cursor='hand';"" ></a></td>" &
-    '                "<td width=1 " & IIf(IsDisabled = True, " style=display:none", "") & " ID=""img_clear" & id & """><a href=""javascript:clearCombo('" & id & "', '" & SelectKey & "', '" & SelectName & "');""><img border=0 src=""OPHContent/themes/" & Session("skinFolder") & "/images/clear.gif"" onmouseover=""javascript:this.style.cursor='hand';""></a></td>" &
-    '                "<td><INPUT id=""" & id & """ type=""hidden"" value = """ & inputValueId & """ name=""" & id & """" & IIf(IsDisabled = True, " disabled ", "") & ">"
-    '            '      For i = 0 To UBound(ExtraCombo)
-    '            '     retval &= "<INPUT name=""" & ExtraCombo(i) & "_extra"" type=""hidden"" id=""" & ExtraCombo(i) & "_extra"">"
-    '            '    Next
-    '            retval &= "&#160;</td></tr></table>"
-    '        End If
-
-    '    Else
-    '        retval &= "<td width=1><INPUT id=""" & SelectKey & """ type=""text"" value = """ & inputValueKey & """ name=""" & SelectKey & """ class=""textBoxReadOnly"" size=" & sizeKey & " readonly>" & "</td>" &
-    '            "<td width=1>&#160;</td>" &
-    '            "<td width=1>" & IIf(fieldKey = fieldName Or SelectName = "", "", "<INPUT id= """ & SelectName & """ type=""text"" value = """ & inputValueName & """ name=""" & SelectName & """ class=""textBoxReadOnly"" size=" & sizeName & " readonly>") & "</td>" &
-    '            "<td width=1  ID=""img_docombo" & id & """ style=display:none valign=""top""><a border=0 href=""javascript:doCombo('../../master/Lookup/" & tableName & "_Lookup.aspx', '" & id & "', '" & SelectKey & "', '" & SelectName & "', '" & ComboWhereField1 & "', '" & ComboWhereRequired1 & "', '" & ComboWhereField2 & "', '" & ComboWhereRequired2 & "')""><img border=0 src=""OPHContent/themes/" & Session("skinFolder") & "/images/Lookup.gif"" onmouseover=""javascript:this.style.cursor='hand';""></a></td>" &
-    '            "<td width=1  ID=""img_clear" & id & """ style=display:none valign=""top""><a href=""javascript:clearCombo('" & id & "', '" & SelectKey & "', '" & SelectName & "');""><img border=0 src=""OPHContent/themes/" & Session("skinFolder") & "/images/clear.gif"" onmouseover=""javascript:this.style.cursor='hand';""></a></td>" &
-    '            "<td><INPUT id=""" & id & """ type=""hidden"" value = """ & inputValueId & """ name=""" & id & """" & IIf(IsDisabled = True, " disabled ", "") & ">&#160;</td></tr></table>"
-    '    End If
-
-    '    Return retval
-
-    'End Function
 
     Function CheckBox(ByVal id As String, Optional ByVal inputValue As String = "", Optional ByVal EditMode As Long = 1, Optional ByVal size As String = "20", Optional ByVal align As String = "Left", Optional ByVal linkedfield As String = "") As String
         Dim retval As String
@@ -814,69 +474,205 @@ Public Class cl_base
         End If
         Return retval
     End Function
-    'Sub addFreeText(caption As String, id As String, inputType As String, defaultValue As String, Optional comment As String = "", Optional title As String = "")
-    '    If contentofFreeText = "" Then
-    '        contentofFreeText = "##text##"
+
+    Function findProperty(ByVal dss As DataSet, ByVal columnName As String, ByVal Prop As String) As String
+
+        Dim r As DataRow
+        Dim x As String = ""
+        For Each r In dss.Tables(0).Rows
+            If UCase(r.Item("ColName")) = UCase(columnName) Then
+                x = r.Item(Prop).ToString
+                Exit For
+            End If
+        Next
+        Return x
+    End Function
+
+    Sub setCookie(cookieName As String, cookieValue As String, cookieDay As Long)
+        'response.Cookies(cookiename)
+        If Response.Cookies(cookieName) Is Nothing Then
+            Dim MyCookie As New HttpCookie(cookieName)
+            MyCookie.Value = cookieValue
+            MyCookie.Expires = Now.AddDays(cookieDay)
+            Response.Cookies.Add(MyCookie)
+        Else
+            Response.Cookies(cookieName).Value = cookieValue
+        End If
+    End Sub
+    Sub writeLog(logMessage As String)
+        'Dim w As TextWriter
+        Dim path = Server.MapPath("~/OPHContent/log")
+        path = path & "\" '& "OPHContent\log\"
+        Dim logFilepath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\" & Right("0" & DateTime.Now().Day, 2) & ".txt"
+        Dim logPath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\"
+
+        If (Not System.IO.Directory.Exists(logPath)) Then
+            System.IO.Directory.CreateDirectory(logPath)
+        End If
+        Try
+            Using w As StreamWriter = File.AppendText(logFilepath)
+                w.Write(vbCrLf + "Log Entry : ")
+                w.WriteLine("{0} {1}: " + vbCrLf + "{2}", DateTime.Now.ToLongTimeString(), DateTime.Now.ToLongDateString(), logMessage)
+                'w.WriteLine("  :{0}", logMessage)
+            End Using
+
+        Catch ex As Exception
+            Debug.Write(ex.Message.ToString)
+        End Try
+    End Sub
+    Sub writeFile(path As String, filename As String, content As String, Optional isOverwrite As Boolean = True)
+
+        If (Not System.IO.Directory.Exists(path)) Then
+            System.IO.Directory.CreateDirectory(path)
+        End If
+        Dim saveFile = filename
+        If isOverwrite And File.Exists(path & saveFile) Then
+            File.Delete(path & saveFile)
+        End If
+
+        Try
+            Using w As StreamWriter = File.AppendText(path & saveFile)
+                w.Write(content)
+            End Using
+
+        Catch ex As Exception
+            Debug.Write(ex.Message.ToString)
+        End Try
+
+
+    End Sub
+    'Function zipFiles(path As String, filename As String, Optional isOverwrite As Boolean)
+    '    --zip
+    '    If isOverwrite And File.Exists(path & filename) Then
+    '        File.Delete(path & filename)
     '    End If
-    '    Dim newText = ""
-    '    If inputType = "hidden" Then
-    '        newText = "<input type=""hidden"" id=""" & id & """ name=""" & id & """ value=""" & defaultValue & """>##text##"
-    '        contentofFreeText = Replace(contentofFreeText, "##text##", newText)
-    '    ElseIf inputType = "checkbox" Then
-    '        newText = "<p>" & TextBox(id, inputType, defaultValue, 1, "40", , , , title, "freeText") & caption & "<br/>##comment##</p>" & "##text##"
-    '        contentofFreeText = Replace(contentofFreeText, "##text##", newText)
-    '    Else
-    '        'newText = "<tr><td align=""right""></td><td width=""1px"">" & "</td></tr>##tr##"
-    '        newText = "<p class=""freeCaption"">" & caption & "<br/>" & TextBox(id, inputType, defaultValue, 1, "40", , , , title, "freeText") & "<br/>##comment##</p>##text##"
-    '        contentofFreeText = Replace(contentofFreeText, "##text##", newText)
-    '    End If
+    '    Dim startPath As String = @"c:\example\start"
+    '    Dim zipPath As String = @"c:\example\result.zip"
+    '        Dim extractPath As String = @"c:\example\extract"
 
-    '    If comment <> "" Then
-    '        newText = "<br/><p class=""freeComment"">" & comment & "</p>"
-    '    Else
-    '        newText = ""
-    '    End If
-    '    contentofFreeText = Replace(contentofFreeText, "##comment##", newText)
-    'End Sub
-    'Sub addButton(caption As String, id As String, buttonType As String, className As String, jScript As String)
-    '    Dim newText = ""
-    '    If contentofFreeText <> "" Then
-    '        If contentofFreeText.IndexOf("##button##") < 0 Then
-    '            newText = "##button##"
-    '            contentofFreeText = Replace(contentofFreeText, "##text##", newText)
-    '        End If
-    '        Dim onClickStr = ""
-    '        If jScript <> "" Then onClickStr = "onclick=""javascript:" & jScript & """"
-    '        newText = "<button type=""" & buttonType & """ class=""" & className & """ id=""" & id & """ name=""" & id & """ value=""1"" " & onClickStr & ">" & caption & "</button>##button##"
-    '        contentofFreeText = Replace(contentofFreeText, "##button##", newText)
-    '    End If
+    '        ZipFile.CreateFromDirectory(startPath, zipPath)
 
-    'End Sub
+    '    zipFile.ExtractToDirectory(zipPath, extractPath)
 
-    'Function Back(Optional ByVal href As String = "") As String
-    '    Dim jump As String
-
-    '    jump = "../../../OPH/welcome/menu/BACK.aspx"
-
-    '    Return jump
     'End Function
-    'Sub SignOff()
-    '    If Request.ServerVariables("URL").Substring(Len(Request.ServerVariables("URL")) - 11) = "signOn.aspx" Then
-    '    Else
-    '        'Session.Abandon()
-    '        If Session("hostGUID") = "" Then
-    '            Session("lastPage") = Request.RawUrl
-    '        Else
-    '            Session("hostGUID") = ""
-    '            Session("lastPage") = ""
-    '        End If
-    '        Dim lastpage = nz(Session("lastPage"))
+    Function getQueryVar(key As String) As String
+        Dim r = ""
 
-    '        contentofSignOff = "top.window.location='?'"
-    '        'Response.Redirect("account/signOn.aspx?lastpage=" & lastpage.replace("&", "*"))
-    '    End If
-    'End Sub
+        'replace this:' " ( ) ; , | < > - \ + & $ @
+        If Not IsNothing(Request.QueryString(key)) Then
+            r = Request.QueryString(key).ToString()
+        ElseIf Not IsNothing(Request.Form(key)) Then
+            r = Request.Form(key).ToString()
+        End If
+        Dim old_r = r
 
+        If r <> "" Then
+            If key.ToLower = "sqlfilter" Then
+                r = r.Replace("--", "").Replace("+", "").Replace(";", "").Replace("<", "").Replace(">", "")
+            Else
+                r = r.Replace(" Then ", "").Replace("'", "").Replace("--", "").Replace("+", "").Replace(";", "").Replace("""", "").Replace("<", "").Replace(">", "")
+                If r <> old_r Then
+                    writeLog(key & "from :" & Request.QueryString(key) & "to :" & r)
+                End If
+            End If
+        End If
+
+        Return r
+    End Function
+    Public Function IsGoogleCaptchaValid() As Boolean
+        Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
+        'dynamic account
+        Dim secret = appSettings.Item("reCAPTCHAsecret")
+        Try
+            Dim recaptchaResponse As String = Request.Form("g-recaptcha-response")
+            If Not String.IsNullOrEmpty(recaptchaResponse) Then
+                Dim request As Net.WebRequest = Net.WebRequest.Create("https://www.google.com/recaptcha/api/siteverify?secret=" & secret & "&response=" + recaptchaResponse)
+                request.Method = "POST"
+                request.ContentType = "application/json; charset=utf-8"
+                Dim postData As String = ""
+
+                'get a reference to the request-stream, and write the postData to it
+                Using s As IO.Stream = request.GetRequestStream()
+                    Using sw As New IO.StreamWriter(s)
+                        sw.Write(postData)
+                    End Using
+                End Using
+
+                ''get response-stream, and use a streamReader to read the content
+                Using s As IO.Stream = request.GetResponse().GetResponseStream()
+                    Using sr As New IO.StreamReader(s)
+                        'decode jsonData with javascript serializer
+                        Dim jsonData = sr.ReadToEnd()
+                        If jsonData.IndexOf("""success"": true") > 0 Then
+                            Return True
+                        End If
+                    End Using
+                End Using
+            End If
+        Catch ex As Exception
+            errorCaptcha = "Your Server is unable to connect Internet | " + ex.Message.ToString
+            'Dont show the error
+        End Try
+        Return False
+    End Function
+    Function writeXMLFromRequestForm(root As String, Optional fieldattachment As List(Of String) = Nothing, Optional GUID As String = "", Optional code As String = "") As String
+        Dim info = "<" & root & ">#element#</" & root & ">"
+        Dim theDate As DateTime = DateTime.Now
+        Dim szFilename = Year(theDate) & "/" & Month(theDate)
+
+        For x = 0 To Request.Form.Count - 1
+            Dim colName As String = Request.Form.Keys(x)
+            Dim ix As Integer
+
+            'for Radio Button
+            'ix = colName.ToLower().IndexOf("_radio")
+            'If ix > 0 Then colName = Left(colName, ix)
+
+            If Not fieldattachment Is Nothing AndAlso fieldattachment.Contains(Request.Form.Keys(x)) Then
+                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & code & "_" & colName & "/" & szFilename & "/" & GUID & "_" & Trim(Request.Form(x).Split(",")(1)).Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
+            Else
+                Dim reqForm = IIf(Request.Form(x) = "NULL", "", Request.Form(x).Replace("'", "&#39;").Replace("&", "&amp;"))
+                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & IIf(reqForm = "NULL", "", reqForm) & "</value></field>#element#")
+                'info = info.Replace("#element#", "<field id=""" & colName & """><value>" & Request.Form(x).Replace("'", "&#39;").Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
+            End If
+        Next
+        info = info.Replace("#element#", "")
+
+        Return info
+
+    End Function
+    Function populateSaveXML(ByVal vp As Long, ByVal Tablename As String, Optional ispreview As String = "", Optional fieldattachment As List(Of String) = Nothing, Optional ByVal connection As String = "") As String
+
+        loadAccount()
+        Dim DBCore = contentOfsqDB
+        Dim curHostGUID = Session("hostGUID")
+        Dim curUserGUID = Session("userGUID")
+
+        'Tablename = Left(Tablename, 1) & "o" & Mid(Tablename, 3, Len(Tablename) - 2)
+        Dim saveXML = writeXMLFromRequestForm("sqroot", fieldattachment, Tablename)
+        saveXML = saveXML.Replace("&amp;lt;", "&lt;").Replace("&amp;gt;", "&gt;").Replace("&amp;#39;", "&#39;")
+        Dim contentofSaveString As String = ""
+        Dim mainguid = getQueryVar("cfunctionlist")
+        'Dim hostGUID As String
+
+        If mainguid = "" Or Request.Form("gen_newid") = "1" Then
+            'contentofSaveString = " exec api.[save] '" & Session("HostGUID").ToString & "', '" & Tablename & "', null, '" & saveXML & "'"
+            contentofSaveString = "exec api.[save] '" & curHostGUID & "', '" & Tablename & "', null, '" & saveXML & "'"
+        Else
+            If mainguid.IndexOf(",") > 0 Then
+                Stop
+                'should be cannot save more than one row
+                'contentofSaveString &= " exec oph." & Tablename & "_save '" & mainguid.Substring(0, mainguid.IndexOf(",")) & "', '" & Session("HostGUID").ToString & "', '" & saveXML & "'"
+                'mainguid = mainguid.Substring(mainguid.IndexOf(",") + 1, mainguid.Length - (mainguid.IndexOf(",") + 1))
+            Else
+                'contentofSaveString &= " exec api.[save] '" & Session("HostGUID").ToString & "', '" & Tablename & "', '" & mainguid & "', '" & saveXML & "'"
+                contentofSaveString &= " exec api.[save] '" & curHostGUID & "', '" & Tablename & "', '" & mainguid & "', '" & saveXML & "'"
+            End If
+        End If
+
+        Return contentofSaveString
+
+    End Function
 
 #End Region
 #Region "Authorization"
@@ -1001,29 +797,7 @@ Public Class cl_base
 #End Region
 #Region "SQL Section"
 
-    Function findProperty(ByVal dss As DataSet, ByVal columnName As String, ByVal Prop As String) As String
 
-        Dim r As DataRow
-        Dim x As String = ""
-        For Each r In dss.Tables(0).Rows
-            If UCase(r.Item("ColName")) = UCase(columnName) Then
-                x = r.Item(Prop).ToString
-                Exit For
-            End If
-        Next
-        Return x
-    End Function
-    Sub setCookie(cookieName As String, cookieValue As String, cookieDay As Long)
-        'response.Cookies(cookiename)
-        If Response.Cookies(cookieName) Is Nothing Then
-            Dim MyCookie As New HttpCookie(cookieName)
-            MyCookie.Value = cookieValue
-            MyCookie.Expires = Now.AddDays(cookieDay)
-            Response.Cookies.Add(MyCookie)
-        Else
-            Response.Cookies(cookieName).Value = cookieValue
-        End If
-    End Sub
     Function runSQL(ByVal sqlstr As String, Optional ByVal sqlconstr As String = "") As Boolean
         Dim r As Boolean
 
@@ -1174,7 +948,6 @@ Public Class cl_base
         Return result
 
     End Function
-
     Public Function SelectSqlSrvRows(ByVal query As String, ByVal Optional sqlconstr As String = "") As DataSet
 
         Dim myConnectionString As String = sqlconstr
@@ -1282,91 +1055,7 @@ Public Class cl_base
         End If
 
     End Sub
-    Sub writeLog(logMessage As String)
-        'Dim w As TextWriter
-        Dim path = Server.MapPath("~/OPHContent/log")
-        path = path & "\" '& "OPHContent\log\"
-        Dim logFilepath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\" & Right("0" & DateTime.Now().Day, 2) & ".txt"
-        Dim logPath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\"
 
-        If (Not System.IO.Directory.Exists(logPath)) Then
-            System.IO.Directory.CreateDirectory(logPath)
-        End If
-        Try
-            Using w As StreamWriter = File.AppendText(logFilepath)
-                w.Write(vbCrLf + "Log Entry : ")
-                w.WriteLine("{0} {1}: " + vbCrLf + "{2}", DateTime.Now.ToLongTimeString(), DateTime.Now.ToLongDateString(), logMessage)
-                'w.WriteLine("  :{0}", logMessage)
-            End Using
-
-        Catch ex As Exception
-            Debug.Write(ex.Message.ToString)
-        End Try
-    End Sub
-    Sub writeFile(path As String, filename As String, content As String, Optional isOverwrite As Boolean = True)
-        'Dim w As TextWriter
-        'Dim path = Server.MapPath("~/OPHContent/documents")
-        'path = path & "\" & accountid & "\"
-        'Dim logFilepath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\" & Right("0" & DateTime.Now().Day, 2) & ".txt"
-        'Dim logPath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\"
-
-        If (Not System.IO.Directory.Exists(path)) Then
-            System.IO.Directory.CreateDirectory(path)
-        End If
-        Dim saveFile = filename
-        If isOverwrite And File.Exists(path & saveFile) Then
-            File.Delete(path & saveFile)
-        End If
-
-        Try
-            Using w As StreamWriter = File.AppendText(path & saveFile)
-                w.Write(content)
-            End Using
-
-        Catch ex As Exception
-            Debug.Write(ex.Message.ToString)
-        End Try
-
-
-    End Sub
-    'Function zipFiles(path As String, filename As String, Optional isOverwrite As Boolean)
-    '    --zip
-    '    If isOverwrite And File.Exists(path & filename) Then
-    '        File.Delete(path & filename)
-    '    End If
-    '    Dim startPath As String = @"c:\example\start"
-    '    Dim zipPath As String = @"c:\example\result.zip"
-    '        Dim extractPath As String = @"c:\example\extract"
-
-    '        ZipFile.CreateFromDirectory(startPath, zipPath)
-
-    '    zipFile.ExtractToDirectory(zipPath, extractPath)
-
-    'End Function
-    Function getQueryVar(key As String) As String
-        Dim r = ""
-
-        'replace this:' " ( ) ; , | < > - \ + & $ @
-        If Not IsNothing(Request.QueryString(key)) Then
-            r = Request.QueryString(key).ToString()
-        ElseIf Not IsNothing(Request.form(key)) Then
-            r = Request.Form(key).ToString()
-        End If
-        Dim old_r = r
-
-        If r <> "" Then
-            If key.ToLower = "sqlfilter" Then
-                r = r.Replace("--", "").Replace("+", "").Replace(";", "").Replace("<", "").Replace(">", "")
-            Else
-                r = r.Replace(" Then ", "").Replace("'", "").Replace("--", "").Replace("+", "").Replace(";", "").Replace("""", "").Replace("<", "").Replace(">", "")
-                If r <> old_r Then
-                    writeLog(key & "from :" & Request.QueryString(key) & "to :" & r)
-                End If
-            End If
-        End If
-
-        Return r
-    End Function
 #End Region
 
     'Private Sub Page_Init(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Init
@@ -1383,112 +1072,4 @@ Public Class cl_base
         'End If
 
     End Sub
-    Public Function IsGoogleCaptchaValid() As Boolean
-        Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
-        'dynamic account
-        Dim secret = appSettings.Item("reCAPTCHAsecret")
-        Try
-            Dim recaptchaResponse As String = Request.Form("g-recaptcha-response")
-            If Not String.IsNullOrEmpty(recaptchaResponse) Then
-                Dim request As Net.WebRequest = Net.WebRequest.Create("https://www.google.com/recaptcha/api/siteverify?secret=" & secret & "&response=" + recaptchaResponse)
-                request.Method = "POST"
-                request.ContentType = "application/json; charset=utf-8"
-                Dim postData As String = ""
-
-                'get a reference to the request-stream, and write the postData to it
-                Using s As IO.Stream = request.GetRequestStream()
-                    Using sw As New IO.StreamWriter(s)
-                        sw.Write(postData)
-                    End Using
-                End Using
-
-                ''get response-stream, and use a streamReader to read the content
-                Using s As IO.Stream = request.GetResponse().GetResponseStream()
-                    Using sr As New IO.StreamReader(s)
-                        'decode jsonData with javascript serializer
-                        Dim jsonData = sr.ReadToEnd()
-                        If jsonData.IndexOf("""success"": true") > 0 Then
-                            Return True
-                        End If
-                    End Using
-                End Using
-            End If
-        Catch ex As Exception
-            errorCaptcha = "Your Server is unable to connect Internet | " + ex.Message.ToString
-            'Dont show the error
-        End Try
-        Return False
-    End Function
-    Function writeXMLFromRequestForm(root As String, Optional fieldattachment As List(Of String) = Nothing, Optional GUID As String = "", Optional code As String = "") As String
-        Dim info = "<" & root & ">#element#</" & root & ">"
-        Dim theDate As DateTime = DateTime.Now
-        Dim szFilename = Year(theDate) & "/" & Month(theDate)
-
-        For x = 0 To Request.Form.Count - 1
-            Dim colName As String = Request.Form.Keys(x)
-            Dim ix As Integer
-
-            'for Radio Button
-            'ix = colName.ToLower().IndexOf("_radio")
-            'If ix > 0 Then colName = Left(colName, ix)
-
-            If Not fieldattachment Is Nothing AndAlso fieldattachment.Contains(Request.Form.Keys(x)) Then
-                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & code & "_" & colName & "/" & szFilename & "/" & GUID & "_" & Trim(Request.Form(x).Split(",")(1)).Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
-            Else
-                Dim reqForm = IIf(Request.Form(x) = "NULL", "", Request.Form(x).Replace("'", "&#39;").Replace("&", "&amp;"))
-                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & IIf(reqForm = "NULL", "", reqForm) & "</value></field>#element#")
-                'info = info.Replace("#element#", "<field id=""" & colName & """><value>" & Request.Form(x).Replace("'", "&#39;").Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
-            End If
-        Next
-        info = info.Replace("#element#", "")
-
-        Return info
-
-    End Function
-    Function populateSaveXML(ByVal vp As Long, ByVal Tablename As String, Optional ispreview As String = "", Optional fieldattachment As List(Of String) = Nothing, Optional ByVal connection As String = "") As String
-
-        loadAccount()
-        Dim DBCore = contentOfsqDB
-        Dim curHostGUID = Session("hostGUID")
-        Dim curUserGUID = Session("userGUID")
-
-        'Tablename = Left(Tablename, 1) & "o" & Mid(Tablename, 3, Len(Tablename) - 2)
-        Dim saveXML = writeXMLFromRequestForm("sqroot", fieldattachment, Tablename)
-        saveXML = saveXML.Replace("&amp;lt;", "&lt;").Replace("&amp;gt;", "&gt;").Replace("&amp;#39;", "&#39;")
-        Dim contentofSaveString As String = ""
-        Dim mainguid = getQueryVar("cfunctionlist")
-        'Dim hostGUID As String
-
-        If mainguid = "" Or Request.Form("gen_newid") = "1" Then
-            'contentofSaveString = " exec api.[save] '" & Session("HostGUID").ToString & "', '" & Tablename & "', null, '" & saveXML & "'"
-            contentofSaveString = "exec api.[save] '" & curHostGUID & "', '" & Tablename & "', null, '" & saveXML & "'"
-        Else
-            If mainguid.IndexOf(",") > 0 Then
-                Stop
-                'should be cannot save more than one row
-                'contentofSaveString &= " exec oph." & Tablename & "_save '" & mainguid.Substring(0, mainguid.IndexOf(",")) & "', '" & Session("HostGUID").ToString & "', '" & saveXML & "'"
-                'mainguid = mainguid.Substring(mainguid.IndexOf(",") + 1, mainguid.Length - (mainguid.IndexOf(",") + 1))
-            Else
-                'contentofSaveString &= " exec api.[save] '" & Session("HostGUID").ToString & "', '" & Tablename & "', '" & mainguid & "', '" & saveXML & "'"
-                contentofSaveString &= " exec api.[save] '" & curHostGUID & "', '" & Tablename & "', '" & mainguid & "', '" & saveXML & "'"
-            End If
-        End If
-
-        'save file
-        'Dim storedFilename As String = ""
-        'If Not (f Is Nothing) AndAlso f.HasFile Then
-        '    If Left(Request.Form("cfunction"), 4) = "save" Then
-        '        If Dir(Server.MapPath(folder) & "\" & mainguid & "_" & f.FileName) <> "" Then
-        '            Kill(Server.MapPath(folder) & "\" & mainguid & "_" & f.FileName)
-        '        End If
-        '        If f.FileName <> "" Then
-        '            f.SaveAs(Server.MapPath(folder) & "\" & mainguid & "_" & f.FileName.Replace("'", "_").Replace("+", "_"))
-        '            storedFilename = mainguid & "_" & f.FileName.Replace("'", "_").Replace("+", "_")
-        '        End If
-        '    End If
-        'End If
-
-        Return contentofSaveString
-
-    End Function
 End Class

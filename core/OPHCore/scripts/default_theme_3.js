@@ -2071,27 +2071,6 @@ function resetBrowseCookies() {
 
 
 
-function searchTextChild(e, searchvalue, code, isClear) {
-    if (e.keyCode == 13 || isClear) {
-        var bSearchText = searchvalue;
-        var mode = getCookie(code.toLowerCase() + '_browseMode');
-        var sqlfilter = document.getElementById("filter" + code.toLowerCase()).value;
-        var pageNo = (pageNo == undefined) ? 1 : pageNo;
-
-        var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + sqlfilter + '&bPageNo=' + pageNo + '&bSearchText=' + bSearchText + '&date=' + getUnique();
-        var divName = ['child' + String(code).toLowerCase() + getGUID()];
-        //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
-        if (mode == 'inline')
-            var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];
-        else if (mode != undefined && mode.indexOf('custom') >= 0)
-            var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_" + mode + ".xslt"];
-        else
-            var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
-        pushTheme(divName, xmldoc, xsldoc, true);
-    }
-}
-
-
 
 //function btn_trash(code, GUID, action, page, isChild) {
 //    if (confirm('Are you sure you want to delete this data ?')) {

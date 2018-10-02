@@ -539,7 +539,7 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
                                         var defer = [];
                                         autosuggestSetValue(defer, this.tagName, code, this.tagName, this.textContent);
                                     }
-                                } else if (document.getElementById(this.tagName).type != undefined) {
+                                } else if (document.getElementById(this.tagName).type != undefined && document.getElementById(this.tagName).type != '') {
                                     document.getElementById(this.tagName).value = $(this).text();
                                 } else {
                                     document.getElementById(this.tagName).innerHTML = $(this).text();
@@ -1127,3 +1127,24 @@ function searchText(e, searchvalue) {
         }
     }
 }
+
+function searchTextChild(e, searchvalue, code, isClear) {
+    if (e.keyCode == 13 || isClear) {
+        var bSearchText = searchvalue;
+        var mode = getCookie(code.toLowerCase() + '_browseMode');
+        var sqlfilter = document.getElementById("filter" + code.toLowerCase()).value;
+        var pageNo = (pageNo == undefined) ? 1 : pageNo;
+
+        var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + sqlfilter + '&bPageNo=' + pageNo + '&bSearchText=' + bSearchText + '&date=' + getUnique();
+        var divName = ['child' + String(code).toLowerCase() + getGUID()];
+        //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
+        if (mode == 'inline')
+            var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];
+        else if (mode != undefined && mode.indexOf('custom') >= 0)
+            var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_" + mode + ".xslt"];
+        else
+            var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
+        pushTheme(divName, xmldoc, xsldoc, true);
+    }
+}
+

@@ -76,7 +76,7 @@ Partial Class OPHCore_API_default
                     End If
 
                     sqlstr = "exec [api].[theme_browse] '" & curHostGUID & "', '" & code & "', '" & sqlfilter.Replace("'", "''") & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", " & rpp & ", '" & sortOrder & "', '" & stateid & "'"
-
+                    writeLog("mode browse: " & sqlstr)
                     'isSingle = False
                     'xmlstr = getXML(sqlstr, curODBC)
                 End If

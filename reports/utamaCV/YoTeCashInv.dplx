@@ -12,7 +12,7 @@
 				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" height="21.015" width="173.1" x="7" y="2.34" text="CV UTAMA"/>
 				<label align="center" fontSize="9" id="Label2" width="185.775" x="3.5" height="24.34" text="Jl. Semangka 43 A-B Panorama Bengkulu" y="21.855"/>
 				<line x1="0" y1="50" y2="50" id="Line1" x2="211.775"/>
-				<formattedRecordArea id="FormattedRecordArea3" height="22" width="145.5" y="56" x="2">
+				<formattedRecordArea id="FormattedRecordArea3" height="22" y="56" width="155.5" x="4">
 					<initialStyle>
 						<font size="9"/>
 						<line/>
@@ -21,15 +21,15 @@
 					<text><![CDATA[<P>Invoice No: #InvNo#</P><P>Invoice Date: #InvDate#</P>]]></text>
 				</formattedRecordArea>
 				<line id="Line7" x1="1" y1="90" y2="90" x2="212"/></contentGroup>
-			<formattedRecordArea id="FormattedRecordArea1" height="31.1" expandable="true" y="261" x="1.5" width="195.1">
+			<formattedRecordArea id="FormattedRecordArea1" expandable="true" y="261" width="195.1" height="42.1" x="1.5">
 				<initialStyle>
 					<font size="9"/>
 					<line/>
 					<paragraph/>
 				</initialStyle>
-				<text><![CDATA[<P>Customer Name: #Customer#</P><P>Sales by: #HostName#</P><P>Printed on: #printDate#</P>]]></text>
+				<text><![CDATA[<P>Customer Name: #Customer#</P><P>Cashier&nbsp;by: #HostName#</P><P>Payment type: #payment#</P><P>Printed on: #printDate#</P>]]></text>
 			</formattedRecordArea>
-			<label align="center" id="Label7" text="Thank you for your purchase.&#xA;See you again soon!" fontSize="8" height="20.18" y="297" x="3.5" width="193.5"/>
+			<label align="center" id="Label7" text="Thank you for your purchase.&#xA;See you again soon!" fontSize="8" height="20.18" x="3.5" width="193.5" y="305"/>
 			<subReport id="SubReport1" y="105" x="0.1" width="196.275">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCashInv_report_sub1">
