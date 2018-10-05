@@ -272,27 +272,37 @@ function loadReport(qCode, f) {
 
 function showMessage(msg, mode, fokus, afterMessage) {
     var msgType;
-    if (mode == 1) msgType = 'notice';
-    else if (mode == 2) msgType = 'success';
-    else if (mode == 4) msgType = 'error';
-    else if (mode == 3) msgType = 'warning';
-    else msgType = 'notice';
+    if (msg) {
+        if (mode == 1) msgType = 'notice';
+        else if (mode == 2) msgType = 'success';
+        else if (mode == 4) msgType = 'error';
+        else if (mode == 3) msgType = 'warning';
+        else msgType = 'notice';
 
-    if (msg === '' && (mode == 4 || mode == 3)) msg = 'Time out.';
+        if (msg === '' && (mode == 4 || mode == 3)) msg = 'Time out.';
 
-    $("#notiTitle").text(msgType);
-    $("#notiContent").text(msg);
-    $("#notiModal").modal();
+        $("#notiTitle").text(msgType);
+        $("#notiContent").text(msg);
+        $("#notiModal").modal();
 
-    if (fokus || afterMessage) {
-        try {
-            document.getElementById('notiBtn').onclick = function () {
-                if (fokus) $(fokus).focus();
-                if (typeof afterMessage === "function") afterMessage();
-            };
+        if (typeof afterMessage === "function") {
+            $("#notiModal").on("hidden.bs.modal", function (e) {
+                $("#notiModal").on("hidden.bs.modal", null);
+                afterMessage();
+
+            });
         }
-        catch (e) {
-            //
+
+        if (fokus || afterMessage) {
+            try {
+                document.getElementById('notiBtn').onclick = function () {
+                    if (fokus) $(fokus).focus();
+                    //if (typeof afterMessage === "function") afterMessage();
+                };
+            }
+            catch (e) {
+                //
+            }
         }
     }
 }
@@ -390,10 +400,10 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
     var result;
     var idReq;
     if (requiredname != undefined) {
-        requiredname = requiredname.value;
-        if (requiredname !== '' && requiredname != undefined) {
-            result = checkrequired(requiredname.split(', '), 'good');
-            idReq = checkrequired(requiredname.split(', '), 'id');
+        var requirednamev = requiredname.value;
+        if (requirednamev !== '' && requirednamev != undefined) {
+            result = checkrequired(requirednamev.split(', '), location == 30 ? guid : '', 'good');
+            idReq = checkrequired(requirednamev.split(', '), location == 30 ? guid : '', 'id');
         } else {
             result = 'good';
         }
@@ -459,9 +469,16 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
             $('#notiModal').data("colname", idReq);
             if (typeof afterSuccess === "function") afterSuccess(data);
         } else {
-            if (idReq) showMessage(result, '0', idReq);
-            else showMessage(result);
+            if (idReq) showMessage(result, '0', idReq, function () {
+                if (typeof afterSuccess === "function") afterSuccess(data);
+            });
+            else showMessage(result, 0, null, function () {
+                if (typeof afterSuccess === "function") afterSuccess(data);
+            });
+
+
         }
+
     }
 }
 
@@ -1148,3 +1165,20 @@ function searchTextChild(e, searchvalue, code, isClear) {
     }
 }
 
+function checkrequired(Names, guid, output) {
+    var result = 'good';
+    for (i = 0; i < Names.length - 1; i++) {
+        var val = document.getElementById(Names[i + 1] + (guid != '' ? '_' + guid : '')).value;
+        val = val.trim();
+
+        if (val == '' || val == undefined || val == "NULL") {
+            if (!guid)
+                result = document.getElementById(Names[i + 1] + 'caption').innerHTML + ' need to be filled';
+            else
+                result = Names[i + 1] + ' need to be filled';
+            output = (output == 'id') ? Names[i + 1] : result;
+            break;
+        }
+    }
+    return output;
+}

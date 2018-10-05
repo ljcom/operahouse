@@ -2031,20 +2031,6 @@ function back() {
 }
 
 
-function checkrequired(Names, output) {
-    var result = 'good'
-    for (i = 0; i < Names.length - 1; i++) {
-        var val = document.getElementById(Names[i + 1]).value;
-        val = val.trim();
-
-        if (val == '' || val == undefined || val == "NULL") {
-            result = document.getElementById(Names[i + 1] + 'caption').innerHTML + ' need to be filled';
-            output = (output == 'id') ? Names[i + 1] : result;
-            break;
-        }
-    }
-    return output;
-}
 
 
 function checkCB(checkboxname) {
