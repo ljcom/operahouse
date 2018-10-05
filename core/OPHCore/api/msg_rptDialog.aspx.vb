@@ -179,7 +179,7 @@ Partial Class OPHCore_api_msg_rptDialog
                 If gext = "txt" Then
                     gfile = g & "_" & reportName & ".csv"
                 Else
-                    gfile = g & "_" & reportName & ".xls"
+                    gfile = g & "_" & reportName & ".xlsx"
                 End If
                 sqlstr = "exec gen.downloadModule " & curHostGUID & ", '" & code & "', " & exportMode.ToString
             ElseIf mode = "child" Then
@@ -190,7 +190,7 @@ Partial Class OPHCore_api_msg_rptDialog
                 If gext = "txt" Then
                     gfile = g & "_" & reportName & ".csv"
                 Else
-                    gfile = g & "_" & reportName & ".xls"
+                    gfile = g & "_" & reportName & ".xlsx"
                 End If
 
                 sqlstr = "exec gen.downloadChild " & curHostGUID & ", '" & code & "','" & ParentGUID & "'"
@@ -299,12 +299,14 @@ Partial Class OPHCore_api_msg_rptDialog
 
                         Dim context1 As HttpContext = HttpContext.Current
                         context1.Response.Cache.SetCacheability(HttpCacheability.NoCache)
-                        If Right(pathGBOX, 3) = "xls" Or Right(pathGBOX, 4) = "xlsx" Then
+                        If Right(pathGBOX, 3) = "xls" Then
                             context1.Response.ContentType = "application/vnd.ms-excel"
-                        Else
-                            If Right(pathGBOX, 3) = "txt" Then context1.Response.ContentType = "text/plain"
+                        ElseIf Right(pathGBOX, 4) = "xlsx" Then
+                            context1.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                        ElseIf Right(pathGBOX, 3) = "txt" Then 
+							context1.Response.ContentType = "text/plain"
                         End If
-
+							 
                         context1.Response.ClearHeaders()
                         context1.Response.AddHeader("content-disposition", "attachment;filename=" & gfile)
                         context1.Response.BinaryWrite(bytes)
