@@ -140,6 +140,7 @@ Partial Class OPHCore_api_msg_rptDialog
                         'Response.AddHeader("Content-Disposition", "attachment; filename=" & reportName & ".pdf")
 
                         pdfFile = Request.Url.AbsoluteUri.Replace("msg_rptDialog.aspx", "") & "../../OPHContent/documents/temp/" & g & "_" & reportName & ".pdf"
+                        Response.Write("<html><head><title>Printing...</title></head><script src=""../../OPHContent/cdn/printjs/print.min.js""></script><body><script>printJS('" & pdfFile & "');window.onfocus=function(){ window.close();}</script></body></html>")
                         MyDocument.Draw(savesPath)
 
                     End If
@@ -195,7 +196,7 @@ Partial Class OPHCore_api_msg_rptDialog
 
                 sqlstr = "exec gen.downloadChild " & curHostGUID & ", '" & code & "','" & ParentGUID & "'"
             Else
-                If InStr(reportName, ".") = 0 Then reportName = reportName & ".xls"
+                If InStr(reportName, ".") = 0 Then reportName = reportName & ".xlsx"
                 gext = LCase(Right(reportName, reportName.Length - InStr(reportName, ".")))
 
                 Select Case gext
@@ -313,7 +314,7 @@ Partial Class OPHCore_api_msg_rptDialog
                         context1.Response.Flush()
                         fstream.Close()
                         fstream.Dispose()
-                        finfo.Delete()
+                        'finfo.Delete()
                     End If
                 Else
                     Response.Write("<script>alert('Theres is No Data to be Shown!');window.close();</script>")
