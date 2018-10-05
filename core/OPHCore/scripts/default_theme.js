@@ -1050,7 +1050,8 @@ function goTo(url, isPost) {
 
 function genReport(code, outputType, otherPar) {
 
-    url = 'OPHCore/api/msg_rptDialog.aspx?mode=' + outputType + '&code=' + code + '&' + otherPar;
+    otherPar = (otherPar) ? "&" + otherPar : "";
+    url = 'OPHCore/api/msg_rptDialog.aspx?mode=' + outputType + '&code=' + code + otherPar ;
 
     urlsplit = url.split('?');
     urlonly = urlsplit[0];
@@ -1066,12 +1067,14 @@ function genReport(code, outputType, otherPar) {
     dataFrm.split('&').forEach(function (i) {
         d = i.split('=');
         var newVal = d[1];
-        newVal = newVal.replace(/</g, '&lt;');
-        newVal = newVal.replace(/>/g, '&gt;');
-        //dataForm.append(d[0].toString(), d[1].toString());
-        $('#report').append($('<input/>')
+        if (newVal != undefined) {
+            newVal = newVal.replace(/</g, '&lt;');
+            newVal = newVal.replace(/>/g, '&gt;');
+            //dataForm.append(d[0].toString(), d[1].toString());
+            $('#report').append($('<input/>')
             .attr({ 'type': 'hidden', 'name': d[0].toString(), 'value': d[1].toString() })
-        );
+            );
+        }
     });
 
     par.forEach(function (x) {

@@ -52,11 +52,14 @@ Partial Class OPHCore_api_msg_rptDialog
         If mode = "xls" Or mode = "pdf" Then
             Dim parXML = writeXMLFromRequestForm("sqroot", fieldattachment, "")
             sqlstr = "exec [api].[getReport] " & curHostGUID & ", '" & code & "', '" & parXML & "'"
+            writeLog("getReport : " & sqlstr)
             Dim ds1 = SelectSqlSrvRows(sqlstr)
             If ds1.Tables.Count > 0 Then
                 If ds1.Tables(0).Rows.Count > 0 Then
-                    parameterid = ds1.Tables(0).Rows(0).Item("parameters").replace("%2F", "/")
-                    reportName = ds1.Tables(0).Rows(0).Item("reportName")
+                    If ds1.Tables(0).Rows(0).Item("parameters").ToString <> "" Then
+                        parameterid = ds1.Tables(0).Rows(0).Item("parameters").replace("%2F", "/")
+                        reportName = ds1.Tables(0).Rows(0).Item("reportName")
+                    End If
                 End If
             End If
         End If
@@ -227,7 +230,7 @@ Partial Class OPHCore_api_msg_rptDialog
                 Next
                 sqlstr = sqlstr.replace("''", "null")
             End If
-
+            writeLog("downloadXLS : " & sqlstr)
 
             Dim pathGBOX As String = gpath & gfile
             Try
