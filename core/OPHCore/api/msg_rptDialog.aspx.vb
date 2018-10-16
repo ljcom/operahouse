@@ -314,7 +314,7 @@ Partial Class OPHCore_api_msg_rptDialog
                         context1.Response.Flush()
                         fstream.Close()
                         fstream.Dispose()
-                        'finfo.Delete()
+                        finfo.Delete()
                     End If
                 Else
                     Response.Write("<script>alert('Theres is No Data to be Shown!');window.close();</script>")
