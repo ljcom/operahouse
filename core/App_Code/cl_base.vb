@@ -615,7 +615,7 @@ Public Class cl_base
         End Try
         Return False
     End Function
-    Function writeXMLFromRequestForm(root As String, Optional fieldattachment As List(Of String) = Nothing, Optional GUID As String = "", Optional code As String = "") As String
+    Function writeXMLFromRequestForm(root As String, Optional fieldattachment As List(Of String) = Nothing, Optional randGUID As String = "", Optional code As String = "") As String
         Dim info = "<" & root & ">#element#</" & root & ">"
         Dim theDate As DateTime = DateTime.Now
         Dim szFilename = Year(theDate) & "/" & Month(theDate)
@@ -629,7 +629,7 @@ Public Class cl_base
             'If ix > 0 Then colName = Left(colName, ix)
 
             If Not fieldattachment Is Nothing AndAlso fieldattachment.Contains(Request.Form.Keys(x)) Then
-                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & code & "_" & colName & "/" & szFilename & "/" & GUID & "_" & Trim(Request.Form(x).Split(",")(1)).Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
+                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & code & "_" & colName & "/" & szFilename & "/" & randGUID & "_" & Trim(Request.Form(x).Split(",")(0)).Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
             Else
                 Dim reqForm = IIf(Request.Form(x) = "NULL", "", Request.Form(x).Replace("'", "&#39;").Replace("&", "&amp;"))
                 info = info.Replace("#element#", "<field id=""" & colName & """><value>" & IIf(reqForm = "NULL", "", reqForm) & "</value></field>#element#")
@@ -641,18 +641,17 @@ Public Class cl_base
         Return info
 
     End Function
-    Function populateSaveXML(ByVal vp As Long, ByVal Tablename As String, Optional ispreview As String = "", Optional fieldattachment As List(Of String) = Nothing, Optional ByVal connection As String = "") As String
+    Function populateSaveXML(ByVal vp As Long, ByVal Tablename As String, Optional ispreview As String = "", Optional fieldattachment As List(Of String) = Nothing, Optional ByVal randGUID As String = "") As String
 
         loadAccount()
         Dim DBCore = contentOfsqDB
         Dim curHostGUID = Session("hostGUID")
         Dim curUserGUID = Session("userGUID")
-
+        Dim mainguid = getQueryVar("cfunctionlist")
         'Tablename = Left(Tablename, 1) & "o" & Mid(Tablename, 3, Len(Tablename) - 2)
-        Dim saveXML = writeXMLFromRequestForm("sqroot", fieldattachment, Tablename)
+        Dim saveXML = writeXMLFromRequestForm("sqroot", fieldattachment, randGUID, Tablename)
         saveXML = saveXML.Replace("&amp;lt;", "&lt;").Replace("&amp;gt;", "&gt;").Replace("&amp;#39;", "&#39;")
         Dim contentofSaveString As String = ""
-        Dim mainguid = getQueryVar("cfunctionlist")
         'Dim hostGUID As String
 
         If mainguid = "" Or Request.Form("gen_newid") = "1" Then
@@ -660,7 +659,7 @@ Public Class cl_base
             contentofSaveString = "exec api.[save] '" & curHostGUID & "', '" & Tablename & "', null, '" & saveXML & "'"
         Else
             If mainguid.IndexOf(",") > 0 Then
-                Stop
+                'Stop
                 'should be cannot save more than one row
                 'contentofSaveString &= " exec oph." & Tablename & "_save '" & mainguid.Substring(0, mainguid.IndexOf(",")) & "', '" & Session("HostGUID").ToString & "', '" & saveXML & "'"
                 'mainguid = mainguid.Substring(mainguid.IndexOf(",") + 1, mainguid.Length - (mainguid.IndexOf(",") + 1))

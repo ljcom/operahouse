@@ -89,6 +89,8 @@ Partial Class OPHCore_API_default
                 Dim preview = getQueryVar("flag")
                 'GUID = getQueryVar("guid")
                 'GUID = System.Guid.NewGuid().ToString()
+                GUID = getQueryVar("cfunctionlist")
+                Dim randGUID = ""
 
                 Dim fieldAttachment As New List(Of String)
                 'Dim fileAttachment As New List(Of String)
@@ -102,12 +104,13 @@ Partial Class OPHCore_API_default
                         'If Request.Form(n) = Request.Files(f).FileName Or Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then
                         If Request.Form(n) = Request.Files(f).FileName Or Request.Files(f).FileName.IndexOf(Request.Form(n).ToString()) > 0 Or Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then
                             curField = n
+                            randGUID = System.Guid.NewGuid().ToString()
 
-                            fileName = Trim(IIf(Request.Form(n).Equals(""), Request.Files(f).FileName, Request.Form(n).split(",")(1)))
+                            fileName = Trim(IIf(Request.Form(n).Equals(""), Request.Files(f).FileName, Request.Form(n).split(",")(0)))
                             fieldAttachment.Add(curField)
                             'fileAttachment.Add(fileName)
 
-                            Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & GUID.Replace("'", "") & "_" & fileName
+                            Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & randGUID.Replace("'", "") & "_" & fileName
                             Dim checkDir = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\"
                             If Not Directory.Exists(checkDir) Then Directory.CreateDirectory(checkDir)
                             If Directory.Exists(checkDir) Then
@@ -121,7 +124,7 @@ Partial Class OPHCore_API_default
 
                 Next
 
-                sqlstr = populateSaveXML(1, code, preview, fieldAttachment)
+                sqlstr = populateSaveXML(1, code, preview, fieldAttachment, randGUID)
                 sqlstr = sqlstr.Replace("#95#", "_").Replace("%2F", "/").Replace("%2C", "")
                 sqlstr = sqlstr & ", @preview=" & IIf(preview = "", 0, preview)
                 writeLog(sqlstr)
