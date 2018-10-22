@@ -141,6 +141,7 @@ Partial Class OPHCore_api_msg_rptDialog
                         'Response.AddHeader("Content-Disposition", "attachment; filename=" & reportName & ".pdf")
 
                         pdfFile = Request.Url.AbsoluteUri.Replace("msg_rptDialog.aspx", "") & "../../OPHContent/documents/temp/" & g & "_" & reportName & ".pdf"
+                        Response.Write("<html><head><title>Printing...</title></head><script src=""../../OPHContent/cdn/printjs/print.min.js""></script><body><script>printJS('" & pdfFile & "');window.onfocus=function(){ window.close();}</script></body></html>")
                         MyDocument.Draw(savesPath)
 
                     End If
@@ -180,7 +181,7 @@ Partial Class OPHCore_api_msg_rptDialog
                 If gext = "txt" Then
                     gfile = g & "_" & reportName & ".csv"
                 Else
-                    gfile = g & "_" & reportName & ".xls"
+                    gfile = g & "_" & reportName & ".xlsx"
                 End If
                 sqlstr = "exec gen.downloadModule " & curHostGUID & ", '" & code & "', " & exportMode.ToString
             ElseIf mode = "child" Then
@@ -191,12 +192,12 @@ Partial Class OPHCore_api_msg_rptDialog
                 If gext = "txt" Then
                     gfile = g & "_" & reportName & ".csv"
                 Else
-                    gfile = g & "_" & reportName & ".xls"
+                    gfile = g & "_" & reportName & ".xlsx"
                 End If
 
                 sqlstr = "exec gen.downloadChild " & curHostGUID & ", '" & code & "','" & ParentGUID & "'"
             Else
-                If InStr(reportName, ".") = 0 Then reportName = reportName & ".xls"
+                If InStr(reportName, ".") = 0 Then reportName = reportName & ".xlsx"
                 gext = LCase(Right(reportName, reportName.Length - InStr(reportName, ".")))
 
                 Select Case gext
@@ -300,12 +301,14 @@ Partial Class OPHCore_api_msg_rptDialog
 
                         Dim context1 As HttpContext = HttpContext.Current
                         context1.Response.Cache.SetCacheability(HttpCacheability.NoCache)
-                        If Right(pathGBOX, 3) = "xls" Or Right(pathGBOX, 4) = "xlsx" Then
+                        If Right(pathGBOX, 3) = "xls" Then
                             context1.Response.ContentType = "application/vnd.ms-excel"
-                        Else
-                            If Right(pathGBOX, 3) = "txt" Then context1.Response.ContentType = "text/plain"
+                        ElseIf Right(pathGBOX, 4) = "xlsx" Then
+                            context1.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                        ElseIf Right(pathGBOX, 3) = "txt" Then 
+							context1.Response.ContentType = "text/plain"
                         End If
-
+							 
                         context1.Response.ClearHeaders()
                         context1.Response.AddHeader("content-disposition", "attachment;filename=" & gfile)
                         context1.Response.BinaryWrite(bytes)
