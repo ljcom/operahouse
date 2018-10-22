@@ -184,9 +184,12 @@
                   </li>
                 </ul>
               </div>
-              <div style="text-align:center; margin-top:30px;">
-                <a href="?code={sqroot/header/info/code/id}&amp;guid=00000000-0000-0000-0000-000000000000"  style="background:#1490d7; color:white; padding:10px; border-radius:2px;">NEW DOCUMENT</a>
-              </div>
+
+              <xsl:if test="/sqroot/body/bodyContent/browse/info/permission/allowAdd/.=1">
+                <div style="text-align:center; margin-top:30px;">
+                  <a href="?code={sqroot/header/info/code/id}&amp;guid=00000000-0000-0000-0000-000000000000"  style="background:#1490d7; color:white; padding:10px; border-radius:2px;">NEW DOCUMENT</a>
+                </div>
+              </xsl:if>
               <div class="browse-dropdown-status">
                 <div class="dropdown">
                   <ul class="menu flat-unstyled" style="margin-right:0; padding-right:0; text-align:center;">
@@ -197,7 +200,7 @@
 
                         <i class="fa fa-angle-down" aria-hidden="true">&#xA0;</i>
                       </a>
-                      <ul id="statusContent" class="unstyled border-radius-5 box-shadow" style="width:150px; margin-left:-30px;">
+                      <ul id="statusContent" class="unstyled border-radius-5 box-shadow" style="width:200px; margin-left:-60px;">
                         <xsl:apply-templates select="sqroot/body/bodyContent/browse/info/states/state/substate" />
                       </ul>
                     </li>
@@ -215,6 +218,10 @@
                     <xsl:apply-templates select="sqroot/body/bodyContent/browse/info/states/state/substate" />
                   </ul>-->
                 </div>
+              </div>
+
+              <div style="border-top:2px #DDDDDD solid; padding-top:10px;">
+                <input style="width:20%; border-radius:2px; padding:0px 10px" type="text" id="searchBox" name="searchBox" class="form-control" placeholder="Search..." onkeypress="return searchText(event,this.value);" value=""/>
               </div>
             </div>
       

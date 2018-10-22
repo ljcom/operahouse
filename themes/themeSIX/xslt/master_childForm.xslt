@@ -69,7 +69,7 @@
 
       });
 -->
-      upload_init('<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>');
+      <!--upload_init('<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>');-->
       preview(1, '<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>', '<xsl:value-of select="/sqroot/body/bodyContent/form/info/GUID/."/>','form<xsl:value-of select="/sqroot/body/bodyContent/form/info/code/."/>', this);
 
     </script>

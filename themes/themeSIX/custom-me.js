@@ -1,16 +1,11 @@
 function LoadNewPart(filename, id, code, sqlfilter, searchText, bpageno, showpage, sortOrder) {
-    if (filename == 'product') {
-        filename = filename + '_' + getCookie('browsetype');
-        bpageno = getCookie("bpageno");
-        sortOrder = getCookie("sortOrder");
-        showpage = getCookie("showpage");
-    }
+
 
     if (bpageno == '' || bpageno == undefined) { bpageno = 1 }
     if (showpage == '' || showpage == undefined) { showpage = 21 }
     if (sortOrder == '' || sortOrder == undefined) { sortOrder = '' }
-    var xsldoc = 'OPHContent/themes/themeTwo/xslt/' + filename + '.xslt';
-    var xmldoc = 'OPHCore/api/?mode=browse' + '&code=' + code + '&sqlfilter=' + sqlfilter + '&bSearchText=' + searchText + '&bpageno=' + bpageno + '&showpage=' + showpage + '&sortOrder=' + sortOrder + '&date=' + getUnique();
+    var xsldoc = 'OPHContent/themes/themeSix/xslt/' + filename + '.xslt';
+    var xmldoc = 'OPHCore/api/default.aspx?mode=browse' + '&code=' + code + '&sqlfilter=' + sqlfilter + '&bSearchText=' + searchText + '&bpageno=' + bpageno + '&showpage=' + showpage + '&sortOrder=' + sortOrder + '&date=' + getUnique();
 
     showXML(id, xmldoc, xsldoc, true, true, function () {
         if (typeof f == "function") f();
@@ -71,6 +66,7 @@ function saveThemeONE(code, guid, location, formId) {
         else {
             if (location == 20) {
                 saveConfirm();
+                loadContent(1);
             } else {
                 if (location == 41) {
                     $.when(loadChild(code, pkey, pkvalue, 1)).done(function () {
@@ -740,7 +736,9 @@ function saveBatchUpload(code, guid, location, formId, eid, dataFrm, afterSucces
                         }).done(function (data) {
                             if (typeof afterSuccess == "function") afterSuccess(data);
                             if (length != 0 && length != '' && length == key + 1) {
-                                window.location.reload();
+                                if (code.toLowerCase() == 'toinvcdetl' || code.toLowerCase() == 'toincsdetl'){
+                                    loadChild(code.toLowerCase(), 'parentdocguid', GUID, null, 'custominline_invoice');
+                                }else window.location.reload();
                             }
                         });
                     });
@@ -748,6 +746,21 @@ function saveBatchUpload(code, guid, location, formId, eid, dataFrm, afterSucces
             }
            
         }
-    }        
-       
+    }
+
 }
+
+function replaceContent() {
+    var str = $('#content-post1').html();
+
+    var res = str
+    res = res.replace(/&lt;/g, "<");
+    res = res.replace(/&gt;/g, ">");
+
+    res = res.replace(/&amp;lt;/g, "<");
+    res = res.replace(/&amp;gt;/g, ">");
+    $('#content-post1').html(res);
+
+}
+
+

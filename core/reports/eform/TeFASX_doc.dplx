@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" leftMargin="70.875" rightMargin="70.875" topMargin="70.875" bottomMargin="70.875" pageSize="a4">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="TeFASX_rptbrowse">
+				<parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;FAXGUID&quot;]#"/></storedProcedure>
+		</query>
+		<template id="Template1">
+			<rectangle y="1.5" id="Rectangle1" height="17" x="325" width="123"/>
+			<rectangle id="Rectangle2" y="1.5" height="17" width="30.1" x="418"/>
+			<rectangle width="454.1" x="-0.5" id="Rectangle3" y="138.5" height="563.6"/>
+			<image id="Image1" x="3" y="5" height="33" width="162" path="loreal.png"/>
+		</template>
+		<header id="Header1" height="174.25">
+			<rectangle id="Rectangle13" x="0" fillColor="gray" y="54" height="22.1" width="306.5"/>
+			<label height="17" font="HelveticaBold" id="Label1" x="3.5" text="FIXED ASSETS AUC DISPOSAL/WRITE-OF FOR" fontSize="13" y="56.5" width="301.1"/>
+			<rectangle id="Rectangle14" y="54" height="22.1" x="306.5" width="146.5"/>
+			<label font="HelveticaBold" id="Label2" text="Internal Doc No:" fontSize="9" height="12.6" width="71.1" y="59" x="309"/>
+			<label id="Label3" text="INSTRUCTIONS" font="HelveticaBold" height="14.5" width="85.5" y="78" x="2" fontSize="9"/>
+			<label height="14.5" id="Label4" y="91" font="HelveticaOblique" fontSize="9" width="381.5" x="9" text="1. The purpose of this form is to request for disposal/write-off of Fixed Assets"/>
+			<label height="14.5" font="HelveticaOblique" id="Label5" fontSize="9" width="360.6" x="9" y="107" text="2. (*) Mandatory"/>
+			<label font="HelveticaBold" height="14.5" fontSize="9" text="Company Code" y="3" x="334" width="74.5" id="Label15"/>
+			<label font="HelveticaBold" height="14.5" fontSize="9" text="I001" width="20.5" y="3" x="423" id="Label29"/>
+			<recordBox id="RecordBox1" dataFormat="" height="14" field="FAXDate" width="291" fontSize="10" x="112" y="141"/>
+			<rectangle height="14.5" width="454.1" fillColor="gray" id="Rectangle4" y="124.5" x="-0.5"/>
+			<label font="HelveticaBold" height="13.5" width="261.6" fontSize="10" text="PART A: FIXED ASSETS DETAILS" id="Label6" x="4" y="126.5"/>
+			<label height="12.1" fontSize="9" text="Date of disposal/write-off" width="106.6" id="Label7" x="3.5" y="142"/>
+			<rectangle fillColor="gray" borderColor="gray" height="16" id="Rectangle6" y="158" x="1" width="451"/>
+			<line id="Line2" y1="157" y2="157" x2="453.5" x1="-0.5"/>
+			<line id="Line4" y1="158" y2="174.5" x1="49" x2="49"/>
+			<line id="Line5" x1="153" y1="157.5" x2="153" y2="174"/>
+			<label height="12.1" text="No" fontSize="7" width="11.6" id="Label16" x="4.5" y="161.5"/>
+			<label height="12.1" fontSize="7" text="Asset No" align="center" id="Label17" y="159.5" width="32.1" x="17"/>
+			<label height="12.1" fontSize="7" align="center" text="Description of Fixed Asset" width="91.6" id="Label18" y="161.5" x="51.5"/>
+			<line id="Line6" x1="168" y1="157" x2="168" y2="173.5"/>
+			<label height="12.1" fontSize="7" text="Qty" width="10.6" id="Label19" x="156.5" y="159.5"/>
+			<line id="Line7" y1="158" y2="174.5" x1="291" x2="291"/>
+			<line id="Line8" y1="158" y2="174.5" x1="229" x2="229"/>
+			<label height="12.1" fontSize="7" width="55.1" text="AcquisitionCost" id="Label20" y="160.5" x="173.5"/>
+			<label fontSize="7" height="17.6" width="43.1" text="Accumulated&#xA;Desprection" id="Label21" y="157.5" x="232.5"/>
+			<line id="Line9" y1="157" y2="173.5" x1="347.5" x2="347.5"/>
+			<label fontSize="7" height="17.6" id="Label22" text="Net Book Value (NBV)*" width="42.1" align="center" y="155.5" x="292.5"/>
+			<line id="Line10" y1="157.5" y2="174" x1="396.5" x2="396.5"/>
+			<label fontSize="7" width="43.1" align="center" text="Net Proceeds" id="Label23" height="12.6" y="160.5" x="348.5"/>
+			<label height="17.6" width="43.1" align="center" fontSize="6" text="Net Gain/(Loss)&#xA;on Disposal" id="Label24" x="406.5" y="159.5"/>
+			<line id="Line11" x1="17" x2="17" y1="158" y2="174.5"/>
+			<recordBox id="RecordBox2" dataFormat="" height="12" fontSize="10" field="FAXRefNo" x="380" width="71.5" y="59.5"/>
+		</header>
+		<detail id="Detail1" height="432.5">
+			<rectangle height="14.5" width="454.1" fillColor="gray" x="-0.5" id="Rectangle5" y="114.5"/>
+			<label font="HelveticaBold" height="13.5" width="261.6" fontSize="10" text="PART B: APPROVAL" id="Label9" y="115.5" x="4"/>
+			<label height="13" text="Title" fontSize="7" width="68.5" id="Label10" y="132" x="3"/>
+			<label height="13" fontSize="7" width="115.5" text="User Name (Email Address)" x="71" id="Label11" y="132"/>
+			<label height="13" fontSize="7" align="right" text="Date/Time" width="58.5" id="Label12" x="390.5" y="130.5"/>
+			<label height="13" fontSize="7" width="44.1" text="Status" x="332" id="Label13" y="132"/>
+			<line x1="0" x2="452.5" id="Line1" y1="145" y2="145"/>
+			<subReport id="SubReport3" width="83" x="2" y="156">
+				<header id="Header4" height="127"><label height="13" fontSize="7" width="65.5" text="Requester" id="Label14" x="3" y="1"/>
+					<label height="13" fontSize="7" width="65.5" text="Division Approval" id="Label25" x="3" y="20"/>
+					<label height="13" fontSize="7" width="65.5" text="DAF" id="Label31" x="3" y="58"/>
+					<label height="13" fontSize="7" width="65.5" id="Label27" x="3" y="39" text="Controller Approval"/>
+				</header>
+				<detail id="Detail4" height="0">
+				</detail>
+				<footer id="Footer4"/>
+			</subReport>
+			<line x1="0" x2="452.5" id="Line3" y1="317" y2="317"/>
+			<rectangle height="14.5" width="454.1" fillColor="gray" x="-0.5" id="Rectangle7" y="286.5"/>
+			<label font="HelveticaBold" height="13.5" fontSize="10" text="PART C: CHECKLIST - DOCUMENTS TO BE ATTACHED FOR SCANNING TO CENTRE" width="375.6" x="2" id="Label30" y="287.5"/>
+			<label height="13" fontSize="7" text="For disposal of Fixed Assets white Proceeds," width="148.5" x="6" id="Label32" y="304"/>
+			<rectangle height="15" width="18.5" x="4" id="Rectangle8" y="324"/>
+			<rectangle height="15" width="18.5" x="4" id="Rectangle9" y="345"/>
+			<label height="13" fontSize="7" text="Official Receipt" width="53.5" x="32" id="Label33" y="327"/>
+			<label height="13" fontSize="7" text="Tax Invoice, If applicable" width="84.5" x="32" id="Label34" y="346"/>
+			<subReport id="SubReport2" width="453" y="-4.5" x="-1">
+				<query id="Query2"><storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="sp_taFASXITEM_doc"><parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;FAXGUID&quot;]#"/></storedProcedure></query><header id="Header3"/>
+				<detail id="Detail3" height="25">
+					<rectangle width="104.1" x="50" height="18" y="6" id="Rectangle11"/>
+					<rectangle height="18" x="18" width="32.1" y="6" id="Rectangle12"/>
+					<recordBox height="11" fontSize="8" field="NetGainLoss" dataFormat="#,##0.00" x="398.5" width="52.85" y="8.5" id="RecordBox4"/>
+					<recordBox height="11" fontSize="8" field="NetProceed" dataFormat="#,##0.00" x="349.5" width="47.25" y="9" id="RecordBox5"/>
+					<recordBox height="11" fontSize="8" field="NetBook" dataFormat="#,##0.00" x="294" width="53.75" y="9" id="RecordBox6"/>
+					<recordBox height="11" fontSize="8" field="ACCU" dataFormat="#,##0.00" x="231.5" width="59.5" y="9" id="RecordBox7"/>
+					<recordBox height="11" fontSize="8" field="APPCFY" dataFormat="#,##0.00" x="170.5" width="59.5" y="8" id="RecordBox8"/>
+					<recordBox dataFormat="" height="11" field="AssetGUIDcbId" fontSize="8" width="27.6" x="20" y="8" id="RecordBox9"/>
+					<recordBox dataFormat="" field="AssetGUIDcbNm" x="51" width="101" splittable="true" fontSize="6" y="7" id="RecordBox10" height="17.5"/>
+					<rectangle x="154" width="15.1" y="5.1" id="Rectangle15" height="19"/>
+					<rectangle height="18" x="169" width="61.1" y="6" id="Rectangle16"/>
+					<rectangle height="18" x="230" width="62.1" y="6" id="Rectangle17"/>
+					<rectangle height="18" x="292" width="56.6" y="6" id="Rectangle18"/>
+					<rectangle height="18" x="348.75" width="48.6" y="6" id="Rectangle19"/>
+					<rectangle height="18" x="397.25" width="55.85" y="6" id="Rectangle20"/>
+					<rectangle x="0" width="18.1" height="18" y="6" id="Rectangle21"/>
+				</detail>
+				<footer id="Footer3" height="80">
+					<rectangle height="18" width="61.1" id="Rectangle27" x="169" y="0"/>
+					<rectangle height="18" width="62.1" id="Rectangle28" y="0" x="230"/>
+					<rectangle height="18" width="56.6" id="Rectangle29" x="292" y="0"/>
+					<rectangle height="18" width="48.6" id="Rectangle30" y="0" x="348.75"/>
+					<rectangle height="18" width="55.85" id="Rectangle31" y="0" x="397.25"/>
+					<label id="Label26" text="Note : If more than 5 asset, please attach a schedule" fontSize="6" width="143" height="10.5" x="3" y="5.5"/>
+					<label id="Label28" height="14.5" text="TOTAL" width="23.85" x="146.5" y="5.5" fontSize="7"/>
+					<line id="Line20" x1="453" x2="453" y1="-1" y2="19.5"/>
+					<label height="12.1" text="Reason of disposal/write-off" fontSize="7" width="92.5" id="Label8" x="9.5" y="29"/>
+					<rectangle id="Rectangle10" height="37" width="444" x="6" y="41"/>
+					<recordBox id="RecordBox11" height="12" fontSize="8" field="sum(APPCFY)" dataFormat="#,##0.00" y="3" x="170.5" width="59.25"/>
+					<recordBox height="12" fontSize="8" id="RecordBox12" field="sum(ACCU)" dataFormat="#,##0.00" y="4" x="231" width="60.75"/>
+					<recordBox height="12" fontSize="8" id="RecordBox13" field="sum(NetBook)" dataFormat="#,##0.00" x="293.75" width="54.5" y="3.75"/>
+					<recordBox height="12" fontSize="8" id="RecordBox14" field="sum(NetProceed)" dataFormat="#,##0.00" y="2" x="350" width="46.75"/>
+					<recordBox height="12" fontSize="8" id="RecordBox15" field="sum(NetGainLoss)" dataFormat="#,##0.00" y="2.5" x="398" width="53.75"/>
+					<recordBox dataFormat="" height="35" width="438" id="RecordBox3" y="42" x="11" field="TransferReason"/>
+				</footer>
+			</subReport>
+			<subReport id="SubReport1" width="365" x="87" y="156"><query id="Query3"><storedProcedure dataProvider="msSql" referenceParameter="" name="sp_taFASXAPRV_doc" connectionString="#Global.AppSettings[&quot;connection&quot;]#"><parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;FAXGUID&quot;]#"/></storedProcedure></query><header id="Header2"/><detail id="Detail2" height="18"><recordBox id="RecordBox16" dataFormat="" x="9" height="13" width="88" y="2" field="UserName" fontSize="8"/><recordBox dataFormat="" height="14" width="121.5" field="UserStatusDescription" id="RecordBox17" fontSize="8" x="134" y="2"/><recordBox dataFormat="" height="14" field="updatedDate" id="RecordBox18" fontSize="8" y="2.5" x="296" width="59"/></detail><footer id="Footer2"/></subReport></detail>
+		<footer id="Footer1" height="1"/>
+	</report>
+</document>
