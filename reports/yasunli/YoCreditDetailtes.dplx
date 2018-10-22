@@ -3,7 +3,7 @@
 	<report id="Report1" pageOrientation="landscape" pageSize="a4" bottomMargin="30" leftMargin="30" rightMargin="30" topMargin="30">
 		<query id="Query1">
 			<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoCreditDetail_Header">
-				<parameter type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#" name="@hostGUID"/><parameter type="dateTime" value="#Parameters[&quot;date&quot;]#" name="@date"/><parameter type="uniqueIdentifier" value="#Parameters[&quot;CustName&quot;]#" name="@CustName"/><parameter type="uniqueIdentifier" value="#Parameters[&quot;CashNo&quot;]#" name="@CashNo"/></storedProcedure>
+				<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="date" type="dateTime" value="#Parameters[&quot;date&quot;]#"/><parameter type="uniqueIdentifier" name="CustName" value="#Parameters[&quot;CustName&quot;]#"/><parameter name="CashNo" type="uniqueIdentifier" value="#Parameters[&quot;cashno&quot;]#"/></storedProcedure>
 		</query>
 		<template id="Template1"/>
 		<header id="Header1" height="99">
@@ -29,16 +29,14 @@
 			<label height="14" align="center" font="HelveticaBold" id="Label8" width="64" text="&lt; 60" x="511" fontSize="10" y="79"/>
 			<recordBox id="RecordBox14" dataFormat="" height="14" width="86.5" fontSize="10" field="enddate" x="61" y="40"/></header>
 		<detail id="Detail1" autoSplit="true" height="64">
-			<label id="Label11" height="14" text="Grand Total" font="HelveticaBold" fontSize="11" align="center" y="30" width="79" x="258.1"/>
-			<recordBox dataFormat="" height="14" align="right" fontSize="10" id="RecordBox1" y="30" width="84" x="347" field="totalsales"/>
-			<recordBox dataFormat="" height="14" align="right" fontSize="10" id="RecordBox10" y="30" width="71" x="434" field="totalLT30"/>
-			<recordBox dataFormat="" height="14" align="right" fontSize="10" id="RecordBox11" y="30" width="64" x="511" field="totalLT60"/>
-			<recordBox dataFormat="" height="14" width="80" align="right" fontSize="10" id="RecordBox12" y="30" x="581" field="totalLT90"/>
-			<recordBox dataFormat="" height="14" width="80" align="right" fontSize="10" id="RecordBox13" y="30" x="664" field="totalMT90"/>
 			<subReport id="SubReport1" width="782" x="-1" y="1">
 				<query id="Query2">
 					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoCreditDetail_detail">
-						<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="date" type="dateTime" value="#Parameters[&quot;date&quot;]#"/><parameter name="CustName" type="uniqueIdentifier" value="#Parameters[&quot;CustName&quot;]#"/><parameter name="CashNo" type="uniqueIdentifier" value="#Parameters[&quot;cashno&quot;]#"/></storedProcedure>
+						<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+						<parameter name="date" type="dateTime" value="#Parameters[&quot;date&quot;]#"/>
+						<parameter type="uniqueIdentifier" name="CustName" value="#Parameters[&quot;CustName&quot;]#"/>
+						<parameter name="CashNo" type="uniqueIdentifier" value="#Parameters[&quot;cashno&quot;]#"/>
+					</storedProcedure>
 				</query>
 				<header id="Header2" height="1"/>
 				<detail id="Detail2" autoSplit="true" height="16">
@@ -53,6 +51,12 @@
 				</detail>
 				<footer id="Footer2"/>
 			</subReport>
+			<label id="Label11" height="14" text="Grand Total" font="HelveticaBold" fontSize="11" align="center" y="30" width="79" x="258.1"/>
+			<recordBox dataFormat="" height="14" align="right" fontSize="10" id="RecordBox1" y="30" width="84" x="347" field="totalsales"/>
+			<recordBox dataFormat="" height="14" align="right" fontSize="10" id="RecordBox10" y="30" width="71" x="434" field="totalLT30"/>
+			<recordBox dataFormat="" height="14" align="right" fontSize="10" id="RecordBox11" y="30" width="64" x="511" field="totalLT60"/>
+			<recordBox dataFormat="" height="14" width="80" align="right" fontSize="10" id="RecordBox12" y="30" x="581" field="totalLT90"/>
+			<recordBox dataFormat="" height="14" width="80" align="right" fontSize="10" id="RecordBox13" y="30" x="664" field="totalMT90"/>
 		</detail>
 		<footer id="Footer1" height="22">
 			<pageNumberingLabel align="right" height="14" y="1" text="Page %%CP%% of %%TP%%" width="200" fontSize="10" id="PageNumberingLabel1" x="580"/>

@@ -641,12 +641,13 @@ Public Class cl_base
         Return info
 
     End Function
-    Function populateSaveXML(ByVal vp As Long, ByVal Tablename As String, Optional ispreview As String = "", Optional fieldattachment As List(Of String) = Nothing, Optional ByVal connection As String = "") As String
+    Function populateSaveXML(ByVal vp As Long, ByVal Tablename As String, Optional ispreview As String = "", Optional fieldattachment As List(Of String) = Nothing, Optional ByVal GUID As String = "") As String
 
         loadAccount()
         Dim DBCore = contentOfsqDB
         Dim curHostGUID = Session("hostGUID")
         Dim curUserGUID = Session("userGUID")
+
 
         'Tablename = Left(Tablename, 1) & "o" & Mid(Tablename, 3, Len(Tablename) - 2)
         Dim saveXML = writeXMLFromRequestForm("sqroot", fieldattachment, Tablename)
@@ -660,7 +661,7 @@ Public Class cl_base
             contentofSaveString = "exec api.[save] '" & curHostGUID & "', '" & Tablename & "', null, '" & saveXML & "'"
         Else
             If mainguid.IndexOf(",") > 0 Then
-                Stop
+                'Stop
                 'should be cannot save more than one row
                 'contentofSaveString &= " exec oph." & Tablename & "_save '" & mainguid.Substring(0, mainguid.IndexOf(",")) & "', '" & Session("HostGUID").ToString & "', '" & saveXML & "'"
                 'mainguid = mainguid.Substring(mainguid.IndexOf(",") + 1, mainguid.Length - (mainguid.IndexOf(",") + 1))
