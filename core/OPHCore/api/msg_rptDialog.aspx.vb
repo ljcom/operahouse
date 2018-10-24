@@ -83,10 +83,11 @@ Partial Class OPHCore_api_msg_rptDialog
             parameterid = parameterid.Replace(":", "=").Replace(":null", "=null").Replace("''", "")
             parameterid = parameterid.Replace("/", "-")
             Dim p = parameterid.Split(",")
+            writeLog(parameterid)
             Dim n = 1
             For Each px In p
                 Dim pp = px.Split("=")
-                parValId(Parameters, pp(0), pp(1))
+                parValId(Parameters, Trim(pp(0)), pp(1))
                 n += 1
             Next
             Dim q As Long = 1

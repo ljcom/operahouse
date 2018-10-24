@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" id="YoStockStatus" author="Ellin" subject="LibertyTK" title="Report Stock Status" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageOrientation="landscape" pageSize="a4" bottomMargin="30" leftMargin="30" rightMargin="30" topMargin="30">
+		<query id="Query1">
+			<sql connectionString="" dataProvider="msSql"/>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="50"/>
+		<detail id="Detail1" height="199">
+			<label id="Label1" align="center" font="HelveticaBold" height="25" text="STOCK STATUS" fontSize="15" y="19" width="781" x="0"/>
+			<line id="Line1" x1="0" width="2" x2="781" y1="54" y2="54"/>
+			<label id="Label5" text="Start Date :" height="15.1" font="HelveticaBold" x="7" width="67" y="60" fontSize="10"/>
+			<label x="8" height="15.1" id="Label6" font="HelveticaBold" text="End Date  :" width="66.1" y="78" fontSize="10"/>
+			<recordBox id="RecordBox8" dataFormat="" field="" x="77" width="109" y="60" height="14"/>
+			<recordBox dataFormat="" field="" x="77" width="109" id="RecordBox9" y="78" height="12"/>
+			<subReport id="SubReport1" width="780.1" y="103" x="2">
+				<header id="Header2" height="38">
+					<rectangle id="Rectangle1" fillColor="lightBlue" width="57" y="5" height="24.6" x="6.6"/>
+					<rectangle fillColor="lightBlue" id="Rectangle3" width="96" x="63.1" y="5" height="24.6"/>
+					<rectangle fillColor="lightBlue" height="12.1" id="Rectangle4" y="5" x="158.6" width="255.6"/>
+					<label id="Label2" text="CODE" align="center" font="HelveticaBold" width="58.5" x="5.5" fontSize="9" y="12" height="11.5"/>
+					<label id="Label3" align="center" font="HelveticaBold" height="13.5" fontSize="9" text="STOCK" y="4.5" x="159" width="255.1"/>
+					<label id="Label4" align="center" font="HelveticaBold" width="97.5" fontSize="9" text="DESCRIPTION" x="63" y="11.1" height="14"/>
+					<rectangle fillColor="lightBlue" height="12.1" id="Rectangle5" y="17.5" width="29" x="158.6"/>
+					<label align="center" font="HelveticaBold" id="Label7" fontSize="7" text="BEGIN" y="17.5" height="12.5" width="29" x="159.5"/>
+					<rectangle fillColor="lightBlue" id="Rectangle6" width="35" y="17.5" height="12.1" x="187.6"/>
+					<label align="center" font="HelveticaBold" id="Label8" height="13.1" fontSize="7" text="PCH" y="17.5" width="35.5" x="187.5"/>
+					<rectangle fillColor="lightBlue" id="Rectangle7" y="17.5" height="12.1" width="35" x="222.6"/>
+					<label align="center" font="HelveticaBold" id="Label10" fontSize="7" text="PRE" y="17.5" height="12.5" width="36" x="222.5"/>
+					<rectangle fillColor="lightBlue" id="Rectangle8" width="34.5" y="17.5" height="12.1" x="257.6"/>
+					<label align="center" font="HelveticaBold" id="Label9" fontSize="7" text="SALES" width="35" y="17.5" height="12.1" x="258"/>
+					<rectangle fillColor="lightBlue" height="12.1" id="Rectangle9" y="17.5" width="31" x="291.6"/>
+					<rectangle fillColor="lightBlue" height="12.1" id="Rectangle10" y="17.5" x="322.6" width="31.5"/>
+					<rectangle fillColor="lightBlue" height="12.1" id="Rectangle11" y="17.5" x="354.1" width="30"/>
+					<rectangle fillColor="lightBlue" height="12.1" id="Rectangle12" y="17.5" width="31.5" x="384.1"/>
+					<label align="center" font="HelveticaBold" fontSize="7" y="17.5" height="12.1" id="Label11" x="292" width="31" text="SRE"/>
+					<label align="center" font="HelveticaBold" fontSize="7" y="17.5" height="12.1" id="Label12" x="323" text="ADJ" width="31.1"/>
+					<label align="center" font="HelveticaBold" fontSize="7" y="17.5" height="12.1" id="Label13" text="CON" x="354.5" width="30.1"/>
+					<label align="center" font="HelveticaBold" fontSize="7" height="12.1" id="Label14" width="31.6" text="END" y="17.5" x="384"/>
+					<rectangle fillColor="lightBlue" height="12.1" y="5" id="Rectangle13" x="414.1" width="256.6"/>
+					<label align="center" font="HelveticaBold" height="13.5" fontSize="9" y="4.5" id="Label15" text="VALUE" x="414" width="256.1"/>
+					<rectangle fillColor="lightBlue" height="12.1" y="17.5" id="Rectangle14" x="414.1" width="49.5"/>
+					<label align="center" font="HelveticaBold" fontSize="7" height="12.1" y="17.5" id="Label16" x="414" text="BEGIN" width="50.1"/>
+					<rectangle fillColor="lightBlue" height="12.1" y="17.5" id="Rectangle15" width="40" x="463.1"/>
+					<rectangle fillColor="lightBlue" height="12.1" y="17.5" id="Rectangle16" width="37.1" x="503.1"/>
+					<rectangle fillColor="lightBlue" height="12.1" y="17.5" id="Rectangle17" x="540.1" width="41.5"/>
+					<rectangle fillColor="lightBlue" height="12.1" y="17.5" id="Rectangle18" width="37.5" x="581.1"/>
+					<rectangle fillColor="lightBlue" height="12.1" y="17.5" id="Rectangle19" width="52.5" x="618.1"/>
+					<rectangle fillColor="lightBlue" y="5" height="24.6" id="Rectangle20" x="670.6" width="51.5"/>
+					<rectangle fillColor="lightBlue" y="5" height="24.6" id="Rectangle21" x="721.6" width="54"/>
+					<label align="center" font="HelveticaBold" fontSize="7" height="12.1" y="17.5" id="Label17" x="463" width="40.6" text="PCH"/>
+					<label align="center" font="HelveticaBold" fontSize="7" height="12.1" y="17.5" id="Label18" x="503" width="38.6" text="SALES"/>
+					<label align="center" font="HelveticaBold" fontSize="7" height="12.1" id="Label19" width="41.1" text="ADJ" y="17.5" x="540.5"/>
+					<label align="center" font="HelveticaBold" fontSize="7" height="12.1" y="17.5" id="Label20" x="581" width="37.6" text="CON"/>
+					<label align="center" font="HelveticaBold" fontSize="7" height="12.1" y="17.5" id="Label21" x="618" width="53.1" text="END"/>
+					<label align="center" font="HelveticaBold" fontSize="7" height="12.1" id="Label22" x="671" y="11.5" width="51.6" text="NSA"/>
+					<label align="center" font="HelveticaBold" fontSize="7" height="12.1" y="11.5" id="Label23" x="722" width="53.6" text="R"/>
+				</header>
+				<detail id="Detail2" height="48.5">
+					<recordBox id="RecordBox1" dataFormat="" field="" fontSize="9" y="6" width="56.1" height="14.5" x="7.5"/>
+					<recordBox dataFormat="" field="" fontSize="9" id="RecordBox2" y="6.5" width="97.6" height="14" x="64"/>
+					<recordBox dataFormat="" field="" fontSize="9" id="RecordBox3" align="right" y="6.5" width="27.1" height="14" x="161"/>
+					<recordBox dataFormat="" field="" height="14" fontSize="9" id="RecordBox4" y="6.5" width="30.1" x="293" align="right"/>
+					<recordBox dataFormat="" field="" fontSize="9" id="RecordBox5" height="13.5" x="385" y="7" width="29" align="right"/>
+					<recordBox dataFormat="" field="" fontSize="9" align="right" id="RecordBox7" height="13.5" y="7" x="414" width="49.6"/>
+					<recordBox dataFormat="" field="" fontSize="9" id="RecordBox10" y="6" width="35.1" height="14.5" x="188.5" align="right"/>
+					<recordBox dataFormat="" field="" fontSize="9" id="RecordBox11" y="6.5" width="34.6" height="14" x="224" align="right"/>
+					<recordBox dataFormat="" field="" fontSize="9" align="right" id="RecordBox12" y="6.5" width="34.1" height="14" x="258.5"/>
+					<recordBox dataFormat="" field="" fontSize="9" id="RecordBox13" y="7" width="30.6" height="13.5" x="323" align="right"/>
+					<recordBox dataFormat="" field="" fontSize="9" id="RecordBox14" width="31.1" y="7" height="13.5" x="353.5" align="right"/>
+					<recordBox dataFormat="" field="" fontSize="9" height="13.5" id="RecordBox15" x="464" y="7" width="40" align="right"/>
+					<recordBox dataFormat="" field="" fontSize="9" align="right" height="13.5" id="RecordBox16" x="504" y="7" width="37.1"/>
+					<recordBox dataFormat="" field="" fontSize="9" align="right" height="13.5" y="7" id="RecordBox18" x="542" width="40.1"/>
+					<recordBox dataFormat="" field="" fontSize="9" align="right" height="13.5" y="7" id="RecordBox19" x="582.5" width="36.1"/>
+					<recordBox dataFormat="" field="" fontSize="9" align="right" height="13.5" id="RecordBox20" x="618.5" y="7" width="52.1"/>
+					<recordBox dataFormat="" field="" fontSize="9" align="right" height="13.5" y="7" width="52.1" id="RecordBox21" x="669.5"/>
+					<recordBox dataFormat="" field="" fontSize="9" align="right" height="13.5" y="7" id="RecordBox22" x="721.5" width="54.6"/>
+					<line id="Line2" x1="7.5" y1="24" y2="24" x2="776.5"/>
+					<recordBox dataFormat="" field="" fontSize="9" width="56.1" height="14.5" x="7.5" id="RecordBox23" y="26" align="right"/>
+					<recordBox dataFormat="" field="" fontSize="9" width="97.6" height="14" x="64" id="RecordBox24" y="26.5" align="right"/>
+					<recordBox dataFormat="" field="" fontSize="9" align="right" width="27.1" height="14" x="161" id="RecordBox25" y="26.5"/>
+					<recordBox dataFormat="" field="" fontSize="9" width="35.1" height="14.5" x="188.5" id="RecordBox26" y="26" align="right"/>
+					<recordBox dataFormat="" field="" fontSize="9" width="34.6" height="14" x="224" id="RecordBox27" y="26.5" align="right"/>
+					<recordBox dataFormat="" field="" fontSize="9" align="right" width="34.1" height="14" x="258.5" id="RecordBox28" y="26.5"/>
+					<recordBox dataFormat="" field="" height="14" fontSize="9" width="30.1" x="293" id="RecordBox29" y="26.5" align="right"/>
+					<recordBox dataFormat="" field="" fontSize="9" width="30.6" height="13.5" x="323" id="RecordBox30" y="27" align="right"/>
+					<recordBox dataFormat="" field="" fontSize="9" width="31.1" height="13.5" x="353.5" id="RecordBox31" y="27" align="right"/>
+					<recordBox dataFormat="" field="" fontSize="9" height="13.5" x="385" width="29" id="RecordBox32" y="27" align="right"/>
+					<recordBox dataFormat="" field="" fontSize="9" align="right" height="13.5" x="414" width="49.6" id="RecordBox33" y="27"/>
+					<recordBox dataFormat="" field="" fontSize="9" height="13.5" x="464" width="40" id="RecordBox34" y="27" align="right"/>
+					<recordBox dataFormat="" field="" fontSize="9" align="right" height="13.5" x="504" width="37.1" id="RecordBox35" y="27"/>
+					<recordBox dataFormat="" field="" fontSize="9" align="right" height="13.5" x="542" width="40.1" id="RecordBox36" y="27"/>
+					<recordBox dataFormat="" field="" fontSize="9" align="right" height="13.5" x="582.5" width="36.1" id="RecordBox37" y="27"/>
+					<recordBox dataFormat="" field="" fontSize="9" align="right" height="13.5" x="618.5" width="52.1" id="RecordBox38" y="27"/>
+					<recordBox dataFormat="" field="" fontSize="9" align="right" height="13.5" width="52.1" x="669.5" id="RecordBox39" y="27"/>
+					<recordBox dataFormat="" field="" fontSize="9" align="right" height="13.5" x="721.5" width="54.6" id="RecordBox40" y="27"/>
+					<line x1="7.5" x2="776.5" id="Line3" y1="44" y2="44" width="2"/>
+				</detail>
+				<footer id="Footer2" height="10"/>
+			</subReport>
+			<recordBox dataFormat="" field="" height="15" width="109" id="RecordBox17" x="671" y="36"/>
+			<image id="Image1" path="" x="5" y="4.1" height="44" width="94"/></detail>
+		<footer id="Footer1" height="22">
+			<pageNumberingLabel align="right" height="14" text="Page %%CP%% of %%TP%%" width="200" fontSize="10" id="PageNumberingLabel1" x="578" y="4"/>
+			<recordBox dataFormat="" field="" height="14" width="150" fontSize="10" id="RecordBox6" y="4" x="8"/>
+		</footer>
+	</report>
+</document>

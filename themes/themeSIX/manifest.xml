@@ -29,6 +29,8 @@
     <jsFile>OPHContent/cdn/parallax/parallax.js</jsFile>
     <jsFile>OPHContent/cdn/jquery-final-countdown/jquery.final-countdown.js</jsFile>
     <jsFile>OPHContent/cdn/jquery-cookie/jquery.cookie.js</jsFile>
+
+    <jsFile>OPHContent/cdn/ckeditor/ckeditor.js</jsFile>
     <jsFile>OPHContent/themes/themeSIX/custom-me.js</jsFile>
     <jsFile>OPHContent/cdn/datepicker/bootstrap-datepicker.js</jsFile>
     

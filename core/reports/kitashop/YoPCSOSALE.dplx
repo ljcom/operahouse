@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="eLs" keywords="eLs" subject="Kita Shop" title="Detail Sales Result" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageSize="a4" leftMargin="30" rightMargin="30">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="YoPCSOSALE">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+				<parameter name="@StartDate" type="dateTime" value="#Parameters[&quot;StartDate&quot;]#"/>
+				<parameter name="@EndDate" type="dateTime" value="#Parameters[&quot;EndDate&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1"/>
+		<detail id="Detail1" height="761.5" autoSplit="true">
+			<label text="Laporan Detail Result Sales Through" id="Label1" x="0" y="0" fontSize="16" font="HelveticaBold" align="center" height="24" vAlign="bottom" width="535"/>
+			<recordArea id="RecordArea1" align="center" vAlign="bottom" height="16" x="0" y="30" width="535">
+				<text>#start_date# - #end_date#</text>
+			</recordArea>
+			<contentGroup id="ContentGroup1" x="0" height="65" y="70" width="535" splittable="true">
+				<recordArea height="16" width="150" id="RecordArea2" y="0" x="88">
+					<text>: #user_id#</text>
+				</recordArea>
+				<recordArea height="16" width="150" id="RecordArea3" y="16" x="88">
+					<text>: #user_name#</text>
+				</recordArea>
+				<label id="Label13" text="Nama Counter" font="HelveticaBold" vAlign="bottom" height="16" x="0" y="48" width="85"/>
+				<label width="100" vAlign="bottom" height="16" y="48" id="Label14" text=": Kita Shop" x="88"/>
+				<label font="HelveticaBold" vAlign="bottom" height="16" x="0" width="85" id="Label15" y="32" text="ID Counter"/>
+				<label font="HelveticaBold" vAlign="bottom" height="16" x="0" width="85" id="Label16" y="16" text="Nama BC"/>
+				<label font="HelveticaBold" vAlign="bottom" height="16" x="0" width="85" id="Label17" y="0" text="Kode BC"/>
+				<label width="100" vAlign="bottom" height="16" x="88" id="Label18" y="32" text=": 000"/>
+			</contentGroup>
+			<subReport id="SubReport1" y="155" width="535" x="0">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="YoPCSOSALE_sub1">
+						<parameter name="@StartDate" type="dateTime" value="#Parameters[&quot;StartDate&quot;]#"/><parameter name="@EndDate" type="dateTime" value="#Parameters[&quot;EndDate&quot;]#"/></storedProcedure>
+				</query>
+				<header id="Header11"/>
+				<detail id="Detail11" height="129" autoSplit="true">
+					<recordBox dataFormat="" x="0" height="16" font="HelveticaBold" width="200" y="0" id="RecordBox10" field="group_date" underline="true"/>
+					<recordArea height="14" id="RecordArea8" x="7" fontSize="11" width="247" y="107">
+						<text>Summary penjualan per #group_date#</text>
+					</recordArea>
+					<recordBox dataFormat="" height="14" font="HelveticaBold" align="right" field="group_pay" id="RecordBox11" fontSize="11" y="107" width="88" x="448" vAlign="center"/>
+					<recordBox dataFormat="" height="14" font="HelveticaBold" align="right" id="RecordBox12" field="group_discount" fontSize="11" width="65" x="346" y="107" vAlign="center"/>
+					<recordBox dataFormat="" height="14" font="HelveticaBold" align="center" width="25" field="group_qty" id="RecordBox13" fontSize="11" x="420" y="107" vAlign="center"/>
+					<subReport id="SubReport2" x="0" width="535" y="20">
+						<query id="Query3">
+							<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="YoPCSOSALE_sub2">
+								<parameter value="#DocDate#" type="dateTime" name="@DocDate"/>
+							</storedProcedure>
+						</query>
+						<header id="Header2"/>
+						<detail id="Detail3" height="87" autoSplit="true">
+							<label text="ID Member" y="0" height="16" x="15" fontSize="11" id="Label2" width="80" font="HelveticaBold"/>
+							<subReport id="SubReport3" width="520" x="15" y="50">
+								<query id="Query4">
+									<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="YoPCSOSALE_sub3">
+										<parameter name="@PCSOGUID" type="uniqueIdentifier" value="#PCSOGUID#"/>
+									</storedProcedure>
+								</query>
+								<header id="Header3"/>
+								<detail id="Detail2" height="14" autoSplit="true">
+									<recordBox dataFormat="" y="0" fontSize="10" id="RecordBox1" field="id_product" width="70" x="1" height="14"/>
+									<recordBox dataFormat="" y="0" fontSize="10" id="RecordBox2" field="name_product" x="75" expandable="true" splittable="true" width="179.1" height="14"/>
+									<recordBox dataFormat="" y="0" fontSize="10" id="RecordBox3" field="price" align="right" width="65" x="261" height="14"/>
+									<recordBox dataFormat="" y="0" fontSize="10" id="RecordBox4" field="discount" align="right" width="60" x="335" height="14"/>
+									<recordBox dataFormat="" y="0" fontSize="10" id="RecordBox5" field="qty" align="center" width="25" x="405" height="14"/>
+									<recordBox dataFormat="" y="0" fontSize="10" id="RecordBox6" field="pay" align="right" width="85" x="433" height="14"/>
+								</detail>
+								<footer id="Footer2"/>
+							</subReport>
+							<recordArea y="0" height="16" fontSize="11" id="RecordArea4" x="95" width="80" font="HelveticaBold">
+								<text>: #id_member#</text>
+							</recordArea>
+							<label height="16" fontSize="11" id="Label4" text="Nama Lengkap" width="80" x="15" y="16"/>
+							<recordArea height="16" fontSize="11" id="RecordArea6" x="95" width="200" y="16">
+								<text>: #name_member#</text>
+							</recordArea>
+							<label text="Id Produk" underline="true" height="16" width="70" fontSize="10" id="Label6" x="15" y="35"/>
+							<label underline="true" height="16" text="Nama Produk" fontSize="10" id="Label7" y="35" x="90" width="125"/>
+							<label underline="true" height="16" text="Harga / Unit" fontSize="10" id="Label8" y="35" align="right" width="80" x="263"/>
+							<label underline="true" height="16" text="Diskon / Unit" fontSize="10" align="right" id="Label9" width="70" y="35" x="342"/>
+							<label underline="true" height="16" text="Qty" width="25" fontSize="10" align="center" id="Label10" y="35" x="420"/>
+							<label underline="true" height="16" text="Harga yg Dibayar" fontSize="10" align="right" id="Label11" width="90" y="35" x="445"/>
+							<label text="Summary  Belanja Customer" height="16" width="200" fontSize="10" id="Label12" x="15" y="68"/>
+							<recordBox dataFormat="" height="14" fontSize="10" font="HelveticaBold" align="right" id="RecordBox7" field="total_discount" width="60" x="350" y="69" vAlign="center"/>
+							<recordBox dataFormat="" height="14" fontSize="10" font="HelveticaBold" field="total_qty" align="center" width="25" id="RecordBox8" x="420" y="69" vAlign="center"/>
+							<recordBox dataFormat="" height="14" fontSize="10" font="HelveticaBold" align="right" field="total_pay" id="RecordBox9" width="85" x="448" y="69" vAlign="center"/>
+							<recordArea height="16" fontSize="11" id="RecordArea5" align="right" width="100" x="435" y="16" font="TimesBold">
+								<text>Event : #event_name#</text>
+							</recordArea>
+							<line id="Line1" x2="412" x1="351" y1="68" y2="68"/><line id="Line2" x1="418" x2="445" y1="68" y2="68"/><line id="Line3" x2="536" x1="450" y1="68" y2="68"/></detail>
+						<footer id="Footer3"/>
+					</subReport>
+					<line x1="351" x2="413" id="Line12" y1="107" y2="107"/><line x1="418" x2="443" id="Line13" y1="107" y2="107"/><line x2="535" x1="449" id="Line14" y1="107" y2="107"/></detail>
+				<footer id="Footer11"/>
+			</subReport>
+			<contentGroup id="ContentGroup2" width="535" height="18" x="0" y="286" splittable="true"><line x1="0" x2="100" id="Line4" y1="16" y2="16"/><line x1="0" x2="100" id="Line5" y1="0" y2="0"/><label width="100" text="GRAND TOTAL" font="HelveticaBold" height="16" vAlign="center" x="5" id="Label3" y="0" fontSize="11"/><line id="Line6" x1="351" y1="16" y2="16" x2="413"/><line id="Line7" x1="351" y1="0" y2="0" x2="413"/><line y1="16" y2="16" id="Line8" x1="418" x2="443"/><line y1="0" y2="0" id="Line9" x1="418" x2="443"/><line id="Line10" y1="16" y2="16" x2="535" x1="449"/><line y1="0" y2="0" id="Line11" x2="535" x1="449"/><recordBox dataFormat="" height="14" font="HelveticaBold" align="right" fontSize="11" width="88" x="448" id="RecordBox14" y="1" field="grand_pay" vAlign="center"/>
+				<recordBox dataFormat="" height="14" font="HelveticaBold" align="right" fontSize="11" width="65" x="346" id="RecordBox15" field="grand_discount" vAlign="center" y="1"/>
+				<recordBox dataFormat="" height="14" font="HelveticaBold" align="center" width="25" fontSize="11" x="420" id="RecordBox16" y="1" field="grand_qty" vAlign="center"/>
+			</contentGroup></detail>
+		<footer id="Footer1" height="20"/>
+	</report>
+</document>

@@ -1051,7 +1051,7 @@ function goTo(url, isPost) {
 function genReport(code, outputType, otherPar) {
 
     otherPar = (otherPar) ? "&" + otherPar : "";
-    url = 'OPHCore/api/msg_rptDialog.aspx?mode=' + outputType + '&code=' + code + otherPar ;
+    url = 'OPHCore/api/msg_rptDialog.aspx?mode=' + outputType + '&code=' + code + otherPar;
 
     urlsplit = url.split('?');
     urlonly = urlsplit[0];
@@ -1072,7 +1072,7 @@ function genReport(code, outputType, otherPar) {
             newVal = newVal.replace(/>/g, '&gt;');
             //dataForm.append(d[0].toString(), d[1].toString());
             $('#report').append($('<input/>')
-            .attr({ 'type': 'hidden', 'name': d[0].toString(), 'value': d[1].toString() })
+                .attr({ 'type': 'hidden', 'name': d[0].toString(), 'value': d[1].toString() })
             );
         }
     });
@@ -1168,8 +1168,14 @@ function searchTextChild(e, searchvalue, code, isClear) {
 function checkrequired(Names, guid, output) {
     var result = 'good';
     for (i = 0; i < Names.length - 1; i++) {
-        var val = document.getElementById(Names[i + 1] + (guid != '' ? '_' + guid : '')).value;
-        val = val.trim();
+        var val;
+        if ($("#" + Names[i + 1] + (guid != '' ? '_' + guid : '')).prop("tagName") == 'TD') {
+            val = $("#" + Names[i + 1] + (guid != '' ? '_' + guid : '')).html();
+        }
+        else {
+            val = document.getElementById(Names[i + 1] + (guid != '' ? '_' + guid : '')).value;
+            val = val.trim();
+        }
 
         if (val == '' || val == undefined || val == "NULL") {
             if (!guid)

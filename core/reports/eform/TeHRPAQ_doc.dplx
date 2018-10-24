@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="TcHRPAQ_rptbrowse">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;HRPAGUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1"/>
+		<detail id="Detail1" height="670">
+			<recordBox dataFormat="" fontSize="11" height="15.5" width="496.5" x="3" id="RecordBox26" y="571" field="t"/>
+			<recordBox dataFormat="" fontSize="11" height="15.5" width="496.5" x="3" id="RecordBox25" y="520" field="s"/>
+			<recordBox dataFormat="" fontSize="11" height="15.5" width="496.5" x="3" id="RecordBox24" y="501" field="r"/>
+			<recordBox dataFormat="" fontSize="11" height="15.5" width="496.5" x="3" id="RecordBox23" y="484" field="q"/>
+			<recordBox dataFormat="" fontSize="11" y="241" width="324.5" height="14.5" x="178" field="Jobtitle" id="RecordBox1"/>
+			<recordBox dataFormat="" height="12.5" fontSize="11" x="137" field="cldte" width="79.5" id="RecordBox2" y="190"/>
+			<recordBox dataFormat="" fontSize="11" y="157" field="EmployeeName1" x="4" width="434.5" height="15.5" id="RecordBox3"/>
+			<recordBox dataFormat="" y="67" height="12.5" x="4" width="179.5" fontSize="11" field="EmployeeName" id="RecordBox4"/>
+			<recordBox fontSize="11" y="3.5" dataFormat="" width="96" height="14.5" x="411" id="RecordBox5" field="cldte"/>
+			<recordBox dataFormat="" fontSize="11" x="28.5" width="299" y="4" field="Roman" height="16.5" id="RecordBox6"/>
+			<recordBox dataFormat="" fontSize="11" y="4" height="16.5" id="RecordBox7" x="3.5" width="29" field="a"/>
+			<recordBox fontSize="11" dataFormat="" height="14.5" id="RecordBox8" field="b" y="3.5" width="46" x="364"/>
+			<recordBox dataFormat="" fontSize="11" width="299" height="16.5" id="RecordBox9" y="47" x="2.5" field="c"/>
+			<recordBox dataFormat="" height="12.5" x="4" width="179.5" fontSize="11" id="RecordBox10" field="d" y="83"/>
+			<recordBox dataFormat="" height="12.5" width="179.5" fontSize="11" id="RecordBox11" x="3" field="e" y="100"/>
+			<recordBox dataFormat="" fontSize="11" x="4" width="434.5" height="15.5" id="RecordBox12" y="174" field="f"/>
+			<recordBox dataFormat="" fontSize="11" height="15.5" id="RecordBox13" x="3" width="135.5" y="190" field="g"/>
+			<recordBox dataFormat="" fontSize="11" height="15.5" id="RecordBox14" x="216" field="h" width="266.5" y="191"/>
+			<recordBox dataFormat="" fontSize="11" height="15.5" x="3" width="135.5" id="RecordBox15" y="206" field="i"/>
+			<recordBox dataFormat="" fontSize="11" x="4" height="15.5" id="RecordBox16" y="226" field="j" width="496.5"/>
+			<recordBox dataFormat="" fontSize="11" x="4" height="15.5" id="RecordBox17" width="170.5" field="k" y="242"/>
+			<recordBox dataFormat="" fontSize="11" x="4" height="15.5" width="496.5" id="RecordBox18" y="263" field="l"/>
+			<recordBox dataFormat="" fontSize="11" x="4" height="15.5" width="496.5" id="RecordBox19" field="m" y="280"/>
+			<recordBox dataFormat="" fontSize="11" height="15.5" width="496.5" id="RecordBox20" field="n" y="346" x="3"/>
+			<recordBox dataFormat="" fontSize="11" height="15.5" width="496.5" x="3" id="RecordBox21" y="409" field="o"/>
+			<recordBox dataFormat="" fontSize="11" height="15.5" width="496.5" x="3" id="RecordBox22" y="426" field="p"/>
+		</detail>
+		<footer id="Footer1"/>
+	</report>
+</document>
