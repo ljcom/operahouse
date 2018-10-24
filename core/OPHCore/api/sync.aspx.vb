@@ -127,9 +127,25 @@ Partial Class OPHCore_api_sync
                         'result = "<sqroot>" & xmlstr & "</sqroot>"
                         result = xmlstr
                     Else
+                        result = "<sqroot><source>reqdelheader</source><message>Incorrect Data!</message></sqroot>"
+                    End If
+				Case "reqdelheader"
+                    Dim code = getQueryVar("code")
+                    Dim pg = getQueryVar("page")
+					Dim delList = getQueryVar("delList")
+					
+                    sqlstr = "exec [api].[sync_reqdelheader] '" & accountId & "', " & sessionToken & ", '" & code & "', " & IIf(pg = "", 1, pg) & ", @issilent=0"
+                    writeLog(sqlstr)
+
+                    xmlstr = getXML(sqlstr, contentOfdbODBC)
+
+                    If xmlstr IsNot Nothing And xmlstr <> "" Then
+                        'result = "<sqroot>" & xmlstr & "</sqroot>"
+						writeLog(xmlstr)
+                        result = xmlstr
+                    Else
                         result = "<sqroot><source>reqheader</source><message>Incorrect Data!</message></sqroot>"
                     End If
-
                 Case "reqdata"
                     Dim code = getQueryVar("code")
                     Dim guid = Request.Form("guid")
