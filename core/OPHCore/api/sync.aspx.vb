@@ -51,6 +51,7 @@ Partial Class OPHCore_api_sync
                     End If
                 Case "reqcorescript"
                     sqlstr = "exec core.createDB '" & accountId & "', @isScriptOnly=1, @token=" & sessionToken & ""
+					writeLog(sqlstr)
                     xmlstr = getXML(sqlstr, contentOfsequoiaCon, 0)
                     If Not IsNothing(xmlstr) Then
                         Dim result1 = xmlstr.Replace("&amp;", "&").Replace("&lt;", "<").Replace("&gt;", ">")
