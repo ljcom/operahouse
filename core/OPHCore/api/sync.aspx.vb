@@ -115,8 +115,9 @@ Partial Class OPHCore_api_sync
                 Case "reqheader"
                     Dim code = getQueryVar("code")
                     Dim pg = getQueryVar("page")
-
-                    sqlstr = "exec [api].[sync_reqheader] '" & accountId & "', " & sessionToken & ", '" & code & "', " & IIf(pg = "", 1, pg) & ""
+					Dim delList = getQueryVar("delList")
+					
+                    sqlstr = "exec [api].[sync_reqheader] '" & accountId & "', " & sessionToken & ", '" & code & "', " & IIf(pg = "", 1, pg) & iif(delList<>"", ", @delList='" & delList & "'", "")
                     writeLog(sqlstr)
 
                     xmlstr = getXML(sqlstr, contentOfdbODBC)
