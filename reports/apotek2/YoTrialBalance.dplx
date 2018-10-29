@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" author="YuniarPu" id="YoTrialBalance" title="Trial Balance" subject="Apotek" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageOrientation="landscape" bottomMargin="30" leftMargin="30" rightMargin="30" topMargin="30" pageSize="legal">
+		<query id="Query1">
+			<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTrialBalance_header">
+				<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="startDate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/>
+				<parameter name="endDate" value="#Parameters[&quot;enddate&quot;]#" type="dateTime"/>
+				<parameter name="IncludeClose" type="bit" value="#Parameters[&quot;IncludeClose&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="64">
+			<label id="Label1" fontSize="20" text="Trial Balance" y="10" height="25" width="130" font="HelveticaBold" x="5"/>
+			<label id="Label2" text="between" y="15" height="20.5" width="59.5" x="139"/>
+			<recordBox dataFormat="" height="14" id="RecordBox1" y="16" field="startdate" width="65" x="197.5"/>
+			<label height="14" id="Label3" text="and" align="center" y="16" width="26" x="264"/>
+			<recordBox dataFormat="" height="14" id="RecordBox2" y="16" width="94.5" field="enddate" x="294"/>
+			<rectangle id="Rectangle1" y="45" height="14" fillColor="lightGrey" x="5" width="245"/>
+			<rectangle y="45" height="14" fillColor="lightGrey" id="Rectangle2" width="85" x="253"/>
+			<rectangle y="45" height="14" fillColor="lightGrey" id="Rectangle3" width="85" x="341"/>
+			<rectangle y="45" height="14" fillColor="lightGrey" id="Rectangle4" width="75" x="429"/>
+			<rectangle y="45" height="14" fillColor="lightGrey" id="Rectangle5" width="75" x="507"/>
+			<rectangle y="45" height="14" fillColor="lightGrey" id="Rectangle6" width="88" x="585"/>
+			<rectangle y="45" height="14" fillColor="lightGrey" id="Rectangle7" width="88" x="676"/>
+			<rectangle y="45" height="14" fillColor="lightGrey" id="Rectangle8" width="88.5" x="767"/>
+			<rectangle y="45" height="14" fillColor="lightGrey" id="Rectangle9" x="858" width="88.5"/>
+			<label id="Label4" height="14" align="center" text="Description" x="5" fontSize="10" font="HelveticaBold" width="245" y="45"/>
+			<label height="14" align="center" id="Label5" text="Opening DB" fontSize="10" font="HelveticaBold" width="85" y="45" x="253"/>
+			<label height="14" align="center" id="Label6" text="Opening CR" fontSize="10" font="HelveticaBold" width="85" y="45" x="341"/>
+			<label height="14" align="center" y="45" id="Label7" text="Transaction DB" fontSize="10" width="75" font="HelveticaBold" x="429"/>
+			<label height="14" align="center" y="45" fontSize="10" id="Label8" text="Transaction CR" font="HelveticaBold" width="75" x="507"/>
+			<label height="14" align="center" fontSize="10" id="Label9" text="Closing DB" font="HelveticaBold" width="88" x="585" y="45"/>
+			<label height="14" align="center" fontSize="10" id="Label10" text="Closing CR" font="HelveticaBold" width="88" x="676" y="45"/>
+			<label height="14" align="center" fontSize="10" id="Label11" text="Ending DB" font="HelveticaBold" width="88.5" x="767" y="45"/>
+			<label height="14" align="center" fontSize="10" id="Label12" text="Ending CR" font="HelveticaBold" x="858" width="88.5" y="45"/>
+		</header>
+		<detail id="Detail1" autoSplit="true" height="230">
+			<subReport id="SubReport1" x="0" y="10" width="946">
+				<query id="Query2">
+					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTrialBalance_detail">
+						<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+						<parameter name="startdate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/>
+						<parameter name="enddate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/>
+						<parameter name="IncludeClose" type="bit" value="#Parameters[&quot;IncludeClose&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header id="Header2"/>
+				<detail id="Detail2" autoSplit="true" height="208">
+					<rectangle id="Rectangle11" fillColor="darkGray" borderColor="darkGray" x="3.5" width="941.5" y="166" height="21.1"/>
+					<recordBox id="RecordBox41" dataFormat="" field="name1" font="HelveticaBold" height="17.5" fontSize="10" x="4.5" width="243.1" y="168"/>
+					<recordBox dataFormat="" id="RecordBox42" align="right" fontSize="9" font="HelveticaBold" x="251" height="17" width="87" field="opndb" y="168"/>
+					<recordBox id="RecordBox50" dataFormat="" x="5" y="5" field="name1" height="15.1" width="244.5" font="HelveticaBold" fontSize="10"/>
+					<recordBox dataFormat="" align="right" fontSize="9" font="HelveticaBold" id="RecordBox43" height="17" field="opncr" x="340" width="86" y="168"/>
+					<recordBox dataFormat="" align="right" fontSize="9" font="HelveticaBold" id="RecordBox44" height="17.5" x="428" width="76.5" field="gendb" y="168"/>
+					<recordBox dataFormat="" align="right" fontSize="9" font="HelveticaBold" id="RecordBox45" height="18" x="506" width="77" field="gencr" y="168"/>
+					<recordBox dataFormat="" align="right" fontSize="9" font="HelveticaBold" id="RecordBox46" height="18" x="585" width="88.5" field="clodb" y="168"/>
+					<recordBox dataFormat="" align="right" fontSize="9" font="HelveticaBold" id="RecordBox47" x="675" height="18.5" width="89" field="clocr" y="168"/>
+					<recordBox dataFormat="" align="right" fontSize="9" font="HelveticaBold" id="RecordBox48" x="766" height="18.5" width="89.1" field="endingdb" y="168"/>
+					<recordBox dataFormat="" align="right" fontSize="9" font="HelveticaBold" id="RecordBox49" x="858" width="87.5" height="18" field="endingcr" y="168"/>
+					<subReport id="SubReport2" x="0" width="945" y="25.5">
+						<query id="Query3">
+							<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTrialBalance_detail2">
+								<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+								<parameter name="startdate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/>
+								<parameter name="enddate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/>
+								<parameter name="IncludeClose" type="bit" value="#Parameters[&quot;IncludeClose&quot;]#"/>
+							</storedProcedure>
+						</query>
+						<header id="Header3" height="1"/>
+						<detail id="Detail3" autoSplit="true" height="130">
+							<rectangle id="Rectangle10" height="20.5" x="3" y="106" borderColor="white" width="943.5" fillColor="cmyk(0,0,0.02,0.179)"/>
+							<recordBox id="RecordBox3" dataFormat="" x="8" y="5" height="14.5" width="242" field="name2" fontSize="10"/>
+							<recordBox dataFormat="" x="8" width="242" field="name2" fontSize="10" id="RecordBox4" height="15.1" y="108"/>
+							<recordBox dataFormat="" id="RecordBox5" x="251" width="87" field="opndb" align="right" height="16.1" fontSize="9" y="108"/>
+							<recordBox dataFormat="" align="right" height="16.1" id="RecordBox6" x="339.5" width="87" field="opncr" fontSize="9" y="108"/>
+							<recordBox dataFormat="" align="right" height="16.1" fontSize="9" id="RecordBox7" x="427.5" width="77.5" field="gendb" y="108"/>
+							<recordBox dataFormat="" align="right" height="16.1" fontSize="9" width="77.5" id="RecordBox8" x="506.5" field="gencr" y="108"/>
+							<recordBox dataFormat="" align="right" height="16.1" fontSize="9" id="RecordBox9" x="585.5" width="87.5" field="clodb" y="108"/>
+							<recordBox dataFormat="" align="right" height="16.1" fontSize="9" id="RecordBox10" x="674.5" field="clocr" width="90" y="108"/>
+							<recordBox dataFormat="" align="right" height="16.1" fontSize="9" id="RecordBox11" x="765.5" field="endingdb" width="90.5" y="108"/>
+							<recordBox dataFormat="" align="right" height="16.1" fontSize="9" id="RecordBox12" width="87" x="858" field="endingcr" y="108"/>
+							<subReport id="SubReport3" y="20" width="944.5" x="-0.5">
+								<query id="Query4">
+									<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTrialBalance_detail3">
+										<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+										<parameter name="startdate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/>
+										<parameter name="enddate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/>
+										<parameter name="IncludeClose" type="bit" value="#Parameters[&quot;IncludeClose&quot;]#"/>
+									</storedProcedure>
+								</query>
+								<header id="Header4" height="1"/>
+								<detail id="Detail4" autoSplit="true" height="76.5">
+									<rectangle id="Rectangle12" x="3.5" borderColor="white" fillColor="cmyk(0,0,0,0.094)" width="942.5" y="45" height="21.5"/>
+									<recordBox id="RecordBox13" dataFormat="" y="4" height="13.5" field="name3" fontSize="10" x="13" width="236"/>
+									<recordBox dataFormat="" height="13.5" field="name3" fontSize="10" x="13" id="RecordBox14" width="235.5" y="48"/>
+									<recordBox dataFormat="" height="13.5" id="RecordBox15" x="250.5" width="87.5" align="right" fontSize="9" field="opndb" y="48"/>
+									<recordBox dataFormat="" height="13.5" width="87.5" align="right" fontSize="9" id="RecordBox16" x="339.5" field="opncr" y="48"/>
+									<recordBox dataFormat="" height="13.5" align="right" fontSize="9" id="RecordBox17" field="gendb" x="427.5" width="78.5" y="48"/>
+									<recordBox dataFormat="" height="13.5" align="right" fontSize="9" id="RecordBox18" x="506.5" field="gencr" width="77.1" y="48"/>
+									<recordBox dataFormat="" height="13.5" align="right" fontSize="9" id="RecordBox19" x="585.5" width="88.1" field="clodb" y="48"/>
+									<recordBox dataFormat="" height="13.5" align="right" fontSize="9" id="RecordBox20" x="674.5" field="clocr" width="90.1" y="48"/>
+									<recordBox dataFormat="" height="13.5" align="right" fontSize="9" id="RecordBox21" x="765.5" field="endingdb" width="90.6" y="48"/>
+									<recordBox dataFormat="" height="13.5" align="right" fontSize="9" id="RecordBox22" x="857.5" width="86.6" field="endingcr" y="48"/>
+									<subReport id="SubReport4" y="20" x="0" width="944.5">
+										<query id="Query5">
+											<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTrialBalance_detail4">
+												<parameter name="hostguid" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+												<parameter name="startdate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/>
+												<parameter name="enddate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/>
+												<parameter name="IncludeClose" type="bit" value="#Parameters[&quot;IncludeClose&quot;]#"/>
+											</storedProcedure>
+										</query>
+										<header id="Header5" height="1"/>
+										<detail id="Detail5" autoSplit="true" height="21">
+											<recordBox id="RecordBox23" dataFormat="" y="5" height="12" field="glaccountcode" fontSize="9" width="59.1" x="18"/>
+											<recordBox dataFormat="" y="5" height="12" id="RecordBox24" field="glaccountdescription" fontSize="9" x="78" width="168.5"/>
+											<recordBox dataFormat="" y="5" height="12" fontSize="9" id="RecordBox25" field="opndb" align="right" x="250" width="87"/>
+											<recordBox dataFormat="" y="5" height="12" fontSize="9" align="right" width="87" id="RecordBox26" field="opncr" x="339"/>
+											<recordBox dataFormat="" y="5" height="12" fontSize="9" align="right" id="RecordBox27" x="427" width="78.5" field="gendb"/>
+											<recordBox dataFormat="" y="5" height="12" fontSize="9" align="right" id="RecordBox28" x="507" field="gencr" width="77.5"/>
+											<recordBox dataFormat="" y="5" height="12" fontSize="9" align="right" id="RecordBox29" x="586" width="87.5" field="clodb"/>
+											<recordBox dataFormat="" y="5" height="12" fontSize="9" align="right" id="RecordBox30" x="675" field="clocr" width="90.5"/>
+											<recordBox dataFormat="" y="5" height="12" fontSize="9" align="right" id="RecordBox31" x="767" field="endingdb" width="89"/>
+											<recordBox dataFormat="" y="5" height="12" fontSize="9" align="right" id="RecordBox32" field="endingcr" x="857" width="86"/>
+										</detail>
+										<footer id="Footer5" height="1"/>
+									</subReport>
+								</detail>
+								<footer id="Footer4" height="1"/>
+							</subReport>
+						</detail>
+						<footer id="Footer3" height="1"/>
+					</subReport>
+				</detail>
+				<footer id="Footer2" height="1"/>
+			</subReport>
+		</detail>
+		<footer id="Footer1" height="22">
+			<pageNumberingLabel align="right" height="14" y="1" text="Page %%CP%% of %%TP%%" width="200" id="PageNumberingLabel1" fontSize="10" x="580"/>
+		</footer>
+	</report>
+</document>

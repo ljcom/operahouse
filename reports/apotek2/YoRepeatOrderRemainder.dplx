@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" author="YuniarPu" subject="Apotek" title="Report Order Reminder" id="YoRepeatOrderRemainder" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" bottomMargin="30" leftMargin="30" pageOrientation="landscape" pageSize="a4" rightMargin="30" topMargin="30">
+		<query id="Query1">
+			<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoRepeatOrderRemainder_header">
+				<parameter name="HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="StartDate" type="dateTime" value="#Parameters[&quot;StartDate&quot;]#"/>
+				<parameter name="cstrGUID" type="uniqueIdentifier" value="#Parameters[&quot;cstrGUID&quot;]#"/>
+				<parameter name="CashNo" type="uniqueIdentifier" value="#Parameters[&quot;cashno&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="85">
+			<label id="Label1" x="0" y="0" fontSize="20" font="HelveticaBold" align="center" text="Order Reminder" height="25" width="782"/>
+			<line id="Line1" x1="0" x2="782" y1="50" y2="50"/>
+			<rectangle id="Rectangle1" x="0" borderColor="lightBlue" fillColor="lightBlue" y="55" width="90" height="25"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" y="55" width="90" id="Rectangle2" x="93" height="25"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" y="55" id="Rectangle3" x="186" width="150" height="25"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" y="55" id="Rectangle4" x="339" height="25" width="80"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" y="55" width="90" id="Rectangle5" height="25" x="422"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" y="55" id="Rectangle6" height="25" width="50" x="515"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" height="25" width="50" id="Rectangle7" y="55" x="568"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" y="55" height="25" id="Rectangle8" x="621" width="70"/>
+			<rectangle borderColor="lightBlue" fillColor="lightBlue" y="55" height="25" id="Rectangle9" x="694" width="88"/>
+			<label id="Label2" x="0" fontSize="10" text="CASH NO" font="HelveticaBold" width="90" y="55" height="25" align="center"/>
+			<label fontSize="10" font="HelveticaBold" width="90" y="55" height="25" align="center" id="Label3" x="93" text="CASH DATE"/>
+			<label fontSize="10" font="HelveticaBold" y="55" height="25" align="center" id="Label4" text="CUSTOMER" width="150" x="186"/>
+			<label fontSize="10" font="HelveticaBold" y="55" height="25" align="center" id="Label5" text="NO TELP" x="339" width="80"/>
+			<label fontSize="10" font="HelveticaBold" y="55" height="25" align="center" id="Label6" text="PRODUCT" x="422" width="90"/>
+			<label fontSize="10" font="HelveticaBold" y="55" height="25" align="center" id="Label7" text="QTY" width="50" x="515"/>
+			<label fontSize="10" font="HelveticaBold" y="55" height="25" align="center" width="50" id="Label8" x="568" text="DOSAGE QTY"/>
+			<label fontSize="10" font="HelveticaBold" y="55" height="25" align="center" id="Label9" x="621" text="REPEAT CONSUMTION" width="70"/>
+			<label fontSize="10" font="HelveticaBold" y="55" height="25" align="center" id="Label10" x="694" width="88" text="DATE CALL"/>
+		</header>
+		<detail id="Detail1" height="23" autoSplit="true">
+			<subReport id="SubReport1" x="0" y="0" width="782">
+				<header id="Header2"/>
+				<detail id="Detail2" autoSplit="true" height="21">
+					<rectangle id="Rectangle10" height="14" borderColor="whiteSmoke" fillColor="whiteSmoke" x="0" y="0" width="782"/>
+					<recordBox id="RecordBox1" dataFormat="" height="14" fontSize="10" x="0" y="0" width="90" field="CashNo"/>
+					<recordBox dataFormat="" height="14" fontSize="10" y="0" width="90" id="RecordBox2" x="93" field="CashDate"/>
+					<recordBox dataFormat="" height="14" fontSize="10" y="0" id="RecordBox3" x="186" width="150" field="CustName"/>
+					<recordBox dataFormat="" height="14" fontSize="10" y="0" id="RecordBox4" x="339" width="80" field="Phone"/>
+					<recordBox dataFormat="" height="14" fontSize="10" y="0" id="RecordBox5" x="422" width="90" field="SKUName"/>
+					<recordBox dataFormat="" height="14" fontSize="10" y="0" id="RecordBox6" x="515" width="50" field="Qty"/>
+					<recordBox dataFormat="" height="14" fontSize="10" y="0" width="50" id="RecordBox7" x="568" field="DosageQty"/>
+					<rectangle id="Rectangle11" height="14" width="14" x="649" y="0"/>
+					<recordBox dataFormat="" height="14" fontSize="10" y="0" id="RecordBox8" x="649" width="14" align="center" field="RpComp"/>
+					<recordBox dataFormat="" height="14" fontSize="10" y="0" id="RecordBox9" x="694" width="88" field="DtCall"/>
+				</detail>
+				<footer id="Footer2"/>
+			</subReport>
+		</detail>
+		<footer id="Footer1" height="22">
+			<pageNumberingLabel align="right" height="14" text="Page %%CP%% of %%TP%%" width="200" fontSize="10" id="PageNumberingLabel1" y="0" x="582"/>
+			<recordBox dataFormat="" field="" height="14" width="150" fontSize="10" id="RecordBox10" x="0" y="0"/>
+		</footer>
+	</report>
+</document>
