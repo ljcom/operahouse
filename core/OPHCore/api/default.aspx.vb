@@ -6,9 +6,9 @@ Partial Class OPHCore_API_default
     Inherits cl_base
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         If getQueryVar("hostGUID") <> "" Then
-            getAccount(getQueryVar("hostGUID"), getQueryVar("env"), getQueryVar("code"))
+            getAccount(getQueryVar("hostGUID"), getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
         Else
-            loadAccount(getQueryVar("env"), getQueryVar("code"))
+            loadAccount(getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
         End If
 
 
@@ -40,12 +40,23 @@ Partial Class OPHCore_API_default
         Dim GUID = "null"
         If getQueryVar("GUID") <> "" And getQueryVar("GUID") <> "undefined" Then GUID = "'" & getQueryVar("GUID") & "'"
 
+        'showonedataonly
+        'If mode = "browse" Then
+        '    sqlstr = "select iif(infovalue='accountGUID', m.accountguid, iif(infovalue='userGUID', '" & curUserGUID & "', '')) from modl m inner join modlinfo i on m.moduleguid=i.moduleguid where m.moduleid='" & code & "' and i.infokey='showOneDataOnly'"
+        '    GUID = runSQLwithResult(sqlstr)
+        '    If GUID <> "" Then
+        '        GUID = "'" & GUID & "'"
+        '        mode = "form"
+        '    End If
+        'End If
+
         Select Case mode
             Case "account"
                 isSingle = False
 
                 xmlstr = "<sqroot><hostGUID>" & curHostGUID & "</hostGUID><code>" & contentOfCode & "</code><env>" & contentOfEnv & "</env>" &
-                    "<themeFolder>" & contentOfthemeFolder & "</themeFolder><themePage>" & contentOfthemePage & "</themePage><needLogin>" & contentofNeedLogin & "</needLogin><signInPage>" & contentofsignInPage & "</signInPage></sqroot>"
+                        "<themeFolder>" & contentOfthemeFolder & "</themeFolder><themePage>" & contentOfthemePage & "</themePage><needLogin>" &
+                        contentofNeedLogin & "</needLogin><signInPage>" & contentofsignInPage & "</signInPage><GUID>" & contentOfGUID & "</GUID></sqroot>"
             Case "master"
                 sqlstr = "exec [api].[theme] '" & curHostGUID & "', '" & code & "', " & GUID
                 writeLog("mode master: " & sqlstr)

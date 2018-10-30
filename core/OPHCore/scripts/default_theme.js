@@ -22,7 +22,7 @@ function initTheme(bCode, bGUID, guestID, f) { //bmode, bcode, bguid hanya dipak
         var divname = ['frameMaster'];
         var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '.xslt'];
 
-        if ((getGUID() === '' || getGUID() == undefined) && getCode().toLowerCase() !== 'login') {
+        if (getCode().toLowerCase() !== 'login') {
             $.get('OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_sidebar.xslt').done(function () {
                 divname.push('sidebarWrapper');
                 xsldoc.push('OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_sidebar.xslt');
@@ -89,7 +89,9 @@ function getState() { return getQueryVariable("stateid") == undefined ? getCooki
 function changestateid(stateid) {
     setCookie('stateid', stateid);
     setCookie(getCode().toLowerCase() + '_curstateid', stateid);
-    setCookie('bSearchText', '');
+    //setCookie('bSearchText', getSearchText());
+    var searchvalue = $('#searchBox').val();
+    setCookie('bSearchText', searchvalue, 0, 1, 0);
     loadContent(1);
 }
 
@@ -161,7 +163,8 @@ function loadContent(nbpage, f) {
     var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
 
     //sidebar only for form
-    if (getMode() == 'form') {
+    var showDocInfo = getCookie(getCode().toLowerCase() + '_showdocinfo');
+    if (getMode() == 'form' && showDocInfo==1) {
         divname.push('sidebarWrapper');
         xsldoc.push('OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '_sidebar.xslt');
     }
