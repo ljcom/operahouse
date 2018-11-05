@@ -18,10 +18,14 @@ Partial Class index
             isOfflineMode = Request.Cookies("offline").Value = "1"
         End If
 
-        Dim curHostGUID, code, env, themeFolder, pageURL, needLogin, loginPage As String
+        Dim curHostGUID, code, env, themeFolder, pageURL As String
+        Dim GUID = getQueryVar("GUID")
+        Dim needLogin As Boolean = False
+        Dim loginPage As String
+
         Dim old = False
         If old Then
-            loadAccount(getQueryVar("env"), getQueryVar("code"))
+            loadAccount(getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
             curHostGUID = Session("hostGUID")
             code = contentOfCode
             env = contentOfEnv
@@ -29,30 +33,35 @@ Partial Class index
             pageURL = contentOfthemePage
             needLogin = contentofNeedLogin
             loginPage = contentofsignInPage
-
+            GUID = contentofGUID
         Else
-            Dim account As String="", url As String = Request.Url.OriginalString.Replace(Request.Url.PathAndQuery, "") & Request.ApplicationPath
+            Dim account As String = "", url As String = Request.Url.OriginalString.Replace(Request.Url.PathAndQuery, "") & Request.ApplicationPath
             If url.Substring(Len(url) - 1, 1) = "/" Then url = url.Substring(0, Len(url) - 1)
             Dim HostGUID As String = MyBase.Session("hostGUID")
-            url = url & "/ophcore/api/default.aspx?mode=account&code=" & getQueryVar("code") & "&env=" & getQueryVar("env") & "&hostGUID=" & HostGUID
+            url = url & "/ophcore/api/default.aspx?mode=account&code=" & getQueryVar("code") & "&env=" & getQueryVar("env") & "&hostGUID=" & HostGUID & "&GUID=" & GUID
             'writeLog(url)
             Using WC As New System.Net.WebClient()
                 If Request.ServerVariables(5) <> "" Then WC.UseDefaultCredentials = True
-				try
-					account = WC.DownloadString(url)
-				Catch exc As Exception
-				end try
-            End Using
-            Dim x = XDocument.Parse(account)
+                Try
+                    account = WC.DownloadString(url)
+                    Dim x = XDocument.Parse(account)
 
-            curHostGUID = x.<sqroot>.<hostGUID>.Value    'Session("hostGUID")
-            code = x.<sqroot>.<code>.Value 'contentOfCode
-            env = x.<sqroot>.<env>.Value 'contentOfEnv
-            themeFolder = x.<sqroot>.<themeFolder>.Value 'contentOfthemeFolder
-            pageURL = x.<sqroot>.<themePage>.Value 'contentOfthemePage
-            needLogin = x.<sqroot>.<needLogin>.Value 'contentofNeedLogin
-            loginPage = x.<sqroot>.<signInPage>.Value 'contentofsignInPage
-            Session("hostGUID") = curHostGUID
+                    curHostGUID = x.<sqroot>.<hostGUID>.Value    'Session("hostGUID")
+                    code = x.<sqroot>.<code>.Value 'contentOfCode
+                    env = x.<sqroot>.<env>.Value 'contentOfEnv
+                    themeFolder = x.<sqroot>.<themeFolder>.Value 'contentOfthemeFolder
+                    pageURL = x.<sqroot>.<themePage>.Value 'contentOfthemePage
+                    needLogin = x.<sqroot>.<needLogin>.Value 'contentofNeedLogin
+                    loginPage = x.<sqroot>.<signInPage>.Value 'contentofsignInPage
+                    Session("hostGUID") = curHostGUID
+                    GUID = x.<sqroot>.<GUID>.Value 'contentofGUID
+                Catch exc As Exception
+                    Console.Write(exc.Message)
+                    code = "404"
+                End Try
+            End Using
+
+
         End If
 
         If code = "" And getQueryVar("code") <> "404" Then
@@ -78,6 +87,8 @@ Partial Class index
             setCookie(Request.ApplicationPath.Replace("/", "") & "_lastPar", Request.Url.PathAndQuery, 1)
             'Session(Request.ApplicationPath & "_lastPar") = Request.Url.PathAndQuery
             reloadURL("index.aspx?env=" & "&code=" & loginPage)
+        ElseIf GUID <> getQueryVar("GUID") Then 'reload for onedataonly
+            reloadURL("index.aspx?env=" & "&code=" & code & "&GUID=" & GUID)
         End If
 
         '--!
@@ -104,7 +115,7 @@ Partial Class index
             'Response.Cookies("cartID").Value = Request.Cookies("cartID").Value
         End If
 
-        Dim GUID = "" 'getQueryVar("GUID") 
+        'Dim GUID = "" 'getQueryVar("GUID") 
         WindowOnLoad = "initTheme('" & code & "', '" & GUID & "', '" & curHostGUID & "');"
         Response.Cookies("themeFolder").Value = themeFolder
         loadManifest(themeFolder, cdnLocation, isOfflineMode)

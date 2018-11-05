@@ -24,6 +24,7 @@ Public Class cl_base
     Protected contentOfdbODBC As String
     Protected contentOfsqDB As String
     Protected contentOfCode As String
+    Protected contentOfGUID As String
     Protected contentOfEnv As String
     Protected contentofNeedLogin As Boolean
     Protected contentofsignInPage As String
@@ -975,7 +976,7 @@ Public Class cl_base
         Return dataSet
 
     End Function
-    Sub loadAccount(Optional env As String = "", Optional code As String = "")
+    Sub loadAccount(Optional env As String = "", Optional code As String = "", Optional GUID As String = "")
 
         'prepare curHostGUID, curUserGUID
         Dim hGUID = IIf(IsNothing(Response.Cookies("guestID").Value), Session("hostGUID"), Response.Cookies("guestID").Value)
@@ -989,9 +990,12 @@ Public Class cl_base
         If x.Substring(Len(x) - 1, 1) = "/" Then x = x.Substring(0, Len(x) - 1)
 
         Dim autouserloginid = Request.ServerVariables(5)
-        If env = "" Then env = "null" Else env = "'" & env & "'"
-        If code = "" Then code = "null" Else code = "'" & code & "'"
-        Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "', " & env & ", " & code & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "")
+        If env = "" Then env = "" Else env = ", @env='" & env & "'"
+        If code = "" Then code = "" Else code = ", @code='" & code & "'"
+        If GUID = "undefined" Then GUID = ""
+        If GUID = "" Then GUID = "" Else GUID = ", @GUID='" & GUID & "'"
+
+        Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "'" & env & code & GUID & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "")
         'Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "', " & env & ", " & code & ""
         'writeLog(sqlstr)
         'writeLog(contentOfsequoiaCon)
@@ -1006,6 +1010,7 @@ Public Class cl_base
             contentOfthemePage = r1.Tables(0).Rows(0).Item(4).ToString
             contentOfEnv = r1.Tables(0).Rows(0).Item(5).ToString
             contentOfCode = r1.Tables(0).Rows(0).Item(6).ToString
+
             contentofNeedLogin = r1.Tables(0).Rows(0).Item(9).ToString
             contentofsignInPage = r1.Tables(0).Rows(0).Item(10).ToString
             contentofwhiteAddress = r1.Tables(0).Rows(0).Item(11)
@@ -1016,11 +1021,11 @@ Public Class cl_base
 
             setCookie("isWhiteAddress", IIf(contentofwhiteAddress, 1, 0), 1)
             setCookie("skinColor", r1.Tables(0).Rows(0).Item(12).ToString, 1)
-
+            contentOfGUID = r1.Tables(0).Rows(0).Item(13).ToString
         End If
 
     End Sub
-    Sub getAccount(Optional hostGUID As String = "", Optional env As String = "", Optional code As String = "")
+    Sub getAccount(Optional hostGUID As String = "", Optional env As String = "", Optional code As String = "", Optional GUID As String = "")
 
         'prepare curHostGUID, curUserGUID
         Dim hGUID = hostGUID 'IIf(IsNothing(Response.Cookies("guestID").Value), Session("hostGUID"), Response.Cookies("guestID").Value)
@@ -1035,14 +1040,16 @@ Public Class cl_base
         Dim x = Request.Url.Authority & Request.ApplicationPath
         If x.Substring(Len(x) - 1, 1) = "/" Then x = x.Substring(0, Len(x) - 1)
 
-        If env = "" Then env = "null" Else env = "'" & env & "'"
-        If code = "" Then code = "null" Else code = "'" & code & "'"
-        Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "', " & env & ", " & code & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "")
+        If env = "" Then env = "" Else env = ", @env='" & env & "'"
+        If code = "" Then code = "" Else code = ", @code='" & code & "'"
+        If GUID = "" Then GUID = "" Else GUID = ", @GUID='" & GUID & "'"
+
+        Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "'" & env & code & GUID & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "")
         Dim r1 As DataSet = SelectSqlSrvRows(sqlstr, contentOfsequoiaCon)
         If r1.Tables.Count > 0 AndAlso r1.Tables(0).Rows.Count > 0 Then
             'contentOfaccountId = r1.Tables(0).Rows(0).Item(0).ToString
             'contentOfsqDB = r1.Tables(0).Rows(0).Item(1).ToString
-            'contentOfdbODBC = r1.Tables(0).Rows(0).Item(2).ToString
+            contentOfdbODBC = r1.Tables(0).Rows(0).Item(2).ToString
             contentOfthemeFolder = r1.Tables(0).Rows(0).Item(3).ToString
             contentOfthemePage = r1.Tables(0).Rows(0).Item(4).ToString
             contentOfEnv = r1.Tables(0).Rows(0).Item(5).ToString
@@ -1053,6 +1060,7 @@ Public Class cl_base
             Session("hostGUID") = r1.Tables(0).Rows(0).Item(7).ToString
             setCookie("isWhiteAddress", IIf(contentofwhiteAddress, 1, 0), 1)
             setCookie("skinColor", r1.Tables(0).Rows(0).Item(12).ToString, 1)
+            contentOfGUID = r1.Tables(0).Rows(0).Item(13).ToString
         End If
 
     End Sub
