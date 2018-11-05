@@ -9,7 +9,15 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
         if (parform != undefined) {
             parform.split('&').forEach(function (i) {
                 d = i.split('=');
-                dx = d[1] + (d.length == 3 ? '='+d[2] : '');
+                if (d.length > 0 && d.length < 3) {
+                    dx = d[1];
+                }
+                else if (d.length > 2) {
+                    dx = i.substring(d[0].length + 1, i.length);
+                }
+                else {
+                    dx = '';
+                }
                 data.append(d[0], dx);
             });
         }
