@@ -337,7 +337,9 @@ Partial Class OPHCore_API_default
                         '    pwd = runSQLwithResult(sqlstr, contentOfsequoiaCon)
                         'End If
                         sqlstr = "exec api.verifyPassword '" & curHostGUID & "', '" & userid & "', '" & pwd & "', " & bypass
+                        writeLog(sqlstr)
                         xmlstr = getXML(sqlstr, curODBC)
+
 
                         If xmlstr IsNot Nothing And xmlstr <> "" Then
                             curUserGUID = XDocument.Parse(xmlstr).Element("sqroot").Element("userGUID").Value
