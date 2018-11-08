@@ -9,7 +9,7 @@
 		<header id="Header1"/>
 		<detail id="Detail1" autoSplit="true" height="416">
 			<contentGroup id="ContentGroup1" y="0" x="2" width="193" height="94">
-				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" x="-1" y="3" width="197" height="13" text="KLINIK RENATA MEDIKAL"/>
+				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" x="-1" y="3" width="197" height="13" text="RENATA MEDICAL"/>
 				<label align="center" fontSize="9" id="Label2" x="-7" text="JL. Bangbarung Raya/H.Achmad Sobana&#xA; No.39, Bogor&#xA;Telp : (0251) 8348386" y="15" width="211" height="33"/>
 				<line x1="0" y1="50" y2="50" id="Line1" x2="211"/>
 				<formattedRecordArea id="FormattedRecordArea3" height="22" y="56" x="2" width="145">
@@ -49,22 +49,22 @@
 				</detail>
 				<footer id="Footer2" height="1"/>
 			</subReport>
-			<subReport id="SubReport2" y="203" x="2" width="193">
+			<subReport id="SubReport2" y="203" width="193" x="2">
 				<query id="Query3">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCash_report_sub2">
 						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
 				</query>
 				<header height="1" id="Header3"/>
 				<detail autoSplit="true" id="Detail3" height="63">
-					<recordArea id="RecordArea2" fontSize="9" x="4" y="5" width="101" height="12"><text>Bayar#payment2#</text></recordArea><recordBox id="RecordBox9" dataFormat="" height="11" y="6" fontSize="9" field="payrec2" align="right" x="117" width="61"/><recordArea fontSize="9" id="RecordArea3" x="4" y="21" width="101" height="12"><text>Sisa Bayar</text></recordArea><recordBox height="11" fontSize="9" id="RecordBox10" y="22" align="right" width="61" x="119" dataFormat="#,##0" field="balance2"/><recordArea fontSize="9" id="RecordArea4" x="5" y="38" width="101" height="12"><text>kembalian</text></recordArea><recordBox height="11" fontSize="9" id="RecordBox11" y="39" align="right" dataFormat="#,##0" field="change2" x="120" width="60"/><line id="Line2" y1="57" y2="57" x1="3" x2="189"/></detail>
+					<recordArea id="RecordArea2" fontSize="9" x="4" y="5" width="101" height="12"><text>Bayar#payment2#</text></recordArea><recordBox id="RecordBox9" dataFormat="" height="11" fontSize="9" field="payrec2" align="right" width="61" y="6" x="116"/><recordArea fontSize="9" id="RecordArea3" x="4" width="101" height="12" y="22"><text>Sisa Bayar</text></recordArea><recordBox height="11" fontSize="9" id="RecordBox10" y="22" align="right" width="61" dataFormat="#,##0" field="balance2" x="116"/><recordArea fontSize="9" id="RecordArea4" x="5" y="38" width="101" height="12"><text>Kembalian</text></recordArea><recordBox height="11" fontSize="9" id="RecordBox11" y="39" align="right" dataFormat="#,##0" field="change2" width="60" x="117"/><line id="Line2" y1="57" y2="57" x1="3" x2="198"/></detail>
 				<footer height="1" id="Footer3"/>
 			</subReport>
-			<contentGroup id="ContentGroup2" x="3" y="140" width="193" height="58">
+			<contentGroup id="ContentGroup2" y="140" width="193" height="58" x="3">
 				<line x1="0" y1="0" y2="0" id="Line4" x2="211"/>
 				<line x1="0" id="Line5" y1="28" y2="28" x2="211"/>
 				<label fontSize="9" id="Label5" align="right" text="Sub Total" y="2" x="61" width="56" height="11"/>
 				<recordBox id="RecordBox1" dataFormat="" align="right" fontSize="9" field="Discount" x="123" y="13" width="55" height="11"/>
-				<recordBox dataFormat="" align="right" id="RecordBox2" y="2" fontSize="9" field="SubTotal1" width="55" height="11" x="123.5"/>
+				<recordBox dataFormat="" align="right" id="RecordBox2" y="2" fontSize="9" field="SubTotal1" x="123" width="55" height="11"/>
 				<label fontSize="9" align="right" id="Label4" text="Total" x="61" y="42" width="56" height="11"/>
 				<recordBox dataFormat="" align="right" id="RecordBox3" fontSize="9" field="SubTotal2" x="123" y="42" width="55" height="11"/>
 				<label fontSize="9" align="right" id="Label9" text="Diskon" x="61" y="13" width="56" height="11"/>
