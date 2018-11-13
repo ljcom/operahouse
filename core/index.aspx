@@ -2,7 +2,7 @@
     Inherits="index" %>
 
 <!DOCTYPE html>
-<html manifest="manifest.aspx?mode=cache">
+<html> <!--manifest="manifest.aspx?mode=cache"-->
 <head>
     <title>OPERAHOUSE</title>
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
