@@ -225,7 +225,7 @@ function loadForm(bCode, bGUID, f) {
 function loadBrowse(bCode, f) {
     //OPH4 --refreshHeader
     //evn=back harus di revisi
-    var url = "index.aspx?env=back&code=" + bCode;
+    var url = "index.aspx?code=" + bCode;
     goTo(url);
     //document.location = url;
 }

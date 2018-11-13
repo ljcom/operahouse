@@ -1,13 +1,4 @@
-﻿CACHE MANIFEST
-# version <%=contentofLatestUpdate %>
-CACHE:
-<%=contentofCacheManifest %>
-
-NETWORK:
-*
-
-<%@ Page
-    ContentType="text/cache-manifest"
+﻿<%@ Page
     ResponseEncoding = "utf-8"
     Language="VB" 
     AutoEventWireup="true"
