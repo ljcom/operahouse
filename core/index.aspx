@@ -2,13 +2,11 @@
     Inherits="index" %>
 
 <!DOCTYPE html>
-<html>
-<!--html <%=IIf(isOfflineMode, "manifest=""manifest.aspx""", "") %>-->
-<!--html manifest="manifest.aspx"-->
+<html manifest="manifest.aspx?mode=cache">
 <head>
     <title>OPERAHOUSE</title>
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
-
+    <link rel="manifest" href="manifest.aspx?mode=json">
     <%=contentOfScripts %>
 
     <script type="text/javascript" charset="utf-8">
@@ -24,5 +22,9 @@
         <div id="frameBrowse"></div>
     </form>--%>
     <input type="hidden" id="unique" value="<%=Now().ToString("yyyyMMddhhmmss")%>" />
+
+    <div id="prog" class="hidden">
+        <span id="prog-percent">0%</span>
+    <div id="prog-inner"></div>
 </body>
 </html>
