@@ -1176,8 +1176,10 @@ function checkrequired(Names, guid, output) {
             val = $("#" + Names[i + 1] + (guid != '' ? '_' + guid : '')).html();
         }
         else {
-            val = document.getElementById(Names[i + 1] + (guid != '' ? '_' + guid : '')).value;
-            val = val.trim();
+			if (document.getElementById(Names[i + 1] + (guid != '' ? '_' + guid : '')) != undefined) {
+				val = document.getElementById(Names[i + 1] + (guid != '' ? '_' + guid : '')).value;
+				val = val.trim();
+			}
         }
 
         if (val == '' || val == undefined || val == "NULL") {
