@@ -3,24 +3,36 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
     var req = [];
     if (xmldoc !== '') {
         urlsplit = xmldoc.split('?');
-        urlonly = urlsplit[0];
+        urlonly = urlsplit[0]+'?';
         parform = urlsplit[1];
         var data = new FormData();
         if (parform != undefined) {
             parform.split('&').forEach(function (i) {
                 d = i.split('=');
-                if (d.length > 0 && d.length < 3) {
-                    dx = d[1];
-                }
-                else if (d.length > 2) {
-                    dx = i.substring(d[0].length + 1, i.length);
+				
+                if (d[0] == 'mode' || d[0] == 'code' || d[0] == 'guid') {
+                    urlonly += d[0].toLowerCase() + '=' + d[1].toLowerCase()+'&';
                 }
                 else {
-                    dx = '';
+                    //dx = d[1] + (d.length == 3 ? '=' + d[2] : '');
+                    //data.append(d[0], dx);
+					
+					if (d.length > 0 && d.length < 3) {
+						dx = d[1];
+					}
+					else if (d.length > 2) {
+						dx = i.substring(d[0].length + 1, i.length);
+					}
+					else {
+						dx = '';
+					}
+					data.append(d[0], dx);
                 }
-                data.append(d[0], dx);
+				
+                
             });
         }
+        urlonly = urlonly.substring(0, urlonly.length - 1);
         req.push($.ajax({
             type: "POST",
             url: urlonly,
@@ -483,9 +495,17 @@ loadMeta = function (meta) {
 }
 
 loadScript = function (src) {
-    var jsLink = $("<script src='" + src + "'>");
-    $("head").append(jsLink);
+    //var jsLink = $("<script src='" + src + "'>");
+    //$("head").append(jsLink);
+    var script = document.createElement('script');
+    //script.onload = function () {
+    //    //do stuff with the script
+    //};
+    script.src = src;
+    document.head.appendChild(script);
 };
+
+
 
 function loadStyle(styleFile) {
 

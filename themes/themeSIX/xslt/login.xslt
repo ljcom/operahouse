@@ -178,15 +178,15 @@
               <!-- /.col-md-6 -->
               <div class="col-md-6">
                 <div class="form-contact-form style3 v2 two">
-                  <form id="formlogin" onsubmit="return signInFrontEnd();">
+                  <form id="formlogin" onsubmit="return signIn('{/sqroot/header/info/account}');">
                     <div class="form-group enabled-input contact-form-name contact-form">
                       <label>User ID</label>
-                      <input type="text" class="form-control" name="userid" id="userid" autofocus="autofocus" onkeypress="return checkenter(event)" />
+                      <input type="text" class="form-control" name="{/sqroot/header/info/account}_userid" id="{/sqroot/header/info/account}_userid" autofocus="autofocus" onkeypress="return checkenter(event)" />
 
                     </div>
                     <div class="form-group enabled-input contact-form-name contact-form">
                       <label>Password</label>
-                      <input type="password" class="form-control" name="pwd" id="pwd" autofocus="autofocus" onkeypress="return checkenter(event)" />
+                      <input type="password" class="form-control" name="{/sqroot/header/info/account}_pwd" id="{/sqroot/header/info/account}_pwd" autofocus="autofocus" onkeypress="return checkenter(event)" />
 
                     </div>
                   </form>
@@ -198,7 +198,7 @@
                     , dan disimpan sesuai dengan ketentuan Portal.
                   </p>
                   <div class="btn-contact-form" style="text-align:center; margin-top:20px;">
-                    <button id="btn_submitLogin" class="flat-button-form border-radius-2" onclick="signInFrontEnd()">SUBMIT</button>&#160;
+                    <button id="btn_submitLogin" class="flat-button-form border-radius-2" onclick="signIn('{/sqroot/header/info/account}')">SUBMIT</button>&#160;
                   </div>
                   <!-- /form -->
                 </div>

@@ -1,0 +1,21 @@
+{
+  "short_name": "OPH",
+  "name": "OPERAHOUSE",
+  "icons": [
+    {
+      "src": "oph-logo-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "oph-logo-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#3B7DA6",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#3B7DA6"
+}

@@ -202,15 +202,29 @@ Public Class cl_base
         End If
 
     End Sub
-    Function loadOfflineData() As String
-        Dim sqlstr = "select moduleid from modl where parentmoduleguid is null"
+    Function loadOfflineData(code As String, guid As String) As String
+        Dim path = Server.MapPath("~/OPHContent/themes")
+        Dim sqlstr = "select moduleid, tp.pageURL, t.ThemeCode from modl m inner join thmepage tp on m.ThemePageGUID=tp.themepageguid inner join thme t on tp.ThemeGUID=t.ThemeGUID where m.parentmoduleguid is null and m.moduleid='" & code & "'"
         Dim scripts = ""
         Dim ds As DataSet = SelectSqlSrvRows(sqlstr)
         If ds.Tables.Count > 0 Then
             Dim r As DataRow
             For Each r In ds.Tables(0).Rows
-                scripts &= "OPHCore/api/default.aspx?mode=master&code=" & r.Item(0) & "&stateid=0" & vbCrLf
-                scripts &= "OPHCore/api/default.aspx?mode=form&code=" & r.Item(0) & "&GUID=00000000-0000-0000-0000-000000000000&stateid=null&bPageNo=1&bSearchText=&sqlFilter=&sortOrder=" & vbCrLf
+                If scripts <> "" Then scripts &= ", " & vbCrLf
+                scripts &= "'index.aspx?code=" & r.Item(0) & "'," & vbCrLf
+                If File.Exists(path & "\" & r.Item(2) & "\xslt\" & r.Item(1) & ".xslt") Then
+                    scripts &= "'OPHContent/themes/" & r.Item(2) & "/xslt/" & r.Item(1) & ".xslt'," & vbCrLf
+                End If
+                If File.Exists(path & "\" & r.Item(2) & "\xslt\" & r.Item(1) & "_browse.xslt") Then
+                    scripts &= "'OPHContent/themes/" & r.Item(2) & "/xslt/" & r.Item(1) & "_browse.xslt'," & vbCrLf
+                End If
+                If File.Exists(path & "\" & r.Item(2) & "\xslt\" & r.Item(1) & "_browse_sidebar.xslt") Then
+                    scripts &= "'OPHContent/themes/" & r.Item(2) & "/xslt/" & r.Item(1) & "_browse_sidebar.xslt'," & vbCrLf
+                End If
+                scripts &= "'OPHCore/api/default.aspx?mode=master&code=" & r.Item(0) & "'," & vbCrLf
+                scripts &= "'OPHCore/api/default.aspx?mode=browse&code=" & r.Item(0) & "&stateid=0'," & vbCrLf
+                scripts &= "'OPHCore/api/default.aspx?mode=form&code=" & r.Item(0) & "&GUID=00000000-0000-0000-0000-000000000000'"
+
 
             Next
         End If
@@ -218,6 +232,7 @@ Public Class cl_base
     End Function
     Function loadManifestFile(path As String, ByRef manifest As String, ByRef latestVer As String, cdnLocation As String) As String
         Dim str As String = "" ', manstr As String = ""
+        If cdnLocation = "" Then cdnLocation = "OPHContent/cdn"
         If System.IO.File.Exists(path) Then
             Dim lastMod = System.IO.File.GetLastWriteTime(path).ToString("yyyyMMddhhmmss")
             If lastMod > latestVer Then latestVer = lastMod
@@ -233,7 +248,8 @@ Public Class cl_base
                 For Each cssFile In doc.SelectNodes("//cssFile")
                     'jsFile.InnerText = (jsFile.InnerText)
                     'contentOfScripts = jsFile.InnerText
-                    str &= "<link rel=""stylesheet"" href=""" & cssFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & "?unique=" & format(now(), "yyyyMMddhhmmss") & """ type=""text/css"" />" & vbCrLf
+                    'str &= "<link rel=""stylesheet"" href=""" & cssFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & "?unique=" & Format(lastMod, "yyyyMMddhhmmss") & """ type=""text/css"" />" & vbCrLf
+                    str &= "<link rel=""stylesheet"" href=""" & cssFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & """ type=""text/css"" />" & vbCrLf
                     manifest &= cssFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & vbCrLf
                 Next
 
@@ -241,15 +257,22 @@ Public Class cl_base
                 For Each jsFile In doc.SelectNodes("//jsFile")
                     'jsFile.InnerText = (jsFile.InnerText)
                     'contentOfScripts = jsFile.InnerText
-                    str &= "<script type=""text/javascript"" src=""" & jsFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & "?unique=" & format(now(), "yyyyMMddhhmmss") & """></script>" & vbCrLf
+                    'str &= "<script type=""text/javascript"" src=""" & jsFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & "?unique=" & Format(lastMod, "yyyyMMddhhmmss") & """></script>" & vbCrLf
+                    str &= "<script type=""text/javascript"" src=""" & jsFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & """></script>" & vbCrLf
                     manifest &= jsFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & vbCrLf
                 Next
-                Session("manifest" & path.Replace("/", "").Replace("\", "").Replace(".", "").Replace(":", "") & lastMod) = str
                 'Session("manifestCache") = manstr
+                'If manifest.Substring(0, 1) = "," Then
+                'manifest = manifest.Substring(1, Len(manifest) - 1)
+                'End If
+                Session("manifest" & path.Replace("/", "").Replace("\", "").Replace(".", "").Replace(":", "") & lastMod) = str
+
             Else
                 str = Session("manifest" & path.Replace("/", "").Replace("\", "").Replace(".", "").Replace(":", "") & lastMod)
             End If
+
         End If
+
         Return str
     End Function
     'unremark if you need this, not compatible for ophbox - please find solution to download ref imports
