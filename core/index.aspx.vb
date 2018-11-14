@@ -38,7 +38,8 @@ Partial Class index
             Dim account As String = "", url As String = Request.Url.OriginalString.Replace(Request.Url.PathAndQuery, "") & Request.ApplicationPath
             If url.Substring(Len(url) - 1, 1) = "/" Then url = url.Substring(0, Len(url) - 1)
             Dim HostGUID As String = MyBase.Session("hostGUID")
-            url = url & "/ophcore/api/default.aspx?mode=account&code=" & getQueryVar("code") & "&hostGUID=" & HostGUID & "&GUID=" & GUID
+
+            url = url & "/ophcore/api/default.aspx?mode=account&env=" & getQueryVar("env") & "&code=" & getQueryVar("code") & "&hostGUID=" & HostGUID & "&GUID=" & GUID
             'writeLog(url)
             Using WC As New System.Net.WebClient()
                 If Request.ServerVariables(5) <> "" Then WC.UseDefaultCredentials = True
