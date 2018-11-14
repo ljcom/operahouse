@@ -9,13 +9,27 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
         if (parform != undefined) {
             parform.split('&').forEach(function (i) {
                 d = i.split('=');
+				
                 if (d[0] == 'mode' || d[0] == 'code' || d[0] == 'guid') {
                     urlonly += d[0].toLowerCase() + '=' + d[1].toLowerCase()+'&';
                 }
                 else {
-                    dx = d[1] + (d.length == 3 ? '=' + d[2] : '');
-                    data.append(d[0], dx);
+                    //dx = d[1] + (d.length == 3 ? '=' + d[2] : '');
+                    //data.append(d[0], dx);
+					
+					if (d.length > 0 && d.length < 3) {
+						dx = d[1];
+					}
+					else if (d.length > 2) {
+						dx = i.substring(d[0].length + 1, i.length);
+					}
+					else {
+						dx = '';
+					}
+					data.append(d[0], dx);
                 }
+				
+                
             });
         }
         urlonly = urlonly.substring(0, urlonly.length - 1);
