@@ -691,7 +691,8 @@ Public Class cl_base
                 'mainguid = mainguid.Substring(mainguid.IndexOf(",") + 1, mainguid.Length - (mainguid.IndexOf(",") + 1))
             Else
                 'contentofSaveString &= " exec api.[save] '" & Session("HostGUID").ToString & "', '" & Tablename & "', '" & mainguid & "', '" & saveXML & "'"
-                contentofSaveString &= " exec api.[save] '" & curHostGUID & "', '" & Tablename & "', '" & mainguid & "', '" & saveXML & "'"
+                Dim unique = ", @unique='" & Request.Form("unique") & "'"
+                contentofSaveString &= " exec api.[save] '" & curHostGUID & "', @code='" & Tablename & "', @GUID='" & mainguid & "', @saveXML='" & saveXML & "'" & unique.ToString()
             End If
         End If
 

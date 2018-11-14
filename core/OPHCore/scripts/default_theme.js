@@ -710,8 +710,7 @@ function saveCancel() {
                         var name = $(this).data("name");
                         var search = $(this).data("old");
 
-                        var sURL = 'OPHCore/api/msg_autosuggest.aspx?mode=token&code=' + tokenCode + '&key=' + key + '&id=' + id + '&name=' + name;
-                        var cURL = 'OPHCore/api/msg_autosuggest.aspx?mode=token&code=' + tokenCode + '&key=' + key + '&id=' + id + '&name=' + name + '&search=' + search;
+                        var cURL = 'OPHCore/api/msg_autosuggest.aspx?mode=token&code=' + tokenCode + '&key=' + key + '&id=' + id + '&name=' + name + '&parentCode=' + getCode() + '&search=' + search;
                         var fieldName = $(this)[0].id;
                         $.ajax({
                             url: cURL,

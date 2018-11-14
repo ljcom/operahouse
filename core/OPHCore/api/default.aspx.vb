@@ -100,7 +100,7 @@ Partial Class OPHCore_API_default
                 Dim preview = getQueryVar("flag")
                 'GUID = getQueryVar("guid")
                 'GUID = System.Guid.NewGuid().ToString()
-                GUID = getQueryVar("cfunctionlist")
+                GUID = Request.Form("cfunctionlist")
                 Dim randGUID = ""
 
                 Dim fieldAttachment As New List(Of String)
@@ -274,8 +274,8 @@ Partial Class OPHCore_API_default
                 xmlstr = "<sqroot><message>" & xmlstr & "</message></sqroot>"
                 isSingle = False
             Case "changePassword"
-                Dim curPass = getQueryVar("curpass")
-                Dim newPass = getQueryVar("newpass")
+                Dim curPass = Request.Form("curpass")
+                Dim newPass = Request.form("newpass")
 
                 sqlstr = "exec gen.changePassword '" & curHostGUID & "', '" & curPass & "', '" & newPass & "'"
                 xmlstr = runSQLwithResult(sqlstr, curODBC)
@@ -319,8 +319,8 @@ Partial Class OPHCore_API_default
             Case "signoff"
                 Session.Abandon()
             Case Else 'signin
-                Dim userid = getQueryVar("userid")
-                Dim pwd = getQueryVar("pwd")
+                Dim userid = Request.Form("userid")
+                Dim pwd = Request.Form("pwd")
                 Dim source As String = getQueryVar("source")
                 'Dim withCaptcha = getQueryVar("withCaptcha")
                 Dim withcaptcha = Not contentofwhiteAddress
@@ -342,6 +342,7 @@ Partial Class OPHCore_API_default
 
 
                         If xmlstr IsNot Nothing And xmlstr <> "" Then
+                            'Session.Clear()
                             curUserGUID = XDocument.Parse(xmlstr).Element("sqroot").Element("userGUID").Value
                             Session("userGUID") = curUserGUID
                             'Response.Cookies("hostGUID").Value = curHostGUID

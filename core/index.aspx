@@ -21,7 +21,7 @@
         <div id="frameMaster">Loading. Please wait...</div>
         <div id="frameBrowse"></div>
     </form>--%>
-    <input type="hidden" id="unique" value="<%=Now().ToString("yyyyMMddhhmmss")%>" />
+    <input type="hidden" id="unique" value="<%=Now().ToString("yyyyMMddHHmmss")%>" />
 
     <div id="prog" class="hidden">
         <span id="prog-percent">0%</span>
