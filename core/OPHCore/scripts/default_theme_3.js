@@ -2155,47 +2155,6 @@ function doFunction(functiontext, nbRec, caption) {
 }
 
 
-function childPageNo(pageid, code, currentpage, totalpages) {
-    var result = "";
-    var mode = '&quot;' + getCookie(code.toLowerCase() + '_browseMode')+'&quot;';
-    var before = "";
-    var after = "";
-    var parentKey = '&quot;' + document.getElementById('PKName').value + '&quot;';
-    //var parentKey = '&quot;' + String(code).substring(2, 6) + 'GUID&quot;';
-    var guid = '&quot;' + getQueryVariable("GUID") + '&quot;';
-    var code = '&quot;' + code + '&quot;';
-
-    if (currentpage != 1) result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 1) + "," + mode + ")'>&#171;</a></li>";
-    if (parseInt(currentpage) - 2 > 0)
-        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 2) + "," + mode + ")'>" + (parseInt(currentpage) - 2) + "</a></li>";
-
-    if (parseInt(currentpage) - 1 > 0)
-        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 1) + "," + mode + ")'>" + (parseInt(currentpage) - 1) + "</a></li>";
-
-    result += "<li><a style ='background-color:#3c8dbc;color:white;'href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + currentpage + "," + mode + ")'>" + currentpage + "</a></li>";
-
-    if (parseInt(currentpage) + 1 <= totalpages)
-        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 1) + "," + mode + ")'>" + (parseInt(currentpage) + 1) + "</a></li>";
-    if (parseInt(currentpage) + 2 <= totalpages)
-        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 2) + "," + mode + ")'>" + (parseInt(currentpage) + 2) + "</a></li>";
-
-    if (parseInt(currentpage) != totalpages) result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 1) + "," + mode + ")'>&#187;</a></li>";
-
-    result += "<li>&nbsp;&nbsp;&nbsp;</li>"
-
-    var combo = "<li><select style ='background:#fafafa;color:#666;border:1px solid #ddd;height:30px;'onchange='loadChild(" + code + "," + parentKey + "," + guid + ",this.value)'>";
-    for (var i = 1; i <= totalpages; i++) {
-        combo += "<option value =" + i + " " + (currentpage == i ? "selected" : "") + ">" + i + "</option>";
-    };
-
-    combo += '</select></li>';
-
-    result += combo;
-
-
-    $('#' + pageid).html(result);
-
-}
 function SaveData(code, formid, locations, GUID, delcookie, tablename, reloadpage) {
     if (reloadpage == '' || reloadpage == undefined) { reloadpage = '1' }
     if (delcookie == '') { delcookie = '0' }

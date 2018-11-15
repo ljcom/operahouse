@@ -18,10 +18,10 @@ Partial Class index
             isOfflineMode = Request.Cookies("offline").Value = "1"
         End If
 
-        Dim curHostGUID, code, themeFolder, pageURL As String
+        Dim curHostGUID As String = "", code As String = "", themeFolder As String = "", pageURL As String = ""
         Dim GUID = getQueryVar("GUID")
         Dim needLogin As Boolean = False
-        Dim loginPage As String
+        Dim loginPage As String = ""
 
         Dim old = False
         If old Then

@@ -164,7 +164,7 @@ function loadContent(nbpage, f) {
 
     //sidebar only for form
     var showDocInfo = getCookie(getCode().toLowerCase() + '_showdocinfo');
-    if (getMode() == 'form' && showDocInfo==1) {
+    if (getMode() == 'form' && showDocInfo == 1) {
         divname.push('sidebarWrapper');
         xsldoc.push('OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '_sidebar.xslt');
     }
@@ -197,7 +197,7 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
 
     xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + parentKey + '=' + "'" + GUID + "'&bPageNo=" + pageNo + unique;
 
-    var divName = ['child' + String(code).toLowerCase() + GUID];
+    var divName = ['child' + String(code).toLowerCase() + GUID.toUpperCase()];
     //if (code === 'modlinfo' || code === 'modlcolminfo' || code =='modlcolm')
     if (mode === 'inline')
         xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];
@@ -1175,10 +1175,10 @@ function checkrequired(Names, guid, output) {
             val = $("#" + Names[i + 1] + (guid != '' ? '_' + guid : '')).html();
         }
         else {
-			if (document.getElementById(Names[i + 1] + (guid != '' ? '_' + guid : '')) != undefined) {
-				val = document.getElementById(Names[i + 1] + (guid != '' ? '_' + guid : '')).value;
-				val = val.trim();
-			}
+            if (document.getElementById(Names[i + 1] + (guid != '' ? '_' + guid : '')) != undefined) {
+                val = document.getElementById(Names[i + 1] + (guid != '' ? '_' + guid : '')).value;
+                val = val.trim();
+            }
         }
 
         if (val == '' || val == undefined || val == "NULL") {
@@ -1191,4 +1191,57 @@ function checkrequired(Names, guid, output) {
         }
     }
     return output;
+}
+
+
+function childPageNo(pageid, code, currentpage, totalpages) {
+    var result = "";
+    var mode = '&quot;' + getCookie(code.toLowerCase() + '_browseMode') + '&quot;';
+    var before = "";
+    var after = "";
+    filter = eval(code + '_parent');
+    if (filter) {
+        var d = filter.split('=');
+        parentKey = '&quot;' + d[0] + '&quot;';
+        guid = '&quot;' + d[1] + '&quot;';
+    }
+    else {
+        var parentKey = '&quot;' + document.getElementById('PKName').value + '&quot;';
+        //var parentKey = '&quot;' + String(code).substring(2, 6) + 'GUID&quot;';
+        var guid = '&quot;' + getQueryVariable("GUID") + '&quot;';
+        
+    }
+
+    code = '&quot;' + code + '&quot;';
+
+    if (currentpage != 1) result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 1) + "," + mode + ")'>&#171;</a></li>";
+    if (parseInt(currentpage) - 2 > 0)
+        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 2) + "," + mode + ")'>" + (parseInt(currentpage) - 2) + "</a></li>";
+
+    if (parseInt(currentpage) - 1 > 0)
+        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 1) + "," + mode + ")'>" + (parseInt(currentpage) - 1) + "</a></li>";
+
+    result += "<li><a style ='background-color:#3c8dbc;color:white;'href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + currentpage + "," + mode + ")'>" + currentpage + "</a></li>";
+
+    if (parseInt(currentpage) + 1 <= totalpages)
+        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 1) + "," + mode + ")'>" + (parseInt(currentpage) + 1) + "</a></li>";
+    if (parseInt(currentpage) + 2 <= totalpages)
+        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 2) + "," + mode + ")'>" + (parseInt(currentpage) + 2) + "</a></li>";
+
+    if (parseInt(currentpage) != totalpages) result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 1) + "," + mode + ")'>&#187;</a></li>";
+
+    result += "<li>&nbsp;&nbsp;&nbsp;</li>"
+
+    var combo = "<li><select style ='background:#fafafa;color:#666;border:1px solid #ddd;height:30px;'onchange='loadChild(" + code + "," + parentKey + "," + guid + ",this.value)'>";
+    for (var i = 1; i <= totalpages; i++) {
+        combo += "<option value =" + i + " " + (currentpage == i ? "selected" : "") + ">" + i + "</option>";
+    };
+
+    combo += '</select></li>';
+
+    result += combo;
+
+
+    $('#' + pageid).html(result);
+
 }

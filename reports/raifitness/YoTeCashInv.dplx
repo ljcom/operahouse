@@ -1,2 +1,78 @@
 <?xml version="1.0"?>
-<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><report id="Report1" pageSize="a5" pageOrientation="landscape"><query id="Query1"><storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCashInv_report"><parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" value="#Parameters[&quot;GUID&quot;]#" type="uniqueIdentifier"/></storedProcedure></query><template id="Template1"/><header id="Header1" height="50"/><detail id="Detail1" height="451"><image id="Image1" x="23" y="11" width="133" height="49" path="Rai.jpg"/><label id="Label1" font="TimesBold" fontSize="10" x="12" y="72" text="Invoice No.  :" width="85" height="12"/><label font="TimesBold" fontSize="10" x="12" id="Label2" text="Nama Member :" width="85" y="90" height="12"/><label font="TimesBold" fontSize="10" x="12" width="85" id="Label3" text="Sales   :" y="108" height="12"/><label font="TimesBold" fontSize="10" id="Label4" x="232" y="90" text="No. Membercard  :" width="104" height="12"/><recordBox id="RecordBox1" dataFormat="" y="72" x="102" font="TimesRoman" fontSize="10" field="No_Invoice" width="114" height="12"/><recordBox dataFormat="" x="102" id="RecordBox2" y="90" font="TimesRoman" fontSize="10" field="NamaMember" width="114" height="12"/><recordBox dataFormat="" x="102" id="RecordBox3" y="108" font="TimesRoman" fontSize="10" field="Sales" width="114" height="12"/><label font="TimesBold" fontSize="10" id="Label5" y="108" x="232" text="Personal Trainer  :" width="105" height="12"/><recordBox dataFormat="" font="TimesRoman" fontSize="10" id="RecordBox4" width="114" y="90" field="No_Membercard" x="342" height="12"/><recordBox dataFormat="" font="TimesRoman" fontSize="10" width="114" id="RecordBox5" x="342" y="108" field="PersonalTrainer" height="12"/><label id="Label6" font="TimesBold" align="right" fontSize="16" text="INVOICE" vAlign="center" x="403" y="24" width="77" height="18"/><label id="Label7" font="TimesRoman" width="23" text="Date :" fontSize="8" height="12" x="379" y="48"/><recordBox id="RecordBox6" dataFormat="" y="48" font="TimesRoman" fontSize="8" field="TglInvoice" x="402" width="77" height="12"/><subReport id="SubReport1" y="127" x="0" width="491"><query id="Query2"><storedProcedure dataProvider="msSql" referenceParameter="" name="doc.YoTeCashInv_report_sub1" connectionString="#Global.AppSettings[&quot;connection&quot;]#"><parameter type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#" name="@HostGUID"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure></query><header id="Header2" height="15"><label id="Label8" font="TimesBold" text="PRODUCT" align="center" height="14" y="1" fontSize="11" x="19" width="63"/><label font="TimesBold" align="center" height="14" y="1" id="Label9" text="DESCRIPTION" fontSize="11" x="123" width="86"/><label font="TimesBold" align="center" height="14" y="1" id="Label10" text="QUANTITY" fontSize="11" x="254" width="66"/><label font="TimesBold" align="center" height="14" id="Label11" y="1" text="AMOUNT" width="59" fontSize="11" x="418"/><label font="TimesBold" align="center" height="14" y="1" id="Label12" text="UNIT PRICE" fontSize="11" x="326" width="70"/></header><detail id="Detail2" height="51"><recordBox id="RecordBox7" dataFormat="" y="6" x="12" font="TimesRoman" fontSize="10" field="Product" width="72" height="12"/><recordBox dataFormat="" y="6" id="RecordBox8" x="96" font="TimesRoman" fontSize="10" field="Desc" width="144" height="12"/><recordBox dataFormat="" y="6" id="RecordBox10" width="37" font="TimesRoman" fontSize="10" field="Qty" x="269" height="12"/><recordBox dataFormat="" y="6" id="RecordBox11" font="TimesRoman" fontSize="10" x="326" field="UnitPrice" width="73" height="12"/><recordBox dataFormat="" y="6" font="TimesRoman" fontSize="10" id="RecordBox12" width="73" x="411" field="Amount" height="12"/></detail><footer id="Footer2" height="1"/></subReport><line id="Line1" x1="8" y2="126" x2="486" y1="126"/><line x1="8" x2="486" id="Line2" y1="141" y2="141"/><line x1="8" x2="486" id="Line3" y1="198" y2="198"/><label font="TimesBold" fontSize="10" id="Label13" y="204" text="Cara Pembayaran :" x="12" width="102" height="12"/><label font="TimesBold" fontSize="10" x="12" id="Label14" width="102" y="222" text="Catatan   :" height="12"/><label font="TimesBold" fontSize="10" y="204" id="Label15" text="Sub Total (Sales Amount)" x="241" width="155" height="12"/><label font="TimesBold" fontSize="10" id="Label16" text="Less : Discount" y="222" x="241" width="155" height="12"/><label font="TimesBold" fontSize="10" id="Label17" y="240" text="Less : Down Payment (Uang Muka)" width="155" x="241" height="12"/><label font="TimesBold" fontSize="10" width="155" x="241" id="Label18" y="258" text="VAT (Pajak Hiburan 10%)" height="12"/><label font="TimesBold" fontSize="10" width="155" x="241" id="Label19" y="276" text="Delivery Cost (Ongkir)" height="12"/><label font="TimesBold" fontSize="10" width="155" x="241" id="Label20" y="294" text="TOTAL" height="12"/><recordBox id="RecordBox13" dataFormat="" width="100" y="204" font="TimesRoman" fontSize="10" field="CaraPmbyrn" x="120" height="12"/><recordBox dataFormat="" width="100" id="RecordBox14" x="120" y="222" font="TimesRoman" fontSize="10" field="Note" height="36"/><label fontSize="10" y="294" id="Label21" align="center" font="TimesItalic" text="TTD" x="166" width="31" height="12"/><line id="Line4" x1="241" y1="306" y2="306" x2="486"/><line id="Line5" y1="306" y2="306" x1="150" x2="214"/><label fontSize="10" y="294" align="center" font="TimesItalic" id="Label22" text="CAP &amp; TTD" width="56" x="32" height="12"/><line y1="306" y2="306" id="Line6" x1="13" x2="108"/><recordBox id="RecordBox15" dataFormat="" y="204" x="400" font="TimesRoman" fontSize="10" field="SubTotal" width="86" height="12"/><recordBox dataFormat="" x="400" font="TimesRoman" fontSize="10" id="RecordBox16" y="222" field="Discount" width="86" height="12"/><recordBox dataFormat="" font="TimesRoman" fontSize="10" id="RecordBox17" y="240" x="400" field="DP" width="86" height="12"/><recordBox dataFormat="" x="400" font="TimesRoman" fontSize="10" id="RecordBox18" y="258" field="Pajak" width="86" height="12"/><recordBox dataFormat="" x="400" font="TimesRoman" fontSize="10" id="RecordBox19" y="276" field="Ongkir" width="86" height="12"/><recordBox dataFormat="" x="400" font="TimesRoman" fontSize="10" id="RecordBox9" height="12" y="294" field="Total" width="86"/><label id="Label23" font="TimesBoldItalic" fontSize="10" align="center" text="(Customer Service)" y="318" x="17" width="83" height="12"/><label font="TimesBoldItalic" fontSize="10" align="center" y="318" id="Label24" text="(Customer)" width="53" x="157" height="12"/><label id="Label25" font="TimesItalic" fontSize="10" text="Harap simpan kwitansi sebagai bukti transaksi pembayaran." width="253" y="366" x="126" align="center" height="12"/></detail><footer id="Footer1" height="50"/></report></document>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageSize="custom" topMargin="0" bottomMargin="0" leftMargin="14" pageWidth="226" rightMargin="14" pageHeight="567">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCashInv_report">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1"/>
+		<detail id="Detail1" autoSplit="true" height="331">
+			<contentGroup id="ContentGroup1" x="3" y="10" width="194" height="94">
+				<label align="center" fontSize="9" id="Label2" x="3" y="21" height="24" text="Jl. Danau Indah Barat Blok A1/1 Sunter Jaya Jakarta Utara 14350" width="181"/>
+				<line x1="0" y1="50" y2="50" id="Line1" x2="211" width="0"/>
+				<formattedRecordArea id="FormattedRecordArea3" height="22" y="56" x="4" width="155">
+					<initialStyle>
+						<font size="9"/>
+						<line/>
+						<paragraph/>
+					</initialStyle>
+					<text><![CDATA[<P>Invoice No: #InvNo#</P><P>Invoice Date: #InvDate#</P>]]></text>
+				</formattedRecordArea>
+				<line id="Line7" x1="1" y1="90" y2="90" x2="212" style="dashSmall" width="0"/><label align="center" fontSize="10" font="HelveticaBold" id="Label1" x="7" y="2" width="173" height="21" text="LIBERTY JAYA"/>
+			</contentGroup>
+			<formattedRecordArea id="FormattedRecordArea1" expandable="true" y="261" height="42" x="5" width="185">
+				<initialStyle>
+					<font size="9"/>
+					<line/>
+					<paragraph/>
+				</initialStyle>
+				<text><![CDATA[<P>Customer Name: #Customer#</P><P>Cashier&nbsp;by: #HostName#</P><P>Payment type: #payment#</P><P>Printed on: #printDate#</P>]]></text>
+			</formattedRecordArea>
+			<label align="center" id="Label7" text="Thank you for your purchase.&#xA;See you again soon!" fontSize="8" y="305" x="3" width="193" height="20"/>
+			<subReport id="SubReport1" y="105" x="0" width="196">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCashInv_report_sub1">
+						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
+				</query>
+				<header id="Header2" height="1"/>
+				<detail id="Detail2" autoSplit="true" height="41">
+					<formattedRecordArea splittable="true" expandable="true" id="FormattedRecordArea2" height="40" y="0" width="95" x="6">
+						<initialStyle>
+							<font size="9"/>
+							<line/>
+							<paragraph/>
+						</initialStyle>
+						<text><![CDATA[<P>#ItemCode#<BR>#ItemName#<BR>#Qty#&nbsp;x @#Price#</P>]]></text>
+					</formattedRecordArea>
+					<recordBox id="RecordBox4" dataFormat="" height="14" field="TotalPrice" fontSize="9" align="right" y="21" width="61" x="115"/>
+				</detail>
+				<footer id="Footer2" height="1"/>
+			</subReport>
+			<contentGroup id="ContentGroup2" x="1" y="151" width="195" height="103">
+				<line x1="0" y1="0" y2="0" id="Line4" x2="211" style="dashSmall" width="0"/>
+				<line x1="0" id="Line5" y1="28" y2="28" x2="211" style="dashSmall" width="0"/>
+				<label fontSize="9" id="Label5" align="right" text="Sub Total" y="2" width="56" height="11" x="60"/>
+				<recordBox id="RecordBox1" dataFormat="" align="right" fontSize="9" field="Discount" y="13" width="55" height="11" x="122"/>
+				<recordBox dataFormat="" align="right" id="RecordBox2" y="2" fontSize="9" field="SubTotal1" width="55" height="11" x="122"/>
+				<label fontSize="9" align="right" id="Label4" text="Total" y="42" width="56" height="11" x="60"/>
+				<recordBox dataFormat="" align="right" id="RecordBox3" fontSize="9" field="SubTotal2" y="42" width="55" height="11" x="122"/>
+				<line x1="0" id="Line2" y1="58" y2="58" x2="211" style="dashSmall" width="0"/>
+				<line x1="0" id="Line3" y1="58" y2="58" x2="211" style="dashSmall" width="0"/>
+				<line id="Line6" x1="0" y1="108" x2="211" y2="108" style="dashSmall" width="0"/>
+				<label fontSize="9" align="right" id="Label9" text="Discount" y="13" width="56" height="11" x="60"/>
+				<label fontSize="9" align="right" id="Label8" text="Shipping  Cost" y="28" width="65" height="11" x="51"/>
+				<recordBox dataFormat="" align="right" fontSize="9" id="RecordBox6" field="shippingcost" y="29" width="55" height="11" x="122"/>
+				<line x1="0" id="Line8" y1="54" y2="54" x2="211" style="dashSmall" width="0"/>
+				<line x1="0" id="Line9" y1="54" y2="54" x2="211" style="dashSmall" width="0"/>
+				<label fontSize="9" align="right" id="Label3" text="Paid" y="60" width="65" height="11" x="51"/>
+				<label fontSize="9" align="right" id="Label6" text="Less Paid" y="74" width="56" height="11" x="60"/>
+				<recordBox dataFormat="" align="right" fontSize="9" id="RecordBox5" field="balance" y="74" width="55" height="11" x="122"/>
+				<recordBox dataFormat="" align="right" fontSize="9" id="RecordBox7" field="Payrec" y="61" width="55" height="11" x="122"/>
+				<label fontSize="9" align="right" id="Label10" text="Change" y="88" width="56" height="11" x="60"/>
+				<recordBox dataFormat="" align="right" fontSize="9" id="RecordBox8" field="Change" y="88" width="55" height="11" x="122"/>
+			</contentGroup>
+		</detail>
+		<footer id="Footer1"/>
+	</report>
+</document>
