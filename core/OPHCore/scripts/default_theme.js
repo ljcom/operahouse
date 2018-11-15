@@ -470,13 +470,14 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
         if (location == 50 || location === '50') { //saveModalForm
             $('#notiModal').data("message", result);
             $('#notiModal').data("colname", idReq);
-            if (typeof afterSuccess === "function") afterSuccess(data);
+            if (typeof afterSuccess === "function") afterSuccess(result);
         } else {
             if (idReq) showMessage(result, '0', idReq, function () {
-                if (typeof afterSuccess === "function") afterSuccess(data);
+                //still not good
+                //if (typeof afterSuccess === "function") afterSuccess(result);
             });
             else showMessage(result, 0, null, function () {
-                if (typeof afterSuccess === "function") afterSuccess(data);
+                if (typeof afterSuccess === "function") afterSuccess(result);
             });
 
 
