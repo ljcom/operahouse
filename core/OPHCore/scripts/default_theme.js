@@ -1200,7 +1200,11 @@ function childPageNo(pageid, code, currentpage, totalpages) {
     var mode = '&quot;' + getCookie(code.toLowerCase() + '_browseMode') + '&quot;';
     var before = "";
     var after = "";
-    filter = eval(code + '_parent');
+    var filter;
+    try {
+        filter = eval(code + '_parent');
+    }
+    catch (e) {}
     if (filter) {
         var d = filter.split('=');
         parentKey = '&quot;' + d[0] + '&quot;';

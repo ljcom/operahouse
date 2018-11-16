@@ -54,12 +54,12 @@
 					<label font="TimesRoman" id="Label37" height="9.1" x="5.5" y="317.5" width="60.1" text="Jenis kartu kredit" fontSize="9"/>
 					<label font="TimesRoman" id="Label38" y="317" x="221" height="10" width="39" text="Nama Bank" fontSize="9"/>
 					<label font="TimesRoman" id="Label39" x="343" y="318" text="Expiry Date" fontSize="9" width="51" height="13"/>
-					<label width="492" font="TimesRoman" id="Label40" text="Saya telah melengkapi details dari kartu kredit saya  dan menginstruksikan pihak bank untuk melakukan pendebetan biaya bulanan dari rekening saya. Jika saya lalai untuk melakukan pembayaran di Rai Fitness sesuai dengan tanggal yang sudah ditentukan, maka tanda tangan saya ini memberikan kewenangan kepada Rai Fitness tanpa syarat dan tidak dapat dibatalkan untuk mendebit sejumlah uang tersebut diatas. kegagalan dalam pendebitan  untuk jangka waktu tertentu akan menyebabkan membership saya diberhentikan  untuk sementara waktusampai terjadinya pelunasan. Biaya keterlambatan akan dikenakan sebesar Rp.30.000 setelah melewati tanggal yang sudah ditentukan setiap bulannya." height="54.5" x="1.5" y="371" align="justify" fontSize="9"/>
+					<label width="492" font="TimesRoman" id="Label40" height="54.5" x="1.5" y="371" align="justify" fontSize="9" text="Saya telah melengkapi detail dari kartu kredit saya dan menginstruksikan pihak bank untuk melakukan pendebetan biaya bulanan dari rekening saya. Jika saya lalai untuk melakukan pembayaran di Rai Fitness sesuai dengan tanggal yang sudah ditentukan, maka tanda tangan saya ini memberikan kewenangan kepada Rai Fitness tanpa syarat dan tidak dapat dibatalkan untuk mendebit sejumlah uang tersebut diatas. Kegagalan dalam pendebitan untuk jangka waktu tertentu akan menyebabkan membership saya diberhentikan  untuk sementara waktusampai terjadinya pelunasan. Biaya keterlambatan akan dikenakan sebesar Rp.30.000 setelah melewati tanggal yang sudah ditentukan setiap bulannya."/>
 					<label font="TimesRoman" height="7" width="108" id="Label41" text="Tanggal    :" fontSize="9" x="344" y="446"/>
 					<label height="7" id="Label42" x="3" text="Tanda Tangan Pemegang Kartu    :" width="145" align="center" font="TimesBold" fontSize="9" y="426"/>
 					<rectangle id="Rectangle1" x="1" width="152" height="26" y="436"/>
 					<label height="7" x="3" id="Label43" font="TimesItalic" text="*sama dengan tertera dalam kartu kredit" align="center" width="151" fontSize="9" y="464"/>
-					<label width="492" font="TimesRoman" id="Label45" x="1" align="justify" fontSize="9" height="108" y="489" text="#Dengan menandatangani &quot;Perjanjian Anggota&quot; ini, Anda Selanjutnya disebut sebagai Member Rai Fitness. Anggota Club dengan ini  telah menerima dan menyetujui Perjanjian ini dalam keadaan sadar dan tanpa adanya paksaan dari pihak manapun. Dengan menjadi member Rai Fitness akan mematuhi peraturan &amp; tata tertib serta peraturan-peraturan yang diberlakukan di club. Saya telah menerima, membaca dan memahami salinan peraturan &amp; tata tertib yang diberlakukan di club Rai Fitness, serta menyatakan bahwa&quot;Perjanjian Anggota&quot; dan segala peraturan yang melekatdan menjadi kesatuan dengannya adalah sah dan mengikat secara hukum. Perjanjian Anggota ( Membership Agreement) ini terus berlaku untuk jangka waktu paling sedikit 12 bulan terhitung sejak tanggal efektif  membership di Perjanjian Anggota ini, kecuali di tentukan lain dengan keputusan management.&#xA;# Semua biaya keanggotaan Rai Fitness yang tertera dibagian rincian biaya keanggotaan ini adalah No Refundable ( tidak dapat dikembalikan)."/>
+					<label width="492" font="TimesRoman" id="Label45" align="justify" fontSize="9" height="108" x="0.5" y="488.5" text="#Dengan menandatangani &quot;Perjanjian Anggota&quot; ini, Anda Selanjutnya disebut sebagai Member Rai Fitness. Anggota Club dengan ini  telah menerima dan menyetujui Perjanjian ini dalam keadaan sadar dan tanpa adanya paksaan dari pihak manapun. Dengan menjadi member Rai Fitness akan mematuhi peraturan &amp; tata tertib serta peraturan-peraturan yang diberlakukan di club. Saya telah menerima, membaca dan memahami salinan peraturan &amp; tata tertib yang diberlakukan di club Rai Fitness, serta menyatakan bahwa &quot;Perjanjian Anggota&quot; dan segala peraturan yang melekatdan menjadi kesatuan dengannya adalah sah dan mengikat secara hukum. Perjanjian Anggota (Membership Agreement) ini terus berlaku untuk jangka waktu paling sedikit 12 bulan terhitung sejak tanggal efektif  membership di Perjanjian Anggota ini, kecuali di tentukan lain dengan keputusan management.&#xA;# Semua biaya keanggotaan Rai Fitness yang tertera dibagian rincian biaya keanggotaan ini adalah No Refundable (tidak dapat dikembalikan)."/>
 					<label font="TimesRoman" height="7" width="108" text="Tanggal    :" id="Label46" fontSize="9" x="344" y="609"/>
 					<rectangle id="Rectangle2" height="37" x="1" width="215" y="596"/>
 					<line id="Line1" x1="2" x2="215" y1="604" y2="604"/>
@@ -67,7 +67,7 @@
 					<rectangle id="Rectangle3" width="492" height="46" x="1" y="1252"/>
 					<line id="Line4" x1="0" x2="491.5" y1="1268.5" y2="1269"/>
 					<recordBox id="RecordBox3" dataFormat="" width="100" height="14" font="TimesRoman" field="namadpn" y="15.5" x="92" fontSize="10"/>
-					<recordBox dataFormat="" width="100" id="RecordBox4" height="14" y="32" font="TimesRoman" field="tmptlahir" x="92" fontSize="10"/>
+					<recordBox width="100" id="RecordBox4" height="14" y="32" font="TimesRoman" field="tmptlahir" x="92" fontSize="10" dataFormat="dd/mm/yyyy"/>
 					<recordBox dataFormat="" width="100" id="RecordBox5" height="14" font="TimesRoman" field="alamatrmh" y="48" x="92" fontSize="10"/>
 					<recordBox dataFormat="" width="100" height="14" id="RecordBox6" font="TimesRoman" field="noiden" x="92" y="63" fontSize="10"/>
 					<recordBox dataFormat="" width="100" height="14" id="RecordBox7" font="TimesRoman" field="nohp" x="92" y="79" fontSize="10"/>
@@ -82,14 +82,14 @@
 					<recordBox dataFormat="" height="14" width="96" id="RecordBox19" y="223" field="total" x="107" fontSize="10"/>
 					<recordBox dataFormat="" height="14" width="96" id="RecordBox20" field="tax" y="242" x="104.5" fontSize="10"/>
 					<recordBox dataFormat="" height="14" width="96" id="RecordBox21" font="TimesRoman" field="typemember" y="155" x="375.5" fontSize="10"/>
-					<recordBox dataFormat="" height="14" width="96" id="RecordBox22" font="TimesRoman" field="startmember" y="172" x="376" fontSize="10"/>
-					<recordBox dataFormat="" height="14" width="96" id="RecordBox23" font="TimesRoman" field="endmember" y="188" x="376.5" fontSize="10"/>
+					<recordBox height="14" width="96" id="RecordBox22" font="TimesRoman" field="startmember" y="172" x="376" fontSize="10" dataFormat="dd/mm/yyyy"/>
+					<recordBox height="14" width="96" id="RecordBox23" font="TimesRoman" field="endmember" y="188" x="376.5" fontSize="10" dataFormat="dd/mm/yyyy"/>
 					<recordBox dataFormat="" height="14" width="96" id="RecordBox24" y="218" font="TimesRoman" field="tglterbit" x="376" fontSize="10"/>
-					<recordBox dataFormat="" height="14" width="96" id="RecordBox25" y="236" font="TimesRoman" field="biayabulanan" x="376" fontSize="10"/>
+					<recordBox height="14" width="96" id="RecordBox25" y="236" font="TimesRoman" field="biayabulanan" x="376" fontSize="10" dataFormat="dd/mm/yyyy"/>
 					<recordBox dataFormat="" width="96" id="RecordBox26" font="TimesRoman" field="jeniscc" height="11" y="316" x="95" fontSize="9"/>
 					<recordBox dataFormat="" width="96" id="RecordBox27" font="TimesRoman" field="namacc" height="12.5" y="329" x="94" fontSize="9"/>
 					<recordBox dataFormat="" width="96" id="RecordBox28" font="TimesRoman" field="nocc" height="11.5" x="93.5" y="343.5" fontSize="9"/>
-					<recordBox dataFormat="" height="14" id="RecordBox29" font="TimesRoman" field="namabank" y="315" width="61" x="268.5" fontSize="9"/>
+					<recordBox dataFormat="" height="14" id="RecordBox29" font="TimesRoman" field="namabank" width="61" x="268.5" fontSize="9" y="316"/>
 					<recordBox dataFormat="" width="96" id="RecordBox30" font="TimesRoman" field="biayabulananan" height="11" y="356" x="94" fontSize="9"/>
 					<recordBox dataFormat="" height="14" width="96" id="RecordBox31" font="TimesRoman" field="expdate" x="393" y="316" fontSize="9"/>
 					<rectangle id="Rectangle4" height="13" x="0" fillColor="gainsboro" borderColor="gainsboro" width="492" y="1"/>
@@ -143,9 +143,9 @@
 					<label height="14" width="11" text=":" x="83" id="Label74" y="327"/>
 					<label height="14" width="11" text=":" x="83" id="Label75" y="340"/>
 					<label height="14" width="11" text=":" x="83" id="Label76" y="353"/>
-					<label height="14" width="11" text=":" id="Label77" x="262" y="313.5"/>
+					<label height="14" width="11" text=":" id="Label77" x="262" y="314.5"/>
 					<label height="14" width="11" text=":" id="Label78" x="388" y="315.5"/>
-					<recordBox id="RecordBox9" dataFormat="" x="91" width="100" height="13.5" field="nmakrbat" fontSize="10" y="126" font="TimesRoman"/><recordBox id="RecordBox13" dataFormat="" x="343" y="121" height="14" width="100" field="tlpkrbat" font="TimesRoman" fontSize="10"/></detail>
+					<recordBox id="RecordBox9" dataFormat="" x="91" width="100" height="13.5" field="nmakrbat" fontSize="10" y="126" font="TimesRoman"/><recordBox id="RecordBox13" dataFormat="" x="343" height="14" width="100" field="tlpkrbat" font="TimesRoman" fontSize="10" y="124"/></detail>
 				<footer id="Footer2" height="14"/>
 			</subReport>
 			<recordBox id="RecordBox1" dataFormat="" width="109" x="370" height="15" field="aggrement" y="17" fontSize="10"/>

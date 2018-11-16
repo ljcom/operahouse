@@ -38,7 +38,7 @@ Partial Class OPHCore_api_msg_autosuggest
 
             search = search.Replace("*", " ")
             'Dim sqlstr = "exec api.autosuggest_old '" & curHostGUID & "', '" & getQueryVar("code") & "','" & getQueryVar("key") & "','" & getQueryVar("id") & "','" & getQueryVar("name") & "','" & search & "','" & wf1 & "'," & wf1value & ",'" & wf2 & "'," & wf2value & ""
-            Dim sqlstr = "exec api.autosuggest @hostguid='" & curHostGUID & "', @code='" & code & "', @colkey='" & colkey & "', @defaultValue='" & dv & "', @searchText='" & Trim(search) & "', @wf1Value=" & wf1value & ", @wf2value=" & wf2value & IIf(nbRow <> "", ", @nbRow=" & nbRow, "") & IIf(parentCode <> "", ", @parentCode=" & parentCode, "")
+            Dim sqlstr = "exec api.autosuggest @hostguid='" & curHostGUID & "', @code='" & code & "', @colkey='" & colkey & "', @defaultValue='" & dv & "', @searchText='" & Trim(search) & "', @wf1Value=" & wf1value & ", @wf2value=" & wf2value & IIf(nbRow <> "", ", @nbRow=" & nbRow, "")
 
             Dim xmlstr = getXML(sqlstr)
             Dim json = ""
