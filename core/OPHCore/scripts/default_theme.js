@@ -619,6 +619,8 @@ function checkChanges(t) {
             curdata = t.options[t.selectedIndex].value;
             //$("#" + t.id).data("value", t.options[t.selectedIndex].value);
         }
+        else if ($(t).hasClass("cell-editor-textbox") || $(t).hasClass("cell-editor-datepicker"))
+            curdata = $(t).html();
         else
             curdata = $(t).val();
 

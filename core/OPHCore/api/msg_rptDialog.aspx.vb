@@ -141,6 +141,9 @@ Partial Class OPHCore_api_msg_rptDialog
                         'Response.AddHeader("Content-Disposition", "attachment; filename=" & reportName & ".pdf")
 
                         pdfFile = Request.Url.AbsoluteUri.Replace("msg_rptDialog.aspx", "") & "../../OPHContent/documents/temp/" & g & "_" & reportName & ".pdf"
+                        If Request.UrlReferrer.Scheme = "https" Then
+                            pdfFile = pdfFile.Replace("http", "https")
+                        End If
                         Response.Write("<html><head><title>Printing...</title></head><script src=""../../OPHContent/cdn/printjs/print.min.js""></script><body><script>printJS('" & pdfFile & "');window.onfocus=function(){ window.close();}</script></body></html>")
                         MyDocument.Draw(savesPath)
 

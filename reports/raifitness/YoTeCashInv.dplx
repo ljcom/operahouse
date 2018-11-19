@@ -11,13 +11,13 @@
 		<header id="Header1"/>
 		<detail id="Detail1" autoSplit="true" height="329">
 			<label id="Label1" width="188" align="center" fontSize="9" text="Jl. Pantai Indah Selatan 1 No. 8, Kapuk Muara Penjaringan, Jakarta Utara 14460" x="5" height="27" y="28"/>
-			<label id="Label2" fontSize="9" x="11" width="45" text="Invoice No" y="56" height="11"/>
+			<label id="Label2" fontSize="9" width="45" text="Invoice No" height="12" x="11" y="59"/>
 			<line id="Line1" x1="6" y1="53" y2="53" x2="192"/>
-			<label fontSize="9" id="Label3" text="Invoice Date" width="53" height="11.5" y="70" x="11"/>
-			<recordBox id="RecordBox1" dataFormat="" width="100" field="InvNo" fontSize="9" x="77" y="57" height="10"/>
-			<recordBox dataFormat="" width="100" fontSize="9" id="RecordBox2" field="InvDate" height="12" x="77" y="70"/>
+			<label fontSize="9" id="Label3" text="Invoice Date" width="53" height="11.5" x="11" y="73"/>
+			<recordBox id="RecordBox1" dataFormat="" width="100" field="InvNo" fontSize="9" x="77" height="10" y="60"/>
+			<recordBox dataFormat="" width="100" fontSize="9" id="RecordBox2" field="InvDate" height="12" x="77" y="73"/>
 			<line x1="6" id="Line2" x2="192" y1="91" y2="91" style="dash"/>
-			<subReport id="SubReport1" x="6" width="190" y="101">
+			<subReport id="SubReport1" x="6" width="190" y="97">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" name="doc.YoTeCashInv_report_sub1" connectionString="#Global.AppSettings[&quot;connection&quot;]#">
 						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
@@ -25,47 +25,47 @@
 					</storedProcedure>
 				</query>
 				<header id="Header2" height="1"/>
-				<detail id="Detail2" height="26">
+				<detail id="Detail2" height="26.25">
 					<recordBox id="RecordBox3" dataFormat="" width="100" fontSize="9" field="ItemName" x="6" y="1" height="11.75"/>
 					<recordBox dataFormat="" fontSize="9" x="6" id="RecordBox4" y="13" field="Qty" width="17" height="11.75"/>
 					<label id="Label4" text="x" fontSize="9" x="23" y="13" width="5" height="11"/>
-					<recordBox dataFormat="" fontSize="9" y="13" id="RecordBox5" x="33" field="Price" width="50" height="12.25"/>
-					<recordBox dataFormat="" fontSize="9" field="Price" id="RecordBox6" height="12" align="right" y="12" x="124" width="50"/>
+					<recordBox dataFormat="" fontSize="9" y="13" id="RecordBox5" x="33" field="Price" width="50" height="12.25" align="right"/>
+					<recordBox dataFormat="" fontSize="9" field="Price" id="RecordBox6" height="12" align="right" x="124" width="51.75" y="13.25"/>
 				</detail>
 				<footer id="Footer2" height="1"/>
 			</subReport>
 			<line style="dash" id="Line3" x1="6" y1="130" x2="192" y2="130"/>
-			<label id="Label5" fontSize="9" text="Sub Total" width="45" align="right" x="66" height="11" y="135"/>
+			<label id="Label5" fontSize="9" text="Sub Total" align="right" x="66" y="135" height="11.5" width="46.25"/>
 			<line style="dash" id="Line4" x1="6" x2="192" y1="151" y2="151"/>
 			<label fontSize="9" align="right" id="Label8" text="Total Contract" x="27" width="85" y="157.25" height="11.75"/>
 			<line style="dash" x1="6" x2="192" id="Line5" y1="174" y2="174"/>
 			<line style="dash" x1="6" x2="192" id="Line6" y1="177" y2="177"/>
-			<label fontSize="9" align="right" height="12" width="41" id="Label9" text="Paid" x="71" y="181"/>
+			<label fontSize="9" align="right" width="41" id="Label9" text="Paid" x="71" height="12" y="181"/>
 			<label fontSize="9" align="right" height="12" width="41" id="Label10" x="71" text="Balance" y="194"/>
 			<line style="dash" x1="6" x2="192" id="Line7" y1="211" y2="211"/>
-			<recordBox id="RecordBox7" dataFormat="" fontSize="9" align="right" field="SubTotal1" x="130" width="51" height="11.1" y="135"/>
+			<recordBox id="RecordBox7" dataFormat="" fontSize="9" align="right" field="SubTotal1" x="130" height="11.1" y="135" width="51.5"/>
 			<recordBox dataFormat="" fontSize="9" id="RecordBox10" align="right" field="SubTotal2" x="130" y="157" width="51.25" height="11.5"/>
 			<recordBox dataFormat="" fontSize="9" id="RecordBox11" align="right" x="130" width="51" height="12" field="Payrec" y="181"/>
 			<recordBox dataFormat="" fontSize="9" id="RecordBox12" height="12" align="right" x="130" width="51" field="balance" y="194"/>
 			<label fontSize="9" id="Label12" text="Member" width="40" y="215" height="11.75" x="11.25"/>
 			<label fontSize="9" id="Label13" text="Fitness Consultant" x="11" width="77" height="12" y="227"/>
-			<label fontSize="9" id="Label15" width="46" text="Cashier by" y="240" height="12.25" x="10.75"/>
+			<label fontSize="9" id="Label15" width="46" text="Cashier by" height="12.25" x="10.75" y="239.5"/>
 			<label fontSize="9" id="Label16" height="12" text="Payment Type" width="63" x="11" y="252"/>
 			<label fontSize="9" id="Label17" x="11" width="46" text="Printed On" y="265" height="11.75"/>
 			<recordBox id="RecordBox14" dataFormat="" fontSize="9" field="Member" x="98" y="215" height="11.75" width="82"/>
 			<recordBox dataFormat="" fontSize="9" id="RecordBox15" field="FitnessConsultant" x="98" y="227" height="11.5" width="82"/>
-			<recordBox dataFormat="" fontSize="9" id="RecordBox17" field="HostName" x="98" width="82" height="12" y="240"/>
+			<recordBox dataFormat="" fontSize="9" id="RecordBox17" field="HostName" x="98" width="82" height="12" y="239.5"/>
 			<recordBox dataFormat="" fontSize="9" id="RecordBox18" field="Payment" x="98" width="82" height="12" y="252"/>
 			<recordBox dataFormat="" fontSize="9" id="RecordBox19" field="printDate" x="98" width="82" y="266" height="11.1"/>
 			<label id="Label18" align="center" text="Thank you for your purchase. See you again soon!" fontSize="8" x="38" width="120" height="25" y="285"/>
 			<image id="Image1" path="Rai.jpg" x="39" y="0" width="119" height="27"/>
 			<label id="Label19" fontSize="9" text=":" width="5" x="90" height="11" y="227"/>
-			<label fontSize="9" text=":" width="5" height="11" id="Label20" x="68" y="56"/>
+			<label fontSize="9" text=":" width="5" height="11" id="Label20" x="68" y="59"/>
 			<label fontSize="9" text=":" width="5" x="90" height="11" id="Label22" y="227"/>
-			<label fontSize="9" text=":" width="5" x="90" id="Label23" height="11" y="240"/>
+			<label fontSize="9" text=":" width="5" x="90" id="Label23" height="11" y="239.5"/>
 			<label fontSize="9" text=":" width="5" id="Label24" x="90" height="11" y="252"/>
 			<label fontSize="9" text=":" width="5" id="Label25" x="90" height="12" y="265"/>
-			<label fontSize="9" text=":" width="5" height="11" x="68" id="Label26" y="70"/>
+			<label fontSize="9" text=":" width="5" height="11" x="68" id="Label26" y="73"/>
 			<label fontSize="9" text=":" width="5" x="90" height="11" id="Label27" y="214"/>
 		</detail>
 		<footer id="Footer1"/>

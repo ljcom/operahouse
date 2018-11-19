@@ -118,7 +118,7 @@ Partial Class OPHCore_api_sync
                     Dim pg = getQueryVar("page")
 					Dim delList = getQueryVar("delList")
 					
-                    sqlstr = "exec [api].[sync_reqheader] '" & accountId & "', " & sessionToken & ", '" & code & "', " & IIf(pg = "", 1, pg) & iif(delList<>"", ", @delList='" & delList & "'", "")
+                    sqlstr = "exec [api].[sync_reqheader] '" & accountId & "', " & sessionToken & ", '" & code & "', '" & IIf(pg = "", 1, pg) & iif(delList<>"", "', @delList='" & delList & "'", "")
                     writeLog(sqlstr)
 
                     xmlstr = getXML(sqlstr, contentOfdbODBC)
@@ -127,14 +127,14 @@ Partial Class OPHCore_api_sync
                         'result = "<sqroot>" & xmlstr & "</sqroot>"
                         result = xmlstr
                     Else
-                        result = "<sqroot><source>reqdelheader</source><message>Incorrect Data!</message></sqroot>"
+                        result = "<sqroot><source>reqheader</source><message>Incorrect Data!</message></sqroot>"
                     End If
 				Case "reqdelheader"
                     Dim code = getQueryVar("code")
                     Dim pg = getQueryVar("page")
 					Dim delList = getQueryVar("delList")
 					
-                    sqlstr = "exec [api].[sync_reqdelheader] '" & accountId & "', " & sessionToken & ", '" & code & "', " & IIf(pg = "", 1, pg) & ", @issilent=0"
+                    sqlstr = "exec [api].[sync_reqdelheader] '" & accountId & "', " & sessionToken & ", '" & code & "', '" & IIf(pg = "", 1, pg) & "', @issilent=0"
                     writeLog(sqlstr)
 
                     xmlstr = getXML(sqlstr, contentOfdbODBC)
@@ -144,7 +144,7 @@ Partial Class OPHCore_api_sync
 						writeLog(xmlstr)
                         result = xmlstr
                     Else
-                        result = "<sqroot><source>reqheader</source><message>Incorrect Data!</message></sqroot>"
+                        result = "<sqroot><source>reqdelheader</source><message>Incorrect Data!</message></sqroot>"
                     End If
                 Case "reqdata"
                     Dim code = getQueryVar("code")

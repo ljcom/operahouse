@@ -84,14 +84,14 @@
 					<recordBox dataFormat="" height="14" width="96" id="RecordBox21" font="TimesRoman" field="typemember" y="155" x="375.5" fontSize="10"/>
 					<recordBox height="14" width="96" id="RecordBox22" font="TimesRoman" field="startmember" y="172" x="376" fontSize="10" dataFormat="dd/mm/yyyy"/>
 					<recordBox height="14" width="96" id="RecordBox23" font="TimesRoman" field="endmember" y="188" x="376.5" fontSize="10" dataFormat="dd/mm/yyyy"/>
-					<recordBox dataFormat="" height="14" width="96" id="RecordBox24" y="218" font="TimesRoman" field="tglterbit" x="376" fontSize="10"/>
+					<recordBox height="14" width="96" id="RecordBox24" y="218" font="TimesRoman" field="tglterbit" x="376" fontSize="10" dataFormat="dd/mm/yyyy"/>
 					<recordBox height="14" width="96" id="RecordBox25" y="236" font="TimesRoman" field="biayabulanan" x="376" fontSize="10" dataFormat="dd/mm/yyyy"/>
 					<recordBox dataFormat="" width="96" id="RecordBox26" font="TimesRoman" field="jeniscc" height="11" y="316" x="95" fontSize="9"/>
 					<recordBox dataFormat="" width="96" id="RecordBox27" font="TimesRoman" field="namacc" height="12.5" y="329" x="94" fontSize="9"/>
 					<recordBox dataFormat="" width="96" id="RecordBox28" font="TimesRoman" field="nocc" height="11.5" x="93.5" y="343.5" fontSize="9"/>
 					<recordBox dataFormat="" height="14" id="RecordBox29" font="TimesRoman" field="namabank" width="61" x="268.5" fontSize="9" y="316"/>
 					<recordBox dataFormat="" width="96" id="RecordBox30" font="TimesRoman" field="biayabulananan" height="11" y="356" x="94" fontSize="9"/>
-					<recordBox dataFormat="" height="14" width="96" id="RecordBox31" font="TimesRoman" field="expdate" x="393" y="316" fontSize="9"/>
+					<recordBox dataFormat="" height="14" width="96" id="RecordBox31" font="TimesRoman" field="expdate" fontSize="9" x="394" y="317"/>
 					<rectangle id="Rectangle4" height="13" x="0" fillColor="gainsboro" borderColor="gainsboro" width="492" y="1"/>
 					<label id="Label5" height="14" font="TimesBold" text="DATA ANGGOTA" align="center" width="490" x="1" y="1"/>
 					<rectangle height="13" x="0" fillColor="gainsboro" borderColor="gainsboro" width="492" id="Rectangle6" y="276"/>
@@ -144,7 +144,7 @@
 					<label height="14" width="11" text=":" x="83" id="Label75" y="340"/>
 					<label height="14" width="11" text=":" x="83" id="Label76" y="353"/>
 					<label height="14" width="11" text=":" id="Label77" x="262" y="314.5"/>
-					<label height="14" width="11" text=":" id="Label78" x="388" y="315.5"/>
+					<label height="14" width="11" text=":" id="Label78" x="389" y="314.5"/>
 					<recordBox id="RecordBox9" dataFormat="" x="91" width="100" height="13.5" field="nmakrbat" fontSize="10" y="126" font="TimesRoman"/><recordBox id="RecordBox13" dataFormat="" x="343" height="14" width="100" field="tlpkrbat" font="TimesRoman" fontSize="10" y="124"/></detail>
 				<footer id="Footer2" height="14"/>
 			</subReport>
