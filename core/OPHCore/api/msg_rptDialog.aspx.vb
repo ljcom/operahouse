@@ -233,7 +233,7 @@ Partial Class OPHCore_api_msg_rptDialog
                     End If
                     n += 1
                 Next
-                sqlstr = sqlstr.replace("''", "null")
+                sqlstr = sqlstr.Replace("''", "null")
             End If
             writeLog("downloadXLS : " & sqlstr)
 
@@ -308,10 +308,10 @@ Partial Class OPHCore_api_msg_rptDialog
                             context1.Response.ContentType = "application/vnd.ms-excel"
                         ElseIf Right(pathGBOX, 4) = "xlsx" Then
                             context1.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                        ElseIf Right(pathGBOX, 3) = "txt" Then 
-							context1.Response.ContentType = "text/plain"
+                        ElseIf Right(pathGBOX, 3) = "txt" Then
+                            context1.Response.ContentType = "text/plain"
                         End If
-							 
+
                         context1.Response.ClearHeaders()
                         context1.Response.AddHeader("content-disposition", "attachment;filename=" & gfile)
                         context1.Response.BinaryWrite(bytes)
