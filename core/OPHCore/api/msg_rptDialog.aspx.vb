@@ -167,7 +167,7 @@ Partial Class OPHCore_api_msg_rptDialog
             Dim g = System.Guid.NewGuid().ToString
             Dim Parameters As ParameterDictionary = New ParameterDictionary
             Dim gfile As String = "", gext As String = ""
-            Dim gpath As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/")
+            Dim gpath As String = Server.MapPath("~/OPHContent/documents/" & contentOfaccountId & "/temp/")
             If Not Directory.Exists(gpath) Then Directory.CreateDirectory(gpath)
             Dim exportMode = getQueryVar("exportMode").ToString()
             'default exportMode=1
