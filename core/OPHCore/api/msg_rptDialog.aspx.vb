@@ -130,8 +130,8 @@ Partial Class OPHCore_api_msg_rptDialog
                     Dim MyDocument As Document = reportDocument.Run(Parameters)
                     Dim g = System.Guid.NewGuid().ToString
                     'Dim savesPath As String = Request.PhysicalApplicationPath & "documents\temp\" & g & "_" & reportName & ".pdf"
-                    'Dim savesPath As String = Server.MapPath("~/OPHContent/documents/" & contentOfaccountId & "/temp/") & g & "_" & reportName & ".pdf"
-                    Dim savespath As String = Path.GetTempPath() & g & "_" & reportName & ".pdf"
+                    Dim savesPath As String = Server.MapPath("~/OPHContent/documents/temp/") & g & "_" & reportName & ".pdf"
+                    'Dim savespath As String = Path.GetTempPath() & g & "_" & reportName & ".pdf"
                     'savesPath = savesPath.Replace("core\", "")
                     If getQueryVar("dontdelete") = "1" Then
                         Response.Write(savesPath)
