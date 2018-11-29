@@ -60,6 +60,7 @@ Partial Class OPHCore_api_sync
                         Dim filename = "install_" & accountId & "_" & newid & ".sql"
                         writeFile(path, filename, result1)
                         Dim r = download("../../ophcontent/documents/temp/", filename)
+						isxml=false
                     End If
                 Case "webrequestfile"
                     Dim r = download("../../ophcontent/documents/sync/", "sync.data")
