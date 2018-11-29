@@ -131,8 +131,10 @@ Partial Class OPHCore_api_msg_rptDialog
 
                     Dim MyDocument As Document = reportDocument.Run(Parameters)
                     Dim g = System.Guid.NewGuid().ToString
-                    Dim savesPath As String = Request.PhysicalApplicationPath & "documents\temp\" & g & "_" & reportName & ".pdf"
-                    savesPath = savesPath.Replace("core\", "")
+                    'Dim savesPath As String = Request.PhysicalApplicationPath & "documents\temp\" & g & "_" & reportName & ".pdf"
+                    Dim savesPath As String = Server.MapPath("~/OPHContent/documents/temp/") & g & "_" & reportName & ".pdf"
+                    'Dim savespath As String = Path.GetTempPath() & g & "_" & reportName & ".pdf"
+                    'savesPath = savesPath.Replace("core\", "")
                     If getQueryVar("dontdelete") = "1" Then
                         Response.Write(savesPath)
                         MyDocument.Draw(savesPath)
@@ -155,8 +157,8 @@ Partial Class OPHCore_api_msg_rptDialog
             Catch ex As Exception
                 Response.ContentType = "text/html"
                 Response.AddHeader("Cache-Control", " no-store, no-cache ")
-                Response.Write("<script>alert('" & ex.Message.Replace("'", "\'") & "')</script>")
-                writeLog(ex.Message.Replace("'", "\'"))
+                Response.Write("<script>alert('" & ex.Message.Replace("'", "\'").Replace("\", "\\") & "')</script>")
+                writeLog(ex.Message.Replace("'", "\'").Replace("\", "\\"))
             Finally
 
 
@@ -169,7 +171,7 @@ Partial Class OPHCore_api_msg_rptDialog
             Dim g = System.Guid.NewGuid().ToString
             Dim Parameters As ParameterDictionary = New ParameterDictionary
             Dim gfile As String = "", gext As String = ""
-            Dim gpath As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/")
+            Dim gpath As String = Server.MapPath("~/OPHContent/documents/" & contentOfaccountId & "/temp/")
             If Not Directory.Exists(gpath) Then Directory.CreateDirectory(gpath)
             Dim exportMode = getQueryVar("exportMode").ToString()
             'default exportMode=1
@@ -235,7 +237,7 @@ Partial Class OPHCore_api_msg_rptDialog
                     End If
                     n += 1
                 Next
-                sqlstr = sqlstr.replace("''", "null")
+                sqlstr = sqlstr.Replace("''", "null")
             End If
             writeLog("downloadXLS : " & sqlstr)
 
@@ -310,10 +312,10 @@ Partial Class OPHCore_api_msg_rptDialog
                             context1.Response.ContentType = "application/vnd.ms-excel"
                         ElseIf Right(pathGBOX, 4) = "xlsx" Then
                             context1.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                        ElseIf Right(pathGBOX, 3) = "txt" Then 
-							context1.Response.ContentType = "text/plain"
+                        ElseIf Right(pathGBOX, 3) = "txt" Then
+                            context1.Response.ContentType = "text/plain"
                         End If
-							 
+
                         context1.Response.ClearHeaders()
                         context1.Response.AddHeader("content-disposition", "attachment;filename=" & gfile)
                         context1.Response.BinaryWrite(bytes)

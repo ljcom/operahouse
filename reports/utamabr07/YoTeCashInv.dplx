@@ -35,7 +35,7 @@
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCashInv_report_sub1">
 						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
 				</query>
-				<header id="Header2" height="2"/>
+				<header id="Header2" height="1"/>
 				<detail id="Detail2" autoSplit="true" height="41">
 					<formattedRecordArea splittable="true" expandable="true" id="FormattedRecordArea2" height="40" y="0" x="2" width="105.275">
 						<initialStyle>
@@ -43,7 +43,7 @@
 							<line/>
 							<paragraph/>
 						</initialStyle>
-						<text><![CDATA[<P>#ItemName#<BR>#Qty#&nbsp;x @#Price#</P><P Align="Right">&nbsp;</P>]]></text>
+						<text><![CDATA[<P>#ItemCode#<BR>#ItemName#<BR>#Qty#&nbsp;x @#Price#</P><P Align="Right">&nbsp;</P>]]></text>
 					</formattedRecordArea>
 					<recordBox id="RecordBox4" dataFormat="" height="14" field="TotalPrice" fontSize="9" align="right" y="21" width="81.5" x="111.5"/>
 				</detail>
