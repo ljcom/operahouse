@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" subject="MADC Report" title="MADC Report" author="Pu" keywords="Pu" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageOrientation="landscape" rightMargin="24" leftMargin="24" bottomMargin="24" topMargin="35" pageSize="a4">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.yoMADCF">
+				<parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="@DocGUID" type="uniqueIdentifier" value="#Parameters[&quot;DocGUID&quot;]#"/></storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1"/>
+		<detail id="Detail1" height="305" autoSplit="true">
+			<contentGroup id="ContentGroup1" x="0" height="160" y="0" width="794">
+				<rectangle id="Rectangle1" height="14" width="68" y="24" x="718"/>
+				<label id="Label1" font="TimesBold" text="L`OREAL INDONESIA" width="200" height="20" x="10" y="7"/>
+				<recordBox id="RecordBox1" dataFormat="" font="HelveticaBold" field="CompanyCode" align="center" vAlign="center" leading="11" fontSize="9" height="14" width="68" y="24" x="718"/>
+				<label id="Label2" text="Company Code" font="HelveticaBold" vAlign="center" height="16" fontSize="9" width="71.5" y="24" x="645"/>
+				<label font="HelveticaBold" id="Label3" text="Internal Ref. No." height="16" vAlign="center" fontSize="9" width="71.1" y="40" x="645"/>
+				<rectangle id="Rectangle2" height="14" width="68" y="40" x="718"/>
+				<recordBox dataFormat="" font="HelveticaBold" align="center" id="RecordBox2" vAlign="center" leading="11" fontSize="9" height="14" width="68" y="40" field="MADCRefNo" x="718"/>
+				<rectangle id="Rectangle3" x="0" height="14" y="61" width="794" fillColor="darkGray"/>
+				<label id="Label4" width="744" font="HelveticaBold" vAlign="center" x="4" fontSize="9" height="14" y="61" text="FIXED ASSETS MASTER DATA CHANGE"/>
+				<label id="Label5" width="500" x="6" fontSize="7" text="INSTRUCTIONS" font="HelveticaBoldOblique" vAlign="center" y="75" height="13"/>
+				<image id="Image1" path="img/finance.png" width="159" height="36" x="425" y="2"/>
+				<label width="500" fontSize="7" id="Label6" x="10" text="1. The purpose of this form is to request change(s) to the Fixed Asset Master Data" y="87" height="10" font="HelveticaOblique"/>
+				<label fontSize="7" id="Label7" x="17" height="10" y="97" font="HelveticaOblique" text="E.g." width="13"/>
+				<label width="500" fontSize="7" id="Label8" font="HelveticaOblique" x="31" y="97" height="45" text="To Tick/Untick &quot;allow negative value&quot;&#xA;To AUC Activation and De-activation&#xA;To change/Update of Asset Description&#xA;To change cost center or internal order, if wrong&#xA;To change asset location, if wrong"/>
+				<label width="500" fontSize="7" x="10" font="HelveticaOblique" id="Label9" height="20" y="139" text="2. (*) Mandatory&#xA;3. To be completed by the requestor"/>
+			</contentGroup>
+			<contentGroup id="ContentGroup4" splittable="true" x="0" y="160" width="794" height="54">
+				<rectangle x="0" y="0" id="Rectangle40" height="14" width="794" fillColor="darkGray"/>
+				<rectangle borderWidth="0.5" x="0" width="15" id="Rectangle46" y="19" height="35"/>
+				<label vAlign="center" align="center" font="HelveticaBold" fontSize="9" text="No" id="Label37" height="35" x="0" y="19" width="15"/>
+				<label font="HelveticaBold" vAlign="center" x="4" id="Label41" y="0" height="14" width="496.5" text="PART A: FIXED ASSETS MASTER DATA CHANGE" fontSize="9"/>
+				<rectangle borderWidth="0.5" x="15" id="Rectangle50" y="19" width="60" height="35"/>
+				<label vAlign="center" align="center" id="Label42" x="15" width="60" fontSize="9" font="HelveticaBold" height="35" y="19" text="Asset No/&#xA;AUC No."/>
+				<rectangle borderWidth="0.5" y="19" id="Rectangle4" width="250" x="75" height="35"/>
+				<label vAlign="center" align="center" id="Label10" width="250" font="HelveticaBold" fontSize="9" text="Description of Fixed Assets*" x="75" height="35" y="19"/>
+				<rectangle borderWidth="0.5" y="19" id="Rectangle5" width="165" x="325" height="35"/>
+				<label vAlign="center" align="center" id="Label11" width="165" text="Field to be changed" fontSize="9" font="HelveticaBold" x="325" height="35" y="19"/>
+				<rectangle borderWidth="0.5" y="19" id="Rectangle6" x="490" height="35" width="40"/>
+				<label vAlign="center" align="center" id="Label12" font="HelveticaBold" height="35" y="19" width="40" x="490" text="Allow &#xA;Negative &#xA;Value" fontSize="8"/>
+				<rectangle borderWidth="0.5" y="19" id="Rectangle7" height="35" x="530" width="45"/>
+				<label vAlign="center" align="center" font="HelveticaBold" id="Label13" y="19" width="45" x="530" height="35" text="Asset&#xA;Activation" fontSize="8"/>
+				<rectangle borderWidth="0.5" y="19" height="35" id="Rectangle8" x="575" width="110"/>
+				<label vAlign="center" align="center" fontSize="9" font="HelveticaBold" height="35" id="Label14" x="575" text="From" width="110" y="19"/>
+				<rectangle borderWidth="0.5" y="19" height="35" id="Rectangle9" x="685" width="109"/>
+				<label vAlign="center" align="center" fontSize="9" font="HelveticaBold" height="35" id="Label15" text="To" x="685" y="19" width="109"/>
+			</contentGroup>
+			<subReport id="SubReport1" width="794" y="214" x="0">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.yoMADCFDETL">
+						<parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+						<parameter name="@parentDocGUID" type="uniqueIdentifier" value="#Parameters[&quot;DocGUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header id="Header2">
+				</header>
+				<detail id="Detail2" height="11" autoSplit="true">
+					<rectangle borderWidth="0.5" width="15" id="Rectangle22" height="11" x="0" y="0"/>
+					<rectangle borderWidth="0.5" id="Rectangle26" height="11" width="60" x="15" y="0"/>
+					<recordBox dataFormat="" field="No" fontSize="8" align="center" width="15" id="RecordBox5" height="10" expandable="true" x="0" y="1"/>
+					<recordBox dataFormat="" fontSize="8" height="10" expandable="true" id="RecordBox7" field="AssetNo" y="1" x="16" width="58" align="center"/>
+					<rectangle borderWidth="0.5" height="11" id="Rectangle10" x="75" width="250" y="0"/>
+					<recordBox dataFormat="" fontSize="8" height="10" expandable="true" id="RecordBox3" y="1" field="AssetDescription" x="77" width="247"/>
+					<rectangle borderWidth="0.5" height="11" y="0" id="Rectangle11" x="325" width="165"/>
+					<recordBox dataFormat="" fontSize="8" height="10" expandable="true" id="RecordBox4" y="1" field="TypeChange" x="327" width="162"/>
+					<rectangle borderWidth="0.5" height="11" y="0" id="Rectangle12" x="490" width="40"/>
+					<recordBox dataFormat="" fontSize="8" height="10" expandable="true" y="1" id="RecordBox6" field="AUCAllow" align="center" width="38" x="491"/>
+					<rectangle borderWidth="0.5" height="11" y="0" id="Rectangle13" width="45" x="530"/>
+					<recordBox dataFormat="" fontSize="8" height="10" expandable="true" id="RecordBox8" y="1" field="AUCActive" align="center" width="43" x="531"/>
+					<rectangle borderWidth="0.5" height="11" y="0" id="Rectangle14" x="575" width="110"/>
+					<recordBox dataFormat="" fontSize="8" height="10" expandable="true" id="RecordBox9" y="1" field="AssetForm" x="577" width="107"/>
+					<rectangle borderWidth="0.5" height="11" y="0" id="Rectangle15" x="685" width="109"/>
+					<recordBox dataFormat="" fontSize="8" height="10" expandable="true" id="RecordBox10" y="1" field="AssetTo" x="687" width="106"/>
+				</detail>
+				<footer id="Footer2">
+				</footer>
+			</subReport>
+			<label width="500" fontSize="7" id="Label16" text="Note: If more than 5 assets, please attach a schedule" font="HelveticaOblique" height="10" y="226" x="5" vAlign="center"/>
+			<label width="500" fontSize="7" height="10" id="Label17" font="HelveticaBold" y="240" text="Reason of Change to Master Data:" x="8"/>
+			<rectangle id="Rectangle16" borderWidth="0.5" width="770" x="8" y="250" height="11"/><recordBox id="RecordBox11" dataFormat="" field="ReasonChange" expandable="true" width="766" y="250" fontSize="8" height="11" x="10"/><subReport columns="2" width="794" id="SubReport2" x="0" y="281">
+				<query id="Query3">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.yoMADCAPRV">
+						<parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+						<parameter name="@DocGUID" type="uniqueIdentifier" value="#Parameters[&quot;DocGUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header id="Header3"/>
+				<detail height="23" id="Detail3">
+					<formattedRecordArea expandable="true" width="70" height="20" y="3" x="320" id="FormattedRecordArea1"><initialStyle><font size="8"/><line/><paragraph align="center"/></initialStyle><text><![CDATA[<P><B>#Status# </B></P><P>#aprvDate#</P>]]></text></formattedRecordArea><formattedRecordArea expandable="true" x="18" height="20" y="3" width="300" id="FormattedRecordArea2"><initialStyle><font size="8"/><line/><paragraph/></initialStyle><text><![CDATA[<P><B>#Name# (Level&nbsp;#Lvl#)</B></P><P><I>(#Email#)</I></P>]]></text></formattedRecordArea><label text="-" fontSize="10" align="center" width="10" height="10" x="6" y="2" id="Label18"/></detail>
+				<footer id="Footer3"/>
+			</subReport>
+			<rectangle height="14" x="0" fillColor="darkGray" width="794" id="Rectangle17" y="266"/>
+			<label font="HelveticaBold" vAlign="center" fontSize="9" height="14" width="295.1" x="4" id="Label19" text="PART B:  APPROVAL" y="266"/>
+			<rectangle x="0" y="0" width="794" height="305" id="Rectangle18"/></detail>
+		<footer id="Footer1"/>
+	</report>
+</document>
