@@ -50,7 +50,7 @@ Partial Class OPHCore_api_msg_rptDialog
         Dim fieldattachment As List(Of String) = Nothing
 
         Dim sqlstr = ""
-        If mode = "xls" Or mode = "pdf" or mode = "xlstemplate" Then
+        If mode = "xls" Or mode = "pdf" Or mode = "xlstemplate" Then
             Dim parXML = writeXMLFromRequestForm("sqroot", fieldattachment, "")
             sqlstr = "exec [api].[getReport] " & curHostGUID & ", '" & code & "', '" & parXML & "'"
             writeLog("getReport : " & sqlstr)
@@ -60,7 +60,7 @@ Partial Class OPHCore_api_msg_rptDialog
                     If ds1.Tables(0).Rows(0).Item("parameters").ToString <> "" Then
                         parameterid = ds1.Tables(0).Rows(0).Item("parameters").replace("%2F", "/")
                         reportName = ds1.Tables(0).Rows(0).Item("reportName")
-                        XLSTemplate = ds1.Tables(0).Rows(0).Item("XLSTemplate")
+                        'XLSTemplate = ds1.Tables(0).Rows(0).Item("XLSTemplate")
                     End If
                 End If
             End If
