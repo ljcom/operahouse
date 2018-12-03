@@ -8,8 +8,8 @@ Partial Class _health
 
         Dim sqlstr = "select status from node where nodename='" & My.Computer.Name.ToString & "'"
         result = runSQLwithResult(sqlstr, contentOfsequoiaCon).ToString
-        If result = "500" Then
-            sqlstr = "update node set status=0 where status=500 and nodename='" & My.Computer.Name.ToString & "'"
+        If result <> "400" Then
+            sqlstr = "update node set status=400 where status<>500 and nodename='" & My.Computer.Name.ToString & "'"
             runSQL(sqlstr, contentOfsequoiaCon)
         End If
     End Sub
