@@ -60,7 +60,7 @@ Partial Class OPHCore_api_sync
                         Dim filename = "install_" & accountId & "_" & newid & ".sql"
                         writeFile(path, filename, result1)
                         Dim r = download("../../ophcontent/documents/temp/", filename)
-						isxml=false
+                        isXML = False
                     End If
                 Case "webrequestfile"
                     Dim r = download("../../ophcontent/documents/sync/", "sync.data")
@@ -149,7 +149,7 @@ Partial Class OPHCore_api_sync
                     End If
                 Case "reqdata"
                     Dim code = getQueryVar("code")
-                    Dim guid = Request.Form("guid")
+                    Dim guid = Request.Form("GUID")
                     Dim delMode = Request.Form("delMode")
                     'Dim pg = getQueryVar("page")
 
