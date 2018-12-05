@@ -357,121 +357,145 @@ Partial Class OPHCore_api_msg_rptDialog
 
             parameterid = parameterid.Replace(":", "=").Replace(":null", "=null").Replace("''", "")
             Dim q As Long = 1
-            Dim query = runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='" & code & "' and InfoKey='querysql_" & q & "'")
-            Dim queryupdate = runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='" & code & "' and InfoKey='querysqlupdate_" & q & "'")
-
-            sqlstr = query
-            Dim p = parameterid.Split(",")
-
-            Dim n = 1
-            For Each px In p
-                If px <> "" Then
-                    Dim pp = px.Split("=")
-                    If pp(1).ToLower <> "null" Then
-                        sqlstr = sqlstr & "'" & pp(1) & "'"
-                    Else
-                        sqlstr = sqlstr & "null"
-                    End If
-
-                    If n < p.Length Then
-                        sqlstr = sqlstr & ", "
-                    End If
-                End If
-                n += 1
-            Next
-            sqlstr = sqlstr.Replace("''", "null")
-
-            writeLog("downloadXLS : " & sqlstr)
-
             Try
                 Dim ef As ExcelFile = ExcelFile.Load(template)
                 Dim ws As ExcelWorksheet = ef.Worksheets(0)
-                Dim rows As Integer = 12
-                Dim ds = SelectSqlSrvRows(sqlstr, Connections)
 
-                If ds.Tables.Count > 0 And ds.Tables(0).Rows.Count > 0 Then
-                    Dim cols As Integer = 0
-                    'Dim rowcol As Integer = 0
-                    'For Each head In ds.Tables(0).Columns
-                    '    ws.Cells(head.ToString).Value = ds.Tables(0).Rows(0).ItemArray(rowcol).ToString()
+                Do While True
+                    Dim query = runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='" & code & "' and InfoKey='querysql_" & q & "'")
+                    'Dim queryupdate = runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='" & code & "' and InfoKey='querysqlupdate_" & q & "'")
+                    Dim rows As Integer '= 12
+                    Dim cols As Integer
+                    Dim col As Integer
+                    Dim getcol As String
 
-                    'Next
-                    Dim totalrow As Integer = ds.Tables(0).Rows.Count
-                    If totalrow > 1 Then
-                        ws.Rows(rows).InsertCopy(totalrow - 1, ws.Rows(rows))
-                    End If
+                    If query IsNot Nothing And query <> "" Then
+                        rows = runSQLwithResult("select isnull(infovalue,0) infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='" & code & "' and InfoKey='rowquerysql_" & q & "'")
+                        getcol = runSQLwithResult("select isnull(infovalue,0) infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='" & code & "' and InfoKey='colquerysql_" & q & "'")
 
-                    Dim cl = ds.Tables(0).Columns.Count
-                    For Each r In ds.Tables(0).Rows
-                        Dim rx = DirectCast(r, DataRow)
-                        Dim number As Double
-                        For n = 1 To cl - 1
-                            'ws.Cells(rows, n).Value = rx.Item(n).ToString
-                            If IsDBNull(rx.Item(n)) Then
-                                'ws.Cells(rows, n).Value = rx.Item(n).ToString
-
-                                'ElseIf Val(rx.Item(n)).ToString() = rx.Item(n).ToString() Then
-                            ElseIf Double.TryParse(rx.Item(n), number) Then
-                                ws.Cells(rows, n).Value = CDbl(Val(rx.Item(n)))
-                                'ws.Cells(rows, n).Value = ws.Cells(rows, n).GetFormattedValue()
-                                'ws.Cells(rows, n).Style.NumberFormat = "#.##0,00"
-                            Else
-                                ws.Cells(rows, n).Value = rx.Item(n).ToString
-                            End If
-                        Next
-                        rows = rows + 1
-                    Next
-                    ef.Save(pathGBOX)
-                    If getQueryVar("output") <> "" Then
-                        If Dir(getQueryVar("output")) <> "" Then Kill(getQueryVar("output"))
-                        If gext = "txt" Then
-                            Dim latin1 As Encoding = Encoding.GetEncoding(28591)
-                            Dim text As String = File.ReadAllText(pathGBOX, latin1)
-                            File.WriteAllText(getQueryVar("output"), text, Encoding.ASCII)
+                        If getcol IsNot Nothing And getcol <> "" Then
+                            col = getcol
                         Else
-                            FileCopy(pathGBOX, getQueryVar("output"))
+                            col = 0
                         End If
-                    End If
-                    If gext = "txt" Then
-                        Rename(pathGBOX, Left(pathGBOX, pathGBOX.Length - 4))
-                        gfile = Left(gfile, Len(gfile) - 4)
-                        pathGBOX = Left(pathGBOX, Len(pathGBOX) - 4)
-                    End If
 
-                    If getQueryVar("dontdelete") = "1" Then
-                        If Not getQueryVar("output") Is Nothing Then
-                            Response.Write(getQueryVar("output"))
-                        Else
-                            Response.Write(pathGBOX)
+                        sqlstr = query
+                        Dim p = parameterid.Split(",")
+
+                        Dim n = 1
+                        For Each px In p
+                            If px <> "" Then
+                                Dim pp = px.Split("=")
+                                If pp(1).ToLower <> "null" Then
+                                    sqlstr = sqlstr & "'" & pp(1) & "'"
+                                Else
+                                    sqlstr = sqlstr & "null"
+                                End If
+
+                                If n < p.Length Then
+                                    sqlstr = sqlstr & ", "
+                                End If
+                            End If
+                            n += 1
+                        Next
+                        sqlstr = sqlstr.Replace("''", "null")
+                        writeLog("downloadXLS : " & sqlstr)
+
+
+                        Dim ds = SelectSqlSrvRows(sqlstr, Connections)
+
+                        If ds.Tables.Count > 0 And ds.Tables(0).Rows.Count > 0 Then
+
+                            'Dim rowcol As Integer = 0
+                            'For Each head In ds.Tables(0).Columns
+                            '    ws.Cells(head.ToString).Value = ds.Tables(0).Rows(0).ItemArray(rowcol).ToString()
+
+                            'Next
+                            Dim totalrow As Integer = ds.Tables(0).Rows.Count
+                            If totalrow > 1 Then
+                                ws.Rows(rows).InsertCopy(totalrow - 1, ws.Rows(rows))
+                            End If
+
+                            Dim cl = ds.Tables(0).Columns.Count
+                            For Each r In ds.Tables(0).Rows
+                                cols = col
+                                Dim rx = DirectCast(r, DataRow)
+                                Dim number As Double
+                                For n = 1 To cl - 1
+                                    'ws.Cells(rows, n).Value = rx.Item(n).ToString
+                                    If IsDBNull(rx.Item(n)) Then
+                                    ElseIf Double.TryParse(rx.Item(n), number) Then
+                                        ws.Cells(rows, cols).Value = CDbl(Val(rx.Item(n)))
+                                    Else
+                                        ws.Cells(rows, cols).Value = rx.Item(n).ToString
+                                    End If
+                                    cols = cols + 1
+                                Next
+
+                                rows = rows + 1
+                            Next
                         End If
                     Else
-                        Dim bytes() As Byte
-                        Dim finfo As New FileInfo(pathGBOX)
-                        Dim numBytes As Long = finfo.Length
-                        Dim fstream As New FileStream(pathGBOX, FileMode.Open, FileAccess.Read)
-                        writeLog(pathGBOX)
-                        Dim br As New BinaryReader(fstream)
-                        bytes = br.ReadBytes(CInt(numBytes))
+                        Exit Do
 
-                        Dim context1 As HttpContext = HttpContext.Current
-                        context1.Response.Cache.SetCacheability(HttpCacheability.NoCache)
-                        If Right(pathGBOX, 3) = "xls" Then
-                            context1.Response.ContentType = "application/vnd.ms-excel"
-                        ElseIf Right(pathGBOX, 4) = "xlsx" Then
-                            context1.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                        ElseIf Right(pathGBOX, 3) = "txt" Then
-                            context1.Response.ContentType = "text/plain"
-                        End If
+                    End If
+                    q += 1
 
-                        context1.Response.ClearHeaders()
-                        context1.Response.AddHeader("content-disposition", "attachment;filename=" & gfile)
-                        context1.Response.BinaryWrite(bytes)
-                        context1.Response.Flush()
-                        fstream.Close()
-                        fstream.Dispose()
-                        finfo.Delete()
+                Loop
+
+                ef.Save(pathGBOX)
+                If getQueryVar("output") <> "" Then
+                    If Dir(getQueryVar("output")) <> "" Then Kill(getQueryVar("output"))
+                    If gext = "txt" Then
+                        Dim latin1 As Encoding = Encoding.GetEncoding(28591)
+                        Dim text As String = File.ReadAllText(pathGBOX, latin1)
+                        File.WriteAllText(getQueryVar("output"), text, Encoding.ASCII)
+                    Else
+                        FileCopy(pathGBOX, getQueryVar("output"))
                     End If
                 End If
+                If gext = "txt" Then
+                    Rename(pathGBOX, Left(pathGBOX, pathGBOX.Length - 4))
+                    gfile = Left(gfile, Len(gfile) - 4)
+                    pathGBOX = Left(pathGBOX, Len(pathGBOX) - 4)
+                End If
+
+                If getQueryVar("dontdelete") = "1" Then
+                    If Not getQueryVar("output") Is Nothing Then
+                        Response.Write(getQueryVar("output"))
+                    Else
+                        Response.Write(pathGBOX)
+                    End If
+                Else
+                    Dim bytes() As Byte
+                    Dim finfo As New FileInfo(pathGBOX)
+                    Dim numBytes As Long = finfo.Length
+                    Dim fstream As New FileStream(pathGBOX, FileMode.Open, FileAccess.Read)
+                    writeLog(pathGBOX)
+                    Dim br As New BinaryReader(fstream)
+                    bytes = br.ReadBytes(CInt(numBytes))
+
+                    Dim context1 As HttpContext = HttpContext.Current
+                    context1.Response.Cache.SetCacheability(HttpCacheability.NoCache)
+                    If Right(pathGBOX, 3) = "xls" Then
+                        context1.Response.ContentType = "application/vnd.ms-excel"
+                    ElseIf Right(pathGBOX, 4) = "xlsx" Then
+                        context1.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    ElseIf Right(pathGBOX, 3) = "txt" Then
+                        context1.Response.ContentType = "text/plain"
+                    End If
+
+                    context1.Response.ClearHeaders()
+                    context1.Response.AddHeader("content-disposition", "attachment;filename=" & gfile)
+                    context1.Response.BinaryWrite(bytes)
+                    context1.Response.Flush()
+                    fstream.Close()
+                    fstream.Dispose()
+                    finfo.Delete()
+                End If
+
+
+
             Catch ex As Exception
                 writeLog(ex.Message)
                 Response.Write("<script>alert('" & ex.Message.Replace("'", "\'") & "')</script>")
