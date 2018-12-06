@@ -6,29 +6,29 @@
 				<parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="@DocGUID" type="uniqueIdentifier" value="#Parameters[&quot;DocGUID&quot;]#"/></storedProcedure>
 		</query>
 		<template id="Template1"/>
-		<header id="Header1" height="89">
-			<label id="Label1" height="19" text="AIRFREIGHT APPROVAL FORM" align="center" font="HelveticaBold" fontSize="20" width="318" x="239" y="26"/>
-			<image id="Image1" path="operations1.png" y="4" x="3" width="214" height="83"/>
-			<image id="Image2" path="sharing.png" y="4" x="578" width="154" height="79"/>
-		</header>
+		<header id="Header1" height="159">
+			<label id="Label1" height="19" text="AIRFREIGHT APPROVAL FORM" align="center" font="HelveticaBold" fontSize="25" width="440" x="186" y="75"/>
+			<image id="Image1" path="operations1.png" width="203.1" height="80" x="4" y="41"/>
+			<image id="Image2" path="sharing.png" width="143" x="597" y="2" height="75.1"/>
+			<image id="Image3" path="co2.PNG" height="80.1" width="99.1" x="624" y="68"/></header>
 		<detail id="Detail1" autoSplit="true" height="878">
-			<contentGroup id="generalinformation" x="4" width="736" height="91" y="77">
+			<contentGroup id="generalinformation" x="4" width="736" height="91" y="21">
 				<rectangle id="Rectangle26" x="1" y="1" height="88" width="731"/><label id="Label4" height="17" text="Requestor Name And Function" y="13" fontSize="10" x="7" width="144"/>
 				<label height="17" id="Label5" text="Entity" width="31" fontSize="10" y="42" x="6"/>
 				<label height="17" id="Label6" text="Division" y="70" fontSize="10" x="7" width="42"/>
 				<recordBox id="RecordBox1" dataFormat="" width="119" height="17" fontSize="10" field="reqname" x="163" vAlign="center" y="11"/>
 				<label height="17" id="Label7" text="Date" y="15" fontSize="10" x="407" width="28"/>
-				<label height="17" id="Label8" y="44" text="Flow Type" fontSize="10" x="407" width="56"/>
+				<label height="17" id="Label8" text="Flow Type" fontSize="10" x="407" width="56" y="42"/>
 				<recordBox dataFormat="" width="119" id="RecordBox4" fontSize="10" field="entity" x="163" vAlign="center" y="39" height="16"/>
 				<recordBox dataFormat="" width="119" height="17" id="RecordBox5" fontSize="10" field="DivisionName" x="163" vAlign="center" y="68"/>
 				<label height="17" id="Label9" y="69" text="Parameter" fontSize="10" x="407" width="62"/>
 				<recordBox dataFormat="" width="100" id="RecordBox6" fontSize="10" field="aifgdate" x="474" vAlign="center" y="12" height="18"/>
-				<recordBox dataFormat="" height="17" width="100" id="RecordBox7" fontSize="10" field="flowtype" x="475" vAlign="center" y="42"/>
+				<recordBox dataFormat="" height="17" width="100" id="RecordBox7" fontSize="10" field="flowtype" x="475" vAlign="center" y="40"/>
 				<recordBox dataFormat="" height="17" width="100" id="RecordBox8" fontSize="10" field="parameter" x="475" vAlign="center" y="67"/>
 				<label height="17" fontSize="10" id="Label14" align="center" text=":" width="12" y="13" x="147"/>
 				<label height="17" fontSize="10" align="center" text=":" width="12" x="147" id="Label70" y="41"/>
 				<label height="17" fontSize="10" align="center" text=":" width="12" x="147" id="Label71" y="70"/>
-				<label height="17" fontSize="10" align="center" text=":" width="12" id="Label73" x="459" y="44"/>
+				<label height="17" fontSize="10" align="center" text=":" width="12" id="Label73" x="459" y="42"/>
 				<label height="17" fontSize="10" align="center" text=":" width="12" x="459" id="Label74" y="70"/>
 				<label height="17" fontSize="10" align="center" text=":" width="12" x="459" id="Label72" y="15"/>
 			</contentGroup>
@@ -46,9 +46,9 @@
 				<label fontSize="8" id="Label35" text="Gain (days)" width="42" height="12" x="600" y="39"/>
 				<label fontSize="8" id="Label36" text="Cost Surcharge" width="56" height="13" x="528" y="38"/>
 				<label id="Label37" x="23" height="13" text="Business impact if no air shipment (currency)" y="106" fontSize="10" width="222"/>
-				<recordBox id="RecordBox33" dataFormat="" field="buship" vAlign="center" width="182" y="106" x="275" fontSize="10" height="15.5"/>
+				<recordBox id="RecordBox33" dataFormat="" field="buship" vAlign="center" width="182" y="106" x="275" fontSize="10" height="15"/>
 				<label x="23" height="13" id="Label39" text="Comment" width="167" y="127" fontSize="10"/>
-				<recordBox dataFormat="" id="RecordBox34" field="comment1" width="185" x="273" fontSize="10" y="130.5" height="45.5"/>
+				<recordBox dataFormat="" id="RecordBox34" field="comment1" width="185" x="273" fontSize="10" y="130" height="45"/>
 				<rectangle id="Rectangle1" height="24" width="65" x="18" y="52"/>
 				<recordBox id="RecordBox2" dataFormat="" fontSize="8" field="cost1" x="20" width="61" height="19" align="center" vAlign="center" y="54"/>
 				<rectangle height="24" id="Rectangle2" width="61" x="83" y="52"/>
@@ -138,7 +138,7 @@
 				</detail>
 				<footer id="Footer2" height="1"/>
 			</subReport>
-			<contentGroup id="shipment1" x="4" width="733" height="156" y="221">
+			<contentGroup id="shipment1" x="4" width="733" height="156" y="175">
 				<rectangle id="Rectangle25" height="155" width="734" y="1" x="1"/><label x="6" height="17" y="7" id="Label10" fontSize="10" width="58" text="Ship From"/>
 				<label x="6" height="17" y="31" id="Label11" fontSize="10" text="Shipper Name" width="65"/>
 				<label height="17" y="7" id="Label13" fontSize="10" width="58" text="Ship To" x="392"/>
@@ -151,7 +151,7 @@
 				<label y="112" id="Label29" fontSize="10" height="14" text="Estimed Weight Shipped" width="112" x="392"/>
 				<label x="6" height="17" width="84" y="141" id="Label30" fontSize="10" text="Distance"/>
 				<label height="17" text="Km" id="Label32" fontSize="10" width="21" vAlign="center" y="138" x="184"/>
-				<recordBox id="RecordBox24" dataFormat="" height="15" fontSize="10" field="from" vAlign="center" y="5" x="141" width="171.5"/><recordBox dataFormat="" height="15" fontSize="10" id="RecordBox25" field="name" y="31" x="141" width="171.5"/><recordBox dataFormat="" height="15" fontSize="10" id="RecordBox26" field="address" y="59" x="142" width="170"/><recordBox dataFormat="" height="15" fontSize="10" id="RecordBox27" field="pick" x="142" y="87.5" width="170.5"/><recordBox dataFormat="" height="15" fontSize="10" id="RecordBox28" field="reference" y="114" x="142" width="170.5"/><recordBox dataFormat="" fontSize="10" id="RecordBox29" y="139" field="distance" height="15" vAlign="center" width="43" align="center" x="141"/><recordBox dataFormat="" height="15" fontSize="10" id="RecordBox30" field="to" y="7" x="527" width="182.5"/><recordBox dataFormat="" height="15" fontSize="10" id="RecordBox31" field="conname" y="33" x="527" width="182.5"/><recordBox dataFormat="" fontSize="10" id="RecordBox32" field="conaddress" height="15" y="61" x="527" width="182.5"/><recordBox dataFormat="" height="15" fontSize="10" id="RecordBox50" field="requested" y="88" x="527" width="182.5"/><recordBox dataFormat="" height="15" fontSize="10" id="RecordBox51" field="weight" y="112" x="527" width="182.5"/><label height="17" fontSize="10" text=":" align="center" width="9" id="Label16" y="59" x="126"/>
+				<recordBox id="RecordBox24" dataFormat="" height="15" fontSize="10" field="from" vAlign="center" y="5" x="141" width="171"/><recordBox dataFormat="" height="15" fontSize="10" id="RecordBox25" field="name" y="31" x="141" width="171"/><recordBox dataFormat="" height="15" fontSize="10" id="RecordBox26" field="address" y="59" x="142" width="170"/><recordBox dataFormat="" height="15" fontSize="10" id="RecordBox27" field="pick" x="142" y="87" width="170"/><recordBox dataFormat="" height="15" fontSize="10" id="RecordBox28" field="reference" y="114" x="142" width="170"/><recordBox dataFormat="" fontSize="10" id="RecordBox29" y="139" field="distance" height="15" vAlign="center" width="43" align="center" x="141"/><recordBox dataFormat="" height="15" fontSize="10" id="RecordBox30" field="to" y="7" x="527" width="182"/><recordBox dataFormat="" height="15" fontSize="10" id="RecordBox31" field="conname" y="33" x="527" width="182"/><recordBox dataFormat="" fontSize="10" id="RecordBox32" field="conaddress" height="15" y="61" x="527" width="182"/><recordBox dataFormat="" height="15" fontSize="10" id="RecordBox50" field="requested" y="88" x="527" width="182"/><recordBox dataFormat="" height="15" fontSize="10" id="RecordBox51" field="weight" y="112" x="527" width="182"/><label height="17" fontSize="10" text=":" align="center" width="9" id="Label16" y="59" x="126"/>
 				<label height="17" fontSize="10" text=":" align="center" width="9" id="Label19" y="87" x="126"/>
 				<label height="17" fontSize="10" text=":" align="center" width="9" id="Label15" y="31" x="126"/>
 				<label height="17" fontSize="10" text=":" align="center" width="9" id="Label21" y="114" x="126"/>
@@ -181,7 +181,7 @@
 				<label height="13" fontSize="8" text="DATE" x="413" id="Label47" y="95" width="167"/>
 				<recordBox dataFormat="" fontSize="8" id="RecordBox42" y="95" field="dopdate" x="445" width="127" height="12"/>
 			</contentGroup>
-			<label id="Label2" height="14" width="100" text="Detail Shipment" x="6" y="423"/><label id="Label3" text="General Information" width="129" height="17" x="6" y="56"/><label width="129" height="17" id="Label12" text="Shipment Information" x="6" y="200"/></detail>
+			<label id="Label2" height="14" width="100" text="Detail Shipment" x="6" y="423"/><label id="Label3" text="General Information" width="129" height="17" x="6" y="0"/><label width="129" height="17" id="Label12" text="Shipment Information" x="6" y="154"/></detail>
 		<footer id="Footer1"/>
 	</report>
 </document>
