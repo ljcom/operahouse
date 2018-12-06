@@ -7,13 +7,13 @@ Partial Class _health
         Dim contentOfsequoiaCon = appSettings.Item("sequoia")
 
         Dim ip = GetIPAddress(My.Computer.Name.ToString)
-
+		dim sqlstr as string=""
         If result <> "400" Then
-            sqlstr = "update node set status=400 where status<>500 and nodename='" & My.Computer.Name.ToString & "'"
+            sqlstr = "update node set status=400 where status<>500 and nodeip='" & ip & "'"
             runSQL(sqlstr, contentOfsequoiaCon)
         End If
 
-        Dim sqlstr = "select status from node where nodeIP='" & ip.ToString & "'"
+        sqlstr = "select status from node where nodeIP='" & ip.ToString & "'"
         result = runSQLwithResult(sqlstr, contentOfsequoiaCon).ToString
     End Sub
 	
