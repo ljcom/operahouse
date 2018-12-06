@@ -6,6 +6,9 @@ Partial Class _health
         Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
         Dim contentOfsequoiaCon = appSettings.Item("sequoia")
 
+        Dim sqlstr = "update node set status=400 where nodename='" & My.Computer.Name.ToString & "' and status in (0,100)"
+        result = runSQLwithResult(sqlstr, contentOfsequoiaCon).ToString
+
         Dim sqlstr = "select status from node where nodename='" & My.Computer.Name.ToString & "'"
         result = runSQLwithResult(sqlstr, contentOfsequoiaCon).ToString
     End Sub
