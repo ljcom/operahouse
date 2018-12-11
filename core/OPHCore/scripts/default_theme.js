@@ -391,6 +391,30 @@ function btn_function(code, GUID, action, page, location, formId, comment, after
     }
 }
 
+function b64toBlob(b64Data, contentType, sliceSize) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
+
+    var byteCharacters = atob(b64Data);
+    var byteArrays = [];
+
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        var byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        var byteArray = new Uint8Array(byteNumbers);
+
+        byteArrays.push(byteArray);
+    }
+
+    var blob = new Blob(byteArrays, { type: contentType });
+    return blob;
+}
+
 function saveFunction(code, guid, location, formId, afterSuccess) {
     saveFunction1(code, guid, location, formId, null, afterSuccess);
 }
@@ -424,6 +448,23 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
                     data.append(key, value);
                 });
             }
+
+            $(".oph-webcam").each(function () {
+                var valtxt = $(this).val();
+
+                var ImageURL = valtxt;
+                if (ImageURL) {
+                    var block = ImageURL.split(";");
+
+                    var contentType = block[0].split(":")[1];
+                    var realData = block[1].split(",")[1];
+
+                    // Convert it to a blob to upload
+                    var blob = b64toBlob(realData, contentType);
+                    data.append("image", blob);
+                }
+            });
+
             if (location == 30) { //child and gchildren
                 //move to celljs
             } else {
@@ -463,6 +504,10 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
                 //alert("Data Uploaded: ");
             }
         }).done(function (data) {
+            var msg = $(data).children().find("message").text();
+            var u = $(data).children().find("unique").text();
+            if (u) $("#unique").val(u);
+
             if (typeof afterSuccess === "function") afterSuccess(data);
         });
     }
@@ -873,8 +918,11 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                         //}
                         else {
                             //showMessage(successmsg);
-                            loadContent(1);
-                            showMessage(successmsg);
+                            //loadContent(1);
+                            showMessage(successmsg, '2', true, function () {
+                                loadBrowse(code);
+                            });
+
                         }
 
                         //window.location.reload();
