@@ -461,7 +461,10 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
 
                     // Convert it to a blob to upload
                     var blob = b64toBlob(realData, contentType);
-                    data.append("image", blob);
+
+//                    var fileOfBlob = new File([blob], 'test.jpg');
+                    data.append("test", blob, 'foto.jpg');
+                    $(this).val("foto.jpg")
                 }
             });
 
@@ -656,7 +659,7 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
         checkChanges(t);
     }
 }
-function checkChanges(t) {
+function checkChanges(t, force) {
     if (t) {
         var curdata = '';
         var olddata = $(t).data("old") == undefined ? "" : $(t).data("old");
@@ -669,7 +672,7 @@ function checkChanges(t) {
         else
             curdata = $(t).val();
 
-        if (curdata !== olddata) {
+        if (curdata !== olddata || force) {
             if ($(t).data("child") === 'Y') {
                 $('#child_button_addSave').show();
                 $('#child_button_save').show();
