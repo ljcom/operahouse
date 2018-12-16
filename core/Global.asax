@@ -21,6 +21,7 @@
 
     Sub Session_Start(ByVal sender As Object, ByVal e As EventArgs)
         ' Code that runs when a new session is started
+        Session("init") = "1"
     End Sub
 
     Sub Session_End(ByVal sender As Object, ByVal e As EventArgs)

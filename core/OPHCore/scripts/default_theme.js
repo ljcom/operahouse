@@ -443,8 +443,8 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
             data = new FormData();
             var thisForm = (formId != undefined) ? '#' + formId : 'form';
 
-            if ($(thisForm + ' :file').length > 0) {
-                $.each($(thisForm + ' :file')[0].files, function (key, value) {
+            if ($(':file').length > 0) {
+                $.each($(':file')[0].files, function (key, value) {
                     data.append(key, value);
                 });
             }
@@ -455,16 +455,17 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
                 var ImageURL = valtxt;
                 if (ImageURL) {
                     var block = ImageURL.split(";");
+                    if (block.length>1) {
+                        var contentType = block[0].split(":")[1];
+                        var realData = block[1].split(",")[1];
 
-                    var contentType = block[0].split(":")[1];
-                    var realData = block[1].split(",")[1];
+                        // Convert it to a blob to upload
+                        var blob = b64toBlob(realData, contentType);
 
-                    // Convert it to a blob to upload
-                    var blob = b64toBlob(realData, contentType);
-
-//                    var fileOfBlob = new File([blob], 'test.jpg');
-                    data.append("test", blob, 'foto.jpg');
-                    $(this).val("foto.jpg")
+    //                    var fileOfBlob = new File([blob], 'test.jpg');
+                        data.append("test", blob, 'foto.jpg');
+                        $(this).val("foto.jpg")
+                    }
                 }
             });
 
@@ -669,6 +670,12 @@ function checkChanges(t, force) {
         }
         else if ($(t).hasClass("cell-editor-textbox") || $(t).hasClass("cell-editor-datepicker"))
             curdata = $(t).html();
+        else if ($(t).data("webcam")=='1') {
+            var img=$(t).data("field");
+            olddata=$("#CapturedImage_hidden_div").find("img").attr("src");
+            curdata=$("#CapturedImage_camera").find("img").attr("src");
+
+        }
         else
             curdata = $(t).val();
 
@@ -739,16 +746,23 @@ function saveConfirm() {
 function saveCancel() {
     if (getGUID() === "00000000-0000-0000-0000-000000000000") back();
     else {
-        $("input[type='text'], input[type='checkbox'], textarea, select").each(function () {
+        $("input[type='text'], input[type='checkbox'], input[type='file'], textarea, select").each(function () {
             var t = $(this);
+            if (t.data("webcam")=="1") {
+                        var d=t.data("field");
+                        var imgsrc=$("#"+d+"_hidden_div").find("img").prop("src");    
+                        $("#"+d+"_camera").find("img").prop("src", imgsrc);
+                    }
             if ($(this).data("old") != undefined) {
-
+                 
                 if ((t.prop("type") === "text" || t.prop("type") === "checkbox") && $(this).val() !== $(this).data("old") ||
                     t.prop("type") === "select-one" && $(this).data("value") !== $(this).data("old")) {
 
                     if (t.prop("type") === "text") $(this).val($(this).data("old"));
                     if (t.prop("type") === "checkbox") t.prop('checked', $(this).data("old"));
                     if (t.prop("type") === "select-one") $(this).data("value", $(this).data("old"));
+
+                   
                     //select
                     var newOption = new Option($(this).data("oldtext"), $(this).data("old"), true, true);
                     t.append(newOption).trigger('change');
@@ -775,31 +789,23 @@ function saveCancel() {
                                 });
                                 //$("#" + fieldName).val(xx);
 
-                                $('#button_save').hide();
-                                $('#button_cancel').hide();
-                                $('#button_submit').show();
-                                $('#button_delete').show();
-                                $('#button_approve').show();
-                                $('#button_reject').show();
-                                $('#button_close').show();
-                                $('#button_save2').hide();
-                                $('#button_cancel2').hide();
+                                simplyCancel();
                                 //$tokenInput(get, '');
                             }
                         });
                     }
 
-                    $('#button_save').hide();
-                    $('#button_cancel').hide();
-                    $('#button_submit').show();
-                    $('#button_delete').show();
-                    $('#button_approve').show();
-                    $('#button_reject').show();
-                    $('#button_close').show();
-                    $('#button_save2').hide();
-                    $('#button_cancel2').hide();
+                    simplyCancel();
                 }
             } else {
+                simplyCancel();
+            }
+        });
+        form_edited = false;
+    }
+}
+function simplyCancel()
+{
                 $('#button_save').hide();
                 $('#button_cancel').hide();
                 $('#button_submit').show();
@@ -809,12 +815,7 @@ function saveCancel() {
                 $('#button_close').show();
                 $('#button_save2').hide();
                 $('#button_cancel2').hide();
-            }
-        });
-        form_edited = false;
-    }
 }
-
 function executeFunction(code, GUID, action, location, approvaluserguid, pwd, comment) {
     var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
 

@@ -12,6 +12,7 @@ Partial Class OPHCore_API_default
         End If
 
 
+
         Dim curODBC = contentOfdbODBC
         Dim DBCore = contentOfsqDB
         Dim curHostGUID = Session("hostGUID")
@@ -56,7 +57,7 @@ Partial Class OPHCore_API_default
 
                 xmlstr = "<sqroot><hostGUID>" & curHostGUID & "</hostGUID><code>" & contentOfCode & "</code><env>" & contentOfEnv & "</env>" &
                         "<themeFolder>" & contentOfthemeFolder & "</themeFolder><themePage>" & contentOfthemePage & "</themePage><needLogin>" &
-                        contentofNeedLogin & "</needLogin><signInPage>" & contentofsignInPage & "</signInPage><GUID>" & contentOfGUID & "</GUID></sqroot>"
+                        contentofNeedLogin & "</needLogin><signInPage>" & contentofsignInPage & "</signInPage><GUID>" & contentOfGUID & "</GUID><userName>" & contentofUserName & "</userName></sqroot>"
             Case "master"
                 sqlstr = "exec [api].[theme] '" & curHostGUID & "', '" & code & "', " & GUID
                 writeLog("mode master: " & sqlstr)
@@ -226,6 +227,8 @@ Partial Class OPHCore_API_default
                 sqlstr = "exec api.code_search '" & curHostGUID & "', '" & searchValue & "'"
                 isSingle = True
             Case "signout"
+                sqlstr = "exec [api].[signout] '" & curHostGUID & "'"
+                runSQL(sqlstr, curODBC)
                 Response.Cookies("guestID").Value = ""
                 Response.Cookies("sqlFilter").Value = ""
                 Session.Clear()
@@ -275,7 +278,7 @@ Partial Class OPHCore_API_default
                 isSingle = False
             Case "changePassword"
                 Dim curPass = Request.Form("curpass")
-                Dim newPass = Request.form("newpass")
+                Dim newPass = Request.Form("newpass")
 
                 sqlstr = "exec gen.changePassword '" & curHostGUID & "', '" & curPass & "', '" & newPass & "'"
                 xmlstr = runSQLwithResult(sqlstr, curODBC)
@@ -316,21 +319,29 @@ Partial Class OPHCore_API_default
                     'Response.Cookies("hostGUID").Value = curHostGUID
                     Response.Cookies("isLogin").Value = 1
                 End If
-            Case "signoff"
-                Session.Abandon()
+                'Case "signoff"
+                '    Session.Abandon()
             Case Else 'signin
-                Dim userid = Request.Form("userid")
-                Dim pwd = Request.Form("pwd")
-                Dim source As String = getQueryVar("source")
+                Dim bypass = 0
+                Dim userid as string= ""
+                Dim pwd As String = ""
+                If Request.Form("autologin") = "1" And Request.ServerVariables(5) <> "" Then
+                    bypass = 1
+                    userid = Request.ServerVariables(5)
+                Else
+                    userid = Request.Form("userid")
+                    pwd = Request.Form("pwd")
+
+                End If
                 'Dim withCaptcha = getQueryVar("withCaptcha")
                 Dim withcaptcha = Not contentofwhiteAddress
                 'withcaptcha = IIf(String.IsNullOrWhiteSpace(withCaptcha), 0, withCaptcha)
                 Dim captcha = Request.Form("g-recaptcha-response")
-                If userid = "" And pwd = "" And captcha = "" Then
+                Dim source As String = getQueryVar("source")
+                If userid = "" And (pwd = "" Or bypass = 0) And captcha = "" Then
                     reloadURL("index.aspx?")
                 Else
                     If withcaptcha = 0 Or (withcaptcha = 1 And captcha <> "" And IsGoogleCaptchaValid()) Then 'Or (source.ToLower.IndexOf("localhost") > 0) Then
-                        Dim bypass = 0
                         'If checkWinLogin(userid, pwd) Then
                         '    bypass = 1
                         '    sqlstr = "select infovalue from acctinfo a inner join acct b on a.accountguid=b.accountguid where infokey='masterPassword' and accountid='" & contentOfaccountId & "'"
@@ -339,8 +350,6 @@ Partial Class OPHCore_API_default
                         sqlstr = "exec api.verifyPassword '" & curHostGUID & "', '" & userid & "', '" & pwd & "', " & bypass
                         writeLog(sqlstr)
                         xmlstr = getXML(sqlstr, curODBC)
-
-
                         If xmlstr IsNot Nothing And xmlstr <> "" Then
                             'Session.Clear()
                             curUserGUID = XDocument.Parse(xmlstr).Element("sqroot").Element("userGUID").Value
@@ -348,7 +357,9 @@ Partial Class OPHCore_API_default
                             'Response.Cookies("hostGUID").Value = curHostGUID
                             Response.Cookies("isLogin").Value = 1
                         Else
-                            If String.IsNullOrWhiteSpace(errorCaptcha) Then
+                            If bypass = 1 Then
+                                xmlstr = "<sqroot><message>You don't have the authorization.</message></sqroot>"
+                            ElseIf String.IsNullOrWhiteSpace(errorCaptcha) Then
                                 xmlstr = "<sqroot><message>Incorrect Password!</message></sqroot>"
                             Else
                                 xmlstr = "<sqroot><message>" + errorCaptcha + "</message></sqroot>"
@@ -360,6 +371,7 @@ Partial Class OPHCore_API_default
                             sqlstr = "exec dbo.checkToPCSO '" & curHostGUID & "', '" & cartID & "'"
                             Dim xmlstr2 = runSQLwithResult(sqlstr, curODBC)
                         End If
+
                     Else
                         If String.IsNullOrWhiteSpace(errorCaptcha) Then
                             xmlstr = "<sqroot><message>Please authorize CAPTCHA!</message></sqroot>"

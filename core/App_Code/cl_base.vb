@@ -42,6 +42,7 @@ Public Class cl_base
     Protected contentofHostGUID As String = ""
     Protected contentofUserGUID As String = ""
     Protected contentofSaveString As String = ""
+    Protected contentofUserName As String = ""
 
 #Region "Properties Section"
     'Public Property headTitle() As String
@@ -744,6 +745,8 @@ Public Class cl_base
             Try
                 Session("AppTitle") = ds.Tables(0).Rows(0).Item("Description").ToString
                 Session("HostGUID") = ds.Tables(0).Rows(0).Item("HostGUID").ToString
+                setCookie("hostGUID", ds.Tables(0).Rows(0).Item("HostGUID").ToString, 1)
+
                 Session("SiteGUID") = ds.Tables(0).Rows(0).Item("siteGUID").ToString
                 Session("UserGUID") = ds.Tables(0).Rows(0).Item("UserGUID").ToString
                 Session("OriginalUserGUID") = ds.Tables(0).Rows(0).Item("UserGUID").ToString
