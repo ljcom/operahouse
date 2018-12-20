@@ -48,7 +48,7 @@
 					<label font="TimesRoman" width="154" height="14" id="Label30" y="218" text="Tanggal Penerbitan Pertama" x="213" fontSize="10"/>
 					<label font="TimesRoman" id="Label31" y="223" height="14.5" width="61.006" text="Total" fontSize="10" x="4"/>
 					<label id="Label33" width="492" font="TimesRoman" text="Dengan ini saya memberi kuasa kepada Rai Fitness  mendebet kartu kredit/ Bank Account saya untuk pembayaran biaya bulanan keanggotaan dan pembayaran tunggakan biaya bulanan." x="2" y="289" height="27.1" fontSize="9"/>
-					<label font="TimesRoman" id="Label34" height="8.5" x="5" y="356.5" width="63.5" text="Biaya Bulanan" fontSize="9"/>
+					<label font="TimesRoman" id="Label34" height="8.5" x="5" width="63.5" text="Biaya Bulanan" fontSize="9" y="357.5"/>
 					<label font="TimesRoman" id="Label35" height="9" x="5" width="66" y="344" text="Nomor Kartu Kredit" fontSize="9"/>
 					<label font="TimesRoman" id="Label36" height="10" x="5.5" y="330" width="75.5" text="Nama Pemegang Kartu" fontSize="9"/>
 					<label font="TimesRoman" id="Label37" height="9.1" x="5.5" y="317.5" width="60.1" text="Jenis kartu kredit" fontSize="9"/>
@@ -69,12 +69,12 @@
 					<recordBox id="RecordBox3" dataFormat="" width="100" height="14" font="TimesRoman" field="namadpn" y="15.5" x="92" fontSize="10"/>
 					<recordBox width="100" id="RecordBox4" height="14" y="32" font="TimesRoman" field="tmptlahir" x="92" fontSize="10" dataFormat="dd/MM/yyyy"/>
 					<recordBox dataFormat="" width="100" id="RecordBox5" height="14" font="TimesRoman" field="alamatrmh" y="48" x="92" fontSize="10"/>
-					<recordBox dataFormat="" width="100" height="14" id="RecordBox6" font="TimesRoman" field="noiden" x="92" y="63" fontSize="10"/>
-					<recordBox dataFormat="" width="100" height="14" id="RecordBox7" font="TimesRoman" field="nohp" x="92" y="79" fontSize="10"/>
-					<recordBox dataFormat="" width="100" height="14" id="RecordBox8" font="TimesRoman" field="tlpkantor" x="91" y="96" fontSize="10"/>
+					<recordBox dataFormat="" width="100" height="14" id="RecordBox6" font="TimesRoman" field="noiden" x="92" fontSize="10" y="64"/>
+					<recordBox dataFormat="" width="100" height="14" id="RecordBox7" font="TimesRoman" field="nohp" x="92" fontSize="10" y="80"/>
+					<recordBox dataFormat="" width="100" height="14" id="RecordBox8" font="TimesRoman" field="tlpkantor" x="91" fontSize="10" y="97"/>
 					<recordBox dataFormat="" width="100" id="RecordBox10" height="14" font="TimesRoman" field="jeniskel" y="15" fontSize="10" x="322"/>
 					<recordBox dataFormat="" id="RecordBox11" height="14" field="tlprmh" width="104" fontSize="10" x="322" y="79.5"/>
-					<recordBox dataFormat="" height="14" id="RecordBox12" field="email" fontSize="10" x="321.5" width="165.5" y="98"/>
+					<recordBox dataFormat="" height="14" id="RecordBox12" field="email" fontSize="10" x="321.5" width="165.5" y="96"/>
 					<recordBox dataFormat="" height="14" width="96" id="RecordBox15" font="TimesRoman" field="adminfee" y="154" x="106.5" fontSize="10"/>
 					<recordBox dataFormat="" height="14" width="96" id="RecordBox16" y="170" font="TimesRoman" field="firstmonth" x="107" fontSize="10"/>
 					<recordBox dataFormat="" height="14" width="96" id="RecordBox17" y="187" font="TimesRoman" field="lastmonth" x="107" fontSize="10"/>
@@ -90,7 +90,7 @@
 					<recordBox dataFormat="" width="96" id="RecordBox27" font="TimesRoman" field="namacc" height="12.5" y="329" x="94" fontSize="9"/>
 					<recordBox dataFormat="" width="96" id="RecordBox28" font="TimesRoman" field="nocc" height="11.5" x="93.5" y="343.5" fontSize="9"/>
 					<recordBox dataFormat="" height="14" id="RecordBox29" font="TimesRoman" field="namabank" width="61" fontSize="9" y="317" x="254.5"/>
-					<recordBox dataFormat="" width="96" id="RecordBox30" font="TimesRoman" field="biayabulananan" height="11" y="356" x="94" fontSize="9"/>
+					<recordBox dataFormat="" width="96" id="RecordBox30" font="TimesRoman" field="biayabulananan" height="11" x="94" fontSize="9" y="358"/>
 					<recordBox height="14" id="RecordBox31" font="TimesRoman" field="expdate" fontSize="9" dataFormat="dd/MM/yyyy" x="389.5" width="100.5" y="316"/>
 					<rectangle id="Rectangle4" height="13" x="0" fillColor="gainsboro" borderColor="gainsboro" width="492" y="1"/>
 					<label id="Label5" height="14" font="TimesBold" text="DATA ANGGOTA" align="center" width="490" x="1" y="1"/>
@@ -118,17 +118,17 @@
 					<label id="Label49" x="2" font="TimesBold" height="39.6" width="493.5" y="1211" fontSize="9" text="Dengan  menandatangani Ketentuan dan  Persyaratan Keanggotaan ini, Member Rai Fitness sudah mengerti dan menyetujui dalam keadaan sadar tanpa adanya paksaan dari pihak manapun  untuk mematuhi segala ketentuan yang berlaku di Rai Fitness Pantai Indah Kapuk."/>
 					<rectangle id="Rectangle13" height="32.5" x="2" width="206.1" y="240.5"/>
 					<line id="Line10" x1="0" y1="125" x2="321.5" y2="124.5"/>
-					<label id="Label16" height="14" text=":" y="13" x="83" width="3.1"/>
-					<label id="Label58" height="14" text=":" x="83" width="5.5" y="29"/>
-					<label id="Label59" height="14" text=":" x="83" width="4.5" y="59"/>
-					<label id="Label60" height="14" width="12" text=":" x="83" y="45"/>
-					<label id="Label61" y="77" height="14" text=":" x="83" width="6"/>
-					<label id="Label62" y="94" height="14" width="11" text=":" x="83"/>
-					<label id="Label63" height="14" width="12.5" text=":" x="314" y="96"/>
-					<label height="14" width="12.5" text=":" id="Label64" x="314" y="79"/>
-					<label height="14" width="12.5" text=":" id="Label65" y="13" x="314"/>
-					<label height="14" width="12.5" text=":" id="Label66" x="315" y="123"/>
-					<label height="14" width="11" text=":" x="83" id="Label67" y="124"/>
+					<label id="Label16" height="14" text=":" x="83" width="3.1" fontSize="9" y="15"/>
+					<label id="Label58" height="14" text=":" x="83" width="5.5" fontSize="9" y="32"/>
+					<label id="Label59" height="14" text=":" x="83" width="4.5" fontSize="9" y="63"/>
+					<label id="Label60" height="14" width="12" text=":" x="83" fontSize="9" y="47"/>
+					<label id="Label61" height="14" text=":" x="83" width="6" fontSize="9" y="81"/>
+					<label id="Label62" height="14" width="11" text=":" x="83.5" fontSize="9" y="97"/>
+					<label id="Label63" height="14" width="12.5" text=":" x="314" fontSize="9" y="97"/>
+					<label height="14" width="12.5" text=":" id="Label64" x="314" fontSize="9" y="80"/>
+					<label height="14" width="12.5" text=":" id="Label65" x="314" fontSize="9" y="15"/>
+					<label height="14" width="12.5" text=":" id="Label66" fontSize="9" x="314" y="125"/>
+					<label height="14" width="11" text=":" x="83" id="Label67" fontSize="9" y="126"/>
 					<label height="14" x="83" id="Label68" font="TimesRoman" text=": Rp" width="21.5" fontSize="10" y="154"/>
 					<label height="14" font="TimesRoman" id="Label69" x="83.5" text=": Rp" width="22" fontSize="10" y="170"/>
 					<label height="14" font="TimesRoman" x="83.5" id="Label70" y="186.5" text=": Rp" width="21.5" fontSize="10"/>
@@ -136,15 +136,17 @@
 					<label height="14" font="TimesRoman" id="Label72" width="22" x="83.5" text=": Rp" fontSize="10" y="223"/>
 					<label height="14" font="TimesRoman" id="Label52" fontSize="10" width="22" x="83" text=": Rp" y="243"/>
 					<line id="Line7" y1="240.5" y2="272.5" x1="81" x2="81"/>
-					<label height="14" width="11" text=":" x="83" id="Label73" y="314"/>
-					<label height="14" width="11" text=":" x="83" id="Label74" y="327"/>
-					<label height="14" width="11" text=":" x="83" id="Label75" y="340"/>
-					<label height="14" width="11" text=":" x="83" id="Label76" y="353"/>
+					<label height="14" width="11" text=":" x="83" id="Label73" y="315" fontSize="9"/>
+					<label height="14" width="11" text=":" x="83" id="Label74" fontSize="9" y="342.2"/>
+					<label height="14" width="11" text=":" x="83" id="Label76" fontSize="9" y="357"/>
 					<label height="14" width="11" text=":" id="Label77" x="249" y="315.5" fontSize="9"/>
 					<label height="14" text=":" id="Label78" x="384" fontSize="9" width="2.5" y="315.5"/>
 					<recordBox id="RecordBox9" dataFormat="" x="91" width="100" height="13.5" field="nmakrbat" fontSize="10" y="126" font="TimesRoman"/><recordBox id="RecordBox13" dataFormat="" height="14" width="100" field="tlpkrbat" font="TimesRoman" fontSize="10" x="322" y="125"/><line id="Line2" y1="596.5" y2="632.5" x1="132" x2="132"/>
 					<label height="14" font="TimesRoman" fontSize="10" width="22" text=": Rp" x="83" id="Label57" y="259"/>
 					<line id="Line8" x1="87" x2="87" y1="241.25" y2="272.75"/>
+					<recordBox height="14" font="TimesRoman" fontSize="9" dataFormat="dd/MM/yyyy" width="100.5" y="609" id="RecordBox14" x="390" field="docdate"/>
+					<recordBox height="14" font="TimesRoman" fontSize="9" dataFormat="dd/MM/yyyy" width="100.5" x="390" field="docdate" id="RecordBox34" y="446"/>
+					<label height="14" width="11" text=":" x="83" fontSize="9" id="Label75" y="329"/>
 				</detail>
 				<footer id="Footer2" height="14"/>
 			</subReport>
