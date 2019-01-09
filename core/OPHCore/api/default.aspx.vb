@@ -127,7 +127,11 @@ Partial Class OPHCore_API_default
                             If Not Directory.Exists(checkDir) Then Directory.CreateDirectory(checkDir)
                             If Directory.Exists(checkDir) Then
                                 writeLog("upload_attachment: " & fxn)
-                                If fxn <> "" Then Request.Files(f).SaveAs(fxn)
+                                If fxn <> "" Then
+                                    Request.Files(f).SaveAs(fxn)
+                                    sqlstr = "exec gen.addFile '" & curHostGUID & "', '" & fxn & "'"
+                                    Dim newFile = runSQLwithResult(sqlstr)
+                                End If
                             End If
                             'Exit For
                         End If

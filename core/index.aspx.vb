@@ -83,7 +83,6 @@ Partial Class index
             reloadURL(reloadStr)
         ElseIf code <> "" And needLogin And getQueryVar("code") <> loginpage Then
 
-            setCookie(Request.ApplicationPath.Replace("/", "") & "_lastPar", Request.Url.PathAndQuery, 1)
             'Session(Request.ApplicationPath & "_lastPar") = Request.Url.PathAndQuery
             reloadURL("index.aspx?code=" & loginPage)
             'ElseIf getQueryVar("code") <> code Then
@@ -116,6 +115,14 @@ Partial Class index
         Else
             'Response.Cookies("cartID").Value = Request.Cookies("cartID").Value
         End If
+        If code <> "login" Then
+            If Request.ApplicationPath.Replace("/", "") = "" Then
+                setCookie(Request.Url.Authority.Replace(":", "") & "_lastPar", Request.Url.PathAndQuery, 1)
+            Else
+                setCookie(Request.ApplicationPath.Replace("/", "") & "_lastPar", Request.Url.PathAndQuery, 1)
+            End If
+        End If
+
 
         'Dim GUID = "" 'getQueryVar("GUID") 
         WindowOnLoad = "initTheme('" & code.ToLower & "', '" & GUID & "', '" & curHostGUID & "');"
