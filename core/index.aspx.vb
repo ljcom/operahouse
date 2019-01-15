@@ -115,7 +115,7 @@ Partial Class index
         Else
             'Response.Cookies("cartID").Value = Request.Cookies("cartID").Value
         End If
-        If code <> "login" Then
+        If code <> "login" And code <> "lockscreen" Then
             If Request.ApplicationPath.Replace("/", "") = "" Then
                 setCookie(Request.Url.Authority.Replace(":", "") & "_lastPar", Request.Url.PathAndQuery, 1)
             Else
