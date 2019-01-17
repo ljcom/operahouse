@@ -472,12 +472,14 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
             if (location == 30) { //child and gchildren
                 //move to celljs
             } else {
-                var other_data = $(thisForm).serializeArray();
-                $.each(other_data, function (key, input) {
-                    var newVal = input.value;
-                    newVal = newVal.replace(/</g, '&lt;');
-                    newVal = newVal.replace(/>/g, '&gt;');
-                    data.append(input.name, newVal);
+                $.each($('form'), function (key, f) {
+                    var other_data = $(f).serializeArray();
+                    $.each(other_data, function (key, input) {
+                        var newVal = input.value;
+                        newVal = newVal.replace(/</g, '&lt;');
+                        newVal = newVal.replace(/>/g, '&gt;');
+                        data.append(input.name, newVal);
+                    });
                 });
             }
         }
@@ -700,6 +702,14 @@ function checkChanges(t, force) {
                 $('#button_save2').show();
                 $('#button_cancel2').show();
 
+                $('.action-save').show();
+                $('.action-cancel').show();
+                $('.action-submit').hide();
+                $('.action-delete').hide();
+                $('.action-approve').hide();
+                $('.action-reject').hide();
+                $('.action-close').hide();
+
             }
             form_edited = true;
         }
@@ -740,6 +750,14 @@ function saveConfirm() {
     $('#button_close').show();
     $('#button_save2').hide();
     $('#button_cancel2').hide();
+
+    $('.action-save').hide();
+    $('.action-cancel').hide();
+    $('.action-submit').show();
+    $('.action-delete').show();
+    $('.action-approve').show();
+    $('.action-reject').show();
+    $('.action-close').show();
 }
 
 
@@ -806,15 +824,23 @@ function saveCancel() {
 }
 function simplyCancel()
 {
-                $('#button_save').hide();
-                $('#button_cancel').hide();
-                $('#button_submit').show();
-                $('#button_delete').show();
-                $('#button_approve').show();
-                $('#button_reject').show();
-                $('#button_close').show();
-                $('#button_save2').hide();
-                $('#button_cancel2').hide();
+    $('#button_save').hide();
+    $('#button_cancel').hide();
+    $('#button_submit').show();
+    $('#button_delete').show();
+    $('#button_approve').show();
+    $('#button_reject').show();
+    $('#button_close').show();
+    $('#button_save2').hide();
+    $('#button_cancel2').hide();
+
+    $('.action-save').hide();
+    $('.action-cancel').hide();
+    $('.action-submit').show();
+    $('.action-delete').show();
+    $('.action-approve').show();
+    $('.action-reject').show();
+    $('.action-close').show();
 }
 function executeFunction(code, GUID, action, location, approvaluserguid, pwd, comment) {
     var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
@@ -1169,6 +1195,14 @@ function panel_display(t, val, isdv) {
             $('#button_close').hide();
             $('#button_save2').show();
             $('#button_cancel2').show();
+
+            $('.action-save').show();
+            $('.action-cancel').show();
+            $('.action-submit').hide();
+            $('.action-delete').hide();
+            $('.action-approve').hide();
+            $('.action-reject').hide();
+            $('.action-close').hide();
         }
     }
 }
