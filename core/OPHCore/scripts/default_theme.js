@@ -20,12 +20,14 @@ function initTheme(bCode, bGUID, guestID, f) { //bmode, bcode, bguid hanya dipak
             xmldoc = xmldoc + '&tcode=' + tcode;
 
         var divname = ['frameMaster'];
-        var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '.xslt'];
+        //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '.xslt'];
+        var xsldoc = ['OPHCore/api/loadtheme.aspx?theme=' + loadThemeFolder() + '&page=' + getPage()];
 
         if (getCode().toLowerCase() !== 'login') {
-            $.get('OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_sidebar.xslt').done(function () {
+            var xsldoc1 = 'OPHCore/api/loadtheme.aspx?theme=' + loadThemeFolder() + '&page=' + getPage() + '_sidebar';
+            $.get(xsldoc1).done(function () {
                 divname.push('sidebarWrapper');
-                xsldoc.push('OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_sidebar.xslt');
+                xsldoc.push(xsldoc1);
 
             }).always(function () {
                 pushTheme(divname, xmldoc, xsldoc, true, function (xml) {
@@ -160,13 +162,14 @@ function loadContent(nbpage, f) {
         xmldoc = 'OPHCore/api/default.aspx?mode=' + getMode() + '&code=' + getCode() + '&GUID=' + getGUID() + '&stateid=' + getState() + '&bPageNo=' + nbpage + '&bSearchText=' + getSearchText() + '&sqlFilter=' + getFilter() + '&sortOrder=' + getOrder() + unique;
 
     var divname = ['contentWrapper'];
-    var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
-
+    //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
+    var xsldoc = ['OPHCore/api/loadtheme.aspx?theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + getMode()];
     //sidebar only for form
     var showDocInfo = getCookie(getCode().toLowerCase() + '_showdocinfo');
-    if (getMode() == 'form' && showDocInfo == 1) {
+    if (getMode() === 'form' && showDocInfo == 1) {
         divname.push('sidebarWrapper');
-        xsldoc.push('OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '_sidebar.xslt');
+        var xsldoc1 = 'OPHCore/api/loadtheme.aspx?theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + getMode() + '_sidebar';
+        xsldoc.push(xsldoc1);
     }
 
     setTimeout(function () { pushTheme(divname, xmldoc, xsldoc, true); }, 100);
@@ -200,11 +203,14 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
     var divName = ['child' + String(code).toLowerCase() + GUID.toUpperCase()];
     //if (code === 'modlinfo' || code === 'modlcolminfo' || code =='modlcolm')
     if (mode === 'inline')
-        xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];
+        //xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];
+        xsldoc = ['OPHCore/api/loadtheme.aspx?theme=' + loadThemeFolder() + '&page=' + getPage() + '_childInline'];
     else if (mode != undefined && mode.indexOf('custom') >= 0)
-        xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_" + mode + ".xslt"];
+        //xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_" + mode + ".xslt"];
+        xsldoc = ['OPHCore/api/loadtheme.aspx?theme=' + loadThemeFolder() + '&page=' + getPage() + '_'+mode];
     else
-        xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
+        //xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
+        xsldoc = ['OPHCore/api/loadtheme.aspx?theme=' + loadThemeFolder() + '&page=' + getPage() + '_childBrowse'];
 
     pushTheme(divName, xmldoc, xsldoc, true);
 
@@ -259,7 +265,8 @@ function loadReport(qCode, f) {
     qCode = (qCode === "") ? getCode() : qCode;
     //tcode = (tcode == undefined) ? getQueryVariable("tcode") : tcode;
     xmldoc = 'OPHCore/api/default.aspx?mode=report' + '&code=' + qCode + unique;    //+ ((tcode != undefined) ? '&tcode=' + tcode : '') + unique;
-    xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/report_' + getMode() + '.xslt';
+    //xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/report_' + getMode() + '.xslt';
+    xsldoc = 'OPHCore/api/loadtheme.aspx?theme=' + loadThemeFolder() + '&page=report_' + getMode();
     showXML('contentWrapper', xmldoc, xsldoc, true, true, function () {
         if (typeof f === "function") f();
     });
@@ -335,6 +342,7 @@ function showChildForm(code, guid, parent) {
 
         var xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=form&GUID=" + guid;
 
+        //var xsldoc = ["OPHContent/themes/" + loadThemeFolder() + "/xslt/" + getPage() + "_childForm.xslt"];
         var xsldoc = ["OPHContent/themes/" + loadThemeFolder() + "/xslt/" + getPage() + "_childForm.xslt"];
         pushTheme(divnm, xmldoc, xsldoc, true, function () {
             $('#' + code + guid).collapse('show');
@@ -1035,7 +1043,8 @@ function resetSQLFilter(ini) {
     $(ini).button('loading');
     var divname = ['contentWrapper'];
     var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + getCode() + '&stateid=' + getState() + '&bSearchText=' + getSearchText() + unique;
-    var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
+    //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
+    var xsldoc = ['OPHCore/api/loadtheme.aspx?theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + getMode()];
     setCookie('sqlFilter', "", 0, 0, 0);
     $.when($.ajax(loadContent(1))).done(function () {
         $(ini).button('reset');
@@ -1087,7 +1096,8 @@ function sortBrowse(ini, loc, code, orderBy) {
         var sqlfilter = document.getElementById("filter" + code.toLowerCase()).value;
         var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + sqlfilter + '&sortOrder=' + sortOrder + '&bPageNo=1' + unique;
         var divName = ['child' + String(code).toLowerCase() + getGUID()];
-        var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
+        //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
+        var xsldoc = 'OPHCore/api/loadtheme.aspx?theme=' + loadThemeFolder() + '&page=' + getPage() + '_childBrowse';
         pushTheme(divName, xmldoc, xsldoc, true);
     }
 }
@@ -1237,6 +1247,7 @@ function searchText(e, searchvalue) {
 }
 
 function searchTextChild(e, searchvalue, code, isClear) {
+    var xsldoc;
     if (e.keyCode == 13 || isClear) {
         var bSearchText = searchvalue;
         var mode = getCookie(code.toLowerCase() + '_browseMode');
@@ -1247,11 +1258,16 @@ function searchTextChild(e, searchvalue, code, isClear) {
         var divName = ['child' + String(code).toLowerCase() + getGUID()];
         //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
         if (mode == 'inline')
-            var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];
+            //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];
+            xsldoc = ['OPHCore/api/loadtheme.aspx?theme=' + loadThemeFolder() + '&page=' + getPage() + '_childInline'];
+
         else if (mode != undefined && mode.indexOf('custom') >= 0)
-            var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_" + mode + ".xslt"];
+            //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_" + mode + ".xslt"];
+            xsldoc = ['OPHCore/api/loadtheme.aspx?theme=' + loadThemeFolder() + '&page=' + getPage() + '_'+mode];
         else
-            var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
+            //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
+            xsldoc = ['OPHCore/api/loadtheme.aspx?theme=' + loadThemeFolder() + '&page=' + getPage() + '_childBrowse'];
+
         pushTheme(divName, xmldoc, xsldoc, true);
     }
 }
