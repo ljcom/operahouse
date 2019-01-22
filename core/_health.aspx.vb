@@ -6,11 +6,24 @@ Partial Class _health
         Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
         Dim contentOfsequoiaCon = appSettings.Item("sequoia")
 
-        Dim sqlstr = "select status from node where nodename='" & My.Computer.Name.ToString & "'"
-        result = runSQLwithResult(sqlstr, contentOfsequoiaCon).ToString
+        Dim ip = GetIPAddress(My.Computer.Name.ToString)
+		dim sqlstr as string=""
         If result <> "400" Then
-            sqlstr = "update node set status=400 where status<>500 and nodename='" & My.Computer.Name.ToString & "'"
+            sqlstr = "update node set status=400 where status<>500 and nodeip='" & ip & "'"
             runSQL(sqlstr, contentOfsequoiaCon)
         End If
+
+        sqlstr = "select status from node where nodeIP='" & ip.ToString & "'"
+        result = runSQLwithResult(sqlstr, contentOfsequoiaCon).ToString
     End Sub
+	
+    Private Function GetIPAddress(strHostName) As String
+
+        Dim strIPAddress As String
+
+        'strHostName = System.Net.Dns.GetHostName()
+        strIPAddress = Net.Dns.GetHostByName(strHostName).AddressList(0).ToString()
+        Return strIPAddress
+
+    End Function
 End Class

@@ -42,6 +42,7 @@ Public Class cl_base
     Protected contentofHostGUID As String = ""
     Protected contentofUserGUID As String = ""
     Protected contentofSaveString As String = ""
+    Protected contentofUserName As String = ""
 
 #Region "Properties Section"
     'Public Property headTitle() As String
@@ -523,11 +524,14 @@ Public Class cl_base
             Response.Cookies(cookieName).Value = cookieValue
         End If
     End Sub
-    Sub writeLog(logMessage As String)
+    Sub writeLog(logMessage As String) ', ByVal Optional accountName As String = "")
         'Dim w As TextWriter
+        Dim accountName = ""
+        If contentOfaccountId <> "" Then accountName = contentOfaccountId
+
         Dim path = Server.MapPath("~/OPHContent/log")
         path = path & "\" '& "OPHContent\log\"
-        Dim logFilepath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\" & Right("0" & DateTime.Now().Day, 2) & ".txt"
+        Dim logFilepath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\" & IIf(accountName <> "", accountName & "_", "") & Right("0" & DateTime.Now().Day, 2) & ".txt"
         Dim logPath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\"
 
         If (Not System.IO.Directory.Exists(logPath)) Then
@@ -744,6 +748,8 @@ Public Class cl_base
             Try
                 Session("AppTitle") = ds.Tables(0).Rows(0).Item("Description").ToString
                 Session("HostGUID") = ds.Tables(0).Rows(0).Item("HostGUID").ToString
+                setCookie("hostGUID", ds.Tables(0).Rows(0).Item("HostGUID").ToString, 1)
+
                 Session("SiteGUID") = ds.Tables(0).Rows(0).Item("siteGUID").ToString
                 Session("UserGUID") = ds.Tables(0).Rows(0).Item("UserGUID").ToString
                 Session("OriginalUserGUID") = ds.Tables(0).Rows(0).Item("UserGUID").ToString

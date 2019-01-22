@@ -9,8 +9,8 @@
 		<header id="Header1"/>
 		<detail id="Detail1" autoSplit="true" height="416">
 			<contentGroup id="ContentGroup1" y="0" x="2" width="193" height="94">
-				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" x="-1" y="3" width="197" height="13" text="RENATA SKIN CARE "/>
-				<label align="center" fontSize="9" id="Label2" x="-7" text="JL. Bangbarung Raya/H.Achmad Sobana&#xA; No.39, Bogor&#xA;Telp : (0251) 8348386" y="15" width="211" height="33"/>
+				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" x="-1" y="3" width="197" height="13" text="RENATA SKIN CARE CIBINONG"/>
+				<label align="center" fontSize="9" id="Label2" x="-7" y="15" width="211" height="33" text="Jl.Raya Cikaret Ruko Nirwana Estate &#xA;Blok A.No.1 Cibinong - Bogor&#xA;Tlp ( 021 ) 87907406"/>
 				<line x1="0" y1="50" y2="50" id="Line1" x2="211"/>
 				<formattedRecordArea id="FormattedRecordArea3" height="22" y="56" x="2" width="145">
 					<initialStyle>
@@ -29,7 +29,7 @@
 				</initialStyle>
 				<text><![CDATA[<P>Nama Pelanggan:#Customer#</P><P>Kasir: #HostName#</P><P>Dicetak: #printDate#</P>]]></text>
 			</formattedRecordArea>
-			<label align="center" id="Label7" fontSize="8" text="Terima Kasih Atas Kunjungan Anda.&#xA;Semoga Lekas Sembuh." x="5" y="304" width="190" height="20"/>
+			<label align="center" id="Label7" x="5" width="190" y="303.5" fontSize="8" height="28.1" text="Barang yang sudah dibeli tidak dapat ditukar atau dikembalikan&#xA;Terima kasih atas kunjungan anda"/>
 			<subReport id="SubReport1" y="94" x="0" width="195">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCash_report_sub1">

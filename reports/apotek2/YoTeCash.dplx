@@ -9,8 +9,8 @@
 		<header id="Header1"/>
 		<detail id="Detail1" autoSplit="true" height="416">
 			<contentGroup id="ContentGroup1" y="0" x="2" width="193" height="94">
-				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" x="-1" y="3" width="197" height="13" text="RENATA MEDICAL"/>
-				<label align="center" fontSize="9" id="Label2" x="-7" text="JL. Bangbarung Raya/H.Achmad Sobana&#xA; No.39, Bogor&#xA;Telp : (0251) 8348386" y="15" width="211" height="33"/>
+				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" x="-1" y="3" width="197" height="13" text="NIRWANA MEDICAL"/>
+				<label align="center" fontSize="9" id="Label2" x="-7" y="15" width="211" height="33" text="Jl.Raya Cikaret Ruko Nirwana Estate &#xA;Blok A.No.1 Cibinong - Bogor&#xA;Tlp ( 021 ) 87907406"/>
 				<line x1="0" y1="50" y2="50" id="Line1" x2="211"/>
 				<formattedRecordArea id="FormattedRecordArea3" height="22" y="56" x="2" width="145">
 					<initialStyle>
@@ -73,6 +73,7 @@
 				<line x1="0" id="Line8" y1="54" y2="54" x2="211"/>
 				<line x1="0" id="Line9" y1="54" y2="54" x2="211"/>
 			</contentGroup>
+			<label align="center" x="5" width="190" height="20" id="Label3" y="322" fontSize="7" text="Obat yang sudah dibeli tidak dapat ditukar atau dikembalikan"/>
 		</detail>
 		<footer id="Footer1"/>
 	</report>

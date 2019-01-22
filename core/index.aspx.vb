@@ -33,7 +33,7 @@ Partial Class index
             pageURL = contentOfthemePage
             needLogin = contentofNeedLogin
             loginPage = contentofsignInPage
-            GUID = contentofGUID
+            GUID = contentOfGUID
         Else
             Dim account As String = "", url As String = Request.Url.OriginalString.Replace(Request.Url.PathAndQuery, "") & Request.ApplicationPath
             If url.Substring(Len(url) - 1, 1) = "/" Then url = url.Substring(0, Len(url) - 1)
@@ -61,8 +61,6 @@ Partial Class index
                     code = "404"
                 End Try
             End Using
-
-
         End If
 
         If code = "" And getQueryVar("code") <> "404" Then
@@ -83,13 +81,15 @@ Partial Class index
                 reloadStr = reloadStr.replace(getQueryVar("code"), code)
             End If
             reloadURL(reloadStr)
-        ElseIf code <> "" And needLogin Then
+        ElseIf code <> "" And needLogin And getQueryVar("code") <> loginpage Then
 
-            setCookie(Request.ApplicationPath.Replace("/", "") & "_lastPar", Request.Url.PathAndQuery, 1)
             'Session(Request.ApplicationPath & "_lastPar") = Request.Url.PathAndQuery
             reloadURL("index.aspx?code=" & loginPage)
+            'ElseIf getQueryVar("code") <> code Then
+            '    reloadURL("index.aspx?code=" & code)
         ElseIf GUID <> getQueryVar("GUID") Then 'reload for onedataonly
             reloadURL("index.aspx?code=" & code & "&GUID=" & GUID)
+
         End If
 
         '--!
@@ -115,6 +115,14 @@ Partial Class index
         Else
             'Response.Cookies("cartID").Value = Request.Cookies("cartID").Value
         End If
+        If code <> "login" And code <> "lockscreen" Then
+            If Request.ApplicationPath.Replace("/", "") = "" Then
+                setCookie(Request.Url.Authority.Replace(":", "") & "_lastPar", Request.Url.PathAndQuery, 1)
+            Else
+                setCookie(Request.ApplicationPath.Replace("/", "") & "_lastPar", Request.Url.PathAndQuery, 1)
+            End If
+        End If
+
 
         'Dim GUID = "" 'getQueryVar("GUID") 
         WindowOnLoad = "initTheme('" & code.ToLower & "', '" & GUID & "', '" & curHostGUID & "');"

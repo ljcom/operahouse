@@ -149,8 +149,8 @@ Partial Class OPHCore_api_sync
                     End If
                 Case "reqdata"
                     Dim code = getQueryVar("code")
-                    Dim guid = Request.Form("GUID")
-                    Dim delMode = Request.Form("delMode")
+                    Dim guid = getQueryVar("GUID")
+                    Dim delMode = getQueryVar("delMode")
                     'Dim pg = getQueryVar("page")
 
                     sqlstr = "exec [api].[sync_reqdata] @accountid='" & accountId & "', @token=" & sessionToken & ", @code='" & code & "', @guid='" & guid & "', @delMode=" & IIf(delMode = "1", "1", "0")
