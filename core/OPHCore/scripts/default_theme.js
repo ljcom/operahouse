@@ -54,20 +54,19 @@ function loadThemeFolder() {
 }
 
 function getMode() {
-    var mode = getQueryVariable('mode') == undefined ? '' : getQueryVariable('mode').toLowerCase();
-    var ret = "";
 
-    if (mode === 'export') {
-        ret = 'export';
-    } else {
-        if (getGUID() && getGUID !== '')
-            ret = 'form';
-        else
-            ret = 'browse';
-    }
+    var ret = "browse";
+    if (getGUID() && getGUID !== '') ret = 'form';
+    //var mode = getCookie(getCode() + '_mode');
+    //if (mode != undefined) ret = mode;
+    //else {
+    var mode = getQueryVariable('mode') == undefined ? '' : getQueryVariable('mode').toLowerCase();
+    if (mode != undefined && mode!=='') ret = mode;
+    //}
     return ret;
     //return (getGUID() === '' || getGUID() == undefined) ? 'browse' : 'form'
 }
+
 
 function getCode() { return getQueryVariable("code") == undefined ? getCookie("code") : getQueryVariable("code"); }
 
@@ -153,14 +152,17 @@ function loadContent(nbpage, f) {
         setCookie('sortOrder', "", 0, 0, 0);
         setCookie('lastCode', getCode(), 0, 0, 15);
     }
-
     if (getCode().toLowerCase() === 'dumy')
         xmldoc = 'OPHContent/themes/' + loadThemeFolder() + '/sample.xml';
     else
         xmldoc = 'OPHCore/api/default.aspx?mode=' + getMode() + '&code=' + getCode() + '&GUID=' + getGUID() + '&stateid=' + getState() + '&bPageNo=' + nbpage + '&bSearchText=' + getSearchText() + '&sqlFilter=' + getFilter() + '&sortOrder=' + getOrder() + unique;
 
+    var view = '_'+getCookie(getCode() + '_view');
+    if (view == undefined || view == '_' || view == '_null') view = '';
+
+    var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + view + '.xslt'];
+
     var divname = ['contentWrapper'];
-    var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
 
     //sidebar only for form
     var showDocInfo = getCookie(getCode().toLowerCase() + '_showdocinfo');
@@ -935,19 +937,17 @@ function applySQLFilter(ini) {
     $(ini).button('loading');
     var form = $(ini).parents('form:first');
     var form_data = $(form).serializeArray();
-
     var sqlFilter = "";
     $.each(form_data, function (key, input) {
-        if (input.value !== "NULL" && input.value != undefined) {
-            if (sqlFilter === "") {
-                sqlFilter = input.name + "='" + input.value + "'";
-            } else {
-                sqlFilter = sqlFilter + " and " + input.name + "='" + input.value + "'";
-            }
-        }
+        var filterVal = (input.value == undefined || input.value == "NULL" || input.value == "") ? null : "'" + input.value + "'";
+        if (!!input.value) {
+            if (sqlFilter == "")
+                sqlFilter = sqlFilter.concat(input.name, "=", filterVal).trim();
+            else
+                sqlFilter = sqlFilter.concat(" AND ", input.name, "=", filterVal).trim();
+        }        
     });
     setCookie('sqlFilter', sqlFilter, 0, 0, 10);
-    //loadContent(1)
     $.when($.ajax(loadContent(1))).done(function () { $(ini).button('reset'); });
 }
 
