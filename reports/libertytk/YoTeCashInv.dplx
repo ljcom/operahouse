@@ -7,7 +7,7 @@
 		</query>
 		<template id="Template1"/>
 		<header id="Header1"/>
-		<detail id="Detail1" autoSplit="true" height="331.5">
+		<detail id="Detail1" height="331.5">
 			<contentGroup id="ContentGroup1" x="3" y="10" width="194" height="94">
 				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" x="7" y="2" width="173" height="21" text="LIBERTY JAYA"/>
 				<label align="center" fontSize="9" id="Label2" x="3" y="21" height="24" text="Jl. Danau Indah Barat Blok A1/1 Sunter Jaya Jakarta Utara 14350" width="181"/>
@@ -37,13 +37,13 @@
 				</query>
 				<header id="Header2" height="1"/>
 				<detail id="Detail2" autoSplit="true" height="41">
-					<formattedRecordArea splittable="true" expandable="true" id="FormattedRecordArea2" height="40" y="0" width="95" x="6">
+					<formattedRecordArea splittable="true" expandable="true" id="FormattedRecordArea2" height="40" width="95" x="6" y="0.5">
 						<initialStyle>
 							<font size="9"/>
 							<line/>
 							<paragraph/>
 						</initialStyle>
-						<text><![CDATA[<P>#ItemCode#<BR>#ItemName#<BR>#Qty#&nbsp;x @#Price#</P>]]></text>
+						<text><![CDATA[<P>#ItemName#<BR>#Qty#&nbsp;x @#Price#</P>]]></text>
 					</formattedRecordArea>
 					<recordBox id="RecordBox4" dataFormat="" height="14" field="TotalPrice" fontSize="9" align="right" y="21" width="61" x="115"/>
 				</detail>
