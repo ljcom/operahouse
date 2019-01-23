@@ -524,11 +524,14 @@ Public Class cl_base
             Response.Cookies(cookieName).Value = cookieValue
         End If
     End Sub
-    Sub writeLog(logMessage As String)
+    Sub writeLog(logMessage As String) ', ByVal Optional accountName As String = "")
         'Dim w As TextWriter
+        Dim accountName = ""
+        If contentOfaccountId <> "" Then accountName = contentOfaccountId
+
         Dim path = Server.MapPath("~/OPHContent/log")
         path = path & "\" '& "OPHContent\log\"
-        Dim logFilepath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\" & Right("0" & DateTime.Now().Day, 2) & ".txt"
+        Dim logFilepath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\" & IIf(accountName <> "", accountName & "_", "") & Right("0" & DateTime.Now().Day, 2) & ".txt"
         Dim logPath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\"
 
         If (Not System.IO.Directory.Exists(logPath)) Then

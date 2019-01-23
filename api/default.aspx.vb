@@ -67,7 +67,7 @@ Partial Class OPHCore_API_default
 
 			Case "view", "form"
 				sqlstr = "exec [api].[theme_form] '" & curHostGUID & "', '" & code & "', " & GUID '& ", " & editMode
-
+				writeLog("form" : " & sqlstr)
 			Case "save", "preview"
 				isSingle = False
 				Dim preview = getQueryVar("flag")
