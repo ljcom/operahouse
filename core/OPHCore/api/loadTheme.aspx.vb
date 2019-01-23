@@ -18,7 +18,7 @@ Partial Class OPHCore_api_loadTheme
             While doc.Contains("<xsl:include href=""")
                 Dim n = doc.IndexOf("<xsl:include href=")
                 Dim includestr = doc.Substring(n + 19, doc.Length - n - 19)
-                Dim m = includestr.IndexOf(""" >")
+                Dim m = includestr.IndexOf(""" />")
                 includestr = includestr.Substring(0, m)
 
                 Dim themeFile1 As String = Server.MapPath("~/OPHContent/themes/") & theme & "\xslt\" & includestr
