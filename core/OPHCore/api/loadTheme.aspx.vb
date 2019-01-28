@@ -44,7 +44,7 @@ Partial Class OPHCore_api_loadTheme
         If doc.Contains("<xsl:" & el) Then
             Dim n = doc.IndexOf("<xsl:" & el)
             Dim doc1 = doc.Substring(n, doc.Length - n)
-            Dim m = doc1.IndexOf("/>")
+            Dim m = doc1.IndexOf(">")
             doc = doc.Substring(m + 2, doc.Length - m - 2)
         End If
         If doc.Contains("</xsl:" & el & ">") Then

@@ -7,7 +7,7 @@
 		</query>
 		<template id="Template1"/>
 		<header id="Header1"/>
-		<detail id="Detail1" autoSplit="true" height="334.5">
+		<detail id="Detail1" height="334.5">
 			<contentGroup id="ContentGroup1" height="94.5" x="0" width="198.45" y="5.67" splittable="true">
 				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" height="21.015" text="CV UTAMA" y="11.34" width="198.45" x="0"/>
 				<label align="center" fontSize="9" id="Label2" height="11.34" y="26.355" text="Jl. Semangka 43 A-B Panorama Bengkulu" x="0" width="198.45"/>
@@ -30,7 +30,7 @@
 				<text><![CDATA[<P>Customer Name: #Customer#</P><P>Cashier&nbsp;by: #HostName#</P><P>Printed on: #printDate#</P>]]></text>
 			</formattedRecordArea>
 			<label align="center" id="Label7" text="Thank you for your purchase.&#xA;See you again soon!" fontSize="8" height="20.18" y="297" x="0" width="198.45"/>
-			<subReport id="SubReport1" width="198.45" x="0" y="107.73">
+			<subReport id="SubReport1" width="198.45" x="0" y="110.23">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCashInv_report_sub1">
 						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
@@ -43,7 +43,7 @@
 							<line/>
 							<paragraph/>
 						</initialStyle>
-						<text><![CDATA[<P>#ItemCode#<BR>#ItemName#<BR>#Qty#&nbsp;x @#Price#</P><P Align="Right">&nbsp;</P>]]></text>
+						<text><![CDATA[<P>#ItemName#<BR>#Qty#&nbsp;x @#Price#</P><P Align="Right">&nbsp;</P>]]></text>
 					</formattedRecordArea>
 					<recordBox id="RecordBox4" dataFormat="" height="14" field="TotalPrice" fontSize="9" align="right" y="20" x="111.5" width="85.1"/>
 				</detail>

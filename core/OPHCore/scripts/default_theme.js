@@ -576,6 +576,7 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
     if (GUID == undefined) GUID = "00000000-0000-0000-0000-000000000000";
     if (flag > 0) {
 
+
         if (dataFrm === null) {
             if (formid != undefined) thisForm = '#' + formid;
             dataFrm = $(thisForm).serialize();
@@ -586,6 +587,17 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
         }
         //else {
         var dataForm = new FormData();
+
+        $.each($('form'), function (key, f) {
+            var other_data = $(f).serializeArray();
+            $.each(other_data, function (key, input) {
+                var newVal = input.value;
+                newVal = newVal.replace(/</g, '&lt;');
+                newVal = newVal.replace(/>/g, '&gt;');
+                dataForm.append(input.name, newVal);
+            });
+        });
+
         dataFrm.split('&').forEach(function (i) {
             d = i.split('=');
             var newVal = d[1];
