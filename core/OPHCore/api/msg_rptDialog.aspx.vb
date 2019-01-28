@@ -60,7 +60,7 @@ Partial Class OPHCore_api_msg_rptDialog
                     If ds1.Tables(0).Rows(0).Item("parameters").ToString <> "" Then
                         parameterid = ds1.Tables(0).Rows(0).Item("parameters").replace("%2F", "/")
                         reportName = ds1.Tables(0).Rows(0).Item("reportName")
-                        'XLSTemplate = ds1.Tables(0).Rows(0).Item("XLSTemplate")
+                        XLSTemplate = ds1.Tables(0).Rows(0).Item("XLSTemplate")
                     End If
                 End If
             End If
