@@ -946,6 +946,7 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
             data: frmData,
             success: function (data) {
                 var msg = $(data).find('message').text();
+                var reload = $(data).find('reload').text();
                 if (msg === '' || msg === 'Approval Succesfully' || msg.substring(0, 1) === '2') {
                     //location: 0 header; 1 child; 2 browse 
                     //location: browse:10, header form:20, browse anak:30, browse form:40
@@ -962,7 +963,8 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                             //location: 0 header; 1 child; 2 browse 
                             //location: browse:10, header form:20, header sidebar:21, browse anak:30, browse form:40
 
-                            window.location = 'index.aspx?code=' + getQueryVariable("code");
+                            //window.location = 'index.aspx?code=' + getQueryVariable("code");
+                            loadBrowse(code);
                         }
                         //if (action === 'execute' && location == 21) {
                         //		//refresh sidebar
@@ -973,7 +975,8 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                             //showMessage(successmsg);
                             //loadContent(1);
                             showMessage(successmsg, '2', true, function () {
-                                loadBrowse(code);
+                                if (reload=='1') loadBrowse(code);
+                                else loadContent(1);
                             });
 
                         }
