@@ -576,38 +576,34 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
     if (GUID == undefined) GUID = "00000000-0000-0000-0000-000000000000";
     if (flag > 0) {
 
-
-        if (dataFrm === null) {
-            if (formid != undefined) thisForm = '#' + formid;
-            dataFrm = $(thisForm).serialize();
-
-            //var dfLength = dataFrm.length;
-            //dataFrm = dataFrm.substring(0, dfLength);
-            //dataFrm = dataFrm.split('%3C').join('%26lt%3B');
-        }
-        //else {
         var dataForm = new FormData();
-
-        $.each($('form'), function (key, f) {
-            var other_data = $(f).serializeArray();
-            $.each(other_data, function (key, input) {
-                var newVal = input.value;
-                newVal = newVal.replace(/</g, '&lt;');
-                newVal = newVal.replace(/>/g, '&gt;');
-                dataForm.append(input.name, newVal);
+        if (formid != undefined) {
+            thisForm = '#' + formid
+            dataFrm = $(thisForm).serialize();
+        }
+        if (!!dataFrm) {
+            dataFrm.split('&').forEach(function (i) {
+                d = i.split('=');
+                var newVal = d[1];
+                if (newVal) {
+                    newVal = newVal.replace(/</g, '&lt;');
+                    newVal = newVal.replace(/>/g, '&gt;');
+                    dataForm.append(d[0].toString(), d[1].toString());
+                }
             });
-        });
+        } else {
+            $.each($('form'), function (key, f) {
+                var other_data = $(f).serializeArray();
+                $.each(other_data, function (key, input) {
+                    var newVal = input.value;
+                    newVal = newVal.replace(/</g, '&lt;');
+                    newVal = newVal.replace(/>/g, '&gt;');
+                    dataForm.append(input.name, newVal);
+                });
+            });
 
-        dataFrm.split('&').forEach(function (i) {
-            d = i.split('=');
-            var newVal = d[1];
-            if (newVal) {
-                newVal = newVal.replace(/</g, '&lt;');
-                newVal = newVal.replace(/>/g, '&gt;');
-                dataForm.append(d[0].toString(), d[1].toString());
-            }
-        });
-        //} 
+        }
+
         dataForm.append('mode', 'preview');
         dataForm.append('flag', flag);
         dataForm.append('cfunctionlist', GUID);
