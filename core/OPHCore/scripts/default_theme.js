@@ -452,7 +452,8 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
 
     if (dataFrm != "" && dataFrm != null) {
         var A = dataFrm.split("&");
-        var C = requiredname.value.replace(/\s/g, '').split(",");
+        var C = '';
+        if (requiredname) C = requiredname.value.replace(/\s/g, '').split(",");
         A.forEach(function (a, b) {
             var x = a.split("=");
             var ix = x[0];
