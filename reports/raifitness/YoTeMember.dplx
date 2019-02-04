@@ -11,9 +11,8 @@
 		<header id="Header1"/>
 		<detail id="Detail1" autoSplit="true" height="1524">
 			<image id="Image1" height="46" x="2" width="204" path="Rai.jpg" y="16"/>
-			<label id="Label2" fontSize="10" text="Agreement# :" height="16" x="297" width="66" font="TimesBold" y="17"/>
-			<label fontSize="10" height="16" id="Label3" x="297" text="Nama FC     :" font="TimesBold" width="63" y="35"/>
-			<label fontSize="10" height="16" width="117" id="Label4" x="246" text="Barcode member :" font="TimesRoman" y="49"/>
+			<label id="Label2" fontSize="10" text="Agreement# :" height="16" width="66" font="TimesBold" x="296" y="19"/>
+			<label fontSize="10" height="16" id="Label3" text="Nama FC     :" font="TimesBold" width="63" x="297.5" y="36"/>
 			<subReport id="SubReport1" width="494" x="-0.5" y="72">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeMember_report_sub1">
@@ -150,11 +149,12 @@
 				</detail>
 				<footer id="Footer2" height="14"/>
 			</subReport>
-			<recordBox id="RecordBox1" dataFormat="" width="109" x="370" height="15" field="aggrement" y="17" fontSize="10"/>
-			<recordBox dataFormat="" width="109" height="15" id="RecordBox2" field="namafc" x="369" y="34" fontSize="10"/>
+			<recordBox id="RecordBox1" dataFormat="" width="109" x="370" height="15" field="aggrement" fontSize="10" y="19" font="TimesBold"/>
+			<recordBox dataFormat="" width="109" height="15" id="RecordBox2" field="namafc" x="369" fontSize="10" font="TimesBold" y="36"/>
 			<rectangle id="Rectangle5" width="491" x="1.1" height="15" fillColor="gainsboro" y="0" borderColor="gainsboro"/>
 			<label id="Label1" height="11" width="489" align="center" font="TimesBold" text="PERJANJIAN ANGGOTA" x="4" y="2"/>
-			<recordBox dataFormat="" width="109" height="15" x="369" id="RecordBox32" field="barcode" fontSize="10" y="50"/>
+			<recordBox dataFormat="" width="109" height="15" x="369" id="RecordBox32" field="barcode" fontSize="10" font="TimesBold" y="53"/>
+			<label fontSize="10" height="16" font="TimesBold" id="Label79" text="Barcode Member     :" width="96.5" x="263.5" y="53"/>
 		</detail>
 		<footer id="Footer1"/>
 	</report>

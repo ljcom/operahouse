@@ -1193,7 +1193,7 @@ function goTo(url, isPost) {
 }
 
 
-function genReport(code, outputType, otherPar) {
+function genReport(code, outputType, otherPar, t) {
 
     otherPar = (otherPar) ? "&" + otherPar : "";
     url = 'OPHCore/api/msg_rptDialog.aspx?mode=' + outputType + '&code=' + code + otherPar;
@@ -1212,7 +1212,7 @@ function genReport(code, outputType, otherPar) {
     dataFrm.split('&').forEach(function (i) {
         d = i.split('=');
         var newVal = d[1];
-        if (newVal != undefined) {
+        if (newVal != undefined && parform.indexOf(d[0])==-1) {
             newVal = newVal.replace(/</g, '&lt;');
             newVal = newVal.replace(/>/g, '&gt;');
             //dataForm.append(d[0].toString(), d[1].toString());
