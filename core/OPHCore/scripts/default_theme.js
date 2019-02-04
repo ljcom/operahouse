@@ -437,8 +437,9 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
     requiredname = document.getElementsByName(tblnm + "requiredname")[0];
     var result;
     var idReq;
-    if (requiredname != undefined) {
+    if (requiredname != undefined && dataFrm == null) {
         var requirednamev = requiredname.value;
+
         if (requirednamev !== '' && requirednamev != undefined) {
             result = checkrequired(requirednamev.split(', '), location == 30 ? guid : '', 'good');
             idReq = checkrequired(requirednamev.split(', '), location == 30 ? guid : '', 'id');
@@ -447,6 +448,23 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
         }
     } else {
         result = 'good';
+    }
+
+    if (dataFrm != "" && dataFrm != null) {
+        var A = dataFrm.split("&");
+        var C = '';
+        if (requiredname) C = requiredname.value.replace(/\s/g, '').split(",");
+        A.forEach(function (a, b) {
+            var x = a.split("=");
+            var ix = x[0];
+            var val = x[1];
+
+            for (j = 0; j < C.length; j++) {
+                if (C[j] == ix && val == "") {
+                    result = ix + " need to be filled";
+                }
+            }
+        });
     }
 
     if (result === 'good') {
@@ -559,38 +577,35 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
     if (GUID == undefined) GUID = "00000000-0000-0000-0000-000000000000";
     if (flag > 0) {
 
-
-        if (dataFrm === null) {
-            if (formid != undefined) thisForm = '#' + formid;
-            dataFrm = $(thisForm).serialize();
-
-            //var dfLength = dataFrm.length;
-            //dataFrm = dataFrm.substring(0, dfLength);
-            //dataFrm = dataFrm.split('%3C').join('%26lt%3B');
-        }
-        //else {
         var dataForm = new FormData();
-
-        $.each($('form'), function (key, f) {
-            var other_data = $(f).serializeArray();
-            $.each(other_data, function (key, input) {
-                var newVal = input.value;
-                newVal = newVal.replace(/</g, '&lt;');
-                newVal = newVal.replace(/>/g, '&gt;');
-                dataForm.append(input.name, newVal);
+        if (formid != undefined) {
+            thisForm = '#' + formid
+            dataFrm = $(thisForm).serialize();
+        }
+        if (!!dataFrm) {
+            dataFrm.split('&').forEach(function (i) {
+                d = i.split('=');
+                var newVal = d[1];
+                if (newVal) {
+                    newVal = newVal.replace(/</g, '&lt;');
+                    newVal = newVal.replace(/>/g, '&gt;');
+                    dataForm.append(d[0].toString(), d[1].toString());
+                }
             });
-        });
+        } else {
+            $.each($('form'), function (key, f) {
+                var other_data = $(f).serializeArray();
+                $.each(other_data, function (key, input) {
+                    var newVal = input.value;
+                    newVal = newVal.replace(/</g, '&lt;');
+                    newVal = newVal.replace(/>/g, '&gt;');
+                    dataForm.append(input.name, newVal);
+                });
+            });
 
-        dataFrm.split('&').forEach(function (i) {
-            d = i.split('=');
-            var newVal = d[1];
-            newVal = newVal.replace(/</g, '&lt;');
-            newVal = newVal.replace(/>/g, '&gt;');
-            dataForm.append(d[0].toString(), d[1].toString());
-        });
-        //} 
+        }
+
         dataForm.append('mode', 'preview');
-        //dataForm.append('code', code);
         dataForm.append('flag', flag);
         dataForm.append('cfunctionlist', GUID);
 
@@ -641,11 +656,6 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
                                 }
 
                             }
-                            //if ($(this).attr('disabled') === 'disabled') {
-
-                            //    $('#' + this.tagName).attr('disabled', true)
-                            //}
-
                             if ($(this).attr('display') === 'show') {
                                 if ($('[name=' + this.tagName + ']').data("type") === 'dateBox')
                                     $('[name=' + this.tagName + ']').parent().parent().show();
@@ -675,6 +685,32 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
                             //EndBy eLs updated by samuel 20180808
                         }
                     }
+
+                    //AddedBy eLs for : master browse inline child preview
+                    var select2Tag = '#' + this.tagName + '_' + GUID;
+                    var otherTag = "#tr1_" + code.toLowerCase() + GUID + " > td[data-field$='" + this.tagName + "']";
+                    var val = this.textContent;
+                    if ($(select2Tag).length > 0) {
+                        var selectID = this.tagName + "_" + GUID;
+                        if (val) autosuggestSetValue(undefined, selectID, code, this.tagName, val, '', '');
+                       
+                        if (this.getAttribute('readonly') == "true") {
+                            $(select2Tag).prop("disabled", true);
+                            $(otherTag + ">span").hide();
+                        }
+                        else {
+                            $(select2Tag).prop("disabled", false);
+                            $(otherTag + ">span").show();
+                        }
+                    } else {
+                        if (val) $(otherTag).text(val);
+
+                        if (this.getAttribute('readonly') == "true")
+                            $(otherTag).attr("contenteditable", "false");
+                        else
+                            $(otherTag).attr("contenteditable", "true");
+                    }
+
                     if (typeof afterSuccess === "function") afterSuccess(data);
 
                 });
@@ -946,6 +982,7 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
             data: frmData,
             success: function (data) {
                 var msg = $(data).find('message').text();
+                var reload = $(data).find('reload').text();
                 if (msg === '' || msg === 'Approval Succesfully' || msg.substring(0, 1) === '2') {
                     //location: 0 header; 1 child; 2 browse 
                     //location: browse:10, header form:20, browse anak:30, browse form:40
@@ -962,7 +999,8 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                             //location: 0 header; 1 child; 2 browse 
                             //location: browse:10, header form:20, header sidebar:21, browse anak:30, browse form:40
 
-                            window.location = 'index.aspx?code=' + getQueryVariable("code");
+                            //window.location = 'index.aspx?code=' + getQueryVariable("code");
+                            loadBrowse(code);
                         }
                         //if (action === 'execute' && location == 21) {
                         //		//refresh sidebar
@@ -973,7 +1011,8 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                             //showMessage(successmsg);
                             //loadContent(1);
                             showMessage(successmsg, '2', true, function () {
-                                //loadBrowse(code);
+                                if (reload=='1') loadBrowse(code);
+                                else loadContent(1);
                             });
 
                         }
@@ -1154,7 +1193,7 @@ function goTo(url, isPost) {
 }
 
 
-function genReport(code, outputType, otherPar) {
+function genReport(code, outputType, otherPar, t) {
 
     otherPar = (otherPar) ? "&" + otherPar : "";
     url = 'OPHCore/api/msg_rptDialog.aspx?mode=' + outputType + '&code=' + code + otherPar;
@@ -1173,7 +1212,7 @@ function genReport(code, outputType, otherPar) {
     dataFrm.split('&').forEach(function (i) {
         d = i.split('=');
         var newVal = d[1];
-        if (newVal != undefined) {
+        if (newVal != undefined && parform.indexOf(d[0])==-1) {
             newVal = newVal.replace(/</g, '&lt;');
             newVal = newVal.replace(/>/g, '&gt;');
             //dataForm.append(d[0].toString(), d[1].toString());

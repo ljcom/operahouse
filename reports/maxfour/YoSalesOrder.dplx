@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" rightMargin="14.175" pageSize="custom" topMargin="0" bottomMargin="0" pageHeight="141.75" leftMargin="14.175" pageWidth="226.8">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCash_report">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1"/>
+		<detail id="Detail1" autoSplit="true" height="277.5">
+			<contentGroup id="ContentGroup1" y="0" height="92" x="2.5" width="195.275">
+				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" height="21.015" width="173.6" x="12.5" y="5.34" text="CV UTAMA"/>
+				<label align="center" fontSize="9" id="Label2" y="26.355" height="22.84" width="186.275" x="5" text="Jl. Semangka 43 A-B Panorama Bengkulu"/>
+				<line x1="0" y1="50" y2="50" id="Line1" x2="211.775"/>
+				<formattedRecordArea id="FormattedRecordArea3" x="0" height="22" width="145.5" y="56">
+					<initialStyle>
+						<font size="9"/>
+						<line/>
+						<paragraph/>
+					</initialStyle>
+					<text><![CDATA[<P>Invoice No: #InvNo#</P><P>Invoice Date: #InvDate#</P>]]></text>
+				</formattedRecordArea>
+				<line id="Line7" x1="1" y1="90" y2="90" x2="212"/></contentGroup>
+			<formattedRecordArea id="FormattedRecordArea1" height="31.1" expandable="true" width="192.1" x="3.1" y="202">
+				<initialStyle>
+					<font size="9"/>
+					<line/>
+					<paragraph/>
+				</initialStyle>
+				<text><![CDATA[<P>Customer Name: #Customer#</P><P>Sales by: #HostName#</P><P>Printed on: #printDate#</P>]]></text>
+			</formattedRecordArea>
+			<label align="center" id="Label7" text="Thank you for your purchase.&#xA;See you again soon!" fontSize="8" height="20.18" x="1" width="196.1" y="235"/>
+			<subReport id="SubReport1" y="94" x="2.6" width="194.775">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCash_report_sub1">
+						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
+				</query>
+				<header id="Header2" height="1"/>
+				<detail id="Detail2" autoSplit="true" height="41">
+					<formattedRecordArea splittable="true" expandable="true" id="FormattedRecordArea2" height="40" y="0" x="2" width="105.275">
+						<initialStyle>
+							<font size="9"/>
+							<line/>
+							<paragraph/>
+						</initialStyle>
+						<text><![CDATA[<P>#ItemName#<BR>#Qty#&nbsp;x @#Price#</P><P Align="Right">&nbsp;</P>]]></text>
+					</formattedRecordArea>
+					<recordBox id="RecordBox4" dataFormat="" height="14" field="TotalPrice" fontSize="9" align="right" y="21" width="85" x="110"/>
+				</detail>
+				<footer id="Footer2" height="1"/>
+			</subReport>
+			<contentGroup id="ContentGroup2" y="137.5" width="193.775" x="2.5" height="61.463">
+				<line x1="0" y1="0" y2="0" id="Line4" x2="211.775"/>
+				<line x1="0" id="Line5" y1="28" y2="28" x2="211.775"/>
+				<label fontSize="9" id="Label5" align="right" height="11.34" width="56.7" text="Sub Total" y="2" x="71.555"/>
+				<recordBox id="RecordBox1" dataFormat="" width="55.85" align="right" height="11.34" y="13.34" fontSize="9" field="Discount" x="133.925"/>
+				<recordBox dataFormat="" width="55.85" align="right" id="RecordBox2" height="11.34" y="2" fontSize="9" field="SubTotal1" x="133.925"/>
+				<label fontSize="9" align="right" height="11.34" width="56.7" id="Label4" text="Total" y="42.35" x="71.555"/>
+				<recordBox dataFormat="" width="55.85" align="right" height="11.34" id="RecordBox3" fontSize="9" field="SubTotal2" y="42.35" x="133.925"/>
+				<line x1="0" id="Line2" x2="211.775" y1="58" y2="58"/>
+				<line id="Line3" y1="58" y2="58" x1="-7" x2="204.775"/>
+				<line id="Line6" x1="-0.5" x2="211.275" y1="108.5" y2="108.5"/>
+				<label fontSize="9" align="right" height="11.34" width="56.7" id="Label9" text="Discount" y="13.34" x="71.555"/>
+				<label fontSize="9" align="right" height="11.34" id="Label8" text="Shipping  Cost" width="65.7" y="28.35" x="62.555"/>
+				<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" id="RecordBox6" field="shippingcost" y="29.35" x="133.925"/>
+				<line x1="0" x2="211.775" id="Line8" y1="54" y2="54"/>
+				<line x1="0" x2="211.775" id="Line9" y1="54" y2="54"/>
+			</contentGroup>
+		</detail>
+		<footer id="Footer1"/>
+	</report>
+</document>
