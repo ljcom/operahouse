@@ -973,7 +973,7 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                             //showMessage(successmsg);
                             //loadContent(1);
                             showMessage(successmsg, '2', true, function () {
-                                loadBrowse(code);
+                                //loadBrowse(code);
                             });
 
                         }
