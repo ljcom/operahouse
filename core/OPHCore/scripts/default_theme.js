@@ -58,7 +58,7 @@ function loadThemeFolder() {
 function getMode() {
 
     var ret = "browse";
-    if (getGUID() && getGUID !== '') ret = 'form';
+    if (getGUID() && getGUID !== '' && getSearchText()=='') ret = 'form';
     //var mode = getCookie(getCode() + '_mode');
     //if (mode != undefined) ret = mode;
     //else {
@@ -97,7 +97,10 @@ function changestateid(stateid) {
 }
 
 
-function getSearchText() { return getQueryVariable("bSearchText") == undefined ? getCookie('bSearchText') : getQueryVariable("bSearchText"); }
+function getSearchText() {
+    return getCookie('bSearchText') == undefined || getCookie('bSearchText') == '' ?
+            (getQueryVariable("bSearchText") == undefined ? '' : getQueryVariable("bSearchText")) : getCookie('bSearchText');
+}
 
 function getOrder() {
     if (getCookie("sortOrder") == undefined || getCookie("sortOrder") === "") {
@@ -234,7 +237,7 @@ function loadForm(bCode, bGUID, f) {
 function loadBrowse(bCode, f) {
     //OPH4 --refreshHeader
     //evn=back harus di revisi
-    var url = "index.aspx?code=" + bCode;
+    var url = "index.aspx?code=" + bCode + '&bSearchText=' + getSearchText();
     goTo(url);
     //document.location = url;
 }
@@ -1293,7 +1296,9 @@ function searchText(e, searchvalue) {
         }
         else {
             setCookie('bSearchText', searchvalue.split('+').join('%2B'), 0, 1, 0);
-            loadContent(1);
+            var code = getCode();
+            loadBrowse(code);
+            //loadContent(1);
         }
     }
 }
@@ -1391,7 +1396,7 @@ function childPageNo(pageid, code, currentpage, totalpages) {
 
     if (parseInt(currentpage) != totalpages) result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 1) + "," + mode + ")'>&#187;</a></li>";
 
-    result += "<li>&nbsp;&nbsp;&nbsp;</li>"
+    result += "<li>&nbsp;&nbsp;&nbsp;</li>";
 
     var combo = "<li><select style ='background:#fafafa;color:#666;border:1px solid #ddd;height:30px;'onchange='loadChild(" + code + "," + parentKey + "," + guid + ",this.value)'>";
     for (var i = 1; i <= totalpages; i++) {
