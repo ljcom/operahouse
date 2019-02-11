@@ -14,7 +14,8 @@ Partial Class OPHCore_api_loadTheme
         If File.Exists(themeFile) Then
             Dim document As XDocument = XDocument.Load(themeFile)
             doc = document.ToString()
-
+            Dim par = "<xsl:variable name=""queryPage"" select=""" & page & """ />"
+            doc = doc.Replace("<xsl:template match=""/"">", par & vbCrLf & "<xsl:template match=""/"">")
             While doc.Contains("<xsl:include href=""")
                 Dim n = doc.IndexOf("<xsl:include href=")
                 Dim includestr = doc.Substring(n + 19, doc.Length - n - 19)
