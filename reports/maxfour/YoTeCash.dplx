@@ -9,7 +9,7 @@
 		<header id="Header1"/>
 		<detail id="Detail1" autoSplit="true" height="334.5">
 			<contentGroup id="ContentGroup1" y="0" height="92" x="2.5" width="195.275">
-				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" height="21.015" width="173.6" x="12.5" y="5.34" text="LIBERTY JAYA"/>
+				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" height="21.015" width="173.6" x="12" y="6.34" text="UTAMA CV"/>
 				<label align="center" fontSize="9" id="Label2" y="26.355" text="Jl. Danau Indah Barat Blok A1/1 Sunter Jaya Jakarta Utara 14350" height="22.84" width="186.275" x="5"/>
 				<line x1="0" y1="50" y2="50" id="Line1" x2="211.775"/>
 				<formattedRecordArea id="FormattedRecordArea3" x="0" height="22" width="145.5" y="56">
@@ -30,7 +30,7 @@
 				<text><![CDATA[<P>Customer Name: #Customer#</P><P>Sales by: #HostName#</P><P>Printed on: #printDate#</P>]]></text>
 			</formattedRecordArea>
 			<label align="center" id="Label7" text="Thank you for your purchase.&#xA;See you again soon!" fontSize="8" height="20.18" y="281" x="1" width="196.1"/>
-			<subReport id="SubReport1" y="94" x="2.6" width="194.775">
+			<subReport id="SubReport1" y="94" width="194.775" x="2.1">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCash_report_sub1">
 						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>

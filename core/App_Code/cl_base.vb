@@ -614,7 +614,10 @@ Public Class cl_base
         Try
             Dim recaptchaResponse As String = Request.Form("g-recaptcha-response")
             If Not String.IsNullOrEmpty(recaptchaResponse) Then
-                Dim request As Net.WebRequest = Net.WebRequest.Create("https://www.google.com/recaptcha/api/siteverify?secret=" & secret & "&response=" + recaptchaResponse)
+                Dim url = "https://www.google.com/recaptcha/api/siteverify?secret=" & secret & "&response=" + recaptchaResponse
+                Dim request As Net.WebRequest = Net.WebRequest.Create(url)
+                writeLog(url)
+
                 request.Method = "POST"
                 request.ContentType = "application/json; charset=utf-8"
                 Dim postData As String = ""

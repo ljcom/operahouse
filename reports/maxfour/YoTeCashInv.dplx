@@ -9,7 +9,6 @@
 		<header id="Header1"/>
 		<detail id="Detail1" autoSplit="true" height="334.5">
 			<contentGroup id="ContentGroup1" height="94.5" y="10.5" width="194.275" x="3">
-				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" height="21.015" width="173.1" x="7" y="2.34" text="CV UTAMA"/>
 				<label align="center" fontSize="9" id="Label2" width="185.775" x="3.5" height="24.34" text="Jl. Semangka 43 A-B Panorama Bengkulu" y="21.855"/>
 				<line x1="0" y1="50" y2="50" id="Line1" x2="211.775"/>
 				<formattedRecordArea id="FormattedRecordArea3" height="22" y="56" width="155.5" x="4">
@@ -20,7 +19,8 @@
 					</initialStyle>
 					<text><![CDATA[<P>Invoice No: #InvNo#</P><P>Invoice Date: #InvDate#</P>]]></text>
 				</formattedRecordArea>
-				<line id="Line7" x1="1" y1="90" y2="90" x2="212"/></contentGroup>
+				<line id="Line7" x1="1" y1="90" y2="90" x2="212"/><label align="center" fontSize="10" font="HelveticaBold" height="21.015" width="173.6" x="12" id="Label1" y="2.34" text="MAXFOUR"/>
+			</contentGroup>
 			<formattedRecordArea id="FormattedRecordArea1" expandable="true" y="261" width="195.1" height="42.1" x="1.5">
 				<initialStyle>
 					<font size="9"/>
