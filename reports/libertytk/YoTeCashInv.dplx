@@ -9,10 +9,10 @@
 		<header id="Header1"/>
 		<detail id="Detail1" height="331">
 			<contentGroup id="ContentGroup1" x="3" y="10" width="194" height="94">
-				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" y="2" text="libertyjaya" vAlign="center" x="-0.5" width="194" height="19.1"/>
-				<label align="center" id="Label2" x="0" width="194.5" fontSize="6" y="24.5" height="24.5" text="Jl. Danau Indah Barat Blok A1/1 Sunter Jaya, Jakarta Utara 14350&#xA;No Telp : (021) 6503064 / (021) 65304918 / (021) 65304919&#xA;Whatsapp : 0813-1999-7715"/>
-				<line x1="0" y1="50" y2="50" id="Line1" x2="211"/>
-				<formattedRecordArea id="FormattedRecordArea3" height="22" y="56" x="4" width="155">
+				<label align="center" font="HelveticaBold" id="Label1" y="2" text="libertyjaya" vAlign="center" width="194" x="0" height="19" fontSize="14"/>
+				<label align="center" id="Label2" x="0" width="194" fontSize="7" height="34.5" y="24.5" text="Jl. Danau Indah Barat Blok A1/1 Sunter Jaya&#xA;Jakarta Utara 14350&#xA;No Telp : (021) 6503064 / (021) 65304918 / (021) 65304919&#xA;Whatsapp : 0813-1999-7715"/>
+				<line x1="0" id="Line1" x2="211" y1="60" y2="60"/>
+				<formattedRecordArea id="FormattedRecordArea3" height="22" x="4" width="155" y="63">
 					<initialStyle>
 						<font size="9"/>
 						<line/>

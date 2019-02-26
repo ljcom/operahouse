@@ -9,8 +9,8 @@
 		<header id="Header1"/>
 		<detail id="Detail1" autoSplit="true" height="334.5">
 			<contentGroup id="ContentGroup1" height="94.5" x="0" width="198.45" y="5.67" splittable="true">
-				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" height="21.015" text="CV UTAMA" y="11.34" width="198.45" x="0"/>
-				<label align="center" fontSize="9" id="Label2" height="11.34" y="26.355" text="Jl. Semangka 43 A-B Panorama Bengkulu" x="0" width="198.45"/>
+				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" height="21.015" y="11.34" width="198.45" x="0" text="LIBERTY JAYA"/>
+				<label align="center" fontSize="9" id="Label2" y="26.355" x="0" width="198.45" text="Jl. Danau Indah Barat Blok A1/1 Sunter Jaya Jakarta Utara 14350" height="23.34"/>
 				<line x1="0" y1="50" y2="50" id="Line1" x2="198.45"/>
 				<formattedRecordArea id="FormattedRecordArea3" x="0" height="22" width="145.5" y="56">
 					<initialStyle>
