@@ -430,7 +430,7 @@ function saveFunction(code, guid, location, formId, afterSuccess) {
     saveFunction1(code, guid, location, formId, null, afterSuccess);
 }
 
-function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
+function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess, saveFlag) {
     var tblnm = code;
     var data;
 
@@ -550,16 +550,13 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess) {
             $('#notiModal').data("message", result);
             $('#notiModal').data("colname", idReq);
             if (typeof afterSuccess === "function") afterSuccess(result);
-        } else {
-            if (idReq) showMessage(result, '0', idReq, function () {
-                //still not good
-                //if (typeof afterSuccess === "function") afterSuccess(result);
-            });
+        } else if ((location == 30 || location === '30') && (saveFlag == 1 || saveFlag === '1')) {
+            return
+        } else  {
+            if (idReq) showMessage(result, '0', idReq, function () { });
             else showMessage(result, 0, null, function () {
                 if (typeof afterSuccess === "function") afterSuccess(result);
             });
-
-
         }
 
     }
@@ -704,10 +701,25 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
                     } else {
                         if (val) $(otherTag).text(val);
 
-                        if (this.getAttribute('readonly') == "true")
+                        if (this.getAttribute('readonly') == "true") {
                             $(otherTag).attr("contenteditable", "false");
-                        else
+                            $(otherTag).removeAttr('tabindex');
+                            $(':focus').blur();
+                        }
+                        if (this.getAttribute('readonly') == "false") {
                             $(otherTag).attr("contenteditable", "true");
+                            $(otherTag).attr("tabindex", "1");
+                        }
+
+                        if (this.getAttribute('readonlyAll') == "true") {
+                            $("td[data-field$='" + this.tagName + "']").attr("contenteditable", "false");
+                            $("td[data-field$='" + this.tagName + "']").removeAttr('tabindex');
+                            $(':focus').blur();
+                        }
+                        if (this.getAttribute('readonlyAll') == "false") {
+                            $("td[data-field$='" + this.tagName + "']").attr("contenteditable", "true");
+                        }
+
                     }
 
                     if (typeof afterSuccess === "function") afterSuccess(data);
