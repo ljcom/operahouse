@@ -223,7 +223,7 @@ Partial Class OPHCore_API_default
 
             Case "report"
                 sqlstr = "exec [api].[theme_report] '" & curHostGUID & "', '" & code & "'"
-                xmlstr &= runSQLwithResult(sqlstr, curODBC)
+                xmlstr = runSQLwithResult(sqlstr, curODBC)
 
 
             Case "codeSearch"

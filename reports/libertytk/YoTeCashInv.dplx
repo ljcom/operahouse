@@ -7,12 +7,12 @@
 		</query>
 		<template id="Template1"/>
 		<header id="Header1"/>
-		<detail id="Detail1" height="331.5">
+		<detail id="Detail1" height="331">
 			<contentGroup id="ContentGroup1" x="3" y="10" width="194" height="94">
-				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" x="7" y="2" width="173" height="21" text="LIBERTY JAYA"/>
-				<label align="center" fontSize="9" id="Label2" x="3" y="21" height="24" text="Jl. Danau Indah Barat Blok A1/1 Sunter Jaya Jakarta Utara 14350" width="181"/>
-				<line x1="0" y1="50" y2="50" id="Line1" x2="211" width="0.5"/>
-				<formattedRecordArea id="FormattedRecordArea3" height="22" y="56" x="4" width="155">
+				<label align="center" font="HelveticaBold" id="Label1" y="2" text="libertyjaya" vAlign="center" width="194" x="0" height="19" fontSize="14"/>
+				<label align="center" id="Label2" x="0" width="194" fontSize="7" height="34.5" y="24.5" text="Jl. Danau Indah Barat Blok A1/1 Sunter Jaya&#xA;Jakarta Utara 14350&#xA;No Telp : (021) 6503064 / (021) 65304918 / (021) 65304919&#xA;Whatsapp : 0813-1999-7715"/>
+				<line x1="0" id="Line1" x2="211" y1="60" y2="60"/>
+				<formattedRecordArea id="FormattedRecordArea3" height="22" x="4" width="155" y="63">
 					<initialStyle>
 						<font size="9"/>
 						<line/>
@@ -20,8 +20,8 @@
 					</initialStyle>
 					<text><![CDATA[<P>Invoice No: #InvNo#</P><P>Invoice Date: #InvDate#</P>]]></text>
 				</formattedRecordArea>
-				<line id="Line7" x1="1" y1="90" y2="90" x2="212" style="dashSmall" width="0.5"/></contentGroup>
-			<formattedRecordArea id="FormattedRecordArea1" expandable="true" y="261" height="42" width="185.1" x="5">
+				<line id="Line7" x1="1" y1="90" y2="90" x2="212" style="dashSmall"/></contentGroup>
+			<formattedRecordArea id="FormattedRecordArea1" expandable="true" y="261" height="42" x="5" width="185">
 				<initialStyle>
 					<font size="9"/>
 					<line/>
@@ -37,7 +37,7 @@
 				</query>
 				<header id="Header2" height="1"/>
 				<detail id="Detail2" autoSplit="true" height="41">
-					<formattedRecordArea splittable="true" expandable="true" id="FormattedRecordArea2" height="40" width="95" x="6" y="0.5">
+					<formattedRecordArea splittable="true" expandable="true" id="FormattedRecordArea2" height="40" width="95" x="6" y="0">
 						<initialStyle>
 							<font size="9"/>
 							<line/>
@@ -50,21 +50,21 @@
 				<footer id="Footer2" height="1"/>
 			</subReport>
 			<contentGroup id="ContentGroup2" x="1" y="151" width="195" height="103">
-				<line x1="0" y1="0" y2="0" id="Line4" x2="211" style="dashSmall" width="0.5"/>
-				<line x1="0" id="Line5" y1="28" y2="28" x2="211" style="dashSmall" width="0.5"/>
+				<line x1="0" y1="0" y2="0" id="Line4" x2="211" style="dashSmall"/>
+				<line x1="0" id="Line5" y1="28" y2="28" x2="211" style="dashSmall"/>
 				<label fontSize="9" id="Label5" align="right" text="Sub Total" y="2" width="56" height="11" x="60"/>
 				<recordBox id="RecordBox1" dataFormat="" align="right" fontSize="9" field="Discount" y="13" width="55" height="11" x="122"/>
 				<recordBox dataFormat="" align="right" id="RecordBox2" y="2" fontSize="9" field="SubTotal1" width="55" height="11" x="122"/>
 				<label fontSize="9" align="right" id="Label4" text="Total" y="42" width="56" height="11" x="60"/>
 				<recordBox dataFormat="" align="right" id="RecordBox3" fontSize="9" field="SubTotal2" y="42" width="55" height="11" x="122"/>
-				<line x1="0" id="Line2" y1="58" y2="58" x2="211" style="dashSmall" width="0.5"/>
-				<line x1="0" id="Line3" y1="58" y2="58" x2="211" style="dashSmall" width="0.5"/>
-				<line id="Line6" x1="0" y1="108" x2="211" y2="108" style="dashSmall" width="0.5"/>
+				<line x1="0" id="Line2" y1="58" y2="58" x2="211" style="dashSmall"/>
+				<line x1="0" id="Line3" y1="58" y2="58" x2="211" style="dashSmall"/>
+				<line id="Line6" x1="0" y1="108" x2="211" y2="108" style="dashSmall"/>
 				<label fontSize="9" align="right" id="Label9" text="Discount" y="13" width="56" height="11" x="60"/>
 				<label fontSize="9" align="right" id="Label8" text="Shipping  Cost" y="28" width="65" height="11" x="51"/>
 				<recordBox dataFormat="" align="right" fontSize="9" id="RecordBox6" field="shippingcost" y="29" width="55" height="11" x="122"/>
-				<line x1="0" id="Line8" y1="54" y2="54" x2="211" style="dashSmall" width="0.5"/>
-				<line x1="0" id="Line9" y1="54" y2="54" x2="211" style="dashSmall" width="0.5"/>
+				<line x1="0" id="Line8" y1="54" y2="54" x2="211" style="dashSmall"/>
+				<line x1="0" id="Line9" y1="54" y2="54" x2="211" style="dashSmall"/>
 				<label fontSize="9" align="right" id="Label3" text="Paid" y="60" width="65" height="11" x="51"/>
 				<label fontSize="9" align="right" id="Label6" text="Less Paid" y="74" width="56" height="11" x="60"/>
 				<recordBox dataFormat="" align="right" fontSize="9" id="RecordBox5" field="balance" y="74" width="55" height="11" x="122"/>

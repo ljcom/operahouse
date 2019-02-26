@@ -9,18 +9,17 @@
 		<header id="Header1"/>
 		<detail id="Detail1" autoSplit="true" height="277">
 			<contentGroup id="ContentGroup1" y="0" height="92" x="2" width="195">
-				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" text="LIBERTY JAYA" x="12" y="5" width="173" height="21"/>
-				<label align="center" fontSize="9" id="Label2" x="5" text="Jl. Danau Indah Barat Blok A1/1 Sunter Jaya&#xA;Jakarta Utara 14350" y="26" width="186" height="22"/>
-				<line x1="0" y1="50" y2="50" id="Line1" x2="211" width="0"/>
+				<label align="center" font="HelveticaBold" id="Label1" y="-0.5" height="51" x="-0.5" width="195.5" vAlign="center" fontSize="14" text="SALES ORDER"/>
+				<line x1="0" y1="50" y2="50" id="Line1" x2="211"/>
 				<formattedRecordArea id="FormattedRecordArea3" x="0" height="22" y="56" width="145">
 					<initialStyle>
 						<font size="9"/>
 						<line/>
 						<paragraph/>
 					</initialStyle>
-					<text><![CDATA[<P>Invoice No: #InvNo#</P><P>Invoice Date: #InvDate#</P>]]></text>
+					<text><![CDATA[<P>SO&nbsp;No: #InvNo#</P><P>SO&nbsp;Date: #InvDate#</P>]]></text>
 				</formattedRecordArea>
-				<line id="Line7" x1="1" y1="90" y2="90" x2="212" style="dashSmall" width="0"/></contentGroup>
+				<line id="Line7" x1="1" y1="90" y2="90" x2="212" style="dashSmall"/></contentGroup>
 			<formattedRecordArea id="FormattedRecordArea1" expandable="true" y="202" width="192" height="31" x="3">
 				<initialStyle>
 					<font size="9"/>
@@ -37,31 +36,31 @@
 				</query>
 				<header id="Header2" height="1"/>
 				<detail id="Detail2" autoSplit="true" height="41">
-					<formattedRecordArea splittable="true" expandable="true" id="FormattedRecordArea2" x="2" y="0" height="40" width="105">
+					<formattedRecordArea splittable="true" expandable="true" id="FormattedRecordArea2" x="2" height="40" width="105" y="0">
 						<initialStyle>
 							<font size="9"/>
 							<line/>
 							<paragraph/>
 						</initialStyle>
-						<text><![CDATA[<P>#ItemCode#<BR>#ItemName#<BR>#Qty#x @#Price#</P>]]></text>
+						<text><![CDATA[<P>#ItemName#<BR>#Qty#x @#Price#</P>]]></text>
 					</formattedRecordArea>
 					<recordBox id="RecordBox4" dataFormat="" height="14" field="TotalPrice" fontSize="9" align="right" y="21" width="85" x="110"/>
 				</detail>
 				<footer id="Footer2" height="1"/>
 			</subReport>
 			<contentGroup id="ContentGroup2" x="2" width="193" y="140" height="60">
-				<line x1="0" y1="0" y2="0" id="Line4" x2="211" style="dashSmall" width="0"/>
-				<label fontSize="9" id="Label5" align="right" text="Sub Total" y="2" x="71" width="56" height="11"/>
+				<line x1="0" y1="0" y2="0" id="Line4" x2="211" style="dashSmall"/>
+				<label fontSize="9" id="Label5" align="right" text="Sub Total" y="2" width="56" height="11" x="70"/>
 				<recordBox id="RecordBox1" dataFormat="" align="right" fontSize="9" field="Discount" x="133" y="13" width="55" height="11"/>
 				<recordBox dataFormat="" align="right" id="RecordBox2" y="2" fontSize="9" field="SubTotal1" x="133" width="55" height="11"/>
 				<label fontSize="9" align="right" id="Label4" text="Total" x="71" y="42" width="56" height="11"/>
 				<recordBox dataFormat="" align="right" id="RecordBox3" fontSize="9" field="SubTotal2" x="133" y="42" width="55" height="11"/>
-				<line id="Line6" x1="0" y1="108" x2="211" y2="108" style="dashSmall" width="0"/>
+				<line id="Line6" x1="0" y1="108" x2="211" y2="108" style="dashSmall"/>
 				<label fontSize="9" align="right" id="Label9" text="Discount" x="71" y="13" width="56" height="11"/>
 				<label fontSize="9" align="right" id="Label8" text="Shipping  Cost" x="62" y="28" width="65" height="11"/>
 				<recordBox dataFormat="" align="right" fontSize="9" id="RecordBox6" field="shippingcost" x="133" y="29" width="55" height="11"/>
-				<line x1="0" id="Line8" y1="54" y2="54" x2="211" style="dashSmall" width="0"/>
-				<line x1="0" id="Line5" y1="28" y2="28" x2="211" style="dashSmall" width="0"/>
+				<line x1="0" id="Line8" y1="54" y2="54" x2="211" style="dashSmall"/>
+				<line x1="0" id="Line5" y1="28" y2="28" x2="211" style="dashSmall"/>
 			</contentGroup>
 		</detail>
 		<footer id="Footer1"/>

@@ -11,9 +11,8 @@
 		<header id="Header1"/>
 		<detail id="Detail1" autoSplit="true" height="1524">
 			<image id="Image1" height="46" x="2" width="204" path="Rai.jpg" y="16"/>
-			<label id="Label2" fontSize="10" text="Agreement# :" height="16" x="297" width="66" font="TimesBold" y="17"/>
-			<label fontSize="10" height="16" id="Label3" x="297" text="Nama FC     :" font="TimesBold" width="63" y="35"/>
-			<label fontSize="10" height="16" width="117" id="Label4" x="246" text="Barcode member :" font="TimesRoman" y="49"/>
+			<label id="Label2" fontSize="10" text="Agreement# :" height="16" width="66" font="TimesBold" x="296" y="19"/>
+			<label fontSize="10" height="16" id="Label3" font="TimesBold" y="36" text="Nama FC / MGM     :" x="262.5" width="98"/>
 			<subReport id="SubReport1" width="494" x="-0.5" y="72">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeMember_report_sub1">
@@ -22,7 +21,7 @@
 					</storedProcedure>
 				</query>
 				<header height="1" id="Header2"/>
-				<detail autoSplit="true" id="Detail2" height="1425">
+				<detail autoSplit="true" id="Detail2" height="1423">
 					<label id="Label6" font="TimesRoman" y="15" height="13.5" x="5" width="36.5" text="Nama" fontSize="10"/>
 					<label id="Label7" font="TimesRoman" x="4" height="14" y="32.007" width="62.498" text="Tanggal Lahir" fontSize="10"/>
 					<label id="Label8" font="TimesRoman" y="48" height="13.5" width="68.998" text="Alamat Rumah" fontSize="10" x="4"/>
@@ -35,59 +34,59 @@
 					<label font="TimesRoman" id="Label15" height="15.1" width="68" y="15.5" text="Jenis Kelamin" fontSize="10" x="238.5"/>
 					<label font="TimesRoman" id="Label17" height="13.5" x="238" y="80.5" width="57" text="Telp Rumah" fontSize="10"/>
 					<label id="Label18" font="TimesRoman" height="14" x="238.5" width="36.993" text="Email" fontSize="10" y="97"/>
-					<label width="86" font="TimesRoman" id="Label20" height="14.5" y="237" text="Biaya Bulanan" fontSize="10" x="214"/>
-					<label font="TimesRoman" id="Label21" height="14" y="187.5" text="Tanggal Berakhirnya Membership" width="159.5" x="212.5" fontSize="10"/>
-					<label font="TimesRoman" id="Label22" y="172" height="14.1" text="Tanggal Membership di mulai" width="155.5" x="212.5" fontSize="10"/>
-					<label font="TimesRoman" id="Label23" height="15.5" y="155" text="Type Membership" width="159.5" x="213" fontSize="10"/>
+					<label width="86" font="TimesRoman" id="Label20" height="14.5" text="Biaya Bulanan" fontSize="10" x="214" y="242"/>
+					<label font="TimesRoman" id="Label21" height="14" text="Tanggal Berakhirnya Membership" width="159.5" fontSize="10" x="213.5" y="204.5"/>
+					<label font="TimesRoman" id="Label22" height="14.1" text="Tanggal Membership di mulai" width="155.5" fontSize="10" x="213.5" y="187"/>
+					<label font="TimesRoman" id="Label23" height="15.5" text="Type Membership" width="159.5" x="213" fontSize="10" y="170"/>
 					<label font="TimesRoman" id="Label24" y="153" height="15" width="50" text="Admin fee" fontSize="10" x="4"/>
 					<label font="TimesRoman" id="Label25" height="14.5" text="First Month Fee" y="169.5" width="73" fontSize="10" x="4.5"/>
 					<label font="TimesRoman" id="Label26" height="14.5" y="187" width="74.506" text="Last Month Fee" fontSize="10" x="4"/>
 					<label font="TimesRoman" id="Label27" height="14" y="204" width="59.006" text="Joining Fee" fontSize="10" x="4"/>
 					<label font="TimesRoman" id="Label28" height="13.5" width="52.5" text="Tax" fontSize="10" y="241.5" x="4"/>
 					<label font="TimesRoman" id="Label29" height="12.5" width="65" y="260" text="Grand Total" fontSize="10" x="4.5"/>
-					<label font="TimesRoman" width="154" height="14" id="Label30" y="218" x="213" fontSize="10" text="Tanggal Pendebitan Pertama"/>
+					<label font="TimesRoman" width="154" height="14" id="Label30" x="213" fontSize="10" text="Tanggal Pendebitan Pertama" y="223"/>
 					<label font="TimesRoman" id="Label31" y="223" height="14.5" width="61.006" text="Total" fontSize="10" x="4"/>
 					<label id="Label33" width="492" font="TimesRoman" text="Dengan ini saya memberi kuasa kepada Rai Fitness  mendebet kartu kredit/ Bank Account saya untuk pembayaran biaya bulanan keanggotaan dan pembayaran tunggakan biaya bulanan." x="2" y="289" height="27.1" fontSize="9"/>
 					<label font="TimesRoman" id="Label34" height="8.5" x="5" width="63.5" text="Biaya Bulanan" fontSize="9" y="357.5"/>
 					<label font="TimesRoman" id="Label35" height="9" x="5" width="66" y="344" text="Nomor Kartu Kredit" fontSize="9"/>
 					<label font="TimesRoman" id="Label36" height="10" x="5.5" y="330" width="75.5" text="Nama Pemegang Kartu" fontSize="9"/>
 					<label font="TimesRoman" id="Label37" height="9.1" x="5.5" y="317.5" width="60.1" text="Jenis kartu kredit" fontSize="9"/>
-					<label font="TimesRoman" id="Label38" y="317" x="221" height="10" text="Nama Bank" fontSize="9" width="23"/>
+					<label font="TimesRoman" id="Label38" y="317" height="10" text="Nama Bank" fontSize="9" width="23" x="221"/>
 					<label font="TimesRoman" id="Label39" text="Expiry Date" fontSize="9" height="13" width="44.25" x="330" y="317"/>
 					<label width="492" font="TimesRoman" id="Label40" height="54.5" x="1.5" y="371" align="justify" fontSize="9" text="Saya telah melengkapi detail dari kartu kredit saya dan menginstruksikan pihak bank untuk melakukan pendebetan biaya bulanan dari rekening saya. Jika saya lalai untuk melakukan pembayaran di Rai Fitness sesuai dengan tanggal yang sudah ditentukan, maka tanda tangan saya ini memberikan kewenangan kepada Rai Fitness tanpa syarat dan tidak dapat dibatalkan untuk mendebit sejumlah uang tersebut diatas. Kegagalan dalam pendebitan untuk jangka waktu tertentu akan menyebabkan membership saya diberhentikan  untuk sementara waktusampai terjadinya pelunasan. Biaya keterlambatan akan dikenakan sebesar Rp. 30.000 setelah melewati tanggal yang sudah ditentukan setiap bulannya."/>
 					<label font="TimesRoman" height="7" width="108" id="Label41" text="Tanggal    :" fontSize="9" x="344" y="446"/>
 					<label height="7" id="Label42" x="3" text="Tanda Tangan Pemegang Kartu    :" width="145" align="center" font="TimesBold" fontSize="9" y="426"/>
 					<rectangle id="Rectangle1" x="1" width="152" height="26" y="436"/>
 					<label height="7" x="3" id="Label43" font="TimesItalic" text="*sama dengan tertera dalam kartu kredit" align="center" width="151" fontSize="9" y="464"/>
-					<label width="492" font="TimesRoman" id="Label45" align="justify" fontSize="9" height="108" x="0.5" y="488.5" text="#Dengan menandatangani &quot;Perjanjian Anggota&quot; ini, Anda Selanjutnya disebut sebagai Member Rai Fitness. Anggota Club dengan ini  telah menerima dan menyetujui Perjanjian ini dalam keadaan sadar dan tanpa adanya paksaan dari pihak manapun. Dengan menjadi member Rai Fitness akan mematuhi peraturan &amp; tata tertib serta peraturan-peraturan yang diberlakukan di club. Saya telah menerima, membaca dan memahami salinan peraturan &amp; tata tertib yang diberlakukan di club Rai Fitness, serta menyatakan bahwa &quot;Perjanjian Anggota&quot; dan segala peraturan yang melekatdan menjadi kesatuan dengannya adalah sah dan mengikat secara hukum. Perjanjian Anggota (Membership Agreement) ini terus berlaku untuk jangka waktu paling sedikit 12 bulan terhitung sejak tanggal efektif  membership di Perjanjian Anggota ini, kecuali di tentukan lain dengan keputusan management.&#xA;# Semua biaya keanggotaan Rai Fitness yang tertera dibagian rincian biaya keanggotaan ini adalah No Refundable (tidak dapat dikembalikan)."/>
+					<label width="492" font="TimesRoman" id="Label45" align="justify" fontSize="9" height="108" x="0.5" y="488.5" text="#Dengan menandatangani &quot;Perjanjian Anggota&quot; ini, Anda Selanjutnya disebut sebagai Member Rai Fitness. Anggota Club dengan ini telah menerima dan menyetujui Perjanjian ini dalam keadaan sadar dan tanpa adanya paksaan dari pihak manapun. Dengan menjadi member Rai Fitness akan mematuhi peraturan &amp; tata tertib serta peraturan-peraturan yang diberlakukan di club. Saya telah menerima, membaca dan memahami salinan peraturan &amp; tata tertib yang diberlakukan di club Rai Fitness, serta menyatakan bahwa &quot;Perjanjian Anggota&quot; dan segala peraturan yang melekatdan menjadi kesatuan dengannya adalah sah dan mengikat secara hukum. Perjanjian Anggota (Membership Agreement) ini terus berlaku untuk jangka waktu paling sedikit 12 bulan terhitung sejak tanggal efektif  membership di Perjanjian Anggota ini, kecuali di tentukan lain dengan keputusan management.&#xA;# Semua biaya keanggotaan Rai Fitness yang tertera dibagian rincian biaya keanggotaan ini adalah No Refundable (tidak dapat dikembalikan)."/>
 					<label font="TimesRoman" height="7" width="108" text="Tanggal    :" id="Label46" fontSize="9" x="344" y="609"/>
 					<rectangle id="Rectangle2" height="37" x="1" width="215" y="596"/>
 					<line id="Line1" x1="2" x2="215" y1="604" y2="604"/>
-					<label width="492" font="TimesRoman" x="1" id="Label51" align="justify" y="703" height="590" fontSize="9" text="1.Jam Operasional Club buka mulai pukul 6 pagi sampai dengan 10 malam, Khusus untuk jam operasional hari libur (Public Holiday) jika ada perubahan  maka akan di informasikan melalui pemberitahuan tertulis di dalam club (Front Desk Counter) dan Voice annoucement. Member tidak diperkenankan menggunakan fasilitas club melebihi jam operasional yang sudah di tentukan. &#xA;&#xA;2. Membership card harus selalu dibawa dan di tunjukkan kepada petugas Front Desk setiap kali akan memasuki Gym. Check in tanpa kartu membership hanya berlaku 1x kunjungan. Membership card tidak dapat dipindahtangankan atau dialihkan kepada pihak lain. Jika terjadi kehilangan membership card maka diharuskan untuk mengganti dengan membership card baru dengan biaya pergantian sebesar Rp.50.000. &#xA;&#xA;3. Masa minimal komitmen keanggotaan bulanan (Dues/EFT) adalah 12 bulan dimana akan berlanjut secara otomatis tanpa perlu adanya pemberitahuan ataupun konfirmasi dari Rai Fitness  (Open End). Pendebitan biaya bulanan akan dilakukan setiap awal bulan, jika terjadi kegagalan pendebitan maka diminta kepada member untuk membayar manual di club menggunakan kartu debit atau kartu kredit sebelum tanggal 20 tiap bulannya. Biaya keterlambatan sebesar Rp. 30.000 akan dikenakan jika pelunasan melewati tanggal yang telah ditentukan tersebut. &#xA;&#xA;4.Tipe Membership PIF &quot;Payment in Full&quot; yaitu jenis membership yang sudah dibayarkan di awal secara penuh dengan masa komitmen keanggotaan sesuai dengan paket membership yang tertulis dalam agreement ini. Jumlah uang yang sudah dibayarkan dimuka  untuk membership ini tidak dapat dikurangi/dikembalikan atau dialihkan untuk alasan apapun &#xA;&#xA;5. Member dapat melakukan penghentian membership untuk keanggotaan bulanan (dues) jika sudah melewati masa komitmen 12 bulan tanpa ada cuti dalam komitmennya (Discontinue Membership), jika belum melewati masa komitmen 12 bulan maka akan di kenakan biaya cancellation fee sebesar Rp. 500.000. Syarat pengajuan penghentian membership yaitu member harus mengisi cancellation form yang tersedia di front desk dan pengajuan paling lambat tanggal 20 tiap bulan. &#xA;&#xA;6. Member dapat melakukan pembekuan keanggotaan (Freeze Membership) sementara dengan syarat yaitu  bepergian keluar negri /kota, gangguan kesehatan/hamil dan mengisi form pengajuan cuti yang tersedia di front desk. Biaya pembekuan keanggotaan  sebesar Rp.100.00 setiap bulan, batas pengajuan Paling lambat tanggal 20 tiap bulannya dan tidak termasuk dalam masa komitmen untuk dues/PIF membership , cuti dapat diambil minimal 1 bulan maksimal 12 bulan dan bisa di ajukan jika masa keanggotaan sudah lebih dari minimum 3 bulan aktif dan menyertakan supporting document, selama masa cuti member tidak diperkenankan untuk memakai fasilitas club. &#xA;&#xA;7. Segala macam biaya keanggotaan yang telah dibayarkan kepada pihak Rai Fitness tidak dapat di kurangi/dikembalikan atau dirubah kedalam bentuk apapun sekalipun member tidak menggunakan fasilitas club. Membership ini bersifat mengikat dan menerangkan secara detail tentang pembelian barang dan atau jasa yang di lakukan. Hal-hal lain diluar dari yang di cantumkan di perjanjian ini adalah bukan menjadi tanggung jawab Rai Fitness management. Pembayaran sah apabila yaitu : pembayaran dilakukan di Customer Service, pembayaran menggunakan kartu kredit/ debit dan juga melalui transfer ke Rekening BCA atas nama Monica Francesca Landau, No Rekening: 179-880-0000. Dan member wajib menerima kwitansi asli sebagai bukti pembayaran dengan cap Rai Fitness dan tanda tangan lengkap dari Customer Service.&#xA;&#xA;8. Member berhak mendapatkan fasilitas daily locker dan towel ketika melakukan aktivitas latihan  di club, jika terjadi kerusakan, kehilangan pada locker atau towel maka akan dikenakan biaya pergantian dengan ketentuan yang berlaku. Untuk kehilangan Handuk kecil sebesar Rp. 50.000 dan Handuk besar sebesar Rp. 100.000. Dan untuk penambahan/Extra towel akan dikenakan biaya sewa sebesar : Hand Towel Rp. 10.000 dan Bath Towel Rp. 20.000. dan Lost Locker Key Rp. 150.000 &#xA;&#xA;9. Club Rai Fitness diperuntukkan hanya untuk member, anak-anak dibawah 13 tahun tidak diperkenankan untuk memasuki area club demi keselamatan bersama. Member dilarang membawa barang berharga, narkoba, minuman keras dan senjata tajam serta hal lainnya yang dapat membahayakan member lain dan merugikan management Rai Fitness. Member wajib menggunakan pakaian olah raga dan sepatu olah raga (tidak diperkenankan menggunakan sandal/sepatu kulit. Dan segala bentuk kehilangan barang pribadi bukan menjadi tanggung jawab management Rai Fitness.&#xA;&#xA;10. Kerusakan Fasilitas yang disebabkan oleh kelalaian member maka akan dikenakan biaya pergantian. Dan management Rai Fitnes berhak melakukan Pemutusan Keanggotaan (Terminated Membership) secara sepihak jika member melakukan hal-hal yang merugikan member lain dan  Management Rai Fitness. Member tidak diperkenankan untuk memberikan pelatihan jenis apapun kepada anggota club atau tamu club."/>
-					<rectangle id="Rectangle3" width="492" height="46" x="1" y="1252"/>
-					<line id="Line4" x1="0" x2="491.5" y1="1268.5" y2="1269"/>
+					<label width="492" font="TimesRoman" x="1" id="Label51" align="justify" y="703" fontSize="9" height="631.1" text="1.Jam Operasional Club buka mulai pukul 6 pagi sampai dengan 10 malam, Khusus untuk jam operasional hari libur (Public Holiday) jika ada perubahan  maka akan di informasikan melalui pemberitahuan tertulis di dalam club (Front Desk Counter) dan Voice annoucement. Member tidak diperkenankan menggunakan fasilitas club melebihi jam operasional yang sudah di tentukan. &#xA;&#xA;2. Membership card harus selalu dibawa dan di tunjukkan kepada petugas Front Desk setiap kali akan memasuki Gym. Check in tanpa kartu membership hanya berlaku 1x kunjungan. Membership card tidak dapat dipindahtangankan atau dialihkan kepada pihak lain. Jika terjadi kehilangan membership card maka diharuskan untuk mengganti dengan membership card baru dengan biaya pergantian sesuai dengan yang berlaku saat itu (akan diinformasikan oleh Team CS). &#xA;&#xA;3. Masa minimal komitmen keanggotaan bulanan (Dues/EFT) adalah 12 bulan dimana akan berlanjut secara otomatis tanpa perlu adanya pemberitahuan ataupun konfirmasi dari Rai Fitness  (Open End). Pendebitan biaya bulanan akan dilakukan setiap awal bulan, jika terjadi kegagalan pendebitan maka diminta kepada member untuk membayar manual di club menggunakan kartu debit atau kartu kredit sebelum tanggal 20 tiap bulannya. Biaya keterlambatan sebesar Rp. 30.000 akan dikenakan jika pelunasan melewati tanggal yang telah ditentukan tersebut. &#xA;&#xA;4.Tipe Membership PIF &quot;Payment in Full&quot; yaitu jenis membership yang sudah dibayarkan di awal secara penuh dengan masa komitmen keanggotaan sesuai dengan paket membership yang tertulis dalam agreement ini. Jumlah uang yang sudah dibayarkan dimuka  untuk membership ini tidak dapat dikurangi/dikembalikan atau dialihkan untuk alasan apapun &#xA;&#xA;5. Member dapat melakukan penghentian membership untuk keanggotaan bulanan (dues) jika sudah melewati masa komitmen 12 bulan tanpa ada cuti dalam komitmennya (Discontinue Membership), jika belum melewati masa komitmen 12 bulan maka akan di kenakan biaya cancellation fee sebesar Rp. 500.000. Syarat pengajuan penghentian membership yaitu member harus mengisi cancellation form yang tersedia di front desk dan pengajuan paling lambat tanggal 20 tiap bulan. &#xA;&#xA;6. Member dapat melakukan pembekuan keanggotaan (Freeze Membership) sementara dengan syarat yaitu  bepergian keluar negri /kota, gangguan kesehatan/hamil dan mengisi form pengajuan cuti yang tersedia di front desk. Biaya pembekuan keanggotaan  sebesar Rp.100.000 setiap bulan, batas pengajuan Paling lambat tanggal 20 tiap bulannya dan tidak termasuk dalam masa komitmen untuk dues/PIF membership , cuti dapat diambil minimal 1 bulan maksimal 12 bulan dan bisa di ajukan jika masa keanggotaan sudah lebih dari minimum 3 bulan aktif dan menyertakan supporting document, selama masa cuti member tidak diperkenankan untuk memakai fasilitas club. &#xA;&#xA;7. Segala macam biaya keanggotaan yang telah dibayarkan kepada pihak Rai Fitness tidak dapat di kurangi/dikembalikan atau dirubah kedalam bentuk apapun sekalipun member tidak menggunakan fasilitas club. Membership ini bersifat mengikat dan menerangkan secara detail tentang pembelian barang dan atau jasa yang di lakukan. Hal-hal lain diluar dari yang di cantumkan di perjanjian ini adalah bukan menjadi tanggung jawab Rai Fitness management. Pembayaran sah apabila yaitu : pembayaran dilakukan di Customer Service, pembayaran menggunakan kartu kredit/ debit dan juga melalui transfer ke Rekening BCA atas nama Monica Francesca Landau, No Rekening: 179-880-0000. Dan member wajib menerima kwitansi asli sebagai bukti pembayaran dengan cap Rai Fitness dan tanda tangan lengkap dari Customer Service.&#xA;&#xA;8. Member berhak mendapatkan fasilitas daily locker dan towel ketika melakukan aktivitas latihan  di club, jika terjadi kerusakan, kehilangan pada locker atau towel maka akan dikenakan biaya pergantian dengan ketentuan yang berlaku. Untuk kehilangan Handuk kecil sebesar Rp. 50.000 dan Handuk besar sebesar Rp. 100.000. Dan untuk penambahan/Extra towel akan dikenakan biaya sewa sebesar : Hand Towel Rp. 10.000 dan Bath Towel Rp. 20.000. dan Lost Locker Key Rp. 150.000 &#xA;&#xA;9. Club Rai Fitness diperuntukkan hanya untuk member, anak-anak dibawah 13 tahun tidak diperkenankan untuk memasuki area club demi keselamatan bersama. Member dilarang membawa barang berharga, narkoba, minuman keras dan senjata tajam serta hal lainnya yang dapat membahayakan member lain dan merugikan management Rai Fitness. Member wajib menggunakan pakaian olah raga dan sepatu olah raga (tidak diperkenankan menggunakan sandal/sepatu kulit. Dan segala bentuk kehilangan barang pribadi bukan menjadi tanggung jawab management Rai Fitness.&#xA;&#xA;11. Member tidak diperkenankan latihan dengan membawa Personal Trainning dari luar, dan sesama anggota (member) tidak diperkenankan memberikan pelatihan (trainning). Dalam hal ini Management Rai Fitness berhak memberikan teguran dan sanksi sesuai pelanggaran yang dilakukan oleh member.&#xA;&#xA;12. Management Rai Fitness berhak melakukan Terminated Membership apabila dianggap mengganggu dan melanggar peraturan yang telah ditetapkan."/>
+					<rectangle id="Rectangle3" width="492" height="46" x="1" y="1338"/>
+					<line id="Line4" x1="0" x2="491.5" y1="1354.5" y2="1355"/>
 					<recordBox id="RecordBox3" dataFormat="" width="100" height="14" font="TimesRoman" field="namadpn" y="15.5" x="92" fontSize="10"/>
 					<recordBox width="100" id="RecordBox4" height="14" y="32" font="TimesRoman" field="tmptlahir" x="92" fontSize="10" dataFormat="dd/MM/yyyy"/>
 					<recordBox dataFormat="" width="100" id="RecordBox5" height="14" font="TimesRoman" field="alamatrmh" y="48" x="92" fontSize="10"/>
 					<recordBox dataFormat="" width="100" height="14" id="RecordBox6" font="TimesRoman" field="noiden" x="92" fontSize="10" y="64"/>
 					<recordBox dataFormat="" width="100" height="14" id="RecordBox7" font="TimesRoman" field="nohp" x="92" fontSize="10" y="81"/>
 					<recordBox dataFormat="" width="100" height="14" id="RecordBox8" font="TimesRoman" field="tlpkantor" fontSize="10" x="92" y="98"/>
-					<recordBox dataFormat="" width="100" id="RecordBox10" height="14" font="TimesRoman" field="jeniskel" y="15" fontSize="10" x="322"/>
-					<recordBox dataFormat="" id="RecordBox11" height="14" field="tlprmh" width="104" fontSize="10" x="322" font="TimesRoman" y="80.5"/>
-					<recordBox dataFormat="" height="14" id="RecordBox12" field="email" fontSize="10" x="321.5" width="165.5" font="TimesRoman" y="97"/>
+					<recordBox dataFormat="" width="100" id="RecordBox10" height="14" font="TimesRoman" field="jeniskel" y="15" fontSize="10" x="309"/>
+					<recordBox dataFormat="" id="RecordBox11" height="14" field="tlprmh" width="104" fontSize="10" font="TimesRoman" y="80.5" x="309"/>
+					<recordBox dataFormat="" height="14" id="RecordBox12" field="email" fontSize="10" font="TimesRoman" y="97" x="309.5" width="182.75"/>
 					<recordBox dataFormat="" height="14" width="96" id="RecordBox15" font="TimesRoman" field="adminfee" y="154" x="106.5" fontSize="10"/>
 					<recordBox dataFormat="" height="14" width="96" id="RecordBox16" y="170" font="TimesRoman" field="firstmonth" x="107" fontSize="10"/>
 					<recordBox dataFormat="" height="14" width="96" id="RecordBox17" y="187" font="TimesRoman" field="lastmonth" x="107" fontSize="10"/>
 					<recordBox dataFormat="" height="14" width="96" id="RecordBox18" y="204" field="joinfee" x="107" fontSize="10" font="TimesRoman"/>
 					<recordBox dataFormat="" height="14" width="96" id="RecordBox19" y="223" field="total" x="107" fontSize="10" font="TimesRoman"/>
 					<recordBox dataFormat="" height="14" width="96" id="RecordBox20" field="tax" fontSize="10" x="106.5" y="243" font="TimesRoman"/>
-					<recordBox dataFormat="" height="14" width="96" id="RecordBox21" font="TimesRoman" field="typemember" y="155" x="375.5" fontSize="10"/>
-					<recordBox height="14" width="96" id="RecordBox22" font="TimesRoman" field="startmember" y="172" x="376" fontSize="10" dataFormat="dd/MM/yyyy"/>
-					<recordBox height="14" width="96" id="RecordBox23" font="TimesRoman" field="endmember" y="188" x="376.5" fontSize="10" dataFormat="dd/MM/yyyy"/>
-					<recordBox height="14" width="96" id="RecordBox24" y="218" font="TimesRoman" field="tglterbit" x="376" fontSize="10" dataFormat="dd/MM/yyyy"/>
-					<recordBox height="14" width="96" id="RecordBox25" font="TimesRoman" field="biayabulanan" x="376" fontSize="10" dataFormat="dd/mm/yyyy" y="237"/>
-					<recordBox dataFormat="" width="96" id="RecordBox26" font="TimesRoman" field="jeniscc" height="11" y="316" x="95" fontSize="9"/>
-					<recordBox dataFormat="" width="96" id="RecordBox27" font="TimesRoman" field="namacc" height="12.5" y="329" x="94" fontSize="9"/>
+					<recordBox dataFormat="" height="14" width="96" id="RecordBox21" font="TimesRoman" field="typemember" x="375.5" fontSize="10" y="170"/>
+					<recordBox height="14" width="96" id="RecordBox22" font="TimesRoman" field="startmember" x="376" fontSize="10" dataFormat="dd/MM/yyyy" y="187"/>
+					<recordBox height="14" width="96" id="RecordBox23" font="TimesRoman" field="endmember" fontSize="10" dataFormat="dd/MM/yyyy" y="205" x="375.5"/>
+					<recordBox height="14" width="96" id="RecordBox24" font="TimesRoman" field="tglterbit" x="376" fontSize="10" dataFormat="dd/MM/yyyy" y="223"/>
+					<recordBox height="14" width="96" id="RecordBox25" font="TimesRoman" field="biayabulanan" x="376" fontSize="10" dataFormat="dd/mm/yyyy" y="242"/>
+					<recordBox dataFormat="" width="96" id="RecordBox26" font="TimesRoman" field="jeniscc" height="11" fontSize="9" x="94" y="316.75"/>
+					<recordBox dataFormat="" width="96" id="RecordBox27" font="TimesRoman" field="namacc" height="12.5" x="94" fontSize="9" y="330"/>
 					<recordBox dataFormat="" width="96" id="RecordBox28" font="TimesRoman" field="nocc" height="11.5" x="93.5" y="343.5" fontSize="9"/>
 					<recordBox dataFormat="" height="14" id="RecordBox29" font="TimesRoman" field="namabank" width="61" fontSize="9" y="317" x="254.5"/>
 					<recordBox dataFormat="" width="96" id="RecordBox30" font="TimesRoman" field="biayabulananan" height="11" x="94" fontSize="9" y="358"/>
@@ -98,12 +97,12 @@
 					<rectangle height="13" x="0" fillColor="gainsboro" borderColor="gainsboro" width="492" id="Rectangle7" y="140"/>
 					<rectangle height="13" x="0" fillColor="gainsboro" borderColor="gainsboro" id="Rectangle8" width="491.1" y="475"/>
 					<rectangle x="0" fillColor="gainsboro" borderColor="gainsboro" id="Rectangle9" width="492.1" height="33" y="667"/>
-					<rectangle id="Rectangle10" fillColor="gainsboro" borderColor="gainsboro" height="14" x="2.5" width="489.5" y="1253"/>
-					<line id="Line5" x1="136" x2="136" y1="1252" y2="1297"/>
-					<line id="Line6" x1="306" x2="306" y1="1252" y2="1297"/>
-					<label id="Label19" height="12.5" text="Tanda Tangan Manager Club" x="308" width="181" align="center" y="1252.5" fontSize="9" font="TimesBold"/>
-					<label id="Label32" text="Tanda Tangan Service" height="12" align="center" width="161.6" x="142" y="1253.5" fontSize="9" font="TimesBold"/>
-					<label height="12" id="Label44" text="Tanda Tangan Member" align="center" width="124.1" x="6.1" y="1252" fontSize="9" font="TimesBold"/>
+					<rectangle id="Rectangle10" fillColor="gainsboro" borderColor="gainsboro" height="14" x="2.5" width="489.5" y="1339"/>
+					<line id="Line5" x1="142" x2="142" y1="1338.5" y2="1383.5"/>
+					<line id="Line6" x1="306" x2="306" y1="1338" y2="1383"/>
+					<label id="Label19" height="12.5" text="Tanda Tangan Manager Club" width="181" align="center" fontSize="9" font="TimesBold" x="308" y="1338.5"/>
+					<label id="Label32" text="Tanda Tangan Service" height="12" align="center" width="161.6" fontSize="9" font="TimesBold" x="142" y="1339.5"/>
+					<label height="12" id="Label44" text="Tanda Tangan Member" align="center" width="124.1" fontSize="9" font="TimesBold" x="6.1" y="1338"/>
 					<label height="14" font="TimesBold" align="center" width="490" x="1" id="Label50" text="RINCIAN BIAYA &amp; TIPE MEMBERSHIP" y="141"/>
 					<label height="14" font="TimesBold" align="center" width="490" id="Label53" x="0.5" y="276" text="PERSETUJUAN PENDEBETAN DARI KARTU KREDIT"/>
 					<label height="14" font="TimesBold" align="center" width="490" id="Label54" x="0" text="HARAP DI PERHATIKAN" y="475"/>
@@ -114,8 +113,8 @@
 					<label id="Label47" height="8" font="TimesRoman" text="Consultant" width="74.5" align="center" fontSize="9" y="595" x="59.5"/>
 					<label font="TimesRoman" id="Label48" height="10" text="Customer Service" align="center" x="137" fontSize="9" width="77" y="595"/>
 					<recordBox dataFormat="" height="14" width="96" id="RecordBox33" field="grandtotal" x="106" y="259" fontSize="10" font="TimesRoman"/>
-					<rectangle fillColor="gainsboro" borderColor="gainsboro" id="Rectangle12" x="1.5" width="491.5" height="40" y="1210"/>
-					<label id="Label49" x="2" font="TimesBold" height="39.6" width="493.5" y="1211" fontSize="9" text="Dengan  menandatangani Ketentuan dan  Persyaratan Keanggotaan ini, Member Rai Fitness sudah mengerti dan menyetujui dalam keadaan sadar tanpa adanya paksaan dari pihak manapun  untuk mematuhi segala ketentuan yang berlaku di Rai Fitness Pantai Indah Kapuk."/>
+					<rectangle fillColor="gainsboro" borderColor="gainsboro" id="Rectangle12" x="1.5" width="491.5" height="40" y="1297"/>
+					<label id="Label49" font="TimesBold" height="39.6" width="493.5" fontSize="9" text="Dengan  menandatangani Ketentuan dan  Persyaratan Keanggotaan ini, Member Rai Fitness sudah mengerti dan menyetujui dalam keadaan sadar tanpa adanya paksaan dari pihak manapun  untuk mematuhi segala ketentuan yang berlaku di Rai Fitness Pantai Indah Kapuk." x="2" y="1297"/>
 					<rectangle id="Rectangle13" height="32.5" width="206.1" y="240.5" x="1"/>
 					<line id="Line10" x1="0" y1="125" x2="321.5" y2="124.5"/>
 					<label id="Label16" height="14" text=":" x="83" width="3.1" fontSize="9" y="15"/>
@@ -124,10 +123,10 @@
 					<label id="Label60" height="14" width="12" text=":" x="83" fontSize="9" y="48"/>
 					<label id="Label61" height="14" text=":" x="83" width="6" fontSize="9" y="81"/>
 					<label id="Label62" height="14" width="11" text=":" x="83.5" fontSize="9" y="97"/>
-					<label id="Label63" height="14" width="12.5" text=":" x="314" fontSize="9" y="97"/>
-					<label height="14" width="12.5" text=":" id="Label64" x="314" fontSize="9" y="80"/>
-					<label height="14" width="12.5" text=":" id="Label65" x="314" fontSize="9" y="15"/>
-					<label height="14" width="12.5" text=":" id="Label66" fontSize="9" x="314" y="125"/>
+					<label id="Label63" height="14" width="12.5" text=":" fontSize="9" y="97" x="303"/>
+					<label height="14" width="12.5" text=":" id="Label64" fontSize="9" y="80" x="303"/>
+					<label height="14" width="12.5" text=":" id="Label65" fontSize="9" y="16" x="302"/>
+					<label height="14" width="12.5" text=":" id="Label66" fontSize="9" y="125" x="303"/>
 					<label height="14" width="11" text=":" x="83" id="Label67" fontSize="9" y="126"/>
 					<label height="14" x="83" id="Label68" font="TimesRoman" text=": Rp" width="21.5" fontSize="10" y="154"/>
 					<label height="14" font="TimesRoman" id="Label69" x="83.5" text=": Rp" width="22" fontSize="10" y="170"/>
@@ -136,25 +135,30 @@
 					<label height="14" font="TimesRoman" id="Label72" width="22" x="83.5" text=": Rp" fontSize="10" y="223"/>
 					<label height="14" font="TimesRoman" id="Label52" fontSize="10" width="22" x="83" text=": Rp" y="243"/>
 					<line id="Line7" y1="240.5" y2="272.5" x1="81" x2="81"/>
-					<label height="14" width="11" text=":" x="83" id="Label73" y="315" fontSize="9"/>
-					<label height="14" width="11" text=":" x="83" id="Label74" fontSize="9" y="342.2"/>
-					<label height="14" width="11" text=":" x="83" id="Label76" fontSize="9" y="357"/>
-					<label height="14" width="11" text=":" id="Label77" x="249" y="315.5" fontSize="9"/>
+					<label height="14" width="11" text=":" x="83" id="Label73" fontSize="9" font="TimesRoman" y="318"/>
+					<label height="14" width="11" text=":" id="Label74" fontSize="9" font="TimesRoman" x="83" y="343.2"/>
+					<label height="14" width="11" text=":" x="83" id="Label76" fontSize="9" font="TimesRoman" y="358"/>
+					<label height="14" width="11" text=":" id="Label77" x="249" fontSize="9" font="TimesRoman" y="316.5"/>
 					<label height="14" text=":" id="Label78" x="384" fontSize="9" width="2.5" y="316.5"/>
-					<recordBox id="RecordBox9" dataFormat="" x="91" width="100" height="13.5" field="nmakrbat" fontSize="10" y="126" font="TimesRoman"/><recordBox id="RecordBox13" dataFormat="" height="14" width="100" field="tlpkrbat" font="TimesRoman" fontSize="10" x="322" y="125"/><line id="Line2" y1="596.5" y2="632.5" x1="132" x2="132"/>
+					<recordBox id="RecordBox9" dataFormat="" x="91" width="100" height="13.5" field="nmakrbat" fontSize="10" y="126" font="TimesRoman"/><recordBox id="RecordBox13" dataFormat="" height="14" width="100" field="tlpkrbat" font="TimesRoman" fontSize="10" y="125" x="309"/><line id="Line2" y1="596.5" y2="632.5" x1="132" x2="132"/>
 					<label height="14" font="TimesRoman" fontSize="10" width="22" text=": Rp" x="83" id="Label57" y="259"/>
 					<line id="Line8" x1="87" x2="87" y1="241.25" y2="272.75"/>
 					<recordBox height="14" font="TimesRoman" fontSize="9" dataFormat="dd/MM/yyyy" width="100.5" y="609" id="RecordBox14" x="390" field="docdate"/>
 					<recordBox height="14" font="TimesRoman" fontSize="9" dataFormat="dd/MM/yyyy" width="100.5" x="390" field="docdate" id="RecordBox34" y="446"/>
-					<label height="14" width="11" text=":" x="83" fontSize="9" id="Label75" y="329"/>
+					<label height="14" width="11" text=":" x="83" fontSize="9" id="Label75" font="TimesRoman" y="330"/>
+					<label font="TimesRoman" height="15.5" width="159.5" x="213" fontSize="10" id="Label4" y="154" text="Gym Bag"/>
+					<recordBox dataFormat="" height="14" width="96" font="TimesRoman" x="375.5" fontSize="10" id="RecordBox35" y="154" field="gymbag"/>
 				</detail>
 				<footer id="Footer2" height="14"/>
 			</subReport>
-			<recordBox id="RecordBox1" dataFormat="" width="109" x="370" height="15" field="aggrement" y="17" fontSize="10"/>
-			<recordBox dataFormat="" width="109" height="15" id="RecordBox2" field="namafc" x="369" y="34" fontSize="10"/>
+			<recordBox id="RecordBox1" dataFormat="" width="109" x="370" height="15" field="aggrement" y="19" font="TimesBold" fontSize="10"/>
+			<recordBox dataFormat="" height="15" id="RecordBox2" x="369.5" field="namafc" y="36" width="57.5" fontSize="10" font="TimesRoman"/>
 			<rectangle id="Rectangle5" width="491" x="1.1" height="15" fillColor="gainsboro" y="0" borderColor="gainsboro"/>
 			<label id="Label1" height="11" width="489" align="center" font="TimesBold" text="PERJANJIAN ANGGOTA" x="4" y="2"/>
-			<recordBox dataFormat="" width="109" height="15" x="369" id="RecordBox32" field="barcode" fontSize="10" y="50"/>
+			<recordBox dataFormat="" width="109" height="15" x="369" id="RecordBox32" field="barcode" fontSize="10" font="TimesBold" y="53"/>
+			<label fontSize="10" height="16" font="TimesBold" id="Label79" text="Barcode Member     :" width="96.5" x="263.5" y="53"/>
+			<recordBox dataFormat="" height="15" y="36" id="RecordBox36" field="mgm" x="427.5" width="65" fontSize="10" font="TimesRoman"/>
+			<label fontSize="10" height="16" font="TimesBold" id="Label80" text="/" width="5" y="37" x="424"/>
 		</detail>
 		<footer id="Footer1"/>
 	</report>

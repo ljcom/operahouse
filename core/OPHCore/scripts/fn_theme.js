@@ -494,7 +494,7 @@ loadMeta = function (meta) {
     document.getElementsByTagName('head')[0].appendChild(meta);
 }
 
-loadScript = function (src) {
+loadScript = function (src, async, defer) {
     //var jsLink = $("<script src='" + src + "'>");
     //$("head").append(jsLink);
     var script = document.createElement('script');
@@ -502,6 +502,8 @@ loadScript = function (src) {
     //    //do stuff with the script
     //};
     script.src = src;
+    if (defer) script.defer = true;
+    if (async) script.async= true;
     document.head.appendChild(script);
 };
 
