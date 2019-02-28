@@ -82,7 +82,7 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
                     if (ex)
                         ex = ex.split('&lt;').join('<').split('&gt;').join('>').split('&amp;').join('&');
                     cleanedT = stripScript(ex);
-                    if (document.getElementById(divnm) !== null) document.getElementById(divnm).innerHTML = cleanedT;
+                    if ($('#'+divnm) !== null) $('#'+divnm).html(cleanedT);
                     ExecuteScript(ex, true);
                 }
             }

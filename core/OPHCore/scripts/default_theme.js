@@ -206,7 +206,7 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
 
     xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + parentKey + '=' + "'" + GUID + "'&bPageNo=" + pageNo + unique;
 
-    var divName = ['child' + String(code).toLowerCase() + GUID.toUpperCase()];
+    var divName = ['child' + String(code).toLowerCase() + GUID.toLowerCase()];
     //if (code === 'modlinfo' || code === 'modlcolminfo' || code =='modlcolm')
     if (mode === 'inline')
         //xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];
