@@ -38,12 +38,12 @@ Partial Class OPHCore_api_loadTheme
         Dim js = ""
 
         Dim sqlstr = "select infovalue from modlinfo i inner join modl m on m.moduleguid=i.moduleguid where m.moduleid='" & code & "' and i.infokey='js_savebefore'"
-        js = runSQLwithResult(sqlstr)
-        If js <> "" Then doc = doc.Replace("function js_savebefore(d) {}", js).Replace("js_", code.ToLower & "_")
+        js = runSQLwithResult(sqlstr).Replace("js_", code.ToLower & "_")
+        If js <> "" Then doc = doc.Replace("function " + code.ToLower + "_savebefore(d) {}", js)
 
         sqlstr = "select infovalue from modlinfo i inner join modl m on m.moduleguid=i.moduleguid where m.moduleid='" & code & "' and i.infokey='js_saveafter'"
-        js = runSQLwithResult(sqlstr)
-        If js <> "" Then doc = doc.Replace("function js_saveafter(d) {}", js).Replace("js_", code.ToLower & "_")
+        js = runSQLwithResult(sqlstr).Replace("js_", code.ToLower & "_")
+        If js <> "" Then doc = doc.Replace("function " + code.ToLower + "_saveafter(d) {}", js)
 
         Response.ContentType = "text/xml"
             Response.Write("<?xml version=""1.0"" encoding=""utf-8""?>")
