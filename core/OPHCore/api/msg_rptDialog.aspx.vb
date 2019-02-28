@@ -190,7 +190,8 @@ Partial Class OPHCore_api_msg_rptDialog
                 Else
                     gfile = g & "_" & reportName & ".xlsx"
                 End If
-                sqlstr = "exec gen.downloadModule " & curHostGUID & ", '" & code & "', " & exportMode.ToString
+                Dim withdata = getQueryVar("withdata")
+                sqlstr = "exec gen.downloadModule " & curHostGUID & ", '" & code & "', " & exportMode.ToString & ", " + IIf(withdata = "1", "1", "0")
             ElseIf mode = "child" Then
                 Dim ParentGUID As String = getQueryVar("ParentGUID").ToString
 

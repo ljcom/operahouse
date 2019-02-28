@@ -1053,8 +1053,8 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
     }
 }
 
-function downloadModule(code, exportMode) {
-    window.open('OPHCore/api/msg_rptDialog.aspx?code=' + code + '&mode=parent&exportMode=' + exportMode);
+function downloadModule(code, exportMode, withData) {
+    window.open('OPHCore/api/msg_rptDialog.aspx?code=' + code + '&mode=parent&exportMode=' + exportMode + '&withdata=' + withData);
 }
 
 function downloadChild(code, t) {
