@@ -199,8 +199,8 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
         setCookie(code.toLowerCase() + '_browseMode', mode);
     }
     d = '<div><div class="box box-solid box-default" style="box-shadow:0px;border:none" id="child' + code + GUID + '"></div></div>';
-    if ($('#child' + code + GUID).length == 0) {
-        $('#tr2_' + pcode + GUID).children("td").append(d);
+    if ($('#child' + code + GUID.toLowerCase()).length == 0) {
+        $('#tr2_' + pcode + GUID.toLowerCase()).children("td").append(d);
     }
     pageNo = pageNo == undefined ? 1 : pageNo;
 
@@ -340,38 +340,36 @@ function rejectPopup(code, GUID, action, page, location, formId, afterSuccess) {
 //childform
 
 function showChildForm(code, guid, parent) {
-    var divnm = [code + guid];
+    var divnm = [code + guid.toLowerCase()];
     //clear other childform
-    if (!$('#' + code + guid).is(":visible")) {
+    if (!$('#' + code + guid.toLowerCase()).is(":visible")) {
 
         $("#" + divnm).html("Please Wait...");
 
-        var xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=form&GUID=" + guid;
+        var xmldoc = "OPHCORE/api/default.aspx?code=" + code + "&mode=form&GUID=" + guid.toLowerCase();
 
         //var xsldoc = ["OPHContent/themes/" + loadThemeFolder() + "/xslt/" + getPage() + "_childForm.xslt"];
         var xsldoc = ["OPHContent/themes/" + loadThemeFolder() + "/xslt/" + getPage() + "_childForm.xslt"];
         pushTheme(divnm, xmldoc, xsldoc, true, function () {
-            $('#' + code + guid).collapse('show');
+            $('#' + code + guid.toLowerCase()).collapse('show');
             var form = 'form' + code;
-            //preview(1, code, guid, form, this);
-            // $('#' + code + guid).collapse({ parent: '#' + parent, toggle: true });
-            // $('#' + code + guid).collapse('toggle');
+            
         });
         //$('#' + code).find('.collapse.in').collapse('hide');
         //$('#' + code).children().find('.collapse.in').collapse('hide');
-        $('#' + code + guid).parent().parent().parent().children().find('.collapse.in').collapse('hide');
+        $('#' + code + guid.toLowerCase()).parent().parent().parent().children().find('.collapse.in').collapse('hide');
     }
     else {
-        $('#' + code + guid).collapse({ parent: '#' + guid, toggle: true });
-        $('#' + code + guid).collapse('toggle');
+        $('#' + code + guid.toLowerCase()).collapse({ parent: '#' + guid, toggle: true });
+        $('#' + code + guid.toLowerCase()).collapse('toggle');
         $("#" + divnm).html("");
     }
-    //setCookie("currentChild", code + guid);
+    
 }
 function closeChildForm(code, guid) {
     var arGUID;
 
-    var divnm = [code + guid];
+    var divnm = [code + guid.toLowerCase()];
     $('#' + divnm).collapse("hide");
 }
 
@@ -1013,8 +1011,8 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                     if (action === "delete" && (location == 30 || location == 40)) {
                         var g = GUID.split(",");
                         g.forEach(function (i) {
-                            $("#tr1_" + code + i).remove();
-                            $("#tr2_" + code + i).remove();
+                            $("#tr1_" + code + i.toLowerCase()).remove();
+                            $("#tr2_" + code + i.toLowerCase()).remove();
                         });
                     }
                     else {
