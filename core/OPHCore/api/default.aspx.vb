@@ -217,6 +217,7 @@ Partial Class OPHCore_API_default
                     Else
                         sqlstr = "exec gen.uploadChild '" & curHostGUID & "', '" & code & "', '" & ParentGUID & "', '" & fxn & "'"
                     End If
+                    WriteLog(sqlstr)
                     xmlstr = getXML(sqlstr, curODBC)
                 Next
                 isSingle = False

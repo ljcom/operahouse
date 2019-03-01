@@ -198,7 +198,7 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
         setCookie(code.toLowerCase() + '_pcode', pcode);
         setCookie(code.toLowerCase() + '_browseMode', mode);
     }
-    d = '<div><div class="box box-solid box-default" style="box-shadow:0px;border:none" id="child' + code + GUID + '"></div></div>';
+    d = '<div><div class="box box-solid box-default" style="box-shadow:0px;border:none" id="child' + code + GUID.toLowerCase() + '"></div></div>';
     if ($('#child' + code + GUID.toLowerCase()).length == 0) {
         $('#tr2_' + pcode + GUID.toLowerCase()).children("td").append(d);
     }
@@ -503,24 +503,32 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess, befo
             if (location == 30) { //child and gchildren
                 //move to celljs
             } else {
-                $.each($('form'), function (key, f) {
-                    var other_data = $(f).serializeArray();
-                    $.each(other_data, function (key, input) {
-                        var newVal = input.value;
+            $.each($('form'), function(key, f) {
+                var other_data = $(f).serializeArray();
+                $.each(other_data, function(key, input) {
+                    var newVal = input.value;
+                    if (newVal) {
                         newVal = newVal.replace(/</g, '&lt;');
                         newVal = newVal.replace(/>/g, '&gt;');
-                        data.append(input.name, newVal);
-                    });
+                    }
+                    else 
+                        console.log(input.name);
+                    
+                    data.append(input.name, newVal);
                 });
+            });
             }
         }
         else {
             data = new FormData();
-            dataFrm.split('&').forEach(function (i) {
+            dataFrm.split('&').forEach(function(i) {
                 d = i.split('=');
                 var newVal = d[1];
-                newVal = newVal.replace(/</g, '&lt;');
-                newVal = newVal.replace(/>/g, '&gt;');
+                if (newVal) {
+                    newVal = newVal.replace(/</g, '&lt;');
+                    newVal = newVal.replace(/>/g, '&gt;');
+                }
+                else console.log(d[0]);
                 data.append(d[0], newVal);
             });
         }
