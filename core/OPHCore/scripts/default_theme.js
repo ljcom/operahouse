@@ -234,10 +234,13 @@ function loadForm(bCode, bGUID, f) {
     document.location = url;
 }
 
-function loadBrowse(bCode, f) {
+function loadBrowse(bCode, searchText, f) {
     //OPH4 --refreshHeader
     //evn=back harus di revisi
-    var url = "index.aspx?code=" + bCode + '&bSearchText=' + getSearchText();
+    if (searchText)
+        var url = "index.aspx?code=" + bCode + '&bSearchText=' + searchText;
+    else
+        var url = "index.aspx?code=" + bCode;
     goTo(url);
     //document.location = url;
 }
@@ -1323,7 +1326,7 @@ function searchText(e, searchvalue) {
         else {
             setCookie('bSearchText', searchvalue.split('+').join('%2B'), 0, 1, 0);
             var code = getCode();
-            loadBrowse(code);
+            loadBrowse(code, searchvalue.split('+').join('%2B'));
             //loadContent(1);
         }
     }
