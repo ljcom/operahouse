@@ -9,14 +9,19 @@ Partial Class OPHCore_api_loadTheme
         Dim theme = getQueryVar("theme")
         Dim page = getQueryVar("page")
         Dim code = getQueryVar("code")
+		Dim guid = getQueryVar("guid")
 
         Dim themeFile As String = Server.MapPath("~/OPHContent/themes/") & theme & "\xslt\" & page & ".xslt"
 
         If File.Exists(themeFile) Then
             Dim document As XDocument = XDocument.Load(themeFile)
             doc = document.ToString()
-            Dim par = "<xsl:variable name=""queryPage"" select=""" & page & """ />"
-            doc = doc.Replace("<xsl:template match=""/"">", par & vbCrLf & "<xsl:template match=""/"">")
+						
+            doc = doc.Replace("<xsl:variable name=""queryGuid""/>", "<xsl:variable name='queryGuid'>" & guid & "</xsl:variable>")
+			doc = doc.Replace("<xsl:variable name=""queryCode""/>", "<xsl:variable name='queryCode'>" & code & "</xsl:variable>")
+			doc = doc.Replace("<xsl:variable name=""queryPage""/>", "<xsl:variable name='queryPage'>" & page & "</xsl:variable>")
+			doc = doc.Replace("<xsl:variable name=""queryTheme""/>", "<xsl:variable name='queryTheme'>" & theme & "</xsl:variable>")
+			
             While doc.Contains("<xsl:include href=""")
                 Dim n = doc.IndexOf("<xsl:include href=")
                 Dim includestr = doc.Substring(n + 19, doc.Length - n - 19)
@@ -35,6 +40,8 @@ Partial Class OPHCore_api_loadTheme
             End While
 
         End If
+		
+		'scripts
         Dim js = ""
 
         Dim sqlstr = "select infovalue from modlinfo i inner join modl m on m.moduleguid=i.moduleguid where m.moduleid='" & code & "' and i.infokey='js_savebefore'"
@@ -51,6 +58,8 @@ Partial Class OPHCore_api_loadTheme
         writeLog(doc.indexOf("function <xsl:value-of select=""$lowerCode"" />_saveafter(d) {}"))
         writeLog(js)
 
+		
+		'flush the result
         Response.ContentType = "text/xml"
             Response.Write("<?xml version=""1.0"" encoding=""utf-8""?>")
         If doc <> "" Then Response.Write(doc)
