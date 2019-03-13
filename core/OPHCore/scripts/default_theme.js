@@ -198,7 +198,7 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
         setCookie(code.toLowerCase() + '_pcode', pcode);
         setCookie(code.toLowerCase() + '_browseMode', mode);
     }
-    d = '<div><div class="box box-solid box-default" style="box-shadow:0px;border:none" id="child' + code + GUID + '"></div></div>';
+    d = '<div><div class="box box-solid box-default" style="box-shadow:0px;border:none" id="child' + code + GUID.toLowerCase() + '"></div></div>';
     if ($('#child' + code + GUID.toLowerCase()).length == 0) {
         $('#tr2_' + pcode + GUID.toLowerCase()).children("td").append(d);
     }
@@ -207,18 +207,13 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
     xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + parentKey + '=' + "'" + GUID + "'&bPageNo=" + pageNo + unique;
 
     var divName = ['child' + String(code).toLowerCase() + GUID.toLowerCase()];
-    //if (code === 'modlinfo' || code === 'modlcolminfo' || code =='modlcolm')
     if (mode === 'inline')
-        //xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];
         xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_childInline'];
     else if (mode != undefined && mode.indexOf('custom') >= 0)
-        //xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_" + mode + ".xslt"];
         xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + mode];
-    else if (mode != undefined && mode.indexOf('custom') < 0)
-        //xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_" + mode + ".xslt"];
+    else if (mode != undefined && mode!='')
         xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_child' + mode];
     else
-        //xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
         xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_childBrowse'];
 
     pushTheme(divName, xmldoc, xsldoc, true);
@@ -237,10 +232,13 @@ function loadForm(bCode, bGUID, f) {
     document.location = url;
 }
 
-function loadBrowse(bCode, f) {
+function loadBrowse(bCode, searchText, f) {
     //OPH4 --refreshHeader
     //evn=back harus di revisi
-    var url = "index.aspx?code=" + bCode + '&bSearchText=' + getSearchText();
+    if (searchText)
+        var url = "index.aspx?code=" + bCode + '&bSearchText=' + searchText;
+    else
+        var url = "index.aspx?code=" + bCode;
     goTo(url);
     //document.location = url;
 }
@@ -506,24 +504,32 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess, befo
             if (location == 30) { //child and gchildren
                 //move to celljs
             } else {
-                $.each($('form'), function (key, f) {
-                    var other_data = $(f).serializeArray();
-                    $.each(other_data, function (key, input) {
-                        var newVal = input.value;
+            $.each($('form'), function(key, f) {
+                var other_data = $(f).serializeArray();
+                $.each(other_data, function(key, input) {
+                    var newVal = input.value;
+                    if (newVal) {
                         newVal = newVal.replace(/</g, '&lt;');
                         newVal = newVal.replace(/>/g, '&gt;');
-                        data.append(input.name, newVal);
-                    });
+                    }
+                    else 
+                        console.log(input.name);
+                    
+                    data.append(input.name, newVal);
                 });
+            });
             }
         }
         else {
             data = new FormData();
-            dataFrm.split('&').forEach(function (i) {
+            dataFrm.split('&').forEach(function(i) {
                 d = i.split('=');
                 var newVal = d[1];
-                newVal = newVal.replace(/</g, '&lt;');
-                newVal = newVal.replace(/>/g, '&gt;');
+                if (newVal) {
+                    newVal = newVal.replace(/</g, '&lt;');
+                    newVal = newVal.replace(/>/g, '&gt;');
+                }
+                else console.log(d[0]);
                 data.append(d[0], newVal);
             });
         }
@@ -1318,7 +1324,7 @@ function searchText(e, searchvalue) {
         else {
             setCookie('bSearchText', searchvalue.split('+').join('%2B'), 0, 1, 0);
             var code = getCode();
-            loadBrowse(code);
+            loadBrowse(code, searchvalue.split('+').join('%2B'));
             //loadContent(1);
         }
     }
