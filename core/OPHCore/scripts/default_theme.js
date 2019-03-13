@@ -207,18 +207,11 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
     xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + parentKey + '=' + "'" + GUID + "'&bPageNo=" + pageNo + unique;
 
     var divName = ['child' + String(code).toLowerCase() + GUID.toLowerCase()];
-    //if (code === 'modlinfo' || code === 'modlcolminfo' || code =='modlcolm')
     if (mode === 'inline')
-        //xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];
         xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_childInline'];
-    else if (mode != undefined && mode.indexOf('custom') >= 0)
-        //xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_" + mode + ".xslt"];
-        xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + mode];
-    else if (mode != undefined && mode.indexOf('custom') < 0)
-        //xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_" + mode + ".xslt"];
+    else if (mode != undefined && mode!='')
         xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_child' + mode];
     else
-        //xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
         xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_childBrowse'];
 
     pushTheme(divName, xmldoc, xsldoc, true);
