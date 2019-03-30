@@ -528,25 +528,26 @@ Public Class cl_base
         'Dim w As TextWriter
         Dim accountName = ""
         If contentOfaccountId <> "" Then accountName = contentOfaccountId
+        If logMessage <> "" Then
+            Dim path = Server.MapPath("~/OPHContent/log")
+            path = path & "\" '& "OPHContent\log\"
+            Dim logFilepath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\" & IIf(accountName <> "", accountName & "_", "") & Right("0" & DateTime.Now().Day, 2) & ".txt"
+            Dim logPath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\"
 
-        Dim path = Server.MapPath("~/OPHContent/log")
-        path = path & "\" '& "OPHContent\log\"
-        Dim logFilepath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\" & IIf(accountName <> "", accountName & "_", "") & Right("0" & DateTime.Now().Day, 2) & ".txt"
-        Dim logPath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\"
+            If (Not System.IO.Directory.Exists(logPath)) Then
+                System.IO.Directory.CreateDirectory(logPath)
+            End If
+            Try
+                Using w As StreamWriter = File.AppendText(logFilepath)
+                    w.Write(vbCrLf + "Log Entry : ")
+                    w.WriteLine("{0} {1}: " + vbCrLf + "{2}", DateTime.Now.ToLongTimeString(), DateTime.Now.ToLongDateString(), logMessage)
+                    'w.WriteLine("  :{0}", logMessage)
+                End Using
 
-        If (Not System.IO.Directory.Exists(logPath)) Then
-            System.IO.Directory.CreateDirectory(logPath)
+            Catch ex As Exception
+                Debug.Write(ex.Message.ToString)
+            End Try
         End If
-        Try
-            Using w As StreamWriter = File.AppendText(logFilepath)
-                w.Write(vbCrLf + "Log Entry : ")
-                w.WriteLine("{0} {1}: " + vbCrLf + "{2}", DateTime.Now.ToLongTimeString(), DateTime.Now.ToLongDateString(), logMessage)
-                'w.WriteLine("  :{0}", logMessage)
-            End Using
-
-        Catch ex As Exception
-            Debug.Write(ex.Message.ToString)
-        End Try
     End Sub
     Sub writeFile(path As String, filename As String, content As String, Optional isOverwrite As Boolean = True)
 

@@ -978,6 +978,10 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
         successmsg = 'Wipe Succesfully';
         isAction = confirm("You are about to " + action + " this record. Are you sure?");
     }
+	else if(action != '') {
+		successmsg = action+' Succesfully';
+        isAction = confirm("You are about to " + action + " this record. Are you sure?");
+	}
 
     if (action === "delete" && location == 40) {
         if (isAction == 1) {

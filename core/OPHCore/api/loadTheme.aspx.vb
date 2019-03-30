@@ -48,14 +48,14 @@ Partial Class OPHCore_api_loadTheme
         js = runSQLwithResult(sqlstr).Replace("js_", code.ToLower() & "_")
 
         If js <> "" Then doc = doc.Replace("function <xsl:value-of select=""$lowerCode"" />_savebefore(d) {}", js)
-        writeLog(doc.indexOf("function <xsl:value-of select=""$lowerCode"" />_savebefore(d) {}"))
+        'writeLog(doc.indexOf("function <xsl:value-of select=""$lowerCode"" />_savebefore(d) {}"))
         writeLog(js)
 
         sqlstr = "select infovalue from modlinfo i inner join modl m on m.moduleguid=i.moduleguid where m.moduleid='" & code & "' and i.infokey='js_saveafter'"
         js = runSQLwithResult(sqlstr).Replace("js_", code.ToLower() & "_")
 
         If js <> "" Then doc = doc.Replace("function <xsl:value-of select=""$lowerCode"" />_saveafter(d) {}", js)
-        writeLog(doc.indexOf("function <xsl:value-of select=""$lowerCode"" />_saveafter(d) {}"))
+        'writeLog(doc.indexOf("function <xsl:value-of select=""$lowerCode"" />_saveafter(d) {}"))
         writeLog(js)
 
 		
