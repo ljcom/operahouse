@@ -41,7 +41,7 @@ Partial Class OPHCore_API_default
         Dim GUID = "null"
         If getQueryVar("GUID") <> "" And getQueryVar("GUID") <> "undefined" Then GUID = "'" & getQueryVar("GUID") & "'"
 
-        'showonedataonly
+        'showonedataonly - moved to loadaccount
         'If mode = "browse" Then
         '    sqlstr = "select iif(infovalue='accountGUID', m.accountguid, iif(infovalue='userGUID', '" & curUserGUID & "', '')) from modl m inner join modlinfo i on m.moduleguid=i.moduleguid where m.moduleid='" & code & "' and i.infokey='showOneDataOnly'"
         '    GUID = runSQLwithResult(sqlstr)
