@@ -289,6 +289,7 @@ function loadReport(qCode, f) {
 
 function showMessage(msg, mode, fokus, afterClosed, afterClick) {
     var msgType;
+	if (mode==undefined) mode=1;
     if (msg) {
         if (mode == 1) msgType = 'notice';
         else if (mode == 2) msgType = 'success';
@@ -303,7 +304,7 @@ function showMessage(msg, mode, fokus, afterClosed, afterClick) {
 		if (mode<10) {
 			$('#modal-btn-close').show();
 			$('#modal-btn-cancel').hide();
-			$('#modal-btn-cancel').hide();
+			$('#modal-btn-confirm').hide();
 		}
 		else {
 			$('#modal-btn-close').hide();
@@ -317,7 +318,7 @@ function showMessage(msg, mode, fokus, afterClosed, afterClick) {
 
         $("#notiModal").modal();
 
-        if (typeof afterMessage === "function") {
+        if (typeof afterClosed === "function") {
             $("#notiModal").on("hidden.bs.modal", function (e) {
                 $("#notiModal").on("hidden.bs.modal", null);
                 afterClosed();
@@ -329,7 +330,7 @@ function showMessage(msg, mode, fokus, afterClosed, afterClick) {
             try {
                 document.getElementById('notiBtn').onclick = function () {
                     if (fokus) $(fokus).focus();
-                    //if (typeof afterMessage === "function") afterMessage();
+                    //if (typeof afterClosed === "function") afterClosed();
                 };
             }
             catch (e) {
