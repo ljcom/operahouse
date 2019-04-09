@@ -187,6 +187,7 @@ Partial Class OPHCore_API_default
                 sqlstr = "exec [api].[getData] '" & curHostGUID & "', '" & data & "', '" & sqlFilter & "'"
                 xmlstr = runSQLwithResult(sqlstr, curODBC)
                 isSingle = False
+                writeLog("data : " & sqlstr)
             Case "export"
                 sqlstr = "exec [api].[theme_export] '" & curHostGUID & "', '" & code & "'"
                 xmlstr &= runSQLwithResult(sqlstr, curODBC)

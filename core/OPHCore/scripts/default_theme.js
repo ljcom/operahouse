@@ -947,7 +947,7 @@ function simplyCancel() {
     $('.action-reject').show();
     $('.action-close').show();
 }
-function executeFunction(code, GUID, action, location, approvaluserguid, pwd, comment) {
+function executeFunction(code, GUID, action, location, approvaluserguid, pwd, comment, afterSuccess, beforeStart) {
     var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
 
     if (approvaluserguid != undefined || approvaluserguid !== null) { pwd = document.getElementById("txtpwd" + approvaluserguid).value; }
@@ -1012,6 +1012,12 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
     //location: 0 header; 1 child; 2 browse 
     //location: browse:10, header form:20, header sidebar: 21, browse anak:30, browse form:40
 
+	
+	if (typeof beforeStart === "function") {
+            //sdata = $(data).serialize();
+            isAction = beforeStart(data);
+        }	
+	
     if (isAction == 1) {
         var frmData = new FormData();
         frmData.append('mode', 'function');
@@ -1074,6 +1080,8 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                     loadContent(1);
                     showMessage(msg);
                 }
+				
+				if (typeof afterSuccess === "function") afterSuccess(data);
             }
         });
 
