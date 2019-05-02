@@ -14,7 +14,7 @@ function initTheme(bCode, bGUID, guestID, f) { //bmode, bcode, bguid hanya dipak
         if (getCode().toLowerCase() === 'dumy' || getCode().toLowerCase() === '404') // || getCode().toLowerCase() === 'login')
             xmldoc = 'OPHContent/themes/' + loadThemeFolder() + '/sample.xml';
         else
-            xmldoc = 'OPHCore/api/default.aspx?mode=master&code=' + getCode() + '&guid='+getGUID()+'&stateid=' + getState();// + unique;
+            xmldoc = 'OPHCore/api/default.aspx?mode=master&code=' + getCode() + '&guid=' + getGUID() + '&stateid=' + getState();// + unique;
 
         if (tcode != undefined)
             xmldoc = xmldoc + '&tcode=' + tcode;
@@ -211,7 +211,7 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
         xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_childInline'];
     else if (mode != undefined && mode.indexOf('custom') >= 0)
         xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + mode];
-    else if (mode != undefined && mode!='')
+    else if (mode != undefined && mode != '')
         xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_child' + mode];
     else
         xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_childBrowse'];
@@ -287,58 +287,7 @@ function loadReport(qCode, f) {
 
 }
 
-function showMessage(msg, mode, fokus, afterClosed, afterClick) {
-    var msgType;
-	if (mode==undefined) mode=1;
-    if (msg) {
-        if (mode == 1) msgType = 'notice';
-        else if (mode == 2) msgType = 'success';
-        else if (mode == 3) msgType = 'warning';
-        else if (mode == 4) msgType = 'error';
-		else if (mode ==10) msgType = 'confirm';
 
-        if (msg === '' && (mode == 4 || mode == 3)) msg = 'Time out.';
-
-        $("#notiTitle").text(msgType);
-        $("#notiContent").text(msg);
-		if (mode<10) {
-			$('#modal-btn-close').show();
-			$('#modal-btn-cancel').hide();
-			$('#modal-btn-confirm').hide();
-		}
-		else {
-			$('#modal-btn-close').hide();
-			$('#modal-btn-cancel').show();
-			//$('#modal-btn-cancel').show();
-			$('#modal-btn-confirm').attr('onclick', function() {
-				afterClick();
-			}).show();
-		}
-		
-
-        $("#notiModal").modal();
-
-        if (typeof afterClosed === "function") {
-            $("#notiModal").on("hidden.bs.modal", function (e) {
-                $("#notiModal").on("hidden.bs.modal", null);
-                afterClosed();
-
-            });
-        }
-
-        if (fokus || afterClosed) {
-            try {
-                document.getElementById('notiBtn').onclick = function () {
-                    if (fokus) $(fokus).focus();
-                    //if (typeof afterClosed === "function") afterClosed();
-                };
-            }
-            catch (e) {
-                //
-            }
-        }
-    }
-}
 
 function rejectPopup(code, GUID, action, page, location, formId, afterSuccess) {
 
@@ -370,7 +319,7 @@ function showChildForm(code, guid, parent) {
         pushTheme(divnm, xmldoc, xsldoc, true, function () {
             $('#' + code + guid.toLowerCase()).collapse('show');
             var form = 'form' + code;
-            
+
         });
         //$('#' + code).find('.collapse.in').collapse('hide');
         //$('#' + code).children().find('.collapse.in').collapse('hide');
@@ -381,7 +330,7 @@ function showChildForm(code, guid, parent) {
         $('#' + code + guid.toLowerCase()).collapse('toggle');
         $("#" + divnm).html("");
     }
-    
+
 }
 function closeChildForm(code, guid) {
     var arGUID;
@@ -520,25 +469,25 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess, befo
             if (location == 30) { //child and gchildren
                 //move to celljs
             } else {
-            $.each($('form'), function(key, f) {
-                var other_data = $(f).serializeArray();
-                $.each(other_data, function(key, input) {
-                    var newVal = input.value;
-                    if (newVal) {
-                        newVal = newVal.replace(/</g, '&lt;');
-                        newVal = newVal.replace(/>/g, '&gt;');
-                    }
-                    else 
-                        console.log(input.name);
-                    
-                    data.append(input.name, newVal);
+                $.each($('form'), function (key, f) {
+                    var other_data = $(f).serializeArray();
+                    $.each(other_data, function (key, input) {
+                        var newVal = input.value;
+                        if (newVal) {
+                            newVal = newVal.replace(/</g, '&lt;');
+                            newVal = newVal.replace(/>/g, '&gt;');
+                        }
+                        else
+                            console.log(input.name);
+
+                        data.append(input.name, newVal);
+                    });
                 });
-            });
             }
         }
         else {
             data = new FormData();
-            dataFrm.split('&').forEach(function(i) {
+            dataFrm.split('&').forEach(function (i) {
                 d = i.split('=');
                 var newVal = d[1];
                 if (newVal) {
@@ -554,14 +503,14 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess, befo
         data.append('cfunctionlist', guid);
         data.append('unique', $("#unique").val());
 
-        
+
         var valid = true;
         if (typeof beforeStart === "function") {
             //sdata = $(data).serialize();
             valid = beforeStart(data);
         }
 
-        if (valid || valid==undefined)
+        if (valid || valid == undefined)
             $.ajax({
                 type: "POST",
                 url: "OPHCore/api/default.aspx?code=" + code,
@@ -588,7 +537,7 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess, befo
             if (typeof afterSuccess === "function") afterSuccess(result);
         } else if ((location == 30 || location === '30') && (saveFlag == 1 || saveFlag === '1')) {
             return
-        } else  {
+        } else {
             if (idReq) showMessage(result, '0', idReq, function () { });
             else showMessage(result, 0, null, function () {
                 if (typeof afterSuccess === "function") afterSuccess(result);
@@ -994,10 +943,10 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
         successmsg = 'Wipe Succesfully';
         isAction = confirm("You are about to " + action + " this record. Are you sure?");
     }
-	else if(action != '') {
-		successmsg = action+' Succesfully';
+    else if (action != '') {
+        successmsg = action + ' Succesfully';
         isAction = confirm("You are about to " + action + " this record. Are you sure?");
-	}
+    }
 
     if (action === "delete" && location == 40) {
         if (isAction == 1) {
@@ -1012,12 +961,12 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
     //location: 0 header; 1 child; 2 browse 
     //location: browse:10, header form:20, header sidebar: 21, browse anak:30, browse form:40
 
-	
-	if (typeof beforeStart === "function") {
-            //sdata = $(data).serialize();
-            isAction = beforeStart(data);
-        }	
-	
+
+    if (typeof beforeStart === "function") {
+        //sdata = $(data).serialize();
+        isAction = beforeStart(data);
+    }
+
     if (isAction == 1) {
         var frmData = new FormData();
         frmData.append('mode', 'function');
@@ -1068,7 +1017,7 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                             //loadContent(1);
                             showMessage(successmsg, '2', true, function () {
                                 if (reload == '1') loadBrowse(code);
-                                else loadContent(1);
+                                else loadContent(1);    //why need this?
                             });
 
                         }
@@ -1077,11 +1026,11 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                     }
                 }
                 else {
-                    loadContent(1);
+                    //loadContent(1);   //why need this?
                     showMessage(msg);
                 }
-				
-				if (typeof afterSuccess === "function") afterSuccess(data);
+
+                if (typeof afterSuccess === "function") afterSuccess(data);
             }
         });
 
