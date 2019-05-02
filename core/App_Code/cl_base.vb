@@ -654,7 +654,7 @@ Public Class cl_base
 
         For x = 0 To Request.Form.Count - 1
             Dim colName As String = Request.Form.Keys(x)
-            Dim ix As Integer
+            'Dim ix As Integer
 
             'for Radio Button
             'ix = colName.ToLower().IndexOf("_radio")
@@ -663,7 +663,8 @@ Public Class cl_base
             If Not fieldattachment Is Nothing AndAlso fieldattachment.Contains(Request.Form.Keys(x)) Then
                 info = info.Replace("#element#", "<field id=""" & colName & """><value>" & code & "_" & colName & "/" & szFilename & "/" & randGUID & "_" & Trim(Request.Form(x).Split(",")(0)).Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
             Else
-                Dim reqForm = IIf(Request.Form(x) = "NULL", "", Request.Form(x).Replace("'", "&#39;").Replace("&", "&amp;"))
+                Dim reqForm As String = IIf(Request.Form(x) = "NULL", "", Request.Form(x).Replace("'", "&#39;").Replace("&", "&amp;"))
+                If reqForm.Length > 0 AndAlso reqForm.ToString.Substring(0, 1) = "," Then reqForm = reqForm.ToString.Substring(1, reqForm.Length - 1)
                 info = info.Replace("#element#", "<field id=""" & colName & """><value>" & IIf(reqForm = "NULL", "", reqForm) & "</value></field>#element#")
                 'info = info.Replace("#element#", "<field id=""" & colName & """><value>" & Request.Form(x).Replace("'", "&#39;").Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
             End If
