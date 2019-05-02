@@ -27,7 +27,7 @@
 					<line/>
 					<paragraph/>
 				</initialStyle>
-				<text><![CDATA[<P>Customer Name: #Customer#</P><P>Cashier&nbsp;by: #HostName#</P><P>Printed on: #printDate#</P>]]></text>
+				<text><![CDATA[<P>Customer Name: #Customer#</P><P>Cashier&nbsp;by: #HostName#</P><P>Payment type: #payment#</P><P>Printed on: #printDate#</P>]]></text>
 			</formattedRecordArea>
 			<label align="center" id="Label7" text="Thank you for your purchase.&#xA;See you again soon!" fontSize="8" height="20.18" x="3.5" width="193.5" y="305"/>
 			<subReport id="SubReport1" y="105" x="0.1" width="196.275">
@@ -49,19 +49,28 @@
 				</detail>
 				<footer id="Footer2" height="1"/>
 			</subReport>
-			<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" field="SubTotal1" id="RecordBox1" y="155" x="138.925"/>
-			<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" field="Discount" id="RecordBox2" y="166.34" x="138.925"/>
-			<label fontSize="9" align="right" height="11.34" width="56.7" text="Sub Total" id="Label3" y="155" x="76.555"/>
-			<label fontSize="9" align="right" height="11.34" width="56.7" text="Discount" id="Label4" y="166.34" x="76.555"/>
-			<label fontSize="9" align="right" height="11.34" text="Shipping  Cost" width="65.7" id="Label5" y="181.35" x="67.555"/>
-			<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" field="shippingcost" id="RecordBox3" y="182.35" x="138.925"/>
-			<label fontSize="9" align="right" height="11.34" width="56.7" text="Total" id="Label6" y="195.35" x="76.555"/>
-			<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" field="SubTotal2" id="RecordBox5" y="195.35" x="138.925"/>
-			<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" field="Change" id="RecordBox6" x="138.925" y="244.35"/>
-			<label fontSize="9" height="11.34" text="Change" id="Label8" y="244.35" align="right" x="78.055" width="55.2"/>
-			<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" field="lesspaid" id="RecordBox7" x="138.925" y="230.35"/>
-			<label fontSize="9" height="11.34" text="Less Paid" id="Label9" y="230.85" align="right" x="77.555" width="55.7"/>
-			<subReport id="SubReport2" y="212" x="75" width="122.1"><query id="Query3"><storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTeCashInv_report_sub2"><parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure></query><header id="Header3" height="1"/><detail autoSplit="true" id="Detail3" height="15.5"><recordBox dataFormat="" height="10.5" field="paycname" y="1" fontSize="9" x="2" id="RecordBox8" align="right" width="56.5"/><recordBox dataFormat="" height="10.5" y="1" fontSize="9" align="right" field="paid" width="53.5" id="RecordBox9" x="66.5"/></detail><footer height="1" id="Footer3"/></subReport></detail>
+			<contentGroup id="ContentGroup2" height="103.963" y="151.5" x="1.5" width="195.275">
+				<line x1="0" y1="0" y2="0" id="Line4" x2="211.775"/>
+				<line x1="0" id="Line5" y1="28" y2="28" x2="211.775"/>
+				<label fontSize="9" id="Label5" align="right" height="11.34" width="56.7" text="Sub Total" y="2" x="72.555"/>
+				<recordBox id="RecordBox1" dataFormat="" width="55.85" align="right" height="11.34" y="13.34" fontSize="9" field="Discount" x="134.925"/>
+				<recordBox dataFormat="" width="55.85" align="right" id="RecordBox2" height="11.34" y="2" fontSize="9" field="SubTotal1" x="134.925"/>
+				<label fontSize="9" align="right" height="11.34" width="56.7" id="Label4" text="Total" y="42.35" x="72.555"/>
+				<recordBox dataFormat="" width="55.85" align="right" height="11.34" id="RecordBox3" fontSize="9" field="SubTotal2" y="42.35" x="134.925"/>
+				<line x1="0" id="Line2" x2="211.775" y1="58" y2="58"/>
+				<line x1="0" id="Line3" x2="211.775" y1="58" y2="58"/>
+				<line id="Line6" x1="-0.5" x2="211.275" y1="108.5" y2="108.5"/>
+				<label fontSize="9" align="right" height="11.34" width="56.7" id="Label9" text="Discount" y="13.34" x="72.555"/>
+				<label fontSize="9" align="right" height="11.34" id="Label8" text="Shipping  Cost" width="65.7" y="28.35" x="63.555"/>
+				<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" id="RecordBox6" field="shippingcost" y="29.35" x="134.925"/>
+				<line x1="0" x2="211.775" id="Line8" y1="54" y2="54"/>
+				<line x1="0" x2="211.775" id="Line9" y1="54" y2="54"/>
+				<label fontSize="9" align="right" height="11.34" width="56.7" id="Label6" y="74.35" text="Less Paid" x="72.555"/>
+				<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" id="RecordBox5" y="74.35" x="134.925" field="lesspaid"/>
+				<label fontSize="9" align="right" height="11.34" width="56.7" id="Label10" y="88.35" text="Change" x="72.555"/>
+				<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" id="RecordBox8" y="88.35" field="Change" x="134.925"/>
+				<subReport id="SubReport2" x="89" width="105" y="60"><query id="Query3"><storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTeCashInv_report_sub2"><parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="GUID" value="#Parameters[&quot;GUID&quot;]#" type="uniqueIdentifier"/></storedProcedure></query><header id="Header3" height="1"/><detail id="Detail3" autoSplit="true" height="12.5"><recordBox id="RecordBox9" dataFormat="" height="10.5" field="paycname" y="1" fontSize="9" x="2" width="46"/><recordBox dataFormat="" height="10.5" y="1" fontSize="9" id="RecordBox7" align="right" field="paid" x="49.5" width="53.5"/></detail><footer id="Footer3" height="1"/></subReport></contentGroup>
+		</detail>
 		<footer id="Footer1"/>
 	</report>
 </document>

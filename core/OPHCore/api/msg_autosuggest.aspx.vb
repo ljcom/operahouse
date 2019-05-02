@@ -35,13 +35,15 @@ Partial Class OPHCore_api_msg_autosuggest
             Dim code = getQueryVar("code").ToString
             Dim colkey = getQueryVar("colkey").ToString
             Dim parentCode = getQueryVar("parentCode").ToString
+            Dim pgNo = getQueryVar("page").ToString
 
             search = search.Replace("*", " ")
             'Dim sqlstr = "exec api.autosuggest_old '" & curHostGUID & "', '" & getQueryVar("code") & "','" & getQueryVar("key") & "','" & getQueryVar("id") & "','" & getQueryVar("name") & "','" & search & "','" & wf1 & "'," & wf1value & ",'" & wf2 & "'," & wf2value & ""
-            Dim sqlstr = "exec api.autosuggest @hostguid='" & curHostGUID & "', @code='" & code & "', @colkey='" & colkey & "', @defaultValue='" & dv & "', @searchText='" & Trim(search) & "', @wf1Value=" & wf1value & ", @wf2value=" & wf2value & IIf(nbRow <> "", ", @nbRow=" & nbRow, "")
+            Dim sqlstr = "exec api.autosuggest @hostguid='" & curHostGUID & "', @code='" & code & "', @colkey='" & colkey & "', @defaultValue='" & dv & "', @searchText='" & Trim(search) & "', @wf1Value=" & wf1value & ", @wf2value=" & wf2value & IIf(nbRow <> "", ", @nbRow=" & nbRow, "") & IIf(pgNo <> "", ", @pgNo=" & pgNo, "")
 			writeLog(sqlstr)
-			
+
             Dim xmlstr = getXML(sqlstr)
+            writeLog("autosuggest:" & sqlstr)
             Dim json = ""
             If xmlstr = "" Then
                 writeLog("autosuggest:" & sqlstr)
@@ -53,7 +55,7 @@ Partial Class OPHCore_api_msg_autosuggest
 
                 If xmlstr IsNot Nothing Or xmlstr <> "" Then
 
-                    For Each opt In XDocument.Parse(xmlstr).Element("sqroot").Elements("option")
+                    For Each opt In XDocument.Parse(xmlstr).Element("sqroot").Elements("options").Elements("option")
                         OptionList.Add(New optiToken With {.id = opt.Element("value").Value, .name = opt.Element("caption").Value})
                     Next
 
@@ -71,14 +73,27 @@ Partial Class OPHCore_api_msg_autosuggest
 
                 If xmlstr IsNot Nothing Or xmlstr <> "" Then
 
-                    For Each opt In XDocument.Parse(xmlstr).Element("sqroot").Elements("option")
+                    For Each opt In XDocument.Parse(xmlstr).Element("sqroot").Elements("options").Elements("option")
                         OptionList.Add(New opti With {.id = opt.Element("value").Value, .text = opt.Element("caption").Value})
                     Next
 
                     Dim serializer As New JavaScriptSerializer()
                     Dim serializedResult = serializer.Serialize(OptionList)
 
-                    json = "{""results"": " + serializedResult + ",""more"": false}"
+                    Dim doc As XDocument = XDocument.Parse(xmlstr)
+                    Dim element = doc.Root.Element("value")
+
+                    Dim more As String
+                    If pgNo = "" Then pgNo = 1
+                    If XDocument.Parse(xmlstr).Element("sqroot").Element("maxPages").Value = "0" Or XDocument.Parse(xmlstr).Element("sqroot").Element("maxPages").Value = pgNo Then
+                        more = "false"
+                        'serializedResult = serializedResult.Replace("No Result Found", "")
+                    Else
+                        more = "true"
+                    End If
+
+                    'json = "{""results"": " + serializedResult + ",""more"": true}"
+                    json = "{""results"": " + serializedResult + ",""more"":" + more + "}"
 
                 Else
                     'json = "{""results"": {""id""=""1"",""text""=""No Result Found"",""name""=""No Result Found""},""more"": false}"

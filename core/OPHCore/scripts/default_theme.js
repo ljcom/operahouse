@@ -232,6 +232,8 @@ function loadForm(bCode, bGUID, f) {
     document.location = url;
 }
 
+
+
 function loadBrowse(bCode, searchText, f) {
     //OPH4 --refreshHeader
     //evn=back harus di revisi
@@ -899,7 +901,7 @@ function simplyCancel() {
 function executeFunction(code, GUID, action, location, approvaluserguid, pwd, comment, afterSuccess, beforeStart) {
     var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
 
-    if (approvaluserguid != undefined || approvaluserguid !== null) { pwd = document.getElementById("txtpwd" + approvaluserguid).value; }
+    if (approvaluserguid != undefined || approvaluserguid != null) { pwd = document.getElementById("txtpwd" + approvaluserguid).value; }
 
     //add parameter approvaluserguid and pwd
     //location: browse:10, header form:20, header sidebar: 21, browse anak:30, browse form:40
