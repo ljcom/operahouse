@@ -1032,7 +1032,7 @@ Public Class cl_base
 
         Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "'" & env & code & GUID & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "")
         'Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "', " & env & ", " & code & ""
-        'writeLog(sqlstr)
+        writeLog("loadaccount: " & sqlstr)
         'writeLog(contentOfsequoiaCon)
         Dim r1 As DataSet = SelectSqlSrvRows(sqlstr, contentOfsequoiaCon)
         If r1.Tables.Count > 0 AndAlso r1.Tables(0).Rows.Count > 0 Then
@@ -1080,6 +1080,7 @@ Public Class cl_base
         If GUID = "" Then GUID = "" Else GUID = ", @GUID='" & GUID & "'"
 
         Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "'" & env & code & GUID & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "")
+		writeLog("getaccount: " & sqlstr)
         Dim r1 As DataSet = SelectSqlSrvRows(sqlstr, contentOfsequoiaCon)
         If r1.Tables.Count > 0 AndAlso r1.Tables(0).Rows.Count > 0 Then
             'contentOfaccountId = r1.Tables(0).Rows(0).Item(0).ToString

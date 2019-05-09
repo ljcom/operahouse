@@ -1,4 +1,6 @@
 ﻿Imports System.Data
+Imports System.Drawing
+Imports System.Drawing.Imaging
 Imports System.IO
 
 Partial Class OPHCore_api_msg_download
@@ -66,8 +68,8 @@ Partial Class OPHCore_api_msg_download
                     Response.Write("File is not exists.")
                 End If
             End If
-            Else
-                Dim querysql As String = getQueryVar("querysql")
+        Else
+            Dim querysql As String = getQueryVar("querysql")
             Dim sqlexec = "exec " & querysql & " '" & curHostGUID & "', '" & tGUID & "' ,1"
             runSQL(sqlexec, con)
             Dim sqlTXT = "exec gen.downloadTXT '" & tGUID & "_" & code & "'"
@@ -77,7 +79,7 @@ Partial Class OPHCore_api_msg_download
     End Sub
 
     Protected Function download(path As String, filename As String) As Boolean
-        Dim bytes() As Byte
+        Dim bytes() As Byte = Nothing
         path = path '& filename
         If Directory.Exists(path) Then
             Dim f As String
@@ -88,10 +90,37 @@ Partial Class OPHCore_api_msg_download
             Dim fInfo As New FileInfo(f)
 
             If fInfo.Exists = True Then
-                Dim numBytes As Long = fInfo.Length
-                Dim fStream As New FileStream(f, FileMode.Open, FileAccess.Read)
-                Dim br As New BinaryReader(fStream)
-                bytes = br.ReadBytes(CInt(numBytes))
+                Dim isBitmap = False
+                Dim ms As Stream = New MemoryStream()
+                If fInfo.Extension = "jpg" Or fInfo.Extension = "png" Then
+                    'check size
+                    Dim bmp As New Bitmap(fInfo.FullName)
+                    Dim w = bmp.Width
+                    Dim h = bmp.Height
+                    If w > 1000 Or h > 1000 Then
+                        'resize if too big
+                        Dim target As New Bitmap(w, h, PixelFormat.Format24bppRgb)
+
+                        Using graphics As Graphics = Graphics.FromImage(target)
+                            graphics.DrawImage(bmp, New Size(48, 48))
+                        End Using
+                        target.Save(ms, ImageFormat.Png)
+                        Dim nm As Long = ms.Length
+                        Dim br As New BinaryReader(ms)
+                        bytes = br.ReadBytes(CInt(nm))
+                        isBitmap = True
+                    End If
+                End If
+
+                'Dim ms As MemoryStream
+                If Not isBitmap Then
+                    Dim numBytes As Long = fInfo.Length
+                    Dim fStream As New FileStream(f, FileMode.Open, FileAccess.Read)
+                    Dim br As New BinaryReader(fStream)
+                    bytes = br.ReadBytes(CInt(numBytes))
+
+                End If
+
                 If getQueryVar("dontdelete") = "1" Then
                     Response.Write(f)
                 Else

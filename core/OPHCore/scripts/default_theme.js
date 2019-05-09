@@ -226,11 +226,6 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
     //showXML(divName, xmldoc, xsldocs, true, true, function () { });
 }
 
-function loadForm(bCode, bGUID, f) {
-    //OPH4 --refreshHeader
-    var url = "index.aspx?code=" + bCode + '&guid=' + bGUID;
-    document.location = url;
-}
 
 
 
@@ -1277,9 +1272,9 @@ function panel_display(t, val, isdv) {
         }
     }
 }
-function searchText(e, searchvalue) {
+function searchText(e, searchvalue, location) {
     if (e.keyCode == 13 || e.type == 'click') {
-        searchvalue = (searchvalue == undefined) ? $('#searchBox').val() : searchvalue;
+        searchvalue = (searchvalue == undefined || searchvalue == null) ? $('#searchBox').val() : searchvalue;
         searchvalue.split("'").join("");
         if (searchvalue.indexOf('@') >= 0 || searchvalue.indexOf('*') >= 0) {
             var url = "OPHCore/api/default.aspx?mode=codeSearch&searchValue=" + searchvalue + '&unique=' + getUnique();
@@ -1301,10 +1296,17 @@ function searchText(e, searchvalue) {
             });
         }
         else {
-            setCookie('bSearchText', searchvalue.split('+').join('%2B'), 0, 1, 0);
-            var code = getCode();
-            loadBrowse(code, searchvalue.split('+').join('%2B'));
-            //loadContent(1);
+            if (location == 20) {
+                //a = a;  //show quick search
+                //LoadNewPart('searchResult')
+                loadSearchResult(searchvalue);
+            }
+            else {  //load browse
+                setCookie('bSearchText', searchvalue.split('+').join('%2B'), 0, 1, 0);
+                var code = getCode();
+                loadBrowse(code, searchvalue.split('+').join('%2B'));
+                //loadContent(1);
+            }
         }
     }
 }
@@ -1417,3 +1419,53 @@ function childPageNo(pageid, code, currentpage, totalpages) {
     $('#' + pageid).html(result);
 
 }
+
+function loadSearchResult(searchText) {
+    //function loadSeachResult(bCode, bGUID, guestID, f) { //bmode, bcode, bguid hanya dipakai kalau mau pindah lokasi saja
+    //var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
+    //if (bCode != undefined) setCookie('code', bCode, 0, 1, 0);
+    //if (bGUID != undefined) setCookie('GUID', bGUID, 0, 1, 0);
+    //var tcode = getQueryVariable('tcode');
+    //setCookie('guestID', guestID, 7, 0, 0);
+
+    var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + getCode() + '&bSearchText=' + searchText;
+    try {
+        var divname = ['searchResult'];
+        //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '.xslt'];
+        var xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + getCode() + '&theme=' + loadThemeFolder() + '&page=_form_search'];
+
+        pushTheme(divname, xmldoc, xsldoc, true, function (xml) {
+            themeXML = xml;
+            $('#tabSearchResult').removeClass('hidden');
+            $('#tabSearchResult').addClass('active');
+        });
+    }
+    catch (e) {
+        showMessage(e.Message, 4, true);
+    }
+}
+
+function loadForm(bCode, bGUID, f) {
+    if (getQueryVariable("code") == bCode.toLowerCase() && (getQueryVariable("GUID") != undefined && getQueryVariable("GUID") != null)) {
+        var xmldoc = 'OPHCore/api/default.aspx?mode=form&code=' + bCode + '&GUID='+bGUID;
+        try {
+            var divname = ['contentWrapper'];
+            //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '.xslt'];
+            var xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + getCode() + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + getMode()];
+
+            pushTheme(divname, xmldoc, xsldoc, true, function (xml) {
+                themeXML = xml;
+            });
+        }
+        catch (e) {
+            showMessage(e.Message, 4, true);
+        }
+
+    }
+    else {
+        //OPH4 --refreshHeader
+        var url = "index.aspx?code=" + bCode + '&guid=' + bGUID;
+        document.location = url;
+    }
+}
+
