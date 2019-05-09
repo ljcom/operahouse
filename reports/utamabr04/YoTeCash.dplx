@@ -9,7 +9,7 @@
 		<header id="Header1"/>
 		<detail id="Detail1" autoSplit="true" height="334.5">
 			<contentGroup id="ContentGroup1" y="0" height="92" x="2.5" width="195.275">
-				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" height="21.015" width="173.6" x="12.5" y="5.34" text="LIBERTY JAYA"/>
+				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" height="21.015" width="173.6" x="12.5" y="5.34" text="UTAMA TEKNIK"/>
 				<label align="center" fontSize="9" id="Label2" y="26.355" text="Jl. Danau Indah Barat Blok A1/1 Sunter Jaya Jakarta Utara 14350" height="22.84" width="186.275" x="5"/>
 				<line x1="0" y1="50" y2="50" id="Line1" x2="211.775"/>
 				<formattedRecordArea id="FormattedRecordArea3" x="0" height="22" width="145.5" y="56">
