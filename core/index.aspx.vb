@@ -88,12 +88,23 @@ Partial Class index
             'ElseIf getQueryVar("code") <> code Then
             '    reloadURL("index.aspx?code=" & code)
         ElseIf GUID <> getQueryVar("GUID") Then 'reload for onedataonly
-            reloadURL("index.aspx?code=" & code & "&GUID=" & GUID)
+            Dim url1 = "?"
+            For Each u In Request.Url.Query.Replace("?", "").Split("&")
+                If u.Split("=")(0) = "code" Then
+                    url1 &= u.Split("=")(0) & "=" & code & "&"
+                ElseIf u.Split("=")(0) = "guid" Then
+                    url1 &= u.Split("=")(0) & "=" & GUID & "&"
+                Else
+                    url1 &= u & "&"
+                End If
+            Next
+            If url1.IndexOf("GUID=") < 0 Then url1 &="guid=" & guid
+            reloadURL(url1)
 
-        End If
+            End If
 
-        '--!
-        Dim cartID = ""
+            '--!
+            Dim cartID = ""
         If Not Request.Cookies("cartID") Is Nothing Then
             cartID = Request.Cookies("cartID").Value
         Else
@@ -115,7 +126,7 @@ Partial Class index
         Else
             'Response.Cookies("cartID").Value = Request.Cookies("cartID").Value
         End If
-        If code <> "login" And code <> "lockscreen" Then
+        If code <> loginPage And code <> "lockscreen" Then
             If Request.ApplicationPath.Replace("/", "") = "" Then
                 setCookie(Request.Url.Authority.Replace(":", "") & "_lastPar", Request.Url.PathAndQuery, 1)
             Else
