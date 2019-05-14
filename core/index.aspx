@@ -16,7 +16,8 @@
     </script>
 </head>
 <body class="">
-    <div class="wrapper" id="frameMaster"></div>
+	<div id="loader"></div>
+    <div class="wrapper animate-bottom" id="frameMaster"></div>
     <%--    <form id="ophForm" method="post" runat="server">
         <div id="frameMaster">Loading. Please wait...</div>
         <div id="frameBrowse"></div>
