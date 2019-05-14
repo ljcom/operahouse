@@ -147,7 +147,7 @@ Partial Class OPHCore_API_default
 
                 xmlstr = runSQLwithResult(sqlstr, curODBC)
 
-                If Not xmlstr.Contains("<sqroot>") Or xmlstr.Contains("<root>") Then
+                If Not xmlstr.Contains("<sqroot>") and Not xmlstr.Contains("<root>") Then
                     xmlstr = xmlstr.Replace("<root>", "")
                     xmlstr = xmlstr.Replace("</root>", "")
                     xmlstr = xmlstr.Replace("<row>", "")
@@ -173,7 +173,9 @@ Partial Class OPHCore_API_default
                     writeLog("function " & functionName & " : " & sqlstr)
                 Next
                 Dim msg = xmlstr
-                xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
+				If Not xmlstr.Contains("<sqroot>") and Not xmlstr.Contains("<root>") Then
+					xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
+				end if
                 isSingle = False
             Case "talk"
                 Dim comment As String = getQueryVar("comment")

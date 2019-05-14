@@ -58,7 +58,13 @@ Partial Class OPHCore_api_loadTheme
         'writeLog(doc.indexOf("function <xsl:value-of select=""$lowerCode"" />_saveafter(d) {}"))
         writeLog(js)
 
-		
+        sqlstr = "select infovalue from modlinfo i inner join modl m on m.moduleguid=i.moduleguid where m.moduleid='" & code & "' and i.infokey='js_custom'"
+        js = runSQLwithResult(sqlstr).Replace("js_", code.ToLower() & "_")
+
+        If js <> "" Then doc = doc.Replace("function <xsl:value-of select=""$lowerCode"" />_custom(d) {}", js)
+        'writeLog(doc.indexOf("function <xsl:value-of select=""$lowerCode"" />_saveafter(d) {}"))
+        writeLog(js)
+
 		'flush the result
         Response.ContentType = "text/xml"
             Response.Write("<?xml version=""1.0"" encoding=""utf-8""?>")
