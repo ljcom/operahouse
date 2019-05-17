@@ -64,11 +64,12 @@ Partial Class OPHCore_api_msg_download
                 If filename <> "" Then
                     Dim revfilename = StrReverse(filename).Replace("/", "\")
                     Dim lengthfile = revfilename.IndexOf("\")
+                    If lengthfile = 0 Then lengthfile=len(revfilename)
                     path = path & Left(filename, Len(filename) - lengthfile)
-                    filename = Right(filename, lengthfile)
-                End If
+                        filename = Right(filename, lengthfile)
+                    End If
 
-            Else
+                Else
                 filename = Server.MapPath("~/" & imageName.Replace("\", "/").Replace(Request.Url.Authority, ""))
 
                 Dim revfilename = StrReverse(filename).Replace("/", "\")
