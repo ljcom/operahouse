@@ -437,11 +437,11 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess, befo
             data = new FormData();
             var thisForm = (formId != undefined) ? '#' + formId : 'form';
 
-            if ($(':file').length > 0) {
-                $.each($(':file')[0].files, function (key, value) {
+            $.each($(':file'), function (key, value) {
+                $.each(value.files, function (key, value) {
                     data.append(key, value);
                 });
-            }
+            });
 
             $(".oph-webcam").each(function () {
                 var valtxt = $(this).val();
@@ -523,7 +523,7 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess, befo
                 var msg = $(data).children().find("message").text();
                 var u = $(data).children().find("unique").text();
                 if (u) $("#unique").val(u);
-
+				showMessage('Saving is successfully.', 2);
                 if (typeof afterSuccess === "function") afterSuccess(data);
             });
     }
@@ -1002,7 +1002,10 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                             //location: browse:10, header form:20, header sidebar:21, browse anak:30, browse form:40
 
                             //window.location = 'index.aspx?code=' + getQueryVariable("code");
-                            loadBrowse(code);
+							showMessage(successmsg, '2', true, function () {
+                                loadBrowse(code);
+                            });
+                            
                         }
                         //if (action === 'execute' && location == 21) {
                         //		//refresh sidebar
@@ -1013,9 +1016,12 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                             //showMessage(successmsg);
                             //loadContent(1);
                             showMessage(successmsg, '2', true, function () {
-                                if (reload == '1') loadBrowse(code);
-                                else loadContent(1);    //why need this?
+                                
                             });
+							setTimeout(function() {
+								if (reload == '1') loadBrowse(code);
+                                else loadContent(1);    //why need this?
+							}, 2000);
 
                         }
 
@@ -1024,7 +1030,8 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                 }
                 else {
                     //loadContent(1);   //why need this?
-                    showMessage(msg);
+                    showMessage(msg, 3);
+					setTimeout(function() {loadContent(1);}, 2000);
                 }
 
                 if (typeof afterSuccess === "function") afterSuccess(data);
@@ -1447,7 +1454,7 @@ function loadSearchResult(searchText) {
 
 function loadForm(bCode, bGUID, f) {
     if (getQueryVariable("code") == bCode.toLowerCase() && (getQueryVariable("GUID") != undefined && getQueryVariable("GUID") != null)) {
-        var xmldoc = 'OPHCore/api/default.aspx?mode=form&code=' + bCode + '&GUID='+bGUID;
+        var xmldoc = 'OPHCore/api/default.aspx?mode=form&code=' + bCode + '&GUID=' + bGUID;
         try {
             var divname = ['contentWrapper'];
             //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '.xslt'];

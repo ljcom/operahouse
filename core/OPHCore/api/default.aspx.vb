@@ -114,7 +114,9 @@ Partial Class OPHCore_API_default
                     Dim curField = "", fileName = ""
                     For Each n In Request.Form
                         'If Request.Form(n) = Request.Files(f).FileName Or Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then
-                        If Request.Form(n) = Request.Files(f).FileName Or Request.Files(f).FileName.IndexOf(Request.Form(n).ToString()) > 0 Or Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then
+                        If Request.Form(n) = Request.Files(f).FileName Then
+                            'Or Request.Files(f).FileName.IndexOf(Request.Form(n).ToString()) > 0 Or    -- tidk bisa sebagian isinya saja
+                            'Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then    -- demikian juga kebalikannya
                             curField = n
                             randGUID = System.Guid.NewGuid().ToString()
 
@@ -147,7 +149,7 @@ Partial Class OPHCore_API_default
 
                 xmlstr = runSQLwithResult(sqlstr, curODBC)
 
-                If Not xmlstr.Contains("<sqroot>") Or xmlstr.Contains("<root>") Then
+                If Not xmlstr.Contains("<sqroot>") and Not xmlstr.Contains("<root>") Then
                     xmlstr = xmlstr.Replace("<root>", "")
                     xmlstr = xmlstr.Replace("</root>", "")
                     xmlstr = xmlstr.Replace("<row>", "")
@@ -173,7 +175,9 @@ Partial Class OPHCore_API_default
                     writeLog("function " & functionName & " : " & sqlstr)
                 Next
                 Dim msg = xmlstr
-                xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
+				If Not xmlstr.Contains("<sqroot>") and Not xmlstr.Contains("<root>") Then
+					xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
+				end if
                 isSingle = False
             Case "talk"
                 Dim comment As String = getQueryVar("comment")

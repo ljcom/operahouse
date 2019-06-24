@@ -64,9 +64,15 @@ Partial Class OPHCore_api_msg_download
                 If filename <> "" Then
                     Dim revfilename = StrReverse(filename).Replace("/", "\")
                     Dim lengthfile = revfilename.IndexOf("\")
-                    If lengthfile = 0 Then lengthfile = Len(revfilename)
-                    path = path & Left(filename, Len(filename) - lengthfile)
-                    filename = Right(filename, lengthfile)
+'<<<<<<< HEAD
+                    'If lengthfile = 0 Then lengthfile = Len(revfilename)
+                    'path = path & Left(filename, Len(filename) - lengthfile)
+                    'filename = Right(filename, lengthfile)
+'=======
+                    If lengthfile = -1 Then lengthfile = Len(filename)
+                    path = path & Left(filename, Len(filename) - lengthfile).Replace("/", "\")
+                    filename = filename.Substring(Len(filename) - lengthfile, lengthfile)
+'>>>>>>> 30fad0cfbedb2c77a20a61e39b7e5f5260af4967
                 End If
 
             Else
@@ -137,7 +143,7 @@ Partial Class OPHCore_api_msg_download
 
                             Dim target As New Bitmap(nw, nh, PixelFormat.Format24bppRgb)
 
-                            Using graphics As Graphics = Graphics.FromImage(target)
+                            Using graphics As Graphics = graphics.FromImage(target)
                                 'graphics.Clear(Color.Transparent)
                                 'graphics.InterpolationMode = InterpolationMode.HighQualityBicubic
 
@@ -173,7 +179,11 @@ Partial Class OPHCore_api_msg_download
                 Else
                     Response.Buffer = True
                     Response.Charset = ""
+<<<<<<< HEAD
                     If isBitmap Then Response.ContentType = "image/png"
+=======
+                    If isBitmap Then response.contenttype = "image/png"
+>>>>>>> 30fad0cfbedb2c77a20a61e39b7e5f5260af4967
                     Response.Cache.SetCacheability(HttpCacheability.NoCache)
                     'Response.ContentType = dt.Rows(0)(f2).ToString()
                     Response.AddHeader("content-disposition", "attachment;filename=" & fInfo1.Name)

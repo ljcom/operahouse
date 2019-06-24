@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" title="Credit Detail" author="Imas" subject="Apotek" id="YoNarcotics" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageOrientation="landscape" pageSize="a4" bottomMargin="30" leftMargin="30" rightMargin="30" topMargin="30">
+		<query id="Query1">
+			<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoNarcotics_header">
+				<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter type="dateTime" name="StartDate" value="#Parameters[&quot;StartDate&quot;]#"/><parameter type="decimal" name="EndDate" value="#Parameters[&quot;EndDate&quot;]#"/><parameter type="uniqueIdentifier" name="SKUGUID" value="#Parameters[&quot;SKUGUID&quot;]#"/></storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="143">
+			<label id="Label1" fontSize="20" align="center" font="HelveticaBold" x="0" y="5" width="742" height="25" text="NARCOTICS"/>
+			<label id="Label2" height="14" font="HelveticaBold" y="60" x="4" width="71" text="Periode  :"/>
+			<line id="Line1" x1="0" y1="109" x2="782" y2="109"/>
+			<rectangle id="Rectangle1" height="14" fillColor="lightBlue" borderColor="lightBlue" x="3" y="123" width="81"/>
+			<rectangle height="14" fillColor="lightBlue" borderColor="lightBlue" id="Rectangle2" y="123" width="108" x="88"/>
+			<rectangle height="14" fillColor="lightBlue" borderColor="lightBlue" id="Rectangle3" y="123" width="166.1" x="200"/>
+			<rectangle height="14" fillColor="lightBlue" borderColor="lightBlue" id="Rectangle4" width="82.1" y="123" x="371"/>
+			<label id="Label3" height="14" fontSize="11" align="center" font="HelveticaBold" x="3" y="123" text="CASH DATE" width="78"/>
+			<label height="14" fontSize="11" align="center" font="HelveticaBold" id="Label4" y="123" text="INVOICE NO" x="88" width="108"/>
+			<label height="14" fontSize="11" align="center" font="HelveticaBold" id="Label5" y="123" text="PRODUCT" x="200" width="167"/>
+			<label height="14" fontSize="11" align="center" font="HelveticaBold" id="Label6" y="123" text="QTY" width="77" x="371"/>
+			<label height="14" font="HelveticaBold" x="4" width="71" id="Label12" y="81" text="Bulan  :"/>
+		</header>
+		<detail id="Detail1" autoSplit="true" height="100">
+			<subReport id="SubReport1" y="1" x="-2" width="455">
+				<query id="Query2">
+					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoNarcotics_detail">
+						<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+						<parameter type="dateTime" name="StartDate" value="#Parameters[&quot;StartDate&quot;]#"/>
+						<parameter type="dateTime" name="EndDate" value="#Parameters[&quot;EndDate&quot;]#"/>
+						<parameter type="uniqueIdentifier" name="SKUGUID" value="#Parameters[&quot;SKUGUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header id="Header2" height="1"/>
+				<detail id="Detail2" autoSplit="true" height="17">
+					<recordBox id="RecordBox2" dataFormat="" height="14" fontSize="10" y="0" width="80.1" x="7" field="CASHDate"/>
+					<recordBox dataFormat="" height="14" id="RecordBox3" fontSize="10" y="0" field="INVOICENo" width="107" x="91"/>
+					<recordBox dataFormat="" height="14" id="RecordBox4" fontSize="10" y="0" field="Product" width="167" x="201"/>
+					<recordBox dataFormat="" height="14" id="RecordBox5" align="right" fontSize="10" y="0" width="84" field="Qty" x="371"/>
+				</detail>
+				<footer id="Footer2"/>
+			</subReport>
+		</detail>
+		<footer id="Footer1" height="22">
+			<pageNumberingLabel align="right" height="14" y="1" text="Page %%CP%% of %%TP%%" width="200" fontSize="10" id="PageNumberingLabel1" x="580"/>
+			<recordBox dataFormat="" field="" y="1" height="14" width="150" fontSize="10" id="RecordBox15" x="3"/>
+		</footer>
+	</report>
+</document>

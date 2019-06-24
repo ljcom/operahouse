@@ -80,12 +80,23 @@ Partial Class OPHCore_api_msg_rptDialog
             Dim cete = appSettings.Item("ceTe.LicenseKey").ToString
             Document.AddLicense(cete)
             Dim Parameters As ParameterDictionary = New ParameterDictionary
-            Dim pathDPLX As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/" & reportName & ".dplx")
+
+            Dim queryDPLX As String
+            queryDPLX = runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='" & code & "' and InfoKey='dplx_rpt'")
+
+            'store dplx to folder temp
+            Dim path As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/")
+            writeFile(path, reportName & ".dplx", queryDPLX, True)
+
+            Dim pathDPLX As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/" & reportName & ".dplx")
+
+            'Dim pathDPLX As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/" & reportName & ".dplx")
 
             parameterid = parameterid.Replace(":", "=").Replace(":null", "=null").Replace("''", "")
             parameterid = parameterid.Replace("/", "-")
             Dim p = parameterid.Split(",")
             writeLog(parameterid)
+
             Dim n = 1
             For Each px In p
                 Dim pp = px.Split("=")
@@ -93,7 +104,7 @@ Partial Class OPHCore_api_msg_rptDialog
                 n += 1
             Next
             Dim q As Long = 1
-            Dim query = "" 'runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='YoDailySalesByCustomer' and InfoKey='querysql_" & q & "'")
+            Dim query = "" 'runSQLwithResult("Select infovalue from modl a inner join modlinfo b On a.moduleguid=b.moduleguid where moduleid='YoDailySalesByCustomer' and InfoKey='querysql_" & q & "'")
             Dim errReport = False
             Try
                 Dim reportDocument As DocumentLayout = New DocumentLayout(pathDPLX)
