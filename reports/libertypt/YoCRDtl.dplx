@@ -34,7 +34,7 @@
 			<rectangle height="14" fillColor="lightBlue" borderColor="lightBlue" y="107" width="61.1" id="Rectangle11" x="723"/>
 			<label fontSize="11" align="center" font="HelveticaBold" height="15.1" width="60.1" id="Label15" x="723" text="LUNAS" y="107"/>
 			<label font="HelveticaBold" height="15.1" id="Label16" text="IDR" width="39.1" x="72" y="89"/>
-		</header>
+			<label id="Label17" x="111" y="52" height="14" width="100" text="Me"/></header>
 		<detail id="Detail1" autoSplit="true" height="64">
 			<subReport id="SubReport1" width="782" x="-1" y="1">
 				<query id="Query2">
@@ -47,7 +47,7 @@
 				</query>
 				<header id="Header2" height="1"/>
 				<detail id="Detail2" height="16" autoSplit="true">
-					<recordBox id="RecordBox2" dataFormat="" height="14" x="3" fontSize="10" field="CASHNo" y="0" width="78.1"/>
+					<recordBox id="RecordBox2" dataFormat="" height="14" x="3" fontSize="10" y="0" width="78.1" field="CASHNo"/>
 					<recordBox dataFormat="" height="14" id="RecordBox3" field="CASHDate" fontSize="10" y="0" width="82" x="86"/>
 					<recordBox dataFormat="" height="14" id="RecordBox4" fontSize="10" field="CustName" y="0" width="85" x="171"/>
 					<recordBox dataFormat="" height="14" id="RecordBox5" align="right" fontSize="10" field="TotalSales" y="0" x="258" width="84"/>
@@ -55,7 +55,6 @@
 					<recordBox dataFormat="" height="14" id="RecordBox7" align="right" fontSize="10" y="0" field="LT60" width="64" x="422"/>
 					<recordBox dataFormat="" height="14" width="80" align="right" id="RecordBox8" fontSize="10" y="0" field="LT90" x="492"/>
 					<recordBox dataFormat="" height="14" width="80" align="right" id="RecordBox9" fontSize="10" y="0" field="MT90" x="575"/>
-					<recordBox dataFormat="" height="14" align="right" fontSize="10" y="0" id="RecordBox14" width="61" x="658" field="JT"/>
 					<recordBox dataFormat="" height="14" align="right" fontSize="10" y="0" width="61" id="RecordBox16" x="721" field="LUNAS"/>
 				</detail>
 				<footer id="Footer2"/>

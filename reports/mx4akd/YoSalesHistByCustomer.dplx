@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" author="YuniarPu" subject="Apotek" id="YoSalesHistByCustomer" title="Sales History By Customer" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" bottomMargin="30" leftMargin="30" pageOrientation="landscape" pageSize="a4" rightMargin="30" topMargin="30">
+		<query id="Query1">
+			<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoSalesHistByCustomer_header">
+				<parameter name="HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter type="bigInt" name="Periode" value="#Parameters[&quot;periode&quot;]#"/><parameter name="cstrGUID" type="uniqueIdentifier" value="#Parameters[&quot;cstrGUID&quot;]#"/></storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="94">
+			<label align="center" font="HelveticaBold" x="0" height="25" fontSize="20" width="782" y="1" id="Label1" text="SALES HISTORY BY CUSTOMER"/>
+			<label height="14" text="Periode :" width="60" font="HelveticaBold" x="0" y="70" id="Label2"/>
+			<label height="14" text="Q: Quantity" width="90" font="HelveticaBold" x="690" fontSize="11" y="51" id="Label3"/>
+			<label height="14" text="V: Value in '000" width="90" font="HelveticaBold" x="690" fontSize="11" y="70" id="Label4"/>
+			<recordBox dataFormat="" field="" height="14" width="100" y="70" x="60" font="HelveticaBold" id="RecordBox1"/>
+			<line x1="0" x2="782" y1="88" y2="88" id="Line1"/>
+		</header>
+		<detail id="Detail1" height="78">
+			<label height="14" fontSize="9" align="center" font="HelveticaBold" x="0" width="75" id="Label10" text="Grand Total" y="60"/>
+			<label height="14" fontSize="9" align="center" font="HelveticaBold" width="10" x="78" text="V" id="Label11" y="60"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" width="50" x="91" id="RecordBox30" y="60"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" width="50" x="144" id="RecordBox44" y="60"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" width="50" x="197" id="RecordBox45" y="60"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" width="50" x="250" id="RecordBox46" y="60"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" width="50" x="303" id="RecordBox47" y="60"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" width="50" x="356" id="RecordBox48" y="60"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" width="50" x="409" id="RecordBox49" y="60"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" width="50" x="462" id="RecordBox50" y="60"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" width="50" x="515" id="RecordBox51" y="60"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" width="50" x="568" id="RecordBox52" y="60"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" width="50" x="621" id="RecordBox53" y="60"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" width="50" x="674" id="RecordBox54" y="60"/>
+			<recordBox dataFormat="" field="" height="14" fontSize="9" width="50" x="727" id="RecordBox55" y="60"/>
+			<subReport width="782" id="SubReport2" x="0" y="0">
+				<query id="Query2">
+					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoSalesHistByCustomer_detail">
+						<parameter name="HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter type="bigInt" name="Periode" value="#Parameters[&quot;periode&quot;]#"/><parameter name="cstrGUID" type="uniqueIdentifier" value="#Parameters[&quot;cstrGUID&quot;]#"/></storedProcedure>
+				</query>
+				<header height="19" id="Header3">
+					<rectangle height="14" borderColor="lightBlue" fillColor="lightBlue" x="0" y="0" width="75" id="Rectangle1"/>
+					<rectangle height="14" borderColor="lightBlue" fillColor="lightBlue" y="0" width="10" x="78" id="Rectangle2"/>
+					<rectangle height="14" borderColor="lightBlue" fillColor="lightBlue" y="0" width="50" x="91" id="Rectangle3"/>
+					<rectangle height="14" borderColor="lightBlue" fillColor="lightBlue" y="0" width="50" x="144" id="Rectangle4"/>
+					<rectangle height="14" borderColor="lightBlue" fillColor="lightBlue" y="0" width="50" x="197" id="Rectangle5"/>
+					<rectangle height="14" borderColor="lightBlue" fillColor="lightBlue" y="0" width="50" x="250" id="Rectangle6"/>
+					<rectangle height="14" borderColor="lightBlue" fillColor="lightBlue" y="0" width="50" x="303" id="Rectangle7"/>
+					<rectangle height="14" borderColor="lightBlue" fillColor="lightBlue" y="0" width="50" x="356" id="Rectangle8"/>
+					<rectangle height="14" borderColor="lightBlue" fillColor="lightBlue" y="0" width="50" x="409" id="Rectangle9"/>
+					<rectangle height="14" borderColor="lightBlue" fillColor="lightBlue" y="0" width="50" x="462" id="Rectangle10"/>
+					<rectangle height="14" borderColor="lightBlue" fillColor="lightBlue" y="0" width="50" x="515" id="Rectangle11"/>
+					<rectangle height="14" borderColor="lightBlue" fillColor="lightBlue" y="0" width="50" x="568" id="Rectangle12"/>
+					<rectangle height="14" borderColor="lightBlue" fillColor="lightBlue" y="0" width="50" x="621" id="Rectangle13"/>
+					<rectangle height="14" borderColor="lightBlue" fillColor="lightBlue" y="0" width="50" x="674" id="Rectangle14"/>
+					<rectangle height="14" borderColor="lightBlue" fillColor="lightBlue" y="0" width="50" x="727" id="Rectangle15"/>
+					<label height="14" fontSize="9" text="Product" align="center" font="HelveticaBold" vAlign="center" width="75" x="0" y="0" id="Label6"/>
+					<label height="14" fontSize="9" align="center" font="HelveticaBold" vAlign="center" y="0" text="January" x="91" width="50" id="Label7"/>
+					<label height="14" fontSize="9" align="center" font="HelveticaBold" vAlign="center" y="0" width="50" text="February" x="144" id="Label12"/>
+					<label height="14" fontSize="9" align="center" font="HelveticaBold" vAlign="center" y="0" width="50" text="March" x="197" id="Label13"/>
+					<label height="14" fontSize="9" align="center" font="HelveticaBold" vAlign="center" y="0" width="50" text="April" x="250" id="Label14"/>
+					<label height="14" fontSize="9" align="center" font="HelveticaBold" vAlign="center" y="0" width="50" text="May" x="303" id="Label15"/>
+					<label height="14" fontSize="9" align="center" font="HelveticaBold" vAlign="center" y="0" width="50" text="June" x="356" id="Label16"/>
+					<label height="14" fontSize="9" align="center" font="HelveticaBold" vAlign="center" y="0" width="50" text="July" x="409" id="Label17"/>
+					<label height="14" fontSize="9" align="center" font="HelveticaBold" vAlign="center" y="0" width="50" text="August" x="462" id="Label18"/>
+					<label height="14" fontSize="9" align="center" font="HelveticaBold" vAlign="center" y="0" width="50" text="September" x="515" id="Label19"/>
+					<label height="14" fontSize="9" align="center" font="HelveticaBold" vAlign="center" y="0" width="50" x="568" text="October" id="Label20"/>
+					<label height="14" fontSize="9" align="center" font="HelveticaBold" vAlign="center" y="0" width="50" text="November" x="621" id="Label21"/>
+					<label height="14" fontSize="9" align="center" font="HelveticaBold" vAlign="center" y="0" width="50" text="December" x="674" id="Label22"/>
+					<label height="14" fontSize="9" align="center" font="HelveticaBold" vAlign="center" y="0" width="50" x="727" text="Total" id="Label23"/>
+				</header>
+				<detail autoSplit="true" height="36" id="Detail3">
+					<recordBox dataFormat="" height="14" fontSize="9" x="0" y="0" width="75" field="SKUName" id="RecordBox2"/>
+					<recordBox dataFormat="" height="14" fontSize="9" y="0" width="50" field="QtyJan" align="right" x="91" id="RecordBox3"/>
+					<recordBox dataFormat="" height="14" fontSize="9" y="0" width="50" align="right" x="145" field="QtyFeb" id="RecordBox4"/>
+					<recordBox dataFormat="" height="14" fontSize="9" y="0" width="50" align="right" x="197" field="QtyMar" id="RecordBox5"/>
+					<recordBox dataFormat="" height="14" fontSize="9" y="0" width="50" align="right" x="250" field="QtyApr" id="RecordBox6"/>
+					<recordBox dataFormat="" height="14" fontSize="9" y="0" width="50" x="303" align="right" field="QtyMay" id="RecordBox7"/>
+					<recordBox dataFormat="" height="14" fontSize="9" y="0" width="50" x="356" align="right" field="QtyJun" id="RecordBox8"/>
+					<recordBox dataFormat="" height="14" fontSize="9" y="0" width="50" x="409" align="right" field="QtyJul" id="RecordBox9"/>
+					<recordBox dataFormat="" height="14" fontSize="9" y="0" width="50" x="462" align="right" field="QtyAug" id="RecordBox10"/>
+					<recordBox dataFormat="" height="14" fontSize="9" y="0" width="50" x="515" align="right" field="QtySep" id="RecordBox11"/>
+					<recordBox dataFormat="" height="14" fontSize="9" y="0" width="50" x="568" align="right" field="QtyOct" id="RecordBox12"/>
+					<recordBox dataFormat="" height="14" fontSize="9" y="0" width="50" x="621" align="right" field="QtyNov" id="RecordBox13"/>
+					<recordBox dataFormat="" height="14" fontSize="9" y="0" width="50" x="674" align="right" field="QtyDec" id="RecordBox14"/>
+					<recordBox dataFormat="" field="" height="14" fontSize="9" y="0" width="50" x="727" align="right" id="RecordBox15"/>
+					<label height="14" fontSize="9" text="Q" align="center" font="HelveticaBold" width="10" x="78" y="0" id="Label24"/>
+					<recordBox dataFormat="" height="14" fontSize="9" x="0" width="75" y="17" field="SKUName" id="RecordBox16"/>
+					<label height="14" fontSize="9" align="center" font="HelveticaBold" width="10" x="78" y="17" text="V" id="Label25"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="50" align="right" x="91" y="17" field="ValJan" id="RecordBox17"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="50" align="right" x="145" y="17" field="ValFeb" id="RecordBox18"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="50" align="right" x="197" y="17" field="ValMar" id="RecordBox19"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="50" align="right" x="250" y="17" field="ValApr" id="RecordBox20"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="50" x="303" align="right" y="17" field="ValMay" id="RecordBox21"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="50" x="356" align="right" y="17" field="ValJun" id="RecordBox22"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="50" x="409" align="right" y="17" field="ValJul" id="RecordBox23"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="50" x="462" align="right" y="17" field="ValAug" id="RecordBox24"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="50" x="515" align="right" y="17" field="ValSep" id="RecordBox25"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="50" x="568" align="right" y="17" field="ValOct" id="RecordBox26"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="50" x="621" align="right" y="17" field="ValNov" id="RecordBox27"/>
+					<recordBox dataFormat="" height="14" fontSize="9" width="50" x="674" align="right" y="17" field="ValDec" id="RecordBox28"/>
+					<recordBox dataFormat="" field="" height="14" fontSize="9" width="50" x="727" align="right" y="17" id="RecordBox29"/>
+				</detail>
+				<footer id="Footer3"/>
+			</subReport>
+		</detail>
+		<footer id="Footer1" height="22">
+			<pageNumberingLabel align="right" height="14" y="1" text="Page %%CP%% of %%TP%%" width="200" fontSize="10" x="580" id="PageNumberingLabel1"/>
+			<recordBox dataFormat="" field="" y="1" height="14" width="150" fontSize="10" x="3" id="RecordBox56"/>
+		</footer>
+	</report>
+</document>

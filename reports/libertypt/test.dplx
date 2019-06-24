@@ -1,2 +1,0 @@
-<?xml version="1.0"?>
-<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Document1" author="" keywords="" title="" subject=""><report id="Report1"><query id="Query1"><sql connectionString="" dataProvider="msSql"/></query><template id="Template1"/><header id="Header1" height="50"/><detail id="Detail1" height="100"/><footer id="Footer1" height="50"/></report></document>

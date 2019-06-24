@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" id="YoRepeatNearlyExpired" author="YuniarPu" subject="Apotek" title="Report Repeat Nearly Expired" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" bottomMargin="30" leftMargin="30" pageOrientation="landscape" pageSize="a4" rightMargin="30" topMargin="30">
+		<query id="Query1">
+			<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoRepeatNearlyExpired_header">
+				<parameter name="HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="startDate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/>
+				<parameter name="skuGUID" type="uniqueIdentifier" value="#Parameters[&quot;skuGUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="73">
+			<label id="Label1" fontSize="20" align="center" font="HelveticaBold" text="Report Nearly Expired" height="25" width="782" x="0" y="0"/>
+			<line id="Line1" x1="0" x2="782" y1="50" y2="50"/>
+			<rectangle id="Rectangle1" height="14" x="0" y="55" borderColor="lightBlue" fillColor="lightBlue" width="100"/>
+			<rectangle height="14" y="55" borderColor="lightBlue" fillColor="lightBlue" id="Rectangle2" width="200" x="103"/>
+			<rectangle height="14" y="55" borderColor="lightBlue" fillColor="lightBlue" id="Rectangle3" x="306" width="60"/>
+			<rectangle height="14" borderColor="lightBlue" fillColor="lightBlue" id="Rectangle4" width="100" y="55" x="369"/>
+			<rectangle height="14" y="55" borderColor="lightBlue" fillColor="lightBlue" id="Rectangle5" width="100" x="472"/>
+			<rectangle height="14" y="55" borderColor="lightBlue" fillColor="lightBlue" id="Rectangle6" width="100" x="575"/>
+			<rectangle height="14" y="55" borderColor="lightBlue" fillColor="lightBlue" id="Rectangle7" width="100" x="678"/>
+			<label id="Label2" height="14" width="100" align="center" font="HelveticaBold" fontSize="10" x="0" y="55" text="SKU"/>
+			<label height="14" align="center" font="HelveticaBold" fontSize="10" y="55" id="Label3" x="103" width="200" text="SKU NAME"/>
+			<label height="14" align="center" font="HelveticaBold" fontSize="10" y="55" id="Label4" x="306" width="60" text="QTY"/>
+			<label height="14" align="center" font="HelveticaBold" fontSize="10" y="55" id="Label5" x="369" width="100" text="WAREHOUSE"/>
+			<label height="14" align="center" font="HelveticaBold" fontSize="10" y="55" width="100" text="WAREHOUSE" id="Label6" x="472"/>
+			<label height="14" align="center" font="HelveticaBold" fontSize="10" y="55" width="100" id="Label7" x="575" text="BATCH NUMBER"/>
+			<label height="14" align="center" font="HelveticaBold" fontSize="10" y="55" width="100" id="Label8" x="678" text="EXPIRED DATE"/>
+		</header>
+		<detail id="Detail1" autoSplit="true" height="26">
+			<subReport id="SubReport1" x="0" y="0" width="782">
+				<header id="Header2"/>
+				<detail id="Detail2" autoSplit="true" height="19">
+					<rectangle id="Rectangle8" height="14" borderColor="whiteSmoke" fillColor="whiteSmoke" x="0" y="0" width="782"/>
+					<recordBox id="RecordBox1" dataFormat="" height="14" width="100" fontSize="10" x="0" y="0" field="SKUCode"/>
+					<recordBox dataFormat="" height="14" fontSize="10" y="0" id="RecordBox2" x="103" width="200" field="SKUName"/>
+					<recordBox dataFormat="" height="14" fontSize="10" y="0" id="RecordBox3" x="306" width="60" field="BeginQty"/>
+					<recordBox dataFormat="" height="14" fontSize="10" y="0" id="RecordBox4" x="369" width="100" field="WHSName"/>
+					<recordBox dataFormat="" height="14" fontSize="10" y="0" width="100" id="RecordBox5" x="472" field="MatrixName"/>
+					<recordBox dataFormat="" height="14" fontSize="10" y="0" width="100" id="RecordBox6" x="575" field="BatchNo"/>
+					<recordBox dataFormat="" height="14" fontSize="10" y="0" width="100" id="RecordBox7" x="678" field="ExpiredDate"/>
+				</detail>
+				<footer id="Footer2" height="1"/>
+			</subReport>
+		</detail>
+		<footer id="Footer1" height="22">
+			<pageNumberingLabel align="right" height="14" text="Page %%CP%% of %%TP%%" width="200" fontSize="10" y="0" x="582" id="PageNumberingLabel1"/>
+			<recordBox dataFormat="" field="" height="14" width="150" fontSize="10" x="0" y="0" id="RecordBox8"/>
+		</footer>
+	</report>
+</document>

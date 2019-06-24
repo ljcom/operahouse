@@ -3,7 +3,9 @@
 	<report id="Report1" rightMargin="14.175" pageSize="custom" topMargin="0" bottomMargin="0" leftMargin="14.175" pageWidth="226.8" pageHeight="141.75">
 		<query id="Query1">
 			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCashInv_report">
-				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+			</storedProcedure>
 		</query>
 		<template id="Template1"/>
 		<header id="Header1"/>
@@ -20,7 +22,8 @@
 					</initialStyle>
 					<text><![CDATA[<P>Invoice No: #InvNo#</P><P>Invoice Date: #InvDate#</P>]]></text>
 				</formattedRecordArea>
-				<line id="Line7" x1="1" y1="90" y2="90" x2="212"/></contentGroup>
+				<line id="Line7" x1="1" y1="90" y2="90" x2="212"/>
+			</contentGroup>
 			<formattedRecordArea id="FormattedRecordArea1" expandable="true" y="261" width="195.1" height="42.1" x="1.5">
 				<initialStyle>
 					<font size="9"/>
@@ -33,7 +36,9 @@
 			<subReport id="SubReport1" y="105" x="0.1" width="196.275">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCashInv_report_sub1">
-						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
+						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+					</storedProcedure>
 				</query>
 				<header id="Header2" height="2"/>
 				<detail id="Detail2" autoSplit="true" height="41">
@@ -53,15 +58,30 @@
 			<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" field="Discount" id="RecordBox2" y="166.34" x="138.925"/>
 			<label fontSize="9" align="right" height="11.34" width="56.7" text="Sub Total" id="Label3" y="155" x="76.555"/>
 			<label fontSize="9" align="right" height="11.34" width="56.7" text="Discount" id="Label4" y="166.34" x="76.555"/>
-			<label fontSize="9" align="right" height="11.34" text="Shipping  Cost" width="65.7" id="Label5" y="181.35" x="67.555"/>
-			<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" field="shippingcost" id="RecordBox3" y="182.35" x="138.925"/>
+			<label fontSize="9" align="right" height="11.34" text="Shipping  Cost" width="65.7" id="Label5" x="67.555" y="178.35"/>
+			<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" field="shippingcost" id="RecordBox3" x="138.925" y="179.35"/>
 			<label fontSize="9" align="right" height="11.34" width="56.7" text="Total" id="Label6" y="195.35" x="76.555"/>
 			<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" field="SubTotal2" id="RecordBox5" y="195.35" x="138.925"/>
 			<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" field="Change" id="RecordBox6" x="138.925" y="244.35"/>
 			<label fontSize="9" height="11.34" text="Change" id="Label8" y="244.35" align="right" x="78.055" width="55.2"/>
 			<recordBox dataFormat="" width="55.85" align="right" height="11.34" fontSize="9" field="lesspaid" id="RecordBox7" x="138.925" y="230.35"/>
 			<label fontSize="9" height="11.34" text="Less Paid" id="Label9" y="230.85" align="right" x="77.555" width="55.7"/>
-			<subReport id="SubReport2" y="212" x="75" width="122.1"><query id="Query3"><storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTeCashInv_report_sub2"><parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure></query><header id="Header3" height="1"/><detail autoSplit="true" id="Detail3" height="15.5"><recordBox dataFormat="" height="10.5" field="paycname" y="1" fontSize="9" x="2" id="RecordBox8" align="right" width="56.5"/><recordBox dataFormat="" height="10.5" y="1" fontSize="9" align="right" field="paid" width="53.5" id="RecordBox9" x="66.5"/></detail><footer height="1" id="Footer3"/></subReport></detail>
+			<subReport id="SubReport2" y="212" x="75" width="122.1">
+				<query id="Query3">
+					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTeCashInv_report_sub2">
+						<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+						<parameter name="GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header id="Header3" height="1"/>
+				<detail autoSplit="true" id="Detail3" height="15.5">
+					<recordBox dataFormat="" height="10.5" field="paycname" y="1" fontSize="9" x="2" id="RecordBox8" align="right" width="56.5"/>
+					<recordBox dataFormat="" height="10.5" y="1" fontSize="9" align="right" field="paid" width="53.5" id="RecordBox9" x="66.5"/>
+				</detail>
+				<footer height="1" id="Footer3"/>
+			</subReport>
+			<line id="Line2" x2="193.75" y2="192.75" x1="76.5" y1="192.75"/>
+		</detail>
 		<footer id="Footer1"/>
 	</report>
 </document>

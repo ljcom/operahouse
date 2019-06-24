@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageSize="custom" topMargin="0" bottomMargin="0" pageHeight="5670" leftMargin="14" pageWidth="226" rightMargin="14">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCash_report">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1"/>
+		<detail id="Detail1" autoSplit="true" height="416">
+			<contentGroup id="ContentGroup1" y="0" x="2" width="193" height="94">
+				<label align="center" fontSize="10" font="HelveticaBold" id="Label1" x="-1" y="3" width="197" height="13" text="NARADA MEDICAL"/>
+				<label align="center" fontSize="9" id="Label2" x="-7" text="JL. Bangbarung Raya/H.Achmad Sobana&#xA; No.39, Bogor&#xA;Telp : (0251) 8348386" y="15" width="211" height="33"/>
+				<line x1="0" y1="50" y2="50" id="Line1" x2="211"/>
+				<formattedRecordArea id="FormattedRecordArea3" height="22" y="56" x="2" width="145">
+					<initialStyle>
+						<font size="9"/>
+						<line/>
+						<paragraph/>
+					</initialStyle>
+					<text><![CDATA[<P>No Invoice&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : #InvNo#</P><P>Tanggal Invoice: #InvDate#</P>]]></text>
+				</formattedRecordArea>
+				<line id="Line7" x1="1" y1="90" y2="90" x2="212"/></contentGroup>
+			<formattedRecordArea id="FormattedRecordArea1" expandable="true" y="270" x="5" width="175" height="31">
+				<initialStyle>
+					<font size="9"/>
+					<line/>
+					<paragraph/>
+				</initialStyle>
+				<text><![CDATA[<P>Nama Pelanggan:#Customer#</P><P>Kasir: #HostName#</P><P>Dicetak: #printDate#</P>]]></text>
+			</formattedRecordArea>
+			<label align="center" id="Label7" fontSize="8" x="5" y="304" width="190" height="20" text="Terima Kasih Atas Kunjungan Anda.&#xA;Semoga Lekas Sembuh."/>
+			<subReport id="SubReport1" y="94" x="0" width="195">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCash_report_sub1">
+						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
+				</query>
+				<header id="Header2" height="1"/>
+				<detail id="Detail2" autoSplit="true" height="41">
+					<formattedRecordArea splittable="true" expandable="true" id="FormattedRecordArea2" height="40" y="0" x="5" width="84">
+						<initialStyle>
+							<font size="9"/>
+							<line/>
+							<paragraph/>
+						</initialStyle>
+						<text><![CDATA[<P>#ItemCode#<BR>#ItemName#<BR>#Qty#&nbsp;x @#Price#</P><P Align="Right">&nbsp;</P>]]></text>
+					</formattedRecordArea>
+					<recordBox id="RecordBox4" dataFormat="" height="14" field="TotalPrice" fontSize="9" align="right" y="21" x="101" width="81"/>
+				</detail>
+				<footer id="Footer2" height="1"/>
+			</subReport>
+			<subReport id="SubReport2" y="203" width="193" x="2">
+				<query id="Query3">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCash_report_sub2">
+						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
+				</query>
+				<header height="1" id="Header3"/>
+				<detail autoSplit="true" id="Detail3" height="63">
+					<recordArea id="RecordArea2" fontSize="9" x="4" y="5" width="101" height="12"><text>Bayar#payment2#</text></recordArea><recordBox id="RecordBox9" dataFormat="" height="11" fontSize="9" field="payrec2" align="right" width="61" y="6" x="116"/><recordArea fontSize="9" id="RecordArea3" x="4" width="101" height="12" y="22"><text>Sisa Bayar</text></recordArea><recordBox height="11" fontSize="9" id="RecordBox10" y="22" align="right" width="61" dataFormat="#,##0" field="balance2" x="116"/><recordArea fontSize="9" id="RecordArea4" x="5" y="38" width="101" height="12"><text>Kembalian</text></recordArea><recordBox height="11" fontSize="9" id="RecordBox11" y="39" align="right" dataFormat="#,##0" field="change2" width="60" x="117"/><line id="Line2" y1="57" y2="57" x1="2" x2="229.5"/></detail>
+				<footer height="1" id="Footer3"/>
+			</subReport>
+			<contentGroup id="ContentGroup2" y="140" width="193" height="58" x="3">
+				<line x1="0" y1="0" y2="0" id="Line4" x2="211"/>
+				<line x1="0" id="Line5" y1="28" y2="28" x2="211"/>
+				<label fontSize="9" id="Label5" align="right" text="Sub Total" y="2" x="61" width="56" height="11"/>
+				<recordBox id="RecordBox1" dataFormat="" align="right" fontSize="9" field="Discount" x="123" y="13" width="55" height="11"/>
+				<recordBox dataFormat="" align="right" id="RecordBox2" y="2" fontSize="9" field="SubTotal1" x="123" width="55" height="11"/>
+				<label fontSize="9" align="right" id="Label4" text="Total" x="61" y="42" width="56" height="11"/>
+				<recordBox dataFormat="" align="right" id="RecordBox3" fontSize="9" field="SubTotal2" x="123" y="42" width="55" height="11"/>
+				<label fontSize="9" align="right" id="Label9" text="Diskon" x="61" y="13" width="56" height="11"/>
+				<label fontSize="9" align="right" id="Label8" text="Biaya Pengiriman" x="45" y="28" width="72" height="11"/>
+				<recordBox dataFormat="" align="right" fontSize="9" id="RecordBox6" field="shippingcost" x="123" y="29" width="55" height="11"/>
+				<line x1="0" id="Line8" y1="54" y2="54" x2="211"/>
+				<line x1="0" id="Line9" y1="54" y2="54" x2="211"/>
+			</contentGroup>
+			<label align="center" x="5" width="190" height="20" id="Label3" y="323" fontSize="7" text="Obat yang sudah dibeli tidak dapat ditukar atau dikembalikan"/>
+		</detail>
+		<footer id="Footer1"/>
+	</report>
+</document>
