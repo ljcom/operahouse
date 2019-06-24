@@ -64,12 +64,12 @@ Partial Class OPHCore_api_msg_download
                 If filename <> "" Then
                     Dim revfilename = StrReverse(filename).Replace("/", "\")
                     Dim lengthfile = revfilename.IndexOf("\")
-                    If lengthfile = 0 Then lengthfile=len(revfilename)
+                    If lengthfile = 0 Then lengthfile = Len(revfilename)
                     path = path & Left(filename, Len(filename) - lengthfile)
-                        filename = Right(filename, lengthfile)
-                    End If
+                    filename = Right(filename, lengthfile)
+                End If
 
-                Else
+            Else
                 filename = Server.MapPath("~/" & imageName.Replace("\", "/").Replace(Request.Url.Authority, ""))
 
                 Dim revfilename = StrReverse(filename).Replace("/", "\")
@@ -103,7 +103,7 @@ Partial Class OPHCore_api_msg_download
     End Sub
 
     Protected Function download(ByVal path As String, ByVal filename As String) As Boolean
-        Dim sizeImage As Integer = val(getQueryVar("size"))
+        Dim sizeImage As Integer = Val(getQueryVar("size"))
         If sizeImage = 0 Then sizeImage = 300
 
         Dim bytes() As Byte = Nothing
@@ -173,7 +173,7 @@ Partial Class OPHCore_api_msg_download
                 Else
                     Response.Buffer = True
                     Response.Charset = ""
-                    If isbitmap Then response.contenttype = "image/png"
+                    If isBitmap Then Response.ContentType = "image/png"
                     Response.Cache.SetCacheability(HttpCacheability.NoCache)
                     'Response.ContentType = dt.Rows(0)(f2).ToString()
                     Response.AddHeader("content-disposition", "attachment;filename=" & fInfo1.Name)

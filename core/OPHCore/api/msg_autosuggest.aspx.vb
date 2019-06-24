@@ -26,7 +26,9 @@ Partial Class OPHCore_api_msg_autosuggest
         'If wf2 = "0" Then wf2 = ""
         wf1value = IIf(wf1value = "NULL", wf1value, "'" & wf1value & "'")
         wf2value = IIf(wf2value = "NULL", wf2value, "'" & wf2value & "'")
-
+		dim type = getQueryVar("type").toString
+		if type = "" then type = "json"
+		
         If Request("code") <> "" Then
             Dim appSettings = ConfigurationManager.AppSettings
             Dim nbRow = getQueryVar("nbRow").ToString
@@ -72,7 +74,7 @@ Partial Class OPHCore_api_msg_autosuggest
                 Dim OptionList As New List(Of opti)
 
                 If xmlstr IsNot Nothing Or xmlstr <> "" Then
-
+					
                     For Each opt In XDocument.Parse(xmlstr).Element("sqroot").Elements("options").Elements("option")
                         OptionList.Add(New opti With {.id = opt.Element("value").Value, .text = opt.Element("caption").Value})
                     Next
@@ -102,9 +104,15 @@ Partial Class OPHCore_api_msg_autosuggest
             End If
 
             Response.Clear()
-            Response.ContentType = "application/json; charset=utf-8"
-            Response.Write(json)
-            Response.Flush()
+			if type<>"xml" then
+				Response.ContentType = "application/json; charset=utf-8"
+				Response.Write(json)
+            else
+				Response.ContentType = "text/xml"
+				response.write(xmlstr)
+			end if
+			Response.Flush()
+			
             'Response.End()
         Else
             reloadURL("?")
