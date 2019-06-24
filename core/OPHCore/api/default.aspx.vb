@@ -114,7 +114,9 @@ Partial Class OPHCore_API_default
                     Dim curField = "", fileName = ""
                     For Each n In Request.Form
                         'If Request.Form(n) = Request.Files(f).FileName Or Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then
-                        If Request.Form(n) = Request.Files(f).FileName Or Request.Files(f).FileName.IndexOf(Request.Form(n).ToString()) > 0 Or Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then
+                        If Request.Form(n) = Request.Files(f).FileName Then
+                            'Or Request.Files(f).FileName.IndexOf(Request.Form(n).ToString()) > 0 Or    -- tidk bisa sebagian isinya saja
+                            'Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then    -- demikian juga kebalikannya
                             curField = n
                             randGUID = System.Guid.NewGuid().ToString()
 
