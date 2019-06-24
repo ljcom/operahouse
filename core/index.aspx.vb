@@ -23,7 +23,7 @@ Partial Class index
         Dim needLogin As Boolean = False
         Dim loginPage As String = ""
 
-        Dim old = False
+        Dim old = true
         If old Then
             loadAccount(getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
             curHostGUID = Session("hostGUID")
