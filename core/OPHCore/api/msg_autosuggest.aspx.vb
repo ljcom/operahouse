@@ -19,11 +19,11 @@ Partial Class OPHCore_api_msg_autosuggest
         Dim curHostGUID = Session("hostGUID")
         Dim curUserGUID = Session("userGUID")
 
-        Dim wf1 = getQueryVar("wf1")
+        'Dim wf1 = getQueryVar("wf1")
         Dim wf1value = getQueryVar("wf1value")
-        Dim wf2 = getQueryVar("wf2")
+        'Dim wf2 = getQueryVar("wf2")
         Dim wf2value = getQueryVar("wf2value")
-        If wf2 = "0" Then wf2 = ""
+        'If wf2 = "0" Then wf2 = ""
         wf1value = IIf(wf1value = "NULL", wf1value, "'" & wf1value & "'")
         wf2value = IIf(wf2value = "NULL", wf2value, "'" & wf2value & "'")
 
