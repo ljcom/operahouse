@@ -92,6 +92,10 @@ Partial Class OPHCore_API_default
                     'isSingle = False
                     'xmlstr = getXML(sqlstr, curODBC)
                 End If
+            Case "query"
+                Dim queryXML = writeXMLFromRequestForm("sqroot", nothing, nothing, code)
+                sqlstr = "exec doc." & code & " '" & curHostGUID & "', " & queryXML '& ", " & editMode
+                writeLog("mode query : " & sqlstr)
             Case "view", "form"
                 sqlstr = "exec [api].[theme_form] '" & curHostGUID & "', '" & code & "', " & GUID '& ", " & editMode
                 writeLog("mode form : " & sqlstr)

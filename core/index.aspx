@@ -15,7 +15,7 @@
         });
     </script>
 </head>
-<body class="">
+<body style="background-color:#ECF0F5; class="">
 	<div id="loader"></div>
     <div class="wrapper animate-bottom" id="frameMaster"></div>
     <%--    <form id="ophForm" method="post" runat="server">
@@ -24,8 +24,5 @@
     </form>--%>
     <input type="hidden" id="unique" value="<%=Now().ToString("yyyyMMddHHmmss")%>" />
 
-    <div id="prog" class="hidden">
-        <span id="prog-percent">0%</span>
-    <div id="prog-inner"></div>
 </body>
 </html>

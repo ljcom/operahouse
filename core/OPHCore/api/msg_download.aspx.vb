@@ -179,11 +179,9 @@ Partial Class OPHCore_api_msg_download
                 Else
                     Response.Buffer = True
                     Response.Charset = ""
-<<<<<<< HEAD
+
                     If isBitmap Then Response.ContentType = "image/png"
-=======
-                    If isBitmap Then response.contenttype = "image/png"
->>>>>>> 30fad0cfbedb2c77a20a61e39b7e5f5260af4967
+
                     Response.Cache.SetCacheability(HttpCacheability.NoCache)
                     'Response.ContentType = dt.Rows(0)(f2).ToString()
                     Response.AddHeader("content-disposition", "attachment;filename=" & fInfo1.Name)

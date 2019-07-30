@@ -65,6 +65,11 @@ Partial Class OPHCore_api_loadTheme
         'writeLog(doc.indexOf("function <xsl:value-of select=""$lowerCode"" />_saveafter(d) {}"))
         writeLog(js)
 
+		'insert gpskey
+		'##gpskey##
+		Dim gpskey=runSQLwithResult("select infovalue from acctinfo where infokey='gpskey'")
+		If gpskey <> "" Then doc = doc.Replace("##gpskey##", gpskey)
+
 		'flush the result
         Response.ContentType = "text/xml"
             Response.Write("<?xml version=""1.0"" encoding=""utf-8""?>")
