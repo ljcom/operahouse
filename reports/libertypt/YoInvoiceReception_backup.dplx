@@ -10,28 +10,28 @@
 		<template id="Template1"/>
 		<header id="Header1" height="14.175"/>
 		<detail id="Detail1" height="809" autoSplit="true">
-			<rectangle height="25" id="Rectangle1" fillColor="white" y="2" width="483.5" x="11"/>
-			<rectangle height="71.25" id="Rectangle2" y="27" width="257.35" x="237"/>
-			<rectangle fillColor="white" height="43" width="226.1" id="Rectangle3" y="27" x="11"/>
-			<rectangle fillColor="white" height="29.1" width="226.1" id="Rectangle4" y="69" x="11"/>
+			<rectangle height="25" x="13" id="Rectangle1" fillColor="white" y="2" width="483.5"/>
+			<rectangle height="71.25" x="239" id="Rectangle2" y="27" width="257.35"/>
+			<rectangle fillColor="white" height="43" x="13" width="226.1" id="Rectangle3" y="27"/>
+			<rectangle fillColor="white" height="29.1" x="13" width="226.1" id="Rectangle4" y="69"/>
 			<label text="INVOICE RECEPTION" id="Label1" x="17.1" font="HelveticaBold" width="220.1" fontSize="18" height="24.1" y="4"/>
 			<label align="center" text="Received From :" width="114.1" height="14.1" x="1" id="Label2" fontSize="11" y="27"/>
 			<label height="14" align="center" fontSize="11" text="Received By :" width="99.5" x="3" id="Label3" y="75"/>
 			<recordBox dataFormat="" height="19" align="center" field="CustName" fontSize="11" id="RecordBox1" x="47" width="190" y="45"/>
-			<label height="16" width="144" align="center" text="Penerima" fontSize="11" id="Label4" x="89" y="73.75"/>
-			<rectangle height="39" id="Rectangle10" x="12" width="62" y="640"/>
-			<rectangle height="39" id="Rectangle11" x="74" width="105" y="640"/>
-			<rectangle height="38.85" width="60.85" id="Rectangle12" x="179" y="640"/>
-			<rectangle height="39" width="81" id="Rectangle13" x="240" y="640"/>
-			<rectangle height="39" width="71" id="Rectangle14" x="321" y="640"/>
-			<rectangle height="39" id="Rectangle15" x="392" width="104.25" y="640"/>
-			<label align="center" fontSize="10" text="Delivered By" id="Label13" height="14.1" x="12" width="61" y="642"/>
-			<label width="103" align="center" fontSize="10" id="Label14" x="74" height="16" text="Delivery Date" y="642.014"/>
-			<label height="12" width="54" align="center" fontSize="10" text="Posted By" id="Label15" x="183" y="642.014"/>
-			<label align="center" fontSize="10" text="GL Code" width="67" height="15" id="Label16" x="246" y="642.014"/>
-			<label width="71" height="12.1" align="center" fontSize="10" text="Posted Date" id="Label17" x="321" y="642.014"/>
-			<label align="center" fontSize="10" text="Recipient Signature" width="103" height="19.1" id="Label18" x="391" y="642.014"/>
-			<subReport id="SubReport1" width="490.35" y="98.25" x="7.5">
+			<label height="16" width="144" align="center" text="Penerima" x="90" fontSize="11" id="Label4" y="74.75"/>
+			<rectangle height="39" id="Rectangle10" x="12" y="673" width="62"/>
+			<rectangle height="39" id="Rectangle11" y="673" x="74" width="105"/>
+			<rectangle height="38.85" width="60.85" id="Rectangle12" x="179" y="673"/>
+			<rectangle height="39" width="81" id="Rectangle13" x="240" y="673"/>
+			<rectangle height="39" width="71" id="Rectangle14" x="321" y="673"/>
+			<rectangle height="39" id="Rectangle15" x="392" width="104.25" y="673"/>
+			<label align="center" fontSize="10" text="Delivered By" id="Label13" height="14.1" y="675" x="12" width="61"/>
+			<label width="103" align="center" fontSize="10" id="Label14" x="74" height="16" y="675" text="Delivery Date"/>
+			<label height="12" width="54" align="center" fontSize="10" text="Posted By" id="Label15" x="183" y="675"/>
+			<label align="center" fontSize="10" text="GL Code" width="67" height="15" id="Label16" x="246" y="674"/>
+			<label width="71" height="12.1" align="center" fontSize="10" text="Posted Date" id="Label17" x="321" y="675"/>
+			<label align="center" fontSize="10" text="Recipient Signature" width="103" height="19.1" id="Label18" x="391" y="674"/>
+			<subReport id="SubReport1" width="490.35" y="98.25" x="8.5">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeInvRec_report_sub1">
 						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
@@ -39,7 +39,7 @@
 					</storedProcedure>
 				</query>
 				<header id="Header2" height="1"/>
-				<detail id="Detail2" autoSplit="true" height="531">
+				<detail id="Detail2" autoSplit="true" height="572">
 					<rectangle height="21" width="62" id="Rectangle5" x="4" y="1" fillColor="white"/>
 					<rectangle height="21" width="104" id="Rectangle6" x="66" y="1" fillColor="white"/>
 					<rectangle height="21" width="61" id="Rectangle7" x="170" y="1" fillColor="white"/>
@@ -50,11 +50,11 @@
 					<label height="11" width="53" align="center" fontSize="10" text="Date" id="Label7" x="175" y="6" font="HelveticaBold"/>
 					<label height="11" width="53" align="center" fontSize="10" text="Amount" id="Label8" x="245" y="6" font="HelveticaBold"/>
 					<label height="11" width="53" align="center" fontSize="10" text="Notes" id="Label9" x="373" y="6" font="HelveticaBold"/>
-					<rectangle id="Rectangle16" x="4" width="62" y="22" height="507.25"/>
-					<rectangle id="Rectangle17" x="66" width="104" y="22" height="507.25"/>
-					<rectangle id="Rectangle18" x="170" width="61" y="22" height="507.25"/>
-					<rectangle id="Rectangle19" x="231" y="22" width="81.6" height="507.1"/>
-					<rectangle id="Rectangle20" y="21.5" x="313" width="174.6" height="507.6"/>
+					<rectangle id="Rectangle16" x="4" width="62" y="22" height="546.25"/>
+					<rectangle id="Rectangle17" x="66" width="104" y="22" height="546.25"/>
+					<rectangle id="Rectangle18" x="170" width="61" y="22" height="546.25"/>
+					<rectangle id="Rectangle19" x="231" y="22" width="81.6" height="546.1"/>
+					<rectangle id="Rectangle20" y="21.5" x="313" width="174.6" height="546.6"/>
 					<label height="18" fontSize="10" id="Label10" y="84" text="Faktur Pajak" x="6" width="59"/>
 					<recordBox dataFormat="" width="95" height="17" fontSize="10" id="RecordBox2" x="70" field="CashRefNo" y="59"/>
 					<label height="15" width="50" text="Invoice" fontSize="10" id="Label11" y="59" x="7"/>
@@ -65,7 +65,7 @@
 					<recordBox dataFormat="" height="17" width="66" field="PPN" fontSize="10" id="RecordBox7" x="240" align="right" y="82"/>
 					<label height="16" text="Surat Jalan" fontSize="10" id="Label12" y="37" width="56" x="6.1"/>
 					<recordBox dataFormat="" height="14" width="96" fontSize="10" id="RecordBox9" x="69" y="38" field="dlvno"/>
-					<subReport id="SubReport2" x="319" width="162" y="49.5">
+					<subReport id="SubReport2" x="319" width="162" y="40.5">
 						<query id="Query3">
 							<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTeInvRec_report_sub2">
 								<parameter name="@hostguid" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
@@ -73,14 +73,14 @@
 							</storedProcedure>
 						</query>
 						<header id="Header3" height="3"/>
-						<detail id="Detail3" autoSplit="true" height="34.5">
+						<detail id="Detail3" autoSplit="true" height="42.5">
 							<recordBox id="RecordBox8" dataFormat="" x="23" width="120.5" field="Notes" y="3.5" align="center" font="HelveticaBold" fontSize="11" height="14"/>
-							<recordBox dataFormat="" x="23" width="120.5" id="RecordBox10" field="description" align="center" fontSize="9" height="13" y="18"/>
+							<recordBox dataFormat="" x="23" width="120.5" id="RecordBox10" field="description" align="center" fontSize="9" height="13" y="17"/>
 						</detail>
 						<footer id="Footer3" height="1"/>
 					</subReport>
 				</detail>
-				<footer id="Footer2" height="1"/>
+				<footer id="Footer2" height="3"/>
 			</subReport>
 		</detail>
 		<footer id="Footer1" height="14.175"/>
