@@ -254,12 +254,14 @@ Public Class cl_base
                     manifest &= cssFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & vbCrLf
                 Next
 
-
+				dim async=""
                 For Each jsFile In doc.SelectNodes("//jsFile")
                     'jsFile.InnerText = (jsFile.InnerText)
                     'contentOfScripts = jsFile.InnerText
                     'str &= "<script type=""text/javascript"" src=""" & jsFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & "?unique=" & Format(lastMod, "yyyyMMddhhmmss") & """></script>" & vbCrLf
-                    str &= "<script type=""text/javascript"" src=""" & jsFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & """></script>" & vbCrLf
+                    If jsFile.OuterXml.IndexOf("async=""true""") > 0 Then async = "async"
+                    
+                        str &= "<script " & async & "type=""text/javascript"" src=""" & jsFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & """></script>" & vbCrLf
                     manifest &= jsFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & vbCrLf
                 Next
                 'Session("manifestCache") = manstr
@@ -1101,6 +1103,43 @@ Public Class cl_base
 
     End Sub
 
+	Sub RegenerateID()
+		Dim manager
+		Dim oldId As String
+		Dim newId As String
+		Dim isRedir As Boolean
+		Dim isAdd As Boolean
+		Dim ctx As HttpApplication
+		Dim mods As HttpModuleCollection
+		Dim ssm As System.Web.SessionState.SessionStateModule
+		Dim fields() As System.Reflection.FieldInfo
+		Dim rqIdField As System.Reflection.FieldInfo
+		Dim rqLockIdField As System.Reflection.FieldInfo
+		Dim rqStateNotFoundField As System.Reflection.FieldInfo
+		Dim store As SessionStateStoreProviderBase
+		Dim field As System.Reflection.FieldInfo
+		Dim lockId
+		manager = New System.Web.SessionState.SessionIDManager
+		oldId = manager.GetSessionID(Context)
+		newId = manager.CreateSessionID(Context)
+		manager.SaveSessionID(Context, newId, isRedir, isAdd)
+		ctx = HttpContext.Current.ApplicationInstance
+		mods = ctx.Modules
+		ssm = CType(mods.Get("Session"), System.Web.SessionState.SessionStateModule)
+		fields = ssm.GetType.GetFields(System.Reflection.BindingFlags.NonPublic Or System.Reflection.BindingFlags.Instance)
+		store = Nothing : rqLockIdField = Nothing : rqIdField = Nothing : rqStateNotFoundField = Nothing
+		For Each field In fields
+			If (field.Name.Equals("_store")) Then store = CType(field.GetValue(ssm), SessionStateStoreProviderBase)
+			If (field.Name.Equals("_rqId")) Then rqIdField = field
+			If (field.Name.Equals("_rqLockId")) Then rqLockIdField = field
+			If (field.Name.Equals("_rqSessionStateNotFound")) Then rqStateNotFoundField = field
+		Next
+		lockId = rqLockIdField.GetValue(ssm)
+		If ((Not IsNothing(lockId)) And (Not IsNothing(oldId))) Then store.ReleaseItemExclusive(Context, oldId, lockId)
+		rqStateNotFoundField.SetValue(ssm, True)
+		rqIdField.SetValue(ssm, newId)
+
+	End Sub
 #End Region
 
     'Private Sub Page_Init(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Init

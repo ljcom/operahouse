@@ -1,5 +1,7 @@
 ﻿Imports System.IO
 Imports System.Net
+Imports System.Xml
+Imports Newtonsoft.Json
 'Imports System.Net
 
 Partial Class OPHCore_API_default
@@ -92,6 +94,25 @@ Partial Class OPHCore_API_default
                     'isSingle = False
                     'xmlstr = getXML(sqlstr, curODBC)
                 End If
+            Case "query"
+                Dim sortOrder = getQueryVar("o")
+                Dim stateid = getQueryVar("s")
+                Dim bpage = getQueryVar("p")
+                Dim searchText = getQueryVar("q")
+
+                If sortOrder = "" Or sortOrder = "," Then sortOrder = ""
+                If stateid = "" Or stateid = "" Or stateid = "," Or stateid = "null" Then
+                    sqlstr = "select c.StateID from modl a inner join msta b on a.ModuleStatusGUID=b.ModuleStatusGUID inner join mstastat c on b.ModuleStatusGUID=c.ModuleStatusGUID and c.isDefault=1 where moduleid='" & code & "'"
+                    stateid = runSQLwithResult(sqlstr, curODBC)
+                End If
+
+                If searchText = "null" Or searchText = "search" Then searchText = ""
+                searchText = searchText.Replace("%2B", "+")
+                If bpage = "" Then bpage = 1
+                If code <> "" Then
+                    sqlstr = "exec [api].[query] '" & curHostGUID & "', '" & code & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", '" & sortOrder & "', '" & stateid & "'"
+                    writeLog("mode query: " & sqlstr)
+                End If
             Case "view", "form"
                 sqlstr = "exec [api].[theme_form] '" & curHostGUID & "', '" & code & "', " & GUID '& ", " & editMode
                 writeLog("mode form : " & sqlstr)
@@ -149,7 +170,7 @@ Partial Class OPHCore_API_default
 
                 xmlstr = runSQLwithResult(sqlstr, curODBC)
 
-                If Not xmlstr.Contains("<sqroot>") and Not xmlstr.Contains("<root>") Then
+                If Not xmlstr.Contains("<sqroot>") And Not xmlstr.Contains("<root>") Then
                     xmlstr = xmlstr.Replace("<root>", "")
                     xmlstr = xmlstr.Replace("</root>", "")
                     xmlstr = xmlstr.Replace("<row>", "")
@@ -175,9 +196,9 @@ Partial Class OPHCore_API_default
                     writeLog("function " & functionName & " : " & sqlstr)
                 Next
                 Dim msg = xmlstr
-				If Not xmlstr.Contains("<sqroot>") and Not xmlstr.Contains("<root>") Then
-					xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
-				end if
+                If Not xmlstr.Contains("<sqroot>") And Not xmlstr.Contains("<root>") Then
+                    xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
+                End If
                 isSingle = False
             Case "talk"
                 Dim comment As String = getQueryVar("comment")
@@ -222,8 +243,9 @@ Partial Class OPHCore_API_default
                     Else
                         sqlstr = "exec gen.uploadChild '" & curHostGUID & "', '" & code & "', '" & ParentGUID & "', '" & fxn & "'"
                     End If
-                    WriteLog(sqlstr)
+                    writeLog(sqlstr)
                     xmlstr = getXML(sqlstr, curODBC)
+                    'JsonConvert.SerializeXmlNode(doc)
                 Next
                 isSingle = False
 
@@ -333,7 +355,7 @@ Partial Class OPHCore_API_default
                 '    Session.Abandon()
             Case Else 'signin
                 Dim bypass = 0
-                Dim userid as string= ""
+                Dim userid As String = ""
                 Dim pwd As String = ""
                 If Request.Form("autologin") = "1" And Request.ServerVariables(5) <> "" Then
                     bypass = 1
@@ -381,7 +403,7 @@ Partial Class OPHCore_API_default
                             sqlstr = "exec dbo.checkToPCSO '" & curHostGUID & "', '" & cartID & "'"
                             Dim xmlstr2 = runSQLwithResult(sqlstr, curODBC)
                         End If
-
+						RegenerateID()			
                     Else
                         If String.IsNullOrWhiteSpace(errorCaptcha) Then
                             xmlstr = "<sqroot><message>Please authorize CAPTCHA!</message></sqroot>"
@@ -391,7 +413,7 @@ Partial Class OPHCore_API_default
                     End If
                     '--!
                     isSingle = False
-
+					
                 End If
         End Select
         If isSingle Then xmlstr = getXML(sqlstr, curODBC)
@@ -405,9 +427,18 @@ Partial Class OPHCore_API_default
         If Not noxml Then
             'If Len(xmlstr) > 50 Then
             If xmlstr <> "" Then
-                Response.ContentType = "text/xml"
-                Response.Write("<?xml version=""1.0"" encoding=""utf-8""?>")
-                Response.Write(xmlstr)
+                Dim type = getQueryVar("type")
+                If type = "json" Then
+                    Dim xmlDoc As New XmlDocument
+                    xmlDoc.LoadXml(xmlstr)
+                    Dim jsonStr = JsonConvert.SerializeXmlNode(xmlDoc)
+                    Response.ContentType = "application/json"
+                    Response.Write(jsonStr)
+                Else
+                    Response.ContentType = "text/xml"
+                    Response.Write("<?xml version=""1.0"" encoding=""utf-8""?>")
+                    Response.Write(xmlstr)
+                End If
             Else
                 writeLog("mode " & mode & " : " & sqlstr)
             End If
