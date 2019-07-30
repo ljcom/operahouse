@@ -14,7 +14,7 @@ function comboSync(elguid, elkey, elname) {
 }
 function jumpTo(hrefstr) {
     var n;
-
+	hrefstr=hrefstr.replace(/[\'\";]/g,'');
     location.href = hrefstr;
 }
 function popTo(hrefstr, isModal, popUpX, popUpY) {
@@ -26,12 +26,14 @@ function popTo(hrefstr, isModal, popUpX, popUpY) {
             var sRtn;
             sRtn = showModalDialog(hrefstr, "", "center=yes;status=no;help=no;dialogWidth=" + popUpX + "px;dialogHeight=" + popUpY + "px");
             if (sRtn[0] == 1) {
+				hrefstr=hrefstr.replace(/[\'\";]/g,'');
                 hrefstr = location.href;
                 if (hrefstr.indexOf('?') == -1) hrefstr += '?';
                 else hrefstr = hrefstr.substr(0, hrefstr.indexOf('?') + 1);
 
                 if (hrefstr.substr(hrefstr.length - 1, 1) != '&' && hrefstr.substr(hrefstr.length - 1, 1) != '?') hrefstr += '&';
                 hrefstr = hrefstr + 'par1=' + sRtn[1] + '&par2=' + sRtn[2] + '&par3=' + sRtn[3];
+				hrefstr=hrefstr.replace(/[\'\";]/g,'');
                 location.href = hrefstr;
             }
         }

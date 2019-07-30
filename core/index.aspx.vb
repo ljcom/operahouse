@@ -23,7 +23,7 @@ Partial Class index
         Dim needLogin As Boolean = False
         Dim loginPage As String = ""
 
-        Dim old = true
+        Dim old = False
         If old Then
             loadAccount(getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
             curHostGUID = Session("hostGUID")
@@ -136,6 +136,7 @@ Partial Class index
 
 
         'Dim GUID = "" 'getQueryVar("GUID") 
+
         WindowOnLoad = "initTheme('" & code.ToLower & "', '" & GUID & "', '" & curHostGUID & "');"
         Response.Cookies("themeFolder").Value = themeFolder
         loadManifest(themeFolder, cdnLocation, isOfflineMode)

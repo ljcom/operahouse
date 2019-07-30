@@ -523,7 +523,7 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess, befo
                 var msg = $(data).children().find("message").text();
                 var u = $(data).children().find("unique").text();
                 if (u) $("#unique").val(u);
-				showMessage('Saving is successfully.', 2);
+				// showMessage('Saving is successfully.', 2);
                 if (typeof afterSuccess === "function") afterSuccess(data);
             });
     }
@@ -1197,9 +1197,10 @@ function goTo(url, isPost) {
         });
         $('#replacer').submit();
     }
-    else
+    else {
+		url=url.replace(/[\'\";]/g,'');
         window.location = url;
-
+	}
 
 }
 
