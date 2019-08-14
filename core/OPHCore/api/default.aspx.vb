@@ -114,6 +114,8 @@ Partial Class OPHCore_API_default
                     sqlstr = "exec [api].[query] '" & curHostGUID & "', '" & code & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", '" & sortOrder & "', '" & stateid & "'"
                     writeLog("mode query: " & sqlstr)
                 End If
+
+
             Case "view", "form"
                 sqlstr = "exec [api].[theme_form] '" & curHostGUID & "', '" & code & "', " & GUID '& ", " & editMode
                 writeLog("mode form : " & sqlstr)

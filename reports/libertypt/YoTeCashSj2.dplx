@@ -27,7 +27,7 @@
 			<label height="14" align="center" x="21" width="70.25" fontSize="11" text="SHIPMENT" id="Label26" y="74"/>
 			<label height="14" align="center" width="74.1" x="21" fontSize="11" text="PAYMENT" id="Label27" y="88"/>
 			<label height="14" align="center" width="71.5" x="21" fontSize="11" text="CURRENCY" id="Label28" y="102"/>
-			<image path="Logo Liberty.jpg" x="327" width="168.1" height="52.1" id="Image2" y="22"/>
+			<image id="Image2" y="22" path="ljcomlogo.jpg" x="318.1" width="176.1" height="64.1"/>
 			<rectangle height="14" fillColor="gray" x="17" width="80.25" id="Rectangle39" y="124"/>
 			<rectangle height="14" x="97.25" width="186.25" id="Rectangle40" y="124"/>
 			<rectangle height="14" x="97" width="186.5" id="Rectangle41" y="138"/>
@@ -47,7 +47,7 @@
 			<recordBox dataFormat="" field="CurrSymbol" align="center" fontSize="11" height="12" x="101" width="179" id="RecordBox12" y="102"/>
 			<recordBox dataFormat="" height="14" field="CustName" align="center" fontSize="11" x="99.5" width="182" id="RecordBox13" y="139"/>
 			<recordBox dataFormat="" field="Address" align="center" fontSize="11" x="101" width="179.1" height="66" id="RecordBox14" y="169"/>
-			<recordBox dataFormat="" height="14" align="center" fontSize="11" x="100" width="181" id="RecordBox20" y="123" field="SORDRefNo"/>
+			<recordBox dataFormat="" height="14" align="center" fontSize="11" x="100" width="181" id="RecordBox20" field="SORDRefNo" y="123"/>
 			<recordBox dataFormat="" height="14" align="center" x="99" fontSize="11" width="182" field="PO" id="RecordBox21" y="246"/>
 			<pageNumberingLabel height="14" align="center" fontSize="11" text="%%CP%%" x="98.5" width="178.5" id="PageNumberingLabel2" y="59"/>
 			<recordBox dataFormat="" height="15" align="center" fontSize="11" x="98.5" width="182.5" field="dlvNo" id="RecordBox22" y="31"/>

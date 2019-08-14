@@ -1,2 +1,131 @@
 <?xml version="1.0"?>
-<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" id="YoBalanceSheet" author="YuniarPu" title="Balance Sheet" subject="LibertyPT" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><report id="Report1" pageSize="a4" bottomMargin="30" leftMargin="30" rightMargin="30" topMargin="30" pageOrientation="landscape"><query id="Query1"><storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoBalanceSheet_header"><parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="startDate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/><parameter name="endDate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/></storedProcedure></query><template id="Template1"/><header id="Header1" height="36.5"><label fontSize="20" font="HelveticaBold" text="Balance Sheet" height="25" width="150" x="0" y="0" id="Label1"/><recordBox dataFormat="" height="14" width="100" y="7" id="RecordBox1" x="151" field="enddate"/></header><detail id="Detail1" autoSplit="true" height="173.5"><subReport id="SubReport1" x="0" y="19" width="348"><query id="Query2"><storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoBalanceSheet_detailA"><parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="startDate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/><parameter name="endDate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/></storedProcedure></query><header id="Header2" height="1.5"/><detail id="Detail2" autoSplit="true" height="130.5"><label x="10" font="HelveticaBold" id="Label4" y="100" text="TOTAL" width="44" height="16.1"/><recordBox dataFormat="" fontSize="11" font="HelveticaBold" align="right" width="100" id="RecordBox10" field="Val" y="100" height="16" x="245"/><recordBox dataFormat="" width="100" field="Name1" y="0" font="HelveticaBold" id="RecordBox3" x="2" height="14.5"/><subReport id="SubReport2" y="17" x="2" width="344.5"><query id="Query3"><storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoBalanceSheet_detail"><parameter name="hostguid" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="startdate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/><parameter name="enddate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/></storedProcedure></query><header id="Header3" height="1"/><detail id="Detail3" autoSplit="true" height="75.5"><recordBox id="RecordBox4" dataFormat="" x="6" y="4" height="18" field="name2" fontSize="11" width="233.5"/><subReport id="SubReport3" y="25" x="0" width="343.5"><query id="Query4"><storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoBalanceSheet_detail2"><parameter name="hostguid" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="startdate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/><parameter name="enddate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/><parameter name="name2" type="nVarChar" value="#name2#"/></storedProcedure></query><header id="Header4" height="1"/><detail id="Detail4" autoSplit="true" height="23"><recordBox id="RecordBox5" dataFormat="" y="4" height="15" field="Name3" x="16" width="193" fontSize="10"/><recordBox dataFormat="" y="4" height="15" fontSize="10" id="RecordBox6" align="right" field="val" x="217" width="95"/></detail><footer id="Footer4" height="1"><recordBox id="RecordBox7" dataFormat="" field="" x="7" y="5" height="16" width="156.5"/><recordBox id="RecordBox8" dataFormat="" field="" x="12" y="5" height="18" width="133"/></footer></subReport><recordBox dataFormat="" height="18" field="name2" fontSize="11" id="RecordBox9" y="54" x="48.5" width="186"/><label id="Label6" y="54" x="7" fontSize="11" text="TOTAL" width="48.5" height="14.5"/><recordBox dataFormat="" height="18" fontSize="11" y="54" id="RecordBox11" width="101.5" align="right" field="val" x="241"/></detail><footer id="Footer3" height="1"/></subReport><recordBox id="RecordBox12" dataFormat="" x="53" height="16.5" field="Name1" y="100.5" font="HelveticaBold" width="186.1"/></detail><footer id="Footer2" height="1"/></subReport><subReport y="19" width="348" id="SubReport4" x="404"><query id="Query5"><storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoBalanceSheet_detailB"><parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="startDate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/><parameter name="endDate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/></storedProcedure></query><header height="1.5" id="Header5"/><detail autoSplit="true" height="130.5" id="Detail7"><label x="10" font="HelveticaBold" y="100" text="TOTAL" width="44" height="16.1" id="Label5"/><recordBox dataFormat="" fontSize="11" font="HelveticaBold" align="right" width="100" field="Val" y="100" height="16" id="RecordBox13" x="244"/><recordBox dataFormat="" width="100" field="Name1" y="0" font="HelveticaBold" x="2" height="14.5" id="RecordBox14"/><subReport y="17" x="2" width="344.5" id="SubReport5"><query id="Query6"><storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoBalanceSheet_detail3"><parameter name="hostguid" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="startdate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/><parameter name="enddate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/></storedProcedure></query><header height="1" id="Header6"/><detail autoSplit="true" height="75.5" id="Detail6"><recordBox dataFormat="" x="6" y="4" height="18" field="name2" fontSize="11" id="RecordBox15" width="201.1"/><subReport y="25" x="0" width="343.5" id="SubReport6"><query id="Query7"><storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoBalanceSheet_detail4"><parameter name="hostguid" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="startdate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/><parameter name="enddate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/><parameter name="name2" type="nVarChar" value="#name2#"/></storedProcedure></query><header height="1" id="Header7"/><detail autoSplit="true" height="23" id="Detail5"><recordBox dataFormat="" y="4" height="15" field="Name3" x="16" width="193" fontSize="10" id="RecordBox16"/><recordBox dataFormat="" y="4" height="15" fontSize="10" align="right" field="val" x="217" width="95" id="RecordBox17"/></detail><footer height="1" id="Footer5"><recordBox dataFormat="" field="" x="7" y="5" height="16" width="156.5" id="RecordBox19"/><recordBox dataFormat="" field="" x="12" y="5" height="18" width="133" id="RecordBox20"/></footer></subReport><recordBox dataFormat="" height="18" field="name2" fontSize="11" y="54" x="48.5" id="RecordBox21" width="188.5"/><label y="54" x="7" fontSize="11" text="TOTAL" width="48.5" height="14.5" id="Label7"/><recordBox dataFormat="" height="18" fontSize="11" y="54" width="101.5" align="right" field="val" id="RecordBox22" x="241"/></detail><footer height="1" id="Footer6"/></subReport><recordBox dataFormat="" x="53" height="16.5" field="Name1" y="100.5" font="HelveticaBold" id="RecordBox23" width="187.6"/></detail><footer height="1" id="Footer7"/></subReport></detail><footer id="Footer1" height="1"><pageNumberingLabel align="right" height="14" y="1" text="Page %%CP%% of %%TP%%" width="200" id="PageNumberingLabel1" fontSize="10" x="551"/><recordBox dataFormat="" field="" height="14" width="150" id="RecordBox18" x="5" fontSize="10" y="1.5"/></footer></report></document>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" id="YoBalanceSheet" author="YuniarPu" title="Balance Sheet" subject="LibertyPT" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageSize="a4" bottomMargin="30" leftMargin="30" rightMargin="30" topMargin="30">
+		<query id="Query1">
+			<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoBalanceSheet_header">
+				<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="startDate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/>
+				<parameter name="endDate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="36.5">
+			<label fontSize="20" font="HelveticaBold" text="Balance Sheet" height="25" width="150" x="0" y="0" id="Label1"/>
+			<recordBox dataFormat="" height="14" width="100" y="7" id="RecordBox1" x="151" field="enddate"/>
+		</header>
+		<detail id="Detail1" autoSplit="true" height="349">
+			<subReport id="SubReport1" x="0" y="19" width="348">
+				<query id="Query2">
+					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoBalanceSheet_detailA">
+						<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+						<parameter name="startDate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/>
+						<parameter name="endDate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header id="Header2" height="1.5"/>
+				<detail id="Detail2" autoSplit="true" height="130.5">
+					<label x="10" font="HelveticaBold" id="Label4" y="100" text="TOTAL" width="44" height="16.1"/>
+					<recordBox dataFormat="" fontSize="11" font="HelveticaBold" align="right" width="100" id="RecordBox10" field="Val" y="100" height="16" x="245"/>
+					<recordBox dataFormat="" width="100" field="Name1" y="0" font="HelveticaBold" id="RecordBox3" x="2" height="14.5"/>
+					<subReport id="SubReport2" y="17" x="2" width="344.5">
+						<query id="Query3">
+							<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoBalanceSheet_detail">
+								<parameter name="hostguid" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+								<parameter name="startdate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/>
+								<parameter name="enddate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/>
+							</storedProcedure>
+						</query>
+						<header id="Header3" height="1"/>
+						<detail id="Detail3" autoSplit="true" height="75.5">
+							<recordBox id="RecordBox4" dataFormat="" x="6" y="4" height="18" field="name2" fontSize="11" width="233.5"/>
+							<subReport id="SubReport3" y="25" x="0" width="343.5">
+								<query id="Query4">
+									<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoBalanceSheet_detail2">
+										<parameter name="hostguid" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+										<parameter name="startdate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/>
+										<parameter name="enddate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/>
+										<parameter name="name2" type="nVarChar" value="#name2#"/>
+									</storedProcedure>
+								</query>
+								<header id="Header4" height="1"/>
+								<detail id="Detail4" autoSplit="true" height="23">
+									<recordBox id="RecordBox5" dataFormat="" y="4" height="15" field="Name3" x="16" width="193" fontSize="10"/>
+									<recordBox dataFormat="" y="4" height="15" fontSize="10" id="RecordBox6" align="right" field="val" x="217" width="95"/>
+								</detail>
+								<footer id="Footer4" height="1">
+									<recordBox id="RecordBox7" dataFormat="" field="" x="7" y="5" height="16" width="156.5"/>
+									<recordBox id="RecordBox8" dataFormat="" field="" x="12" y="5" height="18" width="133"/>
+								</footer>
+							</subReport>
+							<recordBox dataFormat="" height="18" field="name2" fontSize="11" id="RecordBox9" y="54" x="48.5" width="186"/>
+							<label id="Label6" y="54" x="7" fontSize="11" text="TOTAL" width="48.5" height="14.5"/>
+							<recordBox dataFormat="" height="18" fontSize="11" y="54" id="RecordBox11" width="101.5" align="right" field="val" x="241"/>
+						</detail>
+						<footer id="Footer3" height="1"/>
+					</subReport>
+					<recordBox id="RecordBox12" dataFormat="" x="53" height="16.5" field="Name1" y="100.5" font="HelveticaBold" width="186.1"/>
+				</detail>
+				<footer id="Footer2" height="1"/>
+			</subReport>
+			<subReport width="348" id="SubReport4" x="0" y="176">
+				<query id="Query5">
+					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoBalanceSheet_detailB">
+						<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+						<parameter name="startDate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/>
+						<parameter name="endDate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header height="1.5" id="Header5"/>
+				<detail autoSplit="true" height="130.5" id="Detail7">
+					<label x="10" font="HelveticaBold" y="100" text="TOTAL" width="44" height="16.1" id="Label5"/>
+					<recordBox dataFormat="" fontSize="11" font="HelveticaBold" align="right" width="100" field="Val" y="100" height="16" id="RecordBox13" x="244"/>
+					<recordBox dataFormat="" width="100" field="Name1" y="0" font="HelveticaBold" x="2" height="14.5" id="RecordBox14"/>
+					<subReport y="17" x="2" width="344.5" id="SubReport5">
+						<query id="Query6">
+							<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoBalanceSheet_detail3">
+								<parameter name="hostguid" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+								<parameter name="startdate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/>
+								<parameter name="enddate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/>
+							</storedProcedure>
+						</query>
+						<header height="1" id="Header6"/>
+						<detail autoSplit="true" height="75.5" id="Detail6">
+							<recordBox dataFormat="" x="6" y="4" height="18" field="name2" fontSize="11" id="RecordBox15" width="201.1"/>
+							<subReport y="25" x="0" width="343.5" id="SubReport6">
+								<query id="Query7">
+									<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoBalanceSheet_detail4">
+										<parameter name="hostguid" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+										<parameter name="startdate" type="dateTime" value="#Parameters[&quot;startdate&quot;]#"/>
+										<parameter name="enddate" type="dateTime" value="#Parameters[&quot;enddate&quot;]#"/>
+										<parameter name="name2" type="nVarChar" value="#name2#"/>
+									</storedProcedure>
+								</query>
+								<header height="1" id="Header7"/>
+								<detail autoSplit="true" height="23" id="Detail5">
+									<recordBox dataFormat="" y="4" height="15" field="Name3" x="16" width="193" fontSize="10" id="RecordBox16"/>
+									<recordBox dataFormat="" y="4" height="15" fontSize="10" align="right" field="val" x="217" width="95" id="RecordBox17"/>
+								</detail>
+								<footer height="1" id="Footer5">
+									<recordBox dataFormat="" field="" x="7" y="5" height="16" width="156.5" id="RecordBox19"/>
+									<recordBox dataFormat="" field="" x="12" y="5" height="18" width="133" id="RecordBox20"/>
+								</footer>
+							</subReport>
+							<recordBox dataFormat="" height="18" field="name2" fontSize="11" y="54" x="48.5" id="RecordBox21" width="188.5"/>
+							<label y="54" x="7" fontSize="11" text="TOTAL" width="48.5" height="14.5" id="Label7"/>
+							<recordBox dataFormat="" height="18" fontSize="11" y="54" width="101.5" align="right" field="val" id="RecordBox22" x="241"/>
+						</detail>
+						<footer height="1" id="Footer6"/>
+					</subReport>
+					<recordBox dataFormat="" x="53" height="16.5" field="Name1" y="100.5" font="HelveticaBold" id="RecordBox23" width="187.6"/>
+				</detail>
+				<footer height="1" id="Footer7"/>
+			</subReport>
+			<label id="Label2" height="17" width="144.5" text="Moveable Profit/Loss" font="HelveticaBold" x="3.5" y="325"/>
+			<recordBox id="RecordBox2" dataFormat="" width="117" x="229" field="totalval" y="325" height="17.5" align="right"/>
+		</detail>
+		<footer id="Footer1" height="1">
+			<pageNumberingLabel align="right" height="14" y="1" text="Page %%CP%% of %%TP%%" width="200" id="PageNumberingLabel1" fontSize="10" x="551"/>
+			<recordBox dataFormat="" field="" height="14" width="150" id="RecordBox18" x="5" fontSize="10" y="1.5"/>
+		</footer>
+	</report>
+</document>

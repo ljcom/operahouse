@@ -17,6 +17,7 @@
     </script>
 </head>
 <body style="background-color:#ECF0F5;" class="">
+
 	<div id="loader"></div>
     <div class="wrapper animate-bottom" id="frameMaster"></div>
     <%--    <form id="ophForm" method="post" runat="server">
