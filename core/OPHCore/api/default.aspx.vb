@@ -69,6 +69,7 @@ Partial Class OPHCore_API_default
                 Dim sortOrder = getQueryVar("sortOrder")
                 Dim stateid = getQueryVar("stateid")
                 Dim bpage = getQueryVar("bPageNo")
+                Dim nbRows = getQueryVar("bRows")
                 Dim searchText = getQueryVar("bSearchText")
 
                 If sortOrder = "" Or sortOrder = "," Then sortOrder = ""
@@ -81,7 +82,7 @@ Partial Class OPHCore_API_default
                 searchText = searchText.Replace("%2B", "+")
                 If bpage = "" Then bpage = 1
                 If code <> "" Then
-                    Dim rpp = IIf(code.Length() > 6 And String.IsNullOrWhiteSpace(sqlfilter) = False, 10, 20)
+                    Dim rpp = iif(nbRows<>"", nbRows, IIf(code.Length() > 6 And String.IsNullOrWhiteSpace(sqlfilter) = False, 10, 20))
 
                     'add showpage untuk frontend
                     Dim showpage = getQueryVar("showpage")

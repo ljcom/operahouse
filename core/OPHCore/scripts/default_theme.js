@@ -150,7 +150,8 @@ function getUnique() {
 function loadContent(nbpage, f) {
     var xmldoc;
     var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
-
+	var rows = getQueryVariable('brows');
+	
     //main content
     if (lastCode() !== getCode()) {
         setCookie('sqlFilter', "", 0, 0, 0);
@@ -160,7 +161,7 @@ function loadContent(nbpage, f) {
     if (getCode().toLowerCase() === 'dumy')
         xmldoc = 'OPHContent/themes/' + loadThemeFolder() + '/sample.xml';
     else
-        xmldoc = 'OPHCore/api/default.aspx?mode=' + getMode() + '&code=' + getCode() + '&GUID=' + getGUID() + '&stateid=' + getState() + '&bPageNo=' + nbpage + '&bSearchText=' + getSearchText() + '&sqlFilter=' + getFilter() + '&sortOrder=' + getOrder() + unique;
+        xmldoc = 'OPHCore/api/default.aspx?mode=' + getMode() + '&code=' + getCode() + '&GUID=' + getGUID() + '&stateid=' + getState() + '&bPageNo=' + nbpage + '&bRows=' + rows + '&bSearchText=' + getSearchText() + '&sqlFilter=' + getFilter() + '&sortOrder=' + getOrder() + unique;
 
     var view = '_' + getCookie(getCode() + '_view');
     if (view == undefined || view == '_' || view == '_null') view = '';
