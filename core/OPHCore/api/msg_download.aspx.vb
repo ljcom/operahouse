@@ -12,6 +12,8 @@ Partial Class OPHCore_api_msg_download
         Dim curODBC = contentOfdbODBC
         Dim curHostGUID = Session("hostGUID")
         Dim curUserGUID = Session("userGUID")
+		
+		if getQueryVar("hostguid")<>"" then curHostGUID=getQueryVar("hostguid")		
 
         Dim tGUID As String = getQueryVar("GUID")
         Dim code As String = getQueryVar("code")

@@ -27,6 +27,10 @@ Partial Class OPHCore_api_msg_rptDialog
         Else
             curHostGUID = "'" & curHostGUID & "'"
         End If
+		
+		if getQueryVar("hostguid")<>"" then curHostGUID=getQueryVar("hostguid")		
+
+		
         'If getQueryVar("code") Is Nothing Then
         'SignOff()
         'Response.Write("<script>" & contentofSignOff & "</script>")

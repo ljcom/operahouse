@@ -18,6 +18,8 @@ Partial Class OPHCore_api_msg_autosuggest
         loadAccount()
         Dim curHostGUID = Session("hostGUID")
         Dim curUserGUID = Session("userGUID")
+		
+		if getQueryVar("hostguid")<>"" then curHostGUID=getQueryVar("hostguid")
 
         'Dim wf1 = getQueryVar("wf1")
         Dim wf1value = getQueryVar("wf1value")
@@ -68,7 +70,7 @@ Partial Class OPHCore_api_msg_autosuggest
 
                 Else
                     'json = "{""results"": {""id""=""1"",""text""=""No Result Found"",""name""=""No Result Found""},""more"": false}"
-                    json = "[{""id""=""1"",""name""=""No Result Found""}]"
+                    json = "[{""id"":""1"",""name"":""No Result Found""}]"
                 End If
             Else
                 Dim OptionList As New List(Of opti)
@@ -99,7 +101,7 @@ Partial Class OPHCore_api_msg_autosuggest
 
                 Else
                     'json = "{""results"": {""id""=""1"",""text""=""No Result Found"",""name""=""No Result Found""},""more"": false}"
-                    json = "[{""id""=""1"",""text""=""No Result Found""}]"
+                    json = "[{""id"":""1"",""text"":""No Result Found""}]"
                 End If
             End If
 
