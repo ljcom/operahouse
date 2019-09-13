@@ -151,7 +151,7 @@ function loadContent(nbpage, f) {
     var xmldoc;
     var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
 	var rows = getQueryVariable('brows');
-	
+	if (rows == undefined) rows ='20'
     //main content
     if (lastCode() !== getCode()) {
         setCookie('sqlFilter', "", 0, 0, 0);
