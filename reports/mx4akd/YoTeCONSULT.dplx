@@ -33,7 +33,7 @@
 			<recordBox id="RecordBox11" dataFormat="" width="100" y="90" field="DocDate" height="12.5" x="356.5"/>
 			<label id="Label3" x="204" width="100" font="HelveticaBold" text="IGD" align="center" height="19" y="66"/>
 			<label id="Label5" align="right" text="Dokter :" height="12.5" y="108" width="72" x="18"/>
-			<label id="Label1" font="HelveticaBold" align="center" x="114" width="289" fontSize="16" height="22" y="5.1" text="APOTEK DESA"/>
+			<label id="Label1" font="HelveticaBold" align="center" x="114" width="289" fontSize="16" height="22" y="5.1" text="APOTEK KLINIK DESA"/>
 			<subReport width="481" y="326" id="SubReport1" x="4.1">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeConsult_report_sub1">
@@ -44,12 +44,12 @@
 				<header height="5" id="Header2"/>
 				<detail id="Detail2" height="98">
 					<label text="R /" font="HelveticaBold" height="18.5" x="12" y="6" width="18.5" id="Label14"/>
-					<recordBox dataFormat="" field="Qty" height="18.5" width="24.5" x="449.5" y="6" id="RecordBox12"/>
+					<recordBox dataFormat="" field="Qty" height="18.5" y="6" id="RecordBox12" width="20" x="460"/>
 					<recordBox dataFormat="" field="Unit" x="42" id="RecordBox13" height="31.5" y="6" width="72.5"/>
-					<recordBox dataFormat="" field="SKUName" y="6" id="RecordBox14" x="126" width="315.5" height="49.5"/>
-					<recordBox dataFormat="" height="14" x="42.5" width="198" field="Notes" id="RecordBox15" y="65"/>
+					<recordBox dataFormat="" field="SKUName" y="6" id="RecordBox14" x="126" height="49.5" width="306"/>
+					<recordBox dataFormat="" height="14" width="198" field="Notes" id="RecordBox15" y="65" x="59.5"/>
 					<line x1="42.5" x2="475" id="Line1" y1="84" y2="84.5"/>
-				</detail>
+					<label id="Label27" height="14" font="HelveticaBold" text="S" align="center" y="65" width="13.5" x="43"/><label id="Label28" align="center" font="HelveticaBold" text="No" width="22" x="435" y="6" height="18.5"/></detail>
 				<footer height="2" id="Footer2"/>
 			</subReport>
 			<line x1="16" x2="477.5" id="Line2" y1="450" y2="450"/>

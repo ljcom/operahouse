@@ -8,7 +8,7 @@
 			</storedProcedure>
 		</query>
 		<template id="Template1"/>
-		<header id="Header1" height="278.175">
+		<header id="Header1" height="264.175">
 			<label font="HelveticaBold" text="DELIVERY NOTE" x="17" id="Label23" fontSize="14" width="148.1" y="8" height="20.1"/>
 			<rectangle height="14" fillColor="gray" x="16" width="80.25" id="Rectangle26" y="31"/>
 			<rectangle height="14" x="96.25" width="186.75" id="Rectangle27" y="31"/>
@@ -55,10 +55,10 @@
 			<rectangle height="14" x="96.25" width="186.75" id="Rectangle49" y="87"/>
 			<recordBox dataFormat="" height="13" align="center" field="TopName" fontSize="11" x="99" width="180.1" id="RecordBox23" y="87"/>
 		</header>
-		<detail id="Detail1" height="479" autoSplit="true">
-			<label height="14" width="9.1" text=")" id="Label19" x="120" y="444"/>
-			<label height="14" text="(" width="9.1" id="Label20" x="21" y="444"/>
-			<recordBox id="RecordBox7" dataFormat="" height="12" width="89" align="center" field="CustName" fontSize="11" font="HelveticaBold" x="28" y="446"/>
+		<detail id="Detail1" height="536" autoSplit="true">
+			<label height="14" width="9.1" text=")" id="Label19" x="120" y="500"/>
+			<label height="14" text="(" width="9.1" id="Label20" x="21" y="500"/>
+			<recordBox id="RecordBox7" dataFormat="" height="12" width="89" align="center" field="CustName" fontSize="11" font="HelveticaBold" x="28" y="502"/>
 			<subReport width="490.1" id="SubReport1" x="5.75" y="3.5">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCashSj1_report">
@@ -66,7 +66,7 @@
 						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
 					</storedProcedure>
 				</query>
-				<header id="Header2" height="30.5">
+				<header id="Header2" height="27.5">
 					<rectangle height="25" y="4" fillColor="gray" x="4" width="23.1" id="Rectangle22"/>
 					<rectangle height="25" y="4" fillColor="gray" x="27.1" id="Rectangle23" width="106.1"/>
 					<label height="14" text="NO" y="9" fontSize="11" align="center" x="6" width="20" id="Label13"/>
@@ -77,41 +77,39 @@
 					<line cap="rounded" y1="27.5" y2="46.5" x1="27" x2="27" id="Line2"/>
 					<line cap="rounded" y1="27.5" y2="46.5" x1="488" x2="488" id="Line4"/>
 				</header>
-				<detail id="Detail2" height="236" autoSplit="true">
-					<line x1="27" id="Line6" y1="-1" x2="27" y2="233.5"/>
-					<line y1="-1" id="Line5" x1="4" x2="4" y2="233"/>
-					<line id="Line7" y1="-1" x1="133" x2="133" y2="233"/>
-					<line id="Line8" y1="-1" x1="488" x2="488" y2="233"/>
-					<subReport id="SubReport2" width="488" x="3.75" y="7.25">
-						<query id="Query3">
-							<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTeCashSj1_report_sub1">
-								<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
-								<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
-							</storedProcedure>
-						</query>
-						<header id="Header3" height="3"/>
-						<detail id="Detail3" autoSplit="true" height="31.5">
-							<recordBox id="RecordBox16" dataFormat="" height="14" fontSize="11" width="23" align="center" x="1" y="8" field="number"/>
-							<recordBox dataFormat="" height="14" y="7" fontSize="11" width="23" align="center" id="RecordBox17" field="Qty" x="62"/>
-							<recordBox dataFormat="" height="14" fontSize="11" align="center" id="RecordBox18" field="SKUName" font="HelveticaBold" y="3" x="149" width="316"/>
-							<recordBox dataFormat="" align="center" id="RecordBox19" field="Description" fontSize="9" height="11" y="17" x="150.1" width="312"/>
-						</detail>
-						<footer id="Footer3" height="3"/>
-					</subReport>
-					<line id="Line13" x2="487" x1="3.5" y1="234" y2="234"/>
+				<detail id="Detail2" height="1">
 				</detail>
 				<footer id="Footer2" height="1">
 				</footer>
 			</subReport>
-			<label height="14" width="9.1" text=")" id="Label18" x="464.5" y="444"/>
-			<recordBox dataFormat="" height="12" align="center" fontSize="11" id="RecordBox15" field="signby" font="HelveticaBold" width="120.1" x="340.5" y="446"/>
-			<label height="14" text="(" width="9.1" id="Label21" x="333" y="444"/>
-			<contentGroup id="ContentGroup1" width="501" height="63.1" x="0" y="277">
+			<label height="14" width="9.1" text=")" id="Label18" x="464.5" y="500"/>
+			<recordBox dataFormat="" height="12" align="center" fontSize="11" id="RecordBox15" field="signby" font="HelveticaBold" width="120.1" x="340.5" y="502"/>
+			<label height="14" text="(" width="9.1" id="Label21" x="333" y="500"/>
+			<contentGroup id="ContentGroup1" width="501" height="63.1" x="-1" y="385">
 				<rectangle id="Rectangle28" height="51" x="7" fillColor="gray" y="5" width="133.1"/>
 				<rectangle height="51" id="Rectangle29" y="5" x="140.1" width="354"/>
-				<recordBox dataFormat="" fontSize="11" field="Notes" id="RecordBox9" height="44" y="10" x="145.1" width="363"/>
+				<recordBox dataFormat="" fontSize="11" field="Notes" id="RecordBox9" height="44" width="363" x="145.1" y="10"/>
 				<label id="Label17" height="14" fontSize="11" text="Notes" align="center" y="23" x="10" width="128"/>
 			</contentGroup>
+			<subReport id="SubReport2" x="4" y="28" width="488.1">
+				<query id="Query3">
+					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTeCashSj1_report_sub1">
+						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header id="Header3" height="1"/>
+				<detail id="Detail3" height="344">
+					<recordBox id="RecordBox1" dataFormat="" height="14" field="number" width="27" x="6" y="11"/>
+					<recordBox id="RecordBox2" dataFormat="" x="60" y="10" height="14" field="Qty" width="25"/>
+					<recordBox dataFormat="" height="14" id="RecordBox3" x="149" width="304" field="SkuName" y="3" align="center"/>
+					<recordBox dataFormat="" height="14" x="149" width="304" id="RecordBox4" y="17" field="Description" align="center"/>
+					<rectangle id="Rectangle1" width="26" x="6" y="5" height="335.1"/>
+					<rectangle y="5" height="335.1" id="Rectangle2" x="32" width="112"/>
+					<rectangle y="5" height="335.1" id="Rectangle3" x="144" width="342.1"/>
+				</detail>
+				<footer id="Footer3" height="1"/>
+			</subReport>
 		</detail>
 		<footer id="Footer1" height="1">
 		</footer>

@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageSize="a4" bottomMargin="0" topMargin="5.67">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" name="doc.YoTeCashSj1_report" connectionString="#Global.AppSettings[&quot;connection&quot;]#">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1">
+			<rectangle id="Rectangle4" y="252" height="411.1" x="6.1" width="23.25"/>
+			<rectangle id="Rectangle5" height="411.1" y="252" x="28.1" width="60.1"/>
+			<rectangle id="Rectangle6" height="411.1" y="252" x="89" width="355.1"/>
+		</template>
+		<header id="Header1" height="268.925">
+			<label font="HelveticaBold" text="DELIVERY NOTE" id="Label23" fontSize="14" width="148.1" height="20.1" x="10" y="8"/>
+			<rectangle fillColor="gray" id="Rectangle26" y="31" height="12" x="9" width="60"/>
+			<rectangle id="Rectangle27" y="31" height="12" width="153" x="69"/>
+			<rectangle id="Rectangle30" height="12" width="153" y="43" x="69"/>
+			<rectangle fillColor="gray" id="Rectangle31" height="12" x="9" width="60" y="43"/>
+			<rectangle fillColor="gray" id="Rectangle32" height="12" x="9" width="60" y="55"/>
+			<rectangle id="Rectangle33" height="12" width="153" y="55" x="69"/>
+			<rectangle fillColor="gray" id="Rectangle34" height="12" x="9" width="60" y="67"/>
+			<rectangle id="Rectangle35" width="153" height="12" x="69" y="67"/>
+			<rectangle fillColor="gray" id="Rectangle36" height="12" x="9" width="60" y="79"/>
+			<rectangle fillColor="gray" id="Rectangle37" height="12" x="9" width="60" y="91"/>
+			<rectangle id="Rectangle38" height="12" width="153" x="69" y="91"/>
+			<label align="center" id="Label22" height="10.1" text="DELIVERY NO :" fontSize="8" y="32.25" width="58.25" x="10.1"/>
+			<label align="center" id="Label24" height="12" text="DATE :" x="9" fontSize="8" width="60" y="43"/>
+			<label align="center" id="Label25" height="11.5" text="PAGE :" fontSize="8" width="60" x="9" y="55"/>
+			<label align="center" id="Label26" height="10" text="SHIPMENT :" fontSize="8" width="60" x="9" y="68.25"/>
+			<label align="center" id="Label27" height="11.5" text="PAYMENT :" fontSize="8" width="60" x="9" y="80"/>
+			<label align="center" id="Label28" height="12" text="CURRENCY :" fontSize="8" width="60" x="9" y="91"/>
+			<image id="Image2" y="23" x="315.1" path="Logo Liberty.jpg" width="160.1" height="49.1"/>
+			<rectangle fillColor="gray" id="Rectangle39" height="12" x="9" width="60" y="107"/>
+			<rectangle id="Rectangle40" height="12" width="153" x="69" y="107"/>
+			<rectangle id="Rectangle41" height="12" width="153" x="69" y="119"/>
+			<rectangle fillColor="gray" id="Rectangle42" height="12" x="9" width="60" y="119"/>
+			<rectangle fillColor="gray" id="Rectangle43" height="12" x="9" width="60" y="131"/>
+			<rectangle id="Rectangle44" height="12" width="153" x="69" y="131"/>
+			<rectangle fillColor="gray" height="74" id="Rectangle45" x="9" width="60" y="143"/>
+			<rectangle height="74" id="Rectangle46" width="153" x="69" y="143"/>
+			<rectangle fillColor="gray" id="Rectangle47" height="12" width="60" x="9" y="222"/>
+			<rectangle id="Rectangle48" height="12" width="153" x="69" y="222"/>
+			<label align="center" id="Label29" height="10.1" fontSize="8" text="Quotation No :" width="60" x="9" y="107"/>
+			<label align="center" id="Label30" height="11" x="8.5" fontSize="8" text="SOLD TO :" width="60" y="119.5"/>
+			<label align="center" id="Label31" height="12" fontSize="8" text="ATTN :" width="60" x="9" y="131.5"/>
+			<label align="center" height="14" id="Label32" fontSize="8" text="ADDRESS :" width="60" x="8.75" y="145"/>
+			<label align="center" text="PO NO" id="Label33" fontSize="9" height="11.5" width="60" x="8.75" y="222.5"/>
+			<recordBox dataFormat="" field="CASHdate" align="center" id="RecordBox8" height="9.1" fontSize="8" width="153" x="68.85" y="44.5"/>
+			<recordBox dataFormat="" field="CurrSymbol" align="center" height="12" id="RecordBox12" fontSize="8" width="153" x="69.25" y="91.5"/>
+			<recordBox dataFormat="" field="CustName" align="center" id="RecordBox13" height="11" fontSize="8" width="153" x="69.5" y="119.5"/>
+			<recordBox dataFormat="" field="Address" align="center" height="66" id="RecordBox14" fontSize="8" y="145.25" width="153" x="69.5"/>
+			<recordBox dataFormat="" align="center" id="RecordBox20" field="SORDRefNo" height="11" fontSize="8" width="153" x="69.5" y="107.75"/>
+			<recordBox dataFormat="" align="center" field="PO" id="RecordBox21" fontSize="9" height="11.5" width="153" x="68.25" y="221.75"/>
+			<pageNumberingLabel align="center" text="%%CP%%" id="PageNumberingLabel2" fontSize="8" height="10.5" x="70" y="55.5" width="150.1"/>
+			<recordBox dataFormat="" align="center" field="dlvNo" id="RecordBox22" height="10.5" fontSize="8" width="153" x="69.5" y="32"/>
+			<label align="center" text="Penerima" id="Label34" height="11.5" fontSize="8" width="153" x="69.25" y="131.25"/>
+			<rectangle id="Rectangle49" height="12" width="153" x="69" y="79"/>
+			<recordBox dataFormat="" align="center" field="TopName" id="RecordBox23" height="10.5" fontSize="8" width="153" x="68.5" y="79.5"/>
+			<rectangle fillColor="gray" height="16.5" width="22.85" id="Rectangle1" y="252" x="6"/>
+			<rectangle fillColor="gray" width="60" height="16.5" id="Rectangle2" y="252" x="28.85"/>
+			<label text="NO" align="center" fontSize="9" height="13" width="22.25" id="Label1" y="254" x="6"/>
+			<rectangle fillColor="gray" height="16.5" id="Rectangle3" y="252" x="89" width="355.1"/>
+			<label text="Qty" align="center" fontSize="9" width="57.1" height="11.1" id="Label2" y="254" x="31"/>
+			<label text="DESCRIPTION" align="center" width="343.5" fontSize="9" height="12.5" id="Label3" y="254" x="93.5"/>
+		</header>
+		<detail id="Detail1" autoSplit="true" height="529">
+			<label height="14" width="9.1" text=")" id="Label19" x="104" y="491"/>
+			<label height="14" text="(" width="9.1" id="Label20" x="5" y="491"/>
+			<recordBox id="RecordBox7" dataFormat="" height="12" width="89" align="center" field="CustName" font="HelveticaBold" fontSize="9" x="12" y="493"/>
+			<label height="14" width="9.1" text=")" id="Label18" x="440.5" y="491"/>
+			<recordBox dataFormat="" height="12" align="center" id="RecordBox15" field="signby" font="HelveticaBold" width="120.1" fontSize="9" x="316.5" y="493"/>
+			<label height="14" text="(" width="9.1" id="Label21" x="309" y="491"/>
+			<contentGroup id="ContentGroup1" width="455.1" height="40.1" x="-3" y="396">
+				<recordBox dataFormat="" field="Notes" id="RecordBox9" fontSize="9" height="29.5" x="94.6" width="346.6" y="5.1"/>
+				<rectangle id="Rectangle29" y="3" height="33" x="91.1" width="355.5"/>
+				<rectangle id="Rectangle28" x="7" fillColor="gray" y="3" height="33.1" width="84.1"/>
+				<label id="Label17" height="14" align="center" x="10" fontSize="9" y="13" width="71.1" text="Notes :"/>
+			</contentGroup>
+			<subReport id="SubReport1" x="4" y="0" width="440.1">
+				<query id="Query2">
+					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTeCashSj1_report_sub1">
+						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header id="Header2" height="1"/>
+				<detail id="Detail2" height="35">
+					<recordBox id="RecordBox1" dataFormat="" height="14" x="5" y="6" fontSize="8" field="number" align="center" width="22.1"/>
+					<recordBox dataFormat="" height="14" y="6" fontSize="8" align="center" id="RecordBox2" x="33" width="48.1" field="Qty"/>
+					<recordBox dataFormat="" height="14" fontSize="8" align="center" id="RecordBox3" x="93" field="SkuName" font="TimesBold" y="7" width="339.1"/>
+					<recordBox dataFormat="" height="14" fontSize="8" align="center" x="93" id="RecordBox4" y="18" field="Description" width="338.1"/>
+				</detail>
+				<footer id="Footer2" height="3"/>
+			</subReport>
+		</detail>
+		<footer id="Footer1" height="1">
+		</footer>
+	</report>
+</document>

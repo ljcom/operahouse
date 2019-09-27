@@ -10,7 +10,7 @@
 		<template id="Template1"/>
 		<header id="Header1"/>
 		<detail id="Detail1" height="755.011">
-			<label id="Label1" font="HelveticaBold" align="center" width="289" fontSize="16" height="22" text="APOTEK DESA" y="6.1" x="110"/>
+			<label id="Label1" font="HelveticaBold" align="center" width="289" fontSize="16" height="22" y="6.1" x="110" text="APOTEK KLINIK DESA"/>
 			<label id="Label2" align="center" fontSize="10" x="115" width="290" y="30" height="37" text="JL. Bangbarung Raya/H.Achmad Sobana&#xA; No.39, Bogor&#xA;Telp : (0251) 8348386"/>
 			<label id="Label3" x="204" width="100" font="HelveticaBold" text="IGD" align="center" height="19" y="66"/>
 			<label id="Label4" height="12.5" align="right" width="70.5" text="No. Resep :" x="19.5" y="116"/>
@@ -44,13 +44,13 @@
 				<header id="Header2" height="5"/>
 				<detail id="Detail2" height="74">
 					<label id="Label14" text="R /" font="HelveticaBold" height="18.5" x="12" y="6" width="18.5"/>
-					<recordBox id="RecordBox12" dataFormat="" field="Qty" height="18.5" width="24.5" x="449.5" y="6"/>
+					<recordBox id="RecordBox12" dataFormat="" field="Qty" height="18.5" y="6" x="459" width="20"/>
 					<recordBox id="RecordBox13" dataFormat="" y="6" field="Unit" height="25.5" x="42" width="42.5"/>
-					<recordBox id="RecordBox14" dataFormat="" field="SKUName" width="353.5" y="6" x="88" height="30.5"/>
-					<recordBox id="RecordBox15" dataFormat="" height="14" x="42.5" width="198" field="Notes" y="48"/>
+					<recordBox id="RecordBox14" dataFormat="" field="SKUName" y="6" x="88" height="30.5" width="338.5"/>
+					<recordBox id="RecordBox15" dataFormat="" height="14" width="198" field="Notes" y="48" x="59.5"/>
 					<line id="Line1" x1="42.5" y1="66" x2="475" y2="66.5"/>
 					<recordBox id="RecordBox17" dataFormat="" height="14" x="372" width="103" field="Qty1" y="48"/>
-				</detail>
+					<label id="Label28" height="14" align="center" font="HelveticaBold" text="S" y="48" x="42.5" width="13"/><label id="Label29" align="center" font="HelveticaBold" text="No" y="6" x="431.5" width="23" height="18.5"/></detail>
 				<footer id="Footer2" height="2"/>
 			</subReport>
 			<line id="Line2" x1="16" x2="477.5" y1="426" y2="426"/>
