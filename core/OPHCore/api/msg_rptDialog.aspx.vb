@@ -92,7 +92,7 @@ Partial Class OPHCore_api_msg_rptDialog
 
             'store dplx to folder temp
             Dim path As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/")
-            writeFile(path, reportName & ".dplx", queryDPLX, True)
+            writeFile(path, reportName & ".dplx", queryDPLX, False)
 
             Dim pathDPLX As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/" & reportName & ".dplx")
 

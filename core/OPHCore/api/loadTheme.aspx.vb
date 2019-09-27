@@ -4,7 +4,7 @@ Partial Class OPHCore_api_loadTheme
     Inherits cl_base
 
     Private Sub OPH_welcome_default_xml_tableview_Load(sender As Object, e As EventArgs) Handles Me.Load
-        'loadAccount()
+        loadAccount()
         Dim doc = ""
         Dim theme = getQueryVar("theme")
         Dim page = getQueryVar("page")
@@ -31,12 +31,12 @@ Partial Class OPHCore_api_loadTheme
         If Not quick Then
             Dim themeFile As String = Server.MapPath("~/OPHContent/themes/") & theme & "\xslt\" & page & ".xslt"
 
-        If File.Exists(themeFile) Then
-            Dim document As XDocument = XDocument.Load(themeFile)
-            doc = document.ToString()
+            If File.Exists(themeFile) Then
+                Dim document As XDocument = XDocument.Load(themeFile)
+                doc = document.ToString()
 
-            'If Not quick Then
-            doc = doc.Replace("<xsl:variable name=""queryGuid""/>", "<xsl:variable name='queryGuid'>" & guid & "</xsl:variable>")
+                'If Not quick Then
+                doc = doc.Replace("<xsl:variable name=""queryGuid""/>", "<xsl:variable name='queryGuid'>" & guid & "</xsl:variable>")
                 doc = doc.Replace("<xsl:variable name=""queryCode""/>", "<xsl:variable name='queryCode'>" & code & "</xsl:variable>")
                 doc = doc.Replace("<xsl:variable name=""queryPage""/>", "<xsl:variable name='queryPage'>" & page & "</xsl:variable>")
                 doc = doc.Replace("<xsl:variable name=""queryTheme""/>", "<xsl:variable name='queryTheme'>" & theme & "</xsl:variable>")
@@ -57,52 +57,52 @@ Partial Class OPHCore_api_loadTheme
                     doc = doc.Replace("<xsl:include href=""" & includestr & """ />", doc1)
 
                 End While
-            'End If
+                'End If
 
+            End If
         End If
-
         'If Not quick Then
         'scripts
         Dim js = ""
 
-            Dim sqlstr = "select infovalue from modlinfo i inner join modl m on m.moduleguid=i.moduleguid where m.moduleid='" & code & "' and i.infokey='js_savebefore'"
-            js = runSQLwithResult(sqlstr).Replace("js_", code.ToLower() & "_")
+        Dim sqlstr = "select infovalue from modlinfo i inner join modl m on m.moduleguid=i.moduleguid where m.moduleid='" & code & "' and i.infokey='js_savebefore'"
+        js = runSQLwithResult(sqlstr).Replace("js_", code.ToLower() & "_")
 
-            If js <> "" Then doc = doc.Replace("function <xsl:value-of select=""$lowerCode"" />_savebefore(d) {}", js)
-            'writeLog(doc.indexOf("function <xsl:value-of select=""$lowerCode"" />_savebefore(d) {}"))
-            writeLog(js)
+        If js <> "" Then doc = doc.Replace("function <xsl:value-of select=""$lowerCode"" />_savebefore(d) {}", js)
+        'writeLog(doc.indexOf("function <xsl:value-of select=""$lowerCode"" />_savebefore(d) {}"))
+        writeLog(js)
 
-            sqlstr = "select infovalue from modlinfo i inner join modl m on m.moduleguid=i.moduleguid where m.moduleid='" & code & "' and i.infokey='js_saveafter'"
-            js = runSQLwithResult(sqlstr).Replace("js_", code.ToLower() & "_")
+        sqlstr = "select infovalue from modlinfo i inner join modl m on m.moduleguid=i.moduleguid where m.moduleid='" & code & "' and i.infokey='js_saveafter'"
+        js = runSQLwithResult(sqlstr).Replace("js_", code.ToLower() & "_")
 
-            If js <> "" Then doc = doc.Replace("function <xsl:value-of select=""$lowerCode"" />_saveafter(d) {}", js)
-            'writeLog(doc.indexOf("function <xsl:value-of select=""$lowerCode"" />_saveafter(d) {}"))
-            writeLog(js)
+        If js <> "" Then doc = doc.Replace("function <xsl:value-of select=""$lowerCode"" />_saveafter(d) {}", js)
+        'writeLog(doc.indexOf("function <xsl:value-of select=""$lowerCode"" />_saveafter(d) {}"))
+        writeLog(js)
 
-            sqlstr = "select infovalue from modlinfo i inner join modl m on m.moduleguid=i.moduleguid where m.moduleid='" & code & "' and i.infokey='js_custom'"
-            js = runSQLwithResult(sqlstr).Replace("js_", code.ToLower() & "_")
+        sqlstr = "select infovalue from modlinfo i inner join modl m on m.moduleguid=i.moduleguid where m.moduleid='" & code & "' and i.infokey='js_custom'"
+        js = runSQLwithResult(sqlstr).Replace("js_", code.ToLower() & "_")
 
-            If js <> "" Then doc = doc.Replace("function <xsl:value-of select=""$lowerCode"" />_custom(d) {}", js)
-            'writeLog(doc.indexOf("function <xsl:value-of select=""$lowerCode"" />_saveafter(d) {}"))
-            writeLog(js)
-            'End If
+        If js <> "" Then doc = doc.Replace("function <xsl:value-of select=""$lowerCode"" />_custom(d) {}", js)
+        'writeLog(doc.indexOf("function <xsl:value-of select=""$lowerCode"" />_saveafter(d) {}"))
+        writeLog(js)
+        'End If
 
-            'save
-            If Not System.IO.File.Exists(themetemp) = True Then
-                Dim file As System.IO.FileStream
-                file = System.IO.File.Create(themetemp)
-                file.Close()
-            End If
-            My.Computer.FileSystem.WriteAllText(themetemp, doc, False)
+        'save
+        If Not System.IO.File.Exists(themetemp) = True Then
+            Dim file As System.IO.FileStream
+            file = System.IO.File.Create(themetemp)
+            file.Close()
         End If
+        My.Computer.FileSystem.WriteAllText(themetemp, doc, False)
 
 
-		'insert gpskey
-		'##gpskey##
-		Dim gpskey=runSQLwithResult("select infovalue from acctinfo where infokey='gpskey'")
-		If gpskey <> "" Then doc = doc.Replace("##gpskey##", gpskey)
 
-		'flush the result
+        'insert gpskey
+        '##gpskey##
+        Dim gpskey = runSQLwithResult("select infovalue from acctinfo where infokey='gpskey'")
+        If gpskey <> "" Then doc = doc.Replace("##gpskey##", gpskey)
+
+        'flush the result
 
         Response.ContentType = "text/xml"
         Response.Write("<?xml version=""1.0"" encoding=""utf-8""?>")

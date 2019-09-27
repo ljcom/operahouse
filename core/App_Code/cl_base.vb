@@ -589,7 +589,8 @@ Public Class cl_base
     Function getQueryVar(key As String) As String
         Dim r = ""
 
-        'replace this:' " ( ) ; , | < > - \ + & $ @
+        'replace this:' " ( ) ; , | < > - \ & $ @
+        '+ dipakai untuk search
         If Not IsNothing(Request.QueryString(key)) Then
             r = Request.QueryString(key).ToString()
         ElseIf Not IsNothing(Request.Form(key)) Then
@@ -600,6 +601,8 @@ Public Class cl_base
         If r <> "" Then
             If key.ToLower = "sqlfilter" Then
                 r = r.Replace("--", "").Replace("+", "").Replace(";", "").Replace("<", "").Replace(">", "")
+            ElseIf key.ToLower = "bsearchtext" Or key.ToLower = "search" Or key.ToLower = "q" Then
+                r = r.Replace("--", "").Replace(";", "").Replace("<", "").Replace(">", "")
             Else
                 r = r.Replace(" Then ", "").Replace("'", "").Replace("--", "").Replace("+", "").Replace(";", "").Replace("""", "").Replace("<", "").Replace(">", "")
                 If r <> old_r Then

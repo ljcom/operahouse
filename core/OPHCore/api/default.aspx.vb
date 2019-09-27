@@ -82,7 +82,7 @@ Partial Class OPHCore_API_default
                 searchText = searchText.Replace("%2B", "+")
                 If bpage = "" Then bpage = 1
                 If code <> "" Then
-                    Dim rpp = iif(nbRows<>"", nbRows, IIf(code.Length() > 6 And String.IsNullOrWhiteSpace(sqlfilter) = False, 10, 20))
+                    Dim rpp = IIf(nbRows <> "" And nbRows <> "undefined", nbRows, IIf(code.Length() > 6 And String.IsNullOrWhiteSpace(sqlfilter) = False, 10, 20))
 
                     'add showpage untuk frontend
                     Dim showpage = getQueryVar("showpage")
