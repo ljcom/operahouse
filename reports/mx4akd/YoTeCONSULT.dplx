@@ -31,53 +31,56 @@
 			<recordBox id="RecordBox9" dataFormat="" width="100" x="96" height="12.5" field="BB" y="240"/>
 			<recordBox id="RecordBox10" dataFormat="" width="100" x="96" height="12.5" field="Alergi" y="258"/>
 			<recordBox id="RecordBox11" dataFormat="" width="100" y="90" field="DocDate" height="12.5" x="356.5"/>
-			<subReport id="SubReport1" x="4.1" width="481" y="300">
+			<label id="Label3" x="204" width="100" font="HelveticaBold" text="IGD" align="center" height="19" y="66"/>
+			<label id="Label5" align="right" text="Dokter :" height="12.5" y="108" width="72" x="18"/>
+			<label id="Label1" font="HelveticaBold" align="center" x="114" width="289" fontSize="16" height="22" y="5.1" text="APOTEK KLINIK DESA"/>
+			<subReport width="481" y="326" id="SubReport1" x="4.1">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeConsult_report_sub1">
 						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
 						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
 					</storedProcedure>
 				</query>
-				<header id="Header2" height="5"/>
-				<detail id="Detail2" height="55">
-					<label id="Label14" text="R /" font="HelveticaBold" height="18.5" x="12" y="6" width="18.5"/>
-					<recordBox id="RecordBox12" dataFormat="" y="6" field="Qty" height="18.5" x="42.5" width="24.5"/>
-					<recordBox id="RecordBox13" dataFormat="" y="6" x="72" height="18.5" field="Unit" width="60.5"/>
-					<recordBox id="RecordBox14" dataFormat="" y="6" x="138" height="18.5" field="SKUName" width="102.5"/>
-					<recordBox id="RecordBox15" dataFormat="" height="14" x="42.5" y="30" width="198" field="Notes"/>
-					<line id="Line1" y1="48" y2="47.5" x2="474" x1="12"/>
-				</detail>
-				<footer id="Footer2" height="3"/>
+				<header height="5" id="Header2"/>
+				<detail id="Detail2" height="98">
+					<label text="R /" font="HelveticaBold" height="18.5" x="12" y="6" width="18.5" id="Label14"/>
+					<recordBox dataFormat="" field="Qty" height="18.5" y="6" id="RecordBox12" width="20" x="460"/>
+					<recordBox dataFormat="" field="Unit" x="42" id="RecordBox13" height="31.5" y="6" width="72.5"/>
+					<recordBox dataFormat="" field="SKUName" y="6" id="RecordBox14" x="126" height="49.5" width="306"/>
+					<recordBox dataFormat="" height="14" width="198" field="Notes" id="RecordBox15" y="65" x="59.5"/>
+					<line x1="42.5" x2="475" id="Line1" y1="84" y2="84.5"/>
+					<label id="Label27" height="14" font="HelveticaBold" text="S" align="center" y="65" width="13.5" x="43"/><label id="Label28" align="center" font="HelveticaBold" text="No" width="22" x="435" y="6" height="18.5"/></detail>
+				<footer height="2" id="Footer2"/>
 			</subReport>
-			<line id="Line2" x1="16" x2="477.5" y1="396" y2="396"/>
-			<label id="Label15" height="12.5" width="84.5" text="Penerimaan R/" y="420" fontSize="10" x="326"/>
-			<label id="Label16" height="12.5" width="85" text="Penyiapan R/" y="432" fontSize="10" x="326"/>
-			<label id="Label17" height="12.5" width="85" text="Peracikan R/" y="444" fontSize="10" x="326"/>
-			<label id="Label18" height="12.5" width="85" text="Pengecekan R/" y="456" fontSize="10" x="326"/>
-			<label id="Label19" height="12.5" width="84.5" text="Penyerahan R/" y="468" fontSize="10" x="326"/>
-			<label id="Label20" width="78" height="12.5" text="PETUGAS" y="408" align="center" x="397.5" fontSize="10"/>
-			<label id="Label21" y="408" align="center" fontSize="10" height="27" width="84.5" x="234" text="TTD / PARAF&#xA;PENERIMA OBAT"/>
-			<label id="Label22" fontSize="10" x="6.5" text="Tanggal Cetak :" width="72" height="13" y="456"/>
-			<label id="Label23" text="Halaman. :" fontSize="10" x="7" width="71.5" height="13" y="470"/>
-			<recordBox id="RecordBox16" dataFormat="" width="100" y="456" height="12.5" fontSize="10" x="84" field="printDate"/>
-			<rectangle id="Rectangle1" x="234" width="90.5" y="408" height="72.5" borderStyle="dots"/>
-			<rectangle id="Rectangle2" y="408" borderStyle="dots" x="324.5" width="77.5" height="72.5"/>
-			<rectangle id="Rectangle3" x="402" y="408" width="66.5" height="72.5" borderStyle="dots"/>
-			<rectangle id="Rectangle4" borderStyle="dots" y="408" height="12" x="324.5" width="77.5"/>
-			<rectangle id="Rectangle5" borderStyle="dots" y="420" height="12" x="324.5" width="77.5"/>
-			<rectangle id="Rectangle6" borderStyle="dots" y="432" height="12" x="324.5" width="77.5"/>
-			<rectangle id="Rectangle7" y="444" height="12" borderStyle="dots" x="324.5" width="77.5"/>
-			<rectangle id="Rectangle8" y="456" height="12" borderStyle="dots" x="324.5" width="77.5"/>
-			<rectangle id="Rectangle9" y="468" height="12.5" borderStyle="dots" x="324.75" width="77.25"/>
-			<rectangle id="Rectangle10" borderStyle="dots" y="420" x="402" width="66.5" height="12"/>
-			<rectangle id="Rectangle11" y="432" height="12" borderStyle="dots" x="402" width="66.5"/>
-			<rectangle id="Rectangle12" x="402" y="444" width="66.5" borderStyle="dots" height="12"/>
-			<rectangle id="Rectangle13" borderStyle="dots" x="402" y="456" height="12" width="66.5"/>
-			<pageNumberingLabel id="PageNumberingLabel1" height="14" width="100" x="84" y="469" text="%%CP%%"/>
-			<label id="Label24" x="240.5" width="77.5" align="center" fontSize="10" y="468" height="12" text="(.......................)"/>
-			<label id="Label3" x="204" width="100" font="HelveticaBold" text="IGD" align="center" height="19" y="66"/>
-			<label id="Label5" align="right" text="Dokter :" height="12.5" y="108" width="72" x="18"/>
-			<label id="Label1" font="HelveticaBold" align="center" x="114" width="289" fontSize="16" height="22" y="5.1" text="APOTEK DESA"/>
+			<line x1="16" x2="477.5" id="Line2" y1="450" y2="450"/>
+			<label height="12.5" width="84.5" text="Penerimaan R/" fontSize="10" x="350" id="Label15" y="498"/>
+			<label height="12.5" width="85" text="Penyiapan R/" fontSize="10" x="350" id="Label16" y="510"/>
+			<label height="12.5" width="85" text="Peracikan R/" fontSize="10" x="350" id="Label17" y="522"/>
+			<label height="12.5" width="85" text="Pengecekan R/" fontSize="10" x="350" id="Label18" y="534"/>
+			<label height="12.5" width="84.5" text="Penyerahan R/" fontSize="10" x="350" id="Label19" y="546"/>
+			<label width="78" height="12.5" text="PETUGAS" align="center" fontSize="10" x="421.5" id="Label20" y="486"/>
+			<label align="center" fontSize="10" height="27" width="84.5" text="TTD / PARAF&#xA;PENERIMA OBAT" x="258" id="Label21" y="486"/>
+			<label fontSize="10" text="Tanggal Cetak :" width="72" height="13" x="2.5" id="Label22" y="534"/>
+			<label text="Halaman. :" fontSize="10" width="71.5" height="13" x="3" id="Label23" y="560"/>
+			<recordBox dataFormat="" fontSize="10" field="printDate" x="75" height="24.5" width="74.5" id="RecordBox17" y="534"/>
+			<rectangle width="90.5" height="72.5" borderStyle="dots" x="257.5" id="Rectangle1" y="486"/>
+			<rectangle borderStyle="dots" width="77.5" height="72.5" x="348.5" id="Rectangle2" y="486"/>
+			<rectangle width="66.5" height="72.5" borderStyle="dots" x="426" id="Rectangle3" y="486"/>
+			<rectangle borderStyle="dots" height="12" width="77.5" x="348.5" id="Rectangle4" y="486"/>
+			<rectangle borderStyle="dots" height="12" width="77.5" x="348.5" id="Rectangle5" y="498"/>
+			<rectangle borderStyle="dots" height="12" width="77.5" x="348.5" id="Rectangle6" y="510"/>
+			<rectangle height="12" borderStyle="dots" width="77.5" x="348.5" id="Rectangle7" y="522"/>
+			<rectangle height="12" borderStyle="dots" width="77.5" x="348.5" id="Rectangle8" y="534"/>
+			<rectangle height="12.5" borderStyle="dots" width="77.25" x="348.75" id="Rectangle9" y="546"/>
+			<rectangle borderStyle="dots" width="66.5" height="12" x="426" id="Rectangle10" y="498"/>
+			<rectangle height="12" borderStyle="dots" width="66.5" x="426" id="Rectangle11" y="510"/>
+			<rectangle width="66.5" borderStyle="dots" height="12" x="426" id="Rectangle12" y="522"/>
+			<rectangle borderStyle="dots" height="12" width="66.5" x="426" id="Rectangle13" y="534"/>
+			<pageNumberingLabel height="14" width="100" text="%%CP%%" x="54" id="PageNumberingLabel1" y="559"/>
+			<label width="77.5" align="center" fontSize="10" height="12" text="(.......................)" x="264" id="Label24" y="546"/>
+			<label height="14" fontSize="10" align="center" text="PCC" width="62.5" x="195" id="Label25" y="486"/>
+			<label align="center" fontSize="10" height="12" width="65.5" text="(................)" x="192" id="Label26" y="546"/>
+			<rectangle height="72.5" borderStyle="dots" x="192" width="66" id="Rectangle14" y="486"/>
 		</detail>
 		<footer id="Footer1"/>
 	</report>

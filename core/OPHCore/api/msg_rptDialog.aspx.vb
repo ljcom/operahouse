@@ -51,6 +51,8 @@ Partial Class OPHCore_api_msg_rptDialog
         Dim XLSTemplate = ""
         'Dim parXML As String = getQueryVar("parXML")
         Dim parameterid As String = "" 'getQueryVar("Parameter")
+
+        Dim getparameterid As String = getQueryVar("Parameter")
         Dim fieldattachment As List(Of String) = Nothing
 
         Dim sqlstr = ""
@@ -67,6 +69,10 @@ Partial Class OPHCore_api_msg_rptDialog
                         XLSTemplate = ds1.Tables(0).Rows(0).Item("XLSTemplate").ToString
                     End If
                 End If
+            End If
+
+            If getparameterid <> "" Then
+                parameterid = getparameterid
             End If
         End If
 
@@ -90,7 +96,7 @@ Partial Class OPHCore_api_msg_rptDialog
 
             'store dplx to folder temp
             Dim path As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/")
-            writeFile(path, reportName & ".dplx", queryDPLX, True)
+            writeFile(path, reportName & ".dplx", queryDPLX, False)
 
             Dim pathDPLX As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/" & reportName & ".dplx")
 
@@ -308,7 +314,9 @@ Partial Class OPHCore_api_msg_rptDialog
                     End If
 
                     If getQueryVar("dontdelete") = "1" Then
-                        If Not getQueryVar("output") Is Nothing Then
+                        If getQueryVar("outputType") = "0" Then
+                            Response.Write(pathGBOX)
+                        ElseIf Not getQueryVar("output") Is Nothing Then
                             Response.Write(getQueryVar("output"))
                         Else
                             Response.Write(pathGBOX)
@@ -340,9 +348,9 @@ Partial Class OPHCore_api_msg_rptDialog
                         fstream.Dispose()
                         finfo.Delete()
                     End If
-                Else
-                    Response.Write("<script>alert('Theres is No Data to be Shown!');window.close();</script>")
-                End If
+                    Else
+                        Response.Write("<script>alert('Theres is No Data to be Shown!');window.close();</script>")
+                    End If
             Catch ex As Exception
                 writeLog(ex.Message)
                 Response.Write("<script>alert('" & ex.Message.Replace("'", "\'") & "')</script>")

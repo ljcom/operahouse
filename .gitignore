@@ -4,9 +4,7 @@ log/
 version/
 web.config
 thumbs.db
-bin/
 cdn/
-core/bin/
 core/App_Data/
 core/BuildProcessTemplates/
 core/OPHContent/log

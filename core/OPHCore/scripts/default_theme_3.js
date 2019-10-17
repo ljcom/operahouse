@@ -219,10 +219,6 @@ function selectAll(x, nbRec, code) {
 }
 
 
-
-
-
-
 /*browse*/
 function selectFilter(text) {
     var n = text.indexOf("-");
@@ -345,17 +341,17 @@ function showUploaderTemplate(bCode, QueryCode, bpageNo, mode, caption) {
 }
 
 function clearSnapbox(e) {
-    var keynum
-    var keychar
-    var numcheck
+    var keynum;
+    var keychar;
+    var numcheck;
 
     if (window.event) // IE
     {
-        keynum = e.keyCode
+        keynum = e.keyCode;
     }
     else if (e.which) // Netscape/Firefox/Opera
     {
-        keynum = e.which
+        keynum = e.which;
     }
     if (keynum == 27) {
         showForm(false);
@@ -1393,26 +1389,6 @@ function changerowReadOnlyFont(substring, rowno, Bold) {
     while (index > 0)
 }
 
-function changeSumField(rowno) {
-    var TableSumfield, field, index, result
-    result = ""
-    TableSumfield = eval('document.all.SumField.innerHTML')
-    do {
-        index = TableSumfield.indexOf("SumFormula_")
-        if (index <= 0)
-            break;
-        TableSumfield = TableSumfield.substring(index + 11, TableSumfield.length);
-        field = TableSumfield.substring(0, TableSumfield.indexOf('>'));
-        if (field.indexOf(' ') > 0) {
-            field = field.substring(0, field.indexOf(' '));
-        }
-        if (field != "")
-            result += 'window.document.all.ReadOnly' + field + rowno + '.innerText=eval(window.document.all.SumFormula_' + field + '.value),';
-    }
-    while (index > 0)
-    return result;
-}
-
 function changeRowTotal(rowno, operand) {
     var Total, field, index;
     Total = eval('document.all.TotalRecord.innerHTML');
@@ -1702,18 +1678,6 @@ function runbeforesave() { }
 function iframewindowonload() { }
 
 
-
-/***********************************************
-* Textarea Maxlength script- © Dynamic Drive (www.dynamicdrive.com)
-* This notice must stay intact for legal use.
-* Visit http://www.dynamicdrive.com/ for full source code
-***********************************************/
-
-function ismaxlength(obj) {
-    var mlength = obj.getAttribute ? parseInt(obj.getAttribute("maxlength")) : ""
-    if (obj.getAttribute && obj.value.length > mlength)
-        obj.value = obj.value.substring(0, mlength)
-}
 
 function textboxRO(id) {
     try {
@@ -2065,114 +2029,8 @@ function displayResult() {
 function back() {
     window.location = "index.aspx?env=back&code=" + getCode();
 }
-function saveCancel() {
-    if (getGUID() == "00000000-0000-0000-0000-000000000000") back()
-    else {
-        $("input[type='text'], input[type='checkbox'], textarea, select").each(function () {
-            var t = $(this);
-            if ($(this).data("old") != undefined) {
-
-                if ((t.prop("type") == "text" || t.prop("type") == "checkbox") && ($(this).val() != $(this).data("old")) ||
-                    ((t.prop("type") == "select-one") && ($(this).data("value") != $(this).data("old")))) {
-
-                    if (t.prop("type") == "text") $(this).val($(this).data("old"));
-                    if (t.prop("type") == "checkbox") t.prop('checked', $(this).data("old"));
-                    if (t.prop("type") == "select-one") $(this).data("value", $(this).data("old"));
-                    //select
-                    var newOption = new Option($(this).data("oldtext"), $(this).data("old"), true, true);
-                    t.append(newOption).trigger('change');
-
-                    //token
-                    if ($(this).data("type") == 'tokenBox') {
-                        var tokenCode = $(this).data("code");
-                        var key = $(this).data("key");
-                        var id = $(this).data("id");
-                        var name = $(this).data("name");
-                        var search = $(this).data("old");
-
-                        var sURL = 'OPHCore/api/msg_autosuggest.aspx?mode=token&code=' + tokenCode + '&key=' + key + '&id=' + id + '&name=' + name;
-                        var cURL = 'OPHCore/api/msg_autosuggest.aspx?mode=token&code=' + tokenCode + '&key=' + key + '&id=' + id + '&name=' + name + '&search=' + search;
-                        var fieldName = $(this)[0].id
-                        $.ajax({
-                            url: cURL,
-                            dataType: 'json',
-                            success: function (data) {
-                                //var xx = '';
-                                $("#" + fieldName).tokenInput("clear");
-                                $.each(data, function (i, item) {
-                                    $("#" + fieldName).tokenInput("add", data[i]);
-                                    //xx += data[i].id + '*';
-                                });
-                                //$("#" + fieldName).val(xx);
-
-                                $('#button_save').hide();
-                                $('#button_cancel').hide();
-                                $('#button_save2').hide();
-                                $('#button_cancel2').hide();
-                                //$tokenInput(get, '');
-                            }
-                        });
-                    }
-
-                    $('#button_save').hide();
-                    $('#button_cancel').hide();
-                    $('#button_save2').hide();
-                    $('#button_cancel2').hide();
-                }
-            } else {
-                $('#button_save').hide();
-                $('#button_cancel').hide();
-                $('#button_save2').hide();
-                $('#button_cancel2').hide();
-            }
-        })
-    }
-}
-
-function saveConfirm() {
-    $("input[type='text'], input[type='checkbox'], select").each(function () {
-        var t = $(this);
-        if ($(this).data("old") != undefined) {
-
-            if ((t.prop("type") == "text" || t.prop("type") == "checkbox") && ($(this).val() != $(this).data("old")) ||
-                ((t.prop("type") == "select-one") && ($(this).data("value") != $(this).data("old")))) {
-
-                if (t.prop("type") == "text" || t.prop("type") == "checkbox") $(this).data("old", $(this).val());
-                if (t.prop("type") == "select-one") {
-                    $(this).data("old", $(this).data("value"));
-                    $(this).data("oldtext", t[0].options[t[0].selectedIndex].text);
-                }
-                $('#button_save').hide();
-                $('#button_cancel').hide();
-                $('#button_save2').hide();
-                $('#button_cancel2').hide();
-            }
-        }
-    })
-
-}
 
 
-function isGuid(value) {
-    var regex = /[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}/i;
-    var match = regex.exec(value);
-    return match != null;
-}
-
-function checkrequired(Names, output) {
-    var result = 'good'
-    for (i = 0; i < Names.length - 1; i++) {
-        var val = document.getElementById(Names[i + 1]).value;
-        val = val.trim();
-
-        if (val == '' || val == undefined || val == "NULL") {
-            result = document.getElementById(Names[i + 1] + 'caption').innerHTML + ' need to be filled';
-            output = (output == 'id') ? Names[i + 1] : result;
-            break;
-        }
-    }
-    return output;
-}
 
 
 function checkCB(checkboxname) {
@@ -2189,11 +2047,6 @@ function checkCB(checkboxname) {
 }
 
 
-function changestateid(stateid) {
-    setCookie('stateid', stateid, 0, 1, 0);
-    setCookie('bSearchText', '', 0, 1, 0);
-    loadContent(1);
-}
 
 function resetBrowseCookies() {
     //setCookie('stateid', '399', 0, 1, 0);
@@ -2202,51 +2055,6 @@ function resetBrowseCookies() {
 
 }
 
-function searchText(e, searchvalue) {
-    if (e.keyCode == 13 || e.type == 'click') {
-        searchvalue = (searchvalue == undefined) ? $('#searchBox').val() : searchvalue;
-        searchvalue.split("'").join("");
-        if (searchvalue.indexOf('@') >= 0 || searchvalue.indexOf('*') >= 0) {
-            var url = "OPHCore/api/default.aspx?mode=codeSearch&searchValue=" + searchvalue + '&unique=' + getUnique();
-            var posting = $.post(url);
-            posting.done(function (data) {
-                var regex = $(data).find('search').attr('regex');
-                var code = $(data).find('code').text();
-                var msg = $(data).find('message').text();
-
-                if (msg == "" || msg == undefined) {
-                    //valid
-                    var withGUID = (regex == '*') ? '&GUID=' + zeroGUID() : '';
-                    code = (code == undefined || code == "") ? getCode() : code;
-                    window.location.replace('?code=' + code + withGUID);
-                } else {
-                    //invalid
-                    showMessage(msg);
-                }
-            });
-        }
-        else {
-            setCookie('bSearchText', searchvalue, 0, 1, 0);
-            loadContent(1);
-        }
-    }
-}
-
-function searchTextChild(e, searchvalue, code, isClear) {
-    if (e.keyCode == 13 || isClear) {
-        var bSearchText = searchvalue;
-
-        var sqlfilter = document.getElementById("filter" + code.toLowerCase()).value;
-        var pageNo = (pageNo == undefined) ? 1 : pageNo;
-
-        var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + sqlfilter + '&bPageNo=' + pageNo + '&bSearchText=' + bSearchText + '&date=' + getUnique();
-        var divName = ['child' + String(code).toLowerCase() + getGUID()];
-        var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
-
-        pushTheme(divName, xmldoc, xsldoc, true);
-
-    }
-}
 
 
 
@@ -2347,158 +2155,69 @@ function doFunction(functiontext, nbRec, caption) {
 }
 
 
+function SaveData(code, formid, locations, GUID, delcookie, tablename, reloadpage) {
+    if (reloadpage == '' || reloadpage == undefined) { reloadpage = '1' }
+    if (delcookie == '') { delcookie = '0' }
 
-function loadReport(qCode, tcode, f) {
-    qCode = (qCode == "") ? getCode() : qCode;
-    tcode = (tcode == undefined) ? getQueryVariable("tcode") : tcode;
-    var xmldoc = 'OPHCore/api/default.aspx?mode=report' + '&code=' + qCode + ((tcode != undefined) ? '&tcode=' + tcode : '') + '&unique=' + getUnique();
-    var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/report_' + getMode() + '.xslt';
-    showXML('contentWrapper', xmldoc, xsldoc, true, true, function () {
-        if (typeof f == "function") f();
-    });
+    if (GUID != undefined && GUID != '') { GUID = '&cfunctionlist=' + GUID; }
+    else { GUID = '' }
+    var path = 'OPHCore/api/default.aspx?mode=save&code=' + code + GUID
+    var id = "#" + formid
+    //$.post(path, $(id).serialize());
+    var dataForm = $(id).serialize() //.split('_').join('');
 
-    var xmldoc = 'OPHCore/api/default.aspx?mode=report' + '&code=' + qCode + ((tcode != undefined) ? '&tcode=' + tcode : '') + '&GUID=' + getGUID() + '&unique=' + getUnique();
-    var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/report_' + getMode() + '_sidebar.xslt';
-    //var xmldoc = 'OPHCore/api/default.aspx?mode=report&code=' + getCode() + '&GUID=' + getGUID() + '&date=' + getUnique();
-    showXML('sidebarWrapper', xmldoc, xsldoc, true, true, function () {
-        if (typeof f == "function") f();
-    });
+    var dfLength = dataForm.length;
+    dataForm = dataForm.split('%3C').join('%26lt%3B');
 
-}
-
-function genReport(code, parameter, outType, query, reportName) {
-    if (parameter.indexOf(':') < 0) {
-        var parvalue1 = "";
-        var parameter = parameter.substring(0, (parameter.length - 1));
-        do {
-            if (parameter.indexOf(',') > -1) {
-                parid = parameter.substring(0, parameter.indexOf(','));
-                parid1 = parid
-
-                do {
-                    parid1 = parid1.replace('*', '');
-                }
-                while (parid1.indexOf('*') > -1)
-                if (parid1.substring(0, 1) == '#') {
-                    parid1 = parid1.replace("#", "");
-                    parid1 = parid1.replace("#", "");
-                    parvalue = parid1;
+    $.ajax({
+        url: path,
+        data: dataForm,
+        type: 'POST',
+        dataType: "xml",
+        timeout: 80000,
+        beforeSend: function () {
+            //setCursorWait(this);
+        },
+        success: function (data) {
+            var result = $(data).find("message").text();
+            if (result) {
+                if (result == 'gotomidtrans') {
+                    if (GUID == '') { GUID = getGUID() }
+                    generatePayment(code, tablename, formid, locations, GUID, delcookie)
+                } else if (result == 'gotodoku') {
+                    document.getElementById("submit").click()
                 }
                 else {
-                    if (document.getElementById(parid1).type == 'checkbox') {
-                        var r = document.getElementById(parid1).checked ? "True" : "False";
-                        parvalue = "" + r + "";
-                    }
-                    else {
-                        parvalue = document.getElementById(parid1).value;
-
-                    }
-                    parid = parid1.replace(parid1, parvalue);
-
+                    document.getElementById("popupMsgContent").innerHTML = result;
+                    $("#popupMsg").show("slow")
                 }
-
-                if (outType == 1)
-                    parvalue1 += parid1 + ":''" + parvalue + "'',";
-                else
-                    parvalue1 += parid1 + ":''" + parvalue + "'',";
-                parameter = parameter.substring(parameter.indexOf(',') + 1, parameter.length);
-            }
-            else {
-                if (parameter.length > 0) {
-                    do {
-                        parameter = parameter.replace('*', '');
+            } else {
+                if (getCode().toLowerCase() == 'tapcs2' && locations == '') {
+                    //alert("test");
+                    if (delcookie == '1') {
+                        setCookie("cartID", "", 0, 0, 0);
                     }
-                    while (parameter.indexOf('*') > -1)
-                    if (parameter.substring(0, 1) == '#') {
-                        parameter = parameter.replace("#", "");
-                        parameter = parameter.replace("#", "");
-                        parvalue1 += "''" + parameter + "''";
-                    }
-                    else {
-                        if (eval("document.getElementById('" + parameter + "').type") == 'checkbox') {
-                            var r = (eval("document.getElementById('" + parameter + "').checked")) ? "True" : "False";
-                            if (outType == 1)
-                                parvalue1 += parameter + ":" + r + "";
-                            else
-                                parvalue1 += parameter + ":" + r + "";
-                        }
-                        else {
-                            if (outType == 1)
-                                parvalue1 += parameter + ":''" + eval("document.getElementById('" + parameter + "').value") + "''";
-                            else
-                                parvalue1 += parameter + ":''" + eval("document.getElementById('" + parameter + "').value") + "''";
-                        }
-                    }
-                    parameter = parvalue1;
-
+                    location.replace("index.aspx?env=front&code=tapcs3");
                 }
-                break;
+                else if (location != '') {
+                    if (delcookie == '1') {
+                        setCookie("cartID", "", 0, 0, 0);
+                    }
+                    if (reloadpage == 1) {
+                        window.location = locations
+                    }
+                } else {
+                    if (reloadpage == 1) {
+                        window.location.reload();
+                    }
+                }
             }
         }
-        while (parameter.indexOf(',') > -2)
-    }
-    parameter = parameter.replace("''''", "null").replace("''''", "null").replace("''''", "null").replace("''''", "null").replace("''''", "null").replace("''''", "null").replace("''''", "null");
-    var ParentGUID = '';
-    mode = (outType == 1) ? 'dplx' : 'gbox';
-    if (outType == 3) ParentGUID = '&parentGUID=' + getQueryVariable('GUID');
-
-    window.open('OPHCore/api/msg_rptDialog.aspx?' + mode + '=1&code=' + code + '&parameter=' + parameter + '&outputType=' + outType + '&query=' + query + '&reportName=' + reportName);
-}
-
-function childPageNo(pageid, code, currentpage, totalpages) {
-    var result = "";
-
-    var before = "";
-    var after = "";
-    var parentKey = '&quot;' + document.getElementById('PKName').value + '&quot;';
-    //var parentKey = '&quot;' + String(code).substring(2, 6) + 'GUID&quot;';
-    var guid = '&quot;' + getQueryVariable("GUID") + '&quot;';
-    var code = '&quot;' + code + '&quot;';
-
-    if (currentpage != 1) result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 1) + ")'>&#171;</a></li>";
-    if (parseInt(currentpage) - 2 > 0)
-        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 2) + ")'>" + (parseInt(currentpage) - 2) + "</a></li>";
-
-    if (parseInt(currentpage) - 1 > 0)
-        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 1) + ")'>" + (parseInt(currentpage) - 1) + "</a></li>";
-
-    result += "<li><a style ='background-color:#3c8dbc;color:white;'href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + currentpage + ")'>" + currentpage + "</a></li>";
-
-    if (parseInt(currentpage) + 1 <= totalpages)
-        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 1) + ")'>" + (parseInt(currentpage) + 1) + "</a></li>";
-    if (parseInt(currentpage) + 2 <= totalpages)
-        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 2) + ")'>" + (parseInt(currentpage) + 2) + "</a></li>";
-
-    if (parseInt(currentpage) != totalpages) result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 1) + ")'>&#187;</a></li>";
-
-    result += "<li>&nbsp;&nbsp;&nbsp;</li>"
-
-    var combo = "<li><select style ='background:#fafafa;color:#666;border:1px solid #ddd;height:30px;'onchange='loadChild(" + code + "," + parentKey + "," + guid + ",this.value)'>";
-    for (var i = 1; i <= totalpages; i++) {
-        combo += "<option value =" + i + " " + (currentpage == i ? "selected" : "") + ">" + i + "</option>";
-    };
-
-    combo += '</select></li>';
-
-    result += combo;
-
-
-    $('#' + pageid).html(result);
-
-}
-
-
-function signOut(f) {
-
-    var path = 'OPHCore/api/default.aspx?mode=signout' + '&unique=' + getUnique();
-    $.post(path).done(function () {
-        setCookie("cartID", "", 0, 0, 0);
-        setCookie("isLogin", "0", 0, 1, 0);
-        if (typeof f == "function") f();
-        goHome()
     });
 
 }
+
+
 
 //use for detecting screen size : xs,sm, md, lg
 function isBreakpoint(alias) {
@@ -2538,184 +2257,46 @@ function show_aprvList(guid) {
     }
 }
 
-function panel_display(flag, val) {
-    if (val == 1) {
-        try {
-            document.getElementById(flag).style.display = 'block';
-        } catch (e) { }
-    } else {
-        try {
-            document.getElementById(flag).style.display = 'none';
-        } catch (e) { }
-    }
 
-}
-
-
-function drawChart(chartId, chartType, chartLabelH, chartDatasets) {
-    var isStacked = false;
-    if (chartType == 'barStack') { chartType = 'bar'; isStacked = true; }
-    if (chartType == 'lineStack') { chartType = 'line'; isStacked = true; }
-    // chartLabelH=["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
-    //chartDatasets=[{
-    //    label: '# of Votes',
-    //    data: [12, 19, 3, 5, 2, 23],
-    //    backgroundColor: [
-    //    'rgba(255, 99, 132, 0.2)',
-    //    'rgba(54, 162, 235, 0.2)',
-    //    'rgba(255, 206, 86, 0.2)',
-    //    'rgba(75, 192, 192, 0.2)',
-    //    'rgba(153, 102, 255, 0.2)',
-    //    'rgba(255, 159, 64, 0.2)'
-    //    ],
-    //    borderColor: [
-    //    'rgba(255,99,132,1)',
-    //    'rgba(54, 162, 235, 1)',
-    //    'rgba(255, 206, 86, 1)',
-    //    'rgba(75, 192, 192, 1)',
-    //    'rgba(153, 102, 255, 1)',
-    //    'rgba(255, 159, 64, 1)'
-    //    ],
-    //    borderWidth: 1
-    //}]
-    var ctx = document.getElementById(chartId).getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: chartType,
-        data: {
-            labels: chartLabelH,
-            datasets: chartDatasets
-        },
-        options: {
-            scales: {
-                xAxes: [{
-                    stacked: isStacked,
-                }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }, stacked: isStacked
-                }]
-            }
+function checkChanges_old(t) {
+    if (t) {
+        if (($("#" + t.id).prop("type") === "select-one") && (t.options[t.selectedIndex].value !== $("#" + t.id).data("value"))) {
+            $("#" + t.id).data("value", t.options[t.selectedIndex].value);
         }
-    });
-}
-//function fillChartDataSets(label, data, bgColor, borderColor, borderWidth) {
-//    return [{ label, data, bgColor, borderColor, borderWidth }]
-//    //chartDatasets=[{
-//    //    label: '# of Votes',
-//    //    data: [12, 19, 3, 5, 2, 23],
-//    //    backgroundColor: [
-//    //    'rgba(255, 99, 132, 0.2)',
-//    //    'rgba(54, 162, 235, 0.2)',
-//    //    'rgba(255, 206, 86, 0.2)',
-//    //    'rgba(75, 192, 192, 0.2)',
-//    //    'rgba(153, 102, 255, 0.2)',
-//    //    'rgba(255, 159, 64, 0.2)'
-//    //    ],
-//    //    borderColor: [
-//    //    'rgba(255,99,132,1)',
-//    //    'rgba(54, 162, 235, 1)',
-//    //    'rgba(255, 206, 86, 1)',
-//    //    'rgba(75, 192, 192, 1)',
-//    //    'rgba(153, 102, 255, 1)',
-//    //    'rgba(255, 159, 64, 1)'
-//    //    ],
-//    //    borderWidth: 1
-//    //}]
-//}
-
-
-function applySQLFilter(ini) {
-    $(ini).button('loading');
-    var form = $(ini).parents('form:first');
-    var form_data = $(form).serializeArray();
-
-    var sqlFilter = "";
-    $.each(form_data, function (key, input) {
-        if (input.value != "NULL" && input.value != undefined) {
-            if (sqlFilter == "") {
-                sqlFilter = input.name + " = '" + input.value + "'";
-            } else {
-                sqlFilter = sqlFilter + " and " + input.name + " = '" + input.value + "'";
-            }
-        }
-    });
-    setCookie('sqlFilter', sqlFilter, 0, 0, 10);
-    $.when($.ajax(loadContent(1))).done(function () { $(ini).button('reset'); });
-}
-
-function resetSQLFilter(ini) {
-    $(ini).button('loading');
-    var divname = ['contentWrapper'];
-    var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + getCode() + '&stateid=' + getState() + '&bSearchText=' + getSearchText() + '&date=' + getUnique();
-    var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '_' + getMode() + '.xslt'];
-    setCookie('sqlFilter', "", 0, 0, 0);
-    $.when($.ajax(loadContent(1))).done(function () {
-        $(ini).button('reset');
-    });
-}
-
-function delegatorModal(isRevoke) {
-    var kukis = getCode() + '_dmc';
-    if (isRevoke == true) {
-        $('#btnRevoke').button('loading');
-        var url = "OPHCore/api/default.aspx?code=" + getCode() + "&mode=revokeDelegation" + "&unique=" + getUnique();
-        var revoking = $.post(url)
-            .done(function (data) {
-                var msg = $(data).find('message').text();
-                if (msg == "" || msg == undefined || isGuid(msg) == true) {
-                    $('#btnRevoke').button('reset');
-                    window.location.reload();
-                } else {
-                    $('#delegatorModal h3').text('Oops! Something went wrong.')
-                    $('#delegatorModal .modal-body').text("We are very sorry for the inconvenience. You have to revoke your delegation manually in your profile menu. Thank you for your understanding.")
-                    $('#btnRevokeLater').text("Close");
-                    $('#btnRevoke').hide();
+        $("input[type='text'], input[type='checkbox'], textarea, select").each(function () {
+            var tx = $(this);
+            //if ($(this).data("old") != undefined) {
+            var old = $(this).data("old") == undefined ? "" : $(this).data("old");
+            if (((tx.prop("type") === "text" || tx.prop("type") === "checkbox" || tx.prop("file"))
+                && $(this).val() !== old && !tx[0].disabled && !$(tx).attr("readonly"))
+                || tx.prop("type") === "select-one" && $(this).data("value") !== old) {
+                if ($(this).data("child") === 'Y') {
+                    $('#child_button_addSave').show();
+                    $('#child_button_save').show();
+                    $('#child_button_cancel').show();
+                    $('#child_button_delete').hide();
+                    $('#child_button_save2').show();
+                    $('#child_button_cancel2').show();
+                    $('#child_button_delete2').hide();
                 }
-            });
-    } else {
-        setCookie(kukis, "yes", 1);
-    }
-}
+                else {
+                    $('#button_save').show();
+                    $('#button_cancel').show();
+                    $('#button_submit').hide();
+                    $('#button_delete').hide();
+                    $('#button_approve').hide();
+                    $('#button_reject').hide();
+                    $('#button_close').hide();
+                    $('#button_save2').show();
+                    $('#button_cancel2').show();
 
-function loadModalForm(divID, code, guid) {
-    var xmldoc = 'OPHCore/api/default.aspx?mode=form&code=' + code + '&guid=' + guid + '&unique=' + getUnique();
-    var xsldoc = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/master_form_modal.xslt';
-
-    if (code.indexOf('par') == 0) {
-        $('#' + divID).text('| Parameter : ' + code );
-    } else {
-        showXML(divID, xmldoc, xsldoc, true, true);
-    }
-}
-
-function saveModalForm(ini, selectID, code, guid) {
-    $(ini).button('loading');
-    var selectID = $(ini).parents("div[id*='addNew']").attr('id');
-    selectID = selectID.split('addNew').join('');
-    var md = "#addNew" + selectID;    
-    var formId = $('#modalForm' + selectID).children('form:first').attr('id');
-
-    saveFunction(code, guid, 50, formId, function (data) {
-        var msg = $(data).children().find("message").text();
-        var retguid = $(data).children().find("guid").text();
-        msg = (msg == "") ? $('#notiModal').data('message') : msg;
-
-        if (isGuid(retguid)) {
-            $(ini).button('reset');
-            $(md).modal('hide');
-            autosuggestSetValue(selectID, getCode(), selectID, retguid);
-        } else {
-            if (msg != "") {
-                //show error message
-                $('#modalFormAlert' + code + ' p').text(msg);
-                $('#modalFormAlert' + code).show();
-                $(md).animate({ scrollTop: 0 }, 'slow');
-                $(ini).button('reset');
-            } else {
-                $(ini).button('reset');
+                }
+                form_edited = true;
             }
-        }
-    })
-    
+            //}
+        });
+    }
 }
+
+
+
