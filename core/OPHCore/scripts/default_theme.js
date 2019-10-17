@@ -139,9 +139,9 @@ function getUnique() {
 
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
-    if (h.length < 2) day = '0' + h;
-    if (n.length < 2) day = '0' + n;
-    if (s.length < 2) day = '0' + s;
+    if (h.length < 2) h = '0' + h;
+    if (n.length < 2) n = '0' + n;
+    if (s.length < 2) s = '0' + s;
 
     return [year, month, day, h, n, s].join('');
 }
@@ -151,7 +151,7 @@ function loadContent(nbpage, f) {
     var xmldoc;
     var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
 	var rows = getQueryVariable('brows');
-	if (rows == undefined) rows ='20'
+	if (rows == undefined) rows ='20'	
 
     //main content
     if (lastCode() !== getCode()) {
