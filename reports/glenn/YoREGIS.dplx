@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" name="doc.YoREGIS_header" connectionString="#Global.AppSettings[&quot;connection&quot;]#">
+				<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="startdate" type="dateTime" value="#Parameters[&quot;StartDate&quot;]#"/>
+				<parameter name="enddate" type="dateTime" value="#Parameters[&quot;EndDate&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="104">
+			<label id="Label12" height="14" fontSize="24" text="REGISTRASI PESERTA" width="292" x="118" y="5"/>
+			<label height="15" width="66" text="Date" id="Label13" x="24" y="58" fontSize="16"/>
+			<recordBox dataFormat="" height="14" width="100" field="docDate" id="RecordBox12" fontSize="16" x="98" y="59"/>
+		</header>
+		<detail id="Detail1" height="590">
+			<label height="14" width="100" text="refNo" id="Label2" fontSize="18" x="122" y="76"/>
+			<label height="14" width="100" text="idAnggota" id="Label3" fontSize="18" x="122" y="109"/>
+			<label height="14" width="100" text="nama" id="Label4" fontSize="18" x="123" y="150"/>
+			<label height="14" width="100" text="tempatLahir" id="Label5" fontSize="18" x="123" y="190"/>
+			<label height="14" width="100" text="tanggalLahir" id="Label6" fontSize="18" x="122" y="228"/>
+			<label height="14" width="100" text="jenjang" id="Label7" fontSize="18" y="268" x="125"/>
+			<label height="14" width="100" text="asalSekolah" id="Label8" fontSize="18" x="125" y="314"/>
+			<label height="14" width="100" text="program" id="Label9" fontSize="18" x="127" y="356"/>
+			<label height="14" width="100" text="jadwalKelas" id="Label10" fontSize="18" x="125" y="405"/>
+			<label height="14" text="tipeProgram" id="Label11" fontSize="18" width="117" x="124" y="451"/>
+			<recordBox dataFormat="" height="14" field="refNo" id="RecordBox2" fontSize="18" width="199.1" x="272" y="77"/>
+			<recordBox dataFormat="" height="14" field="idAnggota" id="RecordBox3" fontSize="18" width="198" x="272" y="112"/>
+			<recordBox dataFormat="" height="14" field="nama" id="RecordBox4" fontSize="18" width="203" x="272" y="151"/>
+			<recordBox dataFormat="" height="14" field="tempatLahir" id="RecordBox5" fontSize="18" width="199" x="274" y="188"/>
+			<recordBox dataFormat="" height="14" field="tanggalLahir" id="RecordBox6" fontSize="18" width="195" x="270" y="227"/>
+			<recordBox dataFormat="" height="14" field="jenjang" id="RecordBox7" leading="18" fontSize="18" width="195" x="273" y="270"/>
+			<recordBox dataFormat="" height="14" field="asalSekolah" id="RecordBox8" fontSize="18" width="193" x="270" y="313"/>
+			<recordBox dataFormat="" height="14" field="program" id="RecordBox9" fontSize="18" width="191" x="274" y="357"/>
+			<recordBox dataFormat="" height="14" field="jadwalKelas" id="RecordBox10" fontSize="18" width="196" x="273" y="405"/>
+			<recordBox dataFormat="" height="14" field="tipeProgram" id="RecordBox11" fontSize="18" width="195" x="273" y="454"/>
+			<label height="14" width="100" text="docNo" id="Label1" fontSize="18" x="125" y="40"/>
+			<recordBox dataFormat="" height="14" field="docNo" id="RecordBox1" fontSize="18" width="199" x="269" y="38"/>
+		</detail>
+		<footer id="Footer1" height="50"/>
+	</report>
+</document>

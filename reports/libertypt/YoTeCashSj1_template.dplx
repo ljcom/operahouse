@@ -65,7 +65,7 @@
 			<label text="Qty" align="center" fontSize="9" width="57.1" height="11.1" id="Label2" y="254" x="31"/>
 			<label text="DESCRIPTION" align="center" width="343.5" fontSize="9" height="12.5" id="Label3" y="254" x="93.5"/>
 		</header>
-		<detail id="Detail1" autoSplit="true" height="529">
+		<detail id="Detail1" height="529" autoSplit="true">
 			<label height="14" width="9.1" text=")" id="Label19" x="104" y="491"/>
 			<label height="14" text="(" width="9.1" id="Label20" x="5" y="491"/>
 			<recordBox id="RecordBox7" dataFormat="" height="12" width="89" align="center" field="CustName" font="HelveticaBold" fontSize="9" x="12" y="493"/>
@@ -78,7 +78,7 @@
 				<rectangle id="Rectangle28" x="7" fillColor="gray" y="3" height="33.1" width="84.1"/>
 				<label id="Label17" height="14" align="center" x="10" fontSize="9" y="13" width="71.1" text="Notes :"/>
 			</contentGroup>
-			<subReport id="SubReport1" x="4" y="0" width="440.1">
+			<subReport id="SubReport1" x="4" width="440.1" y="31">
 				<query id="Query2">
 					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTeCashSj1_report_sub1">
 						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
@@ -86,13 +86,13 @@
 					</storedProcedure>
 				</query>
 				<header id="Header2" height="1"/>
-				<detail id="Detail2" height="35">
+				<detail id="Detail2" height="35" autoSplit="true">
 					<recordBox id="RecordBox1" dataFormat="" height="14" x="5" y="6" fontSize="8" field="number" align="center" width="22.1"/>
 					<recordBox dataFormat="" height="14" y="6" fontSize="8" align="center" id="RecordBox2" x="33" width="48.1" field="Qty"/>
 					<recordBox dataFormat="" height="14" fontSize="8" align="center" id="RecordBox3" x="93" field="SkuName" font="TimesBold" y="7" width="339.1"/>
 					<recordBox dataFormat="" height="14" fontSize="8" align="center" x="93" id="RecordBox4" y="18" field="Description" width="338.1"/>
 				</detail>
-				<footer id="Footer2" height="3"/>
+				<footer id="Footer2" height="1"/>
 			</subReport>
 		</detail>
 		<footer id="Footer1" height="1">

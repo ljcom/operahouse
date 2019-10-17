@@ -50,7 +50,9 @@ Partial Class OPHCore_api_sync
                         result = "<sqroot><source>dblist</source><message>Incorrect Data!</message></sqroot>"
                     End If
                 Case "reqcorescript"
-                    sqlstr = "exec core.createDB '" & accountId & "', @isScriptOnly=1, @token=" & sessionToken & ""
+					dim isnew=getQueryVar("isnew")
+					if isnew="" then isnew=0
+                    sqlstr = "exec core.createDB '" & accountId & "', @isScriptOnly=1, @isnewaccount=" & isnew & ", @token=" & sessionToken & ""
 					writeLog(sqlstr)
                     xmlstr = getXML(sqlstr, contentOfsequoiaCon, 0)
                     If Not IsNothing(xmlstr) Then
@@ -59,6 +61,21 @@ Partial Class OPHCore_api_sync
                         Dim path = Server.MapPath("~/OPHContent/documents") & "\temp\"
                         Dim filename = "install_" & accountId & "_" & newid & ".sql"
                         writeFile(path, filename, result1)
+                        Dim r = download("../../ophcontent/documents/temp/", filename)
+                        isXML = False
+                    End If
+				Case "reqmodules"
+					dim modules=getQueryVar("modules")
+					if modules="" then modules="*"
+                    sqlstr = "exec gen.loadmodl '" & modules & "', 1, @token=" & sessionToken & ""
+                    writeLog(sqlstr)
+                    xmlstr = getXML(sqlstr, contentOfsequoiaCon, 1)
+                    If Not IsNothing(xmlstr) Then
+                        'Dim result1 = xmlstr.Replace("&amp;", "&").Replace("&lt;", "<").Replace("&gt;", ">")
+                        Dim newid = Guid.NewGuid().ToString
+                        Dim path = Server.MapPath("~/OPHContent/documents") & "\temp\"
+                        Dim filename = "modules_" & accountId & "_" & newid & ".sql"
+                        writeFile(path, filename, xmlstr)
                         Dim r = download("../../ophcontent/documents/temp/", filename)
                         isXML = False
                     End If

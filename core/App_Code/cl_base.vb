@@ -600,7 +600,7 @@ Public Class cl_base
 
         If r <> "" Then
             If key.ToLower = "sqlfilter" Then
-                r = r.Replace("--", "").Replace("+", "").Replace(";", "").Replace("<", "").Replace(">", "")
+                r = r.Replace("--", "").Replace("+", "").Replace(";", "").Replace("<", "").Replace(">", "").Replace("@", "").Replace("()", "")'.Replace(".", "")
             ElseIf key.ToLower = "bsearchtext" Or key.ToLower = "search" Or key.ToLower = "q" Then
                 r = r.Replace("--", "").Replace(";", "").Replace("<", "").Replace(">", "")
             Else
