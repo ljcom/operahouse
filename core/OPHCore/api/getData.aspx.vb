@@ -16,6 +16,10 @@ Partial Class OPHCore_api_getData
         Dim DBCore = contentOfsqDB
         Dim curHostGUID = Session("hostGUID")
         Dim curUserGUID = Session("userGUID")
+		
+		if getQueryVar("hostguid")<>"" then curHostGUID=getQueryVar("hostguid")		
+
+
         Dim mode = getQueryVar("mode")
         Dim sqlstr = "", xmlstr = ""
         Select Case mode

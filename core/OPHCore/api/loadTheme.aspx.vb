@@ -102,7 +102,13 @@ Partial Class OPHCore_api_loadTheme
         Dim gpskey = runSQLwithResult("select infovalue from acctinfo where infokey='gpskey'")
         If gpskey <> "" Then doc = doc.Replace("##gpskey##", gpskey)
 
-        'flush the result
+
+		'insert recaptchakey
+		'##recaptchakey##
+		Dim recaptchakey=runSQLwithResult("select infovalue from acctinfo where infokey='recaptchakey'")
+		If recaptchakey <> "" Then doc = doc.Replace("##recaptchakey##", recaptchakey)
+
+		'flush the result
 
         Response.ContentType = "text/xml"
         Response.Write("<?xml version=""1.0"" encoding=""utf-8""?>")

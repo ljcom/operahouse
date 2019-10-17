@@ -20,6 +20,8 @@ Partial Class OPHCore_API_default
         Dim curHostGUID = Session("hostGUID")
         Dim curUserGUID = Session("userGUID")
 
+		if getQueryVar("hostguid")<>"" then curHostGUID=getQueryVar("hostguid")		
+
         Dim sqlstr = ""
         Dim noxml = False
         'Dim isValid = False
