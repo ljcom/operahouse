@@ -288,19 +288,7 @@ function loadReport(qCode, f) {
 
 
 
-function rejectPopup(code, GUID, action, page, location, formId, afterSuccess) {
 
-    $("#rejectModal").modal();
-    document.getElementById('rejectComment').onkeyup = function () {
-        $('#rejectBtn').css('visibility', $('#rejectComment').val() !== '' ? 'visible' : 'hidden');
-    };
-
-    document.getElementById('rejectBtn').onclick = function () {
-        var comment = $('#rejectComment').val();
-        btn_function(code, GUID, action, page, location, formId, comment, afterSuccess);
-    };
-
-}
 
 //childform
 
@@ -340,10 +328,10 @@ function closeChildForm(code, guid) {
 
 //functions
 
-function btn_function(code, GUID, action, page, location, formId, comment, afterSuccess) {
+function btn_function(code, GUID, action, page, location, formId, comment, afterSuccess, ini) {
     //location: 0 header; 1 child; 2 browse 
     //location: browse:10, header form:20, browse anak:30, browse form:40
-
+	$(ini).button('loading');
     var pg = (page === "" || isNaN(page)) ? 0 : parseInt(page);
 
     if (location == undefined || location === "") { location = 20; }
@@ -353,7 +341,11 @@ function btn_function(code, GUID, action, page, location, formId, comment, after
     } else if (action === "save") {
         //location: 0 header; 1 child; 2 browse 
         //location: browse:10, header form:20, browse anak:30, browse form:40
-        saveFunction(code, GUID, location, formId, afterSuccess);
+        var r = saveFunction(code, GUID, location, formId, function () {
+			if (typeof afterSuccess === "function") afterSuccess(data);
+			$(this).button('reset');
+		});
+		if (!r) $(ini).button('reset');
     } else {
         if (GUID === null || GUID === '') {
             if (isIE()) {
@@ -364,7 +356,11 @@ function btn_function(code, GUID, action, page, location, formId, comment, after
             GUID = arGUID.join();
         }
 
-        executeFunction(code, GUID, action, location, null, null, comment);
+        var r = executeFunction(code, GUID, action, location, null, null, comment, function () {
+			if (typeof afterSuccess === "function") afterSuccess(data);
+			$(ini).button('reset');
+		});
+		if (!r) $(ini).button('reset');
     }
 }
 
@@ -1041,6 +1037,7 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
         });
 
     }
+	return isAction;
 }
 
 function downloadModule(code, exportMode, withData) {

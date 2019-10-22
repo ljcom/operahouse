@@ -46,7 +46,7 @@
 			<recordBox dataFormat="" align="center" height="59.1" width="167.75" field="Address" fontSize="9" x="67" y="137" id="RecordBox12"/>
 			<image y="13" path="Logo Liberty.jpg" x="335" width="147" height="53.1" id="Image2"/>
 		</header>
-		<detail id="Detail1" autoSplit="true" height="580.9">
+		<detail id="Detail1" autoSplit="true" height="355.9">
 			<subReport id="SubReport1" width="494" x="1" y="8">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeSord_report_sub1">
@@ -111,29 +111,7 @@
 			<label height="14" id="Label33" text=")" width="9" y="502" x="200"/>
 			<recordBox id="RecordBox23" dataFormat="" field="CustName" align="center" height="19" fontSize="10" y="502" x="13.1" width="185"/>
 			<recordBox dataFormat="" align="center" height="19" width="200" fontSize="10" id="RecordBox13" field="signby" x="282" y="502"/>
-			<contentGroup id="ContentGroup1" width="494.1" height="67" y="361" x="3">
-				<rectangle id="Rectangle29" x="2.1" width="61" fillColor="gray" y="6" height="59"/>
-				<rectangle id="Rectangle30" width="244" y="6.1" height="59" x="63.1"/>
-				<rectangle id="Rectangle31" width="80" height="15.1" fillColor="gray" y="6" x="307.1"/>
-				<rectangle width="80" height="15.1" id="Rectangle32" fillColor="gray" y="21" x="307.1"/>
-				<rectangle width="80" height="15.1" id="Rectangle33" y="36" fillColor="gray" x="307.1"/>
-				<rectangle width="80" height="15.1" id="Rectangle34" fillColor="gray" y="50" x="307.1"/>
-				<rectangle id="Rectangle35" width="99" x="387.1" y="6" height="14.1"/>
-				<rectangle height="15.1" width="99" id="Rectangle36" y="20" x="387.1"/>
-				<rectangle height="15.1" width="99" id="Rectangle37" y="35" x="387.1"/>
-				<rectangle height="15.1" width="99" id="Rectangle38" y="50" x="387.1"/>
-				<label id="Label16" height="14" fontSize="10" text="Notes :" width="42" x="13" y="29"/>
-				<label height="14" fontSize="10" id="Label17" y="6" text="Subtotal" width="71.1" x="312"/>
-				<label fontSize="10" x="311" width="71.1" id="Label18" text="Discount" height="13" y="21"/>
-				<label fontSize="10" x="311" width="71.1" height="13" id="Label19" text="PPN" y="36"/>
-				<label fontSize="10" x="311" width="71.1" height="13" id="Label20" y="51" text="Total"/>
-				<recordBox id="RecordBox1" dataFormat="" height="14" align="right" fontSize="10" y="5" x="397" width="84" field="TotalAmount&#xA;TotalAmount"/>
-				<recordBox dataFormat="" height="14" align="right" fontSize="10" x="397" width="84" id="RecordBox2" y="20" field="Discount"/>
-				<recordBox dataFormat="" height="14" align="right" fontSize="10" x="397" width="84" id="RecordBox4" y="35" field="PPN"/>
-				<recordBox dataFormat="" height="14" align="right" fontSize="10" width="84" id="RecordBox5" y="51" x="398" field="Total"/>
-				<recordBox id="RecordBox7" dataFormat="" x="69" fontSize="10" field="Notes" width="236" y="12" height="51"/>
-			</contentGroup>
 		</detail>
-		<footer id="Footer1"/>
+		<footer id="Footer1" height="134"><conditionalFooter id="ConditionalFooter1" condition=""><rectangle id="Rectangle1" height="11" y="14" x="389" width="98"/><rectangle height="11" id="Rectangle2" y="25" x="389" width="98.1"/><rectangle height="11" id="Rectangle3" y="36" x="389" width="98.1"/><rectangle height="11" id="Rectangle4" y="47" x="389" width="98.1"/><rectangle height="11" id="Rectangle5" x="313" width="76.1" y="13" fillColor="gray"/><rectangle id="Rectangle11" y="12" x="71.1" width="241" height="45"/><rectangle id="Rectangle12" x="4" width="68" y="12" fillColor="gray" height="45"/><label id="Label1" height="14" text="Notes" fontSize="10" width="28" x="18" y="29"/><recordBox id="RecordBox8" dataFormat="" x="79" y="19" width="228.1" height="36" fontSize="10" field="Notes"/><rectangle height="11" x="313" width="76.1" id="Rectangle6" y="24" fillColor="gray"/><rectangle height="11" x="313" width="76.1" id="Rectangle7" y="35" fillColor="gray"/><rectangle height="11" x="313" width="76.1" id="Rectangle8" y="46" fillColor="gray"/><label id="Label2" height="14" fontSize="10" text="Subtotal" width="60" y="11" x="316"/><label height="14" fontSize="10" width="60" x="316" id="Label3" y="23" text="Discount"/><label height="14" fontSize="10" width="60" x="316" id="Label4" y="34" text="PPN"/><label height="14" fontSize="10" width="60" x="316" id="Label5" y="45" text="Total"/><recordBox id="RecordBox14" dataFormat="" height="14" width="100" fontSize="10" field="TotalAmount" x="387" y="13" align="right"/><recordBox dataFormat="" height="14" width="100" fontSize="10" x="387" align="right" id="RecordBox16" y="24" field="Discount"/><recordBox dataFormat="" height="14" width="100" fontSize="10" x="387" align="right" id="RecordBox17" field="PPN" y="35"/><recordBox dataFormat="" height="14" width="100" fontSize="10" x="387" align="right" id="RecordBox18" y="47" field="Total"/></conditionalFooter></footer>
 	</report>
 </document>

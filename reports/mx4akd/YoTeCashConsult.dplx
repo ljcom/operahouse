@@ -9,7 +9,7 @@
 		</query>
 		<template id="Template1"/>
 		<header id="Header1"/>
-		<detail id="Detail1" height="755.011">
+		<detail id="Detail1" height="551.011" autoSplit="true">
 			<label id="Label1" font="HelveticaBold" align="center" width="289" fontSize="16" height="22" y="6.1" x="110" text="APOTEK KLINIK DESA"/>
 			<label id="Label2" align="center" fontSize="10" x="115" width="290" y="30" height="37" text="JL. Bangbarung Raya/H.Achmad Sobana&#xA; No.39, Bogor&#xA;Telp : (0251) 8348386"/>
 			<label id="Label3" x="204" width="100" font="HelveticaBold" text="IGD" align="center" height="19" y="66"/>
@@ -50,7 +50,9 @@
 					<recordBox id="RecordBox15" dataFormat="" height="14" width="198" field="Notes" y="48" x="59.5"/>
 					<line id="Line1" x1="42.5" y1="66" x2="475" y2="66.5"/>
 					<recordBox id="RecordBox17" dataFormat="" height="14" x="372" width="103" field="Qty1" y="48"/>
-					<label id="Label28" height="14" align="center" font="HelveticaBold" text="S" y="48" x="42.5" width="13"/><label id="Label29" align="center" font="HelveticaBold" text="No" y="6" x="431.5" width="23" height="18.5"/></detail>
+					<label id="Label28" height="14" align="center" font="HelveticaBold" text="S" y="48" x="42.5" width="13"/>
+					<label id="Label29" align="center" font="HelveticaBold" text="No" y="6" x="431.5" width="23" height="18.5"/>
+				</detail>
 				<footer id="Footer2" height="2"/>
 			</subReport>
 			<line id="Line2" x1="16" x2="477.5" y1="426" y2="426"/>
