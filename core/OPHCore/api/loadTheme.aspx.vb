@@ -4,12 +4,24 @@ Partial Class OPHCore_api_loadTheme
     Inherits cl_base
 
     Private Sub OPH_welcome_default_xml_tableview_Load(sender As Object, e As EventArgs) Handles Me.Load
-        loadAccount()
+
         Dim doc = ""
+
         Dim theme = getQueryVar("theme")
         Dim page = getQueryVar("page")
         Dim code = getQueryVar("code")
         Dim guid = getQueryVar("guid")
+
+
+        'If Session(code.ToLower()) = "" Then
+        'loadAccount()
+        'End If
+
+        Dim curHostGUID = getSession() 'Session("hostGUID")
+        If curHostGUID = "" Then loadAccount()
+
+        'contentOfdbODBC = Session("odbc")
+        'contentOfsqDB = Session("sqDB")
 
         Dim quick = False
         'System.Web.HttpRuntime.CodegenDir' //asp.net temp folder
@@ -70,21 +82,21 @@ Partial Class OPHCore_api_loadTheme
 
         If js <> "" Then doc = doc.Replace("function <xsl:value-of select=""$lowerCode"" />_savebefore(d) {}", js)
         'writeLog(doc.indexOf("function <xsl:value-of select=""$lowerCode"" />_savebefore(d) {}"))
-        writeLog(js)
+        'writeLog(js)
 
         sqlstr = "select infovalue from modlinfo i inner join modl m on m.moduleguid=i.moduleguid where m.moduleid='" & code & "' and i.infokey='js_saveafter'"
         js = runSQLwithResult(sqlstr).Replace("js_", code.ToLower() & "_")
 
         If js <> "" Then doc = doc.Replace("function <xsl:value-of select=""$lowerCode"" />_saveafter(d) {}", js)
         'writeLog(doc.indexOf("function <xsl:value-of select=""$lowerCode"" />_saveafter(d) {}"))
-        writeLog(js)
+        'writeLog(js)
 
         sqlstr = "select infovalue from modlinfo i inner join modl m on m.moduleguid=i.moduleguid where m.moduleid='" & code & "' and i.infokey='js_custom'"
         js = runSQLwithResult(sqlstr).Replace("js_", code.ToLower() & "_")
 
         If js <> "" Then doc = doc.Replace("function <xsl:value-of select=""$lowerCode"" />_custom(d) {}", js)
         'writeLog(doc.indexOf("function <xsl:value-of select=""$lowerCode"" />_saveafter(d) {}"))
-        writeLog(js)
+        'writeLog(js)
         'End If
 
         'save
@@ -92,8 +104,8 @@ Partial Class OPHCore_api_loadTheme
             Dim file As System.IO.FileStream
             file = System.IO.File.Create(themetemp)
             file.Close()
+        My.Computer.FileSystem.WriteAllText(themetemp, doc, False)															 
         End If
-        My.Computer.FileSystem.WriteAllText(themetemp, doc, False)
 
 
 
@@ -108,7 +120,7 @@ Partial Class OPHCore_api_loadTheme
 		Dim recaptchakey=runSQLwithResult("select infovalue from acctinfo where infokey='recaptchakey'")
 		If recaptchakey <> "" Then doc = doc.Replace("##recaptchakey##", recaptchakey)
 
-		'flush the result
+        'flush the result
 
         Response.ContentType = "text/xml"
         Response.Write("<?xml version=""1.0"" encoding=""utf-8""?>")

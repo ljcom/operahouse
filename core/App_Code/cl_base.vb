@@ -21,8 +21,8 @@ Public Class cl_base
 
     Protected contentOfthemeFolder As String
     Protected contentOfthemePage As String
-    Protected contentOfdbODBC As String
-    Protected contentOfsqDB As String
+    'Protected session("ODBC") As String
+    'Protected contentOfsqDB As String
     Protected contentOfCode As String
     Protected contentOfGUID As String
     Protected contentOfEnv As String
@@ -43,6 +43,7 @@ Public Class cl_base
     Protected contentofUserGUID As String = ""
     Protected contentofSaveString As String = ""
     Protected contentofUserName As String = ""
+    Protected contentofMultiAccount As String = "0"
 
 #Region "Properties Section"
     'Public Property headTitle() As String
@@ -254,14 +255,14 @@ Public Class cl_base
                     manifest &= cssFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & vbCrLf
                 Next
 
-				dim async=""
+                Dim async = ""
                 For Each jsFile In doc.SelectNodes("//jsFile")
                     'jsFile.InnerText = (jsFile.InnerText)
                     'contentOfScripts = jsFile.InnerText
                     'str &= "<script type=""text/javascript"" src=""" & jsFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & "?unique=" & Format(lastMod, "yyyyMMddhhmmss") & """></script>" & vbCrLf
                     If jsFile.OuterXml.IndexOf("async=""true""") > 0 Then async = "async"
-                    
-                        str &= "<script " & async & "type=""text/javascript"" src=""" & jsFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & """></script>" & vbCrLf
+
+                    str &= "<script " & async & "type=""text/javascript"" src=""" & jsFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & """></script>" & vbCrLf
                     manifest &= jsFile.InnerText.Replace("OPHContent/cdn", cdnLocation) & vbCrLf
                 Next
                 'Session("manifestCache") = manstr
@@ -327,180 +328,180 @@ Public Class cl_base
     'End Function
 #End Region
 #Region "Form Control"
-    Function Fn_Global(ByVal number As String, ByVal mode As String, ByVal digit As Long) As String
-        Dim jmldigit, jmlkoma, index, result, number1, isdecimal, decimalmode, separatormode, isminus As String
-        index = 1
-        isminus = ""
-        isdecimal = 0
-        If number.IndexOf("-") > -1 Then
-            isminus = "-"
-            number = number.Substring(1, number.Length - 1)
-        End If
-        If mode = "ID" Then
-            decimalmode = ","
-            separatormode = "."
+    'Function Fn_Global(ByVal number As String, ByVal mode As String, ByVal digit As Long) As String
+    '    Dim jmldigit, jmlkoma, index, result, number1, isdecimal, decimalmode, separatormode, isminus As String
+    '    index = 1
+    '    isminus = ""
+    '    isdecimal = 0
+    '    If number.IndexOf("-") > -1 Then
+    '        isminus = "-"
+    '        number = number.Substring(1, number.Length - 1)
+    '    End If
+    '    If mode = "ID" Then
+    '        decimalmode = ","
+    '        separatormode = "."
 
-        Else
-            decimalmode = "."
-            separatormode = ","
-        End If
-        result = ""
-        number1 = number
+    '    Else
+    '        decimalmode = "."
+    '        separatormode = ","
+    '    End If
+    '    result = ""
+    '    number1 = number
 
-        If number.IndexOf(".") > 0 Then
-            number = number.Substring(0, number.IndexOf("."))
+    '    If number.IndexOf(".") > 0 Then
+    '        number = number.Substring(0, number.IndexOf("."))
 
-            isdecimal = 1
-        End If
+    '        isdecimal = 1
+    '    End If
 
-        jmldigit = number.Length()
-        jmlkoma = jmldigit / 3
-        If jmlkoma < 1 Then
-            result = number
-
-
-        Else
-            While (jmldigit > 0)
-
-                result += number.Substring(index - 1, 1)
-                jmldigit -= 1
-
-                If jmldigit Mod 3 = 0 And jmlkoma > 1 Then
-                    result += separatormode
-                    jmlkoma -= 1
-                End If
-
-                index += 1
+    '    jmldigit = number.Length()
+    '    jmlkoma = jmldigit / 3
+    '    If jmlkoma < 1 Then
+    '        result = number
 
 
-            End While
-        End If
-        If isdecimal = 1 Then
-            If digit.ToString = "" Then
-                digit = number1.Length - number1.IndexOf(".") - 1
-            End If
-            If digit > 0 Then
-                result += decimalmode + number1.Substring(number1.IndexOf(".") + 1, digit)
-            End If
-            result = isminus + result
-        End If
-        Return result
-    End Function
+    '    Else
+    '        While (jmldigit > 0)
+
+    '            result += number.Substring(index - 1, 1)
+    '            jmldigit -= 1
+
+    '            If jmldigit Mod 3 = 0 And jmlkoma > 1 Then
+    '                result += separatormode
+    '                jmlkoma -= 1
+    '            End If
+
+    '            index += 1
 
 
-    Function CheckBox(ByVal id As String, Optional ByVal inputValue As String = "", Optional ByVal EditMode As Long = 1, Optional ByVal size As String = "20", Optional ByVal align As String = "Left", Optional ByVal linkedfield As String = "") As String
-        Dim retval As String
-        Dim checked As String
-        If inputValue = "True" Then
-            checked = "checked"
-        Else
-            checked = " "
-        End If
-        If EditMode = 0 Then
-            retval = "<INPUT name=""" & id & """ type=""Checkbox"" onclick=""javascript:activateField('" & linkedfield & "','" & id & "')"" value=""1"" style=text-align:" & align & " id=""" & id & """  size=" & size & " " & checked & " disabled>"
-        Else
-            retval = "<INPUT name=""" & id & """ type=""Checkbox"" onclick=""javascript:activateField('" & linkedfield & "','" & id & "')"" value=""1"" style=text-align:" & align & " id=""" & id & """  size=" & size & " " & checked & ">"
-        End If
-        Return retval
-    End Function
+    '        End While
+    '    End If
+    '    If isdecimal = 1 Then
+    '        If digit.ToString = "" Then
+    '            digit = number1.Length - number1.IndexOf(".") - 1
+    '        End If
+    '        If digit > 0 Then
+    '            result += decimalmode + number1.Substring(number1.IndexOf(".") + 1, digit)
+    '        End If
+    '        result = isminus + result
+    '    End If
+    '    Return result
+    'End Function
 
-    Function TextBox(ByVal id As String, Optional ByVal type As String = "text", Optional ByVal inputValue As String = "",
-        Optional ByVal EditMode As Long = 1, Optional ByVal size As String = "20",
-        Optional ByVal align As String = "Left", Optional ByVal datatype As String = "", Optional ByVal NumberSetting As String = "EN", Optional ByVal digitMode As String = "0",
-        Optional className As String = "") As String
 
-        Dim retval As String, rows As Long, cols As Long
-        Select Case datatype
-            Case 48, 52, 56, 59, 62, 106, 108, 122, 127, 262
-                inputValue = Fn_Global(inputValue, NumberSetting, digitMode)
-            Case 60, 257, 263
-                inputValue = Fn_Global(inputValue, NumberSetting, digitMode)
-        End Select
-        If size = "" Then size = 10
-        If size > 50 Then
-            rows = size \ 50
-            If rows > 6 Then rows = 6
-            cols = 50
-            If type <> "hidden" And type <> "combo" Then
-                type = "textarea"
-            End If
+    'Function CheckBox(ByVal id As String, Optional ByVal inputValue As String = "", Optional ByVal EditMode As Long = 1, Optional ByVal size As String = "20", Optional ByVal align As String = "Left", Optional ByVal linkedfield As String = "") As String
+    '    Dim retval As String
+    '    Dim checked As String
+    '    If inputValue = "True" Then
+    '        checked = "checked"
+    '    Else
+    '        checked = " "
+    '    End If
+    '    If EditMode = 0 Then
+    '        retval = "<INPUT name=""" & id & """ type=""Checkbox"" onclick=""javascript:activateField('" & linkedfield & "','" & id & "')"" value=""1"" style=text-align:" & align & " id=""" & id & """  size=" & size & " " & checked & " disabled>"
+    '    Else
+    '        retval = "<INPUT name=""" & id & """ type=""Checkbox"" onclick=""javascript:activateField('" & linkedfield & "','" & id & "')"" value=""1"" style=text-align:" & align & " id=""" & id & """  size=" & size & " " & checked & ">"
+    '    End If
+    '    Return retval
+    'End Function
 
-        End If
-        If type = "textarea" Then
-            If EditMode = 0 Then
-                retval = "<TEXTAREA id=""" & id & """ name=""" & id & """ rows=2 cols=" & cols & " maxlength=" & size & " class=""" & IIf(className <> "", className, "textBoxClearBorder") & """ onkeyup=""javascript:autogrow(this);"" title=""" & inputValue & """ readonly>" & inputValue & "</textarea>"
-            ElseIf EditMode = 2 Then
-                retval = "<TEXTAREA id=""" & id & """ name=""" & id & """ rows=2 cols=" & cols & " maxlength=" & size & " class=""" & IIf(className <> "", className, "textBoxClearBorder") & """ onkeyup=""javascript:autogrow(this);"" title=""" & inputValue & """ readonly>" & inputValue & "</textarea>"
-            Else
-                retval = "<TEXTAREA id=""" & id & """ name=""" & id & """ rows=2 cols=" & cols & " maxlength=" & size & " class=""" & IIf(className <> "", className, "textBoxStandard") & """ onkeyup=""javascript:autogrow(this);"" onkeypress=""cekinput('" & datatype & "','" & id & "')"" onkeyup=""cektanda('" & datatype & "','" & id & "')"" title=""" & inputValue & """>" & inputValue & "</textarea>"
+    'Function TextBox(ByVal id As String, Optional ByVal type As String = "text", Optional ByVal inputValue As String = "",
+    '    Optional ByVal EditMode As Long = 1, Optional ByVal size As String = "20",
+    '    Optional ByVal align As String = "Left", Optional ByVal datatype As String = "", Optional ByVal NumberSetting As String = "EN", Optional ByVal digitMode As String = "0",
+    '    Optional className As String = "") As String
 
-            End If
-        ElseIf type = "checkbox" Then
-            Dim checked As String
-            If inputValue = "True" Or inputValue = "Yes" Or inputValue = "1" Or inputValue = "-1" Then
-                checked = "checked"
-            Else
-                checked = " "
-            End If
-            If EditMode = 0 Then
-                If size = 0 Then
-                    retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value =1 style=""display:none;text-align:" & align & """ size=" & size & " " & checked & ">"
-                Else
-                    retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value =1 style=text-align:" & align & " size=" & size & " " & checked & " disabled>"
-                End If
-            ElseIf EditMode = 2 Then
-                If size = 0 Then
-                    retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value =1 style=""display:none;text-align:" & align & """ size=" & size & " " & checked & " disabled>"
-                Else
+    '    Dim retval As String, rows As Long, cols As Long
+    '    Select Case datatype
+    '        Case 48, 52, 56, 59, 62, 106, 108, 122, 127, 262
+    '            inputValue = Fn_Global(inputValue, NumberSetting, digitMode)
+    '        Case 60, 257, 263
+    '            inputValue = Fn_Global(inputValue, NumberSetting, digitMode)
+    '    End Select
+    '    If size = "" Then size = 10
+    '    If size > 50 Then
+    '        rows = size \ 50
+    '        If rows > 6 Then rows = 6
+    '        cols = 50
+    '        If type <> "hidden" And type <> "combo" Then
+    '            type = "textarea"
+    '        End If
 
-                    retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value =1 style=text-align:" & align & " size=" & size & " " & checked & " disabled>"
-                End If
-                'retval = "<span class=labelStandard>" & inputValue & "</span>"
-            Else
-                If size = 0 Then
-                    retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value =1 style=display:none;text-align:" & align & " size=" & size & " " & checked & ">"
-                Else
-                    retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value =1 style=text-align:" & align & " size=" & size & " " & checked & ">"
-                End If
-            End If
-        ElseIf type = "combo" Then    'combo
-            If EditMode = 0 Then
-                retval = "<div id=""" & id & "_div"" class=""" & IIf(className <> "", className, "textBoxClearBorder") & """ style=""white-space: nowrap""><INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value = """ & inputValue & """ style=text-align:" & align & " class=""" & IIf(className <> "", className, "textBoxHiddenBorder") & """ size=" & size & " maxlength=" & size & " onkeypress=""cekinput('" & datatype & "','" & id & "')"" readonly></div>"
-            ElseIf EditMode = 2 Then
-                retval = "<div id=""" & id & "_div"" class=""" & IIf(className <> "", className, "textBoxClearBorder") & """ style=""white-space: nowrap""><INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value = """ & inputValue & """ style=text-align:" & align & " class=""" & IIf(className <> "", className, "textBoxHiddenBorder") & """ size=" & size & " maxlength=" & size & " onkeypress=""cekinput('" & datatype & "','" & id & "')"" readonly></div>"
-                'retval = "<span class=labelStandard>" & inputValue & "</span>"
-            Else
-                retval = "<div id=""" & id & "_div"" class=""" & IIf(className <> "", className, "textBoxBorder") & """ style=""white-space: nowrap""><INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value = """ & inputValue & """ style=text-align:" & align & "  class=""" & IIf(className <> "", className, "textBoxHiddenBorder") & """ size=" & size & " maxlength=" & size & " onkeypress=""cekinput('" & datatype & "','" & id & "')"" onkeyup=""cektanda('" & datatype & "','" & id & "')""><img id=""" & id & "_button"" class=""comboImg"" src=""OPHContent/themes/" & Session("skinFolder") & "/images/select.gif"" title=""you can type the keyword to show the selected list or <blank> to show all list."" /></div>"
-            End If
+    '    End If
+    '    If type = "textarea" Then
+    '        If EditMode = 0 Then
+    '            retval = "<TEXTAREA id=""" & id & """ name=""" & id & """ rows=2 cols=" & cols & " maxlength=" & size & " class=""" & IIf(className <> "", className, "textBoxClearBorder") & """ onkeyup=""javascript:autogrow(this);"" title=""" & inputValue & """ readonly>" & inputValue & "</textarea>"
+    '        ElseIf EditMode = 2 Then
+    '            retval = "<TEXTAREA id=""" & id & """ name=""" & id & """ rows=2 cols=" & cols & " maxlength=" & size & " class=""" & IIf(className <> "", className, "textBoxClearBorder") & """ onkeyup=""javascript:autogrow(this);"" title=""" & inputValue & """ readonly>" & inputValue & "</textarea>"
+    '        Else
+    '            retval = "<TEXTAREA id=""" & id & """ name=""" & id & """ rows=2 cols=" & cols & " maxlength=" & size & " class=""" & IIf(className <> "", className, "textBoxStandard") & """ onkeyup=""javascript:autogrow(this);"" onkeypress=""cekinput('" & datatype & "','" & id & "')"" onkeyup=""cektanda('" & datatype & "','" & id & "')"" title=""" & inputValue & """>" & inputValue & "</textarea>"
 
-        Else    'textbox
-            If EditMode = 0 Then
+    '        End If
+    '    ElseIf type = "checkbox" Then
+    '        Dim checked As String
+    '        If inputValue = "True" Or inputValue = "Yes" Or inputValue = "1" Or inputValue = "-1" Then
+    '            checked = "checked"
+    '        Else
+    '            checked = " "
+    '        End If
+    '        If EditMode = 0 Then
+    '            If size = 0 Then
+    '                retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value =1 style=""display:none;text-align:" & align & """ size=" & size & " " & checked & ">"
+    '            Else
+    '                retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value =1 style=text-align:" & align & " size=" & size & " " & checked & " disabled>"
+    '            End If
+    '        ElseIf EditMode = 2 Then
+    '            If size = 0 Then
+    '                retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value =1 style=""display:none;text-align:" & align & """ size=" & size & " " & checked & " disabled>"
+    '            Else
 
-                retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value = """ & inputValue & """ style=text-align:" & align & " class=""" & IIf(className <> "", className, "textBoxClearBorder") & """ size=" & size & " maxlength=" & size & " onkeypress=""cekinput('" & datatype & "','" & id & "')"" readonly>"
-            ElseIf EditMode = 2 Then
-                retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value = """ & inputValue & """ style=text-align:" & align & " class=""" & IIf(className <> "", className, "textBoxClearBorder") & """ size=" & size & " maxlength=" & size & " onkeypress=""cekinput('" & datatype & "','" & id & "')"" readonly>"
-                'retval = "<span class=labelStandard>" & inputValue & "</span>"
-            Else
-                retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value = """ & inputValue & """ style=text-align:" & align & " class=""" & IIf(className <> "", className, "textBoxStandard") & """ size=" & size & " maxlength=" & size & " onkeypress=""cekinput('" & datatype & "','" & id & "')"" onkeyup=""cektanda('" & datatype & "','" & id & "')"">"
-            End If
-        End If
-        Return retval
-    End Function
+    '                retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value =1 style=text-align:" & align & " size=" & size & " " & checked & " disabled>"
+    '            End If
+    '            'retval = "<span class=labelStandard>" & inputValue & "</span>"
+    '        Else
+    '            If size = 0 Then
+    '                retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value =1 style=display:none;text-align:" & align & " size=" & size & " " & checked & ">"
+    '            Else
+    '                retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value =1 style=text-align:" & align & " size=" & size & " " & checked & ">"
+    '            End If
+    '        End If
+    '    ElseIf type = "combo" Then    'combo
+    '        If EditMode = 0 Then
+    '            retval = "<div id=""" & id & "_div"" class=""" & IIf(className <> "", className, "textBoxClearBorder") & """ style=""white-space: nowrap""><INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value = """ & inputValue & """ style=text-align:" & align & " class=""" & IIf(className <> "", className, "textBoxHiddenBorder") & """ size=" & size & " maxlength=" & size & " onkeypress=""cekinput('" & datatype & "','" & id & "')"" readonly></div>"
+    '        ElseIf EditMode = 2 Then
+    '            retval = "<div id=""" & id & "_div"" class=""" & IIf(className <> "", className, "textBoxClearBorder") & """ style=""white-space: nowrap""><INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value = """ & inputValue & """ style=text-align:" & align & " class=""" & IIf(className <> "", className, "textBoxHiddenBorder") & """ size=" & size & " maxlength=" & size & " onkeypress=""cekinput('" & datatype & "','" & id & "')"" readonly></div>"
+    '            'retval = "<span class=labelStandard>" & inputValue & "</span>"
+    '        Else
+    '            retval = "<div id=""" & id & "_div"" class=""" & IIf(className <> "", className, "textBoxBorder") & """ style=""white-space: nowrap""><INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value = """ & inputValue & """ style=text-align:" & align & "  class=""" & IIf(className <> "", className, "textBoxHiddenBorder") & """ size=" & size & " maxlength=" & size & " onkeypress=""cekinput('" & datatype & "','" & id & "')"" onkeyup=""cektanda('" & datatype & "','" & id & "')""><img id=""" & id & "_button"" class=""comboImg"" src=""OPHContent/themes/" & Session("skinFolder") & "/images/select.gif"" title=""you can type the keyword to show the selected list or <blank> to show all list."" /></div>"
+    '        End If
 
-    Function TextCaption(ByVal caption As String, Optional ByVal isBold As Boolean = False, Optional ByVal isRequired As Boolean = False, Optional ByVal isNApproved As Boolean = False, Optional ByVal fieldname As String = "") As String
-        Dim retval As String
-        Dim cap As String = ""
-        If fieldname <> "" Then cap = "id=""cap_" & fieldname & """"
-        If isBold Then
-            retval = "<span " & cap & " class=labelStandard><b>" & IIf(isNApproved, "<i>", "") & caption & IIf(isNApproved, "</i>", "") & "</b></span>"
-        ElseIf isRequired Then
-            retval = "<span " & cap & " class=labelStandard>" & IIf(isNApproved, "<i>", "") & caption & IIf(isNApproved, "</i>", "") & "</span>"
-        Else
-            retval = "<span " & cap & " class=labelStandard><font color=""#808080"">" & IIf(isNApproved, "<i>", "") & caption & IIf(isNApproved, "</i>", "") & "</font></span>"
+    '    Else    'textbox
+    '        If EditMode = 0 Then
 
-        End If
-        Return retval
-    End Function
+    '            retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value = """ & inputValue & """ style=text-align:" & align & " class=""" & IIf(className <> "", className, "textBoxClearBorder") & """ size=" & size & " maxlength=" & size & " onkeypress=""cekinput('" & datatype & "','" & id & "')"" readonly>"
+    '        ElseIf EditMode = 2 Then
+    '            retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value = """ & inputValue & """ style=text-align:" & align & " class=""" & IIf(className <> "", className, "textBoxClearBorder") & """ size=" & size & " maxlength=" & size & " onkeypress=""cekinput('" & datatype & "','" & id & "')"" readonly>"
+    '            'retval = "<span class=labelStandard>" & inputValue & "</span>"
+    '        Else
+    '            retval = "<INPUT id=""" & id & """ name=""" & id & """ type=""" & type & """ value = """ & inputValue & """ style=text-align:" & align & " class=""" & IIf(className <> "", className, "textBoxStandard") & """ size=" & size & " maxlength=" & size & " onkeypress=""cekinput('" & datatype & "','" & id & "')"" onkeyup=""cektanda('" & datatype & "','" & id & "')"">"
+    '        End If
+    '    End If
+    '    Return retval
+    'End Function
+
+    'Function TextCaption(ByVal caption As String, Optional ByVal isBold As Boolean = False, Optional ByVal isRequired As Boolean = False, Optional ByVal isNApproved As Boolean = False, Optional ByVal fieldname As String = "") As String
+    '    Dim retval As String
+    '    Dim cap As String = ""
+    '    If fieldname <> "" Then cap = "id=""cap_" & fieldname & """"
+    '    If isBold Then
+    '        retval = "<span " & cap & " class=labelStandard><b>" & IIf(isNApproved, "<i>", "") & caption & IIf(isNApproved, "</i>", "") & "</b></span>"
+    '    ElseIf isRequired Then
+    '        retval = "<span " & cap & " class=labelStandard>" & IIf(isNApproved, "<i>", "") & caption & IIf(isNApproved, "</i>", "") & "</span>"
+    '    Else
+    '        retval = "<span " & cap & " class=labelStandard><font color=""#808080"">" & IIf(isNApproved, "<i>", "") & caption & IIf(isNApproved, "</i>", "") & "</font></span>"
+
+    '    End If
+    '    Return retval
+    'End Function
 
     Function findProperty(ByVal dss As DataSet, ByVal columnName As String, ByVal Prop As String) As String
 
@@ -526,6 +527,9 @@ Public Class cl_base
             Response.Cookies(cookieName).Value = cookieValue
         End If
     End Sub
+    Function getCookie(cookieName As String) As String
+        Return Response.Cookies(cookieName).Value
+    End Function
     Sub writeLog(logMessage As String) ', ByVal Optional accountName As String = "")
         'Dim w As TextWriter
         Dim accountName = ""
@@ -600,7 +604,7 @@ Public Class cl_base
 
         If r <> "" Then
             If key.ToLower = "sqlfilter" Then
-                r = r.Replace("--", "").Replace("+", "").Replace(";", "").Replace("<", "").Replace(">", "").Replace("@", "").Replace("()", "")'.Replace(".", "")
+                r = r.Replace("--", "").Replace("+", "").Replace(";", "").Replace("<", "").Replace(">", "")
             ElseIf key.ToLower = "bsearchtext" Or key.ToLower = "search" Or key.ToLower = "q" Then
                 r = r.Replace("--", "").Replace(";", "").Replace("<", "").Replace(">", "")
             Else
@@ -616,7 +620,9 @@ Public Class cl_base
     Public Function IsGoogleCaptchaValid() As Boolean
         Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
         'dynamic account
-        Dim secret = appSettings.Item("reCAPTCHAsecret")
+        'Dim secret = appSettings.Item("reCAPTCHAsecret")
+        Dim secret = runSQLwithResult("select infovalue from acctinfo where infokey='recaptchasecret'")
+
         Try
             Dim recaptchaResponse As String = Request.Form("g-recaptcha-response")
             If Not String.IsNullOrEmpty(recaptchaResponse) Then
@@ -680,9 +686,9 @@ Public Class cl_base
 
     End Function
     Function populateSaveXML(ByVal vp As Long, ByVal Tablename As String, Optional ispreview As String = "", Optional fieldattachment As List(Of String) = Nothing, Optional ByVal randGUID As String = "") As String
-        loadAccount()
-        Dim DBCore = contentOfsqDB
-        Dim curHostGUID = Session("hostGUID")
+        'loadAccount()
+        Dim DBCore = Session("sqDB")    'contentOfsqDB
+        Dim curHostGUID = getSession()  'Session("hostGUID")
         Dim curUserGUID = Session("userGUID")
 
 
@@ -716,125 +722,126 @@ Public Class cl_base
 
 #End Region
 #Region "Authorization"
-    Public Function ValidAccess(ByVal tablename As String, ByVal access As String, Optional ByVal isStrict As Boolean = True) As Long
-        Dim sqlstr As String, r As String
-        If UCase(tablename) = UCase("CaUPLD") Then
-            ValidAccess = 1
-        Else
-            Try
-                tablename = Left(tablename, 1) & "a" & Right(tablename, Len(tablename) - 2)
-                sqlstr = "exec dbo.CaUGRPMODL_verifyAuth '" & tablename & "','" & Session("HostGUID") & "','" & access & "'"
-                r = runSQLwithResult(sqlstr)
-                If r = "1" Then
-                    ValidAccess = 1
-                ElseIf r = "2" Then
-                    ValidAccess = 0
-                    If isStrict Then
-                        contentofError = "You are under delegation status. You may take over your account back by go to User Control and select to take over delegation or click <a href=""../../../modules/systemsetup/caUSER/caUSER_clearDelegation.aspx"">here</a>." & "<br>"
-                    End If
+    'Public Function ValidAccess(ByVal tablename As String, ByVal access As String, Optional ByVal isStrict As Boolean = True) As Long
+    '    Dim sqlstr As String, r As String
+    '    If UCase(tablename) = UCase("CaUPLD") Then
+    '        ValidAccess = 1
+    '    Else
+    '        Try
+    '            Dim hGUID = getSession()
+    '            tablename = Left(tablename, 1) & "a" & Right(tablename, Len(tablename) - 2)
+    '            sqlstr = "exec dbo.CaUGRPMODL_verifyAuth '" & tablename & "','" & hGUID & "','" & access & "'"
+    '            r = runSQLwithResult(sqlstr)
+    '            If r = "1" Then
+    '                ValidAccess = 1
+    '            ElseIf r = "2" Then
+    '                ValidAccess = 0
+    '                If isStrict Then
+    '                    contentofError = "You are under delegation status. You may take over your account back by go to User Control and select to take over delegation or click <a href=""../../../modules/systemsetup/caUSER/caUSER_clearDelegation.aspx"">here</a>." & "<br>"
+    '                End If
 
-                    'Response.Redirect("../../../OPH/welcome/menu/BACK.aspx")
-                Else
-                    ValidAccess = 0
-                    If isStrict Then contentofError = "You are not authorized to access that page." & "<br>"
-                    'Response.Redirect("../../../OPH/welcome/menu/BACK.aspx")
-                End If
-            Catch ex As Exception
-                contentofError = ex.Message & "<br>"
-                ValidAccess = 0
-                'Response.Redirect("../../../OPH/welcome/menu/BACK.aspx")
-            End Try
-        End If
+    '                'Response.Redirect("../../../OPH/welcome/menu/BACK.aspx")
+    '            Else
+    '                ValidAccess = 0
+    '                If isStrict Then contentofError = "You are not authorized to access that page." & "<br>"
+    '                'Response.Redirect("../../../OPH/welcome/menu/BACK.aspx")
+    '            End If
+    '        Catch ex As Exception
+    '            contentofError = ex.Message & "<br>"
+    '            ValidAccess = 0
+    '            'Response.Redirect("../../../OPH/welcome/menu/BACK.aspx")
+    '        End Try
+    '    End If
 
-    End Function
+    'End Function
 
-    Function GetConnect(ByVal accountid As String, ByVal siteid As String, ByVal userid As String, Optional ByVal pwd As String = "", Optional ByVal bypasspwd As String = "", Optional connection As String = "") As Boolean
-        Dim sqlstr As String
-        sqlstr = "exec api.VerifyPassword '" & accountid & "', '" & userid & "', '" & pwd & "', " & IIf(bypasspwd = "", "", "1")
+    ' Function GetConnect(ByVal accountid As String, ByVal siteid As String, ByVal userid As String, Optional ByVal pwd As String = "", Optional ByVal bypasspwd As String = "", Optional connection As String = "") As Boolean
+    'Dim sqlstr As String
+    'sqlstr = "exec api.VerifyPassword '" & accountid & "', '" & userid & "', '" & pwd & "', " & IIf(bypasspwd = "", "", "1")
 
-        Dim ds As DataSet = SelectSqlSrvRows(sqlstr)
-        Dim isValid As Boolean = True
-        If Not ds Is Nothing Then
-            Try
-                Session("AppTitle") = ds.Tables(0).Rows(0).Item("Description").ToString
-                Session("HostGUID") = ds.Tables(0).Rows(0).Item("HostGUID").ToString
-                setCookie("hostGUID", ds.Tables(0).Rows(0).Item("HostGUID").ToString, 1)
+    'Dim ds As DataSet = SelectSqlSrvRows(sqlstr)
+    'Dim isValid As Boolean = True
+    'If Not ds Is Nothing Then
+    '    Try
+    '        Session("AppTitle") = ds.Tables(0).Rows(0).Item("Description").ToString
+    '        Session("HostGUID") = ds.Tables(0).Rows(0).Item("HostGUID").ToString
+    '        setCookie(accountid + "_hostGUID", ds.Tables(0).Rows(0).Item("HostGUID").ToString, 1)
 
-                Session("SiteGUID") = ds.Tables(0).Rows(0).Item("siteGUID").ToString
-                Session("UserGUID") = ds.Tables(0).Rows(0).Item("UserGUID").ToString
-                Session("OriginalUserGUID") = ds.Tables(0).Rows(0).Item("UserGUID").ToString
-                Session("UserName") = ds.Tables(0).Rows(0).Item("UserName").ToString
-                Session("OriginalUserName") = ds.Tables(0).Rows(0).Item("UserName").ToString
-                Session("AccountId") = ds.Tables(0).Rows(0).Item("AccountId")
-                Session("Folder") = ds.Tables(0).Rows(0).Item("Folder").ToString
-                Session("DocumentFolder") = ds.Tables(0).Rows(0).Item("DocumentFolder").ToString
-                Session("EngineFolder") = ds.Tables(0).Rows(0).Item("EngineFolder").ToString
-                Session("ReportFolder") = ds.Tables(0).Rows(0).Item("ReportFolder").ToString
-                Session("UploadFolder") = ds.Tables(0).Rows(0).Item("UploadFolder").ToString
-                Session("SkinFolder") = ds.Tables(0).Rows(0).Item("SkinFolder").ToString
-                Dim expDate As DateTime = ds.Tables(0).Rows(0).Item("expirypwd").ToString
-                Session("isPwdExpired") = IIf(DateDiff("d", Today, expDate) <= 0, True, False)
-                Dim delegateUserGUID = ds.Tables(0).Rows(0).Item("delegateUserGUID").ToString()
+    '        Session("SiteGUID") = ds.Tables(0).Rows(0).Item("siteGUID").ToString
+    '        Session("UserGUID") = ds.Tables(0).Rows(0).Item("UserGUID").ToString
+    '        Session("OriginalUserGUID") = ds.Tables(0).Rows(0).Item("UserGUID").ToString
+    '        Session("UserName") = ds.Tables(0).Rows(0).Item("UserName").ToString
+    '        Session("OriginalUserName") = ds.Tables(0).Rows(0).Item("UserName").ToString
+    '        Session("AccountId") = ds.Tables(0).Rows(0).Item("AccountId")
+    '        Session("Folder") = ds.Tables(0).Rows(0).Item("Folder").ToString
+    '        Session("DocumentFolder") = ds.Tables(0).Rows(0).Item("DocumentFolder").ToString
+    '        Session("EngineFolder") = ds.Tables(0).Rows(0).Item("EngineFolder").ToString
+    '        Session("ReportFolder") = ds.Tables(0).Rows(0).Item("ReportFolder").ToString
+    '        Session("UploadFolder") = ds.Tables(0).Rows(0).Item("UploadFolder").ToString
+    '        Session("SkinFolder") = ds.Tables(0).Rows(0).Item("SkinFolder").ToString
+    '        Dim expDate As DateTime = ds.Tables(0).Rows(0).Item("expirypwd").ToString
+    '        Session("isPwdExpired") = IIf(DateDiff("d", Today, expDate) <= 0, True, False)
+    '        Dim delegateUserGUID = ds.Tables(0).Rows(0).Item("delegateUserGUID").ToString()
 
-                If Session("SkinFolder") = "" Then Session("SkinFolder") = "lor-blue"
+    '        If Session("SkinFolder") = "" Then Session("SkinFolder") = "lor-blue"
 
 
-                Session("Charset") = ds.Tables(0).Rows(0).Item("Charset")
-                Session("CodePage") = ds.Tables(0).Rows(0).Item("CodePage")
-                Session("FirstPage") = ds.Tables(0).Rows(0).Item("FirstPage")
-                Session("BackMenu") = "../../../OPH/welcome/menu/form.aspx"
+    '        Session("Charset") = ds.Tables(0).Rows(0).Item("Charset")
+    '        Session("CodePage") = ds.Tables(0).Rows(0).Item("CodePage")
+    '        Session("FirstPage") = ds.Tables(0).Rows(0).Item("FirstPage")
+    '        Session("BackMenu") = "../../../OPH/welcome/menu/form.aspx"
 
-                Session("DelegateUserGUID") = ""
+    '        Session("DelegateUserGUID") = ""
 
-                Dim MyCookie As New HttpCookie("OPH_UserId")
-                MyCookie.Value = userid
-                MyCookie.Expires = Now.AddMonths(1)
-                Response.Cookies.Add(MyCookie)
+    '        Dim MyCookie As New HttpCookie("OPH_UserId")
+    '        MyCookie.Value = userid
+    '        MyCookie.Expires = Now.AddMonths(1)
+    '        Response.Cookies.Add(MyCookie)
 
-                Dim MyCookie3 As New HttpCookie("OPH_UserGUID")
-                MyCookie3.Value = ds.Tables(0).Rows(0).Item("UserGUID").ToString
-                MyCookie3.Expires = Now.AddMonths(1)
-                Response.Cookies.Add(MyCookie3)
+    '        Dim MyCookie3 As New HttpCookie("OPH_UserGUID")
+    '        MyCookie3.Value = ds.Tables(0).Rows(0).Item("UserGUID").ToString
+    '        MyCookie3.Expires = Now.AddMonths(1)
+    '        Response.Cookies.Add(MyCookie3)
 
-                Dim MyCookie1 As New HttpCookie("OPH_AccountId")
-                MyCookie1.Value = accountid
-                MyCookie1.Expires = Now.AddMonths(1)
-                Response.Cookies.Add(MyCookie1)
+    '        Dim MyCookie1 As New HttpCookie("OPH_AccountId")
+    '        MyCookie1.Value = accountid
+    '        MyCookie1.Expires = Now.AddMonths(1)
+    '        Response.Cookies.Add(MyCookie1)
 
-                Dim MyCookie4 As New HttpCookie("OPH_AccountGUID")
-                MyCookie4.Value = ds.Tables(0).Rows(0).Item("AccountGUID").ToString
-                MyCookie4.Expires = Now.AddMonths(1)
-                Response.Cookies.Add(MyCookie4)
+    '        Dim MyCookie4 As New HttpCookie("OPH_AccountGUID")
+    '        MyCookie4.Value = ds.Tables(0).Rows(0).Item("AccountGUID").ToString
+    '        MyCookie4.Expires = Now.AddMonths(1)
+    '        Response.Cookies.Add(MyCookie4)
 
-                Dim MyCookie2 As New HttpCookie("OPH_SiteId")
-                MyCookie2.Value = siteid
-                MyCookie2.Expires = Now.AddMonths(1)
-                Response.Cookies.Add(MyCookie2)
+    '        Dim MyCookie2 As New HttpCookie("OPH_SiteId")
+    '        MyCookie2.Value = siteid
+    '        MyCookie2.Expires = Now.AddMonths(1)
+    '        Response.Cookies.Add(MyCookie2)
 
-                Dim MyCookie5 As New HttpCookie("OPH_delegateUserGUID")
-                MyCookie5.Value = delegateUserGUID
-                MyCookie5.Expires = Now.AddHours(1)
-                Response.Cookies.Add(MyCookie5)
+    '        Dim MyCookie5 As New HttpCookie("OPH_delegateUserGUID")
+    '        MyCookie5.Value = delegateUserGUID
+    '        MyCookie5.Expires = Now.AddHours(1)
+    '        Response.Cookies.Add(MyCookie5)
 
-                Dim MyCookie6 As New HttpCookie("showForm")
-                MyCookie6.Value = "1"
-                MyCookie6.Expires = Now.AddHours(1)
-                Response.Cookies.Add(MyCookie6)
+    '        Dim MyCookie6 As New HttpCookie("showForm")
+    '        MyCookie6.Value = "1"
+    '        MyCookie6.Expires = Now.AddHours(1)
+    '        Response.Cookies.Add(MyCookie6)
 
-                sqlstr = "update couser set verifyCode=null, verifyAction=null where userid='" & userid & "'"
-                runSQL(sqlstr, connection)
+    '        sqlstr = "update couser set verifyCode=null, verifyAction=null where userid='" & userid & "'"
+    '        runSQL(sqlstr, connection)
 
-            Catch ex As Exception
-                isValid = False
-            End Try
-            ds.Dispose()
-        Else
-            isValid = False
-        End If
+    '    Catch ex As Exception
+    '        isValid = False
+    '    End Try
+    '    ds.Dispose()
+    'Else
+    '    isValid = False
+    'End If
 
-        Return isValid
+    'Return isValid
 
-    End Function
+    ' End Function
 
 #End Region
 #Region "SQL Section"
@@ -844,7 +851,7 @@ Public Class cl_base
         Dim r As Boolean
 
         Dim myConnectionString As String = sqlconstr
-        If sqlconstr = "" Then myConnectionString = contentOfdbODBC
+        If sqlconstr = "" Then myConnectionString = Session("ODBC")
 
         If myConnectionString = "" And sqlconstr = "" Then
             r = False 'Return False
@@ -884,7 +891,7 @@ Public Class cl_base
 
         ' If the connection string is null, usse a default.
         Dim myConnectionString As String = sqlconstr
-        If sqlconstr = "" Then myConnectionString = contentOfdbODBC
+        If sqlconstr = "" Then myConnectionString = Session("odbc") 'session("ODBC")
         If myConnectionString = "" And sqlconstr = "" Then
             'SignOff()
             Return ""
@@ -932,7 +939,7 @@ Public Class cl_base
 
         Dim myConnectionString As String
         ' If the connection string is null, usse a default.
-        myConnectionString = contentOfdbODBC
+        myConnectionString = Session("ODBC")
         If myConnectionString = "" And sqlconstr = "" Then
             'SignOff()
             Return Nothing
@@ -993,7 +1000,7 @@ Public Class cl_base
     Public Function SelectSqlSrvRows(ByVal query As String, ByVal Optional sqlconstr As String = "") As DataSet
 
         Dim myConnectionString As String = sqlconstr
-        If sqlconstr = "" Then myConnectionString = contentOfdbODBC
+        If sqlconstr = "" Then myConnectionString = Session("ODBC")
 
         Dim conn As New SqlConnection(myConnectionString)
         Dim adapter As New SqlDataAdapter
@@ -1016,147 +1023,188 @@ Public Class cl_base
         Return dataSet
 
     End Function
-    Sub loadAccount(Optional env As String = "", Optional code As String = "", Optional GUID As String = "")
-
-        'prepare curHostGUID, curUserGUID
-        Dim hGUID = IIf(IsNothing(Response.Cookies("guestID").Value), Session("hostGUID"), Response.Cookies("guestID").Value)
-        If hGUID = "" Then hGUID = "null" Else hGUID = "'" & hGUID & "'"
-        Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
-        'dynamic account
-        contentOfsequoiaCon = appSettings.Item("sequoia")
-        Session("sequoia") = contentOfsequoiaCon
-
-        Dim x = Request.Url.Authority & Request.ApplicationPath
-        If x.Substring(Len(x) - 1, 1) = "/" Then x = x.Substring(0, Len(x) - 1)
-
-        Dim autouserloginid = Request.ServerVariables(5)
-        If env = "" Then env = "" Else env = ", @env='" & env & "'"
-        If code = "" Then code = "" Else code = ", @code='" & code & "'"
-        If GUID = "undefined" Then GUID = ""
-        If GUID = "" Then GUID = "" Else GUID = ", @GUID='" & GUID & "'"
-
-        Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "'" & env & code & GUID & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "")
-        'Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "', " & env & ", " & code & ""
-        writeLog("loadaccount: " & sqlstr)
-        'writeLog(contentOfsequoiaCon)
-        Dim r1 As DataSet = SelectSqlSrvRows(sqlstr, contentOfsequoiaCon)
-        If r1.Tables.Count > 0 AndAlso r1.Tables(0).Rows.Count > 0 Then
-            contentOfaccountId = r1.Tables(0).Rows(0).Item(0).ToString
-            contentOfsqDB = r1.Tables(0).Rows(0).Item(1).ToString
+    Function getSession() As String
+        Dim hGUID As String = ""
 
 
-            contentOfdbODBC = r1.Tables(0).Rows(0).Item(2).ToString
-            contentOfthemeFolder = r1.Tables(0).Rows(0).Item(3).ToString
-            contentOfthemePage = r1.Tables(0).Rows(0).Item(4).ToString
-            contentOfEnv = r1.Tables(0).Rows(0).Item(5).ToString
-            contentOfCode = r1.Tables(0).Rows(0).Item(6).ToString
+        If getQueryVar("hostGUID") <> "" Then
+            hGUID = getQueryVar("hostGUID")
+        Else
+            Dim urlAddress = Request.Url.Authority & Request.ApplicationPath
+            If urlAddress.Substring(Len(urlAddress) - 1, 1) = "/" Then urlAddress = urlAddress.Substring(0, Len(urlAddress) - 1)
 
-            contentofNeedLogin = r1.Tables(0).Rows(0).Item(9).ToString
-            contentofsignInPage = r1.Tables(0).Rows(0).Item(10).ToString
-            contentofwhiteAddress = r1.Tables(0).Rows(0).Item(11)
-            'contentofOfflineCode = r1.Tables(0).Rows(0).Item(13)
-
-            Session("hostGUID") = r1.Tables(0).Rows(0).Item(7).ToString
-            Session("userGUID") = r1.Tables(0).Rows(0).Item(8).ToString
-
-            setCookie("isWhiteAddress", IIf(contentofwhiteAddress, 1, 0), 1)
-            setCookie("skinColor", r1.Tables(0).Rows(0).Item(12).ToString, 1)
-            contentOfGUID = r1.Tables(0).Rows(0).Item(13).ToString
+            Dim base = Session(urlAddress.Replace("/", "_"))
+            'If base = "" Then base = getCookie(urlAddress.Replace("/", "_"))
+            If base <> "" Then
+                hGUID = Session(base & "_hostGUID")
+            Else
+                hGUID = IIf(IsNothing(Response.Cookies("guestID").Value), Session("hostGUID"), Response.Cookies("guestID").Value)
+            End If
         End If
+        Return hGUID
+    End Function
+    Function loadAccount(Optional env As String = "", Optional code As String = "", Optional GUID As String = "") As String
+        Dim loadStr = ""
+        If code <> "" And Session(code.ToLower()) <> "" Then
+            loadStr = Session(code.ToLower())
+            Dim x = loadStr.Split(";")
+            'code = getQueryVar("code")
+            contentOfthemeFolder = x(1)
+            contentOfthemePage = x(2)
+            contentofNeedLogin = x(3)
+            contentofsignInPage = x(4)
+            contentOfGUID = GUID
+            contentofwhiteAddress = x(6)
+        Else
+            'End If
+            Dim hguid = getSession()
 
-    End Sub
-    Sub getAccount(Optional hostGUID As String = "", Optional env As String = "", Optional code As String = "", Optional GUID As String = "")
+            If hguid = "" Then hguid = "null" Else hguid = "'" & hguid & "'"
+            Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
+            'dynamic account
+            contentOfsequoiaCon = appSettings.Item("sequoia")
+            Session("sequoia") = contentOfsequoiaCon
 
-        'prepare curHostGUID, curUserGUID
-        Dim hGUID = hostGUID 'IIf(IsNothing(Response.Cookies("guestID").Value), Session("hostGUID"), Response.Cookies("guestID").Value)
-        If hGUID = "" Then hGUID = "null" Else hGUID = "'" & hGUID & "'"
+            Dim urlAddress = Request.Url.Authority & Request.ApplicationPath
+            If urlAddress.Substring(Len(urlAddress) - 1, 1) = "/" Then urlAddress = urlAddress.Substring(0, Len(urlAddress) - 1)
 
-        Dim autouserloginid = Request.ServerVariables(5)
-        Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
-        'dynamic account
-        contentOfsequoiaCon = appSettings.Item("sequoia")
-        Session("sequoia") = contentOfsequoiaCon
+            Dim autouserloginid = Request.ServerVariables(5)
+            If env = "" Then env = "" Else env = ", @env='" & env & "'"
+            If code = "" Then code = "" Else code = ", @code='" & code & "'"
+            If GUID = "undefined" Then GUID = ""
+            If GUID = "" Then GUID = "" Else GUID = ", @GUID='" & GUID & "'"
 
-        Dim x = Request.Url.Authority & Request.ApplicationPath
-        If x.Substring(Len(x) - 1, 1) = "/" Then x = x.Substring(0, Len(x) - 1)
+            Dim sqlstr = "exec api.loadAccount " & hguid & ", '" & urlAddress & "'" & env & code & GUID & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "")
+            'Dim sqlstr = "exec api.loadAccount " & hGUID & ", '" & urlAddress & "', " & env & ", " & code & ""
+            writeLog("loadaccount: " & sqlstr)
+            'writeLog(contentOfsequoiaCon)
+            Dim r1 As DataSet = SelectSqlSrvRows(sqlstr, contentOfsequoiaCon)
+            If r1.Tables.Count > 0 AndAlso r1.Tables(0).Rows.Count > 0 Then
+                contentOfaccountId = r1.Tables(0).Rows(0).Item(0).ToString
+                Session(urlAddress.Replace("/", "_")) = contentOfaccountId
+                setCookie(urlAddress.Replace("/", "_"), contentOfaccountId, 1)
+                setCookie("baseAccount", contentOfaccountId, 1)
+                'contentOfsqDB = 
+                Session("sqDB") = r1.Tables(0).Rows(0).Item(1).ToString
 
-        If env = "" Then env = "" Else env = ", @env='" & env & "'"
-        If code = "" Then code = "" Else code = ", @code='" & code & "'"
-        If GUID = "" Then GUID = "" Else GUID = ", @GUID='" & GUID & "'"
+                'session("ODBC") = 
+                Session("ODBC") = r1.Tables(0).Rows(0).Item(2).ToString
+                'Session("odbc") = session("ODBC")
+                contentOfthemeFolder = r1.Tables(0).Rows(0).Item(3).ToString
+                'Session("themeFolder") = contentOfthemeFolder
+                contentOfthemePage = r1.Tables(0).Rows(0).Item(4).ToString
+                'Session("themePage") = contentOfthemePage
+                contentOfEnv = r1.Tables(0).Rows(0).Item(5).ToString
+                contentOfCode = r1.Tables(0).Rows(0).Item(6).ToString
+                'Session("code") = r1.Tables(0).Rows(0).Item(6).ToString
 
-        Dim sqlstr = "exec core.loadAccount " & hGUID & ", '" & x & "'" & env & code & GUID & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "")
-		writeLog("getaccount: " & sqlstr)
-        Dim r1 As DataSet = SelectSqlSrvRows(sqlstr, contentOfsequoiaCon)
-        If r1.Tables.Count > 0 AndAlso r1.Tables(0).Rows.Count > 0 Then
-            'contentOfaccountId = r1.Tables(0).Rows(0).Item(0).ToString
-            'contentOfsqDB = r1.Tables(0).Rows(0).Item(1).ToString
-            contentOfdbODBC = r1.Tables(0).Rows(0).Item(2).ToString
-            contentOfthemeFolder = r1.Tables(0).Rows(0).Item(3).ToString
-            contentOfthemePage = r1.Tables(0).Rows(0).Item(4).ToString
-            contentOfEnv = r1.Tables(0).Rows(0).Item(5).ToString
-            contentOfCode = r1.Tables(0).Rows(0).Item(6).ToString
-            contentofNeedLogin = r1.Tables(0).Rows(0).Item(9).ToString
-            contentofsignInPage = r1.Tables(0).Rows(0).Item(10).ToString
-            contentofwhiteAddress = r1.Tables(0).Rows(0).Item(11)
-            Session("hostGUID") = r1.Tables(0).Rows(0).Item(7).ToString
-            setCookie("isWhiteAddress", IIf(contentofwhiteAddress, 1, 0), 1)
-            setCookie("skinColor", r1.Tables(0).Rows(0).Item(12).ToString, 1)
-            contentOfGUID = r1.Tables(0).Rows(0).Item(13).ToString
+                contentofNeedLogin = r1.Tables(0).Rows(0).Item(9).ToString
+                contentofsignInPage = r1.Tables(0).Rows(0).Item(10).ToString
+                contentofwhiteAddress = r1.Tables(0).Rows(0).Item(11)
+                'contentofOfflineCode = r1.Tables(0).Rows(0).Item(13)
+
+                Session(contentOfaccountId & "_hostGUID") = r1.Tables(0).Rows(0).Item(7).ToString
+                setCookie(contentOfaccountId & "_hostGUID", Session("hostGUID"), 1)
+                Session("userGUID") = r1.Tables(0).Rows(0).Item(8).ToString
+
+                setCookie("isWhiteAddress", IIf(contentofwhiteAddress, 1, 0), 1)
+                setCookie("skinColor", r1.Tables(0).Rows(0).Item(12).ToString, 1)
+                contentOfGUID = r1.Tables(0).Rows(0).Item(13).ToString
+                contentofMultiAccount = r1.Tables(0).Rows(0).Item(15).ToString
+                setCookie("multiAccount", contentofMultiAccount, 365)
+                If contentofMultiAccount = "0" Then
+                    setCookie(contentOfaccountId + "_accountid", contentOfaccountId, 365)
+                End If
+            End If
+
+            loadStr = contentOfCode & ";" & contentOfthemeFolder & ";" & contentOfthemePage & ";" & contentofNeedLogin & ";" & contentofsignInPage & ";" & contentOfGUID & ";" & contentofwhiteAddress
+            Session(contentOfCode.ToLower()) = loadStr
+            setCookie(contentOfCode.ToLower(), loadStr, 1)
+
         End If
+        Return loadStr
+    End Function
+    'Sub getAccount(Optional hostGUID As String = "", Optional env As String = "", Optional code As String = "", Optional GUID As String = "")
 
-    End Sub
+    '    'prepare curHostGUID, curUserGUID
+    '    Dim hGUID = hostGUID 'IIf(IsNothing(Response.Cookies("guestID").Value), Session("hostGUID"), Response.Cookies("guestID").Value)
+    '    If hGUID = "" Then hGUID = "null" Else hGUID = "'" & hGUID & "'"
 
-	Sub RegenerateID()
-		Dim manager
-		Dim oldId As String
-		Dim newId As String
-		Dim isRedir As Boolean
-		Dim isAdd As Boolean
-		Dim ctx As HttpApplication
-		Dim mods As HttpModuleCollection
-		Dim ssm As System.Web.SessionState.SessionStateModule
-		Dim fields() As System.Reflection.FieldInfo
-		Dim rqIdField As System.Reflection.FieldInfo
-		Dim rqLockIdField As System.Reflection.FieldInfo
-		Dim rqStateNotFoundField As System.Reflection.FieldInfo
-		Dim store As SessionStateStoreProviderBase
-		Dim field As System.Reflection.FieldInfo
-		Dim lockId
-		manager = New System.Web.SessionState.SessionIDManager
-		oldId = manager.GetSessionID(Context)
-		newId = manager.CreateSessionID(Context)
-		manager.SaveSessionID(Context, newId, isRedir, isAdd)
-		ctx = HttpContext.Current.ApplicationInstance
-		mods = ctx.Modules
-		ssm = CType(mods.Get("Session"), System.Web.SessionState.SessionStateModule)
-		fields = ssm.GetType.GetFields(System.Reflection.BindingFlags.NonPublic Or System.Reflection.BindingFlags.Instance)
-		store = Nothing : rqLockIdField = Nothing : rqIdField = Nothing : rqStateNotFoundField = Nothing
-		For Each field In fields
-			If (field.Name.Equals("_store")) Then store = CType(field.GetValue(ssm), SessionStateStoreProviderBase)
-			If (field.Name.Equals("_rqId")) Then rqIdField = field
-			If (field.Name.Equals("_rqLockId")) Then rqLockIdField = field
-			If (field.Name.Equals("_rqSessionStateNotFound")) Then rqStateNotFoundField = field
-		Next
-		lockId = rqLockIdField.GetValue(ssm)
-		If ((Not IsNothing(lockId)) And (Not IsNothing(oldId))) Then store.ReleaseItemExclusive(Context, oldId, lockId)
-		rqStateNotFoundField.SetValue(ssm, True)
-		rqIdField.SetValue(ssm, newId)
+    '    Dim autouserloginid = Request.ServerVariables(5)
+    '    Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
+    '    'dynamic account
+    '    contentOfsequoiaCon = appSettings.Item("sequoia")
+    '    Session("sequoia") = contentOfsequoiaCon
 
-	End Sub
+    '    Dim x = Request.Url.Authority & Request.ApplicationPath
+    '    If x.Substring(Len(x) - 1, 1) = "/" Then x = x.Substring(0, Len(x) - 1)
+
+    '    If env = "" Then env = "" Else env = ", @env='" & env & "'"
+    '    If code = "" Then code = "" Else code = ", @code='" & code & "'"
+    '    If GUID = "" Then GUID = "" Else GUID = ", @GUID='" & GUID & "'"
+
+    '    Dim sqlstr = "exec api.loadAccount " & hGUID & ", '" & x & "'" & env & code & GUID & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "")
+    '    writeLog("getaccount: " & sqlstr)
+    '    Dim r1 As DataSet = SelectSqlSrvRows(sqlstr, contentOfsequoiaCon)
+    '    If r1.Tables.Count > 0 AndAlso r1.Tables(0).Rows.Count > 0 Then
+    '        'contentOfaccountId = r1.Tables(0).Rows(0).Item(0).ToString
+    '        'contentOfsqDB = r1.Tables(0).Rows(0).Item(1).ToString
+    '        session("ODBC") = r1.Tables(0).Rows(0).Item(2).ToString
+    '        contentOfthemeFolder = r1.Tables(0).Rows(0).Item(3).ToString
+    '        contentOfthemePage = r1.Tables(0).Rows(0).Item(4).ToString
+    '        contentOfEnv = r1.Tables(0).Rows(0).Item(5).ToString
+    '        contentOfCode = r1.Tables(0).Rows(0).Item(6).ToString
+    '        contentofNeedLogin = r1.Tables(0).Rows(0).Item(9).ToString
+    '        contentofsignInPage = r1.Tables(0).Rows(0).Item(10).ToString
+    '        contentofwhiteAddress = r1.Tables(0).Rows(0).Item(11)
+    '        Session("hostGUID") = r1.Tables(0).Rows(0).Item(7).ToString
+    '        setCookie("isWhiteAddress", IIf(contentofwhiteAddress, 1, 0), 1)
+    '        setCookie("skinColor", r1.Tables(0).Rows(0).Item(12).ToString, 1)
+    '        contentOfGUID = r1.Tables(0).Rows(0).Item(13).ToString
+    '    End If
+
+    'End Sub
+
+    'Sub RegenerateID()
+    '    Dim manager
+    '    Dim oldId As String
+    '    Dim newId As String
+    '    Dim isRedir As Boolean
+    '    Dim isAdd As Boolean
+    '    Dim ctx As HttpApplication
+    '    Dim mods As HttpModuleCollection
+    '    Dim ssm As System.Web.SessionState.SessionStateModule
+    '    Dim fields() As System.Reflection.FieldInfo
+    '    Dim rqIdField As System.Reflection.FieldInfo
+    '    Dim rqLockIdField As System.Reflection.FieldInfo
+    '    Dim rqStateNotFoundField As System.Reflection.FieldInfo
+    '    Dim store As SessionStateStoreProviderBase
+    '    Dim field As System.Reflection.FieldInfo
+    '    Dim lockId
+    '    manager = New System.Web.SessionState.SessionIDManager
+    '    oldId = manager.GetSessionID(Context)
+    '    newId = manager.CreateSessionID(Context)
+    '    manager.SaveSessionID(Context, newId, isRedir, isAdd)
+    '    ctx = HttpContext.Current.ApplicationInstance
+    '    mods = ctx.Modules
+    '    ssm = CType(mods.Get("Session"), System.Web.SessionState.SessionStateModule)
+    '    fields = ssm.GetType.GetFields(System.Reflection.BindingFlags.NonPublic Or System.Reflection.BindingFlags.Instance)
+    '    store = Nothing : rqLockIdField = Nothing : rqIdField = Nothing : rqStateNotFoundField = Nothing
+    '    For Each field In fields
+    '        If (field.Name.Equals("_store")) Then store = CType(field.GetValue(ssm), SessionStateStoreProviderBase)
+    '        If (field.Name.Equals("_rqId")) Then rqIdField = field
+    '        If (field.Name.Equals("_rqLockId")) Then rqLockIdField = field
+    '        If (field.Name.Equals("_rqSessionStateNotFound")) Then rqStateNotFoundField = field
+    '    Next
+    '    lockId = rqLockIdField.GetValue(ssm)
+    '    If ((Not IsNothing(lockId)) And (Not IsNothing(oldId))) Then store.ReleaseItemExclusive(Context, oldId, lockId)
+    '    rqStateNotFoundField.SetValue(ssm, True)
+    '    rqIdField.SetValue(ssm, newId)
+
+    'End Sub
 #End Region
 
-    'Private Sub Page_Init(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Init
-    '    'Me.BodyOnLoad = "moveSpan(document.all.BodyTopSpan, document.all.BodyTop);" & vbCrLf
-    '    'Me.BodyOnLoad = "moveSpan(document.all.BodyLeftSpan, document.all.BodyLeft);" & vbCrLf
-    '    'Me.BodyOnLoad = "moveSpan(document.all.BodyBottomSpan, document.all.BodyBottom);" & vbCrLf
-    '    'Me.BodyOnLoad = "moveSpan(document.all.BodyMainSpan, document.all.BodyMain);" & vbCrLf
-    'End Sub
-    Private Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.PreRender
-        'If contentofError.Replace("<br>", "") <> "" Then
-        '    AddTaskMenu("Messages", "", True)
-        '    AddTaskMenu(contentofError, "", False)
-        '    'headScript = "alert('" & contentofError.Replace("<br>", "") & "');"
-        'End If
+    'Private Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.PreRender
 
-    End Sub
+    'End Sub
 End Class

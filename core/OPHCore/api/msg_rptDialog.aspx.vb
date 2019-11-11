@@ -18,9 +18,12 @@ Partial Class OPHCore_api_msg_rptDialog
     Protected pdfFile As String = ""
 
     Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        loadAccount()
 
-        Dim curHostGUID = Session("hostGUID")
+
+        Dim curHostGUID = getSession() 'Session("hostGUID")
+
+        If curHostGUID = "" Or Session("ODBC") = "" Then loadAccount()
+
         Dim curUserGUID = Session("userGUID")
         If IsNothing(curHostGUID) Then
             curHostGUID = "null"
@@ -77,12 +80,12 @@ Partial Class OPHCore_api_msg_rptDialog
         End If
 
 
-        Dim Connections As String = contentOfdbODBC
-
+        Dim Connections As String = Session("ODBC")
+        'Dim hGUID = getSession()
         If parameterid = "" Then
-            parameterid = "hostGUID:" & Session("hostGUID")
+            parameterid = "hostGUID:" & curHostGUID
         Else
-            parameterid = "hostGUID:" & Session("hostGUID") & "," & parameterid
+            parameterid = "hostGUID:" & curHostGUID & "," & parameterid
         End If
 
         If mode = "pdf" Then
@@ -127,8 +130,8 @@ Partial Class OPHCore_api_msg_rptDialog
                         If query IsNot Nothing And query <> "" Then
                             If runSQLwithResult("select OBJECT_ID('" & query & "')", Connections) = "" Then
                                 Dim dbName = runSQLwithResult("declare @db varchar(20); exec gen.getdbinfo '" & curHostGUID & "', '" & code & "', @db=@db OUTPUT; select @db", Connections)
-                                Dim lfCtl = Left(contentOfdbODBC, (contentOfdbODBC.ToLower().IndexOf("catalog") + 8))
-                                Dim rtCtl = Right(contentOfdbODBC, (contentOfdbODBC.Length - lfCtl.Length))
+                                Dim lfCtl = Left(Session("ODBC"), (Session("ODBC").ToLower().IndexOf("catalog") + 8))
+                                Dim rtCtl = Right(Session("ODBC"), (Session("ODBC").Length - lfCtl.Length))
                                 rtCtl = Right(rtCtl, (rtCtl.Length - rtCtl.IndexOf(";")))
 
                                 Dim newConnection = lfCtl & dbName & rtCtl

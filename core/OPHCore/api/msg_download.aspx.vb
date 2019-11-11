@@ -7,13 +7,16 @@ Partial Class OPHCore_api_msg_download
     Inherits cl_base
 
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        loadAccount()
+        'loadAccount()
 
-        Dim curODBC = contentOfdbODBC
-        Dim curHostGUID = Session("hostGUID")
+
+        Dim curHostGUID = getSession() 'Session("hostGUID")
+        If curHostGUID = "" Then loadAccount()
+
         Dim curUserGUID = Session("userGUID")
-		
-		if getQueryVar("hostguid")<>"" then curHostGUID=getQueryVar("hostguid")		
+        Dim curODBC = Session("ODBC")
+
+        If getQueryVar("hostguid") <> "" Then curHostGUID = getQueryVar("hostguid")
 
         Dim tGUID As String = getQueryVar("GUID")
         Dim code As String = getQueryVar("code")
@@ -30,7 +33,7 @@ Partial Class OPHCore_api_msg_download
         'con = runSQLwithResult(con, contentOfsequoiaCon)
 
         'added andre
-        Dim con = contentOfdbODBC
+        Dim con = Session("ODBC")
         'Dim curODBC = runSQLwithResult("select ACCTDBSE.ODBC from MODL inner join ACCTDBSE on MODL.accountDBGUID=ACCTDBSE.accountDBGUID where MODL.ModuleId='" & code & "'")
         'Dim con = runSQLwithResult("select ODBC from CoMODL where ModuleId='" & code & "'")
 

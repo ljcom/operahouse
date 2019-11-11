@@ -4,20 +4,24 @@ Imports System.Net
 Partial Class OPHCore_api_getData
     Inherits cl_base
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        If getQueryVar("hostGUID") <> "" Then
-            getAccount(getQueryVar("hostGUID"), getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
-        Else
-            loadAccount(getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
-        End If
+        'If getQueryVar("hostGUID") <> "" Then
+        'getAccount(getQueryVar("hostGUID"), getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
+        'Else
+        'loadAccount(getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
+        'End If
 
 
 
-        Dim curODBC = contentOfdbODBC
-        Dim DBCore = contentOfsqDB
-        Dim curHostGUID = Session("hostGUID")
+        Dim curHostGUID = getSession() 'Session("hostGUID")
+        If curHostGUID = "" Then loadAccount()
+
         Dim curUserGUID = Session("userGUID")
-		
-		if getQueryVar("hostguid")<>"" then curHostGUID=getQueryVar("hostguid")		
+
+        Dim curODBC = Session("ODBC")
+        Dim DBCore = Session("sqDB")
+
+
+        If getQueryVar("hostguid")<>"" then curHostGUID=getQueryVar("hostguid")		
 
 
         Dim mode = getQueryVar("mode")

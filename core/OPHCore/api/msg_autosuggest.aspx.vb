@@ -15,8 +15,10 @@ Partial Class OPHCore_api_msg_autosuggest
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         ' Dim json = "[{id: 1,text: 'haha'},{id: 2,text: 'hehe'},{id: 3,text: 'ihiyahayuhuy'},{id: 4,text: 'asdssda'}]"
-        loadAccount()
-        Dim curHostGUID = Session("hostGUID")
+
+        Dim curHostGUID = getSession() 'Session("hostGUID")
+        If curHostGUID = "" Or Session("odbc") = "" Then loadAccount()
+
         Dim curUserGUID = Session("userGUID")
 		
 		if getQueryVar("hostguid")<>"" then curHostGUID=getQueryVar("hostguid")

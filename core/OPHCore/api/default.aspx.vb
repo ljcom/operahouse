@@ -7,20 +7,20 @@ Imports Newtonsoft.Json
 Partial Class OPHCore_API_default
     Inherits cl_base
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
-        If getQueryVar("hostGUID") <> "" Then
-            getAccount(getQueryVar("hostGUID"), getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
-        Else
-            loadAccount(getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
-        End If
+        'If getQueryVar("hostGUID") <> "" Then
+        'getAccount(getQueryVar("hostGUID"), getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
+        'Else
+        Dim loadStr = loadAccount(getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
+
+        'End If
 
 
-
-        Dim curODBC = contentOfdbODBC
-        Dim DBCore = contentOfsqDB
-        Dim curHostGUID = Session("hostGUID")
+        'contentOfdbODBC = 
+        'contentOfsqDB = 
+        Dim curODBC = Session("odbc")
+        Dim DBCore = Session("sqDB")
+        Dim curHostGUID = getSession()
         Dim curUserGUID = Session("userGUID")
-
-		if getQueryVar("hostguid")<>"" then curHostGUID=getQueryVar("hostguid")		
 
         Dim sqlstr = ""
         Dim noxml = False
@@ -62,6 +62,7 @@ Partial Class OPHCore_API_default
                 xmlstr = "<sqroot><hostGUID>" & curHostGUID & "</hostGUID><code>" & contentOfCode & "</code><env>" & contentOfEnv & "</env>" &
                         "<themeFolder>" & contentOfthemeFolder & "</themeFolder><themePage>" & contentOfthemePage & "</themePage><needLogin>" &
                         contentofNeedLogin & "</needLogin><signInPage>" & contentofsignInPage & "</signInPage><GUID>" & contentOfGUID & "</GUID><userName>" & contentofUserName & "</userName></sqroot>"
+
             Case "master"
                 sqlstr = "exec [api].[theme] '" & curHostGUID & "', '" & code & "', " & GUID
                 writeLog("mode master: " & sqlstr)
@@ -94,6 +95,7 @@ Partial Class OPHCore_API_default
 
                     sqlstr = "exec [api].[theme_browse] '" & curHostGUID & "', '" & code & "', '" & sqlfilter.Replace("'", "''") & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", " & rpp & ", '" & sortOrder & "', '" & stateid & "'"
                     writeLog("mode browse: " & sqlstr)
+                    'writeLog("mode browse: " & curODBC)
                     'isSingle = False
                     'xmlstr = getXML(sqlstr, curODBC)
                 End If
@@ -263,16 +265,6 @@ Partial Class OPHCore_API_default
                 Dim searchValue As String = getQueryVar("searchValue")
                 sqlstr = "exec api.code_search '" & curHostGUID & "', '" & searchValue & "'"
                 isSingle = True
-            Case "signout"
-                sqlstr = "exec [api].[signout] '" & curHostGUID & "'"
-                runSQL(sqlstr, curODBC)
-                Response.Cookies("guestID").Value = ""
-                Response.Cookies("sqlFilter").Value = ""
-                Session.Clear()
-                Session.RemoveAll()
-                Session.Abandon()
-                noxml = True
-                isSingle = False
             Case "revokeDelegation"
                 sqlstr = "exec [api].[revoke_delegation] '" & curHostGUID & "', '" & code & "'"
                 xmlstr = runSQLwithResult(sqlstr, curODBC)
@@ -322,20 +314,36 @@ Partial Class OPHCore_API_default
                 xmlstr = "<sqroot><message>" & xmlstr & "</message></sqroot>"
                 isSingle = False
             Case "forgotpwd"
-                code = getQueryVar("code")
+                Dim suba = getQueryVar("suba")
                 Dim steps = getQueryVar("step")
                 Dim email = getQueryVar("email")
                 Dim verifycode = getQueryVar("verifycode")
                 If steps = "sendemail" Then
-                    sqlstr = "exec api.forgotPwdMail '" & steps & "','" & code & "', '" & email & "' , '" & verifycode & "'"
-                    xmlstr = "<sqroot><message>" & runSQLwithResult(sqlstr) & "</message></sqroot>"
+                    sqlstr = "exec api.forgotPwd '" & steps & "','" & suba & "', '" & email & "'"
+                    xmlstr = runSQLwithResult(sqlstr)
                     isSingle = False
                 End If
                 If steps = "verifycode" Then
-                    sqlstr = "exec api.forgotPwdMail '" & steps & "','" & code & "', '" & email & "' , '" & verifycode & "'"
+                    sqlstr = "exec api.forgotPwdMail '" & steps & "','" & suba & "', '" & email & "' , '" & verifycode & "'"
                     xmlstr = getXML(sqlstr)
                     isSingle = False
                 End If
+            Case "resetpwd"
+                Dim email = getQueryVar("email")
+                Dim suba = getQueryVar("suba")
+                Dim verifycode = getQueryVar("secret")
+                Dim newpwd = getQueryVar("newpwd")
+                Dim confirmpwd = getQueryVar("confirmpwd")
+                If newpwd = confirmpwd Then
+
+                    sqlstr = "exec gen.resetPassword null, '" & email & "', null, @password='" & newpwd & "' , @accountid='" & suba & "', @secretCode='" & verifycode & "'"
+                Else
+                    xmlstr = "<sqroot><message>Not match and strong enough password.</message></sqroot>"
+                End If
+            Case "checkAccount"
+                Dim accountid = contentOfaccountId
+                Dim suba = getQueryVar("suba")
+                sqlstr = "exec api.checkAccount '" & accountid & "', '" & suba & "'"
             Case "gConnect"
                 Dim tokenid = getQueryVar("gid")
                 'Dim tokenid = "eyJhbGciOiJSUzI1NiIsImtpZCI6ImFjMmI2M2ZhZWZjZjgzNjJmNGM1MjhlN2M3ODQzMzg3OTM4NzAxNmIifQ.eyJhenAiOiIyMzQ4MTgyMzE2NDQtajRmZXFwYzZjM2dnMGlrczk1ODA4ZWc1bnV0bGZxdXUuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIyMzQ4MTgyMzE2NDQtajRmZXFwYzZjM2dnMGlrczk1ODA4ZWc1bnV0bGZxdXUuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDA4MzQyMDY2MjE0NDc2ODk1OTUiLCJlbWFpbCI6InNhbXVlbC5zdXJ5YUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6IkdnVDhXWlZpaTBKZXlSQm5BRUY0eVEiLCJleHAiOjE1MjA0MjA2ODcsImlzcyI6ImFjY291bnRzLmdvb2dsZS5jb20iLCJqdGkiOiI1M2YyOGY3NWUyM2EwOWU4NjcxOGRjNTIxNjQ5N2YxMmZmNWNkN2FiIiwiaWF0IjoxNTIwNDE3MDg3LCJuYW1lIjoiU2FtdWVsIFN1cnlhIiwicGljdHVyZSI6Imh0dHBzOi8vbGg2Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tYTk2ckZuRUpOVUkvQUFBQUFBQUFBQUkvQUFBQUFBQUFWRkkvUXhleU1YNndxc3cvczk2LWMvcGhvdG8uanBnIiwiZ2l2ZW5fbmFtZSI6IlNhbXVlbCIsImZhbWlseV9uYW1lIjoiU3VyeWEiLCJsb2NhbGUiOiJlbiJ9.Rcml4KiTJ-znmGTYsjlCLdumbuSF-TD1dwju6ORQmETQx44T7hdJer5FSS-a9-EDzzqzY0nLDktMPvhh5n6hoxdYS2Tn4liNPsrsdGFSIE2M3KyrHNYut6QyCuQ1M0NgKDCLQ2Yp8XK6AWry3wMaJ-64fMMnvsx2ozDpNzeVMIXV6NHT718wFnOywW-mTb6YbfIjEOajRhhAPu6nvGM7vtmTUKlvRe8q2VlYU_QbC2TS8Ppn_arCbCOqd_Zmk9GaN8twsMcTapCxwZWzNAGcM5o68KErfYkxswgF678hzUBADeKM3YBPR0sfFTsb59XvPs89tQpsRGqtbvHBrkEgBQ"
@@ -358,10 +366,54 @@ Partial Class OPHCore_API_default
                 End If
                 'Case "signoff"
                 '    Session.Abandon()
+            Case "signup"
+                Dim accountid = contentOfaccountId
+                Dim suba = getQueryVar("newaccountid")
+                Dim companyname = getQueryVar("companyname")
+                Dim userName = getQueryVar("adminname")
+                Dim userid = getQueryVar("emailaddress")
+                'Dim npwd = getQueryVar("newpwd")
+                'Dim cpwd = getQueryVar("confirmpwd")
+
+                'If npwd = cpwd Then
+                Dim withcaptcha = Not contentofwhiteAddress
+                Dim captcha = Request.Form("g-recaptcha-response")
+                Dim secret = runSQLwithResult("select infovalue from acctinfo where infokey='recaptchasecret'")
+
+                If withcaptcha = 0 Or (withcaptcha = 1 And captcha <> "" And IsGoogleCaptchaValid()) Then
+                    sqlstr = "exec api.signup '" & accountid & "', '" & suba & "', '" & companyname & "', '" & userName & "', '" & userid & "'" ', '" & npwd & "'"
+                Else
+                    If String.IsNullOrWhiteSpace(errorCaptcha) Then
+                        isSingle = False
+                        xmlstr = "<sqroot><message>Please authorize CAPTCHA!</message></sqroot>"
+                    Else
+                        isSingle = False
+                        xmlstr = "<sqroot><message>" + errorCaptcha + "</message></sqroot>"
+                    End If
+
+                End If
+                'Else
+                'isSingle = False
+                'xmlstr = "<sqroot><message>Please make sure the confirmation password is match with the new password.</message></sqroot>"
+                'End If
+            Case "signout"
+                sqlstr = "exec [api].[signout] '" & curHostGUID & "'"
+                runSQL(sqlstr, curODBC)
+                Response.Cookies("guestID").Value = ""
+                Response.Cookies("sqlFilter").Value = ""
+                Session.Clear()
+                Session.RemoveAll()
+                Session.Abandon()
+                noxml = True
+                isSingle = False
+
             Case Else 'signin
                 Dim bypass = 0
                 Dim userid As String = ""
                 Dim pwd As String = ""
+                Dim suba As String = ""
+                suba = Request.Form("suba")
+
                 If Request.Form("autologin") = "1" And Request.ServerVariables(5) <> "" Then
                     bypass = 1
                     userid = Request.ServerVariables(5)
@@ -376,7 +428,7 @@ Partial Class OPHCore_API_default
                 Dim captcha = Request.Form("g-recaptcha-response")
                 Dim source As String = getQueryVar("source")
                 If userid = "" And (pwd = "" Or bypass = 0) And captcha = "" Then
-                    reloadURL("index.aspx?")
+                    'reloadURL("index.aspx?")
                 Else
                     If withcaptcha = 0 Or (withcaptcha = 1 And captcha <> "" And IsGoogleCaptchaValid()) Then 'Or (source.ToLower.IndexOf("localhost") > 0) Then
                         'If checkWinLogin(userid, pwd) Then
@@ -384,8 +436,8 @@ Partial Class OPHCore_API_default
                         '    sqlstr = "select infovalue from acctinfo a inner join acct b on a.accountguid=b.accountguid where infokey='masterPassword' and accountid='" & contentOfaccountId & "'"
                         '    pwd = runSQLwithResult(sqlstr, contentOfsequoiaCon)
                         'End If
-                        sqlstr = "exec api.verifyPassword '" & curHostGUID & "', '" & userid & "', '" & pwd & "', " & bypass
-                        writeLog(sqlstr)
+                        sqlstr = "exec api.verifyPassword '" & curHostGUID & "', '" & userid & "', '" & pwd & "', " & bypass & ", @suba='" & suba & "'"
+                        'writeLog(sqlstr)
                         xmlstr = getXML(sqlstr, curODBC)
                         If xmlstr IsNot Nothing And xmlstr <> "" Then
                             'Session.Clear()
@@ -408,7 +460,7 @@ Partial Class OPHCore_API_default
                             sqlstr = "exec dbo.checkToPCSO '" & curHostGUID & "', '" & cartID & "'"
                             Dim xmlstr2 = runSQLwithResult(sqlstr, curODBC)
                         End If
-						RegenerateID()			
+                        'RegenerateID()
                     Else
                         If String.IsNullOrWhiteSpace(errorCaptcha) Then
                             xmlstr = "<sqroot><message>Please authorize CAPTCHA!</message></sqroot>"
@@ -418,7 +470,7 @@ Partial Class OPHCore_API_default
                     End If
                     '--!
                     isSingle = False
-					
+
                 End If
         End Select
         If isSingle Then xmlstr = getXML(sqlstr, curODBC)

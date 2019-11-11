@@ -5,13 +5,17 @@ Partial Class OPHCore_api_sync
     Inherits cl_base
 
     Private Sub OPHCore_api_sync_Load(sender As Object, e As EventArgs) Handles Me.Load
-        loadAccount()
+        'loadAccount()
 
-        Dim curODBC = contentOfdbODBC
-        Dim DBCore = contentOfsqDB
 
         Dim curHostGUID = Session("hostGUID")
+        If curHostGUID = "" Then loadAccount()
+
         Dim curUserGUID = Session("userGUID")
+
+        Dim curODBC = Session("odbc")
+        Dim DBCore = Session("sqdb")
+
         Dim result = "", sqlstr = "", xmlstr = ""
         Dim mode = getQueryVar("mode")
         Dim accountId = contentOfaccountId
@@ -88,7 +92,7 @@ Partial Class OPHCore_api_sync
                     Dim lvl = getQueryVar("lvl")
                     sqlstr = "exec [api].[sync_checklatestevent] '" & accountId & "', " & sessionToken & ", '" & lvl & "'"
 
-                    xmlstr = getXML(sqlstr, contentOfdbODBC)
+                    xmlstr = getXML(sqlstr, Session("odbc"))
 
                     If xmlstr IsNot Nothing And xmlstr <> "" Then
                         'result = "<sqroot>" & xmlstr & "</sqroot>"
@@ -102,7 +106,7 @@ Partial Class OPHCore_api_sync
 
                     sqlstr = "exec [api].[sync_reqcodeprop] '" & accountId & "', " & sessionToken & ", '" & code & "'"
 
-                    xmlstr = getXML(sqlstr, contentOfdbODBC)
+                    xmlstr = getXML(sqlstr, Session("odbc"))
 
                     If xmlstr IsNot Nothing And xmlstr <> "" Then
                         'result = "<sqroot>" & xmlstr & "</sqroot>"
@@ -119,7 +123,7 @@ Partial Class OPHCore_api_sync
                         sqlstr = "exec [api].[sync_sendcodeprop] '" & accountId & "', " & sessionToken & ", '" & code & "', '" & dataxml.Replace("'", "''") & "'"
 
                         writeLog(sqlstr)
-                        xmlstr = getXML(sqlstr, contentOfdbODBC)
+                        xmlstr = getXML(sqlstr, Session("odbc"))
                         writeLog(xmlstr)
                         result = "<sqroot><message>Done</message></sqroot>"
                     Else
@@ -139,7 +143,7 @@ Partial Class OPHCore_api_sync
                     sqlstr = "exec [api].[sync_reqheader] '" & accountId & "', " & sessionToken & ", '" & code & "', " & IIf(pg = "", 1, pg) & iif(delList<>"", ", @delList='" & delList & "'", "")
                     writeLog(sqlstr)
 
-                    xmlstr = getXML(sqlstr, contentOfdbODBC)
+                    xmlstr = getXML(sqlstr, Session("odbc"))
 
                     If xmlstr IsNot Nothing And xmlstr <> "" Then
                         'result = "<sqroot>" & xmlstr & "</sqroot>"
@@ -155,7 +159,7 @@ Partial Class OPHCore_api_sync
                     sqlstr = "exec [api].[sync_reqdelheader] '" & accountId & "', " & sessionToken & ", '" & code & "', '" & IIf(pg = "", 1, pg) & "', @issilent=0"
                     writeLog(sqlstr)
 
-                    xmlstr = getXML(sqlstr, contentOfdbODBC)
+                    xmlstr = getXML(sqlstr, Session("odbc"))
 
                     If xmlstr IsNot Nothing And xmlstr <> "" Then
                         'result = "<sqroot>" & xmlstr & "</sqroot>"
@@ -172,7 +176,7 @@ Partial Class OPHCore_api_sync
 
                     sqlstr = "exec [api].[sync_reqdata] @accountid='" & accountId & "', @token=" & sessionToken & ", @code='" & code & "', @guid='" & guid & "', @delMode=" & IIf(delMode = "1", "1", "0")
                     writeLog(sqlstr)
-                    xmlstr = getXML(sqlstr, contentOfdbODBC)
+                    xmlstr = getXML(sqlstr, Session("odbc"))
                     writeLog(xmlstr)
                     If xmlstr IsNot Nothing And xmlstr <> "" Then
                         'result = "<sqroot>" & xmlstr & "</sqroot>"
@@ -190,7 +194,7 @@ Partial Class OPHCore_api_sync
 
                         sqlstr = "exec [api].[sync_sendData] '" & accountId & "', " & sessionToken & ", '" & code & "', '" & dataxml.Replace("'", "''") & "', 1"
                         writeLog(sqlstr)
-                        xmlstr = getXML(sqlstr, contentOfdbODBC)
+                        xmlstr = getXML(sqlstr, Session("odbc"))
                         writeLog(xmlstr)
                         result = "<sqroot><message>Done</message></sqroot>"
                     Else

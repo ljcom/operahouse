@@ -8,7 +8,7 @@ Partial Class OPH_welcome_default_master_manifest
 
     Private Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
         If getQueryVar("mode") = "json" Then
-            Dim headPath = "/"
+            Dim headPath = "/index.aspx"
             Dim appName = "OPERAHOUSE.SYSTEMS"
             Dim appShort = "OPERAHOUSE"
             Dim logo = "oph-logo"
