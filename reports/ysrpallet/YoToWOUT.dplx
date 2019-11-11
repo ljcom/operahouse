@@ -9,9 +9,9 @@
 		</query>
 		<template id="Template1"/>
 		<header id="Header1" height="50"/>
-		<detail id="Detail1" height="422">
-			<recordBox id="RecordBox1" dataFormat="" height="14" field="DocNo" y="137.5" width="100.75" x="416.75"/>
-			<subReport id="SubReport1" width="486.1" x="13.25" y="226.75">
+		<detail id="Detail1" height="528">
+			<recordBox id="RecordBox1" dataFormat="" height="14" field="DocNo" y="184" x="389" width="114.1"/>
+			<subReport id="SubReport1" width="486.1" x="13" y="294">
 				<query id="Query2">
 					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.yotowout_report_sub1">
 						<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
@@ -22,68 +22,72 @@
 					<line x1="7" x2="453" id="Line10" y1="23" y2="23"/>
 					<line id="Line15" x1="7" x2="6.75" y1="23" y2="31.25"/>
 					<line id="Line16" x1="51" x2="50.75" y1="23" y2="31.25"/>
-					<line id="Line18" y1="23" y2="31.25" x1="141" x2="140.75"/>
-					<line id="Line19" x1="262" x2="261.75" y1="23" y2="31.25"/>
-					<line id="Line20" x1="388" x2="387.75" y1="23" y2="31.25"/>
-					<line id="Line21" x1="453" x2="452.75" y1="23" y2="31.25"/>
-					<rectangle id="Rectangle1" x="7" width="446.25" fillColor="gray" y="6.75" height="16.25"/>
+					<line id="Line18" y1="24" y2="32.25" x1="121" x2="120.75"/>
+					<line id="Line19" x1="377" x2="376.75" y1="23" y2="31.25"/>
+					<line id="Line20" y1="23" y2="31.25" x1="427" x2="426.75"/>
+					<line id="Line21" y1="23" y2="31.25" x1="480" x2="479.75"/>
+					<rectangle id="Rectangle1" x="7" fillColor="gray" y="6.75" height="16.25" width="473"/>
 					<line id="Line1" x1="51" x2="51" y2="23.25" y1="7.25"/>
-					<line y2="23.25" id="Line2" x1="141" x2="141" y1="7"/>
-					<line y2="23.25" id="Line9" x1="262" x2="262" y1="7.25"/>
-					<line y2="23.25" id="Line11" x1="388" x2="388" y1="7"/>
+					<line y2="23.25" id="Line2" y1="7" x1="121" x2="121"/>
+					<line y2="23.25" id="Line9" y1="7.25" x1="377" x2="377"/>
+					<line id="Line11" y1="7" y2="23.25" x1="427" x2="427"/>
 					<label id="Label1" text="NO" width="19.5" height="8.5" y="8.25" x="19"/>
-					<label id="Label2" text="CODE" width="35.75" x="77" height="12.25" y="8.75"/>
-					<label id="Label3" height="14" text="DESCRIPTION" width="83.5" x="160" y="8"/>
-					<label id="Label4" height="14" text="UM" y="8" x="313" width="21.25"/>
-					<label id="Label5" height="14" text="QTY" width="26.25" x="410.25" y="8"/>
+					<label id="Label2" text="CODE" width="35.75" height="12.25" y="8.75" x="72"/>
+					<label id="Label3" height="14" text="DESCRIPTION" width="83.5" y="8" x="211"/>
+					<label id="Label4" height="14" text="UM" y="8" width="21.25" x="394"/>
+					<label id="Label5" height="14" text="QTY" width="26.25" y="8" x="442.25"/>
 				</header>
 				<detail id="Detail2" height="19">
 					<recordBox id="RecordBox3" dataFormat="" height="14" field="numb" width="33.1" y="2.85" align="center" x="9"/>
-					<recordBox dataFormat="" height="14" id="RecordBox4" field="SKU" align="center" y="2.1" x="145" width="111.35"/>
-					<recordBox dataFormat="" height="14" id="RecordBox5" field="unit" align="center" width="35.6" x="307.5" y="2.1"/>
-					<recordBox dataFormat="" height="14" id="RecordBox6" width="64.1" align="center" y="2.35" x="63" field="skucode"/>
-					<recordBox dataFormat="" height="14" width="33.1" id="RecordBox7" field="Qty" y="3.1" align="center" x="407"/>
+					<recordBox dataFormat="" height="14" id="RecordBox4" field="SKU" align="center" y="2.1" width="111.35" x="199"/>
+					<recordBox dataFormat="" height="14" id="RecordBox5" field="unit" align="center" width="35.6" y="2.1" x="385.5"/>
+					<recordBox dataFormat="" height="14" id="RecordBox6" width="64.1" align="center" y="2.35" field="skucode" x="54"/>
+					<recordBox dataFormat="" height="14" width="33.1" id="RecordBox7" field="Qty" align="center" y="2" x="436"/>
 					<line id="Line22" x1="7" x2="6.75" y1="-1" y2="18.5"/>
 					<line y1="-1" y2="18.5" id="Line23" x1="51" x2="50.75"/>
-					<line y1="-1" y2="18.5" id="Line24" x1="141" x2="140.75"/>
-					<line y1="-1" y2="18.5" id="Line25" x1="262" x2="261.75"/>
-					<line y1="-1" y2="18.5" id="Line26" x1="388" x2="387.75"/>
-					<line y1="-1" y2="18.5" id="Line27" x1="453" x2="452.75"/>
+					<line y1="-1" y2="18.5" id="Line24" x1="121" x2="120.75"/>
+					<line y1="-1" y2="18.5" id="Line25" x1="377" x2="376.75"/>
+					<line y1="-1" y2="18.5" id="Line26" x1="427" x2="426.75"/>
+					<line y1="-1" y2="18.5" id="Line27" x1="480" x2="479.75"/>
 				</detail>
-				<footer id="Footer2" height="47.5">
-					<line id="Line28" x1="7" x2="7" y1="-3" y2="43.75"/>
-					<line id="Line34" x1="7" x2="453.25" y1="44" y2="44"/>
-					<line y1="-3" y2="43.75" id="Line12" x1="51" x2="51"/>
-					<line y1="-3" y2="43.75" id="Line13" x1="141" x2="141"/>
-					<line y1="-3" y2="43.75" id="Line14" x1="262" x2="262"/>
-					<line y1="-3" y2="43.75" id="Line17" x1="388" x2="388"/>
-					<line y1="-3" y2="43.75" id="Line29" x1="453" x2="453"/>
+				<footer id="Footer2" height="51.5">
+					<line id="Line28" x1="7" x2="7" y1="1" y2="47.75"/>
+					<line id="Line34" x2="480" x1="6" y1="48" y2="47"/>
+					<line id="Line12" x1="51" x2="51" y1="0" y2="46.75"/>
+					<line id="Line13" x1="121" x2="121" y1="1" y2="47.75"/>
+					<line id="Line14" y1="1" y2="47.75" x1="377" x2="377"/>
+					<line id="Line17" y1="1" y2="47.75" x1="427" x2="427"/>
+					<line id="Line29" x1="480" y1="0" x2="480" y2="46.75"/>
 				</footer>
 			</subReport>
-			<label id="Label8" height="14" text="Expedisi" width="46.75" x="79" fontSize="10" y="347"/>
-			<label id="Label11" font="HelveticaBold" x="12" height="38.1" y="1" width="318.1" fontSize="14" text="PT.YASULOR-L'OREAL MANUFACTURING&#xA;INDONESIA"/>
-			<label id="Label12" x="13" y="36.1" height="95" width="250" text="Factory &amp; Office &#xA;Kawasan Industri Jababeka I&#xA;Jl.Jababeka IV , Block V.10-33 &amp;44-63&#xA;Kel. Pasir Gombong Kec. Cikarang Utara&#xA;Kab.bekasi, Jawa Barat 17530&#xA;Telp. : 021-86339999 Fax. :021-29383840"/>
-			<label id="Label10" height="14" width="100" text="Kepada Yth :" x="22" y="130"/>
-			<line id="Line3" x1="95" x2="204.25" y1="139" y2="139"/>
-			<line id="Line4" x1="7" x2="16.75" y1="139" y2="139"/>
-			<line id="Line5" y1="138.25" y2="200.75" x1="204.25" x2="204.25"/>
-			<line id="Line6" x1="7.75" x2="204.25" y1="202" y2="202"/>
-			<line id="Line7" x1="7.25" x2="7.25" y1="139.25" y2="201.75"/>
-			<label id="Label13" align="center" text="SURAT JALAN" font="TimesBold" fontSize="20" height="21" y="132" width="144.75" x="213"/>
-			<line id="Line8" width="1.5" y1="154" y2="154" x1="216.75" x2="355"/>
-			<label id="Label14" height="14" y="137" width="46.25" text="No. SIF" x="366"/>
-			<label id="Label15" height="14" y="164" text="No. Pol  :" width="40.25" x="366"/>
-			<label id="Label16" height="14" text="Driver    :" width="37.75" x="366" y="187"/>
-			<label id="Label6" height="30.25" width="115" align="center" x="160" fontSize="10" text="Tanda Tangan&#xA;dan Nama Penerima" y="338"/>
-			<label id="Label7" width="123.5" height="32.75" x="324" fontSize="10" text="Bekasi:&#xA;PT. Yasulor Indonesia" y="338.75"/>
-			<line id="Line30" x2="421.5" x1="359" y1="350.75" y2="350.75"/>
-			<recordBox id="RecordBox2" dataFormat="" field="Supplier" align="center" x="17.75" height="30.75" fontSize="11" width="181" y="159"/>
-			<recordBox id="RecordBox8" dataFormat="" height="14" field="nopol" align="justify" y="165" width="99" x="417.75"/>
-			<recordBox id="RecordBox9" dataFormat="" height="14" field="Driver" width="99" x="417.75" y="188.75"/>
-			<recordBox id="RecordBox10" dataFormat="" height="14" y="336" field="docdate" align="center" fontSize="10" width="64.5" x="354"/>
-			<label id="Label9" height="14" text=":" width="6.5" y="136" x="410"/>
-			<label height="14" text=":" width="6.5" id="Label17" y="165" x="410"/>
-			<label height="14" text=":" width="6.5" id="Label18" x="410" y="187"/>
+			<label id="Label11" font="HelveticaBold" height="38.1" width="318.1" text="PT.YASULOR-L'OREAL MANUFACTURING&#xA;INDONESIA" fontSize="13" x="6" y="54"/>
+			<label id="Label12" text="Factory &amp; Office &#xA;Kawasan Industri Jababeka I&#xA;Jl.Jababeka IV , Block V.10-33 &amp;44-63&#xA;Kel. Pasir Gombong Kec. Cikarang Utara&#xA;Kab.bekasi, Jawa Barat 17530&#xA;Telp. : 021-86339999 Fax. :021-29383840" width="250" fontSize="11" x="6" height="79" y="84"/>
+			<label id="Label10" height="14" width="100" text="Kepada Yth :" x="22" y="177"/>
+			<line id="Line3" y1="183" y2="183" x1="94" x2="203.25"/>
+			<line id="Line4" y1="183" y2="183" x1="7" x2="16.75"/>
+			<line id="Line5" y1="183" y2="276" x1="203" x2="203"/>
+			<line id="Line6" x1="7" x2="203.5" y1="277" y2="277"/>
+			<line id="Line7" y1="183" y2="276" x1="7" x2="7"/>
+			<label id="Label14" height="14" width="46.25" text="No. SIF" y="184" x="337"/>
+			<label id="Label15" height="14" text="No. Pol  :" width="40.25" y="209" x="337"/>
+			<label id="Label16" height="14" text="Driver    :" width="37.75" y="233" x="337"/>
+			<label id="Label6" height="30.25" width="115" align="center" fontSize="10" text="Tanda Tangan&#xA;dan Nama Penerima" x="160" y="413"/>
+			<label id="Label7" width="123.5" height="32.75" fontSize="10" text="Bekasi:&#xA;PT. Yasulor Indonesia" x="322" y="414"/>
+			<line id="Line30" x1="358" x2="420.5" y1="426" y2="426"/>
+			<recordBox id="RecordBox2" dataFormat="" field="Supplier" align="center" fontSize="11" width="181" x="18" y="193" height="22.1"/>
+			<recordBox id="RecordBox8" dataFormat="" height="14" field="nopol" align="justify" y="209" x="388.75" width="115.25"/>
+			<recordBox id="RecordBox9" dataFormat="" height="14" field="Driver" y="233" x="391" width="113"/>
+			<recordBox id="RecordBox10" dataFormat="" height="14" field="docdate" align="center" fontSize="10" width="64.5" x="352" y="414"/>
+			<label id="Label9" height="14" text=":" width="6.5" y="184" x="379"/>
+			<label height="14" text=":" width="6.5" id="Label17" y="209" x="381"/>
+			<label height="14" text=":" width="6.5" id="Label18" y="233" x="381"/>
+			<label align="center" text="SURAT JALAN" font="TimesBold" height="21" width="144.75" id="Label13" x="192" y="12" fontSize="16"/>
+			<line width="1.5" id="Line8" y1="30" y2="30" x1="202" x2="326"/>
+			<label height="14" text="Driver    :" width="37.75" id="Label8" x="52" y="414"/>
+			<recordBox dataFormat="" height="14" field="Driver" width="99" id="RecordBox11" align="center" x="16" y="492"/>
+			<label id="Label19" height="18" x="168" text="(..............................)" width="114" y="492"/>
+			<recordBox id="RecordBox12" dataFormat="" height="14" width="100" align="center" x="322" y="492" field="operator"/>
+			<recordBox id="RecordBox13" dataFormat="" align="center" x="18" width="180" height="54" y="218" field="alamat"/>
 		</detail>
 		<footer id="Footer1" height="50"/>
 	</report>

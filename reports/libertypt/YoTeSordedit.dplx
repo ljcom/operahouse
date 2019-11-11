@@ -58,7 +58,7 @@
 					<rectangle fillColor="gray" x="4" id="Rectangle41" width="23" y="4" height="23.5"/>
 					<rectangle y="4" fillColor="gray" id="Rectangle42" x="27" width="244" height="24.1"/>
 					<label height="14" text="NO" align="center" width="20" x="6" y="9" id="Label22" fontSize="10"/>
-					<label height="14" id="Label23" x="28" width="243" align="center" fontSize="10" y="10" text="DESCRIPTION tes"/>
+					<label height="14" text="DESCRIPTION" id="Label23" x="28" width="243" align="center" fontSize="10" y="10"/>
 					<rectangle y="4" fillColor="gray" id="Rectangle43" x="271" width="41" height="24.5"/>
 					<rectangle fillColor="gray" y="4" width="77" id="Rectangle44" x="312" height="24.5"/>
 					<label height="14" align="center" text="PRICE(IDR)" width="77" x="311" id="Label24" y="10" fontSize="10"/>
@@ -113,8 +113,28 @@
 			<recordBox dataFormat="" align="center" height="19" width="200" fontSize="10" id="RecordBox13" field="signby" x="282" y="502"/>
 		</detail>
 		<footer id="Footer1" height="134">
-			<line id="Line25" x1="1" y1="33" y2="33" x2="490"/>
-			<label id="Label1" x="19" y="49" height="14" width="100" text="testing footer"/>
+			<conditionalFooter id="ConditionalFooter1" condition="last page">
+				<rectangle id="Rectangle1" height="11" y="14" x="389" width="98"/>
+				<rectangle height="11" id="Rectangle2" y="25" x="389" width="98.1"/>
+				<rectangle height="11" id="Rectangle3" y="36" x="389" width="98.1"/>
+				<rectangle height="11" id="Rectangle4" y="47" x="389" width="98.1"/>
+				<rectangle height="11" id="Rectangle5" x="313" width="76.1" y="13" fillColor="gray"/>
+				<rectangle id="Rectangle11" y="12" x="71.1" width="241" height="45"/>
+				<rectangle id="Rectangle12" x="4" width="68" y="12" fillColor="gray" height="45"/>
+				<label id="Label1" height="14" text="Notes" fontSize="10" width="28" x="18" y="29"/>
+				<recordBox id="RecordBox8" dataFormat="" x="79" y="19" width="228.1" height="36" fontSize="10" field="Notes"/>
+				<rectangle height="11" x="313" width="76.1" id="Rectangle6" y="24" fillColor="gray"/>
+				<rectangle height="11" x="313" width="76.1" id="Rectangle7" y="35" fillColor="gray"/>
+				<rectangle height="11" x="313" width="76.1" id="Rectangle8" y="46" fillColor="gray"/>
+				<label id="Label2" height="14" fontSize="10" text="Subtotal" width="60" y="11" x="316"/>
+				<label height="14" fontSize="10" width="60" x="316" id="Label3" y="23" text="Discount"/>
+				<label height="14" fontSize="10" width="60" x="316" id="Label4" y="34" text="PPN"/>
+				<label height="14" fontSize="10" width="60" x="316" id="Label5" y="45" text="Total"/>
+				<recordBox id="RecordBox14" dataFormat="" height="14" width="100" fontSize="10" field="TotalAmount" x="387" y="13" align="right"/>
+				<recordBox dataFormat="" height="14" width="100" fontSize="10" x="387" align="right" id="RecordBox16" y="24" field="Discount"/>
+				<recordBox dataFormat="" height="14" width="100" fontSize="10" x="387" align="right" id="RecordBox17" field="PPN" y="35"/>
+				<recordBox dataFormat="" height="14" width="100" fontSize="10" x="387" align="right" id="RecordBox18" y="47" field="Total"/>
+			</conditionalFooter>
 		</footer>
 	</report>
 </document>

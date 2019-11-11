@@ -3,9 +3,7 @@
 	<report id="Report1" pageSize="a4" bottomMargin="0" topMargin="5.67">
 		<query id="Query1">
 			<storedProcedure dataProvider="msSql" referenceParameter="" name="doc.YoTeInvoice1_report" connectionString="#Global.AppSettings[&quot;connection&quot;]#">
-				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
-				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
-			</storedProcedure>
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
 		</query>
 		<template id="Template1"/>
 		<header id="Header1" height="261.175">
@@ -87,9 +85,7 @@
 			<subReport id="SubReport1" width="490.1" x="-2.5" y="6">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" name="doc.YoTeInvoice1_report" connectionString="#Global.AppSettings[&quot;connection&quot;]#">
-						<parameter name="@hostguid" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
-						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
-					</storedProcedure>
+						<parameter name="@hostguid" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
 				</query>
 				<header id="Header2" height="21">
 					<rectangle id="Rectangle1" height="18" x="4" width="23.1" y="2" fillColor="gray"/>
@@ -113,9 +109,7 @@
 					<subReport id="SubReport2" width="487.5" y="12" x="0">
 						<query id="Query3">
 							<storedProcedure dataProvider="msSql" referenceParameter="" name="doc.YoTeInvoice1_report_sub1" connectionString="#Global.AppSettings[&quot;connection&quot;]#">
-								<parameter name="@hostguid" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
-								<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
-							</storedProcedure>
+								<parameter name="@hostguid" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
 						</query>
 						<header id="Header3" height="1"/>
 						<detail id="Detail3" autoSplit="true" height="33.497">

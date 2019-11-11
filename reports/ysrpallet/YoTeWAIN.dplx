@@ -10,31 +10,30 @@
 		<template id="Template1"/>
 		<header id="Header1" height="50"/>
 		<detail id="Detail1" height="447">
-			<label id="Label14" height="14" font="HelveticaBold" fontSize="16" y="24" text="WAREHOUSE IN" width="144" x="187"/>
-			<recordBox dataFormat="" height="14" id="RecordBox1" field="docno" width="126" y="99" x="78"/>
-			<label height="14" width="46.25" id="Label9" text="Doc No" y="99" x="8"/>
-			<label height="14" id="Label10" text="No. Polisi  :" x="324" width="60" y="123"/>
-			<recordBox dataFormat="" fontSize="11" id="RecordBox7" field="supplier" x="78" height="36" width="198" y="147"/>
-			<recordBox dataFormat="" height="14" field="nopol" align="justify" width="99" id="RecordBox8" x="390" y="123"/>
-			<recordBox dataFormat="" height="14" width="99" id="RecordBox9" field="driver" vAlign="center" x="390" y="99"/>
-			<label height="14" text=":" width="6.5" id="Label17" x="64" y="99"/>
-			<label height="14" text=":" width="6.5" id="Label18" x="384" y="123"/>
-			<line id="Line30" y1="42" y2="42" x1="184" x2="316"/>
-			<label height="14" width="46.25" id="Label7" text="Driver" x="324" y="99"/>
-			<label height="14" text=":" width="6.5" id="Label8" x="384" y="99"/>
-			<recordBox dataFormat="" height="14" width="100.75" id="RecordBox11" x="390" field="note" y="148"/>
-			<label height="14" width="46.25" id="Label11" text="Notes" x="324" y="147"/>
-			<label height="14" text=":" width="6.5" id="Label12" x="384" y="147"/>
-			<label height="14" width="46.25" id="Label13" text="Supplier" y="144" x="8"/>
-			<label height="14" text=":" width="6.5" id="Label19" y="144" x="64"/>
-			<label height="14" width="100" text="Hormat Kami," id="Label1" x="24" y="310"/>
-			<label height="14" width="99.1" text="(____________)" id="Label2" x="18" y="370"/>
-			<line id="Line1" x1="0" x2="509" y1="200" y2="200"/>
-			<line id="Line2" x1="0" x2="509" y1="228" y2="228"/>
-			<label id="Label25" height="14" width="100" text="Doc Date" x="8" y="121"/>
-			<recordBox id="RecordBox3" dataFormat="" height="14" width="100" field="docdate" x="78" y="123"/>
-			<label height="14" text=":" width="6.5" x="64" id="Label26" y="121"/>
-			<subReport id="SubReport1" width="510" y="202" x="2">
+			<label id="Label14" height="14" font="HelveticaBold" fontSize="16" text="WAREHOUSE IN" width="144" x="6" y="36"/>
+			<recordBox dataFormat="" height="14" id="RecordBox1" field="docno" width="126" x="78" y="78"/>
+			<label height="14" width="46.25" id="Label9" text="Doc No" x="8" y="78"/>
+			<label height="14" id="Label10" text="No. Polisi  :" x="324" width="60" y="102"/>
+			<recordBox dataFormat="" fontSize="11" id="RecordBox7" field="supplier" x="78" height="36" width="198" y="126"/>
+			<recordBox dataFormat="" height="14" field="nopol" align="justify" width="99" id="RecordBox8" x="390" y="102"/>
+			<recordBox dataFormat="" height="14" width="99" id="RecordBox9" field="driver" vAlign="center" x="390" y="78"/>
+			<label height="14" text=":" width="6.5" id="Label17" x="64" y="78"/>
+			<label height="14" text=":" width="6.5" id="Label18" x="384" y="102"/>
+			<label height="14" width="46.25" id="Label7" text="Driver" x="324" y="78"/>
+			<label height="14" text=":" width="6.5" id="Label8" x="384" y="78"/>
+			<recordBox dataFormat="" height="14" width="100.75" id="RecordBox11" field="note" y="294" x="80"/>
+			<label height="14" width="46.25" id="Label11" text="Notes" y="294" x="14"/>
+			<label height="14" text=":" width="6.5" id="Label12" y="294" x="74"/>
+			<label height="14" width="46.25" id="Label13" text="Supplier" x="8" y="123"/>
+			<label height="14" text=":" width="6.5" id="Label19" x="64" y="123"/>
+			<label height="14" width="100" text="Hormat Kami," id="Label1" y="316" x="14"/>
+			<label height="14" width="99.1" text="(____________)" id="Label2" y="382" x="6"/>
+			<line id="Line1" x1="0" x2="509" y1="169" y2="169"/>
+			<line id="Line2" x1="0" x2="509" y1="197" y2="197"/>
+			<label id="Label25" height="14" width="100" text="Doc Date" x="8" y="100"/>
+			<recordBox id="RecordBox3" dataFormat="" height="14" width="100" field="docdate" x="78" y="102"/>
+			<label height="14" text=":" width="6.5" x="64" id="Label26" y="100"/>
+			<subReport id="SubReport1" width="510" x="2" y="171">
 				<query id="Query2">
 					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTeWAIN_report_sub1">
 						<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
@@ -43,7 +42,7 @@
 				</query>
 				<header id="Header2" height="26.5">
 					<label id="Label3" height="14" x="9" y="7" width="39" text="No"/>
-					<label id="Label4" height="14" text="SKU" width="73.5" align="center" y="8" x="87"/>
+					<label id="Label4" height="14" width="73.5" align="center" y="8" x="87" text="Product"/>
 					<label height="14" y="8" id="Label5" text="Unit" width="56.5" align="center" x="215"/>
 					<label height="14" y="8" width="56.5" id="Label6" text="Location" x="322"/>
 					<label height="14" y="8" id="Label15" text="Qty" width="31.5" x="418"/>
