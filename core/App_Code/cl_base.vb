@@ -151,20 +151,24 @@ Public Class cl_base
 
         Dim par = newURL.Split("&")
         Dim env As String = "", code As String = "", guid As String = "", otherpars As String = ""
-        For Each p In par
-            If p <> "" AndAlso p.Split("=")(1) <> "" Then
+        If par.Count > 0 Then
+            For Each p In par
+                If p.Split("=").Length > 1 Then
+                    If p <> "" AndAlso p.Split("=")(1) <> "" Then
 
-                If p.Split("=")(0) = "env" Then
-                    env = p.Split("=")(1)
-                ElseIf p.Split("=")(0) = "code" Then
-                    code = p.Split("=")(1)
-                ElseIf p.Split("=")(0) = "guid" Then
-                    guid = p.Split("=")(1)
-                Else
-                    otherpars &= p.Split("=")(0) & "=" & p.Split("=")(1) & "&"
+                        If p.Split("=")(0) = "env" Then
+                            env = p.Split("=")(1)
+                        ElseIf p.Split("=")(0) = "code" Then
+                            code = p.Split("=")(1)
+                        ElseIf p.Split("=")(0) = "guid" Then
+                            guid = p.Split("=")(1)
+                        Else
+                            otherpars &= p.Split("=")(0) & "=" & p.Split("=")(1) & "&"
+                        End If
+                    End If
                 End If
-            End If
-        Next
+            Next
+        End If
         'rewrite
         'newURL = "index.aspx" & IIf(env <> "", env & "/", "") & IIf(code <> "", code & "/", "") & IIf(guid <> "", guid & "/", "") & otherpars
         newURL = "index.aspx?" & IIf(env <> "", "env=" & env & "&", "") & IIf(code <> "", "code=" & code & "&", "") & IIf(guid <> "", "guid=" & guid & "&", "") & otherpars
@@ -533,7 +537,7 @@ Public Class cl_base
     Sub writeLog(logMessage As String) ', ByVal Optional accountName As String = "")
         'Dim w As TextWriter
         Dim accountName = ""
-        If contentOfaccountId <> "" Then accountName = contentOfaccountId
+        If contentOfaccountId <> "" Then accountName = Session("baseAccount")
         If logMessage <> "" Then
             Dim path = Server.MapPath("~/OPHContent/log")
             path = path & "\" '& "OPHContent\log\"
@@ -564,16 +568,16 @@ Public Class cl_base
         If isOverwrite And File.Exists(path & saveFile) Then
             File.Delete(path & saveFile)
         End If
+		If not File.Exists(path & saveFile) then
+			Try
+				Using w As StreamWriter = File.AppendText(path & saveFile)
+					w.Write(content)
+				End Using
 
-        Try
-            Using w As StreamWriter = File.AppendText(path & saveFile)
-                w.Write(content)
-            End Using
-
-        Catch ex As Exception
-            Debug.Write(ex.Message.ToString)
-        End Try
-
+			Catch ex As Exception
+				Debug.Write(ex.Message.ToString)
+			End Try
+		End If
 
     End Sub
     'Function zipFiles(path As String, filename As String, Optional isOverwrite As Boolean)
@@ -1045,16 +1049,20 @@ Public Class cl_base
     End Function
     Function loadAccount(Optional env As String = "", Optional code As String = "", Optional GUID As String = "") As String
         Dim loadStr = ""
-        If code <> "" And Session(code.ToLower()) <> "" Then
-            loadStr = Session(code.ToLower())
+        If GUID = "undefined" Then GUID = ""
+
+        If code <> "" And Session(code.ToLower() & GUID.ToLower()) <> "" Then
+            loadStr = Session(code.ToLower() & GUID.ToLower())
             Dim x = loadStr.Split(";")
             'code = getQueryVar("code")
+            contentOfaccountId = Session("baseAccount").ToString
             contentOfthemeFolder = x(1)
             contentOfthemePage = x(2)
             contentofNeedLogin = x(3)
             contentofsignInPage = x(4)
-            contentOfGUID = GUID
+            contentOfGUID = x(5)
             contentofwhiteAddress = x(6)
+            loadStr = contentOfCode & ";" & contentOfthemeFolder & ";" & contentOfthemePage & ";" & contentofNeedLogin & ";" & contentofsignInPage & ";" & contentOfGUID & ";" & contentofwhiteAddress
         Else
             'End If
             Dim hguid = getSession()
@@ -1071,7 +1079,6 @@ Public Class cl_base
             Dim autouserloginid = Request.ServerVariables(5)
             If env = "" Then env = "" Else env = ", @env='" & env & "'"
             If code = "" Then code = "" Else code = ", @code='" & code & "'"
-            If GUID = "undefined" Then GUID = ""
             If GUID = "" Then GUID = "" Else GUID = ", @GUID='" & GUID & "'"
 
             Dim sqlstr = "exec api.loadAccount " & hguid & ", '" & urlAddress & "'" & env & code & GUID & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "")
@@ -1084,6 +1091,7 @@ Public Class cl_base
                 Session(urlAddress.Replace("/", "_")) = contentOfaccountId
                 setCookie(urlAddress.Replace("/", "_"), contentOfaccountId, 1)
                 setCookie("baseAccount", contentOfaccountId, 1)
+                Session("baseAccount") = contentOfaccountId
                 'contentOfsqDB = 
                 Session("sqDB") = r1.Tables(0).Rows(0).Item(1).ToString
 
@@ -1111,15 +1119,17 @@ Public Class cl_base
                 setCookie("skinColor", r1.Tables(0).Rows(0).Item(12).ToString, 1)
                 contentOfGUID = r1.Tables(0).Rows(0).Item(13).ToString
                 contentofMultiAccount = r1.Tables(0).Rows(0).Item(15).ToString
-                setCookie("multiAccount", contentofMultiAccount, 365)
+                setCookie(contentOfaccountId & "_multiAccount", contentofMultiAccount, 365)
                 If contentofMultiAccount = "0" Then
                     setCookie(contentOfaccountId + "_accountid", contentOfaccountId, 365)
                 End If
-            End If
 
-            loadStr = contentOfCode & ";" & contentOfthemeFolder & ";" & contentOfthemePage & ";" & contentofNeedLogin & ";" & contentofsignInPage & ";" & contentOfGUID & ";" & contentofwhiteAddress
-            Session(contentOfCode.ToLower()) = loadStr
-            setCookie(contentOfCode.ToLower(), loadStr, 1)
+                loadStr = contentOfCode & ";" & contentOfthemeFolder & ";" & contentOfthemePage & ";" & contentofNeedLogin & ";" & contentofsignInPage & ";" & contentOfGUID & ";" & contentofwhiteAddress
+                Session(contentOfCode.ToLower() & GUID.ToLower()) = loadStr
+                setCookie(contentOfCode.ToLower(), loadStr, 1)
+            Else
+                loadStr = ";;;;;;"
+            End If
 
         End If
         Return loadStr

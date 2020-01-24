@@ -29,7 +29,7 @@
 			<recordBox id="RecordBox4" dataFormat="" width="100" x="96" height="12.5" field="RegNo" y="176"/>
 			<recordBox id="RecordBox5" dataFormat="" width="100" x="96" height="12.5" field="CustName" y="194"/>
 			<recordBox id="RecordBox6" dataFormat="" width="100" x="96" height="12.5" field="Birthday" y="212"/>
-			<recordBox id="RecordBox7" dataFormat="" width="100" field="Address" x="96" height="12.1" y="230"/>
+			<recordBox id="RecordBox7" dataFormat="" field="Address" x="96" height="12.1" y="230" width="390.1"/>
 			<recordBox id="RecordBox8" dataFormat="" width="100" x="96" field="PhoneNumber" height="12.5" y="248"/>
 			<recordBox id="RecordBox9" dataFormat="" width="100" x="96" height="12.5" field="BB" y="266"/>
 			<recordBox id="RecordBox10" dataFormat="" width="100" x="96" height="12.5" field="Alergi" y="284"/>

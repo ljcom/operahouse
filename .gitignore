@@ -13,5 +13,5 @@ reports/*/temp
 reports/*/*.pdf
 reports/*/*.xls
 reports/*/*.xlsx
-
+reports/temp
 project/

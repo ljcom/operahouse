@@ -31,13 +31,20 @@
             'End If
 
             curHostGUID = getSession()
+			
             Dim x = loadStr.split(";")
+        Try
             code = x(0)
             themeFolder = x(1)
             pageURL = x(2)
             needLogin = x(3)
             loginPage = x(4)
-            GUID = GUID
+            GUID = x(5)
+        Catch exc As Exception
+            Stop
+        End Try
+
+
         'code = contentOfCode
         ''env = contentOfEnv
         'themeFolder = contentOfthemeFolder

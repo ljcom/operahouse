@@ -324,7 +324,7 @@ Partial Class OPHCore_API_default
                     isSingle = False
                 End If
                 If steps = "verifycode" Then
-                    sqlstr = "exec api.forgotPwdMail '" & steps & "','" & suba & "', '" & email & "' , '" & verifycode & "'"
+                    sqlstr = "exec api.forgotPwd '" & steps & "','" & suba & "', '" & email & "' , '" & verifycode & "'"
                     xmlstr = getXML(sqlstr)
                     isSingle = False
                 End If

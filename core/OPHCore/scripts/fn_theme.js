@@ -3,33 +3,33 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
     var req = [];
     if (xmldoc !== '') {
         urlsplit = xmldoc.split('?');
-        urlonly = urlsplit[0]+'?';
+        urlonly = urlsplit[0] + '?';
         parform = urlsplit[1];
         var data = new FormData();
         if (parform != undefined) {
             parform.split('&').forEach(function (i) {
                 d = i.split('=');
-				
-                if (d[0] == 'mode' || d[0] == 'code' || d[0] == 'guid') {
-                    urlonly += d[0].toLowerCase() + '=' + d[1].toLowerCase()+'&';
+
+                if (d[0] === 'mode' || d[0] === 'code' || d[0] === 'guid') {
+                    urlonly += d[0].toLowerCase() + '=' + d[1].toLowerCase() + '&';
                 }
                 else {
                     //dx = d[1] + (d.length == 3 ? '=' + d[2] : '');
                     //data.append(d[0], dx);
-					
-					if (d.length > 0 && d.length < 3) {
-						dx = d[1];
-					}
-					else if (d.length > 2) {
-						dx = i.substring(d[0].length + 1, i.length);
-					}
-					else {
-						dx = '';
-					}
-					data.append(d[0], dx);
+
+                    if (d.length > 0 && d.length < 3) {
+                        dx = d[1];
+                    }
+                    else if (d.length > 2) {
+                        dx = i.substring(d[0].length + 1, i.length);
+                    }
+                    else {
+                        dx = '';
+                    }
+                    data.append(d[0], dx);
                 }
-				
-                
+
+
             });
         }
         urlonly = urlonly.substring(0, urlonly.length - 1);
@@ -48,10 +48,10 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
                 url: item,
                 error: function () {
                     if (item.indexOf('sidebar') < 0)
-                        console.log(item + ' is not found')
+                        console.log(item + ' is not found');
                 }
-            }))
-        })
+            }));
+        });
 
         var callback = function (divnm, xml, xsl) {
             var cleanT = '';
@@ -65,10 +65,17 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
             else if (hiddenMsg.length > 0) { showMessage(hiddenMsg, 4); }
             else {
                 if (isIE()) {
-                    var ex = TransformToHtmlText(clean, xsl.responseText)
+                    var ex = TransformToHtmlText(clean, xsl.responseText);
                     cleanedT = stripScript(ex);
                     cleanedT = cleanedT.split('&lt;').join('<').split('&gt;').join('>').split('&amp;').join('&');
-                    if (document.getElementById(divnm)) document.getElementById(divnm).innerHTML = cleanedT;
+
+                    if (document.getElementById(divnm)) {
+                        if (clearBefore)
+                            document.getElementById(divnm).innerHTML = cleanedT;
+                        else
+                            document.getElementById(divnm).innerHTML = document.getElementById(divnm).innerHTML + cleanedT;
+                    }
+
                     ExecuteScript(ex, true);
                 }
                 // code for Mozilla, Firefox, Opera, etc.
@@ -82,12 +89,28 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
                     if (ex)
                         ex = ex.split('&lt;').join('<').split('&gt;').join('>').split('&amp;').join('&');
                     cleanedT = stripScript(ex);
-                    if ($('#'+divnm) !== null) $('#'+divnm).html(cleanedT);
+                    if ($('#' + divnm) !== null) {
+                        if (clearBefore)
+                            $('#' + divnm).html(cleanedT);
+                        else {
+                            if ($('#tempContent').html()===undefined) {
+                                $('body').append('<div id=\'tempContent\'></div>');  
+                            }
+                            $('#tempContent').html(cleanedT);
+                            if ($('#tempContent').find('#' + divnm).html()) {
+                                var prevT = $('#' + divnm).html();
+                                var fullT =prevT+$('#tempContent').find('#'+divnm).html();
+                                $('#' + divnm).html(fullT);
+                                $('#tempContent').remove();
+                            }
+                                
+                        }
+                    }
                     ExecuteScript(ex, true);
                 }
             }
             if (typeof f === "function") f(xml);
-        }
+        };
 
         $.when.apply(this, req).always(function (xml, xsl1, xsl2, xsl3, xsl4, xsl5) {
             if (isIE()) {
@@ -116,7 +139,7 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
                 //else showMessage(xml[0], 4);
             }
 
-        })
+        });
     }
 }
 
@@ -125,7 +148,7 @@ function checkXSLInclude(doc) {
     var idoc, k;
     $(doc.childNodes[0].children).each(function (key, i) {
 
-        if (i.tagName == 'xsl:include') {
+        if (i.tagName === 'xsl:include') {
             k = key;
             //var url = document.location.href;
             //url = url.substring(0, url.indexOf('?') - 1);
@@ -145,7 +168,7 @@ function checkXSLInclude(doc) {
     if (idoc) {
         parser = new DOMParser();
         xslDoc = parser.parseFromString(idoc, "text/xml");
-        newDoc.childNodes[0].removeChild(doc.childNodes[0].children[k])
+        newDoc.childNodes[0].removeChild(doc.childNodes[0].children[k]);
 
         $(xslDoc.childNodes[0].children).each(function (n, i) {
             newDoc.childNodes[0].appendChild(i)
@@ -159,7 +182,7 @@ function showXML(divname, xmldoc, xsldoc, needRunSript, clearBefore, f) {
     var cleanedT = '';
     $.when($.ajax(xmldoc), $.ajax(xsldoc)).done(function (a1, a2) {
         // code for IE
-        var xml
+        var xml;
         if (isIE()) {
             xml = a1[2];
             xsl = a2[2];
@@ -178,10 +201,15 @@ function showXML(divname, xmldoc, xsldoc, needRunSript, clearBefore, f) {
         }
         else {
             if (isIE()) {
-                var ex = TransformToHtmlText(clean, xsl.responseText)
+                var ex = TransformToHtmlText(clean, xsl.responseText);
                 cleanedT = stripScript(ex);
                 cleanedT = cleanedT.split('&lt;').join('<').split('&gt;').join('>');
-                if (document.getElementById(divname)) document.getElementById(divname).innerHTML = cleanedT;
+                if (document.getElementById(divname)) {
+                    if (clearBefore)
+                        document.getElementById(divname).innerHTML = cleanedT;
+                    else
+                        document.getElementById(divname).innerHTML = document.getElementById(divname).innerHTML + cleanedT;
+                }
                 ExecuteScript(ex, needRunSript);
             }
             // code for Mozilla, Firefox, Opera, etc.
@@ -441,14 +469,14 @@ function clearGreyCheckBox(t) {
             xx = 0;
             $("input[groupCheckBox='" + gno + "']").each(
                 function (index) {
-                    el = $(this)
+                    el = $(this);
                     //alert(el.prop('indeterminate'));
                     if (this.checked) xx++;
                 });
             if (xx === 0) {
                 $("input[groupCheckBox='" + gno + "']").each(
                     function (index) {
-                        el = $(this)
+                        el = $(this);
                         el.data('checked', 1);
                         el.prop('indeterminate', true);
                         el.prop('checked', false);
@@ -470,7 +498,7 @@ function xmlToString(xml) {
             else xmlstr = xml;
 
         return xmlstr;
-    } catch (e) { return xml }
+    } catch (e) { return xml; }
 }
 
 
@@ -503,7 +531,7 @@ loadScript = function (src, async, defer) {
     //};
     script.src = src;
     if (defer) script.defer = true;
-    if (async) script.async= true;
+    if (async) script.async = true;
     document.head.appendChild(script);
 };
 

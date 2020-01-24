@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageSize="a4">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeConsult_report">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1"/>
+		<detail id="Detail1" autoSplit="true" height="577.011">
+			<label id="Label2" align="center" fontSize="10" x="115" width="290" height="49" y="42" text="Kawasan Industri JABABEKA 1&#xA;Jln. Jababeka IV, Blok V,10-33&#xA;CIkarang Utara  -Kab Bekasi&#xA;Jawa Barat"/>
+			<label id="Label4" height="12.5" align="right" width="70.5" text="No. Resep :" x="19.5" y="113"/>
+			<label id="Label8" align="right" text="Nama :" height="12.5" width="72.5" x="17.5" y="149"/>
+			<label id="Label10" align="right" text="Alamat :" height="12.5" x="18.5" width="72" y="167"/>
+			<label id="Label11" align="right" text="No. Telp :" height="12.5" x="19" width="70.1" y="185"/>
+			<label id="Label12" align="right" text="Berat Badan :" height="12.1" x="12" width="78.5" y="203"/>
+			<label id="Label13" align="right" text="Riwayat Alergi :" height="12.1" x="0.1" width="89" y="221"/>
+			<recordBox id="RecordBox1" dataFormat="" width="100" x="96" height="12.5" field="InvNo" y="113"/>
+			<recordBox id="RecordBox2" dataFormat="" field="Doctor" height="12.5" width="100" x="96" y="131"/>
+			<recordBox id="RecordBox5" dataFormat="" width="100" x="96" height="12.5" field="CustName" y="149"/>
+			<recordBox id="RecordBox7" dataFormat="" field="Address" x="96" height="12.1" width="390.1" y="167"/>
+			<recordBox id="RecordBox8" dataFormat="" width="100" x="96" field="PhoneNumber" height="12.5" y="185"/>
+			<recordBox id="RecordBox9" dataFormat="" width="100" x="96" height="12.5" field="BB" y="203"/>
+			<recordBox id="RecordBox10" dataFormat="" width="100" x="96" height="12.5" field="Alergi" y="221"/>
+			<recordBox id="RecordBox11" dataFormat="" width="100" field="DocDate" height="12.5" x="356.5" y="113"/>
+			<label id="Label5" align="right" text="Dokter :" height="12.5" width="72" x="18" y="131"/>
+			<label id="Label1" font="HelveticaBold" align="center" fontSize="16" y="5.1" text="KLINIK YASULOR INDONESIA" height="20" x="108" width="312"/>
+			<subReport width="481" id="SubReport1" x="4.1" y="254">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeConsult_report_sub1">
+						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header height="5" id="Header2"/>
+				<detail id="Detail2" height="98">
+					<label text="R /" font="HelveticaBold" height="18.5" x="12" y="6" width="18.5" id="Label14"/>
+					<recordBox dataFormat="" field="Qty" height="18.5" y="6" id="RecordBox12" width="20" x="460"/>
+					<recordBox dataFormat="" field="Unit" x="42" id="RecordBox13" height="31.5" y="6" width="72.5"/>
+					<recordBox dataFormat="" field="SKUName" y="6" id="RecordBox14" x="126" height="49.5" width="306"/>
+					<recordBox dataFormat="" height="14" width="198" field="Notes" id="RecordBox15" y="65" x="59.5"/>
+					<line x1="42.5" x2="475" id="Line1" y1="84" y2="84.5"/>
+					<label id="Label27" height="14" font="HelveticaBold" text="S" align="center" y="65" width="13.5" x="43"/>
+					<label id="Label28" align="center" font="HelveticaBold" text="No" width="22" x="435" y="6" height="18.5"/>
+				</detail>
+				<footer height="2" id="Footer2"/>
+			</subReport>
+			<line x1="16" x2="477.5" id="Line2" y1="366" y2="366"/>
+			<label height="12.5" width="84.5" text="Penerimaan R/" fontSize="10" x="350" id="Label15" y="426"/>
+			<label height="12.5" width="85" text="Penyiapan R/" fontSize="10" x="350" id="Label16" y="438"/>
+			<label height="12.5" width="85" text="Peracikan R/" fontSize="10" x="350" id="Label17" y="450"/>
+			<label height="12.5" width="85" text="Pengecekan R/" fontSize="10" x="350" id="Label18" y="462"/>
+			<label height="12.5" width="84.5" text="Penyerahan R/" fontSize="10" x="350" id="Label19" y="474"/>
+			<label width="78" height="12.5" text="PETUGAS" align="center" fontSize="10" x="421.5" id="Label20" y="414"/>
+			<label align="center" fontSize="10" height="27" width="84.5" text="TTD / PARAF&#xA;PENERIMA OBAT" x="258" id="Label21" y="414"/>
+			<label fontSize="10" text="Tanggal Cetak :" width="72" height="13" x="2.5" id="Label22" y="462"/>
+			<label text="Halaman. :" fontSize="10" width="71.5" height="13" x="3" id="Label23" y="488"/>
+			<recordBox dataFormat="" fontSize="10" field="printDate" x="75" height="24.5" width="74.5" id="RecordBox17" y="462"/>
+			<rectangle width="90.5" height="72.5" borderStyle="dots" x="257.5" id="Rectangle1" y="414"/>
+			<rectangle borderStyle="dots" width="77.5" height="72.5" x="348.5" id="Rectangle2" y="414"/>
+			<rectangle width="66.5" height="72.5" borderStyle="dots" x="426" id="Rectangle3" y="414"/>
+			<rectangle borderStyle="dots" height="12" width="77.5" x="348.5" id="Rectangle4" y="414"/>
+			<rectangle borderStyle="dots" height="12" width="77.5" x="348.5" id="Rectangle5" y="426"/>
+			<rectangle borderStyle="dots" height="12" width="77.5" x="348.5" id="Rectangle6" y="438"/>
+			<rectangle height="12" borderStyle="dots" width="77.5" x="348.5" id="Rectangle7" y="450"/>
+			<rectangle height="12" borderStyle="dots" width="77.5" x="348.5" id="Rectangle8" y="462"/>
+			<rectangle height="12.5" borderStyle="dots" width="77.25" x="348.75" id="Rectangle9" y="474"/>
+			<rectangle borderStyle="dots" width="66.5" height="12" x="426" id="Rectangle10" y="426"/>
+			<rectangle height="12" borderStyle="dots" width="66.5" x="426" id="Rectangle11" y="438"/>
+			<rectangle width="66.5" borderStyle="dots" height="12" x="426" id="Rectangle12" y="450"/>
+			<rectangle borderStyle="dots" height="12" width="66.5" x="426" id="Rectangle13" y="462"/>
+			<pageNumberingLabel height="14" width="100" text="%%CP%%" x="54" id="PageNumberingLabel1" y="487"/>
+			<label width="77.5" align="center" fontSize="10" height="12" text="(.......................)" x="264" id="Label24" y="474"/>
+			<label height="14" fontSize="10" align="center" text="PCC" width="62.5" x="195" id="Label25" y="414"/>
+			<label align="center" fontSize="10" height="12" width="65.5" text="(................)" x="192" id="Label26" y="474"/>
+			<rectangle height="72.5" borderStyle="dots" x="192" width="66" id="Rectangle14" y="414"/>
+			<label id="Label29" width="197" font="HelveticaOblique" align="center" x="164" fontSize="11" height="17" y="26" text="Ijin BP no:503/12/Dinkes/BP/2013"/>
+			<label id="Label3" y="113" height="12.5" text="Bekasi," width="39.5" x="317.5"/>
+		</detail>
+		<footer id="Footer1"/>
+	</report>
+</document>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoReportHero_header">
+				<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/><parameter name="startDate" type="dateTime" value="#Parameters[&quot;startDate&quot;]#"/><parameter name="endDate" type="dateTime" value="#Parameters[&quot;endDate&quot;]#"/></storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="104">
+			<label id="Label12" fontSize="24" width="292" height="15" text="Daftar Hero MOBA" x="143" y="30"/>
+		</header>
+		<detail id="Detail1" height="185.742">
+			<label height="14" width="100" id="Label2" fontSize="18" text="DATE" x="153.09" y="28.35"/>
+			<label height="14" width="100" id="Label3" fontSize="18" text="MODE" y="78" x="102"/>
+			<label height="14" width="100" id="Label4" fontSize="18" text="TYPE" y="119" x="103"/>
+			<label height="14" width="100" id="Label5" fontSize="18" text="STATUS" y="159" x="103"/>
+			<recordBox dataFormat="" height="14" id="RecordBox2" fontSize="18" width="199.1" field="musaDate" x="300.51" y="28.35"/>
+			<recordBox dataFormat="" height="14" id="RecordBox3" fontSize="18" width="198" field="mobaName" y="81" x="252"/>
+			<recordBox dataFormat="" height="14" id="RecordBox4" fontSize="18" width="203" field="musaType" y="120" x="252"/>
+			<recordBox dataFormat="" height="14" id="RecordBox5" fontSize="18" width="199" field="musaStat" y="157" x="254"/>
+			<label height="14" width="100" id="Label1" fontSize="18" text="NO" x="11.34" y="5.67"/>
+			<recordBox dataFormat="" height="14" id="RecordBox1" fontSize="18" width="199" field="musaNo" x="153.09" y="5.67"/>
+		</detail>
+		<footer id="Footer1" height="50"/>
+	</report>
+</document>

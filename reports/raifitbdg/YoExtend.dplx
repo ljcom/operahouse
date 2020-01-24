@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <report id="Report1" pageSize="a4">
+    <query id="Query1">
+      <storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoExtend">
+        <parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+        <parameter name="@GUID" value="#Parameters[&quot;GUID&quot;]#" type="uniqueIdentifier"/>
+      </storedProcedure>
+    </query>
+    <template id="Template1"/>
+    <header id="Header1"/>
+    <detail id="Detail1" height="718">
+      <image id="Image1" x="23" y="11" width="133" height="49" path="logo.png"/>
+      <label id="Label1" height="14" text="Form Pembelian Masa Aktif Bulanan" x="183" y="59" width="206"/>
+      <label height="14" id="Label2" y="106" text="Nama Member" x="5" width="87.1"/>
+      <label height="14" id="Label3" text=":" width="9.6" x="235.5" y="103.5"/>
+      <recordBox id="RecordBox1" dataFormat="" height="14" width="100" field="CustName" x="266" y="104.5" underline="true"/>
+      <label height="14" x="5" id="Label4" y="122.5" text="No Identitas Member" width="123.1"/>
+      <label height="14" text=":" width="9.6" id="Label5" x="235.5" y="120"/>
+      <recordBox dataFormat="" height="14" width="100" id="RecordBox2" x="266" y="121" field="NoMember" underline="true"/>
+      <label height="14" id="Label6" x="5.5" y="146" text="Jumlah Token Saat Ini" width="131.1"/>
+      <label height="14" text=":" width="9.6" id="Label7" x="236" y="143.5"/>
+      <recordBox dataFormat="" height="14" id="RecordBox3" x="266.5" y="144.5" field="AvSession" underline="true" width="60"/>
+      <label height="14" id="Label8" x="6" y="166.5" width="134.6" text="Pembelian Masa Aktif"/>
+      <label height="14" text=":" width="9.6" id="Label9" x="236.5" y="164"/>
+      <recordBox dataFormat="" height="14" id="RecordBox4" x="267" y="165" field="Tokenbuy" underline="true" width="60"/>
+      <label height="14" x="6" id="Label10" y="189" text="Total Biaya Pembalian Masa Aktif" width="191.1"/>
+      <label height="14" text=":" width="9.6" id="Label11" x="236.5" y="186.5"/>
+      <recordBox dataFormat="" height="14" width="100" id="RecordBox5" x="267" y="187.5" field="TotalToken" underline="true"/>
+      <label height="14" id="Label12" text="Schedule Pemakaian Token Per bulan" x="7.5" width="214.1" y="210"/>
+      <label height="14" text=":" width="9.6" id="Label13" x="236.5" y="208"/>
+      <recordBox dataFormat="" height="14" width="100" id="RecordBox6" x="267" y="209" field="ScheToken" underline="true"/>
+      <label height="14" id="Label14" x="10.5" text="Catatan:" y="263" width="68.1"/>
+      <label x="10.5" id="Label15" width="482.1" text="Apabila penggunaan token dalam periode bulan berjalan dibawah kuota yang disepakati, maka sisa token pada bulan tersebut secara otomatis akan hangus. jika pengunaan token dalam periode berjalan melebihi kuota yang telah disepakati, maka secara otomatis akan mengurangi kuota token pada bulan berikutnya" height="67" y="280"/>
+      <label height="14" width="214.1" id="Label16" x="11.5" y="361" text="Pembelian Masa Aktif 1-3 bulan"/>
+      <label height="14" text=":" width="9.6" id="Label17" y="361" x="239.5"/>
+      <label height="14" width="214.1" id="Label18" x="262.5" y="360" text="@ Rp 100.000"/>
+      <label height="14" width="214.1" x="11.5" id="Label19" y="383" text="Pembelian Masa Aktif 4-6 bulan"/>
+      <label height="14" text=":" width="9.6" x="239.5" id="Label20" y="383"/>
+      <label height="14" width="214.1" x="262.5" id="Label21" y="382" text="@ Rp 90.000"/>
+      <label height="14" width="214.1" x="11.5" id="Label22" y="404" text="Pembailan Masa Aktif 7-10 bulan"/>
+      <label height="14" text=":" width="9.6" x="239.5" id="Label23" y="404"/>
+      <label height="14" width="214.1" x="262.5" id="Label24" y="403" text="@ Rp 80.000"/>
+      <label height="14" width="214.1" x="11.5" id="Label25" y="426" text="Pembelian Masa Aktif diatas 10 bulan"/>
+      <label height="14" text=":" width="9.6" x="239.5" id="Label26" y="426"/>
+      <label height="14" width="214.1" id="Label27" y="425" x="263.5" text="@ Rp 70.000"/>
+      <label height="14" width="131.1" id="Label28" y="145" text="token" x="330.5"/>
+      <label height="14" width="131.1" x="330.5" id="Label29" y="165" text="bulan"/>
+      <label x="10.5" width="482.1" id="Label30" y="452" height="78" text="Bersama ini saya sudah mendapat penjelasan yang cukup dari Fitness Consultant Rai Fitness untuk pembelian masa aktif bulanan. Dengan memahami syarat dan ketentuan yang ada, saya paham dan bersedia menggunakan masa aktif dan token sesuai yang dijadwalkan, dan saya memahami bahwa token yang tersisa setiap bulannya akan hangus secara otomatis."/>
+      <label height="14" id="Label31" x="12.5" y="552" width="75.1" text="Bandung,"/>
+      <recordBox dataFormat="" height="14" id="RecordBox7" x="69" y="553" field="TglTransaksi" width="141.1"/>
+      <line id="Line1" x1="5" y1="568" y2="568" x2="212"/>
+      <line id="Line2" x1="8" y1="669" x2="215" y2="669"/>
+      <line id="Line3" x1="290" x2="497" y1="668" y2="668"/>
+      <label height="14" width="75.1" id="Label32" y="674" text="(Member)" x="85.5"/>
+      <label height="14" y="674" id="Label33" x="342.5" text="(Fitness Consultan)" width="119.1"/>
+    </detail>
+    <footer id="Footer1"/>
+  </report>
+</document><?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <report id="Report1" pageSize="a4">
+    <query id="Query1">
+      <storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoExtend">
+        <parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+        <parameter name="@GUID" value="#Parameters[&quot;GUID&quot;]#" type="uniqueIdentifier"/>
+      </storedProcedure>
+    </query>
+    <template id="Template1"/>
+    <header id="Header1"/>
+    <detail id="Detail1" height="718">
+      <image id="Image1" x="23" y="11" width="133" height="49" path="logo.png"/>
+      <label id="Label1" height="14" text="Form Pembelian Masa Aktif Bulanan" x="183" y="59" width="206"/>
+      <label height="14" id="Label2" y="106" text="Nama Member" x="5" width="87.1"/>
+      <label height="14" id="Label3" text=":" width="9.6" x="235.5" y="103.5"/>
+      <recordBox id="RecordBox1" dataFormat="" height="14" width="100" field="CustName" x="266" y="104.5" underline="true"/>
+      <label height="14" x="5" id="Label4" y="122.5" text="No Identitas Member" width="123.1"/>
+      <label height="14" text=":" width="9.6" id="Label5" x="235.5" y="120"/>
+      <recordBox dataFormat="" height="14" width="100" id="RecordBox2" x="266" y="121" field="NoMember" underline="true"/>
+      <label height="14" id="Label6" x="5.5" y="146" text="Jumlah Token Saat Ini" width="131.1"/>
+      <label height="14" text=":" width="9.6" id="Label7" x="236" y="143.5"/>
+      <recordBox dataFormat="" height="14" id="RecordBox3" x="266.5" y="144.5" field="AvSession" underline="true" width="60"/>
+      <label height="14" id="Label8" x="6" y="166.5" width="134.6" text="Pembelian Masa Aktif"/>
+      <label height="14" text=":" width="9.6" id="Label9" x="236.5" y="164"/>
+      <recordBox dataFormat="" height="14" id="RecordBox4" x="267" y="165" field="Tokenbuy" underline="true" width="60"/>
+      <label height="14" x="6" id="Label10" y="189" text="Total Biaya Pembalian Masa Aktif" width="191.1"/>
+      <label height="14" text=":" width="9.6" id="Label11" x="236.5" y="186.5"/>
+      <recordBox dataFormat="" height="14" width="100" id="RecordBox5" x="267" y="187.5" field="TotalToken" underline="true"/>
+      <label height="14" id="Label12" text="Schedule Pemakaian Token Per bulan" x="7.5" width="214.1" y="210"/>
+      <label height="14" text=":" width="9.6" id="Label13" x="236.5" y="208"/>
+      <recordBox dataFormat="" height="14" width="100" id="RecordBox6" x="267" y="209" field="ScheToken" underline="true"/>
+      <label height="14" id="Label14" x="10.5" text="Catatan:" y="263" width="68.1"/>
+      <label x="10.5" id="Label15" width="482.1" text="Apabila penggunaan token dalam periode bulan berjalan dibawah kuota yang disepakati, maka sisa token pada bulan tersebut secara otomatis akan hangus. jika pengunaan token dalam periode berjalan melebihi kuota yang telah disepakati, maka secara otomatis akan mengurangi kuota token pada bulan berikutnya" height="67" y="280"/>
+      <label height="14" width="214.1" id="Label16" x="11.5" y="361" text="Pembelian Masa Aktif 1-3 bulan"/>
+      <label height="14" text=":" width="9.6" id="Label17" y="361" x="239.5"/>
+      <label height="14" width="214.1" id="Label18" x="262.5" y="360" text="@ Rp 100.000"/>
+      <label height="14" width="214.1" x="11.5" id="Label19" y="383" text="Pembelian Masa Aktif 4-6 bulan"/>
+      <label height="14" text=":" width="9.6" x="239.5" id="Label20" y="383"/>
+      <label height="14" width="214.1" x="262.5" id="Label21" y="382" text="@ Rp 90.000"/>
+      <label height="14" width="214.1" x="11.5" id="Label22" y="404" text="Pembailan Masa Aktif 7-10 bulan"/>
+      <label height="14" text=":" width="9.6" x="239.5" id="Label23" y="404"/>
+      <label height="14" width="214.1" x="262.5" id="Label24" y="403" text="@ Rp 80.000"/>
+      <label height="14" width="214.1" x="11.5" id="Label25" y="426" text="Pembelian Masa Aktif diatas 10 bulan"/>
+      <label height="14" text=":" width="9.6" x="239.5" id="Label26" y="426"/>
+      <label height="14" width="214.1" id="Label27" y="425" x="263.5" text="@ Rp 70.000"/>
+      <label height="14" width="131.1" id="Label28" y="145" text="token" x="330.5"/>
+      <label height="14" width="131.1" x="330.5" id="Label29" y="165" text="bulan"/>
+      <label x="10.5" width="482.1" id="Label30" y="452" height="78" text="Bersama ini saya sudah mendapat penjelasan yang cukup dari Fitness Consultant Rai Fitness untuk pembelian masa aktif bulanan. Dengan memahami syarat dan ketentuan yang ada, saya paham dan bersedia menggunakan masa aktif dan token sesuai yang dijadwalkan, dan saya memahami bahwa token yang tersisa setiap bulannya akan hangus secara otomatis."/>
+      <label height="14" id="Label31" x="12.5" y="552" width="75.1" text="Bandung,"/>
+      <recordBox dataFormat="" height="14" id="RecordBox7" x="69" y="553" field="TglTransaksi" width="141.1"/>
+      <line id="Line1" x1="5" y1="568" y2="568" x2="212"/>
+      <line id="Line2" x1="8" y1="669" x2="215" y2="669"/>
+      <line id="Line3" x1="290" x2="497" y1="668" y2="668"/>
+      <label height="14" width="75.1" id="Label32" y="674" text="(Member)" x="85.5"/>
+      <label height="14" y="674" id="Label33" x="342.5" text="(Fitness Consultan)" width="119.1"/>
+    </detail>
+    <footer id="Footer1"/>
+  </report>
+</document>

@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageSize="a4">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeRujuk_report">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="50"/>
+		<detail id="Detail1" autoSplit="true" height="582.5">
+			<label id="Label1" width="100" x="6" y="6" height="12.5" text="Kepada Yth" font="HelveticaBold"/>
+			<label id="Label2" y="24" height="12.5" font="HelveticaBold" x="6" width="197" text="Dokter:........................................."/>
+			<label id="Label3" y="42" font="HelveticaBold" x="6" height="12.1" width="266.5" text="Rumah Sakit:.............................................."/>
+			<label id="Label4" y="72" x="6.5" height="12.1" text="Bersama ini kami kirimkan seorang pasien:" width="245.5" fontSize="10"/>
+			<rectangle id="Rectangle1" width="479.5" height="89.5" x="6.5" y="90.5"/>
+			<label id="Label5" height="14" x="12.5" text="Nama" width="48" y="92" fontSize="10"/>
+			<line id="Line1" x1="6.5" y1="108" y2="108" x2="485.5"/>
+			<label id="Label6" height="14" text="Jenis Kelamin" width="84.5" y="110" x="13" fontSize="10"/>
+			<line x1="6.5" x2="485.5" id="Line2" y1="126" y2="126"/>
+			<label id="Label7" height="14" width="100" x="12.5" text="Perusahaan" y="128" fontSize="10"/>
+			<line x1="6.5" x2="485.5" id="Line3" y1="144" y2="144"/>
+			<label id="Label8" height="14" x="12.5" text="Alamat" y="146" fontSize="10" width="77"/>
+			<line id="Line4" y1="91" y2="180" x1="96" x2="96"/>
+			<recordBox id="RecordBox1" dataFormat="" height="14" y="92.5" field="CustName" fontSize="10" width="156.5" x="102"/>
+			<line y1="91" id="Line5" y2="144" x1="270" x2="270"/>
+			<recordBox id="RecordBox2" dataFormat="" height="14" width="100" y="110" fontSize="10" field="Gender" x="102"/>
+			<label id="Label9" height="14" fontSize="10" y="92.5" text="Umur" x="276" width="54.5"/>
+			<label id="Label10" height="14" x="276" y="110" fontSize="10" text="Pekerjaan" width="54.5"/>
+			<label id="Label11" height="14" x="276" y="128" fontSize="10" text="NIK" width="48.5"/>
+			<line y1="91" y2="144" id="Line6" x1="342" x2="342"/>
+			<recordBox id="RecordBox4" dataFormat="" height="14" x="348" y="92.5" fontSize="10" width="108.5" field="Age"/>
+			<recordBox id="RecordBox5" dataFormat="" height="14" width="100" x="348" y="110" fontSize="10" field="Work"/>
+			<recordBox id="RecordBox6" dataFormat="" height="14" width="100" x="348" fontSize="10" y="128" field="NIK"/>
+			<recordBox id="RecordBox7" dataFormat="" fontSize="10" x="102" y="146.5" height="28" width="372.5" field="Address"/>
+			<rectangle width="479.5" x="6.5" id="Rectangle2" y="192.5" height="41.5"/>
+			<label id="Label12" height="14" text="Keluhan" x="12.5" y="204" fontSize="10" width="66"/>
+			<line id="Line7" x1="96.5" y1="193" x2="96.5" y2="234"/>
+			<recordBox id="RecordBox8" dataFormat="" y="198" x="102" width="372.5" height="30.5" fontSize="10" field="Keluhan"/>
+			<rectangle width="479.5" x="6.5" id="Rectangle3" y="246.5" height="66"/>
+			<line x1="6.5" x2="485.5" id="Line8" y1="264" y2="264"/>
+			<label id="Label13" height="14" fontSize="10" y="248" align="center" text="Tekanan darah" width="90.5" x="24"/>
+			<line x1="6.5" x2="485.5" id="Line9" y1="282" y2="282"/>
+			<label id="Label14" height="14" fontSize="10" y="266" width="90.5" text="..............mmHg" x="37"/>
+			<line id="Line10" y1="246.5" y2="311.5" x1="132.5" x2="132.5"/>
+			<label id="Label15" height="14" width="100" fontSize="10" text="Diagnose Sementara" y="284" x="12.5"/>
+			<label id="Label16" height="14" y="248" fontSize="10" align="center" text="Nadi" x="156" width="60.5"/>
+			<label id="Label17" height="14" fontSize="10" y="266" width="78.5" text="...........X/menit" x="154.5"/>
+			<line id="Line11" y1="247" y2="281" x1="240.5" x2="240.5"/>
+			<label id="Label18" height="14" fontSize="10" align="center" text="Pernapasan" y="248" width="114.5" x="252"/>
+			<label id="Label19" height="14" width="100" fontSize="10" y="265.5" text=".................X/menit" x="267"/>
+			<line id="Line12" y1="247.5" y2="281.5" x1="378" x2="378"/>
+			<label id="Label20" height="14" fontSize="10" align="center" text="Suhu" y="248" x="390" width="90.5"/>
+			<label id="Label21" height="14" width="100" fontSize="10" y="265.5" text=".............°C" align="center" x="385.5"/>
+			<recordBox id="RecordBox9" dataFormat="" fontSize="10" height="22.5" y="285" x="138" width="336.5" field="Diagnose"/>
+			<rectangle width="479.5" x="6.5" height="66" id="Rectangle4" y="324.5"/>
+			<label id="Label22" x="12.5" fontSize="10" text="Pengobatan &amp; Tindakan Sementara" width="119.1" height="30.5" y="342"/>
+			<line id="Line13" x1="150.5" y1="324.5" x2="150.5" y2="389.5"/>
+			<recordBox id="RecordBox10" dataFormat="" width="318.5" height="54.5" x="156" y="330" field="Tindakan"/>
+			<label id="Label23" x="6.5" y="402" fontSize="10" text="Mohon pemeriksaan dan penatalaksanaan lebih lanjut untuk pasien tersebut" width="378" height="13"/>
+			<label id="Label24" fontSize="10" x="6.5" y="420" text="Kami ucapkan banyak terimakasih atas bantuannya" width="270" height="12.1"/>
+			<label id="Label25" height="14" x="6.5" y="438" fontSize="10" font="HelveticaBold" text="Bekasi," width="35.1"/>
+			<recordBox id="RecordBox11" dataFormat="" fontSize="10" y="438" height="12.5" field="Today" width="115" x="46"/>
+			<label id="Label26" height="14" width="100" fontSize="10" text="Hormat Kami" y="462" x="30.5"/>
+			<label id="Label27" height="14" width="100" fontSize="10" y="558" x="16.5" text="(________________)"/>
+			<recordBox id="RecordBox12" dataFormat="" height="14" fontSize="10" width="63" align="center" x="33" y="554.5" field="Doct"/>
+			<label id="Label28" height="14" fontSize="10" x="102" y="127.5" width="156.5" text="PT. Yasulor Indonesia"/>
+		</detail>
+		<footer id="Footer1" height="50"/>
+	</report>
+</document>

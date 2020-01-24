@@ -26,7 +26,7 @@ Partial Class OPHCore_api_loadTheme
         Dim quick = False
         'System.Web.HttpRuntime.CodegenDir' //asp.net temp folder
         Dim time = Now().ToString("yyMMddHH")
-        Dim themetemp As String = Server.MapPath("~/OPHContent/documents/") & "\temp\" & page & "_" & time & ".xslt"
+        Dim themetemp As String = Server.MapPath("~/OPHContent/documents/") & "\temp\" & theme & "_" & page & "_" & time & ".xslt"
         If File.Exists(themetemp) Then
 
             Try

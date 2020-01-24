@@ -3,12 +3,41 @@
 	<report id="Report1" pageSize="custom" topMargin="0" bottomMargin="0" leftMargin="14" pageWidth="226" rightMargin="14" pageHeight="567">
 		<query id="Query1">
 			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeCheckin_report">
-				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+			</storedProcedure>
 		</query>
 		<template id="Template1"/>
 		<header id="Header1"/>
-		<detail id="Detail1" autoSplit="true" height="359">
-			<image id="Image1" path="logo.png" width="121.25" height="63.5" y="-1" x="40.25"/><line id="Line1" x1="7" y1="54.75" x2="193.25" y2="54.75"/><label id="Label1" height="14" text="CHECK-IN CONFIRMATION" width="185" x="18.5" y="56.5"/><label id="Label2" height="14" x="16.5" y="71.5" text="Card No." width="51" fontSize="10"/><recordBox id="RecordBox15" dataFormat="" height="14" y="72" field="MemberCode" width="100" x="93" fontSize="10"/><label height="14" width="51" id="Label17" x="16.5" y="85.5" text="Name" fontSize="10"/><recordBox dataFormat="" height="14" width="100" id="RecordBox4" x="93" field="CustName" y="85.5" fontSize="10"/><label height="14" x="16.5" id="Label3" y="132.5" text="Saldo Token" width="67.1" fontSize="10"/><recordBox dataFormat="" height="14" id="RecordBox1" fontSize="10" field="Saldo" y="133" x="93" width="100"/><label height="14" x="16.5" id="Label4" y="118.5" text="Check-IN Date" fontSize="10" width="67.5"/><recordBox dataFormat="" height="14" width="100" id="RecordBox2" y="119" x="93" field="Checkindate" fontSize="10"/><line x1="7" x2="193.25" id="Line2" y1="155.75" y2="155.75"/><label id="Label5" height="14" text="Customer Service" y="158.5" fontSize="6" width="49.5" x="51"/><recordBox id="RecordBox3" dataFormat="" height="14" width="100" fontSize="6" field="CustomerService" y="159" x="105.5"/><label id="Label6" height="14" width="100" x="15" y="193" fontSize="10" text="Customer Sign,"/><line id="Line3" y1="261.75" y2="261.75" x1="16" x2="83.25"/><label height="14" width="100" y="193" fontSize="10" id="Label7" text="Order :" x="128"/><image id="Image2" x="16.5" y="274.5" width="173.5" path="Notes.jpg" height="98.5"/><label height="14" id="Label8" y="210" text="Bath Towel" x="107" width="52.5" fontSize="8"/><label height="14" id="Label9" y="226" text="Hand Towel" x="107" width="56.5" fontSize="8"/><label height="14" id="Label10" y="242" text="Locker Key" x="107" width="53.5" fontSize="8"/><recordBox id="RecordBox5" dataFormat="" height="14" fontSize="8" x="156.5" y="209.5" field="BT" width="16"/><recordBox dataFormat="" height="14" fontSize="8" x="156.5" width="16" id="RecordBox6" y="225.5" field="HT"/><recordBox dataFormat="" height="14" fontSize="8" x="156.5" width="16" id="RecordBox7" y="242.5" field="LK"/></detail>
+		<detail id="Detail1" autoSplit="true" height="397.5">
+			<image id="Image1" path="logo.png" y="-1" x="40" width="121" height="63"/>
+			<line id="Line1" x1="7" y1="54" x2="193" y2="54"/>
+			<label id="Label1" height="14" text="CHECK-IN CONFIRMATION" y="56" x="6" fontSize="10" font="HelveticaBold" align="center" width="186.5"/>
+			<label id="Label2" height="14" text="Card No." width="51" x="5" fontSize="8" y="72"/>
+			<recordBox id="RecordBox15" dataFormat="" height="14" field="MemberCode" width="127" x="68" fontSize="7" y="72"/>
+			<label height="14" width="51" id="Label17" text="Name" x="5" fontSize="8" y="86"/>
+			<recordBox dataFormat="" height="14" width="100" id="RecordBox4" field="CustName" x="68" fontSize="7" y="86"/>
+			<label height="14" id="Label3" text="Saldo Token" width="67" x="5" fontSize="8" y="125"/>
+			<recordBox dataFormat="" height="14" id="RecordBox1" field="Saldo" width="100" x="68" fontSize="7" y="126"/>
+			<label height="14" id="Label4" text="Check-IN Date" x="5" fontSize="8" width="59.75" y="111"/>
+			<recordBox dataFormat="" height="14" width="100" id="RecordBox2" field="Checkindate" x="68" fontSize="7" y="112"/>
+			<line x1="7" id="Line2" y1="173" x2="193" y2="173"/>
+			<label id="Label5" text="Customer Service" fontSize="6" x="51" y="176" width="49" height="10.5"/>
+			<recordBox id="RecordBox3" dataFormat="" width="100" fontSize="6" field="CustomerService" y="175.75" height="10.5" x="103"/>
+			<label id="Label6" height="14" width="100" x="15" text="Customer Sign," fontSize="8" y="204"/>
+			<line id="Line3" x1="16" x2="83" y1="272" y2="272"/>
+			<label height="14" width="100" id="Label7" text="Order :" x="128" fontSize="8" y="204"/>
+			<image id="Image2" path="Notes.jpg" x="16" width="173" height="98" y="285"/>
+			<label height="14" id="Label8" text="Bath Towel" x="107" width="52" fontSize="7" y="221"/>
+			<label height="14" id="Label9" text="Hand Towel" x="107" width="56" fontSize="7" y="237"/>
+			<label height="14" id="Label10" text="Locker Key" x="107" width="53" fontSize="7" y="253"/>
+			<recordBox id="RecordBox5" dataFormat="" height="14" field="BT" width="16" x="156" fontSize="7" y="220"/>
+			<recordBox dataFormat="" height="14" width="16" id="RecordBox6" field="HT" x="156" fontSize="7" y="236"/>
+			<recordBox dataFormat="" height="14" width="16" id="RecordBox7" field="LK" x="156" fontSize="7" y="253"/>
+			<label id="Label11" height="14" text="Expired Date" x="6" fontSize="8" width="53.1" y="140"/>
+			<recordBox id="RecordBox8" dataFormat="" height="14" field="ExpDate" x="68" fontSize="7" width="52.25" y="141"/>
+			<recordBox id="RecordBox9" dataFormat="" width="100" x="68" fontSize="7" field="CustType" height="11.5" y="154"/>
+		</detail>
 		<footer id="Footer1"/>
 	</report>
 </document>

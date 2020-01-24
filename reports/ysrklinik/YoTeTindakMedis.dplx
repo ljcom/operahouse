@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageSize="a4">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeTindakMedis_report">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="36">
+			<label id="Label1" align="center" x="109" width="298.1" height="19" fontSize="16" y="6" text="KLINIK  PT YASULOR Loreal Indonesia"/>
+		</header>
+		<detail id="Detail1" autoSplit="true" height="680.5">
+			<label id="Label2" height="14" fontSize="16" align="center" font="HelveticaBold" y="6" x="6" width="474.1" underline="true" text="SURAT PERSETUJUAN/PENOLAKAN TINDAKAN MEDIS"/>
+			<label id="Label3" text="Yang bertanda tangan di bawah ini:" x="12" width="198.1" height="18.5" y="42"/>
+			<label id="Label4" text="Nama" x="12" width="84.5" height="15.5" y="66"/>
+			<label id="Label5" text="Alamat" x="12" height="15" width="84" y="87"/>
+			<label id="Label6" x="12" text="No. KTP" height="15" width="84.5" y="108.5"/>
+			<label id="Label7" width="16" align="center" text=":" height="15" y="66.5" x="118.5"/>
+			<label width="16" align="center" text=":" height="15" id="Label8" y="86.5" x="118.5"/>
+			<label width="16" align="center" text=":" height="15" id="Label9" y="108.5" x="118.5"/>
+			<label id="Label10" text="...................................................." height="15" width="191.5" y="66.5" x="130"/>
+			<label text="...................................................." height="15" id="Label11" width="191.5" y="86.5" x="130"/>
+			<label text="...................................................." height="15" width="191.5" id="Label12" y="108.5" x="130"/>
+			<label id="Label13" height="14" x="12.5" width="382" text="Selaku karyawan/pasien/Orang tua/Suami/Istri/Keluarga dari pasien :" y="135"/>
+			<label id="Label14" x="12" text="Nama" height="18.5" width="90.5" y="159"/>
+			<label id="Label15" x="12" text="NIK" height="18.5" width="90.5" y="183"/>
+			<label id="Label16" x="12" text="Departemen/Bagian" height="18.5" y="207" width="109.5"/>
+			<label id="Label17" align="center" height="18.5" text=":" width="4.5" y="207" x="124"/>
+			<label align="center" height="18.5" text=":" width="4.5" id="Label18" y="183" x="124"/>
+			<label align="center" height="18.5" text=":" width="4.5" id="Label19" y="159" x="124"/>
+			<recordBox id="RecordBox1" dataFormat="" width="174.5" field="CustName" x="132" y="159" height="15.5"/>
+			<recordBox id="RecordBox2" dataFormat="" width="174.5" field="NIK" y="183" x="132" height="15.5"/>
+			<recordBox id="RecordBox3" dataFormat="" width="174.5" field="Department" y="207" x="132" height="15.5"/>
+			<label id="Label20" x="12.5" width="480" height="115.5" y="240" text="Setelah mendapat informasi yang jelas dan lengkap dari pihak Dokter/ Dokter Gigi/ Paramedis klinik tentang kondisi sakit yang saya alami, maka dengan ini saya Setuju/Tidak setuju untuk dilakukan tindakan medis yang dianjurkan berupa : ..............&#xA;........................................................................................................................................&#xA;Saya juga sudah mengetahui segala risiko yang akan terjadi baik secara Medis/fisik maupun administrasi/biaya dan merupakan tanggung jawab saya secara pribadi.&#xA;Demikian surat ini saya buat atas dasar kesadaran, tanpa ada tekanan atau paksaan dari pihak manapun."/>
+			<label id="Label21" height="14" text="Jakarta," width="43" x="256" y="354"/>
+			<recordBox id="RecordBox4" dataFormat="" field="Today" width="122" y="354" height="13" x="304"/>
+			<label id="Label22" height="14" width="100" text="Petugas Medis" x="55.5" y="384"/>
+			<label id="Label23" height="14" text="(______________)" width="105" align="center" x="42.5" y="456"/>
+			<label id="Label24" x="276.5" text="Pembuat Pernyataan" width="126.5" height="18.5" y="384"/>
+			<label height="14" align="center" id="Label25" x="264.5" text="(_________________)" width="131.1" y="456"/>
+			<label id="Label26" height="14" text="Saksi 1" width="56" x="72" y="522"/>
+			<label height="14" text="(______________)" width="105" align="center" id="Label27" x="42.5" y="594"/>
+			<label height="14" width="56" id="Label28" x="315.5" text="Saksi 2" y="522"/>
+			<label height="14" text="(______________)" width="105" align="center" id="Label29" x="282.5" y="588"/>
+			<recordBox id="RecordBox5" dataFormat="" height="14" align="center" field="Doct" x="60" width="71.1" y="454.5"/>
+			<label text="...................................................." height="15" width="191.5" x="130" id="Label30" y="163.5"/>
+			<label text="...................................................." height="15" width="191.5" x="130" id="Label31" y="187.5"/>
+			<label text="...................................................." height="15" width="191.5" x="130" id="Label32" y="211.5"/>
+		</detail>
+		<footer id="Footer1" height="50"/>
+	</report>
+</document>

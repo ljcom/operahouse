@@ -68,9 +68,10 @@ Partial Class OPHCore_api_msg_rptDialog
                 If ds1.Tables(0).Rows.Count > 0 Then
                     If ds1.Tables(0).Rows(0).Item("parameters").ToString <> "" Then
                         parameterid = ds1.Tables(0).Rows(0).Item("parameters").replace("%2F", "/")
-                        reportName = ds1.Tables(0).Rows(0).Item("reportName").ToString
-                        XLSTemplate = ds1.Tables(0).Rows(0).Item("XLSTemplate").ToString
+                        
                     End If
+                    reportName = ds1.Tables(0).Rows(0).Item("reportName").ToString
+                    XLSTemplate = ds1.Tables(0).Rows(0).Item("XLSTemplate").ToString
                 End If
             End If
 
@@ -86,6 +87,7 @@ Partial Class OPHCore_api_msg_rptDialog
             parameterid = "hostGUID:" & curHostGUID
         Else
             parameterid = "hostGUID:" & curHostGUID & "," & parameterid
+            parameterid = parameterid.Replace("'", "")
         End If
 
         If mode = "pdf" Then
@@ -98,6 +100,7 @@ Partial Class OPHCore_api_msg_rptDialog
             queryDPLX = runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='" & code & "' and InfoKey='dplx_rpt'")
 
             'store dplx to folder temp
+            If contentOfaccountId <> "" Then contentOfaccountId = Session("baseAccount")
             Dim path As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/")
             writeFile(path, reportName & ".dplx", queryDPLX, False)
 
@@ -414,7 +417,7 @@ Partial Class OPHCore_api_msg_rptDialog
                             If px <> "" Then
                                 Dim pp = px.Split("=")
                                 If pp(1).ToLower <> "null" Then
-                                    sqlstr = sqlstr & "'" & pp(1) & "'"
+                                    sqlstr = sqlstr & " " & "" & pp(1) & ""
                                 Else
                                     sqlstr = sqlstr & "null"
                                 End If
@@ -441,6 +444,7 @@ Partial Class OPHCore_api_msg_rptDialog
                             Dim totalrow As Integer = ds.Tables(0).Rows.Count
                             If totalrow > 1 Then
                                 ws.Rows(rows).InsertCopy(totalrow - 1, ws.Rows(rows))
+
                             End If
 
                             Dim cl = ds.Tables(0).Columns.Count
