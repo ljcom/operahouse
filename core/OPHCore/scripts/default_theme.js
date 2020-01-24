@@ -74,7 +74,7 @@ function getCode() { return getQueryVariable("code") == undefined ? getCookie("c
 
 function lastCode() { return getCookie('lastCode'); }
 
-function getGUID() { return getCookie('GUID') == undefined || getCookie('GUID') === "" ? getQueryVariable("GUID") : getQueryVariable("GUID"); }
+function getGUID() { return getCookie('GUID') == undefined || getCookie('GUID') === "" ? getQueryVariable("GUID"):getCookie("GUID") ; }
 
 function getPage() {
     var pageName = document.getElementById('pageName');
@@ -147,11 +147,17 @@ function getUnique() {
 }
 
 //interface
-function loadContent(nbpage, f) {
-    var xmldoc;
+var scrollLoad=false;
+function loadContent(nbpage, isLoadSidebar, f) {
+    
+	if(isLoadSidebar==undefined) isLoadSidebar=true;
+	
+	var xmldoc;
     var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
-	var rows = getQueryVariable('brows');
-	if (rows == undefined) rows ='20'	
+    var rows = getQueryVariable('brows');
+    if (rows == undefined) rows = '20';
+    setCookie(getCode().toLowerCase()+'_curPage', nbpage, 1, 0, 0);
+    setCookie(getCode().toLowerCase()+'_TotalPages', nbpage, 1, 0, 0);
 
     //main content
     if (lastCode() !== getCode()) {
@@ -174,14 +180,35 @@ function loadContent(nbpage, f) {
 
     //sidebar only for form
     var showDocInfo = getCookie(getCode().toLowerCase() + '_showdocinfo');
-    if (getMode() === 'form' && showDocInfo == 1) {
+    if (getMode() === 'form' && showDocInfo == 1 && isLoadSidebar) {
         divname.push('sidebarWrapper');
         var xsldoc1 = 'OPHCore/api/loadtheme.aspx?code=' + getCode() + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + getMode() + '_sidebar';
         xsldoc.push(xsldoc1);
     }
-
+    else {
+        window.addEventListener("scroll", function (event) {
+            
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight*0.8 && !scrollLoad) {
+                // you're at the bottom of the page
+                scrollLoad=true;
+                var nbpage=getCookie(getCode().toLowerCase()+'_curPage');
+                var totalPages=getCookie(getCode().toLowerCase()+'_TotalPages');
+                if (parseInt(nbpage)<parseInt(totalPages)) {
+                    nbpage++;
+                    console.log('load '+nbpage);
+                    var divname = ['browseContent'];
+                    var xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + getCode() + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + getMode()];
+                    var xmldoc = 'OPHCore/api/default.aspx?mode=' + getMode() + '&code=' + getCode() + '&GUID=' + getGUID() + '&stateid=' + getState() + '&bPageNo=' + nbpage + '&bSearchText=' + getSearchText() + '&sqlFilter=' + getFilter() + '&sortOrder=' + getOrder() + unique;
+                    pushTheme(divname, xmldoc, xsldoc, false, function() {
+                        setCookie(getCode().toLowerCase()+'_curPage', nbpage, 1, 0, 0);
+                        scrollLoad=false;
+                    });
+                }
+            }
+        });
+    };
     setTimeout(function () { pushTheme(divname, xmldoc, xsldoc, true); }, 100);
-}//
+}
 
 function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
     var xmldoc;
@@ -331,7 +358,7 @@ function closeChildForm(code, guid) {
 function btn_function(code, GUID, action, page, location, formId, comment, afterSuccess, ini) {
     //location: 0 header; 1 child; 2 browse 
     //location: browse:10, header form:20, browse anak:30, browse form:40
-	$(ini).button('loading');
+    $(ini).button('loading');
     var pg = (page === "" || isNaN(page)) ? 0 : parseInt(page);
 
     if (location == undefined || location === "") { location = 20; }
@@ -342,10 +369,10 @@ function btn_function(code, GUID, action, page, location, formId, comment, after
         //location: 0 header; 1 child; 2 browse 
         //location: browse:10, header form:20, browse anak:30, browse form:40
         var r = saveFunction(code, GUID, location, formId, function () {
-			if (typeof afterSuccess === "function") afterSuccess(data);
-			$(this).button('reset');
-		});
-		if (!r) $(ini).button('reset');
+            if (typeof afterSuccess === "function") afterSuccess(data);
+            $(this).button('reset');
+        });
+        if (!r) $(ini).button('reset');
     } else {
         if (GUID === null || GUID === '') {
             if (isIE()) {
@@ -356,11 +383,11 @@ function btn_function(code, GUID, action, page, location, formId, comment, after
             GUID = arGUID.join();
         }
 
-        var r = executeFunction(code, GUID, action, location, null, null, comment, function () {
-			if (typeof afterSuccess === "function") afterSuccess(data);
-			$(ini).button('reset');
-		});
-		if (!r) $(ini).button('reset');
+        var r = executeFunction(code, GUID, action, location, null, null, comment, function (data) {
+            if (typeof afterSuccess === "function") afterSuccess(data);
+            $(ini).button('reset');
+        });
+        if (!r) $(ini).button('reset');
     }
 }
 
@@ -521,7 +548,7 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess, befo
                 var msg = $(data).children().find("message").text();
                 var u = $(data).children().find("unique").text();
                 if (u) $("#unique").val(u);
-				// showMessage('Saving is successfully.', 2);
+                // showMessage('Saving is successfully.', 2);
                 if (typeof afterSuccess === "function") afterSuccess(data);
             });
     }
@@ -604,63 +631,90 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
             success: function (data) {
                 var x = $(data).find("message").children().each(function () {
                     //$(this).text();
-                    if (document.getElementById(this.tagName)) {
-                        if (document.getElementById(this.tagName).type === "checkbox") {
+					if (this.tagName=='infoMsg') {
+						showMessage($(this).text(), '1', true);
+					}
+					else if (this.tagName=='successMsg') {
+						showMessage($(this).text(), '2', true);
+					}
+					else if (this.tagName=='errMsg') {
+						showMessage($(this).text(), '4', true);
+					}
+					else if (document.getElementById("cb"+this.tagName)) {
+                        if (document.getElementById("cb"+this.tagName).type === "checkbox") {
                             if ($(this).text() === "1") {
-                                document.getElementById(this.tagName).checked = true;
+                                document.getElementById("cb"+this.tagName).checked = true;
                                 document.getElementById(this.tagName).value = 1;
                             } else {
-                                document.getElementById(this.tagName).checked = false;
+                                document.getElementById("cb"+this.tagName).checked = false;
                                 document.getElementById(this.tagName).value = 0;
                             }
-                        } else {
-                            if (flag > 1 || $(this).text() !== '') {
+                        } 
+					}
+					else if (document.getElementById(this.tagName)) {
+						if (flag > 1 || $(this).text() !== '') {
 
-                                if (document.getElementById(this.tagName).type === 'select-one') {
-                                    var checktext = $(this.nextSibling)[0];
-                                    if (checktext === this.tagName + '_name') {
-                                        var newOption = new Option($(this.nextSibling).text(), $(this).text(), true, true);
-                                        $("#" + this.tagName).append(newOption).trigger('change');
-                                    } else {
-                                        var defer = [];
-                                        autosuggestSetValue(defer, this.tagName, code, this.tagName, this.textContent);
-                                    }
-                                } else if (document.getElementById(this.tagName).type != undefined && document.getElementById(this.tagName).type != '') {
-                                    document.getElementById(this.tagName).value = $(this).text();
-                                } else {
-                                    document.getElementById(this.tagName).innerHTML = $(this).text();
-                                }
+							if (document.getElementById(this.tagName).type === 'select-one') {
+								var checktext = $(this.nextSibling)[0].tagName;
+								if (checktext === this.tagName + '_name') {
+									var newOption = new Option($(this.nextSibling).text(), $(this).text(), true, true);
+									$("#" + this.tagName).append(newOption).trigger('change');
+								} else {
+									var defer = [];
+									autosuggest_setValue(defer, this.tagName, code, this.tagName, this.textContent);
+								}
+							} else if (document.getElementById(this.tagName).type != undefined && document.getElementById(this.tagName).type != '') {
+								document.getElementById(this.tagName).value = $(this).text();
+							} else {
+								document.getElementById(this.tagName).innerHTML = $(this).text();
+							}
 
-                            }
-                            if ($(this).attr('display') === 'show') {
-                                if ($('[name=' + this.tagName + ']').data("type") === 'dateBox')
-                                    $('[name=' + this.tagName + ']').parent().parent().show();
-                                else
-                                    $('[name=' + this.tagName + ']').parent().show();
-                            }
-                            else if ($(this).attr('display') === 'hide') {
-                                if ($('[name=' + this.tagName + ']').data("type") === 'dateBox')
-                                    $('[name=' + this.tagName + ']').parent().parent().hide();
-                                else
-                                    $('[name=' + this.tagName + ']').parent().hide();
-                            }
+						}
+						if ($(this).attr('display') === 'show') {
+							if ($('[name=' + this.tagName + ']').data("type") === 'dateBox')
+								$('[name=' + this.tagName + ']').parent().parent().show();
+							else
+								$('[name=' + this.tagName + ']').parent().show();
+						}
+						else if ($(this).attr('display') === 'hide') {
+							if ($('[name=' + this.tagName + ']').data("type") === 'dateBox')
+								$('[name=' + this.tagName + ']').parent().parent().hide();
+							else
+								$('[name=' + this.tagName + ']').parent().hide();
+						}
 
-                            if ($(this).attr('readonly') === 'true' || $(this).attr('readonly') === '1') {
-                                $('[name=' + this.tagName + ']').parent().removeClass('enabled-input').addClass('disabled-input');
-                                $('[name=' + this.tagName + ']').parent().attr('disabled', 'disabled');
-                            }
-                            if ($(this).attr('readonly') === 'false' || $(this).attr('readonly') === '0') {
-                                $('[name=' + this.tagName + ']').parent().removeClass('disabled-input').addClass('enabled-input');
-                                $('[name=' + this.tagName + ']').parent().removeAttr('disabled');
-                            }
+						if ($(this).attr('readonly') === 'true' || $(this).attr('readonly') === '1') {
+							$('[name=' + this.tagName + ']').parent().removeClass('enabled-input').addClass('disabled-input');
+							$('[name=' + this.tagName + ']').parent().attr('disabled', 'disabled');
+						}
+						if ($(this).attr('readonly') === 'false' || $(this).attr('readonly') === '0') {
+							$('[name=' + this.tagName + ']').parent().removeClass('disabled-input').addClass('enabled-input');
+							$('[name=' + this.tagName + ']').parent().removeAttr('disabled');
+						}
 
-                            if ($(this).attr('style')) {
-                                var style = $(this).attr('style');
-                                $('[name=' + this.tagName + ']').parent().attr('style', style);
-                            }
-                            //EndBy eLs updated by samuel 20180808
-                        }
-                    }
+						if ($(this).attr('style')) {
+							var style = $(this).attr('style');
+							$('[name=' + this.tagName + ']').parent().attr('style', style);
+						}
+					}
+					else if (document.getElementsByName(this.tagName).length>0) {
+						if (document.getElementsByName(this.tagName)[0].type==="radio") {
+							if ($(this).text()=="") {
+								//reset
+								n=document.getElementsByName(this.tagName).length;
+								for (var g=0;g<n;g++) {
+									document.getElementsByName(this.tagName)[g].checked=false;
+								}
+							}
+							else {
+								var g=$(this).text();
+								$(this).text()[g].checked=true;
+							}
+						}
+					}						
+					//EndBy eLs updated by samuel 20180808
+					
+                    
 
                     //AddedBy eLs for : master browse inline child preview
                     var select2Tag = '#' + this.tagName + '_' + GUID;
@@ -668,7 +722,7 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
                     var val = this.textContent;
                     if ($(select2Tag).length > 0) {
                         var selectID = this.tagName + "_" + GUID;
-                        if (val) autosuggestSetValue(undefined, selectID, code, this.tagName, val, '', '');
+                        if (val) autosuggest_setValue(undefined, selectID, code, this.tagName, val, '', '');
 
                         if (this.getAttribute('readonly') == "true") {
                             $(select2Tag).prop("disabled", true);
@@ -1000,10 +1054,11 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                             //location: browse:10, header form:20, header sidebar:21, browse anak:30, browse form:40
 
                             //window.location = 'index.aspx?code=' + getQueryVariable("code");
-							showMessage(successmsg, '2', true, function () {
+                            showMessage(successmsg, '2', true, function () {
                                 loadBrowse(code);
                             });
-                            
+                            loadBrowse(code);
+
                         }
                         //if (action === 'execute' && location == 21) {
                         //		//refresh sidebar
@@ -1014,12 +1069,12 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                             //showMessage(successmsg);
                             //loadContent(1);
                             showMessage(successmsg, '2', true, function () {
-                                
+
                             });
-							setTimeout(function() {
-								if (reload == '1') loadBrowse(code);
+                            setTimeout(function () {
+                                if (reload == '1') loadBrowse(code);
                                 else loadContent(1);    //why need this?
-							}, 2000);
+                            }, 2000);
 
                         }
 
@@ -1029,7 +1084,7 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
                 else {
                     //loadContent(1);   //why need this?
                     showMessage(msg, 3);
-					setTimeout(function() {loadContent(1);}, 2000);
+                    setTimeout(function () { loadContent(1); }, 2000);
                 }
 
                 if (typeof afterSuccess === "function") afterSuccess(data);
@@ -1037,7 +1092,7 @@ function executeFunction(code, GUID, action, location, approvaluserguid, pwd, co
         });
 
     }
-	return isAction;
+    return isAction;
 }
 
 function downloadModule(code, exportMode, withData) {
@@ -1165,7 +1220,7 @@ function sortBrowse(ini, loc, code, orderBy) {
 }
 function form_init() {
     window.onbeforeunload = function (event) {
-        if (form_added || form_changed) {
+        if (form_added || form_edited) {
             var message = 'Some data not yet saved. Are you sure want to leave?';
             if (typeof event === 'undefined') {
                 event = window.event;
@@ -1176,7 +1231,83 @@ function form_init() {
             return message;
         }
     };
+	setTimeout(function() {form_preset();}, 100);
+	
 }
+
+
+function form_preset() {
+	if (getGUID()==='00000000-0000-0000-0000-000000000000') {
+		var query = window.location.search.substring(1);
+		var code=getCode();
+		var vars = query.split("&");
+		for (var i = 0; i < vars.length; i++) {
+			var pair = vars[i].split("=");
+			
+			if (document.getElementById(pair[0])) {
+				if (document.getElementById(pair[0]).type === "checkbox") {
+					if (pair[1] === "1") {
+						document.getElementById(pair[0]).checked = true;
+						document.getElementById(pair[0]).value = 1;
+					} else {
+						document.getElementById(pair[0]).checked = false;
+						document.getElementById(pair[0]).value = 0;
+					}
+				} else {
+					if (pair[1] !== '') {
+
+						if (document.getElementById(pair[0]).type === 'select-one') {
+							var checktext = $(this.nextSibling)[0].tagName;
+							if (checktext === pair[0] + '_name') {
+								var newOption = new Option($(this.nextSibling).text(), pair[1], true, true);
+								$("#" + pair[0]).append(newOption).trigger('change');
+							} else {
+								var defer = [];
+								autosuggest_editValue(defer, pair[0], code, pair[0], pair[1], false);
+								
+							}
+						} else if (document.getElementById(pair[0]).type != undefined && document.getElementById(pair[0]).type != '') {
+							document.getElementById(pair[0]).value = pair[1];
+						} else {
+							document.getElementById(pair[0]).innerHTML = pair[1];
+						}
+
+					}
+					if ($(this).attr('display') === 'show') {
+						if ($('[name=' + pair[0] + ']').data("type") === 'dateBox')
+							$('[name=' + pair[0] + ']').parent().parent().show();
+						else
+							$('[name=' + pair[0] + ']').parent().show();
+					}
+					else if ($(this).attr('display') === 'hide') {
+						if ($('[name=' + pair[0] + ']').data("type") === 'dateBox')
+							$('[name=' + pair[0] + ']').parent().parent().hide();
+						else
+							$('[name=' + pair[0] + ']').parent().hide();
+					}
+
+					if ($(this).attr('readonly') === 'true' || $(this).attr('readonly') === '1') {
+						$('[name=' + pair[0] + ']').parent().removeClass('enabled-input').addClass('disabled-input');
+						$('[name=' + pair[0] + ']').parent().attr('disabled', 'disabled');
+					}
+					if ($(this).attr('readonly') === 'false' || $(this).attr('readonly') === '0') {
+						$('[name=' + pair[0] + ']').parent().removeClass('disabled-input').addClass('enabled-input');
+						$('[name=' + pair[0] + ']').parent().removeAttr('disabled');
+					}
+
+					if ($(this).attr('style')) {
+						var style = $(this).attr('style');
+						$('[name=' + pair[0] + ']').parent().attr('style', style);
+					}
+					
+				}
+			}		
+			preview(1, code, getGUID(), "form" + code, null);	
+			
+		}
+	}
+}
+
 
 function goTo(url, isPost) {
     if (isPost) {
@@ -1370,71 +1501,17 @@ function checkrequired(Names, guid, output) {
 }
 
 
-function childPageNo(pageid, code, currentpage, totalpages) {
-    var result = "";
-    var mode = '&quot;' + getCookie(code.toLowerCase() + '_browseMode') + '&quot;';
-    var before = "";
-    var after = "";
-    var filter;
-    try {
-        filter = eval(code + '_parent');
-    }
-    catch (e) { }
-    if (filter) {
-        var d = filter.split('=');
-        parentKey = '&quot;' + d[0] + '&quot;';
-        guid = '&quot;' + d[1] + '&quot;';
-    }
-    else {
-        var parentKey = '&quot;' + document.getElementById('PKName').value + '&quot;';
-        //var parentKey = '&quot;' + String(code).substring(2, 6) + 'GUID&quot;';
-        var guid = '&quot;' + getQueryVariable("GUID") + '&quot;';
-
-    }
-
-    code = '&quot;' + code + '&quot;';
-
-    if (currentpage != 1) result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 1) + "," + mode + ")'>&#171;</a></li>";
-    if (parseInt(currentpage) - 2 > 0)
-        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 2) + "," + mode + ")'>" + (parseInt(currentpage) - 2) + "</a></li>";
-
-    if (parseInt(currentpage) - 1 > 0)
-        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) - 1) + "," + mode + ")'>" + (parseInt(currentpage) - 1) + "</a></li>";
-
-    result += "<li><a style ='background-color:#3c8dbc;color:white;'href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + currentpage + "," + mode + ")'>" + currentpage + "</a></li>";
-
-    if (parseInt(currentpage) + 1 <= totalpages)
-        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 1) + "," + mode + ")'>" + (parseInt(currentpage) + 1) + "</a></li>";
-    if (parseInt(currentpage) + 2 <= totalpages)
-        result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 2) + "," + mode + ")'>" + (parseInt(currentpage) + 2) + "</a></li>";
-
-    if (parseInt(currentpage) != totalpages) result += "<li><a href='javascript:loadChild(" + code + "," + parentKey + "," + guid + "," + (parseInt(currentpage) + 1) + "," + mode + ")'>&#187;</a></li>";
-
-    result += "<li>&nbsp;&nbsp;&nbsp;</li>";
-
-    var combo = "<li><select style ='background:#fafafa;color:#666;border:1px solid #ddd;height:30px;'onchange='loadChild(" + code + "," + parentKey + "," + guid + ",this.value)'>";
-    for (var i = 1; i <= totalpages; i++) {
-        combo += "<option value =" + i + " " + (currentpage == i ? "selected" : "") + ">" + i + "</option>";
-    };
-
-    combo += '</select></li>';
-
-    result += combo;
 
 
-    $('#' + pageid).html(result);
-
-}
-
-function loadSearchResult(searchText) {
+function loadSearchResult(searchText, isDraft) {
     //function loadSeachResult(bCode, bGUID, guestID, f) { //bmode, bcode, bguid hanya dipakai kalau mau pindah lokasi saja
     //var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
     //if (bCode != undefined) setCookie('code', bCode, 0, 1, 0);
     //if (bGUID != undefined) setCookie('GUID', bGUID, 0, 1, 0);
     //var tcode = getQueryVariable('tcode');
     //setCookie('guestID', guestID, 7, 0, 0);
-
-    var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + getCode() + '&bSearchText=' + searchText;
+	if (isDraft) stateId=0
+    var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + getCode() + '&bSearchText=' + searchText+'&stateId='+stateId;
     try {
         var divname = ['searchResult'];
         //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '.xslt'];
@@ -1470,8 +1547,10 @@ function loadForm(bCode, bGUID, f) {
     }
     else {
         //OPH4 --refreshHeader
-        var url = "index.aspx?code=" + bCode + '&guid=' + bGUID;
-        document.location = url;
+        //var url = "index.aspx?code=" + bCode + '&guid=' + bGUID;
+        //document.location = url;
+		setCookie("GUID", bGUID, 0, 0, 30)
+		loadContent(1, false);
     }
 }
 
