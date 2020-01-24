@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" name="doc.YoTeSord_report" connectionString="#Global.AppSettings[&quot;connection&quot;]#">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="179">
+			<image path="Logo Liberty.jpg" id="Image1" y="0" x="348" width="168" height="48"/>
+			<rectangle height="14" fillColor="gray" width="80" id="Rectangle1" x="0" y="63"/>
+			<rectangle height="14" width="165" id="Rectangle2" x="80" y="63"/>
+			<label height="14" width="100" font="HelveticaBold" text="QUOTATION" fontSize="14" id="Label2" x="0" y="0"/>
+			<label height="14" align="center" text="Quotation No" fontSize="11" width="75.1" id="Label3" x="0" y="63"/>
+			<recordBox dataFormat="" field="SORDRefNo" fontSize="11" align="center" width="160.5" height="13.25" id="RecordBox1" x="81" y="64"/>
+			<rectangle width="165" height="14" id="Rectangle3" x="80" y="91"/>
+			<rectangle height="14" width="165" id="Rectangle4" x="80" y="114"/>
+			<rectangle height="14" width="165" id="Rectangle5" x="80" y="128"/>
+			<rectangle height="14" width="165" id="Rectangle6" x="80" y="142"/>
+			<rectangle height="14" fillColor="gray" width="79.85" id="Rectangle7" x="0" y="77"/>
+			<rectangle height="14" fillColor="gray" width="80" id="Rectangle11" x="0" y="91"/>
+			<rectangle height="14" fillColor="gray" width="80" id="Rectangle12" x="0" y="114"/>
+			<rectangle height="14" fillColor="gray" width="80" id="Rectangle13" x="0" y="142"/>
+			<label text="Date" width="29" height="13.5" id="Label4" x="24" y="77"/>
+			<label text="Page" width="32.5" height="14.25" id="Label5" x="24" y="91"/>
+			<label width="54" text="Shipment" height="13.25" id="Label6" x="6" y="113"/>
+			<label width="52.5" text="Currency" height="12.75" id="Label7" x="12" y="142"/>
+			<rectangle height="14" fillColor="gray" width="80" id="Rectangle14" x="0" y="128"/>
+			<rectangle height="14" width="165" id="Rectangle15" x="80" y="77"/>
+			<label text="Payment" width="52.5" height="13.25" id="Label10" x="12" y="127"/>
+			<recordBox fontSize="11" align="center" field="SORDDate" dataFormat="dd/MM/yyyy" width="161" height="13.5" id="RecordBox2" x="81" y="79"/>
+			<pageNumberingLabel height="14" align="center" fontSize="11" width="161" text="%%CP%%" id="PageNumberingLabel1" x="78" y="92"/>
+			<recordBox dataFormat="" fontSize="11" align="center" field="CurrSymbol" width="161.5" height="13.5" id="RecordBox4" x="80" y="143"/>
+			<rectangle height="14" fillColor="gray" width="80.5" id="Rectangle8" x="258" y="78"/>
+			<rectangle height="14" width="165.5" id="Rectangle9" x="338" y="78"/>
+			<rectangle height="14" fillColor="gray" width="80.5" id="Rectangle10" x="258" y="92"/>
+			<rectangle height="14" width="165.5" id="Rectangle16" x="338" y="92"/>
+			<rectangle height="42" fillColor="gray" width="80.5" id="Rectangle17" x="258" y="114"/>
+			<rectangle height="42" width="165.5" id="Rectangle18" x="338" y="114"/>
+			<label height="14" align="center" fontSize="11" text="Sold To" width="70.1" id="Label1" x="258" y="78"/>
+			<label height="14" align="center" fontSize="11" text="Attn" width="74.1" id="Label8" x="258" y="92"/>
+			<label height="14" align="center" fontSize="11" text="Address" width="73.5" id="Label9" x="258" y="126"/>
+			<recordBox dataFormat="" fontSize="11" align="center" field="CustName" width="161.1" height="13.5" id="RecordBox3" x="338" y="78"/>
+			<recordBox dataFormat="" fontSize="11" align="center" field="CustAttn" width="163" height="12.1" id="RecordBox5" x="338" y="92"/>
+			<recordBox dataFormat="" fontSize="11" align="center" field="Address" height="39" width="161" id="RecordBox6" x="338" y="114"/>
+			<rectangle height="14" fillColor="gray" width="80.5" x="258" id="Rectangle19" y="64"/>
+			<label height="14" align="center" fontSize="11" text="Order No" width="73.1" x="258" id="Label11" y="65"/>
+			<rectangle height="14" width="165.5" x="338" id="Rectangle20" y="64"/>
+			<recordBox dataFormat="" height="14" fontSize="11" align="center" field="SORDNo" width="161.5" x="338" id="RecordBox7" y="65"/>
+		</header>
+		<detail id="Detail1" autoSplit="true" height="402">
+			<rectangle id="Rectangle34" width="510" x="0" y="6" height="390"/>
+			<line id="Line10" x1="0" x2="510" y1="30" y2="30"/>
+			<label text="NO" align="center" fontSize="11" id="Label14" width="23" height="13.1" x="3" y="12"/>
+			<label height="18" text="DESCRIPTION" fontSize="11" align="center" width="198" id="Label15" x="36" y="12"/>
+			<label text="Qty" width="24" align="center" fontSize="11" height="15" id="Label16" x="252" y="12"/>
+			<label height="14" text="PRICE (IDR)" align="right" width="102" fontSize="11" id="Label17" x="288" y="12"/>
+			<label height="14" width="100" align="right" text="AMOUNT (IDR)" fontSize="11" id="Label18" x="402" y="12"/>
+			<subReport id="SubReport1" x="0" width="510" y="29">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeSord_report_sub1">
+						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header height="1" id="Header2"/>
+				<detail id="Detail2" height="32.5">
+					<recordBox dataFormat="" height="14" field="Amount" align="right" y="2" id="RecordBox8" x="402" width="102"/>
+					<recordBox dataFormat="" height="14" field="Price" align="right" id="RecordBox9" x="288" y="2" width="96"/>
+					<recordBox dataFormat="" height="14" field="Qty" fontSize="11" align="center" id="RecordBox10" y="2" width="30" x="250"/>
+					<recordBox dataFormat="" height="14" field="SKUName" fontSize="11" align="center" x="33" y="2" id="RecordBox11" width="207"/>
+					<recordBox dataFormat="" height="14" width="24" field="number" align="center" x="4" fontSize="11" y="2" id="RecordBox12"/>
+					<recordBox id="RecordBox14" dataFormat="" height="13" width="203" field="Description" align="center" fontSize="11" y="17" x="35" expandable="true"/>
+				</detail>
+				<footer height="1" id="Footer2"/>
+			</subReport>
+			<rectangle y="6" height="390" id="Rectangle21" x="30" width="366"/>
+			<rectangle y="6" height="390" id="Rectangle22" x="246" width="36"/>
+		</detail>
+		<footer id="Footer1" height="164">
+			<conditionalFooter id="ConditionalFooter1" condition="LastPage" inheritElements="true">
+				<rectangle fillColor="gray" width="72" id="Rectangle24" y="10" height="56" x="0"/>
+				<rectangle width="246.5" id="Rectangle25" x="72.5" y="10.5" height="55.5"/>
+				<rectangle width="77" fillColor="gray" id="Rectangle26" x="319" y="10" height="20"/>
+				<rectangle width="77" fillColor="gray" id="Rectangle28" x="319" height="18" y="30"/>
+				<rectangle width="77" fillColor="gray" id="Rectangle33" x="319" y="48" height="18"/>
+				<label height="13.5" fontSize="10" text="Total" width="72.5" id="Label19" x="325" y="50"/>
+				<label height="13.5" fontSize="10" text="PPN" width="54" id="Label20" x="325" y="33"/>
+				<label text="SubTotal" fontSize="10" height="12" width="66" id="Label22" x="324" y="14"/>
+				<label height="13.5" fontSize="10" width="57.5" text="Notes" align="center" id="Label23" x="6" y="28"/>
+				<recordBox dataFormat="" fontSize="10" field="PPN" align="right" id="RecordBox18" y="31" x="402" width="101.1" height="16.1"/>
+				<recordBox dataFormat="" fontSize="10" align="right" id="RecordBox19" field="Total" width="102" height="18" y="49" x="402"/>
+				<label text="(                                         )" height="24" width="156" id="Label24" y="126" x="6"/>
+				<recordBox id="RecordBox21" dataFormat="" height="14" width="100" align="center" field="CustName" y="126" x="30"/>
+				<rectangle id="Rectangle23" width="114.1" height="17.1" x="396" y="48"/>
+				<rectangle width="114.1" id="Rectangle29" x="396" y="30" height="17.1"/>
+				<rectangle width="114.1" id="Rectangle31" x="396" y="10" height="20"/>
+				<recordBox id="RecordBox13" dataFormat="" width="100" align="right" fontSize="10" field="SubTotal&#xA;SubTotal&#xA;SubTotal" x="402" y="12" height="18"/>
+				<recordBox id="RecordBox15" dataFormat="" x="77" y="15" width="241" height="47.1" field="Notes" fontSize="10"/>
+			</conditionalFooter>
+		</footer>
+	</report>
+</document>

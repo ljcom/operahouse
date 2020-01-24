@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageSize="a4">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoSKTM_report">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+				<parameter name="@CustGUID" type="uniqueIdentifier" value="#Parameters[&quot;CustGUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="90">
+			<label id="Label1" text="APOTEK KLINIK DESA" align="center" font="HelveticaBold" y="0" width="236" height="25" x="132" fontSize="18"/>
+			<label id="Label2" height="14" width="314" text="JALAN..........................................................................................." y="24" x="84"/>
+			<label id="Label3" height="14" align="center" text="NO. TELP: 031XXXXXXXXX" width="183" y="42" x="146"/>
+			<label id="Label4" height="14" width="260" text="SIP:.............................................................................." x="103" y="60"/>
+		</header>
+		<detail id="Detail1" height="588">
+			<line id="Line1" y1="6" y2="6" x1="-35" x2="528"/>
+			<line id="Line2" y1="9" y2="9" x1="-36" x2="528"/>
+			<label id="Label5" align="center" text="SURAT KETERANGAN TIDAK MAMPU" font="HelveticaBold" fontSize="14" x="102" width="288" y="12" height="16"/>
+			<line id="Line3" y1="27" y2="27" x1="120" x2="371"/>
+			<label id="Label6" height="14" x="132" width="229" y="35" text="NOMOR: ................/AKD-SKTM-01/.............."/>
+			<label id="Label7" align="justify" text="Yang bertanda tangan dibawah ini Kepala Apotek Klinik Desa, Kecamatan" height="20" y="72" x="36" width="421"/>
+			<label id="Label8" height="14" width="100" text="Kelurahan" y="90" x="142"/>
+			<label id="Label9" height="14" width="191" y="126" text="Dengan ini menerangkan bahwa:" x="36"/>
+			<label id="Label10" height="14" text="1. Nama" width="145" y="146" x="60"/>
+			<label id="Label11" text="2. Tempat/Tanggal Lahir" width="146" y="168" height="13.1" x="60"/>
+			<label id="Label12" height="14" text="3. Jenis Kelamin" y="189" width="146" x="59"/>
+			<label id="Label13" height="14" text="4. Nama Orang Tua" y="209" width="145" x="60"/>
+			<label id="Label14" height="14" text="5. Alamat Orang Tua" y="231" width="145" x="60"/>
+			<label id="Label15" height="14" text="6. No. Telepon/Hp" width="109" y="288" x="60"/>
+			<label id="Label16" height="14" align="center" text=":" width="12" y="147" x="211"/>
+			<label height="14" align="center" text=":" width="12" id="Label17" y="168" x="211"/>
+			<label height="14" align="center" text=":" width="12" id="Label18" y="189" x="211"/>
+			<label height="14" align="center" text=":" width="12" id="Label19" y="209" x="211"/>
+			<label height="14" align="center" text=":" width="12" id="Label20" y="231" x="211"/>
+			<recordBox id="RecordBox1" dataFormat="" height="14" y="146" width="199" field="Name" x="246"/>
+			<recordBox id="RecordBox2" dataFormat="" height="14" y="168" width="199" field="Placedate" x="246"/>
+			<label id="Label21" height="14" y="189" text="Laki-laki/Perempuan*)" width="167" x="246"/>
+			<recordBox id="RecordBox3" dataFormat="" height="14" y="209" width="199" field="Parentname" x="246"/>
+			<recordBox id="RecordBox4" dataFormat="" y="231" field="Address" width="199" height="46" x="246"/>
+			<label height="14" align="center" text=":" width="12" id="Label22" y="288" x="211"/>
+			<recordBox id="RecordBox5" dataFormat="" y="288" field="Phonenumber" height="14" width="199" x="246"/>
+			<label id="Label23" height="14" y="336" text="Yang bersangkutan adalah benar-benar warga Desa" width="289" x="36"/>
+			<recordBox id="RecordBox6" dataFormat="" height="14" y="336" width="118" field="Desa" x="327"/>
+			<label id="Label24" height="14" text="yang" width="33" y="336" x="448"/>
+			<label id="Label25" height="14" y="354" text="berasal dari keluarga kurang mampu" width="216.1" x="36"/>
+			<label id="Label26" y="384" text="Demikian surat keterangan ini dibuat agar dapat dipergunakan sebagaimana mestinya, terima kasih" height="30.1" x="36" width="450.1"/>
+			<recordBox id="RecordBox7" dataFormat="" height="14" y="438" x="294" width="169" field="Today"/>
+			<label id="Label27" text="Kepala Apotek Klinik Desa," width="158" height="13.1" x="294" y="456"/>
+			<label id="Label28" x="294" text="(                                                    )" width="186.1" y="546" height="19"/>
+			<line id="Line4" y1="564" y2="564" x2="474" x1="288"/>
+			<label id="Label29" height="14" text="NIK :" y="564" width="30.1" x="294"/>
+			<recordBox id="RecordBox8" dataFormat="" height="14" x="327" field="NIK" width="142" y="565"/>
+		</detail>
+		<footer id="Footer1" height="50">
+			<label id="Label30" height="14" width="100" x="36" y="6" text="Keterangan :" font="HelveticaBold"/>
+			<label id="Label31" height="14" x="36" y="30" text="*) = coret salah satu" font="HelveticaBold" width="127"/>
+		</footer>
+	</report>
+</document>

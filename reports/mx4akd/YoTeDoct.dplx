@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Document1" author="" keywords="" title="" subject=""><report id="Report1" pageSize="a5"><query id="Query1"><storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeDoct_report"><parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure></query><template id="Template1"/><header id="Header1" height="45"><label font="HelveticaBold" text="APOTEK KLINIK DESA" align="center" id="Label1" width="138.5" height="19" x="90" y="-0.5"/>
+			<label id="Label2" height="12.5" width="210.5" fontSize="8" text="Alamat : ......................................................................................" x="54.5" y="18"/>
+			<line id="Line1" x1="0" x2="320.5" y1="42.5" y2="42"/>
+		</header><detail id="Detail1" height="258" autoSplit="true"><label text="SURAT KETERANGAN DOKTER" font="HelveticaBold" align="center" id="Label3" fontSize="10" width="156.5" y="0" x="80" height="14.5"/>
+			<line id="Line2" y1="12" y2="12" x1="80" x2="237.5"/>
+			<label text="Yang bertanda tangan di bawah ini menerangkan bahwa :" id="Label4" fontSize="8" width="213.5" height="12.5" y="24" x="2"/>
+			<label text="Nama" id="Label5" fontSize="8" height="10.5" width="48.1" y="38" x="7"/>
+			<label text="Jenis Kelamin" id="Label6" fontSize="8" height="10.5" y="51.5" width="51.1" x="6.5"/>
+			<label text="Tgl. Lahir" id="Label7" fontSize="8" width="49.6" x="6.5" y="65" height="11.5"/>
+			<label text="Pekerjaan" id="Label8" fontSize="8" x="6.5" width="48.6" y="79" height="11.1"/>
+			<label text="Alamat" width="59.5" id="Label9" fontSize="8" y="92.5" x="6.5" height="12"/>
+			<label align="center" text=":" id="Label10" fontSize="8" y="38" height="11" width="9.5" x="61"/>
+			<label align="center" text=":" id="Label11" fontSize="8" x="61" width="10" y="51" height="10.5"/>
+			<label align="center" text=":" id="Label12" fontSize="8" height="11.1" width="11" x="60.5" y="64.5"/>
+			<label align="center" text=":" id="Label13" fontSize="8" width="9.5" x="61" height="12" y="78.5"/>
+			<label align="center" text=":" id="Label14" fontSize="8" width="9.1" x="61" y="92.5" height="11.5"/>
+			<recordBox dataFormat="" field="CustName" id="RecordBox1" fontSize="8" y="37.5" height="11" x="74.1" width="94.5"/>
+			<recordBox dataFormat="" field="Gender" id="RecordBox2" fontSize="8" x="74.1" height="11" y="51.5" width="94.5"/>
+			<recordBox dataFormat="" field="TglLahir" id="RecordBox3" fontSize="8" height="12" width="94.5" x="75" y="65"/>
+			<recordBox dataFormat="" field="Job" id="RecordBox4" fontSize="8" y="79.5" height="11.5" x="75" width="94.5"/>
+			<recordBox dataFormat="" field="Address" id="RecordBox5" fontSize="8" height="26.5" x="74.5" y="93.5" width="238.5"/>
+			<label text="Berdasarkan hasil pemeriksaan yang telah dilakukan. Pasien tersebut dalam keadaan sakit, sehingga perlu beristirahat selama .......... hari, dari tanggal ....................................... s/d ..................................................." id="Label15" fontSize="8" y="126" x="1.1" width="316.6" height="30.5"/>
+			<label text="Diagnosa" id="Label16" fontSize="8" y="153.5" height="12" x="1.5" width="35.5"/>
+			<recordBox dataFormat="" field="Diagnose" id="RecordBox6" fontSize="8" x="47.1" y="153" height="21.5" width="264.5"/>
+			<label align="center" text=":" width="12" id="Label17" fontSize="8" x="36" height="11.1" y="153"/>
+			<label text="Demikian surat keterangan ini diberikan untuk diketahui dan dipergunakan sebagaimana mestinya" id="Label18" fontSize="8" width="309.1" height="19.6" y="175" x="1.5"/>
+			<label height="12.5" text="Jakarta," id="Label19" fontSize="8" width="29" x="207" y="198"/>
+			<recordBox dataFormat="" height="12.5" field="Today" id="RecordBox7" fontSize="8" width="56" y="198" x="237"/>
+			<recordBox dataFormat="" align="center" field="NamaDokter" id="RecordBox8" fontSize="8" width="64.5" y="240" height="12.5" x="215.5"/>
+		</detail><footer id="Footer1" height="50"/></report></document>

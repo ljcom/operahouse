@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageSize="a4">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeRecomend_report">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="42.5">
+			<label id="Label1" text="L’ORÉAL" x="0.5" y="0" fontSize="20" width="96" height="24.5" font="TimesBold"/>
+		</header>
+		<detail id="Detail1" autoSplit="true" height="616">
+			<label id="Label2" y="6" height="12.5" text="Bekasi," font="TimesRoman" width="37.5" x="390"/>
+			<recordBox id="RecordBox1" dataFormat="" y="6" height="12.5" field="Today" font="TimesRoman" width="65" x="428.5"/>
+			<label id="Label3" x="0" y="36" height="76.5" width="158.5" text="Kepada Yth.&#xA;Pimpinan Perusahaan&#xA;HR Departement Manager&#xA;PT. Yasulor Indonesia" font="TimesBold"/>
+			<label id="Label4" height="14" width="100" font="TimesItalic" text="Bekasi" x="0.5" y="93" textColor="cadetBlue"/>
+			<label id="Label5" y="108" text="Confidential" align="right" height="12.1" width="66.5" x="419.5" font="TimesRoman"/>
+			<rectangle id="Rectangle1" x="0" y="132" width="492" height="19"/>
+			<label id="Label6" text="Perihal : Surat Keterangan Status Kesehatan Karyawan" align="center" width="259" font="TimesRoman" height="14.1" x="126" y="134.5"/>
+			<label id="Label7" height="18.5" text="Karyawan yang tersebut di bawah ini :" x="-0.5" y="161.5" width="211" font="TimesRoman"/>
+			<label id="Label8" text="Nama" width="44.5" height="15" x="44.5" y="177.5" font="TimesRoman"/>
+			<label width="44.5" height="15" id="Label9" text="Usia" y="193.5" x="44.5" font="TimesRoman"/>
+			<label width="44.5" x="44.5" height="15" id="Label10" text="NIK" y="209.5" font="TimesRoman"/>
+			<label x="44.5" height="15" id="Label11" y="225.5" text="Jabatan" width="48.5" font="TimesRoman"/>
+			<label x="44.5" height="15" id="Label12" text="Departemen" width="69" y="242" font="TimesRoman"/>
+			<label id="Label13" x="116.5" y="177.5" height="14.5" align="center" text=":" width="9.1" font="TimesRoman"/>
+			<label x="116.5" height="14.5" align="center" text=":" width="9.1" id="Label14" y="193.5" font="TimesRoman"/>
+			<label x="116.5" height="14.5" align="center" text=":" width="9.1" id="Label15" y="209.5" font="TimesRoman"/>
+			<label x="116.5" height="14.5" align="center" text=":" width="9.1" id="Label16" y="225.5" font="TimesRoman"/>
+			<label x="116.5" height="14.5" align="center" text=":" width="9.1" id="Label17" y="241.5" font="TimesRoman"/>
+			<label id="Label18" y="264" height="61" align="justify" x="0.5" text="Bahwa dari hasil pemeriksaan fisik maupun medis yang kami terima dan lakukan, karyawan tersebut saat ini sedang dalam keadaan Tidak Sehat/Sehat dengan Catatan Pertimbangan Medis. Yang bersangkutan juga masih harus menjalani pemeriksaan dan pengobatan lebih lanjut." font="TimesRoman" width="507.1"/>
+			<label id="Label19" align="justify" height="61" text="Sebagai tindak lanjut hal ini, dalam rangka menunjang pemulihan dan pengobatan yang bersangkutan serta demi menjaga keselamatan kerja di perusahaan, maka berikut kami sampaikan REKOMENDASI terkait status kesehatan karyawan untuk dapat dijalankan oleh perusahaan :" font="TimesRoman" x="0" width="509" y="311"/>
+			<label id="Label20" align="justify" width="477" x="30" height="95" text="1.Karyawan dinyatakan dalam kondisi Tidak Fit Sementara (Unfit Temporary) untuk &#xA;&#xA;2.Karyawan agar diistirahatkan untuk sementara waktu dari pekerjaannya.&#xA;3.Jangka waktu istirahat yang diberikan berlaku selama …… mulai dari tanggal" font="TimesRoman" y="356"/>
+			<label id="Label21" x="0.5" width="498.1" text="Demikian surat keterangan ini dibuat dengan sebenar-benarnya untuk dapat dipergunakan sebagaimana mestinya." height="31" font="TimesRoman" y="443"/>
+			<label id="Label22" height="14" x="0.5" width="293.5" text="Terimakasih atas perhatian dan kerjasamanya." font="TimesRoman" y="476"/>
+			<label id="Label23" height="14" x="0.5" text="Hormat kami," width="80" font="TimesRoman" y="500"/>
+			<label id="Label24" height="14" width="100" text="Dokter Eddy, MS" x="0" font="TimesRoman" y="579"/>
+			<label id="Label25" height="14" width="100" x="0.5" text="(Company Doctor)" font="TimesRoman" y="592.5"/>
+			<recordBox id="RecordBox2" dataFormat="" x="132" y="177.5" height="15" field="CustName" width="294.5" font="TimesRoman"/>
+			<recordBox id="RecordBox3" dataFormat="" width="100" x="132" field="Umur" height="15" y="193.5" font="TimesRoman"/>
+			<recordBox id="RecordBox4" dataFormat="" x="132" field="NIK" y="209.5" height="14.5" width="294.5" font="TimesRoman"/>
+			<recordBox id="RecordBox5" dataFormat="" x="132" y="225.5" height="14.5" field="Job" width="294.5" font="TimesRoman"/>
+			<recordBox id="RecordBox6" dataFormat="" y="241.5" x="132" height="15" field="Departement" width="294.5" font="TimesRoman"/>
+			<label id="Label31" height="14" text="bekerja di bagian/departemen …………….PT. Yasulor Indonesia." width="400" x="40" font="TimesRoman" y="369"/>
+			<label id="Label32" width="474.1" height="28" x="41" text="…………....... sampai dengan tanggal…….....…… sampai ada surat rekomendasi &#xA;lain." font="TimesRoman" y="412"/>
+		</detail>
+		<footer id="Footer1" height="50">
+			<label id="Label26" height="14" x="0.5" y="0.5" text="L'OREAL" width="55.6" font="TimesBold"/>
+			<label id="Label27" fontSize="9" text="Manufacturing Indonesia" width="110" height="12.1" y="3.5" x="57.5" font="TimesBold"/>
+			<label height="12.1" id="Label28" x="0.5" y="14.5" fontSize="8" text="PT. YASULOR" width="54.1" font="TimesBold"/>
+			<label id="Label29" width="100" fontSize="8" text="INDONESIA" height="11" y="14.5" x="57.5" font="TimesRoman"/>
+			<label id="Label30" fontSize="8" height="40.5" width="169.5" textColor="cadetBlue" text="Kawasan Industri Jababeka I&#xA;Jl. Jababeka IV Blok V No. 10 - 33 &amp; 44 - 63,&#xA;Pasir Gombong, Cikarang Utara,                                                                          &#xA;Bekasi 17530" font="TimesRoman" y="24" x="0"/>
+		</footer>
+	</report>
+</document>

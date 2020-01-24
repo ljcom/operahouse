@@ -28,34 +28,36 @@
 			<label height="14" text=":" width="6.5" id="Label19" x="64" y="123"/>
 			<label height="14" width="100" text="Hormat Kami," id="Label1" y="316" x="14"/>
 			<label height="14" width="99.1" text="(____________)" id="Label2" y="382" x="6"/>
-			<line id="Line1" x1="0" x2="509" y1="169" y2="169"/>
-			<line id="Line2" x1="0" x2="509" y1="197" y2="197"/>
 			<label id="Label25" height="14" width="100" text="Doc Date" x="8" y="100"/>
 			<recordBox id="RecordBox3" dataFormat="" height="14" width="100" field="docdate" x="78" y="102"/>
 			<label height="14" text=":" width="6.5" x="64" id="Label26" y="100"/>
-			<subReport id="SubReport1" width="510" x="2" y="171">
+			<subReport id="SubReport1" width="510" x="-6" y="180">
 				<query id="Query2">
 					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTeWAIN_report_sub1">
 						<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
 						<parameter name="GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
 					</storedProcedure>
 				</query>
-				<header id="Header2" height="26.5">
-					<label id="Label3" height="14" x="9" y="7" width="39" text="No"/>
-					<label id="Label4" height="14" width="73.5" align="center" y="8" x="87" text="Product"/>
-					<label height="14" y="8" id="Label5" text="Unit" width="56.5" align="center" x="215"/>
-					<label height="14" y="8" width="56.5" id="Label6" text="Location" x="322"/>
-					<label height="14" y="8" id="Label15" text="Qty" width="31.5" x="418"/>
+				<header id="Header2" height="30.5">
+					<label id="Label3" height="14" y="7" width="39" text="No" x="12"/>
+					<label id="Label4" y="8" text="Product" height="16" x="67" width="179" align="center"/>
+					<label height="14" y="8" id="Label5" text="Unit" width="66" x="271"/>
+					<label height="14" y="8" id="Label6" text="Location" width="66" x="361"/>
+					<label height="14" y="8" id="Label15" text="Qty" width="26" x="456"/>
 				</header>
-				<detail id="Detail2" height="34">
-					<recordBox id="RecordBox2" dataFormat="" height="14" field="numb" y="7.5" width="39" x="11.5"/>
-					<recordBox id="RecordBox4" dataFormat="" height="14" x="66" field="skuname" width="125" y="8" align="center"/>
-					<recordBox id="RecordBox5" dataFormat="" height="14" field="UnitName" width="65.5" x="214.5" y="7.5" align="center"/>
-					<recordBox id="RecordBox6" dataFormat="" height="14" field="location" width="65.5" align="center" y="9" x="312.5"/>
-					<recordBox id="RecordBox10" dataFormat="" height="14" field="Qty" width="31.5" y="9" x="422"/>
+				<detail id="Detail2" height="25">
+					<recordBox id="RecordBox2" dataFormat="" height="14" field="numb" width="39" x="11.5" y="5.5"/>
+					<recordBox id="RecordBox4" dataFormat="" height="14" field="skuname" y="6" width="147" x="112"/>
+					<recordBox id="RecordBox5" dataFormat="" height="14" field="UnitName" width="66" y="5.5" x="270"/>
+					<recordBox id="RecordBox6" dataFormat="" height="14" field="location" width="65.5" y="6" x="361.5"/>
+					<recordBox id="RecordBox10" dataFormat="" height="14" field="Qty" width="31.5" y="6" x="456"/>
+					<recordBox id="RecordBox12" dataFormat="" y="6" height="14" field="skucode" width="36" x="64"/>
+					<label id="Label16" height="14" text="-" width="12" y="6" x="102"/>
 				</detail>
-				<footer id="Footer2" height="37"/>
+				<footer id="Footer2" height="1"/>
 			</subReport>
+			<line id="Line1" x1="0" x2="504" y1="183" y2="183"/>
+			<line id="Line2" x1="0" y1="204" y2="204" x2="504"/>
 		</detail>
 		<footer id="Footer1" height="50"/>
 	</report>

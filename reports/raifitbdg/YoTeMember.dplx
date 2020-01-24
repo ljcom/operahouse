@@ -2,7 +2,7 @@
 <document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<report id="Report1" pageSize="a4">
 		<query id="Query1">
-			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="" name="doc.YoTeMember_report">
+			<storedProcedure dataProvider="msSql" referenceParameter="" name="doc.YoTeMember_report" connectionString="#Global.AppSettings[&quot;connection&quot;]#">
 				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
 				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
 			</storedProcedure>
@@ -10,7 +10,7 @@
 		<template id="Template1"/>
 		<header id="Header1"/>
 		<detail id="Detail1" autoSplit="true" height="1847.5">
-			<image id="Image1" height="46" x="2" width="204" y="16" path="Rai.png"/>
+			<image id="Image1" height="46" x="2" width="204" y="16" path="K:\operahouse\reports\raifitbdg\Rai.jpg"/>
 			<label id="Label2" fontSize="10" text="Agreement# :" height="16" width="66" font="TimesBold" x="296" y="19"/>
 			<label fontSize="10" height="16" id="Label3" font="TimesBold" y="36" text="Nama FC / MGM     :" x="262.5" width="98"/>
 			<subReport id="SubReport1" width="494" x="-0.5" y="72">

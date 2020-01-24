@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageSize="a5">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeSakit_report">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="82">
+			<label align="center" id="Label1" height="19" text="KLINIK YASULOR INDONESIA" y="0" font="TimesBold" x="66.5" width="185.5"/>
+			<label id="Label2" height="12.5" fontSize="8" text="Ijin BP no:503/12/Dinkes/BP/2013" align="center" font="TimesBoldItalic" width="130.5" x="91.5" y="14"/>
+			<line id="Line1" x1="0" x2="320.5" y1="75.5" y2="75"/>
+			<label id="Label20" align="center" fontSize="8" y="23.5" x="83.5" width="145" font="TimesRoman" text="Kawasan Industri JABABEKA 1&#xA;Jln. Jababeka IV, Blok V, 10-33&#xA;Cikarang Utara-Kab Bekasi&#xA;Jawa Barat" height="43.1"/>
+			<line x1="0" x2="320.5" id="Line3" y1="77.5" y2="77"/>
+		</header>
+		<detail id="Detail1" autoSplit="true" height="341">
+			<label align="center" id="Label3" width="156.5" height="14.5" font="TimesBoldItalic" y="4" underline="true" x="77" text="Surat Keterangan Sakit"/>
+			<label id="Label4" height="12.5" width="310" text="Kami yang bertanda tangan dibawah ini menyatakan bahwa :" y="36" fontSize="9" x="0.5"/>
+			<label text="Nama" id="Label5" width="48.1" x="7" y="60" fontSize="9" height="12.5"/>
+			<label id="Label6" width="51.1" x="6.5" text="Umur" y="77.5" fontSize="9" height="13"/>
+			<label text="Alamat" width="59.5" id="Label9" x="6.5" fontSize="9" y="96" height="12.5"/>
+			<label align="center" text=":" id="Label10" fontSize="8" height="11" width="9.5" x="61" y="60"/>
+			<label align="center" text=":" id="Label11" fontSize="8" x="61" width="10" height="10.5" y="77"/>
+			<label align="center" text=":" id="Label14" fontSize="8" width="9.1" x="61" height="11.5" y="94.5"/>
+			<recordBox dataFormat="" field="CustName" id="RecordBox1" width="239" x="74.1" y="59.5" fontSize="9" height="13"/>
+			<recordBox dataFormat="" id="RecordBox2" x="74.1" field="Umur" y="77.5" fontSize="9" height="13" width="22.5"/>
+			<recordBox dataFormat="" field="Address" id="RecordBox5" x="74.5" width="238.5" y="95.5" fontSize="9" height="19"/>
+			<label id="Label7" fontSize="9" y="77.5" text="thn" width="16.5" height="13" x="99"/>
+			<label id="Label8" width="100" height="12.1" fontSize="9" y="77.5" text="Sex : L / P" x="133"/>
+			<label id="Label12" fontSize="9" width="319.5" height="36.5" x="0.5" y="144" text="dari hasil pemeriksaan Fisik/Lab/Tambahan, ditemukan tidak sehat dan butuh istirahat selama (      ) hari, tanggal _______________ s/d ________________"/>
+			<label id="Label13" fontSize="9" text="Bekasi," width="30.5" height="12.5" y="192" x="205"/>
+			<recordBox id="RecordBox3" dataFormat="" height="12.5" fontSize="9" field="Today" width="76" y="192" x="234.5"/>
+			<recordBox id="RecordBox4" dataFormat="" fontSize="9" align="center" field="Doctor" height="12.5" x="198" width="96" y="294"/>
+			<label id="Label26" fontSize="9" align="center" height="12.5" text="(" width="9" x="189" y="294"/>
+			<label fontSize="9" align="center" height="12.5" width="9" id="Label27" text=")" x="294" y="294"/>
+			<label x="6.5" fontSize="9" height="12.5" id="Label28" y="120" text="Pekerjaan" width="47.1"/>
+			<label align="center" text=":" fontSize="8" width="9.1" x="61" height="11.5" id="Label29" y="120.5"/>
+			<recordBox dataFormat="" x="74.5" width="238.5" fontSize="9" id="RecordBox6" y="119.5" height="12.1" field="Job"/>
+		</detail>
+		<footer id="Footer1" height="50"/>
+	</report>
+</document>
