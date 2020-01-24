@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<report id="Report1" rightMargin="14.175" pageWidth="225.95" pageSize="custom" pageHeight="2835" leftMargin="0" topMargin="0" bottomMargin="0">
+	<report id="Report1" pageSize="custom" pageHeight="2835" leftMargin="0" topMargin="0" bottomMargin="0" rightMargin="10" pageWidth="210">
 		<query id="Query1">
 			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="TcPCSO_report">
 				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
@@ -10,12 +10,12 @@
 		<template id="Template1"/>
 		<header id="Header1"/>
 		<detail id="Detail1" autoSplit="true" height="272">
-			<contentGroup x="0" y="0" id="ContentGroup1" width="211.775" height="79">
-				<label width="197.6" align="center" fontSize="10" font="HelveticaBold" x="0" id="Label1" y="11.34" height="25.515" text="KITA SHOP&#xA;PT LOREAL INDONESIA"/>
-				<label align="center" fontSize="9" text="Jl. Prof Dr. Satrio Kav. 3-5, Jakarta - 12940" x="0" id="Label2" y="36.855" height="11.34" width="211.775"/>
-				<line x1="0" y1="50" y2="50" id="Line1" x2="211.775"/>
-				<label width="197.6" align="center" fontSize="9" x="0" id="Label8" height="11.34" y="0" text="01.957.933.3-056.000" font="HelveticaBold"/>
-				<formattedRecordArea id="FormattedRecordArea3" x="0" height="22" width="145.5" y="54">
+			<contentGroup y="0" id="ContentGroup1" height="79" x="10" width="190">
+				<label align="center" fontSize="10" font="HelveticaBold" x="0" id="Label1" y="11.34" height="25.515" text="KITA SHOP&#xA;PT LOREAL INDONESIA" width="190"/>
+				<label align="center" fontSize="9" text="Jl. Prof Dr. Satrio Kav. 3-5, Jakarta - 12940" x="0" id="Label2" y="36.855" height="11.34" width="190"/>
+				<line x1="0" y1="50" y2="50" id="Line1" x2="201.775"/>
+				<label align="center" fontSize="9" x="0" id="Label8" height="11.34" y="0" text="01.957.933.3-056.000" font="HelveticaBold" width="190"/>
+				<formattedRecordArea id="FormattedRecordArea3" height="22" width="145.5" y="54" x="0">
 					<initialStyle>
 						<font size="9"/>
 						<line/>
@@ -23,30 +23,30 @@
 					</initialStyle>
 					<text><![CDATA[<P>Invoice No: #InvNo#</P><P>Invoice Date: #InvDate#</P>]]></text>
 				</formattedRecordArea>
-				<line x1="0" x2="211.775" id="Line7" y1="77" y2="77"/>
+				<line x1="0" id="Line7" y1="77" y2="77" x2="201.775"/>
 			</contentGroup>
-			<contentGroup id="ContentGroup2" height="77.963" width="211.775" x="0" y="123">
-				<line x1="0" y1="0" y2="0" id="Line4" x2="211.775"/>
-				<line x1="0" id="Line5" y1="28" y2="28" x2="211.775"/>
+			<contentGroup id="ContentGroup2" height="77.963" y="123" x="10" width="190">
+				<line x1="0" y1="0" y2="0" id="Line4" x2="201.775"/>
+				<line x1="0" id="Line5" y1="28" y2="28" x2="201.775"/>
 				<label fontSize="9" id="Label3" height="11.34" y="2" text="Total Item:" width="42.525" x="5"/>
-				<label fontSize="9" id="Label5" align="right" height="11.34" width="56.7" y="2" text="Sub Total" x="93.555"/>
-				<recordBox id="RecordBox1" dataFormat="" width="55.85" align="right" height="11.34" y="13.34" x="155.925" fontSize="9" field="Discount"/>
-				<recordBox dataFormat="" width="55.85" align="right" id="RecordBox2" height="11.34" y="2" x="155.925" fontSize="9" field="SubTotal1"/>
-				<label fontSize="9" align="right" height="11.34" width="56.7" id="Label4" text="Sub Total" y="31.35" x="93.555"/>
-				<recordBox dataFormat="" width="55.85" align="right" height="11.34" id="RecordBox3" y="31.35" x="155.925" fontSize="9" field="SubTotal2"/>
-				<label fontSize="9" align="right" height="11.34" width="56.7" id="Label6" text="PPN 10%" y="42.69" x="93.555"/>
-				<recordBox dataFormat="" width="55.85" align="right" height="11.34" id="RecordBox4" y="42.69" x="155.925" field="PPN" fontSize="9"/>
-				<line x1="0" id="Line2" y1="57" y2="57" x2="211.775"/>
-				<line x1="0" id="Line3" y1="60" y2="60" x2="211.775"/>
-				<recordBox dataFormat="" width="55.85" align="right" height="11.34" id="RecordBox5" y="62.69" x="155.925" fontSize="9" field="GrandTotal" font="HelveticaBold"/>
+				<label fontSize="9" id="Label5" align="right" height="11.34" y="2" text="Sub Total" x="84.555" width="42.7"/>
+				<recordBox id="RecordBox1" dataFormat="" width="55.85" align="right" height="11.34" y="13.34" fontSize="9" field="Discount" x="132.925"/>
+				<recordBox dataFormat="" width="55.85" align="right" id="RecordBox2" height="11.34" y="2" fontSize="9" field="SubTotal1" x="132.925"/>
+				<label fontSize="9" align="right" height="11.34" width="56.7" id="Label4" text="Sub Total" y="31.35" x="70.555"/>
+				<recordBox dataFormat="" width="55.85" align="right" height="11.34" id="RecordBox3" y="31.35" fontSize="9" field="SubTotal2" x="132.925"/>
+				<label fontSize="9" align="right" height="11.34" width="56.7" id="Label6" text="PPN 10%" y="42.69" x="70.555"/>
+				<recordBox dataFormat="" width="55.85" align="right" height="11.34" id="RecordBox4" y="42.69" field="PPN" fontSize="9" x="132.925"/>
+				<line x1="0" id="Line2" y1="57" y2="57" x2="201.775"/>
+				<line x1="0" id="Line3" y1="60" y2="60" x2="201.775"/>
+				<recordBox dataFormat="" width="55.85" align="right" height="11.34" id="RecordBox5" y="62.69" fontSize="9" field="GrandTotal" font="HelveticaBold" x="131.925"/>
 				<recordBox dataFormat="" height="11.34" y="2" id="RecordBox6" fontSize="9" field="TotalQty" width="35.35" x="48"/>
-				<recordArea fontSize="9" height="11.34" id="RecordArea2" y="62.84" x="1" width="150">
+				<recordArea fontSize="9" height="11.34" id="RecordArea2" y="62.84" x="1" width="128.5">
 					<text>Payment Type: #Payment#</text>
 				</recordArea>
-				<line x1="0" id="Line6" y1="76" y2="76" x2="211.775"/>
-				<label fontSize="9" align="right" height="11.34" width="56.7" x="93.555" id="Label9" y="13.34" text="Discount"/>
+				<line x1="0" id="Line6" y1="76" y2="76" x2="201.775"/>
+				<label fontSize="9" align="right" height="11.34" width="56.7" id="Label9" y="13.34" text="Discount" x="70.555"/>
 			</contentGroup>
-			<formattedRecordArea id="FormattedRecordArea1" x="0" height="31.1" expandable="true" width="211.6" y="205">
+			<formattedRecordArea id="FormattedRecordArea1" height="31.1" expandable="true" y="205" x="10" width="190">
 				<initialStyle>
 					<font size="9"/>
 					<line/>
@@ -54,15 +54,15 @@
 				</initialStyle>
 				<text><![CDATA[<P>#Customer#</P><P>Served by: #HostName#</P><P>Printed on: #printDate#</P>]]></text>
 			</formattedRecordArea>
-			<label align="center" id="Label7" text="Thank you for your purchase.&#xA;See you again soon!" x="0" width="211" fontSize="8" height="20.18" y="244"/>
-			<subReport id="SubReport1" width="211.775" x="0" y="80">
+			<label align="center" id="Label7" text="Thank you for your purchase.&#xA;See you again soon!" fontSize="8" y="244" height="20" x="10" width="190"/>
+			<subReport id="SubReport1" y="80" x="10" width="190">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="TcPCSO_report_sub1">
 						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@PCSOGUID" type="uniqueIdentifier" value="#Parameters[&quot;PCSOGUID&quot;]#"/></storedProcedure>
 				</query>
 				<header id="Header2"/>
 				<detail id="Detail2" autoSplit="true" height="41">
-					<formattedRecordArea splittable="true" expandable="true" id="FormattedRecordArea2" y="0" width="211.775" height="40" x="1">
+					<formattedRecordArea splittable="true" expandable="true" id="FormattedRecordArea2" y="0" height="40" x="1" width="190">
 						<initialStyle>
 							<font size="9"/>
 							<line/>

@@ -1176,6 +1176,76 @@ function form_init() {
             return message;
         }
     };
+	form_preset();
+}
+
+function form_preset() {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+		
+		if (document.getElementById(pair)) {
+			if (document.getElementById(pair).type === "checkbox") {
+				if ($(this).text() === "1") {
+					document.getElementById(pair).checked = true;
+					document.getElementById(pair).value = 1;
+				} else {
+					document.getElementById(pair).checked = false;
+					document.getElementById(pair).value = 0;
+				}
+			} else {
+				if (flag > 1 || $(this).text() !== '') {
+
+					if (document.getElementById(pair).type === 'select-one') {
+						var checktext = $(this.nextSibling)[0];
+						if (checktext === pair + '_name') {
+							var newOption = new Option($(this.nextSibling).text(), $(this).text(), true, true);
+							$("#" + pair).append(newOption).trigger('change');
+						} else {
+							var defer = [];
+							autosuggestSetValue(defer, pair, code, pair, this.textContent);
+						}
+					} else if (document.getElementById(pair).type != undefined && document.getElementById(pair).type != '') {
+						document.getElementById(pair).value = $(this).text();
+					} else {
+						document.getElementById(pair).innerHTML = $(this).text();
+					}
+
+				}
+				if ($(this).attr('display') === 'show') {
+					if ($('[name=' + pair + ']').data("type") === 'dateBox')
+						$('[name=' + pair + ']').parent().parent().show();
+					else
+						$('[name=' + pair + ']').parent().show();
+				}
+				else if ($(this).attr('display') === 'hide') {
+					if ($('[name=' + pair + ']').data("type") === 'dateBox')
+						$('[name=' + pair + ']').parent().parent().hide();
+					else
+						$('[name=' + pair + ']').parent().hide();
+				}
+
+				if ($(this).attr('readonly') === 'true' || $(this).attr('readonly') === '1') {
+					$('[name=' + pair + ']').parent().removeClass('enabled-input').addClass('disabled-input');
+					$('[name=' + pair + ']').parent().attr('disabled', 'disabled');
+				}
+				if ($(this).attr('readonly') === 'false' || $(this).attr('readonly') === '0') {
+					$('[name=' + pair + ']').parent().removeClass('disabled-input').addClass('enabled-input');
+					$('[name=' + pair + ']').parent().removeAttr('disabled');
+				}
+
+				if ($(this).attr('style')) {
+					var style = $(this).attr('style');
+					$('[name=' + pair + ']').parent().attr('style', style);
+				}
+				
+			}
+		}		
+		
+		
+    }
+
 }
 
 function goTo(url, isPost) {
