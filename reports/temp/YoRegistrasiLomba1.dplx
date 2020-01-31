@@ -142,4 +142,372 @@
     </detail>
     <footer id=""Footer1"" height=""50""/>
   </report>
+</document><?xml version=""1.0""?>
+<document xsi:schemaLocation=""http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd"" version=""6.0"" author="""" keywords="""" title="""" subject="""" id=""RegistrasiLomba"" xmlns=""http://www.cete.com"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <report id=""Report1"" pageSize=""a4"" bottomMargin=""30"" leftMargin=""30"" topMargin=""30"" rightMargin=""30"">
+    <query id=""Query1"">
+      <storedProcedure dataProvider=""msSql"" referenceParameter="""" connectionString=""#Global.AppSettings[&quot;connection&quot;]#"" name=""doc.YoRegistrasiLomba1_header"">
+        <parameter name=""hostGUID"" type=""uniqueIdentifier"" value=""#Parameters[&quot;hostGUID&quot;]#""/>
+        <parameter name=""StartDate"" type=""dateTime"" value=""#Parameters[&quot;StartDate&quot;]#""/>
+        <parameter name=""EndDate"" type=""dateTime"" value=""#Parameters[&quot;EndDate&quot;]#""/>
+      </storedProcedure>
+    </query>
+    <template id=""Template1""/>
+    <header id=""Header1"" height=""81"">
+      <label id=""Label1"" fontSize=""25"" text=""Registrasi Lomba"" width=""229"" height=""31"" x=""15"" y=""6""/>
+      <label id=""Label2"" height=""14"" width=""100"" text=""DocDate"" x=""28"" y=""45""/>
+      <recordBox id=""RecordBox1"" dataFormat="""" height=""14"" width=""100"" y=""46"" field=""DocDate"" x=""101""/>
+    </header>
+    <detail id=""Detail1"" height=""561"">
+      <subReport id=""SubReport1"" width=""531.1"" y=""1"" x=""9"">
+        <header id=""Header2"" height=""5""/>
+        <detail id=""Detail2"" height=""394"">
+          <label height=""14"" width=""100"" text=""DocNo"" x=""22"" y=""13"" id=""Label3""/>
+          <label height=""14"" width=""100"" text=""RefNo"" x=""22"" y=""39"" id=""Label4""/>
+          <label height=""14"" width=""100"" x=""23"" y=""67"" text=""IDAnggota"" id=""Label5""/>
+          <label height=""14"" width=""100"" text=""Nama"" x=""24"" y=""95"" id=""Label6""/>
+          <label height=""14"" width=""100"" text=""TempatLahir"" x=""22"" y=""123"" id=""Label7""/>
+          <label height=""14"" width=""100"" text=""TanggalLahir"" x=""22"" y=""152"" id=""Label8""/>
+          <label height=""14"" width=""100"" text=""Alamat"" x=""23"" y=""184"" id=""Label9""/>
+          <label height=""14"" width=""100"" text=""RoleHero"" x=""21"" y=""217"" id=""Label10""/>
+          <label height=""14"" width=""100"" text=""NamaTeam"" y=""253"" x=""23"" id=""Label11""/>
+          <label height=""14"" width=""100"" text=""WinRate"" x=""23"" y=""286"" id=""Label12""/>
+          <label height=""14"" width=""100"" text=""TierAkun"" x=""22"" y=""321"" id=""Label13""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" field=""DocNo"" id=""RecordBox2"" y=""16""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""132"" y=""40"" field=""RefNo"" id=""RecordBox3""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""64"" x=""132"" field=""IDAnggota"" id=""RecordBox4""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""93"" x=""133"" field=""Nama"" id=""RecordBox5""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" y=""123"" field=""TempatLahir"" id=""RecordBox6""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""153"" x=""132"" field=""TanggalLahir"" id=""RecordBox7""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" y=""185"" field=""Alamat"" id=""RecordBox8""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""130"" y=""215"" field=""RoleHero"" id=""RecordBox9""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""253"" x=""130"" field=""NamaTeam"" id=""RecordBox10""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""287"" x=""131"" field=""WinRate"" id=""RecordBox11""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""130"" field=""TierAkun"" id=""RecordBox12"" y=""322""/>
+        </detail>
+        <footer id=""Footer2"" height=""55""/>
+      </subReport>
+    </detail>
+    <footer id=""Footer1"" height=""50""/>
+  </report>
+</document><?xml version=""1.0""?>
+<document xsi:schemaLocation=""http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd"" version=""6.0"" author="""" keywords="""" title="""" subject="""" id=""RegistrasiLomba"" xmlns=""http://www.cete.com"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <report id=""Report1"" pageSize=""a4"" bottomMargin=""30"" leftMargin=""30"" topMargin=""30"" rightMargin=""30"">
+    <query id=""Query1"">
+      <storedProcedure dataProvider=""msSql"" referenceParameter="""" connectionString=""#Global.AppSettings[&quot;connection&quot;]#"" name=""doc.YoRegistrasiLomba1_header"">
+        <parameter name=""hostGUID"" type=""uniqueIdentifier"" value=""#Parameters[&quot;hostGUID&quot;]#""/>
+        <parameter name=""StartDate"" type=""dateTime"" value=""#Parameters[&quot;StartDate&quot;]#""/>
+        <parameter name=""EndDate"" type=""dateTime"" value=""#Parameters[&quot;EndDate&quot;]#""/>
+      </storedProcedure>
+    </query>
+    <template id=""Template1""/>
+    <header id=""Header1"" height=""81"">
+      <label id=""Label1"" fontSize=""25"" text=""Registrasi Lomba"" width=""229"" height=""31"" x=""15"" y=""6""/>
+      <label id=""Label2"" height=""14"" width=""100"" text=""DocDate"" x=""28"" y=""45""/>
+      <recordBox id=""RecordBox1"" dataFormat="""" height=""14"" width=""100"" y=""46"" field=""DocDate"" x=""101""/>
+    </header>
+    <detail id=""Detail1"" height=""561"">
+      <subReport id=""SubReport1"" width=""531.1"" y=""1"" x=""9"">
+        <header id=""Header2"" height=""5""/>
+        <detail id=""Detail2"" height=""394"">
+          <label height=""14"" width=""100"" text=""DocNo"" x=""22"" y=""13"" id=""Label3""/>
+          <label height=""14"" width=""100"" text=""RefNo"" x=""22"" y=""39"" id=""Label4""/>
+          <label height=""14"" width=""100"" x=""23"" y=""67"" text=""IDAnggota"" id=""Label5""/>
+          <label height=""14"" width=""100"" text=""Nama"" x=""24"" y=""95"" id=""Label6""/>
+          <label height=""14"" width=""100"" text=""TempatLahir"" x=""22"" y=""123"" id=""Label7""/>
+          <label height=""14"" width=""100"" text=""TanggalLahir"" x=""22"" y=""152"" id=""Label8""/>
+          <label height=""14"" width=""100"" text=""Alamat"" x=""23"" y=""184"" id=""Label9""/>
+          <label height=""14"" width=""100"" text=""RoleHero"" x=""21"" y=""217"" id=""Label10""/>
+          <label height=""14"" width=""100"" text=""NamaTeam"" y=""253"" x=""23"" id=""Label11""/>
+          <label height=""14"" width=""100"" text=""WinRate"" x=""23"" y=""286"" id=""Label12""/>
+          <label height=""14"" width=""100"" text=""TierAkun"" x=""22"" y=""321"" id=""Label13""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" field=""DocNo"" id=""RecordBox2"" y=""16""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""132"" y=""40"" field=""RefNo"" id=""RecordBox3""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""64"" x=""132"" field=""IDAnggota"" id=""RecordBox4""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""93"" x=""133"" field=""Nama"" id=""RecordBox5""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" y=""123"" field=""TempatLahir"" id=""RecordBox6""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""153"" x=""132"" field=""TanggalLahir"" id=""RecordBox7""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" y=""185"" field=""Alamat"" id=""RecordBox8""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""130"" y=""215"" field=""RoleHero"" id=""RecordBox9""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""253"" x=""130"" field=""NamaTeam"" id=""RecordBox10""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""287"" x=""131"" field=""WinRate"" id=""RecordBox11""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""130"" field=""TierAkun"" id=""RecordBox12"" y=""322""/>
+        </detail>
+        <footer id=""Footer2"" height=""55""/>
+      </subReport>
+    </detail>
+    <footer id=""Footer1"" height=""50""/>
+  </report>
+</document><?xml version=""1.0""?>
+<document xsi:schemaLocation=""http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd"" version=""6.0"" author="""" keywords="""" title="""" subject="""" id=""RegistrasiLomba"" xmlns=""http://www.cete.com"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <report id=""Report1"" pageSize=""a4"" bottomMargin=""30"" leftMargin=""30"" topMargin=""30"" rightMargin=""30"">
+    <query id=""Query1"">
+      <storedProcedure dataProvider=""msSql"" referenceParameter="""" connectionString=""#Global.AppSettings[&quot;connection&quot;]#"" name=""doc.YoRegistrasiLomba1_header"">
+        <parameter name=""hostGUID"" type=""uniqueIdentifier"" value=""#Parameters[&quot;hostGUID&quot;]#""/>
+        <parameter name=""StartDate"" type=""dateTime"" value=""#Parameters[&quot;StartDate&quot;]#""/>
+        <parameter name=""EndDate"" type=""dateTime"" value=""#Parameters[&quot;EndDate&quot;]#""/>
+      </storedProcedure>
+    </query>
+    <template id=""Template1""/>
+    <header id=""Header1"" height=""81"">
+      <label id=""Label1"" fontSize=""25"" text=""Registrasi Lomba"" width=""229"" height=""31"" x=""15"" y=""6""/>
+      <label id=""Label2"" height=""14"" width=""100"" text=""DocDate"" x=""28"" y=""45""/>
+      <recordBox id=""RecordBox1"" dataFormat="""" height=""14"" width=""100"" y=""46"" field=""DocDate"" x=""101""/>
+    </header>
+    <detail id=""Detail1"" height=""561"">
+      <subReport id=""SubReport1"" width=""531.1"" y=""1"" x=""9"">
+        <header id=""Header2"" height=""5""/>
+        <detail id=""Detail2"" height=""394"">
+          <label height=""14"" width=""100"" text=""DocNo"" x=""22"" y=""13"" id=""Label3""/>
+          <label height=""14"" width=""100"" text=""RefNo"" x=""22"" y=""39"" id=""Label4""/>
+          <label height=""14"" width=""100"" x=""23"" y=""67"" text=""IDAnggota"" id=""Label5""/>
+          <label height=""14"" width=""100"" text=""Nama"" x=""24"" y=""95"" id=""Label6""/>
+          <label height=""14"" width=""100"" text=""TempatLahir"" x=""22"" y=""123"" id=""Label7""/>
+          <label height=""14"" width=""100"" text=""TanggalLahir"" x=""22"" y=""152"" id=""Label8""/>
+          <label height=""14"" width=""100"" text=""Alamat"" x=""23"" y=""184"" id=""Label9""/>
+          <label height=""14"" width=""100"" text=""RoleHero"" x=""21"" y=""217"" id=""Label10""/>
+          <label height=""14"" width=""100"" text=""NamaTeam"" y=""253"" x=""23"" id=""Label11""/>
+          <label height=""14"" width=""100"" text=""WinRate"" x=""23"" y=""286"" id=""Label12""/>
+          <label height=""14"" width=""100"" text=""TierAkun"" x=""22"" y=""321"" id=""Label13""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" field=""DocNo"" id=""RecordBox2"" y=""16""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""132"" y=""40"" field=""RefNo"" id=""RecordBox3""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""64"" x=""132"" field=""IDAnggota"" id=""RecordBox4""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""93"" x=""133"" field=""Nama"" id=""RecordBox5""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" y=""123"" field=""TempatLahir"" id=""RecordBox6""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""153"" x=""132"" field=""TanggalLahir"" id=""RecordBox7""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" y=""185"" field=""Alamat"" id=""RecordBox8""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""130"" y=""215"" field=""RoleHero"" id=""RecordBox9""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""253"" x=""130"" field=""NamaTeam"" id=""RecordBox10""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""287"" x=""131"" field=""WinRate"" id=""RecordBox11""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""130"" field=""TierAkun"" id=""RecordBox12"" y=""322""/>
+        </detail>
+        <footer id=""Footer2"" height=""55""/>
+      </subReport>
+    </detail>
+    <footer id=""Footer1"" height=""50""/>
+  </report>
+</document><?xml version=""1.0""?>
+<document xsi:schemaLocation=""http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd"" version=""6.0"" author="""" keywords="""" title="""" subject="""" id=""RegistrasiLomba"" xmlns=""http://www.cete.com"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <report id=""Report1"" pageSize=""a4"" bottomMargin=""30"" leftMargin=""30"" topMargin=""30"" rightMargin=""30"">
+    <query id=""Query1"">
+      <storedProcedure dataProvider=""msSql"" referenceParameter="""" connectionString=""#Global.AppSettings[&quot;connection&quot;]#"" name=""doc.YoRegistrasiLomba1_header"">
+        <parameter name=""hostGUID"" type=""uniqueIdentifier"" value=""#Parameters[&quot;hostGUID&quot;]#""/>
+        <parameter name=""StartDate"" type=""dateTime"" value=""#Parameters[&quot;StartDate&quot;]#""/>
+        <parameter name=""EndDate"" type=""dateTime"" value=""#Parameters[&quot;EndDate&quot;]#""/>
+      </storedProcedure>
+    </query>
+    <template id=""Template1""/>
+    <header id=""Header1"" height=""81"">
+      <label id=""Label1"" fontSize=""25"" text=""Registrasi Lomba"" width=""229"" height=""31"" x=""15"" y=""6""/>
+      <label id=""Label2"" height=""14"" width=""100"" text=""DocDate"" x=""28"" y=""45""/>
+      <recordBox id=""RecordBox1"" dataFormat="""" height=""14"" width=""100"" y=""46"" field=""DocDate"" x=""101""/>
+    </header>
+    <detail id=""Detail1"" height=""561"">
+      <subReport id=""SubReport1"" width=""531.1"" y=""1"" x=""9"">
+        <header id=""Header2"" height=""5""/>
+        <detail id=""Detail2"" height=""394"">
+          <label height=""14"" width=""100"" text=""DocNo"" x=""22"" y=""13"" id=""Label3""/>
+          <label height=""14"" width=""100"" text=""RefNo"" x=""22"" y=""39"" id=""Label4""/>
+          <label height=""14"" width=""100"" x=""23"" y=""67"" text=""IDAnggota"" id=""Label5""/>
+          <label height=""14"" width=""100"" text=""Nama"" x=""24"" y=""95"" id=""Label6""/>
+          <label height=""14"" width=""100"" text=""TempatLahir"" x=""22"" y=""123"" id=""Label7""/>
+          <label height=""14"" width=""100"" text=""TanggalLahir"" x=""22"" y=""152"" id=""Label8""/>
+          <label height=""14"" width=""100"" text=""Alamat"" x=""23"" y=""184"" id=""Label9""/>
+          <label height=""14"" width=""100"" text=""RoleHero"" x=""21"" y=""217"" id=""Label10""/>
+          <label height=""14"" width=""100"" text=""NamaTeam"" y=""253"" x=""23"" id=""Label11""/>
+          <label height=""14"" width=""100"" text=""WinRate"" x=""23"" y=""286"" id=""Label12""/>
+          <label height=""14"" width=""100"" text=""TierAkun"" x=""22"" y=""321"" id=""Label13""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" field=""DocNo"" id=""RecordBox2"" y=""16""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""132"" y=""40"" field=""RefNo"" id=""RecordBox3""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""64"" x=""132"" field=""IDAnggota"" id=""RecordBox4""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""93"" x=""133"" field=""Nama"" id=""RecordBox5""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" y=""123"" field=""TempatLahir"" id=""RecordBox6""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""153"" x=""132"" field=""TanggalLahir"" id=""RecordBox7""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" y=""185"" field=""Alamat"" id=""RecordBox8""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""130"" y=""215"" field=""RoleHero"" id=""RecordBox9""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""253"" x=""130"" field=""NamaTeam"" id=""RecordBox10""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""287"" x=""131"" field=""WinRate"" id=""RecordBox11""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""130"" field=""TierAkun"" id=""RecordBox12"" y=""322""/>
+        </detail>
+        <footer id=""Footer2"" height=""55""/>
+      </subReport>
+    </detail>
+    <footer id=""Footer1"" height=""50""/>
+  </report>
+</document><?xml version=""1.0""?>
+<document xsi:schemaLocation=""http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd"" version=""6.0"" author="""" keywords="""" title="""" subject="""" id=""RegistrasiLomba"" xmlns=""http://www.cete.com"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <report id=""Report1"" pageSize=""a4"" bottomMargin=""30"" leftMargin=""30"" topMargin=""30"" rightMargin=""30"">
+    <query id=""Query1"">
+      <storedProcedure dataProvider=""msSql"" referenceParameter="""" connectionString=""#Global.AppSettings[&quot;connection&quot;]#"" name=""doc.YoRegistrasiLomba_header"">
+        <parameter name=""hostGUID"" type=""uniqueIdentifier"" value=""#Parameters[&quot;hostGUID&quot;]#""/>
+        <parameter name=""StartDate"" type=""dateTime"" value=""#Parameters[&quot;StartDate&quot;]#""/>
+        <parameter name=""EndDate"" type=""dateTime"" value=""#Parameters[&quot;EndDate&quot;]#""/>
+      </storedProcedure>
+    </query>
+    <template id=""Template1""/>
+    <header id=""Header1"" height=""81"">
+      <label id=""Label1"" fontSize=""25"" text=""Registrasi Lomba"" width=""229"" height=""31"" x=""15"" y=""6""/>
+      <label id=""Label2"" height=""14"" width=""100"" text=""DocDate"" x=""28"" y=""45""/>
+      <recordBox id=""RecordBox1"" dataFormat="""" height=""14"" width=""100"" y=""46"" field=""DocDate"" x=""101""/>
+    </header>
+    <detail id=""Detail1"" height=""561"">
+      <subReport id=""SubReport1"" width=""531.1"" y=""1"" x=""9"">
+        <header id=""Header2"" height=""5""/>
+        <detail id=""Detail2"" height=""394"">
+          <label height=""14"" width=""100"" x=""23"" y=""67"" text=""IDAnggota"" id=""Label5""/>
+          <label height=""14"" width=""100"" text=""Nama"" x=""24"" y=""95"" id=""Label6""/>
+          <label height=""14"" width=""100"" text=""TempatLahir"" x=""22"" y=""123"" id=""Label7""/>
+          <label height=""14"" width=""100"" text=""TglLahir"" x=""22"" y=""152"" id=""Label8""/>
+          <label height=""14"" width=""100"" text=""Alamat"" x=""23"" y=""184"" id=""Label9""/>
+          <label height=""14"" width=""100"" text=""RoleHero"" x=""21"" y=""217"" id=""Label10""/>
+          <label height=""14"" width=""100"" text=""NamaTeam"" y=""253"" x=""23"" id=""Label11""/>
+          <label height=""14"" width=""100"" text=""WinRate"" x=""23"" y=""286"" id=""Label12""/>
+          <label height=""14"" width=""100"" text=""TierAkun"" x=""22"" y=""321"" id=""Label13""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""64"" x=""132"" field=""IDAnggota"" id=""RecordBox4""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""93"" x=""133"" field=""Nama"" id=""RecordBox5""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" y=""123"" field=""TempatLahir"" id=""RecordBox6""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""153"" x=""132"" field=""TanggalLahir"" id=""RecordBox7""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" y=""185"" field=""Alamat"" id=""RecordBox8""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""130"" y=""215"" field=""RoleHero"" id=""RecordBox9""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""253"" x=""130"" field=""NamaTeam"" id=""RecordBox10""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""287"" x=""131"" field=""WinRate"" id=""RecordBox11""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""130"" field=""TierAkun"" id=""RecordBox12"" y=""322""/>
+        </detail>
+        <footer id=""Footer2"" height=""55""/>
+      </subReport>
+    </detail>
+    <footer id=""Footer1"" height=""50""/>
+  </report>
+</document><?xml version=""1.0""?>
+<document xsi:schemaLocation=""http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd"" version=""6.0"" author="""" keywords="""" title="""" subject="""" id=""RegistrasiLomba"" xmlns=""http://www.cete.com"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <report id=""Report1"" pageSize=""a4"" bottomMargin=""30"" leftMargin=""30"" topMargin=""30"" rightMargin=""30"">
+    <query id=""Query1"">
+      <storedProcedure dataProvider=""msSql"" referenceParameter="""" connectionString=""#Global.AppSettings[&quot;connection&quot;]#"" name=""doc.YoRegistrasiLomba_header"">
+        <parameter name=""hostGUID"" type=""uniqueIdentifier"" value=""#Parameters[&quot;hostGUID&quot;]#""/>
+        <parameter name=""StartDate"" type=""dateTime"" value=""#Parameters[&quot;StartDate&quot;]#""/>
+        <parameter name=""EndDate"" type=""dateTime"" value=""#Parameters[&quot;EndDate&quot;]#""/>
+      </storedProcedure>
+    </query>
+    <template id=""Template1""/>
+    <header id=""Header1"" height=""81"">
+      <label id=""Label1"" fontSize=""25"" text=""Registrasi Lomba"" width=""229"" height=""31"" x=""15"" y=""6""/>
+      <label id=""Label2"" height=""14"" width=""100"" text=""DocDate"" x=""28"" y=""45""/>
+      <recordBox id=""RecordBox1"" dataFormat="""" height=""14"" width=""100"" y=""46"" field=""DocDate"" x=""101""/>
+    </header>
+    <detail id=""Detail1"" height=""561"">
+      <subReport id=""SubReport1"" width=""531.1"" y=""1"" x=""9"">
+        <header id=""Header2"" height=""5""/>
+        <detail id=""Detail2"" height=""394"">
+          <label height=""14"" width=""100"" x=""23"" y=""67"" text=""IDAnggota"" id=""Label5""/>
+          <label height=""14"" width=""100"" text=""Nama"" x=""24"" y=""95"" id=""Label6""/>
+          <label height=""14"" width=""100"" text=""TempatLahir"" x=""22"" y=""123"" id=""Label7""/>
+          <label height=""14"" width=""100"" text=""TglLahir"" x=""22"" y=""152"" id=""Label8""/>
+          <label height=""14"" width=""100"" text=""Alamat"" x=""23"" y=""184"" id=""Label9""/>
+          <label height=""14"" width=""100"" text=""RoleHero"" x=""21"" y=""217"" id=""Label10""/>
+          <label height=""14"" width=""100"" text=""NamaTeam"" y=""253"" x=""23"" id=""Label11""/>
+          <label height=""14"" width=""100"" text=""WinRate"" x=""23"" y=""286"" id=""Label12""/>
+          <label height=""14"" width=""100"" text=""TierAkun"" x=""22"" y=""321"" id=""Label13""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""64"" x=""132"" field=""IDAnggota"" id=""RecordBox4""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""93"" x=""133"" field=""Nama"" id=""RecordBox5""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" y=""123"" field=""TempatLahir"" id=""RecordBox6""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""153"" x=""132"" field=""TanggalLahir"" id=""RecordBox7""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" y=""185"" field=""Alamat"" id=""RecordBox8""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""130"" y=""215"" field=""RoleHero"" id=""RecordBox9""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""253"" x=""130"" field=""NamaTeam"" id=""RecordBox10""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""287"" x=""131"" field=""WinRate"" id=""RecordBox11""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""130"" field=""TierAkun"" id=""RecordBox12"" y=""322""/>
+        </detail>
+        <footer id=""Footer2"" height=""55""/>
+      </subReport>
+    </detail>
+    <footer id=""Footer1"" height=""50""/>
+  </report>
+</document><?xml version=""1.0""?>
+<document xsi:schemaLocation=""http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd"" version=""6.0"" author="""" keywords="""" title="""" subject="""" id=""RegistrasiLomba"" xmlns=""http://www.cete.com"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <report id=""Report1"" pageSize=""a4"" bottomMargin=""30"" leftMargin=""30"" topMargin=""30"" rightMargin=""30"">
+    <query id=""Query1"">
+      <storedProcedure dataProvider=""msSql"" referenceParameter="""" connectionString=""#Global.AppSettings[&quot;connection&quot;]#"" name=""doc.YoRegistrasiLomba_header"">
+        <parameter name=""hostGUID"" type=""uniqueIdentifier"" value=""#Parameters[&quot;hostGUID&quot;]#""/>
+        <parameter name=""StartDate"" type=""dateTime"" value=""#Parameters[&quot;StartDate&quot;]#""/>
+        <parameter name=""EndDate"" type=""dateTime"" value=""#Parameters[&quot;EndDate&quot;]#""/>
+      </storedProcedure>
+    </query>
+    <template id=""Template1""/>
+    <header id=""Header1"" height=""81"">
+      <label id=""Label1"" fontSize=""25"" text=""Registrasi Lomba"" width=""229"" height=""31"" x=""15"" y=""6""/>
+      <label id=""Label2"" height=""14"" width=""100"" text=""DocDate"" x=""28"" y=""45""/>
+      <recordBox id=""RecordBox1"" dataFormat="""" height=""14"" width=""100"" y=""46"" field=""DocDate"" x=""101""/>
+    </header>
+    <detail id=""Detail1"" height=""561"">
+      <subReport id=""SubReport1"" width=""531.1"" y=""1"" x=""9"">
+        <header id=""Header2"" height=""5""/>
+        <detail id=""Detail2"" height=""394"">
+          <label height=""14"" width=""100"" x=""23"" y=""67"" text=""IDAnggota"" id=""Label5""/>
+          <label height=""14"" width=""100"" text=""Nama"" x=""24"" y=""95"" id=""Label6""/>
+          <label height=""14"" width=""100"" text=""TempatLahir"" x=""22"" y=""123"" id=""Label7""/>
+          <label height=""14"" width=""100"" text=""TglLahir"" x=""22"" y=""152"" id=""Label8""/>
+          <label height=""14"" width=""100"" text=""Alamat"" x=""23"" y=""184"" id=""Label9""/>
+          <label height=""14"" width=""100"" text=""RoleHero"" x=""21"" y=""217"" id=""Label10""/>
+          <label height=""14"" width=""100"" text=""NamaTeam"" y=""253"" x=""23"" id=""Label11""/>
+          <label height=""14"" width=""100"" text=""WinRate"" x=""23"" y=""286"" id=""Label12""/>
+          <label height=""14"" width=""100"" text=""TierAkun"" x=""22"" y=""321"" id=""Label13""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""64"" x=""132"" field=""IDAnggota"" id=""RecordBox4""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""93"" x=""133"" field=""Nama"" id=""RecordBox5""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" y=""123"" field=""TempatLahir"" id=""RecordBox6""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""153"" x=""132"" field=""TanggalLahir"" id=""RecordBox7""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" y=""185"" field=""Alamat"" id=""RecordBox8""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""130"" y=""215"" field=""RoleHero"" id=""RecordBox9""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""253"" x=""130"" field=""NamaTeam"" id=""RecordBox10""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""287"" x=""131"" field=""WinRate"" id=""RecordBox11""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""130"" field=""TierAkun"" id=""RecordBox12"" y=""322""/>
+        </detail>
+        <footer id=""Footer2"" height=""55""/>
+      </subReport>
+    </detail>
+    <footer id=""Footer1"" height=""50""/>
+  </report>
+</document><?xml version=""1.0""?>
+<document xsi:schemaLocation=""http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd"" version=""6.0"" author="""" keywords="""" title="""" subject="""" id=""RegistrasiLomba"" xmlns=""http://www.cete.com"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <report id=""Report1"" pageSize=""a4"" bottomMargin=""30"" leftMargin=""30"" topMargin=""30"" rightMargin=""30"">
+    <query id=""Query1"">
+      <storedProcedure dataProvider=""msSql"" referenceParameter="""" connectionString=""#Global.AppSettings[&quot;connection&quot;]#"" name=""doc.YoRegistrasiLomba_header"">
+        <parameter name=""hostGUID"" type=""uniqueIdentifier"" value=""#Parameters[&quot;hostGUID&quot;]#""/>
+        <parameter name=""StartDate"" type=""dateTime"" value=""#Parameters[&quot;StartDate&quot;]#""/>
+        <parameter name=""EndDate"" type=""dateTime"" value=""#Parameters[&quot;EndDate&quot;]#""/>
+      </storedProcedure>
+    </query>
+    <template id=""Template1""/>
+    <header id=""Header1"" height=""81"">
+      <label id=""Label1"" fontSize=""25"" text=""Registrasi Lomba"" width=""229"" height=""31"" x=""15"" y=""6""/>
+      <label id=""Label2"" height=""14"" width=""100"" text=""DocDate"" x=""28"" y=""45""/>
+      <recordBox id=""RecordBox1"" dataFormat="""" height=""14"" width=""100"" y=""46"" field=""DocDate"" x=""101""/>
+    </header>
+    <detail id=""Detail1"" height=""561"">
+      <subReport id=""SubReport1"" width=""531.1"" y=""1"" x=""9"">
+        <header id=""Header2"" height=""5""/>
+        <detail id=""Detail2"" height=""394"">
+          <label height=""14"" width=""100"" x=""23"" y=""67"" text=""IDAnggota"" id=""Label5""/>
+          <label height=""14"" width=""100"" text=""Nama"" x=""24"" y=""95"" id=""Label6""/>
+          <label height=""14"" width=""100"" text=""TempatLahir"" x=""22"" y=""123"" id=""Label7""/>
+          <label height=""14"" width=""100"" text=""TglLahir"" x=""22"" y=""152"" id=""Label8""/>
+          <label height=""14"" width=""100"" text=""Alamat"" x=""23"" y=""184"" id=""Label9""/>
+          <label height=""14"" width=""100"" text=""RoleHero"" x=""21"" y=""217"" id=""Label10""/>
+          <label height=""14"" width=""100"" text=""NamaTeam"" y=""253"" x=""23"" id=""Label11""/>
+          <label height=""14"" width=""100"" text=""WinRate"" x=""23"" y=""286"" id=""Label12""/>
+          <label height=""14"" width=""100"" text=""TierAkun"" x=""22"" y=""321"" id=""Label13""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""64"" x=""132"" field=""IDAnggota"" id=""RecordBox4""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""93"" x=""133"" field=""Nama"" id=""RecordBox5""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" y=""123"" field=""TempatLahir"" id=""RecordBox6""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""153"" x=""132"" field=""TanggalLahir"" id=""RecordBox7""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""131"" y=""185"" field=""Alamat"" id=""RecordBox8""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""130"" y=""215"" field=""RoleHero"" id=""RecordBox9""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""253"" x=""130"" field=""NamaTeam"" id=""RecordBox10""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" y=""287"" x=""131"" field=""WinRate"" id=""RecordBox11""/>
+          <recordBox dataFormat="""" height=""14"" width=""100"" x=""130"" field=""TierAkun"" id=""RecordBox12"" y=""322""/>
+        </detail>
+        <footer id=""Footer2"" height=""55""/>
+      </subReport>
+    </detail>
+    <footer id=""Footer1"" height=""50""/>
+  </report>
 </document>
