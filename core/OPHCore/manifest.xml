@@ -1,6 +1,6 @@
 <sqroot>
   <manifest>
-    <jsFile>OPHContent/cdn/jQuery/jquery-2.2.3.min.js</jsFile>
+    <jsFile>OPHContent/cdn/jQuery/jquery-3.4.1.min.js</jsFile>
     <jsFile>OPHCore/scripts/fn_general.js</jsFile>
     <jsFile>OPHCore/scripts/fn_theme.js</jsFile>
     <jsFile>OPHCore/scripts/default_theme.js</jsFile>
@@ -8,6 +8,6 @@
     <jsFile>OPHContent/cdn/ophelements/autosuggest/autosuggest.js</jsFile>
     <jsFile>OPHContent/cdn/ophelements/dashboard/dashboard.js</jsFile>
     <jsFile>OPHContent/cdn/ophelements/ophconnect/ophconnect.js</jsFile>
-    <jsFile>OPHCore/scripts/doctalk_3.js</jsFile> 
+    <jsFile>OPHContent/cdn/ophelements/doctalk/doctalk.js</jsFile> 
   </manifest>
 </sqroot>
