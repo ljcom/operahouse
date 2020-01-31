@@ -11,7 +11,7 @@ function initTheme(bCode, bGUID, guestID, f) { //bmode, bcode, bguid hanya dipak
     var xmldoc = '';
     try {
         var pathPage = 'index.aspx?mode=' + getMode();
-        if (getCode().toLowerCase() === 'dumy' || getCode().toLowerCase() === '404') // || getCode().toLowerCase() === 'login')
+        if (getCode().toLowerCase() === 'dumy')// || getCode().toLowerCase() === '404') // || getCode().toLowerCase() === 'login')
             xmldoc = 'OPHContent/themes/' + loadThemeFolder() + '/sample.xml';
         else
             xmldoc = 'OPHCore/api/default.aspx?mode=master&code=' + getCode() + '&guid=' + getGUID() + '&stateid=' + getState();// + unique;
@@ -186,6 +186,16 @@ function loadContent(nbpage, isLoadSidebar, f) {
         xsldoc.push(xsldoc1);
     }
     else {
+		divname.push('chatMessages');
+        //var xsldoc1 = 'OPHCore/api/loadtheme.aspx?code=' + getCode() + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + getMode() + '_sidebar';
+		var xsldoc1 = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/_form_talk.xslt';
+        xsldoc.push(xsldoc1);
+		
+		divname.push('docInfoPanel');
+        //var xsldoc1 = 'OPHCore/api/loadtheme.aspx?code=' + getCode() + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + getMode() + '_sidebar';
+		var xsldoc2 = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/_form_info.xslt';
+        xsldoc.push(xsldoc2);
+		
         window.addEventListener("scroll", function (event) {
             
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight*0.8 && !scrollLoad) {
@@ -549,6 +559,8 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess, befo
                 var u = $(data).children().find("unique").text();
                 if (u) $("#unique").val(u);
                 // showMessage('Saving is successfully.', 2);
+				form_edited=false;
+				form_added=false;
                 if (typeof afterSuccess === "function") afterSuccess(data);
             });
     }
@@ -583,6 +595,7 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
         var dataForm = new FormData();
         if (formid != undefined) {
             thisForm = '#' + formid
+			if (thisForm =='#') thisForm = "form";
             dataFrm = $(thisForm).serialize();
         }
         if (!!dataFrm) {
@@ -1257,7 +1270,8 @@ function form_preset() {
 					if (pair[1] !== '') {
 
 						if (document.getElementById(pair[0]).type === 'select-one') {
-							var checktext = $(this.nextSibling)[0].tagName;
+							var checktext; 
+							if ($(this.nextSibling)[0]!=undefined) checktext = $(this.nextSibling)[0].tagName;
 							if (checktext === pair[0] + '_name') {
 								var newOption = new Option($(this.nextSibling).text(), pair[1], true, true);
 								$("#" + pair[0]).append(newOption).trigger('change');
@@ -1266,6 +1280,7 @@ function form_preset() {
 								autosuggest_editValue(defer, pair[0], code, pair[0], pair[1], false);
 								
 							}
+						
 						} else if (document.getElementById(pair[0]).type != undefined && document.getElementById(pair[0]).type != '') {
 							document.getElementById(pair[0]).value = pair[1];
 						} else {
@@ -1538,6 +1553,7 @@ function loadForm(bCode, bGUID, f) {
 
             pushTheme(divname, xmldoc, xsldoc, true, function (xml) {
                 themeXML = xml;
+				//refreshTalk(bGUID, '', 20);				
             });
         }
         catch (e) {

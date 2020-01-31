@@ -5,16 +5,16 @@
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
 
         'offline
-        If getQueryVar("offline") = "1" Then
-            setCookie("offline", "1", 1)
-            isOfflineMode = True
-        ElseIf getQueryVar("offline") = "0" Then
-            setCookie("offline", "0", 1)
-        End If
+        'If getQueryVar("offline") = "1" Then
+        '    setCookie("offline", "1", 1)
+        '    isOfflineMode = True
+        'ElseIf getQueryVar("offline") = "0" Then
+        '    setCookie("offline", "0", 1)
+        'End If
 
-        If Not IsNothing(Request.Cookies("offline")) Then
-            isOfflineMode = Request.Cookies("offline").Value = "1"
-        End If
+        'If Not IsNothing(Request.Cookies("offline")) Then
+        '    isOfflineMode = Request.Cookies("offline").Value = "1"
+        'End If
 
         Dim curHostGUID As String = "", code As String = "", themeFolder As String = "", pageURL As String = ""
         Dim GUID = getQueryVar("GUID")
@@ -24,15 +24,15 @@
         'Dim old = True
         'If old Then
         contentOfCode = getQueryVar("code")
-            'If Session(contentOfCode.ToLower()) = "" Then
-            Dim loadStr = loadAccount(getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
-            'Session(contentOfCode.ToLower()) = contentOfthemeFolder & ";" & contentOfthemePage & ";" & contentofNeedLogin & ";" & contentofsignInPage & ";" & contentOfGUID
-            'setCookie(contentOfCode.ToLower(), Session(contentOfCode), 1)
-            'End If
+        'If Session(contentOfCode.ToLower()) = "" Then
+        Dim loadStr = loadAccount(getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
+        'Session(contentOfCode.ToLower()) = contentOfthemeFolder & ";" & contentOfthemePage & ";" & contentofNeedLogin & ";" & contentofsignInPage & ";" & contentOfGUID
+        'setCookie(contentOfCode.ToLower(), Session(contentOfCode), 1)
+        'End If
 
-            curHostGUID = getSession()
-			
-            Dim x = loadStr.split(";")
+        curHostGUID = getSession()
+
+        Dim x = loadStr.Split(";")
         Try
             code = x(0)
             themeFolder = x(1)
@@ -83,9 +83,9 @@
         '    End Using
         'End If
 
-        If code = "" And getQueryVar("code") <> "404" Then
+        If code = "" Then 'And getQueryVar("code") <> "404" Then
             reloadURL("index.aspx?code=404")
-        ElseIf (getQueryVar("code") = "") And getQueryVar("code") <> "404" Then
+        ElseIf (getQueryVar("code") = "") Then 'And getQueryVar("code") <> "404" Then
 
             Dim reloadStr = Request.RawUrl & IIf(InStr(Request.RawUrl, "?") = 0, "?", IIf(Right(Request.RawUrl, 1) = "&", "", "&"))
 
@@ -110,7 +110,8 @@
             Next
             If url1.IndexOf("GUID=") < 0 Then url1 &= "guid=" & GUID
             reloadURL(url1)
-
+        ElseIf Request.QueryString("guid") <> "" Then  'change to post
+            reloadURL(Request.Url.OriginalString)
         End If
 
         '--!
@@ -136,9 +137,9 @@
         Else
             'Response.Cookies("cartID").Value = Request.Cookies("cartID").Value
         End If
-        If code <> loginPage And code <> "lockscreen" And code <> "404" Then
+        If code <> loginPage And code <> "lockscreen" Then  'And code <> "404" Then
             If Request.ApplicationPath.Replace("/", "") = "" Then
-                setCookie(Request.Url.Authority.Replace(":", "") & "_lastPar", Request.Url.PathAndQuery, 1)
+                setCookie(Request.Url.Authority.Replace(": ", "") & "_lastPar", Request.Url.PathAndQuery, 1)
             Else
                 setCookie(Request.ApplicationPath.Replace("/", "") & "_lastPar", Request.Url.PathAndQuery, 1)
             End If

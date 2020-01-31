@@ -302,6 +302,7 @@ function popupError(txt) {
 }
 function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
+	query = query + "&" + $('form').serializeArray()
     var vars = query.split("&");
     for (var i = 0; i < vars.length; i++) {
         var pair = vars[i].split("=");
