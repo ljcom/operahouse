@@ -177,7 +177,7 @@ Partial Class OPHCore_api_msg_rptDialog
                         End If
                         Response.Write("<html><head><title>Printing...</title></head><script src=""../../OPHContent/cdn/printjs/print.min.js""></script><body><script>printJS('" & pdfFile & "');window.onfocus=function(){ window.close();}</script></body></html>")
                         MyDocument.Draw(savesPath)
-
+						runSQLwithResult("exec gen.evnt_save '" & curHostGUID & "', '" & code & "', null, @comment='Please click <a href='" & pdfFile & "'>here</a>.', @type=5")
                     End If
                 End If
 
@@ -353,6 +353,7 @@ Partial Class OPHCore_api_msg_rptDialog
                         fstream.Close()
                         fstream.Dispose()
                         finfo.Delete()
+						runSQLwithResult("exec gen.evnt_save '" & curHostGUID & "', '" & code & "', null, @comment='Please click <a href='" & pathGBOX & "'>here</a>.', @type=5")
                     End If
                     Else
                         Response.Write("<script>alert('Theres is No Data to be Shown!');window.close();</script>")
