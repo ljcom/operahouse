@@ -1245,7 +1245,6 @@ function form_init() {
         }
     };
 	setTimeout(function() {form_preset();}, 100);
-	
 }
 
 
