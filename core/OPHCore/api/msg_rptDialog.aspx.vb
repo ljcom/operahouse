@@ -30,10 +30,10 @@ Partial Class OPHCore_api_msg_rptDialog
         Else
             curHostGUID = "'" & curHostGUID & "'"
         End If
-		
-		if getQueryVar("hostguid")<>"" then curHostGUID=getQueryVar("hostguid")		
 
-		
+        If getQueryVar("hostguid") <> "" Then curHostGUID = getQueryVar("hostguid")
+
+
         'If getQueryVar("code") Is Nothing Then
         'SignOff()
         'Response.Write("<script>" & contentofSignOff & "</script>")
@@ -54,7 +54,7 @@ Partial Class OPHCore_api_msg_rptDialog
         Dim XLSTemplate = ""
         'Dim parXML As String = getQueryVar("parXML")
         Dim parameterid As String = "" 'getQueryVar("Parameter")
-
+        Dim parTxt As String = ""
         Dim getparameterid As String = getQueryVar("Parameter")
         Dim fieldattachment As List(Of String) = Nothing
 
@@ -68,7 +68,7 @@ Partial Class OPHCore_api_msg_rptDialog
                 If ds1.Tables(0).Rows.Count > 0 Then
                     If ds1.Tables(0).Rows(0).Item("parameters").ToString <> "" Then
                         parameterid = ds1.Tables(0).Rows(0).Item("parameters").replace("%2F", "/")
-                        
+                        parTxt = parameterid
                     End If
                     reportName = ds1.Tables(0).Rows(0).Item("reportName").ToString
                     XLSTemplate = ds1.Tables(0).Rows(0).Item("XLSTemplate").ToString
@@ -131,21 +131,21 @@ Partial Class OPHCore_api_msg_rptDialog
                     Dim rpQuery As ceTe.DynamicPDF.ReportWriter.Data.StoredProcedureQuery = CType(reportDocument.GetQueryById("Query" & q), ceTe.DynamicPDF.ReportWriter.Data.StoredProcedureQuery)
                     If Not rpQuery Is Nothing Then
                         If query IsNot Nothing And query <> "" Then
-                            If runSQLwithResult("select OBJECT_ID('" & query & "')", Connections) = "" Then
+                            If runSQLwithResult("select OBJECT_ID('doc." & query & "')", Connections) = "" Then
                                 Dim dbName = runSQLwithResult("declare @db varchar(20); exec gen.getdbinfo '" & curHostGUID & "', '" & code & "', @db=@db OUTPUT; select @db", Connections)
-                                Dim lfCtl = Left(Session("ODBC"), (Session("ODBC").ToLower().IndexOf("catalog") + 8))
-                                Dim rtCtl = Right(Session("ODBC"), (Session("ODBC").Length - lfCtl.Length))
-                                rtCtl = Right(rtCtl, (rtCtl.Length - rtCtl.IndexOf(";")))
+                                'Dim lfCtl = Left(Session("ODBC"), (Session("ODBC").ToLower().IndexOf("catalog") + 8))
+                                'Dim rtCtl = Right(Session("ODBC"), (Session("ODBC").Length - lfCtl.Length))
+                                'rtCtl = Right(rtCtl, (rtCtl.Length - rtCtl.IndexOf(";")))
 
-                                Dim newConnection = lfCtl & dbName & rtCtl
-                                If runSQLwithResult("select OBJECT_ID('" & query & "')", newConnection) = "" Then
-                                    Response.Write("<script>alert('Invalid object_id(" & query & ")')</script>")
-                                    writeLog("Invalid object_id(" & query & ")")
-                                    errReport = True
-                                    Exit Do
-                                Else
-                                    Connections = newConnection
-                                End If
+                                'Dim newConnection = lfCtl & dbName & rtCtl
+                                'If runSQLwithResult("select OBJECT_ID('" & query & "')", Connections) = "" Then
+                                '    Response.Write("<script>alert('Invalid object_id(" & query & ")')</script>")
+                                '    writeLog("Invalid object_id(" & query & ")")
+                                '    errReport = True
+                                '    Exit Do
+                                'Else
+                                '    Connections = newConnection
+                                'End If
                             End If
                         End If
                         rpQuery.ConnectionString = Connections
@@ -166,18 +166,25 @@ Partial Class OPHCore_api_msg_rptDialog
                         Response.Write(savesPath)
                         MyDocument.Draw(savesPath)
                     Else
+
                         'Response.ClearHeaders()
                         'Response.AddHeader("Cache-Control", " no-store, no-cache ")
                         'Response.ContentType = "application/pdf"
                         'Response.AddHeader("Content-Disposition", "attachment; filename=" & reportName & ".pdf")
 
+
                         pdfFile = Request.Url.AbsoluteUri.Replace("msg_rptDialog.aspx", "") & "../../OPHContent/documents/temp/" & g & "_" & reportName & ".pdf"
                         If Request.UrlReferrer.Scheme = "https" Then
                             pdfFile = pdfFile.Replace("http", "https")
                         End If
-                        Response.Write("<html><head><title>Printing...</title></head><script src=""../../OPHContent/cdn/printjs/print.min.js""></script><body><script>printJS('" & pdfFile & "');window.onfocus=function(){ window.close();}</script></body></html>")
-                        MyDocument.Draw(savesPath)
-						runSQLwithResult("exec gen.evnt_save '" & curHostGUID & "', '" & code & "', null, @comment='Please click <a href='" & pdfFile & "'>here</a>.', @type=5")
+
+                        If getQueryVar("pop") = "1" Then
+                            Response.Write("<html><head><title>Printing...</title></head><script src=""../../OPHContent/cdn/printjs/print.min.js""></script><body><script>printJS('" & pdfFile & "');window.onfocus=function(){ window.close();}</script></body></html>")
+                            MyDocument.Draw(savesPath)
+
+                        Else
+                            runSQLwithResult("exec gen.evnt_save '" & curHostGUID & "', '" & code & "', null, @comment='Please click <a href='" & pdfFile & "'>here</a>.', @type=5")
+                        End If
                     End If
                 End If
 
@@ -352,12 +359,14 @@ Partial Class OPHCore_api_msg_rptDialog
                         context1.Response.Flush()
                         fstream.Close()
                         fstream.Dispose()
-                        finfo.Delete()
-						runSQLwithResult("exec gen.evnt_save '" & curHostGUID & "', '" & code & "', null, @comment='Please click <a href='" & pathGBOX & "'>here</a>.', @type=5")
+                        'finfo.Delete()
+                        pathGBOX = pathGBOX.Replace(Server.MapPath("~/OPHContent/documents"), "OPHContent/documents").Replace("\", "/")
+                        sqlstr = "exec gen.evnt_save " & curHostGUID & ", '" & code & "', null, @comment='<strong>Parameters:</strong> " & parTxt & ". <strong>Result:</strong> Please click <a href=''" & pathGBOX & "''>here</a>.', @type=5"
+                        runSQLwithResult(sqlstr)
                     End If
-                    Else
-                        Response.Write("<script>alert('Theres is No Data to be Shown!');window.close();</script>")
-                    End If
+                Else
+                    Response.Write("<script>alert('Theres is No Data to be Shown!');window.close();</script>")
+                End If
             Catch ex As Exception
                 writeLog(ex.Message)
                 Response.Write("<script>alert('" & ex.Message.Replace("'", "\'") & "')</script>")
@@ -442,7 +451,7 @@ Partial Class OPHCore_api_msg_rptDialog
                             '    ws.Cells(head.ToString).Value = ds.Tables(0).Rows(0).ItemArray(rowcol).ToString()
 
                             'Next
-                            Dim totalrow As Integer = ds.Tables(0).Rows.Count
+                            Dim totalrow As Int32 = ds.Tables(0).Rows.Count
                             If totalrow > 1 Then
                                 ws.Rows(rows).InsertCopy(totalrow - 1, ws.Rows(rows))
 

@@ -37,7 +37,7 @@
             code = x(0)
             themeFolder = x(1)
             pageURL = x(2)
-            needLogin = x(3)
+            If x(3) <> "" Then needLogin = x(3) = True
             loginPage = x(4)
             GUID = x(5)
         Catch exc As Exception
@@ -83,6 +83,7 @@
         '    End Using
         'End If
 
+
         If code = "" Then 'And getQueryVar("code") <> "404" Then
             reloadURL("index.aspx?code=404")
         ElseIf (getQueryVar("code") = "") Then 'And getQueryVar("code") <> "404" Then
@@ -103,15 +104,24 @@
                 If u.Split("=")(0) = "code" Then
                     url1 &= u.Split("=")(0) & "=" & code & "&"
                 ElseIf u.Split("=")(0) = "guid" Then
-                    url1 &= u.Split("=")(0) & "=" & GUID & "&"
+                    If GUID <> "" Then
+                        setCookie("GUID", GUID, 0, 1)   'set cookie
+                        url1 &= u.Split("=")(0) & "=" & GUID & "&"
+                    Else
+                        setCookie("GUID", "", 0, 1) 'reset then guid is missing
+                    End If
                 Else
                     url1 &= u & "&"
                 End If
             Next
-            If url1.IndexOf("GUID=") < 0 Then url1 &= "guid=" & GUID
+            'If url1.IndexOf("GUID=") < 0 Then url1 &= IIf(GUID <> "", "guid=" & GUID, "")
+            'If Request.QueryString("guid") <> "" Then setCookie("GUID", getQueryVar("guid"), 0, 1)
             reloadURL(url1)
         ElseIf Request.QueryString("guid") <> "" Then  'change to post
+            setCookie("GUID", getQueryVar("guid"), 0, 1)
             reloadURL(Request.Url.OriginalString)
+        ElseIf Request.form("guid") = "" Then   'no guid - browse mode
+            setCookie("GUID", "", 0, 1)
         End If
 
         '--!
@@ -137,7 +147,7 @@
         Else
             'Response.Cookies("cartID").Value = Request.Cookies("cartID").Value
         End If
-        If code <> loginPage And code <> "lockscreen" Then  'And code <> "404" Then
+        If code <> loginPage And code <> "lockscreen" And code <> "home" Then  'And code <> "404" Then
             If Request.ApplicationPath.Replace("/", "") = "" Then
                 setCookie(Request.Url.Authority.Replace(": ", "") & "_lastPar", Request.Url.PathAndQuery, 1)
             Else
@@ -145,9 +155,10 @@
             End If
         End If
 
+
         'loadaccount in trouble, please check
 
-        WindowOnLoad = "initTheme('" & code.ToLower & "', '" & GUID & "', '" & curHostGUID & "');"
+        WindowOnLoad = "initTheme('" & code.ToLower & "', null, '" & curHostGUID & "', '" & pageURL & "');"
         Response.Cookies("themeFolder").Value = themeFolder
         loadManifest(themeFolder, cdnLocation, isOfflineMode)
         setCookie("page", pageURL, "1")

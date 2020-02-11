@@ -1,10 +1,11 @@
 ﻿var form_added = false, form_edited = false;
 var themeXML;
 
-function initTheme(bCode, bGUID, guestID, f) { //bmode, bcode, bguid hanya dipakai kalau mau pindah lokasi saja
+function initTheme(bCode, bGUID, guestID, pageURL, f) { //bmode, bcode, bguid hanya dipakai kalau mau pindah lokasi saja
     var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
     if (bCode != undefined) setCookie('code', bCode, 0, 1, 0);
-    if (bGUID != undefined) setCookie('GUID', bGUID, 0, 1, 0);
+    if (bGUID != undefined && bGUID != null) setCookie('GUID', bGUID, 0, 1, 0);
+	if (pageURL != undefined && pageURL!=null) setCookie('page', pageURL, 0, 1, 0);
     var tcode = getQueryVariable('tcode');
     setCookie('guestID', guestID, 7, 0, 0);
 
@@ -237,7 +238,7 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
         setCookie(code.toLowerCase() + '_pcode', pcode);
         setCookie(code.toLowerCase() + '_browseMode', mode);
     }
-    d = '<div><div class="box box-solid box-default" style="box-shadow:0px;border:none" id="child' + code + GUID.toLowerCase() + '"></div></div>';
+    d = '<div><div class="box box-solid box-default child" data-code="+code+" data-parentKey="+parentKey+" data-guid="+GUID+" data-mode="+mode+" style="box-shadow:0px;border:none" id="child' + code + GUID.toLowerCase() + '"></div></div>';
     if ($('#child' + code + GUID.toLowerCase()).length == 0) {
         $('#tr2_' + pcode + GUID.toLowerCase()).children("td").append(d);
     }
@@ -265,7 +266,11 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
     //showXML(divName, xmldoc, xsldocs, true, true, function () { });
 }
 
-
+function reloadChild(tabno) {
+	$.each($("#tab_"+tabno).find(".child"), function(i, x) {
+		loadChild($(x).data("code"));
+	});
+}
 
 
 function loadBrowse(bCode, searchText, f) {
@@ -668,7 +673,8 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
 						if (flag > 1 || $(this).text() !== '') {
 
 							if (document.getElementById(this.tagName).type === 'select-one') {
-								var checktext = $(this.nextSibling)[0].tagName;
+								var checktext; 
+								if ($(this.nextSibling)[0]!=undefined) checktext = $(this.nextSibling)[0].tagName;
 								if (checktext === this.tagName + '_name') {
 									var newOption = new Option($(this.nextSibling).text(), $(this).text(), true, true);
 									$("#" + this.tagName).append(newOption).trigger('change');
@@ -783,7 +789,7 @@ function checkChanges(t, force) {
     if (t) {
         var curdata = '';
         var olddata = $(t).data("old") == undefined ? "" : $(t).data("old");
-        if (($("#" + t.id).prop("type") === "select-one") && (t.options[t.selectedIndex].value !== $("#" + t.id).data("value"))) {
+        if (t.id!='' && ($("#" + t.id).prop("type") === "select-one") && (t.options[t.selectedIndex].value !== $("#" + t.id).data("value"))) {
             curdata = t.options[t.selectedIndex].value;
             //$("#" + t.id).data("value", t.options[t.selectedIndex].value);
         }
@@ -1348,10 +1354,10 @@ function goTo(url, isPost) {
 }
 
 
-function genReport(code, outputType, otherPar, t) {
+function genReport(code, outputType, otherPar, isPop) {
 
     otherPar = (otherPar) ? "&" + otherPar : "";
-    url = 'OPHCore/api/msg_rptDialog.aspx?mode=' + outputType + '&code=' + code + otherPar;
+    url = 'OPHCore/api/msg_rptDialog.aspx?mode=' + outputType + '&code=' + code + otherPar+"&pop="+(isPop?1:0);
 
     urlsplit = url.split('?');
     urlonly = urlsplit[0];
@@ -1363,28 +1369,64 @@ function genReport(code, outputType, otherPar, t) {
 
     var thisForm = 'form';
     var dataFrm = $(thisForm).serialize();
+	if (isPop) {
+		dataFrm.split('&').forEach(function (i) {
+			d = i.split('=');
+			var newVal = d[1];
+			if (newVal != undefined && parform.indexOf(d[0]) == -1) {
+				newVal = newVal.replace(/</g, '&lt;');
+				newVal = newVal.replace(/>/g, '&gt;');
+				//dataForm.append(d[0].toString(), d[1].toString());
+				$('#report').append($('<input/>')
+					.attr({ 'type': 'hidden', 'name': d[0].toString(), 'value': d[1].toString() })
+				);
+			}
+		});
 
-    dataFrm.split('&').forEach(function (i) {
-        d = i.split('=');
-        var newVal = d[1];
-        if (newVal != undefined && parform.indexOf(d[0]) == -1) {
-            newVal = newVal.replace(/</g, '&lt;');
-            newVal = newVal.replace(/>/g, '&gt;');
-            //dataForm.append(d[0].toString(), d[1].toString());
-            $('#report').append($('<input/>')
-                .attr({ 'type': 'hidden', 'name': d[0].toString(), 'value': d[1].toString() })
-            );
-        }
-    });
+		par.forEach(function (x) {
+			$('#report').append($('<input/>')
+				.attr({ 'type': 'hidden', 'name': x.split('=')[0], 'value': x.split('=')[1] })
+			);
+		});
+		//$("#report").bind('ajax:complete', function() {
 
-    par.forEach(function (x) {
-        $('#report').append($('<input/>')
-            .attr({ 'type': 'hidden', 'name': x.split('=')[0], 'value': x.split('=')[1] })
-        );
-    });
+         // tasks to do 
+			
+	
+		//});
 
-    $('#report').submit();
-    $('#report').remove();
+		$('#report').submit();
+		$('#report').remove();
+	
+			
+	}
+	else {
+		$.ajax({
+		 type: "POST",
+		  url: url,
+		  data: dataFrm,
+		  success: function(data) {
+			// callback code here
+			var s=findScript(data);
+			if (s) eval(s);
+			else 
+				reloadQueryResult();
+				//window.location.reload();
+		   }
+		})
+	}
+	
+    
+}
+
+function reloadQueryResult() {
+	var divname = ['ReportResult'];
+        //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '.xslt'];
+    var xsldoc = ['OPHContent/themes/'+loadThemeFolder()+'/xslt/_report_result.xslt'];
+	var xmldoc = 'OPHCore/api/default.aspx?mode=report&code=' + getCode(); 
+	pushTheme(divname, xmldoc, xsldoc, true);
+	
+	
 }
 
 //radio
@@ -1455,7 +1497,16 @@ function searchText(e, searchvalue, location) {
             else {  //load browse
                 setCookie('bSearchText', searchvalue.split('+').join('%2B'), 0, 1, 0);
                 var code = getCode();
-                loadBrowse(code, searchvalue.split('+').join('%2B'));
+                //loadBrowse(code, searchvalue.split('+').join('%2B'));
+				var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
+				
+				var divname = ['contentWrapper'];
+                    var xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + getCode() + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + getMode()];
+                    var xmldoc = 'OPHCore/api/default.aspx?mode=' + getMode() + '&code=' + getCode() + '&GUID=' + getGUID() + '&stateid=' + getState() + '&bPageNo=' + 1 + '&bSearchText=' + getSearchText() + '&sqlFilter=' + getFilter() + '&sortOrder=' + getOrder() + unique;
+                    pushTheme(divname, xmldoc, xsldoc, true, function() {
+                        setCookie(getCode().toLowerCase()+'_curPage', 1, 1, 0, 0);
+                        //scrollLoad=false;
+                    });
                 //loadContent(1);
             }
         }
@@ -1553,6 +1604,7 @@ function loadForm(bCode, bGUID, f) {
             pushTheme(divname, xmldoc, xsldoc, true, function (xml) {
                 themeXML = xml;
 				//refreshTalk(bGUID, '', 20);				
+				setCookie("GUID", bGUID, 0, 0, 1);
             });
         }
         catch (e) {
@@ -1569,3 +1621,6 @@ function loadForm(bCode, bGUID, f) {
     }
 }
 
+var divname = ['frameMaster'];
+        //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + '.xslt'];
+        var xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + getCode() + '&theme=' + loadThemeFolder() + '&page=' + getPage()];

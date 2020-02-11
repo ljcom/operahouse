@@ -543,12 +543,12 @@ Public Class cl_base
         Return x
     End Function
 
-    Sub setCookie(cookieName As String, cookieValue As String, cookieDay As Long)
+    Sub setCookie(cookieName As String, cookieValue As String, cookieDay As Long, optional cookieHour as long=0, optional cookieMin as long=0)
         'response.Cookies(cookiename)
         If Response.Cookies(cookieName) Is Nothing Then
             Dim MyCookie As New HttpCookie(cookieName)
             MyCookie.Value = cookieValue
-            MyCookie.Expires = Now.AddDays(cookieDay)
+            MyCookie.Expires = Now.AddDays(cookieDay).AddHours(cookieHour)
             Response.Cookies.Add(MyCookie)
         Else
             Response.Cookies(cookieName).Value = cookieValue
@@ -1074,21 +1074,21 @@ Public Class cl_base
         Dim loadStr = ""
         If GUID = "undefined" Then GUID = ""
 
-        If code <> "" And Session(code.ToLower() & GUID.ToLower()) <> "" Then
-            loadStr = Session(code.ToLower() & GUID.ToLower())
-            Dim x = loadStr.Split(";")
-            'code = getQueryVar("code")
-            contentOfaccountId = Session("baseAccount").ToString
-            contentOfthemeFolder = x(1)
-            contentOfthemePage = x(2)
-            contentofNeedLogin = x(3)
-            contentofsignInPage = x(4)
-            contentOfGUID = x(5)
-            contentofwhiteAddress = x(6)
-            loadStr = contentOfCode & ";" & contentOfthemeFolder & ";" & contentOfthemePage & ";" & contentofNeedLogin & ";" & contentofsignInPage & ";" & contentOfGUID & ";" & contentofwhiteAddress
-        Else
-            'End If
-            Dim hguid = getSession()
+        'If code <> "" And Session(code.ToLower() & GUID.ToLower()) <> "" Then
+        '    loadStr = Session(code.ToLower() & GUID.ToLower())
+        '    Dim x = loadStr.Split(";")
+        '    'code = getQueryVar("code")
+        '    contentOfaccountId = Session("baseAccount").ToString
+        '    contentOfthemeFolder = x(1)
+        '    contentOfthemePage = x(2)
+        '    contentofNeedLogin = 0
+        '    contentofsignInPage = x(4)
+        '    contentOfGUID = x(5)
+        '    contentofwhiteAddress = x(6)
+        '    loadStr = contentOfCode & ";" & contentOfthemeFolder & ";" & contentOfthemePage & ";" & contentofNeedLogin & ";" & contentofsignInPage & ";" & contentOfGUID & ";" & contentofwhiteAddress
+        'Else
+        'End If
+        Dim hguid = getSession()
 
             If hguid = "" Then hguid = "null" Else hguid = "'" & hguid & "'"
             Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
@@ -1154,7 +1154,7 @@ Public Class cl_base
                 loadStr = ";;;;;;"
             End If
 
-        End If
+        'End If
         Return loadStr
     End Function
     'Sub getAccount(Optional hostGUID As String = "", Optional env As String = "", Optional code As String = "", Optional GUID As String = "")
