@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTepord_report">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="124">
+			<label id="Label1" height="14" text="Purchase Order" y="0" width="114" font="TimesBold" x="6"/>
+			<recordBox id="RecordBox1" dataFormat="" height="14" width="100" font="TimesRoman" x="6" y="18" field="docNo" fontSize="10"/>
+			<recordBox id="RecordBox2" dataFormat="" x="6" height="14" width="100" font="TimesRoman" field="pordDate" fontSize="10" y="42"/>
+			<label id="Label2" height="14" width="100" text="Kepada Yth," font="TimesRoman" x="6" y="62"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" id="RecordBox3" field="pemasok" width="144" x="126" fontSize="10" y="62"/>
+			<recordBox dataFormat="" font="TimesRoman" id="RecordBox4" field="address" height="36" width="144" x="126" fontSize="10" y="80"/>
+			<recordBox dataFormat="" height="14" width="100" font="TimesRoman" id="RecordBox5" field="fax" x="289" fontSize="10" y="102"/>
+			<recordBox dataFormat="" height="14" width="100" font="TimesRoman" id="RecordBox6" field="email" x="405" fontSize="10" y="102"/>
+		</header>
+		<detail id="Detail1" height="228" autoSplit="true">
+			<rectangle id="Rectangle1" x="6" width="498" height="192" y="35"/>
+			<label font="TimesRoman" x="6" id="Label3" width="186" height="30" y="-1" text="Dengan hormat,&#xA;Mohon dikirim barang-barang sbb:"/>
+			<rectangle id="Rectangle2" x="36" height="192" width="354" y="35"/>
+			<rectangle height="192" id="Rectangle3" x="192" width="84" y="35"/>
+			<label font="TimesRoman" id="Label4" x="12" text="No" height="18" width="18" align="center" y="41"/>
+			<label font="TimesRoman" height="18" id="Label5" x="42" align="center" text="Item" width="144" y="41"/>
+			<label font="TimesRoman" height="18" align="center" id="Label6" x="198" width="72" text="Kuantitas (Kg)" y="41"/>
+			<label font="TimesRoman" height="18" align="center" id="Label7" x="282" text="Harga/Kg (Rp)" width="101.1" y="41"/>
+			<label font="TimesRoman" height="18" align="center" id="Label8" x="414" width="84" text="Total (Rp)" y="41"/>
+			<line id="Line1" x1="6" x2="504" y1="59" y2="59"/>
+			<subReport x="12" width="486" id="SubReport2" y="66">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTepord_report_sub1">
+						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header height="1" id="Header3"/>
+				<detail id="Detail3" height="16">
+					<recordBox dataFormat="" height="14" field="no" x="0" width="18" align="center" font="TimesRoman" fontSize="10" y="0" id="RecordBox9"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="144" field="skuname" id="RecordBox10" x="30" y="0"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" y="0" id="RecordBox11" x="186" width="71.1" field="kuantitas"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" y="0" id="RecordBox12" x="270" field="harga" width="102" align="right"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" y="0" id="RecordBox13" field="total" x="384" width="102" align="right"/>
+				</detail>
+				<footer height="1" id="Footer3"/>
+			</subReport>
+		</detail>
+		<footer id="Footer1" height="344">
+			<rectangle id="Rectangle4" height="60" width="114" x="276" y="1"/>
+			<label id="Label22" height="18" text="( W. Jacob Arbi )" x="6" font="TimesRoman" fontSize="11" width="78" y="324"/>
+			<rectangle height="60" id="Rectangle5" width="114" x="390" y="1"/>
+			<label id="Label9" height="14" text="Sub Total" font="TimesRoman" align="center" width="102" x="282" y="7"/>
+			<label height="14" id="Label10" text="PPn 10%" font="TimesRoman" align="center" width="102" x="282" y="25"/>
+			<label height="14" id="Label11" font="TimesBold" text="Grand Total" align="center" width="102" x="282" y="43"/>
+			<line id="Line2" x1="402" x2="504" y1="43" y2="43"/>
+			<recordBox id="RecordBox14" dataFormat="" height="14" width="100" field="subtotal" font="TimesRoman" fontSize="10" align="right" x="396" y="7"/>
+			<recordBox dataFormat="" height="14" width="100" font="TimesRoman" fontSize="10" align="right" id="RecordBox7" field="ppn" y="25" x="396"/>
+			<recordBox dataFormat="" height="14" width="100" font="TimesRoman" fontSize="10" align="right" id="RecordBox8" field="grandtotal" x="396" y="43"/>
+			<label id="Label12" height="14" x="6" y="66" font="TimesRoman" text="Note :" width="42"/>
+			<label x="6" font="TimesRoman" id="Label13" y="84" height="18" text="1) Schedule pengiriman :" width="126"/>
+			<label x="6" font="TimesRoman" height="18" width="126" id="Label14" y="102" text="2) Alamat pengiriman :"/>
+			<label x="6" font="TimesRoman" height="18" id="Label15" width="432" text="3) Setelah PO diterima harap ditadatangani, Stempel dan difax kembali ke No.5905133" y="120"/>
+			<label x="6" font="TimesRoman" height="18" width="432" id="Label16" y="138" text="4) Pada saat Pengiriman barang, harap lampirkan Copy PO / No PO dari kami"/>
+			<label x="6" font="TimesRoman" width="432" id="Label17" y="156" height="18" text="5) Pada saat Penagihan, harap lampirkan PO yang sudah ditanda tangan, stempel dan"/>
+			<label font="TimesRoman" width="432" id="Label18" text="menggunakan kertas A4 (HVS) jika tidak akan DITOLAK" height="18" y="170" x="20"/>
+			<label x="6" font="TimesRoman" width="432" height="18" id="Label19" y="186" text="6) Hari SABTU tidak ada pengiriman barang"/>
+			<label id="Label20" text="Hormat kami," height="18" y="234" font="TimesRoman" width="72" x="8"/>
+			<label width="84" height="18" y="234" id="Label21" text="Menyetujui" x="336" font="TimesRoman"/>
+			<recordBox id="RecordBox15" dataFormat="" x="336" height="14" field="pemasok" font="TimesRoman" fontSize="10" y="252" width="119.1"/>
+			<label height="18" font="TimesRoman" fontSize="11" y="324" id="Label23" x="345" width="105" text="(                                )"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="119.1" id="RecordBox16" x="132" y="84" field="docdate"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox17" x="120" y="102" field="address" width="270.6"/>
+		</footer>
+	</report>
+</document>

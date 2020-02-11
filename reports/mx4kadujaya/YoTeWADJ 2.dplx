@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageSize="custom" pageWidth="612" pageHeight="550">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeWADJ_report">
+				<parameter type="uniqueIdentifier" name="@HostGuid" value="#Parameters[&quot;HostGuid&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="50"/>
+		<detail id="Detail1" autoSplit="true" height="185">
+			<label id="Label1" fontSize="10" text="Site   :" x="359" width="31.6" height="14" y="90"/>
+			<recordBox dataFormat="" id="RecordBox1" field="WADJDate" fontSize="10" y="75" x="359" width="135.5" height="14"/>
+			<subReport width="486.1" id="SubReport1" x="6" y="156">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeWADJ_report_sub1">
+						<parameter name="@HostGuid" type="uniqueIdentifier" value="#Parameters[&quot;HostGuid&quot;]#"/>
+						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header id="Header2" height="1">
+				</header>
+				<detail id="Detail2" height="25.5">
+					<recordBox dataFormat="" height="14" field="numb" id="RecordBox3" align="center" width="22.1" x="5" y="4.1"/>
+					<recordBox dataFormat="" field="SKU" id="RecordBox4" align="center" y="4.1" x="36.5" width="176.35" height="12.1"/>
+					<recordBox dataFormat="" height="14" field="unit" id="RecordBox5" align="center" y="4.1" x="250" width="35"/>
+					<recordBox dataFormat="" height="14" id="RecordBox7" field="Qty" align="center" y="4.1" width="33.6" x="391"/>
+				</detail>
+				<footer height="1" id="Footer2"/>
+			</subReport>
+			<label id="Label11" text="WAREHOUSE ADJUSTMENT" height="24.5" width="268" font="HelveticaBold" fontSize="14" x="5.5" y="47"/>
+			<recordBox dataFormat="" fontSize="10" height="14" id="RecordBox9" field="Location" width="103.5" x="390" y="90"/>
+			<line x1="12" x2="487" id="Line1" y1="150" y2="150"/>
+			<label height="14" text="Adjustment No    :" fontSize="10" width="83" id="Label6" x="18" y="126"/>
+			<label height="14" text="Notes    :" fontSize="10" width="42.5" id="Label12" x="306" y="126"/>
+			<recordBox dataFormat="" fontSize="10" width="104" height="14" field="RefNo" id="RecordBox2" x="102" y="126"/>
+			<recordBox dataFormat="" field="Notes" fontSize="10" height="14" width="134" id="RecordBox6" x="354" y="126"/>
+		</detail>
+		<footer id="Footer1" height="162">
+			<line id="Line2" x1="12" x2="488.5" y1="6" y2="6"/>
+			<label height="14" text="Total   :" width="46.5" id="Label3" x="312" y="6"/>
+			<recordBox dataFormat="" height="14" field="Total" width="123" id="RecordBox8" x="354" y="12"/>
+			<label height="14" text="Hormat Kami," fontSize="10" width="64.5" id="Label2" x="78" y="60"/>
+			<label height="14" fontSize="10" text="(______________)" width="85.5" id="Label4" y="132" x="72"/>
+			<label height="14" fontSize="10" text="(______________)" width="85.5" id="Label5" y="132" x="282"/>
+		</footer>
+	</report>
+</document>

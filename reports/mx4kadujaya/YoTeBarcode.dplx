@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<openTypeFont name="bc39" path="\\caprianno\vsonline\operahouse\fonts\code39r.ttf"/>
+	<openTypeFont name="bc128" path="\\caprianno\vsonline\operahouse\fonts\code128.ttf"/>
+	<openTypeFont name="bwrp36" path="\\caprianno\vsonline\operahouse\fonts\eanbwrp36tt.ttf"/>
+	<openTypeFont name="bwrp72" path="\\caprianno\vsonline\operahouse\fonts\eanbwrp72tt.ttf"/>
+	<openTypeFont name="c39" path="\\caprianno\vsonline\operahouse\fonts\IDAutomationHC39M Code 39 Barcode.ttf"/>
+	<report id="Report1" topMargin="0" bottomMargin="0" rightMargin="14" leftMargin="14" pageSize="a4">
+		<query id="Query1">
+			<reference parameter=""/>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1"/>
+		<detail id="Detail1" autoSplit="true" height="107.5">
+			<recordBox dataFormat="" id="RecordBox2" fontSize="20" width="144" height="84" x="12" y="12" field="SKUcode" font="c39"/>
+			<label id="Label1" x="216" height="14" y="30" width="84" text="Kode Produk"/>
+			<label x="216" height="14" id="Label2" text="Nama Produk" y="54" width="84"/>
+			<label height="14" y="54" id="Label3" text=":" width="12" x="306"/>
+			<label height="14" text=":" width="12" x="306" id="Label4" y="30"/>
+			<recordBox id="RecordBox1" dataFormat="" x="318" height="14" width="100" field="skucode" y="30"/>
+			<recordBox dataFormat="" x="318" height="14" width="100" id="RecordBox3" y="54" field="skuname"/>
+		</detail>
+		<footer id="Footer1"/>
+	</report>
+</document>

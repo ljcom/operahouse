@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeprcp_report">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="181">
+			<label id="Label1" height="14" text="Print - Purchase Reception" font="TimesBold" width="144" y="0" x="6"/>
+			<label id="Label2" x="6" height="14" text="PT  KADUJAYA PERKASA" width="156" font="TimesRoman" y="24"/>
+			<label height="14" font="TimesRoman" id="Label4" x="6" width="504" align="center" text="BUKTI PENERIMAAN BARANG" y="84"/>
+			<recordBox id="RecordBox1" dataFormat="" height="14" width="100" field="DocNo" x="408" y="24" font="TimesRoman" fontSize="10"/>
+			<recordBox dataFormat="" height="14" width="100" x="408" id="RecordBox2" y="48" field="DocDate" font="TimesRoman" fontSize="10"/>
+			<label height="14" font="TimesRoman" y="48" id="Label5" text="Tgl" x="378" width="18"/>
+			<label height="14" font="TimesRoman" x="378" width="18" id="Label6" y="24" text="No"/>
+			<label height="14" font="TimesRoman" y="24" id="Label7" text=":" x="396" width="6" align="right"/>
+			<label height="14" font="TimesRoman" text=":" x="396" width="6" align="right" id="Label8" y="48"/>
+			<rectangle id="Rectangle1" height="18" y="114" width="96" x="312"/>
+			<rectangle id="Rectangle2" y="132" height="18" width="96" x="312"/>
+			<rectangle height="18" id="Rectangle3" y="150" width="96" x="312"/>
+			<rectangle height="18" y="114" width="96" id="Rectangle4" x="408"/>
+			<rectangle height="18" width="96" id="Rectangle5" x="408" y="132"/>
+			<rectangle height="18" y="150" width="96" id="Rectangle6" x="408"/>
+			<label id="Label9" height="14" text="SURAT JALAN" width="96" align="center" x="313" y="116" font="TimesRoman" fontSize="9"/>
+			<label height="14" width="96" align="center" id="Label10" x="408" text="ORDER PEMB/PROD" font="TimesRoman" y="116" fontSize="9"/>
+			<label height="14" font="TimesRoman" text="Tgl" width="18" id="Label11" x="288" y="150"/>
+			<label height="14" font="TimesRoman" width="18" text="No" id="Label12" x="288" y="132"/>
+			<label height="14" font="TimesRoman" id="Label13" x="6" text="TELAH DITERIMA DARI" y="132" width="138"/>
+			<rectangle height="18" id="Rectangle7" x="6" y="150" width="168"/>
+			<recordBox id="RecordBox8" dataFormat="" height="14" field="ReceivedBy" font="TimesRoman" fontSize="10" x="12" y="153" width="156"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox9" x="318" y="135" width="84" field="RefNo"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" x="318" width="84" id="RecordBox10" y="153" field="DocDate"/>
+			<recordBox id="RecordBox11" dataFormat="" x="6" y="48" height="14" font="TimesRoman" width="228" field="spplname"/>
+		</header>
+		<detail id="Detail1" height="313" autoSplit="true">
+			<rectangle id="Rectangle9" x="6" y="6" width="498" height="306"/>
+			<rectangle y="6" id="Rectangle10" x="78" height="306" width="324"/>
+			<rectangle y="6" id="Rectangle11" height="306" x="204" width="96"/>
+			<label id="Label14" x="12" width="60" align="center" font="TimesRoman" fontSize="10" height="24" y="12" text="No. Kode&#xA;Barang"/>
+			<label align="center" font="TimesRoman" fontSize="10" id="Label15" x="84" width="126" text="Jenis Barang" height="12" y="19"/>
+			<line id="Line1" x2="504" x1="6" y1="42" y2="42"/>
+			<label align="center" font="TimesRoman" fontSize="10" height="12" id="Label16" text="Satuan" y="19" x="210" width="84"/>
+			<label align="center" font="TimesRoman" fontSize="10" height="12" id="Label17" text="Jumlah" y="19" x="306" width="90"/>
+			<label align="center" font="TimesRoman" fontSize="10" height="12" id="Label18" x="396" width="101.1" y="19" text="Catatan"/>
+			<subReport id="SubReport1" width="498" x="6" y="48">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeprcp_report_sub1">
+						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header id="Header2" height="1"/>
+				<detail id="Detail2" height="21">
+					<recordBox id="RecordBox3" dataFormat="" field="No" y="6" x="6" font="TimesRoman" fontSize="10" height="12" width="60"/>
+					<recordBox dataFormat="" y="6" font="TimesRoman" fontSize="10" height="12" id="RecordBox4" field="skuName" x="78" width="114"/>
+					<recordBox dataFormat="" y="6" font="TimesRoman" fontSize="10" height="12" id="RecordBox5" field="unit" x="204" width="84"/>
+					<recordBox dataFormat="" y="6" font="TimesRoman" fontSize="10" height="12" id="RecordBox6" field="qty" x="301" width="89"/>
+					<recordBox dataFormat="" y="6" font="TimesRoman" fontSize="10" height="12" id="RecordBox7" field="note" x="402" width="90"/>
+				</detail>
+				<footer id="Footer2" height="1"/>
+			</subReport>
+		</detail>
+		<footer id="Footer1" height="93">
+			<rectangle id="Rectangle12" x="204" width="300" y="0" height="72"/>
+			<rectangle id="Rectangle13" x="300" width="102" y="0" height="72"/>
+			<line id="Line2" x1="204" x2="504" y1="18" y2="18"/>
+			<line x1="204" x2="504" id="Line3" y1="54" y2="54"/>
+			<label id="Label19" font="TimesRoman" fontSize="10" height="12" width="84" align="center" x="210" y="4" text="PENGIRIM"/>
+			<label font="TimesRoman" fontSize="10" height="12" width="84" align="center" id="Label20" y="4" x="309" text="DISETUJUI OLEH"/>
+			<label font="TimesRoman" fontSize="10" height="12" width="84" align="center" id="Label21" x="411" text="DITEIRMA OLEH" y="4"/>
+			<label font="TimesRoman" fontSize="10" height="12" width="84" align="center" x="411" id="Label22" y="58" text="BAG. GUDANG"/>
+			<label id="Label3" height="14" text="Form No.      : KP-F-S2. 1-2005-001" width="156" font="TimesRoman" fontSize="10" x="6" y="6"/>
+			<label height="14" width="156" font="TimesRoman" fontSize="10" x="6" id="Label23" y="24" text="Issued date      : 10 Oktober 2005"/>
+			<label height="14" width="156" font="TimesRoman" fontSize="10" x="6" id="Label24" y="42" text="Revisi            : 00"/>
+		</footer>
+	</report>
+</document>
