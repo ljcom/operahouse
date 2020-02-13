@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" author="" subject="" title="" id="Yojour" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" bottomMargin="30" leftMargin="30" rightMargin="30" topMargin="30" pageSize="a4">
+		<query id="Query1">
+			<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTejour_report">
+				<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="1"/>
+		<detail id="Detail1" autoSplit="true" height="378">
+			<label align="center" font="HelveticaBold" text="JOURNAL" id="Label1" width="218" x="158" y="11" height="24" fontSize="15"/>
+			<label height="14" x="5" font="HelveticaBold" y="81" width="101" id="Label2" fontSize="9" text="TYPE JOURNAL"/>
+			<recordBox dataFormat="" width="148" height="16" field="refno" x="193" align="center" id="RecordBox1" fontSize="13" y="40"/>
+			<label font="HelveticaBold" text="TANGGAL :" height="15" y="80" x="351" width="69" id="Label3" fontSize="9"/>
+			<recordBox dataFormat="" font="HelveticaBold" x="426" height="13" id="RecordBox2" fontSize="9" y="81" field="JournalDate" width="100.5"/>
+			<label width="100" text="Dibuat Oleh" align="center" height="15" id="Label4" x="22" y="238" fontSize="9"/>
+			<label width="100" text="Diperiksa Oleh" align="center" height="15" id="Label5" x="194" y="238" fontSize="9"/>
+			<label width="100" align="center" text="Disetujui Oleh" height="15" id="Label6" x="394" y="238" fontSize="9"/>
+			<label height="14" width="100" text="(_____________)" align="center" x="20" id="Label7" y="282" fontSize="10"/>
+			<label height="14" width="100" text="(_____________)" align="center" x="194" id="Label8" y="282" fontSize="10"/>
+			<label height="14" width="100" text="(_____________)" align="center" x="395" id="Label9" y="282" fontSize="10"/>
+			<recordBox dataFormat="" height="14" font="HelveticaBold" x="116" y="80" width="112" id="RecordBox3" fontSize="9" field="JournalTypeGUID"/>
+			<subReport width="532" id="SubReport1" y="112.5" x="1.25">
+				<query id="Query2">
+					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTejour_report_sub1">
+						<parameter name="HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+						<parameter name="GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header id="Header2" height="32.25">
+					<rectangle width="28" y="0" x="5" height="32" id="Rectangle1"/>
+					<rectangle width="177" y="0" x="33" height="32" id="Rectangle2"/>
+					<rectangle width="153" y="0" id="Rectangle3" height="32" x="210"/>
+					<rectangle width="164" y="0" x="363" height="15" id="Rectangle4"/>
+					<rectangle width="164" y="15" x="363" id="Rectangle5" height="16.1"/>
+					<line y1="16" x1="445" x2="445" y2="32" id="Line1"/>
+					<label align="center" text="No." width="19" x="10" y="5" height="19" id="Label10" fontSize="9"/>
+					<label align="center" text="Akun GL" x="68" width="108" y="5" height="22" id="Label11" fontSize="9"/>
+					<label align="center" text="Description" x="232" y="5" width="108" height="22" id="Label12" fontSize="9"/>
+					<label align="center" text="Jumlah" id="Label13" fontSize="9" height="12" y="2" x="364.5" width="160.75"/>
+					<label align="center" text="Debit" id="Label14" fontSize="9" height="13.25" x="364.25" y="16.75" width="79"/>
+					<label align="center" text="Kredit" y="17" id="Label15" fontSize="9" height="13.25" width="78.5" x="447"/>
+				</header>
+				<detail id="Detail2" height="18.25">
+					<rectangle id="Rectangle6" width="28" x="5" y="0" height="18"/>
+					<rectangle id="Rectangle7" x="32.1" width="177" y="-0" height="18"/>
+					<rectangle width="153" id="Rectangle8" x="210" y="0" height="18"/>
+					<rectangle id="Rectangle9" x="363" width="163.1" height="18" y="0"/>
+					<line x1="445" id="Line2" y1="-7.5" x2="445" y2="23"/>
+					<recordBox dataFormat="" align="center" width="21" id="RecordBox4" fontSize="9" field="No" height="13.5" x="8.5" y="2.5"/>
+					<recordBox dataFormat="" width="166" id="RecordBox5" fontSize="9" x="38.5" height="11" y="3" field="GLAccount&#xA;GLAccount&#xA;GLAccount"/>
+					<recordBox dataFormat="" field="Description" width="142" id="RecordBox6" fontSize="9" x="216" y="2.5" height="12.5"/>
+					<recordBox dataFormat="" align="right" field="dbvalue" width="74" id="RecordBox7" fontSize="9" x="367" y="2" height="11.5"/>
+					<recordBox dataFormat="" align="right" field="crvalue" width="74" id="RecordBox8" fontSize="9" x="452" y="2.25" height="10.5"/>
+				</detail>
+				<footer id="Footer2" height="23.5">
+					<rectangle height="23" x="363" y="0" id="Rectangle10" width="82"/>
+					<rectangle height="23" x="445" y="0" width="82" id="Rectangle11"/>
+					<recordBox dataFormat="" align="right" y="1" x="368" width="74" height="21" id="RecordBox9" fontSize="9" field="TotalDB"/>
+					<recordBox dataFormat="" align="right" x="450" width="74" id="RecordBox10" fontSize="9" y="1" height="20.75" field="TotalCR"/>
+					<rectangle height="23" y="0" id="Rectangle12" width="358" x="4.1"/>
+				</footer>
+			</subReport>
+			<label height="14" text=":" font="HelveticaBold" align="center" width="14" y="78" id="Label16" x="96" fontSize="9"/>
+			<label id="Label17" x="9" text="Note :" height="17" fontSize="9" width="24.1" y="165"/>
+			<recordBox id="RecordBox11" dataFormat="" height="17" fontSize="9" width="320.25" x="39" y="165" field="Remarks"/>
+		</detail>
+		<footer id="Footer1" height="19"/>
+	</report>
+</document>
