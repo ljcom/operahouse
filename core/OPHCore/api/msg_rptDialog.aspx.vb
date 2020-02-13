@@ -22,8 +22,8 @@ Partial Class OPHCore_api_msg_rptDialog
 
         Dim curHostGUID = getSession() 'Session("hostGUID")
 
-        If curHostGUID = "" Or Session("ODBC") = "" Then loadAccount()
-
+        If curHostGUID = "" Or Session("ODBC") = "" Or Session("baseAccount") = "" Then loadAccount()
+        If contentOfaccountId Is Nothing Or contentOfaccountId <> "" Then contentOfaccountId = Session("baseAccount")
         Dim curUserGUID = Session("userGUID")
         If IsNothing(curHostGUID) Then
             curHostGUID = "null"
@@ -100,7 +100,7 @@ Partial Class OPHCore_api_msg_rptDialog
             queryDPLX = runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='" & code & "' and InfoKey='dplx_rpt'")
 
             'store dplx to folder temp
-            If contentOfaccountId <> "" Then contentOfaccountId = Session("baseAccount")
+            'If contentOfaccountId <> "" Then contentOfaccountId = Session("baseAccount")
             Dim path As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/")
             writeFile(path, reportName & ".dplx", queryDPLX, False)
 
@@ -205,7 +205,7 @@ Partial Class OPHCore_api_msg_rptDialog
             Dim g = System.Guid.NewGuid().ToString
             Dim Parameters As ParameterDictionary = New ParameterDictionary
             Dim gfile As String = "", gext As String = ""
-            Dim gpath As String = Server.MapPath("~/OPHContent/documents/" & contentOfaccountId & "/temp/")
+            Dim gpath As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/")
             If Not Directory.Exists(gpath) Then Directory.CreateDirectory(gpath)
             Dim exportMode = getQueryVar("exportMode").ToString()
             'default exportMode=1
@@ -360,7 +360,8 @@ Partial Class OPHCore_api_msg_rptDialog
                         fstream.Close()
                         fstream.Dispose()
                         'finfo.Delete()
-                        pathGBOX = pathGBOX.Replace(Server.MapPath("~/OPHContent/documents"), "OPHContent/documents").Replace("\", "/")
+
+                        pathGBOX = pathGBOX.Replace(Server.MapPath("~/OPHContent/reports"), "OPHContent/reports").Replace("\", "/")
                         sqlstr = "exec gen.evnt_save " & curHostGUID & ", '" & code & "', null, @comment='<strong>Parameters:</strong> " & parTxt & ". <strong>Result:</strong> Please click <a href=''" & pathGBOX & "''>here</a>.', @type=5"
                         runSQLwithResult(sqlstr)
                     End If
@@ -380,7 +381,9 @@ Partial Class OPHCore_api_msg_rptDialog
             Dim Parameters As ParameterDictionary = New ParameterDictionary
             Dim gfile As String = "", gext As String = ""
             Dim gpath As String = Server.MapPath("../../reports/" & contentOfaccountId & "/temp/")
+            Dim rpath As String = Server.MapPath("../../reports/" & contentOfaccountId & "/")
             gpath = gpath.Replace("core\", "")
+            rpath = rpath.Replace("core\", "")
 
             If Not Directory.Exists(gpath) Then Directory.CreateDirectory(gpath)
             Dim exportMode = getQueryVar("exportMode").ToString()
@@ -393,7 +396,7 @@ Partial Class OPHCore_api_msg_rptDialog
             gfile = g & "_" & reportName
 
             Dim pathGBOX As String = gpath & gfile
-            Dim template As String = gpath & XLSTemplate
+            Dim template As String = rpath & XLSTemplate
 
             parameterid = parameterid.Replace(":", "=").Replace(":null", "=null").Replace("''", "")
             Dim q As Long = 1
@@ -427,7 +430,7 @@ Partial Class OPHCore_api_msg_rptDialog
                             If px <> "" Then
                                 Dim pp = px.Split("=")
                                 If pp(1).ToLower <> "null" Then
-                                    sqlstr = sqlstr & " " & "" & pp(1) & ""
+                                    sqlstr = sqlstr & " " & "'" & pp(1) & "'"
                                 Else
                                     sqlstr = sqlstr & "null"
                                 End If
@@ -532,7 +535,11 @@ Partial Class OPHCore_api_msg_rptDialog
                     context1.Response.Flush()
                     fstream.Close()
                     fstream.Dispose()
-                    finfo.Delete()
+                    'finfo.Delete()
+                    'pathGBOX = Request.Url.OriginalString.ToString().ToLower().Substring(0, Request.Url.OriginalString.ToString().ToLower().IndexOf("ophcore")) & "ophcontent/reports/" & contentOfaccountId & "/temp/" & finfo.Name
+                    pathGBOX = pathGBOX.Replace(Server.MapPath("~/OPHContent/reports"), "OPHContent/reports").Replace("\", "/")
+                    sqlstr = "exec gen.evnt_save " & curHostGUID & ", '" & code & "', null, @comment='<strong>Parameters:</strong> " & parTxt & ". <strong>Result:</strong> Please click <a href=''" & pathGBOX & "''>here</a>.', @type=5"
+                    runSQLwithResult(sqlstr)
                 End If
 
 

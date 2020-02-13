@@ -727,7 +727,7 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
 							}
 							else {
 								var g=$(this).text();
-								$(this).text()[g].checked=true;
+								if ($(this).text()[g]) $(this).text()[g].checked=true;
 							}
 						}
 					}						
