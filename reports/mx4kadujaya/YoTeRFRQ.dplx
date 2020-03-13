@@ -1,2 +1,101 @@
 <?xml version="1.0"?>
-<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><report id="Report1" pageOrientation="landscape"><query id="Query1"><sql connectionString="" dataProvider="msSql"/></query><template id="Template1"/><header id="Header1" height="93.5"><label id="Label1" height="14" text="PT. KADUJAYA PERKASA" x="5" y="4.5" font="TimesBold" underline="true" fontSize="13" width="165.1"/><label height="14" id="Label24" text="Nomor" y="29" fontSize="10" width="40" x="511"/><label height="14" text=":" align="center" width="11" id="Label28" y="29" fontSize="10" x="554.5"/><recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox4" field="RefNo" x="567.25" y="29" width="120"/><label height="14" x="5" id="Label14" font="TimesBold" y="19.5" text="PLASTIC CONTAINER MANUFACTURER" width="182.1" fontSize="8"/><label height="14" id="Label15" font="TimesRoman" fontSize="11" text="BUKTI SERAH TERIMA BARANG JADI" width="200.1" y="50" x="210"/><label height="14" text="Tgl" id="Label16" fontSize="10" width="40" x="511" y="45"/><label height="14" text=":" align="center" width="11" id="Label17" fontSize="10" x="554.5" y="45"/><recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" field="DocDate" id="RecordBox1" x="567.25" width="120" y="45"/><label height="14" fontSize="10" id="Label41" text="Bagian" width="40" x="511" y="61"/><label height="14" text=":" align="center" width="11" fontSize="10" id="Label42" x="554.5" y="61"/><recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox21" field="Bagian" x="567.25" width="120" y="61"/><label height="14" fontSize="10" id="Label43" text="Hasil tgl" width="40" x="511" y="77"/><label height="14" text=":" align="center" width="11" fontSize="10" id="Label44" x="554.5" y="77"/><recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox22" field="HslTgl" x="567.25" width="120" y="77"/></header><detail id="Detail1" height="228"><rectangle id="Rectangle1" height="220" x="6" width="679.1" y="5"/><rectangle id="Rectangle2" height="220" x="36.5" width="365.6" y="5"/><rectangle id="Rectangle3" height="220" y="5" x="167.6" width="182.1"/><label font="TimesRoman" id="Label4" align="center" x="9" fontSize="10" y="15.5" height="25.5" width="24.5" text="No.&#xA;M/C"/><label font="TimesRoman" height="18" id="Label5" align="center" x="40.5" y="16" fontSize="10" width="122.5" text="Nama Produk"/><line id="Line1" x1="6" y1="45" y2="45" x2="685"/><subReport id="SubReport2" x="6.1" width="678.499" y="46.5"><header height="1" id="Header3"/><detail id="Detail3" height="16"><recordBox dataFormat="" height="14" field="no" align="center" font="TimesRoman" id="RecordBox9" y="0" x="3" width="17.5" fontSize="9"/><recordBox dataFormat="" height="14" font="TimesRoman" field="skuname" id="RecordBox10" y="-0.5" fontSize="9" x="34.5" width="122.5"/><recordBox dataFormat="" height="14" font="TimesRoman" id="RecordBox11" y="0" fontSize="9" field="mattype" x="166.5" width="63.1"/><recordBox dataFormat="" height="14" font="TimesRoman" id="RecordBox12" align="right" y="0" fontSize="9" field="jmlh" x="299" width="40"/><recordBox dataFormat="" height="14" font="TimesRoman" y="0" id="RecordBox8" fontSize="9" field="color" x="236" width="53.6"/><recordBox dataFormat="" height="14" font="TimesRoman" align="right" id="RecordBox13" y="-0.5" fontSize="9" field="isi" x="350" width="41"/><recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" align="right" y="0" id="RecordBox14" field="satuan" x="458.5" width="36.5"/><recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" align="right" id="RecordBox15" y="0" x="625.5" width="51.5" field="lokasi"/><recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" align="right" y="0" id="RecordBox16" field="ket" x="504.5" width="114"/><recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" align="right" y="0" id="RecordBox2" field="total" x="402" width="45"/></detail><footer height="1" id="Footer3"/></subReport><label font="TimesRoman" align="center" id="Label20" fontSize="10" height="26" y="12" x="354" width="44.5" text="Isi&#xA;Per Karton"/><rectangle id="Rectangle4" height="220" y="4.1" x="237.1" width="62.5"/><label font="TimesRoman" align="center" id="Label21" fontSize="10" height="26" y="12" x="171" width="63.5" text="Jenis&#xA;Material"/><label font="TimesRoman" align="center" id="Label22" fontSize="10" height="26" y="12" x="241.5" width="55" text="Warna&#xA;Produk"/><label font="TimesRoman" align="center" id="Label23" fontSize="10" height="26" y="12" width="44.5" x="303" text="Jumlah&#xA;Karton"/><label font="TimesRoman" align="center" id="Label6" fontSize="10" height="26" x="632.5" width="49.5" y="12" text="Lokasi&#xA;Gudang"/><label font="TimesRoman" align="center" id="Label8" fontSize="10" width="39.5" y="12" height="26" x="462" text="Satuan&#xA;Pcs/Set"/><rectangle id="Rectangle7" height="220.1" y="4.6" width="170.5" x="457.6"/><label font="TimesRoman" align="center" fontSize="10" id="Label25" height="18" text="Total" y="12.5" x="405.5" width="49"/><label font="TimesRoman" align="center" fontSize="10" id="Label33" text="Keterangan" height="18" y="18" width="114.5" x="510"/><rectangle height="220.1" id="Rectangle5" y="4.6" x="504.1" width="124.1"/></detail><footer id="Footer1" height="150"><recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox6" width="150" field="" x="83" y="89"/><label height="14" x="6" id="Label10" text="Form No." width="60" fontSize="10" y="89"/><label height="14" text=":" align="center" width="11" id="Label37" x="68" fontSize="10" y="89"/><label height="14" id="Label12" align="center" fontSize="9" width="100" x="1" text="Gudang :" y="5"/><recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="150" field="" x="83" id="RecordBox3" y="107"/><label height="14" x="6" width="60" id="Label2" text="Issued Date" fontSize="10" y="107"/><label height="14" text=":" align="center" width="11" x="68" id="Label3" fontSize="10" y="107"/><recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="150" field="" x="83" id="RecordBox5" y="125"/><label height="14" x="6" width="60" id="Label9" text="Revisi No." fontSize="10" y="125"/><label height="14" text=":" align="center" width="11" x="68" id="Label11" fontSize="10" y="125"/><label id="Label18" height="14" text="(                                   )" x="3.5" fontSize="9" width="100" y="57.5"/><line id="Line2" x2="90" x1="7" y1="71" y2="71"/><label height="14" width="111" align="center" id="Label26" fontSize="9" text="Penerima :" y="5" x="100"/><label height="14" text="(                                   )" id="Label27" fontSize="9" width="100" y="58" x="109.5"/><line id="Line4" y1="71" y2="71" x1="113" x2="197"/><label height="14" align="center" id="Label13" fontSize="9" width="100" text="Kadept :" y="5" x="213"/><label height="14" text="(                                   )" id="Label30" fontSize="9" width="100" y="58" x="218.5"/><line id="Line5" y1="71" y2="71" x1="221" x2="306"/><label height="14" align="center" id="Label34" fontSize="9" width="100" text="QC :" y="5" x="322.5"/><label height="14" text="(                                   )" id="Label35" fontSize="9" width="100" y="57.5" x="327"/><line id="Line6" y1="70.5" y2="70.5" x1="331" x2="414"/><label height="14" align="center" fontSize="9" width="100" id="Label38" text="Yang Menyerahkan :" y="5" x="432"/><label height="14" text="(                                   )" fontSize="9" width="100" id="Label39" y="57.5" x="436.5"/><line id="Line7" y1="70.5" y2="70.5" x1="439.5" x2="524.5"/><recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" field="" id="RecordBox7" x="6" width="83.1" y="57"/><recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" field="" width="83.1" id="RecordBox17" y="57.5" x="113.5"/><recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" field="" width="83.1" id="RecordBox18" y="57" x="222"/><recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" field="" width="83.1" id="RecordBox19" y="56.25" x="330.5"/><recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" field="" width="83.1" id="RecordBox20" y="56.25" x="440.25"/></footer></report></document>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" pageOrientation="landscape">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTerfrq_report">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+				<parameter name="@GUID" value="#Parameters[&quot;GUID&quot;]#" type="uniqueIdentifier"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="93">
+			<label id="Label1" height="14" text="PT. KADUJAYA PERKASA" x="5" font="TimesBold" underline="true" fontSize="13" y="4" width="165"/>
+			<label height="14" id="Label24" text="Nomor" y="29" fontSize="10" width="40" x="511"/>
+			<label height="14" text=":" align="center" width="11" id="Label28" y="29" fontSize="10" x="554"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox4" field="RefNo" y="29" width="120" x="567"/>
+			<label height="14" x="5" id="Label14" font="TimesBold" text="PLASTIC CONTAINER MANUFACTURER" fontSize="8" y="19" width="182"/>
+			<label height="14" id="Label15" font="TimesRoman" fontSize="11" text="BUKTI SERAH TERIMA BARANG JADI" y="50" x="210" width="200"/>
+			<label height="14" text="Tgl" id="Label16" fontSize="10" width="40" x="511" y="45"/>
+			<label height="14" text=":" align="center" width="11" id="Label17" fontSize="10" y="45" x="554"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" field="DocDate" id="RecordBox1" width="120" y="45" x="567"/>
+			<label height="14" fontSize="10" id="Label41" text="Bagian" width="40" x="511" y="61"/>
+			<label height="14" text=":" align="center" width="11" fontSize="10" id="Label42" y="61" x="554"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox21" field="Bagian" width="120" y="61" x="567"/>
+			<label height="14" fontSize="10" id="Label43" text="Hasil tgl" width="40" x="511" y="77"/>
+			<label height="14" text=":" align="center" width="11" fontSize="10" id="Label44" y="77" x="554"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox22" field="HslTgl" width="120" y="77" x="567"/>
+		</header>
+		<detail id="Detail1" height="228">
+			<rectangle id="Rectangle1" height="220" x="6" y="5" width="679"/>
+			<rectangle id="Rectangle2" height="220" y="5" x="36" width="365"/>
+			<rectangle id="Rectangle3" height="220" y="5" x="167" width="182"/>
+			<label font="TimesRoman" id="Label4" align="center" x="9" fontSize="10" text="No.&#xA;M/C" y="15" width="24" height="25"/>
+			<label font="TimesRoman" height="18" id="Label5" align="center" y="16" fontSize="10" text="Nama Produk" x="40" width="122"/>
+			<line id="Line1" x1="6" y1="45" y2="45" x2="685"/>
+			<subReport id="SubReport2" x="6" y="46" width="678">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTerfrq_report_sub1">
+						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header height="1" id="Header3"/>
+				<detail id="Detail3" height="16">
+					<recordBox dataFormat="" height="14" field="no" align="center" font="TimesRoman" id="RecordBox9" y="0" x="3" fontSize="9" width="17"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" field="skuname" id="RecordBox10" fontSize="9" x="34" y="0" width="122"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" id="RecordBox11" y="0" fontSize="9" field="mattype" x="166" width="63"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" id="RecordBox12" align="right" y="0" fontSize="9" field="jmlh" x="299" width="40"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" y="0" id="RecordBox8" fontSize="9" field="color" x="236" width="53"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" align="right" id="RecordBox13" fontSize="9" field="isi" x="350" width="41" y="0"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" align="right" y="0" id="RecordBox14" field="satuan" x="458" width="36"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" align="right" id="RecordBox15" y="0" field="lokasi" x="625" width="51"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" align="right" y="0" id="RecordBox16" field="ket" width="114" x="504"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" align="right" y="0" id="RecordBox2" field="total" x="402" width="45"/>
+				</detail>
+				<footer height="1" id="Footer3"/>
+			</subReport>
+			<label font="TimesRoman" align="center" id="Label20" fontSize="10" height="26" y="12" x="354" text="Isi&#xA;Per Karton" width="44"/>
+			<rectangle id="Rectangle4" height="220" x="237" width="62" y="5"/>
+			<label font="TimesRoman" align="center" id="Label21" fontSize="10" height="26" y="12" x="171" text="Jenis&#xA;Material" width="63"/>
+			<label font="TimesRoman" align="center" id="Label22" fontSize="10" height="26" y="12" width="55" text="Warna&#xA;Produk" x="241"/>
+			<label font="TimesRoman" align="center" id="Label23" fontSize="10" height="26" y="12" x="303" text="Jumlah&#xA;Karton" width="44"/>
+			<label font="TimesRoman" align="center" id="Label6" fontSize="10" height="26" y="12" text="Lokasi&#xA;Gudang" x="632" width="49"/>
+			<label font="TimesRoman" align="center" id="Label8" fontSize="10" y="12" height="26" x="462" text="Satuan&#xA;Pcs/Set" width="39"/>
+			<rectangle id="Rectangle7" x="457" width="170" height="220" y="5"/>
+			<label font="TimesRoman" align="center" fontSize="10" id="Label25" height="18" text="Total" width="49" x="405" y="12"/>
+			<label font="TimesRoman" align="center" fontSize="10" id="Label33" text="Keterangan" height="18" y="18" x="510" width="114"/>
+			<rectangle id="Rectangle5" x="504" width="123" y="4.1" height="220"/>
+		</detail>
+		<footer id="Footer1" height="150">
+			<label height="14" x="6" id="Label10" text="Form No." width="60" fontSize="10" y="89"/>
+			<label height="14" text=":" align="center" width="11" id="Label37" x="68" fontSize="10" y="89"/>
+			<label height="14" id="Label12" align="center" fontSize="9" width="100" x="1" text="Gudang :" y="5"/>
+			<label height="14" x="6" width="60" id="Label2" text="Issued Date" fontSize="10" y="107"/>
+			<label height="14" text=":" align="center" width="11" x="68" id="Label3" fontSize="10" y="107"/>
+			<label height="14" x="6" width="60" id="Label9" text="Revisi No." fontSize="10" y="125"/>
+			<label height="14" text=":" align="center" width="11" x="68" id="Label11" fontSize="10" y="125"/>
+			<label id="Label18" height="14" text="(                                   )" fontSize="9" width="100" x="3" y="57"/>
+			<line id="Line2" x2="90" x1="7" y1="71" y2="71"/>
+			<label height="14" width="111" align="center" id="Label26" fontSize="9" text="Penerima :" y="5" x="100"/>
+			<label height="14" text="(                                   )" id="Label27" fontSize="9" width="100" y="58" x="109"/>
+			<line id="Line4" y1="71" y2="71" x1="113" x2="197"/>
+			<label height="14" align="center" id="Label13" fontSize="9" width="100" text="Kadept :" y="5" x="213"/>
+			<label height="14" text="(                                   )" id="Label30" fontSize="9" width="100" y="58" x="218"/>
+			<line id="Line5" y1="71" y2="71" x1="221" x2="306"/>
+			<label height="14" align="center" id="Label34" fontSize="9" width="100" text="QC :" y="5" x="322"/>
+			<label height="14" text="(                                   )" id="Label35" fontSize="9" width="100" x="327" y="57"/>
+			<line id="Line6" x1="331" x2="414" y1="70" y2="70"/>
+			<label height="14" align="center" fontSize="9" width="100" id="Label38" text="Yang Menyerahkan :" y="5" x="432"/>
+			<label height="14" text="(                                   )" fontSize="9" width="100" id="Label39" x="436" y="57"/>
+			<line id="Line7" x1="439" y1="70" x2="524" y2="70"/>
+			<label id="Label7" text="" fontSize="10" height="14" x="7" align="center" y="56" width="83"/>
+			<label text="" fontSize="10" height="14" align="center" id="Label19" y="57" x="112" width="83"/>
+			<label text="" fontSize="10" height="14" align="center" id="Label29" x="221" y="56" width="83"/>
+			<label text="" fontSize="10" height="14" align="center" id="Label31" x="331" y="56" width="83"/>
+			<label text="" fontSize="10" height="14" align="center" id="Label32" y="57" x="440" width="83"/>
+			<recordBox id="RecordBox3" dataFormat="" height="14" width="150" y="89" x="80" field="formno" fontSize="10"/>
+			<recordBox dataFormat="" height="14" width="150" id="RecordBox5" x="80" y="107" field="issueddate" fontSize="10"/>
+			<recordBox dataFormat="" height="14" width="150" x="80" id="RecordBox6" y="125" field="revisino" fontSize="10"/>
+		</footer>
+	</report>
+</document>

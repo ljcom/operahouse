@@ -11,7 +11,7 @@ Partial Class OPHCore_api_msg_download
 
 
         Dim curHostGUID = getSession() 'Session("hostGUID")
-        If curHostGUID = "" Then loadAccount()
+        If curHostGUID = "" or contentOfaccountId="" Then loadAccount()
 
         Dim curUserGUID = Session("userGUID")
         Dim curODBC = Session("ODBC")

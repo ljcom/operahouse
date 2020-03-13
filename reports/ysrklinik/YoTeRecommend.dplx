@@ -18,7 +18,7 @@
 			<label id="Label4" height="14" width="100" font="TimesItalic" text="Bekasi" x="0.5" y="93" textColor="cadetBlue"/>
 			<label id="Label5" y="108" text="Confidential" align="right" height="12.1" width="66.5" x="419.5" font="TimesRoman"/>
 			<rectangle id="Rectangle1" x="0" y="132" width="492" height="19"/>
-			<label id="Label6" text="Perihal : Surat Keterangan Status Kesehatan Karyawan" align="center" width="259" font="TimesRoman" height="14.1" x="126" y="134.5"/>
+			<label id="Label6" text="Perihal : Surat Keterangan Status Kesehatan Karyawan" align="center" font="TimesRoman" height="14.1" y="134.5" width="349" x="76"/>
 			<label id="Label7" height="18.5" text="Karyawan yang tersebut di bawah ini :" x="-0.5" y="161.5" width="211" font="TimesRoman"/>
 			<label id="Label8" text="Nama" width="44.5" height="15" x="44.5" y="177.5" font="TimesRoman"/>
 			<label width="44.5" height="15" id="Label9" text="Usia" y="193.5" x="44.5" font="TimesRoman"/>

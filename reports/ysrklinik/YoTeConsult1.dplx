@@ -43,7 +43,7 @@
 					<recordBox dataFormat="" height="14" width="198" field="Notes" id="RecordBox15" y="65" x="59.5"/>
 					<line x1="42.5" x2="475" id="Line1" y1="84" y2="84.5"/>
 					<label id="Label27" height="14" font="HelveticaBold" text="S" align="center" y="65" width="13.5" x="43"/>
-					<label id="Label28" align="center" font="HelveticaBold" text="No" width="22" x="435" y="6" height="18.5"/>
+					<label id="Label28" align="center" font="HelveticaBold" width="22" x="435" y="6" height="18.5" text="Qty"/>
 				</detail>
 				<footer height="2" id="Footer2"/>
 			</subReport>

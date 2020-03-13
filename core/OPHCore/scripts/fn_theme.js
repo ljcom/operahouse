@@ -125,7 +125,7 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
                 }
                 //else showMessage(xml[0], 4);
             } else {
-                if (xml && ($.isXMLDoc(xml[0]))) {
+                if (xml && xml[0] != undefined && ($.isXMLDoc(xml[0]))) {
 
                     if (xml != undefined && xsl1 != undefined) callback(divname[0], xml[0], xsl1[0]);
                     if (xml != undefined && xsl2 != undefined) callback(divname[1], xml[0], xsl2[0]);
@@ -146,25 +146,27 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
 function checkXSLInclude(doc) {
     var newDoc = doc;
     var idoc, k;
-    $(doc.childNodes[0].children).each(function (key, i) {
+	if (doc.childNodes!=undefined) {
+		$(doc.childNodes[0].children).each(function (key, i) {
 
-        if (i.tagName === 'xsl:include') {
-            k = key;
-            //var url = document.location.href;
-            //url = url.substring(0, url.indexOf('?') - 1);
-            //url=
-            var url = i.getAttribute("href");
-            idoc = $.ajax({
-                type: "GET",
-                url: url,
-                async: false
-            }).responseText;
+			if (i.tagName === 'xsl:include') {
+				k = key;
+				//var url = document.location.href;
+				//url = url.substring(0, url.indexOf('?') - 1);
+				//url=
+				var url = i.getAttribute("href");
+				idoc = $.ajax({
+					type: "GET",
+					url: url,
+					async: false
+				}).responseText;
 
-        }
-        else {
-            //newDoc.appendChild(i);
-        }
-    });
+			}
+			else {
+				//newDoc.appendChild(i);
+			}
+		});
+	}
     if (idoc) {
         parser = new DOMParser();
         xslDoc = parser.parseFromString(idoc, "text/xml");

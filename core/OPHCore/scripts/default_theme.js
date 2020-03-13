@@ -238,6 +238,7 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
         setCookie(code.toLowerCase() + '_pcode', pcode);
         setCookie(code.toLowerCase() + '_browseMode', mode);
     }
+	if (GUID==null) GUID=$('#cid').val();
     d = '<div><div class="box box-solid box-default child" data-code="+code+" data-parentKey="+parentKey+" data-guid="+GUID+" data-mode="+mode+" style="box-shadow:0px;border:none" id="child' + code + GUID.toLowerCase() + '"></div></div>';
     if ($('#child' + code + GUID.toLowerCase()).length == 0) {
         $('#tr2_' + pcode + GUID.toLowerCase()).children("td").append(d);
@@ -248,13 +249,13 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
 
     var divName = ['child' + String(code).toLowerCase() + GUID.toLowerCase()];
     if (mode === 'inline')
-        xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_childInline'];
+        xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_childInline'+(getMode()=='studio'?'_studio':'')];
     else if (mode != undefined && mode.indexOf('custom') >= 0)
-        xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + mode];
+        xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + mode+(getMode()=='studio'?'_studio':'')];
     else if (mode != undefined && mode != '')
-        xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_child' + mode];
+        xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_child' + mode+(getMode()=='studio'?'_studio':'')];
     else
-        xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_childBrowse'];
+        xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_childBrowse'+(getMode()=='studio'?'_studio':'')];
 
     pushTheme(divName, xmldoc, xsldoc, true);
 

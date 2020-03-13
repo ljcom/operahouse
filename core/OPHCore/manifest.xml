@@ -9,5 +9,6 @@
     <jsFile>OPHContent/cdn/ophelements/dashboard/dashboard.js</jsFile>
     <jsFile>OPHContent/cdn/ophelements/ophconnect/ophconnect.js</jsFile>
     <jsFile>OPHContent/cdn/ophelements/doctalk/doctalk.js</jsFile> 
+	<jsFile>OPHContent/cdn/ophelements/studio/studio.js</jsFile> 
   </manifest>
 </sqroot>

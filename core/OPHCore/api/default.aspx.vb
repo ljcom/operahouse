@@ -120,7 +120,8 @@ Partial Class OPHCore_API_default
                 End If
 
 
-            Case "view", "form"
+            Case "view", "form", "studio"
+				if GUID="null" then GUID="'00000000-0000-0000-0000-000000000000'"
                 sqlstr = "exec [api].[theme_form] '" & curHostGUID & "', '" & code & "', " & GUID '& ", " & editMode
                 writeLog("mode form : " & sqlstr)
 
