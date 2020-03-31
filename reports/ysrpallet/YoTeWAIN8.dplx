@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeWAIN_report">
+				<parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="50"/>
+		<detail id="Detail1" height="387" autoSplit="true">
+			<label id="Label1" text="WAREHOUSE IN" x="6" y="6" font="HelveticaBold" height="18" fontSize="14" width="120"/>
+			<label height="14" text="Doc No" width="46" id="Label2" x="6" y="42"/>
+			<label height="14" text=":" width="6" id="Label3" y="42" x="67"/>
+			<label height="14" text="Supplier" width="46" id="Label4" x="6" y="90"/>
+			<label height="14" text=":" width="6" id="Label5" y="90" x="67"/>
+			<label height="14" text="Doc Date" width="58" id="Label6" x="6" y="66"/>
+			<label height="14" text=":" width="6" id="Label7" y="66" x="67"/>
+			<recordBox id="RecordBox1" dataFormat="" field="refNo" x="78" y="42" width="192" height="18"/>
+			<label height="14" width="58" id="Label8" x="336" y="36" text="Driver"/>
+			<label height="14" width="58" x="336" id="Label9" y="60" text="No. Polisi"/>
+			<label height="14" text=":" width="6" id="Label10" x="402" y="60"/>
+			<label height="14" text=":" width="6" id="Label11" x="402" y="36"/>
+			<recordBox dataFormat="" x="78" id="RecordBox2" y="66" field="docdate" width="192" height="18"/>
+			<recordBox dataFormat="" x="78" id="RecordBox3" y="90" field="supplier" width="192" height="18"/>
+			<recordBox dataFormat="" height="18" id="RecordBox4" y="36" x="414" width="90" field="driver"/>
+			<recordBox dataFormat="" height="18" x="414" width="90" id="RecordBox5" y="60" field="nopol"/>
+			<line id="Line1" x2="504" y2="132" x1="6" y1="132"/>
+			<line x2="504" x1="6" id="Line2" y1="150" y2="150"/>
+			<label height="14" id="Label12" x="12" text="No" width="18" y="132"/>
+			<label height="14" y="132" id="Label13" text="Product" width="54" x="90"/>
+			<label height="14" id="Label14" text="Unit" y="132" width="30" x="267"/>
+			<label height="14" y="132" width="54" id="Label15" text="Location" x="360"/>
+			<label height="14" y="132" id="Label16" text="Qty" width="24" x="468"/>
+			<subReport id="SubReport1" width="504" x="0" y="150">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" name="doc.YoTeWAIN_report_sub1" connectionString="#Global.AppSettings[&quot;connection&quot;]#">
+						<parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header id="Header2" height="1"/>
+				<detail id="Detail2" height="27">
+					<recordBox dataFormat="" height="18" id="RecordBox6" field="skucode" width="48" x="36" y="6"/>
+					<recordBox dataFormat="" height="18" id="RecordBox7" y="6" width="18" x="10" field="numb"/>
+					<label height="14" width="6" id="Label17" y="6" text="-" x="89"/>
+					<recordBox dataFormat="" height="18" y="6" id="RecordBox8" x="96" width="156" expandable="true" field="skuname"/>
+					<recordBox dataFormat="" height="18" y="6" id="RecordBox9" field="unitname" x="262" align="center" width="35"/>
+					<recordBox dataFormat="" height="18" y="6" id="RecordBox10" field="location" width="144" x="310" align="center"/>
+					<recordBox dataFormat="" height="18" y="6" id="RecordBox11" width="35" field="qty" x="462" align="center"/>
+				</detail>
+				<footer id="Footer2" height="1"/>
+			</subReport>
+			<label height="14" width="46" id="Label18" x="6" text="Notes" y="260"/>
+			<label height="14" text=":" width="6" id="Label19" x="48" y="260"/>
+			<recordBox dataFormat="" width="192" height="18" id="RecordBox12" field="note" expandable="true" x="60" y="260"/>
+			<label height="14" width="100" text="Hormat Kami," id="Label20" y="300" x="12"/>
+			<label height="14" text="(____________)" x="6" width="99" id="Label21" y="366"/>
+		</detail>
+		<footer id="Footer1" height="50"/>
+	</report>
+</document>

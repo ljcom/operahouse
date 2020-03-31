@@ -696,7 +696,7 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
 							else
 								$('[name=' + this.tagName + ']').parent().show();
 						}
-						else if ($(this).attr('display') === 'hide') {
+						else if ($(this).attr('display') === 'hide' || $(this).attr('display') === 'none') {
 							if ($('[name=' + this.tagName + ']').data("type") === 'dateBox')
 								$('[name=' + this.tagName + ']').parent().parent().hide();
 							else
@@ -1576,7 +1576,8 @@ function loadSearchResult(searchText, isDraft) {
     //if (bGUID != undefined) setCookie('GUID', bGUID, 0, 1, 0);
     //var tcode = getQueryVariable('tcode');
     //setCookie('guestID', guestID, 7, 0, 0);
-	if (isDraft) stateId=0
+	var stateId='';
+	if (isDraft) stateId='0'
     var xmldoc = 'OPHCore/api/default.aspx?mode=browse&code=' + getCode() + '&bSearchText=' + searchText+'&stateId='+stateId;
     try {
         var divname = ['searchResult'];

@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.yotowout_report">
+				<parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="50"/>
+		<detail id="Detail1" height="615">
+			<recordBox dataFormat="" height="14" width="114" id="RecordBox1" field="refno" x="390" y="186"/>
+			<label font="HelveticaBold" text="PT.YASULOR-L'OREAL MANUFACTURING&#xA;INDONESIA" fontSize="13" x="6" y="54" width="318" height="38" id="Label1"/>
+			<label text="Factory &amp; Office &#xA;Kawasan Industri Jababeka I&#xA;Jl.Jababeka IV , Block V.10-33 &amp;44-63&#xA;Kel. Pasir Gombong Kec. Cikarang Utara&#xA;Kab.bekasi, Jawa Barat 17530&#xA;Telp. : 021-86339999 Fax. :021-29383840" width="250" fontSize="11" x="6" height="79" y="84" id="Label2"/>
+			<label height="14" width="100" text="Kepada Yth :" y="177" x="33" id="Label3"/>
+			<line y1="183" y2="183" x1="104" x2="256" id="Line1"/>
+			<line y1="183" y2="183" x1="18" x2="27" id="Line2"/>
+			<line y1="184" y2="277" x1="257" x2="257" id="Line3"/>
+			<line y1="183" y2="276" x1="18" x2="18" id="Line4"/>
+			<label height="14" text="No. SIF" y="184" x="337" width="46" id="Label4"/>
+			<label height="14" text="No. Pol  :" y="209" x="337" width="40" id="Label5"/>
+			<label height="14" text="Driver    :" y="233" x="337" width="37" id="Label6"/>
+			<recordBox dataFormat="" field="Supplier" align="center" fontSize="11" y="193" height="22" id="RecordBox2" x="30" width="216"/>
+			<recordBox dataFormat="" height="14" field="nopol" align="justify" y="209" width="115" id="RecordBox3" x="390"/>
+			<recordBox dataFormat="" height="14" field="Driver" width="113" id="RecordBox4" x="390" y="234"/>
+			<label height="14" text=":" width="6" id="Label7" y="186" x="384"/>
+			<label height="14" text=":" width="6" id="Label8" x="384" y="210"/>
+			<label height="14" text=":" y="233" width="6" id="Label9" x="384"/>
+			<label align="center" text="SURAT JALAN" font="TimesBold" height="21" x="192" y="12" fontSize="16" width="144" id="Label10"/>
+			<line y1="30" y2="30" x1="202" x2="326" id="Line5"/>
+			<recordBox dataFormat="" align="center" field="alamat" y="217" id="RecordBox5" expandable="true" x="30" width="216" height="22"/>
+			<line x1="19" y1="277" x2="257" y2="277" id="Line6"/>
+			<label width="115" align="center" fontSize="10" text="Tanda Tangan&#xA;dan Nama Penerima" x="160" height="30" id="Label11" y="492"/>
+			<label fontSize="10" text="Bekasi:&#xA;PT. Yasulor Indonesia" x="322" width="123" height="32" id="Label12" y="493"/>
+			<line x1="358" x2="420" id="Line7" y1="505" y2="505"/>
+			<recordBox dataFormat="" height="14" field="docdate" align="center" fontSize="10" x="352" width="64" id="RecordBox6" y="493"/>
+			<label height="14" text="Driver    :" x="52" width="37" id="Label13" y="493"/>
+			<recordBox dataFormat="" height="14" field="Driver" width="99" align="center" x="16" id="RecordBox7" y="571"/>
+			<label height="18" x="168" text="(..............................)" width="114" id="Label14" y="571"/>
+			<recordBox dataFormat="" height="14" width="100" align="center" x="322" field="operator" id="RecordBox8" y="571"/>
+			<subReport id="SubReport1" x="48" y="306" width="426">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.yotowout_report_sub1">
+						<parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header id="Header2" height="24">
+					<rectangle fillColor="gray" y="6" id="Rectangle1" height="18" x="6" width="414"/>
+					<line x1="51" x2="51" y1="7" y2="23" id="Line14"/>
+					<line id="Line15" y1="6" y2="24" x1="377" x2="377"/>
+					<label text="NO" x="19" y="8" width="19" height="8" id="Label15"/>
+					<label height="14" text="DESCRIPTION" y="8" x="167" width="83" id="Label16"/>
+					<label height="14" text="UM" y="8" width="21" id="Label17" x="345"/>
+					<label height="14" text="QTY" y="8" width="26" id="Label18" x="388"/>
+					<line y1="6" y2="24" id="Line12" x1="336" x2="336"/>
+				</header>
+				<detail id="Detail2" height="24">
+					<recordBox dataFormat="" height="14" field="numb" x="11" align="center" width="33" id="RecordBox9" y="5"/>
+					<recordBox dataFormat="" height="14" field="SKU" id="RecordBox10" y="4" x="120" width="198"/>
+					<recordBox dataFormat="" height="14" field="unit" align="center" id="RecordBox11" y="4" x="342" width="30"/>
+					<recordBox dataFormat="" height="14" field="skucode" x="61" width="47" id="RecordBox12" y="4"/>
+					<recordBox dataFormat="" height="14" field="Qty" align="center" width="33" id="RecordBox13" y="4" x="384"/>
+					<label text="-" height="18" id="Label19" y="2" width="10" x="114"/>
+					<line id="Line8" y1="0" y2="24" x1="51" x2="51"/>
+					<line y1="0" y2="24" id="Line9" x1="336" x2="336"/>
+					<line y1="0" y2="24" id="Line10" x1="377" x2="377"/>
+					<line y1="0" y2="24" id="Line17" x1="6" x2="6"/>
+					<line y1="0" y2="24" id="Line18" x1="420" x2="420"/>
+				</detail>
+				<footer id="Footer2" height="22">
+					<line id="Line13" x1="6" x2="420" y1="18" y2="18"/>
+					<line y1="0" id="Line16" x1="6" x2="6" y2="18"/>
+					<line y1="0" y2="18" id="Line11" x1="51" x2="51"/>
+					<line y1="0" y2="18" id="Line19" x1="336" x2="336"/>
+					<line y1="0" y2="18" id="Line20" x1="377" x2="377"/>
+					<line y1="0" y2="18" id="Line21" x1="420" x2="420"/>
+				</footer>
+			</subReport>
+		</detail>
+		<footer id="Footer1" height="50"/>
+	</report>
+</document>
