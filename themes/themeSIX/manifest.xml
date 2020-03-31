@@ -13,6 +13,7 @@
     <cssFile>OPHContent/cdn/revolution/css/settings.css</cssFile>
     
     <cssFile>OPHContent/themes/themeSIX/custom-me.css</cssFile>
+    <cssFile>OPHContent/cdn/w3/w3.css</cssFile>
     
     <!--jsFile>OPHContent/cdn/jQuery/jquery-1.12.4.min.js</jsFile-->
     <!--<jsFile>OPHContent/cdn/yolo/js/jquery.min.js</jsFile>-->
@@ -29,7 +30,6 @@
     <jsFile>OPHContent/cdn/parallax/parallax.js</jsFile>
     <jsFile>OPHContent/cdn/jquery-final-countdown/jquery.final-countdown.js</jsFile>
     <jsFile>OPHContent/cdn/jquery-cookie/jquery.cookie.js</jsFile>
-
     <jsFile>OPHContent/cdn/ckeditor/ckeditor.js</jsFile>
     <jsFile>OPHContent/themes/themeSIX/custom-me.js</jsFile>
     <jsFile>OPHContent/cdn/datepicker/bootstrap-datepicker.js</jsFile>
