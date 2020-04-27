@@ -182,21 +182,26 @@ function loadContent(nbpage, isLoadSidebar, f) {
     //sidebar only for form
     var showDocInfo = getCookie(getCode().toLowerCase() + '_showdocinfo');
     if (getMode() === 'form' && showDocInfo == 1 && isLoadSidebar) {
-        divname.push('sidebarWrapper');
-        var xsldoc1 = 'OPHCore/api/loadtheme.aspx?code=' + getCode() + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + getMode() + '_sidebar';
-        xsldoc.push(xsldoc1);
-    }
+		if ($('#sidebarWrapper').html()!=null) {
+			divname.push('sidebarWrapper');
+			var xsldoc1 = 'OPHCore/api/loadtheme.aspx?code=' + getCode() + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + getMode() + '_sidebar';
+			xsldoc.push(xsldoc1);
+		}
+	}
     else {
-		divname.push('chatMessages');
-        //var xsldoc1 = 'OPHCore/api/loadtheme.aspx?code=' + getCode() + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + getMode() + '_sidebar';
-		var xsldoc1 = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/_form_talk.xslt';
-        xsldoc.push(xsldoc1);
+		if ($('#chatMessages').html()!=null) {
+			divname.push('chatMessages');
+			//var xsldoc1 = 'OPHCore/api/loadtheme.aspx?code=' + getCode() + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + getMode() + '_sidebar';
+			var xsldoc1 = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/_form_talk.xslt';
+			xsldoc.push(xsldoc1);
+		}
 		
-		divname.push('docInfoPanel');
-        //var xsldoc1 = 'OPHCore/api/loadtheme.aspx?code=' + getCode() + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + getMode() + '_sidebar';
-		var xsldoc2 = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/_form_info.xslt';
-        xsldoc.push(xsldoc2);
-		
+		if ($('#docInfoPanel').html()!=null) {
+			divname.push('docInfoPanel');
+			//var xsldoc1 = 'OPHCore/api/loadtheme.aspx?code=' + getCode() + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + getMode() + '_sidebar';
+			var xsldoc2 = 'OPHContent/themes/' + loadThemeFolder() + '/xslt/_form_info.xslt';
+			xsldoc.push(xsldoc2);
+		}
         window.addEventListener("scroll", function (event) {
             
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight*0.8 && !scrollLoad) {
@@ -226,45 +231,47 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
     var xsldoc;
     var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
 
-    if (parentKey == undefined) {
-        parentKey = getCookie(code.toLowerCase() + '_parentKey');
-        GUID = getCookie(code.toLowerCase() + '_parentGUID');
-        mode = getCookie(code.toLowerCase() + '_browseMode');
-        pcode = getCookie(code.toLowerCase() + '_pcode');
-    }
-    else {
-        setCookie(code.toLowerCase() + '_parentKey', parentKey);
-        setCookie(code.toLowerCase() + '_parentGUID', GUID);
-        setCookie(code.toLowerCase() + '_pcode', pcode);
-        setCookie(code.toLowerCase() + '_browseMode', mode);
-    }
-	if (GUID==null) GUID=$('#cid').val();
-    d = '<div><div class="box box-solid box-default child" data-code="+code+" data-parentKey="+parentKey+" data-guid="+GUID+" data-mode="+mode+" style="box-shadow:0px;border:none" id="child' + code + GUID.toLowerCase() + '"></div></div>';
-    if ($('#child' + code + GUID.toLowerCase()).length == 0) {
-        $('#tr2_' + pcode + GUID.toLowerCase()).children("td").append(d);
-    }
-    pageNo = pageNo == undefined ? 1 : pageNo;
+	if (!cell_added && !cell_changed) {
+		if (parentKey == undefined) {
+			parentKey = getCookie(code.toLowerCase() + '_parentKey');
+			GUID = getCookie(code.toLowerCase() + '_parentGUID');
+			mode = getCookie(code.toLowerCase() + '_browseMode');
+			pcode = getCookie(code.toLowerCase() + '_pcode');
+		}
+		else {
+			setCookie(code.toLowerCase() + '_parentKey', parentKey);
+			setCookie(code.toLowerCase() + '_parentGUID', GUID);
+			setCookie(code.toLowerCase() + '_pcode', pcode);
+			setCookie(code.toLowerCase() + '_browseMode', mode);
+		}
+		if (GUID==null) GUID=$('#cid').val();
+		d = '<div><div class="box box-solid box-default child" data-code="+code+" data-parentKey="+parentKey+" data-guid="+GUID+" data-mode="+mode+" style="box-shadow:0px;border:none" id="child' + code + GUID.toLowerCase() + '"></div></div>';
+		if ($('#child' + code + GUID.toLowerCase()).length == 0) {
+			$('#tr2_' + pcode + GUID.toLowerCase()).children("td").append(d);
+		}
+		pageNo = pageNo == undefined ? 1 : pageNo;
 
-    xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + parentKey + '=' + "'" + GUID + "'&bPageNo=" + pageNo + unique;
+		xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + parentKey + '=' + "'" + GUID + "'&bPageNo=" + pageNo + unique;
 
-    var divName = ['child' + String(code).toLowerCase() + GUID.toLowerCase()];
-    if (mode === 'inline')
-        xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_childInline'+(getMode()=='studio'?'_studio':'')];
-    else if (mode != undefined && mode.indexOf('custom') >= 0)
-        xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + mode+(getMode()=='studio'?'_studio':'')];
-    else if (mode != undefined && mode != '')
-        xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_child' + mode+(getMode()=='studio'?'_studio':'')];
-    else
-        xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_childBrowse'+(getMode()=='studio'?'_studio':'')];
+		var divName = ['child' + String(code).toLowerCase() + GUID.toLowerCase()];
+		if (mode === 'inline')
+			xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_childInline'+(getMode()=='studio'?'_studio':'')];
+		else if (mode != undefined && mode.indexOf('custom') >= 0)
+			xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + mode+(getMode()=='studio'?'_studio':'')];
+		else if (mode != undefined && mode != '')
+			xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_child' + mode+(getMode()=='studio'?'_studio':'')];
+		else
+			xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_childBrowse'+(getMode()=='studio'?'_studio':'')];
 
-    pushTheme(divName, xmldoc, xsldoc, true);
+		pushTheme(divName, xmldoc, xsldoc, true);
 
-    //$('#' + code).on('show.bs.collapse', '.collapse', function () {
-    //    $('#' + code).find('.collapse.in').collapse('hide');
+		//$('#' + code).on('show.bs.collapse', '.collapse', function () {
+		//    $('#' + code).find('.collapse.in').collapse('hide');
 
-    //});
+		//});
 
-    //showXML(divName, xmldoc, xsldocs, true, true, function () { });
+		//showXML(divName, xmldoc, xsldocs, true, true, function () { });
+	}
 }
 
 function reloadChild(tabno) {
@@ -432,14 +439,15 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 }
 
 function saveFunction(code, guid, location, formId, afterSuccess, beforeStart) {
-    saveFunction1(code, guid, location, formId, null, afterSuccess, beforeStart);
+    return saveFunction1(code, guid, location, formId, null, afterSuccess, beforeStart);
 }
 
 function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess, beforeStart, saveFlag) {
+	var valid = false;
 
     var tblnm = code;
     var data;
-
+	if (formId==undefined || formId=='') formId='formheader';
     requiredname = document.getElementsByName(tblnm + "requiredname")[0];
     var result;
     var idReq;
@@ -542,13 +550,14 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess, befo
         data.append('unique', $("#unique").val());
 
 
-        var valid = true;
         if (typeof beforeStart === "function") {
             //sdata = $(data).serialize();
             valid = beforeStart(data);
+			if (valid==undefined) valid=true;
         }
+		else valid = true;
 
-        if (valid || valid == undefined)
+        if (valid)
             $.ajax({
                 type: "POST",
                 url: "OPHCore/api/default.aspx?code=" + code,
@@ -585,6 +594,8 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess, befo
         }
 
     }
+	return valid;
+
 }
 
 function preview(flag, code, GUID, formid, t) {
@@ -1407,12 +1418,15 @@ function genReport(code, outputType, otherPar, isPop) {
 		  url: url,
 		  data: dataFrm,
 		  success: function(data) {
+			$('#btnPDF').button('reset');
+			$('#btnXLS').button('reset');
 			// callback code here
 			var s=findScript(data);
 			if (s) eval(s);
 			else 
 				reloadQueryResult();
 				//window.location.reload();
+
 		   }
 		})
 	}

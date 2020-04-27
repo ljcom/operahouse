@@ -93,16 +93,12 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
                         if (clearBefore)
                             $('#' + divnm).html(cleanedT);
                         else {
-                            if ($('#tempContent').html()===undefined) {
-                                $('body').append('<div id=\'tempContent\'></div>');  
-                            }
-                            $('#tempContent').html(cleanedT);
-                            if ($('#tempContent').find('#' + divnm).html()) {
-                                var prevT = $('#' + divnm).html();
-                                var fullT =prevT+$('#tempContent').find('#'+divnm).html();
-                                $('#' + divnm).html(fullT);
-                                $('#tempContent').remove();
-                            }
+							var prevT = $('#' + divnm).html();
+							var div = document.createElement('div');
+							$(div).html(cleanedT);
+							var newT=$(div).find('#' + divnm).html();
+							var fullT =prevT+newT;
+							$('#' + divnm).html(fullT);
                                 
                         }
                     }

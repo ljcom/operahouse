@@ -3,7 +3,7 @@
     <jsFile>OPHContent/cdn/jQuery/jquery-3.4.1.min.js</jsFile>
     <jsFile>OPHCore/scripts/fn_general.js</jsFile>
     <jsFile>OPHCore/scripts/fn_theme.js</jsFile>
-    <jsFile>OPHCore/scripts/default_theme.js</jsFile>
+    <jsFile>OPHCore/scripts/default_theme.js?v=2</jsFile>
     <jsFile>OPHCore/scripts/default_theme_3.js</jsFile>
     <jsFile>OPHContent/cdn/ophelements/autosuggest/autosuggest.js</jsFile>
     <jsFile>OPHContent/cdn/ophelements/dashboard/dashboard.js</jsFile>

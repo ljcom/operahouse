@@ -7,14 +7,6 @@ Imports GemBox.Spreadsheet
 
 Partial Class OPHCore_api_msg_rptDialog
     Inherits cl_base
-    'Protected ReportName As String
-    'Protected printerpath As String
-    'Protected PathName As String
-    'Protected ReportGUID As String
-    'Protected status As String = 0
-    'Protected isPrintOnly As String = 0
-    'Dim sqlstr As String = ""
-    'Dim hostGUID As String = "NULL"
     Protected pdfFile As String = ""
 
     Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -34,25 +26,15 @@ Partial Class OPHCore_api_msg_rptDialog
         If getQueryVar("hostguid") <> "" Then curHostGUID = getQueryVar("hostguid")
 
 
-        'If getQueryVar("code") Is Nothing Then
-        'SignOff()
-        'Response.Write("<script>" & contentofSignOff & "</script>")
-        'Else
         'mode=0 pdf
         'mode=1 xls/csv
         'mode=2 txt
 
 
-        'isPrintOnly = getQueryVar("isPrintOnly") '--> to be hidden
         Dim code = getQueryVar("code")  'code
-        'Dim query = getQueryVar("query")    'querySQL --> to be hidden -- untuk xls/csv only
-        'If query<>"" And code="" then 
         Dim mode = getQueryVar("mode")
-        'Dim dplx = getQueryVar("dplx") '--> to be hidden
-        'Dim gbox = getQueryVar("gbox") '--> to be hidden
         Dim reportName = "" 'getQueryVar("reportName") '--> to be hidden
         Dim XLSTemplate = ""
-        'Dim parXML As String = getQueryVar("parXML")
         Dim parameterid As String = "" 'getQueryVar("Parameter")
         Dim parTxt As String = ""
         Dim getparameterid As String = getQueryVar("Parameter")
@@ -106,8 +88,6 @@ Partial Class OPHCore_api_msg_rptDialog
 
             Dim pathDPLX As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/" & reportName & ".dplx")
 
-            'Dim pathDPLX As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/" & reportName & ".dplx")
-
             parameterid = parameterid.Replace(":", "=").Replace(":null", "=null").Replace("''", "")
             parameterid = parameterid.Replace("/", "-")
             Dim p = parameterid.Split(",")
@@ -116,6 +96,7 @@ Partial Class OPHCore_api_msg_rptDialog
             Dim n = 1
             For Each px In p
                 Dim pp = px.Split("=")
+                If pp(1) = "" Then pp(1) = "null"
                 parValId(Parameters, Trim(pp(0)), pp(1))
                 n += 1
             Next
@@ -133,19 +114,6 @@ Partial Class OPHCore_api_msg_rptDialog
                         If query IsNot Nothing And query <> "" Then
                             If runSQLwithResult("select OBJECT_ID('doc." & query & "')", Connections) = "" Then
                                 Dim dbName = runSQLwithResult("declare @db varchar(20); exec gen.getdbinfo '" & curHostGUID & "', '" & code & "', @db=@db OUTPUT; select @db", Connections)
-                                'Dim lfCtl = Left(Session("ODBC"), (Session("ODBC").ToLower().IndexOf("catalog") + 8))
-                                'Dim rtCtl = Right(Session("ODBC"), (Session("ODBC").Length - lfCtl.Length))
-                                'rtCtl = Right(rtCtl, (rtCtl.Length - rtCtl.IndexOf(";")))
-
-                                'Dim newConnection = lfCtl & dbName & rtCtl
-                                'If runSQLwithResult("select OBJECT_ID('" & query & "')", Connections) = "" Then
-                                '    Response.Write("<script>alert('Invalid object_id(" & query & ")')</script>")
-                                '    writeLog("Invalid object_id(" & query & ")")
-                                '    errReport = True
-                                '    Exit Do
-                                'Else
-                                '    Connections = newConnection
-                                'End If
                             End If
                         End If
                         rpQuery.ConnectionString = Connections
@@ -158,33 +126,25 @@ Partial Class OPHCore_api_msg_rptDialog
 
                     Dim MyDocument As Document = reportDocument.Run(Parameters)
                     Dim g = System.Guid.NewGuid().ToString
-                    'Dim savesPath As String = Request.PhysicalApplicationPath & "documents\temp\" & g & "_" & reportName & ".pdf"
                     Dim savesPath As String = Server.MapPath("~/OPHContent/documents/temp/") & g & "_" & reportName & ".pdf"
-                    'Dim savespath As String = Path.GetTempPath() & g & "_" & reportName & ".pdf"
-                    'savesPath = savesPath.Replace("core\", "")
                     If getQueryVar("dontdelete") = "1" Then
                         Response.Write(savesPath)
                         MyDocument.Draw(savesPath)
                     Else
 
-                        'Response.ClearHeaders()
-                        'Response.AddHeader("Cache-Control", " no-store, no-cache ")
-                        'Response.ContentType = "application/pdf"
-                        'Response.AddHeader("Content-Disposition", "attachment; filename=" & reportName & ".pdf")
-
-
-                        pdfFile = Request.Url.AbsoluteUri.Replace("msg_rptDialog.aspx", "") & "../../OPHContent/documents/temp/" & g & "_" & reportName & ".pdf"
+                        pdfFile = Request.Url.LocalPath.Replace("msg_rptDialog.aspx", "") & "../../OPHContent/documents/temp/" & g & "_" & reportName & ".pdf"
                         If Request.UrlReferrer.Scheme = "https" Then
                             pdfFile = pdfFile.Replace("http", "https")
                         End If
 
                         If getQueryVar("pop") = "1" Then
                             Response.Write("<html><head><title>Printing...</title></head><script src=""../../OPHContent/cdn/printjs/print.min.js""></script><body><script>printJS('" & pdfFile & "');window.onfocus=function(){ window.close();}</script></body></html>")
-                            MyDocument.Draw(savesPath)
 
                         Else
-                            runSQLwithResult("exec gen.evnt_save '" & curHostGUID & "', '" & code & "', null, @comment='Please click <a href='" & pdfFile & "'>here</a>.', @type=5")
+                            runSQLwithResult("exec gen.evnt_save " & curHostGUID & ", '" & code & "', null, @comment='<strong>Parameters:</strong> " & parTxt & ". <strong>Result:</strong> Please click <a href=''" & pdfFile & "''>here</a>.', @type=5")
+                            ''
                         End If
+                        MyDocument.Draw(savesPath)
                     End If
                 End If
 
@@ -249,7 +209,7 @@ Partial Class OPHCore_api_msg_rptDialog
                         gfile = g & "_" & reportName
                 End Select
 
-                parameterid = parameterid.Replace(":", "=").Replace(":null", "=null").Replace("''", "")
+                parameterid = parameterid.Replace(":", "=").Replace("''", "")
                 Dim q As Long = 1
                 Dim query = runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='" & code & "' and InfoKey='querysql_" & q & "'")
 
@@ -272,7 +232,7 @@ Partial Class OPHCore_api_msg_rptDialog
                     End If
                     n += 1
                 Next
-                sqlstr = sqlstr.Replace("''", "null")
+                sqlstr = sqlstr.Replace("''", "'")
             End If
             writeLog("downloadXLS : " & sqlstr)
 

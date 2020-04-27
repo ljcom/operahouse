@@ -98,7 +98,7 @@
             reloadURL(reloadStr)
         ElseIf code <> "" And needLogin And getQueryVar("code") <> loginPage Then
             reloadURL("index.aspx?code=" & loginPage)
-        ElseIf GUID <> getQueryVar("GUID") Then 'reload for onedataonly
+        ElseIf GUID.tolower <> getQueryVar("GUID").tolower Then 'reload for onedataonly
             Dim url1 = "?"
             For Each u In Request.Url.Query.Replace("?", "").Split("&")
                 If u.Split("=")(0) = "code" Then
@@ -114,7 +114,7 @@
                     url1 &= u & "&"
                 End If
             Next
-            'If url1.IndexOf("GUID=") < 0 Then url1 &= IIf(GUID <> "", "guid=" & GUID, "")
+            If url1.IndexOf("GUID=") < 0 Then url1 &= IIf(GUID <> "", "guid=" & GUID, "")   'jika guid nya kosong, harus dipasang
             'If Request.QueryString("guid") <> "" Then setCookie("GUID", getQueryVar("guid"), 0, 1)
             reloadURL(url1)
         ElseIf Request.QueryString("guid") <> "" Then  'change to post
@@ -125,28 +125,29 @@
         End If
 
         '--!
-        Dim cartID = ""
-        If Not Request.Cookies("cartID") Is Nothing Then
-            cartID = Request.Cookies("cartID").Value
-        Else
-            setCookie("cartID", "", 0)
-            'Response.Cookies("cartID").Value = ""
-        End If
+        'Dim cartID = ""
+        'If Not Request.Cookies("cartID") Is Nothing Then
+        '    cartID = Request.Cookies("cartID").Value
+        'Else
+        '    setCookie("cartID", "", 0)
+        '    'Response.Cookies("cartID").Value = ""
+        'End If
 
         Dim appSet As NameValueCollection = ConfigurationManager.AppSettings
         'dynamic account
         Dim cdnLocation = appSet.Item("cdnLocation")
         Dim getseqcon = appSet.Item("sequoia")
 
-        If cartID = "" Then
+        'If cartID = "" Then
             'Response.Cookies("cartID").Value = runSQLwithResult("exec api.createNewid")
-            Dim newid As String
+			Dim newid As String
 
-            newid = runSQLwithResult("exec api.createNewid", getseqcon) '//tidak boleh ada, taruh di atas, kalau masih dipakai
-            setCookie("cartID", newid, 7)
-        Else
+            'newid = runSQLwithResult("exec api.createNewid", getseqcon) '//tidak boleh ada, taruh di atas, kalau masih dipakai
+            newid=curHostGUID
+			setCookie("cartID", newid, 7)
+        'Else
             'Response.Cookies("cartID").Value = Request.Cookies("cartID").Value
-        End If
+        'End If
         If code <> loginPage And code <> "lockscreen" And code <> "home" Then  'And code <> "404" Then
             If Request.ApplicationPath.Replace("/", "") = "" Then
                 setCookie(Request.Url.Authority.Replace(": ", "") & "_lastPar", Request.Url.PathAndQuery, 1)

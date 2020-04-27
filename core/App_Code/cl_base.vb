@@ -83,11 +83,11 @@ Public Class cl_base
                 If p.Split("=").Length > 1 Then
                     If p <> "" AndAlso p.Split("=")(1) <> "" Then
 
-                        If p.Split("=")(0) = "env" Then
+                        If p.Split("=")(0).tolower = "env" Then
                             env = p.Split("=")(1)
-                        ElseIf p.Split("=")(0) = "code" Then
+                        ElseIf p.Split("=")(0).tolower = "code" Then
                             code = p.Split("=")(1)
-                        ElseIf p.Split("=")(0) = "guid" Then
+                        ElseIf p.Split("=")(0).tolower = "guid" Then
                             guid = p.Split("=")(1)
                         Else
                             otherpars &= p.Split("=")(0) & "=" & p.Split("=")(1) & "&"
