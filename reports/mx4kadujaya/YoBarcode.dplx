@@ -8,7 +8,7 @@
 	<report id="Report1" topMargin="0" bottomMargin="0" rightMargin="14" leftMargin="14" pageSize="a4" pageOrientation="landscape">
 		<query id="Query1">
 			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoBarcode_report">
-				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/><parameter name="@totalPrint" type="uniqueIdentifier" value="#Parameters[&quot;totalPrint&quot;]#"/></storedProcedure>
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/><parameter type="uniqueIdentifier" name="@kuantitas" value="#Parameters[&quot;kuantitas&quot;]#"/><parameter name="@StartDate" type="dateTime" value="#Parameters[&quot;StartDate&quot;]#"/><parameter name="@EndDate" type="dateTime" value="#Parameters[&quot;EndDate&quot;]#"/></storedProcedure>
 		</query>
 		<template id="Template1"/>
 		<header id="Header1"/>

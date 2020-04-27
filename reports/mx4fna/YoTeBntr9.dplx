@@ -10,7 +10,7 @@
 		<template id="Template1"/>
 		<header id="Header1" height="116">
 			<label x="6" y="6" height="14" width="144" font="TimesBold" id="Label1" text="Print - Bank Transfer"/>
-			<label font="TimesBold" x="6" height="18" width="498" align="center" id="Label2" text="PURCHASE INVOICE" y="33"/>
+			<label font="TimesBold" x="6" height="18" width="498" align="center" id="Label2" y="33" text="BANK TRANSFER"/>
 			<recordBox dataFormat="" height="14" font="TimesRoman" align="center" x="180" width="150" fontSize="11" field="refNo" id="RecordBox1" y="51"/>
 			<label font="TimesBold" x="6" y="90" id="Label3" text="TRANSFER DATE :" width="114" height="18"/>
 			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="11" y="90" width="108" field="docDate" id="RecordBox3" x="120"/>

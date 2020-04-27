@@ -22,45 +22,44 @@
 			<label height="14" width="100" text="(_____________)" align="center" x="194" id="Label8" y="282" fontSize="10"/>
 			<label height="14" width="100" text="(_____________)" align="center" x="395" id="Label9" y="282" fontSize="10"/>
 			<recordBox dataFormat="" height="14" font="HelveticaBold" x="116" y="80" width="112" id="RecordBox3" fontSize="9" field="JournalTypeGUID"/>
-			<subReport width="532" id="SubReport1" y="112.5" x="1.25">
+			<subReport width="532" id="SubReport1" y="108" x="0">
 				<query id="Query2">
 					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTejour_report_sub1">
 						<parameter name="HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
 						<parameter name="GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
 					</storedProcedure>
 				</query>
-				<header id="Header2" height="32.25">
-					<rectangle width="28" y="0" x="5" height="32" id="Rectangle1"/>
-					<rectangle width="177" y="0" x="33" height="32" id="Rectangle2"/>
-					<rectangle width="153" y="0" id="Rectangle3" height="32" x="210"/>
-					<rectangle width="164" y="0" x="363" height="15" id="Rectangle4"/>
-					<rectangle width="164" y="15" x="363" id="Rectangle5" height="16.1"/>
-					<line y1="16" x1="445" x2="445" y2="32" id="Line1"/>
-					<label align="center" text="No." width="19" x="10" y="5" height="19" id="Label10" fontSize="9"/>
+				<header id="Header2" height="25.5">
+					<rectangle width="28" x="5" id="Rectangle1" height="24" y="1"/>
+					<rectangle width="177" x="33" id="Rectangle2" height="24" y="1"/>
+					<rectangle id="Rectangle3" x="210" width="153" height="24" y="1"/>
+					<rectangle x="363" id="Rectangle4" width="165" height="12" y="1"/>
+					<rectangle id="Rectangle5" width="165" height="12" x="363" y="13"/>
+					<label align="center" text="No." width="19" x="10" height="19" id="Label10" fontSize="9" y="5"/>
 					<label align="center" text="Akun GL" x="68" width="108" y="5" height="22" id="Label11" fontSize="9"/>
 					<label align="center" text="Description" x="232" y="5" width="108" height="22" id="Label12" fontSize="9"/>
-					<label align="center" text="Jumlah" id="Label13" fontSize="9" height="12" y="2" x="364.5" width="160.75"/>
-					<label align="center" text="Debit" id="Label14" fontSize="9" height="13.25" x="364.25" y="16.75" width="79"/>
-					<label align="center" text="Kredit" y="17" id="Label15" fontSize="9" height="13.25" width="78.5" x="447"/>
+					<label align="center" text="Jumlah" id="Label13" fontSize="9" width="160.75" x="366" height="12" y="1"/>
+					<label align="center" text="Debit" id="Label14" fontSize="9" x="366" width="72" height="6" y="13"/>
+					<label align="center" text="Kredit" id="Label15" fontSize="9" width="36" x="468" height="11" y="13"/>
+					<line id="Line1" x1="445" x2="445" y1="25" y2="13"/>
 				</header>
-				<detail id="Detail2" height="18.25">
-					<rectangle id="Rectangle6" width="28" x="5" y="0" height="18"/>
-					<rectangle id="Rectangle7" x="32.1" width="177" height="18" y="0"/>
-					<rectangle width="153" id="Rectangle8" x="210" y="0" height="18"/>
-					<rectangle id="Rectangle9" x="363" width="163.1" height="18" y="0"/>
-					<line x1="445" id="Line2" y1="-7.5" x2="445" y2="23"/>
-					<recordBox dataFormat="" align="center" width="21" id="RecordBox4" fontSize="9" field="No" height="13.5" x="8.5" y="2.5"/>
-					<recordBox dataFormat="" width="166" id="RecordBox5" fontSize="9" x="38.5" height="11" y="3" field="GLAccount&#xA;GLAccount&#xA;GLAccount"/>
-					<recordBox dataFormat="" field="Description" width="142" id="RecordBox6" fontSize="9" x="216" y="2.5" height="12.5"/>
-					<recordBox dataFormat="" align="right" field="dbvalue" width="74" id="RecordBox7" fontSize="9" x="367" y="2" height="11.5"/>
-					<recordBox dataFormat="" align="right" field="crvalue" width="74" id="RecordBox8" fontSize="9" x="452" y="2.25" height="10.5"/>
+				<detail id="Detail2" height="17.75">
+					<rectangle id="Rectangle6" width="28" x="5" height="18" y="-1"/>
+					<rectangle id="Rectangle7" height="18" x="33" width="177" y="-1"/>
+					<rectangle width="153" id="Rectangle8" x="210" height="18" y="-1"/>
+					<rectangle id="Rectangle9" height="18" width="165" x="363" y="-1"/>
+					<line x1="445" id="Line2" x2="445" y1="-8.5" y2="22"/>
+					<recordBox dataFormat="" align="center" width="21" id="RecordBox4" fontSize="9" field="No" height="13.5" x="8.5" y="1.5"/>
+					<recordBox dataFormat="" width="166" id="RecordBox5" fontSize="9" x="38.5" height="11" field="GLAccount&#xA;GLAccount&#xA;GLAccount" y="2"/>
+					<recordBox dataFormat="" field="Description" width="142" id="RecordBox6" fontSize="9" x="216" height="12.5" y="1.5"/>
+					<recordBox dataFormat="" align="right" field="dbvalue" width="74" id="RecordBox7" fontSize="9" x="367" height="11.5" y="1"/>
+					<recordBox dataFormat="" align="right" field="crvalue" width="74" id="RecordBox8" fontSize="9" height="10.5" x="449" y="1.25"/>
 				</detail>
 				<footer id="Footer2" height="23.5">
-					<rectangle height="23" x="363" y="0" id="Rectangle10" width="82"/>
-					<rectangle height="23" x="445" y="0" width="82" id="Rectangle11"/>
-					<recordBox dataFormat="" align="right" y="1" x="368" width="74" height="21" id="RecordBox9" fontSize="9" field="TotalDB"/>
-					<recordBox dataFormat="" align="right" x="450" width="74" id="RecordBox10" fontSize="9" y="1" height="20.75" field="TotalCR"/>
-					<rectangle height="23" y="0" id="Rectangle12" width="358" x="4.1"/>
+					<rectangle x="363" id="Rectangle10" width="82" y="-1" height="19"/>
+					<rectangle x="445" id="Rectangle11" width="83" y="-1" height="19"/>
+					<recordBox dataFormat="" align="right" width="74" id="RecordBox9" fontSize="9" field="TotalDB" y="0" height="12" x="366"/>
+					<recordBox dataFormat="" align="right" x="450" width="74" id="RecordBox10" fontSize="9" field="TotalCR" y="0" height="12"/>
 				</footer>
 			</subReport>
 			<label height="14" text=":" font="HelveticaBold" align="center" width="14" y="78" id="Label16" x="96" fontSize="9"/>
