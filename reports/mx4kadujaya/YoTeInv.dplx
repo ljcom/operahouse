@@ -1,2 +1,82 @@
 <?xml version="1.0"?>
-<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Document1" author="" keywords="" title="" subject=""><report id="Report1"><query id="Query1"><sql connectionString="" dataProvider="msSql"/></query><template id="Template1"/><header id="Header1" height="50"/><detail id="Detail1" height="648"><label id="Label1" text="PT. KADUJAYA PERKASA" font="TimesBold" x="6" fontSize="15" width="192" height="14" y="6"/><label font="TimesBold" x="6" height="14" id="Label2" y="24" text="PLASTIC CONTAINER MANUFACTURER" width="306"/><label x="6" id="Label3" y="42" font="TimesRoman" width="240" height="30" text="Jl. Gatot Subroto km. 8,5 Kadujaya, Kec. Curug&#xA;Tangerang 15810, Banten - Indonesia."/><label x="6" font="TimesRoman" width="240" id="Label4" y="72" height="30" text="Telp. : (62-21) 590777 (Hunting) 59-5130-32&#xA;Fax  . : (62-21) 5906666, 5905133"/><label x="6" font="TimesRoman" height="18" id="Label6" text="P.O. No." width="42" y="162"/><label x="6" font="TimesRoman" height="18" id="Label7" width="78" text="Surat Jalan No. " y="180"/><label font="TimesRoman" height="18" id="Label9" text=":" width="12" x="84" y="180"/><label font="TimesRoman" height="18" x="84" text=":" width="12" id="Label10" y="162"/><recordBox dataFormat="" height="14" width="100" font="TimesRoman" id="RecordBox2" x="90" field="poNo" y="162"/><label font="TimesRoman" height="18" id="Label13" text="Kepada Yth," width="66" y="100" x="293"/><recordBox dataFormat="" font="TimesRoman" id="RecordBox5" field="customer" width="186" height="60" y="118" x="293"/><line id="Line1" x2="504" x1="330" y1="246" y2="246"/><label font="TimesRoman" id="Label14" align="center" text="NAMA BARANG" x="108" width="216" height="18" y="238"/><label font="TimesRoman" height="18" width="90" id="Label24" text="Hormat Kami," x="366" y="447"/><label font="TimesRoman" height="18" width="168" text="(                                                 )" id="Label26" x="330" y="498"/><recordBox dataFormat="" height="14" width="100" font="TimesRoman" x="90" id="RecordBox3" y="180" field="sjNo"/><recordBox id="RecordBox1" dataFormat="" height="14" width="100" font="TimesRoman" x="66" y="135" field="refNo"/><label font="TimesRoman" id="Label5" height="18" width="108" x="6" text="Invoice No." y="135"/><label font="TimesRoman" align="center" id="Label8" text="BANYAKNYA" x="8" width="88" height="18" y="237"/><label font="TimesRoman" align="center" text="SATUAN" id="Label11" x="336" width="78" height="18" y="248"/><label font="TimesRoman" align="center" text="JUMLAH" id="Label12" x="420" width="72" height="18" y="248"/><label font="TimesRoman" align="center" height="18" id="Label17" y="231" text="HARGA" width="144" x="352"/><line id="Line2" x2="504" x1="6" y1="264" y2="264"/><rectangle id="Rectangle1" x="6" width="498" height="204" y="228"/><subReport id="SubReport1" x="6" y="270" width="498"><header height="1" id="Header2"/><detail height="30" id="Detail2"><recordBox dataFormat="" height="18" font="TimesRoman" x="6" y="6" id="RecordBox4" width="84" field="qty"/><recordBox dataFormat="" height="18" font="TimesRoman" y="6" id="RecordBox8" x="330" width="78" field="unit"/><recordBox dataFormat="" height="18" font="TimesRoman" y="6" id="RecordBox9" x="420" width="72" field="jumlah"/><recordBox dataFormat="" height="18" font="TimesRoman" id="RecordBox7" y="6" field="item" x="102" width="216"/></detail><footer height="1" id="Footer2"/></subReport><rectangle y="228" height="204" id="Rectangle2" x="102" width="228"/><line id="Line3" y1="246" y2="432" x1="419" x2="419"/><label id="Label15" font="TimesRoman" x="6" y="534" height="17.1" width="240" text="CATATAN					&#xA;"/><label font="TimesRoman" x="6" id="Label16" y="552" text="Pembayaran dengan cek/giro harus ditulis nama perusahaan kami	" width="336" height="18"/><label font="TimesRoman" x="6" id="Label18" height="18" y="570" text="Nama " width="42"/><label font="TimesRoman" x="6" height="18" id="Label19" text="Bank" y="588" width="48"/><label font="TimesRoman" x="6" height="18" id="Label20" y="606" text="Rekening" width="48"/><label font="TimesRoman" width="336" height="18" id="Label21" text="dan baru dianggap sah bila telah di-clearing oleh bank kami" x="6" y="624"/><label font="TimesRoman" height="18" text=":" width="12" id="Label22" x="60" y="588"/><label font="TimesRoman" height="18" text=":" width="12" id="Label23" x="60" y="606"/><label font="TimesRoman" height="18" text=":" width="12" x="60" id="Label25" y="570"/><label font="TimesRoman" height="18" y="570" id="Label27" x="72" text="PT KADUJAYA PERKASA" width="198"/><label font="TimesRoman" height="18" x="72" width="198" id="Label28" y="588" text="Bank Central Asia"/><label font="TimesRoman" height="18" x="72" width="198" id="Label29" y="606" text="253 301 48 28"/></detail><footer id="Footer1" height="50"/></report></document>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeInvc_report">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="50"/>
+		<detail id="Detail1" height="764">
+			<label id="Label1" text="PT. KADUJAYA PERKASA" font="TimesBold" x="6" fontSize="15" width="192" height="14" y="6"/>
+			<label font="TimesBold" x="6" height="14" id="Label2" y="24" text="PLASTIC CONTAINER MANUFACTURER" width="306"/>
+			<label x="6" id="Label3" y="42" font="TimesRoman" width="240" height="30" text="Jl. Gatot Subroto km. 8,5 Kadujaya, Kec. Curug&#xA;Tangerang 15810, Banten - Indonesia."/>
+			<label x="6" font="TimesRoman" width="240" id="Label4" y="72" height="30" text="Telp. : (62-21) 590777 (Hunting) 59-5130-32&#xA;Fax  . : (62-21) 5906666, 5905133"/>
+			<label x="6" font="TimesRoman" height="18" id="Label6" text="P.O. No." width="42" y="162"/>
+			<label x="6" font="TimesRoman" height="18" id="Label7" width="78" y="180" text="Surat Jalan No."/>
+			<label font="TimesRoman" height="18" id="Label9" text=":" width="12" x="84" y="180"/>
+			<label font="TimesRoman" height="18" x="84" text=":" width="12" id="Label10" y="162"/>
+			<recordBox dataFormat="" height="14" width="100" font="TimesRoman" id="RecordBox2" x="90" field="poNo" y="162"/>
+			<label font="TimesRoman" height="18" id="Label13" text="Kepada Yth," width="66" y="100" x="293"/>
+			<recordBox dataFormat="" font="TimesRoman" id="RecordBox5" field="customer" width="186" height="60" y="118" x="293"/>
+			<line id="Line1" x2="504" x1="330" y1="246" y2="246"/>
+			<label font="TimesRoman" id="Label14" align="center" text="NAMA BARANG" x="108" width="216" height="18" y="238"/>
+			<label font="TimesRoman" height="18" width="90" id="Label24" text="Hormat Kami," x="366" y="502"/>
+			<label font="TimesRoman" height="18" width="168" text="(                                                 )" id="Label26" x="330" y="553"/>
+			<recordBox dataFormat="" height="14" width="100" font="TimesRoman" x="90" id="RecordBox3" y="180" field="sjNo"/>
+			<recordBox id="RecordBox1" dataFormat="" height="14" width="100" font="TimesRoman" x="66" y="135" field="refNo"/>
+			<label font="TimesRoman" id="Label5" height="18" width="108" x="6" text="Invoice No." y="135"/>
+			<label font="TimesRoman" align="center" id="Label8" text="BANYAKNYA" x="8" width="88" height="18" y="237"/>
+			<label font="TimesRoman" align="center" text="SATUAN" id="Label11" x="336" width="78" height="18" y="248"/>
+			<label font="TimesRoman" align="center" text="JUMLAH" id="Label12" x="420" width="72" height="18" y="248"/>
+			<label font="TimesRoman" align="center" height="18" id="Label17" y="231" text="HARGA" width="144" x="352"/>
+			<line id="Line2" x2="504" x1="6" y1="264" y2="264"/>
+			<rectangle id="Rectangle1" x="6" width="498" height="204" y="228"/>
+			<subReport id="SubReport1" x="6" y="270" width="498">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeInvc_report_sub1">
+						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header height="1" id="Header2"/>
+				<detail height="30" id="Detail2">
+					<recordBox dataFormat="" height="18" font="TimesRoman" x="6" y="6" id="RecordBox4" width="84" field="qty"/>
+					<recordBox dataFormat="" height="18" font="TimesRoman" y="6" id="RecordBox8" x="330" width="78" field="unit"/>
+					<recordBox dataFormat="" height="18" font="TimesRoman" y="6" id="RecordBox9" x="420" width="72" field="jumlah"/>
+					<recordBox dataFormat="" height="18" font="TimesRoman" id="RecordBox7" y="6" field="item" x="102" width="216"/>
+				</detail>
+				<footer height="1" id="Footer2"/>
+			</subReport>
+			<rectangle y="228" height="204" id="Rectangle2" x="102" width="228"/>
+			<line id="Line3" y1="246" y2="432" x1="419" x2="419"/>
+			<label id="Label15" font="TimesRoman" x="6" height="17.1" width="240" text="CATATAN" y="589"/>
+			<label font="TimesRoman" x="6" id="Label16" width="336" height="18" text="Pembayaran dengan cek/giro harus ditulis nama perusahaan kami" y="607"/>
+			<label font="TimesRoman" x="6" id="Label18" height="18" width="42" text="Nama" y="625"/>
+			<label font="TimesRoman" x="6" height="18" id="Label19" text="Bank" width="48" y="643"/>
+			<label font="TimesRoman" x="6" height="18" id="Label20" text="Rekening" width="48" y="661"/>
+			<label font="TimesRoman" width="336" height="18" id="Label21" text="dan baru dianggap sah bila telah di-clearing oleh bank kami" x="6" y="679"/>
+			<label font="TimesRoman" height="18" text=":" width="12" id="Label22" x="60" y="643"/>
+			<label font="TimesRoman" height="18" text=":" width="12" id="Label23" x="60" y="661"/>
+			<label font="TimesRoman" height="18" text=":" width="12" x="60" id="Label25" y="625"/>
+			<label font="TimesRoman" height="18" id="Label27" x="72" text="PT KADUJAYA PERKASA" width="198" y="625"/>
+			<label font="TimesRoman" height="18" x="72" width="198" id="Label28" text="Bank Central Asia" y="643"/>
+			<label font="TimesRoman" height="18" x="72" width="198" id="Label29" text="253 301 48 28" y="661"/>
+			<rectangle id="Rectangle3" height="19" y="432" x="6" width="324"/>
+			<rectangle height="19" id="Rectangle4" y="451" x="6" width="324"/>
+			<rectangle height="19" y="432" id="Rectangle5" x="330" width="89"/>
+			<rectangle height="19" x="330" width="89" id="Rectangle6" y="451"/>
+			<rectangle height="19" id="Rectangle7" x="419" y="432" width="85"/>
+			<rectangle height="19" x="419" width="85" id="Rectangle8" y="451"/>
+			<label id="Label30" x="11" y="433" height="16" width="262" text="Jatuh Tempo" fontSize="11"/>
+			<label x="11" height="16" width="262" fontSize="11" id="Label31" y="452" text="Terbilang"/>
+			<label height="16" fontSize="11" id="Label32" text="PPN" width="51" x="335" y="435"/>
+			<label height="16" fontSize="11" width="51" x="335" id="Label33" y="454" text="Total"/>
+			<recordBox id="RecordBox6" dataFormat="" x="423" y="433" height="15" width="80" field="ppn" align="right"/>
+			<recordBox dataFormat="" x="423" height="15" width="80" align="right" id="RecordBox10" y="453" field="Total"/>
+		</detail>
+		<footer id="Footer1" height="50"/>
+	</report>
+</document>
