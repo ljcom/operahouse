@@ -15,7 +15,7 @@ Partial Class OPHCore_api_msg_rptDialog
         Dim curHostGUID = getSession() 'Session("hostGUID")
 
         If curHostGUID = "" Or Session("ODBC") = "" Or Session("baseAccount") = "" Then loadAccount()
-        If contentOfaccountId Is Nothing Or contentOfaccountId <> "" Then contentOfaccountId = Session("baseAccount")
+        If contentOfaccountId Is Nothing Or contentOfaccountId = "" Then contentOfaccountId = Session("baseAccount")
         Dim curUserGUID = Session("userGUID")
         If IsNothing(curHostGUID) Then
             curHostGUID = "null"

@@ -17,8 +17,8 @@ Partial Class OPHCore_api_msg_autosuggest
         ' Dim json = "[{id: 1,text: 'haha'},{id: 2,text: 'hehe'},{id: 3,text: 'ihiyahayuhuy'},{id: 4,text: 'asdssda'}]"
 
         Dim curHostGUID = getSession() 'Session("hostGUID")
-        If curHostGUID = "" Or Session("odbc") = "" Then loadAccount()
-
+        'If curHostGUID = "" Or Session("odbc") = "" Then loadAccount()
+		loadAccount()
         Dim curUserGUID = Session("userGUID")
 		
 		if getQueryVar("hostguid")<>"" then curHostGUID=getQueryVar("hostguid")
