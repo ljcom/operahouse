@@ -753,13 +753,17 @@ function saveBatchUpload(code, guid, location, formId, eid, dataFrm, afterSucces
 function replaceContent() {
     var str = $('#content-post1').html();
 
-    var res = str
-    res = res.replace(/&lt;/g, "<");
-    res = res.replace(/&gt;/g, ">");
+    
+	var res = str
+	if (res!=undefined) {
+		res = res.replace(/&lt;/g, "<");
+		res = res.replace(/&gt;/g, ">");
 
-    res = res.replace(/&amp;lt;/g, "<");
-    res = res.replace(/&amp;gt;/g, ">");
-    $('#content-post1').html(res);
+		res = res.replace(/&amp;lt;/g, "<");
+		res = res.replace(/&amp;gt;/g, ">");
+    }
+	$('#content-post1').html(res);
+	
 
 }
 
