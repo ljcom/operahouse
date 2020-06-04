@@ -104,18 +104,31 @@ Partial Class OPHCore_API_default
                 Dim stateid = getQueryVar("s")
                 Dim bpage = getQueryVar("p")
                 Dim searchText = getQueryVar("q")
+                Dim parent = getQueryVar("t")
 
                 If sortOrder = "" Or sortOrder = "," Then sortOrder = ""
+
                 If stateid = "" Or stateid = "" Or stateid = "," Or stateid = "null" Then
                     sqlstr = "select c.StateID from modl a inner join msta b on a.ModuleStatusGUID=b.ModuleStatusGUID inner join mstastat c on b.ModuleStatusGUID=c.ModuleStatusGUID and c.isDefault=1 where moduleid='" & code & "'"
                     stateid = runSQLwithResult(sqlstr, curODBC)
                 End If
 
-                If searchText = "null" Or searchText = "search" Then searchText = ""
-                searchText = searchText.Replace("%2B", "+")
-                If bpage = "" Then bpage = 1
+                If parent = "null" Or parent = "parent" Then 
+					parent = ""
+				else 
+					parent=", '" & parent & "'"
+				end if
+				
+                If searchText = "null" Or searchText = "search" Then 
+					searchText = ""
+				else 
+					searchText=", '" & searchText & "'"
+                end if
+				searchText = searchText.Replace("%2B", "+")
+                
+				If bpage = "" Then bpage = 1
                 If code <> "" Then
-                    sqlstr = "exec [api].[query] '" & curHostGUID & "', '" & code & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", '" & sortOrder & "', '" & stateid & "'"
+                    sqlstr = "exec [api].[query] '" & curHostGUID & "', '" & code & "'" & parent & searchText & ", " & bpage & ", '" & sortOrder & "', '" & stateid & "'"
                     writeLog("mode query: " & sqlstr)
                 End If
 
@@ -356,7 +369,7 @@ Partial Class OPHCore_API_default
                 If tokenid <> "" Then
                     Dim client As WebClient = New WebClient()
                     Dim url = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" & tokenid
-                    'writeLog(url)
+                    writeLog(url)
                     Dim result As String = client.DownloadString(url)
                     'writeLog(result)
 
@@ -366,7 +379,7 @@ Partial Class OPHCore_API_default
                             userid = rx.Split(":")(1).Replace("""", "").Replace(" ", "")
                         End If
                     Next
-                    sqlstr = "exec api.verifyPassword '" & curHostGUID & "', '" & userid & "', '" & pwd & "',1 , '" & suba & "'"
+                    sqlstr = "exec api.verifyPassword '" & curHostGUID & "', '" & userid & "', '" & pwd & "',2 , '" & suba & "'"
                     writeLog(sqlstr)
                     writeLog(curODBC)
                     xmlstr = getXML(sqlstr, curODBC)
