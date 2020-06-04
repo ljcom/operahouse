@@ -44,6 +44,8 @@ Public Class cl_base
     Protected contentofSaveString As String = ""
     Protected contentofUserName As String = ""
     Protected contentofMultiAccount As String = "0"
+    Protected contentofCartID As String = ""
+    Protected contentofSuba As String = ""
 
 #Region "Properties Section"
 
@@ -83,11 +85,11 @@ Public Class cl_base
                 If p.Split("=").Length > 1 Then
                     If p <> "" AndAlso p.Split("=")(1) <> "" Then
 
-                        If p.Split("=")(0).tolower = "env" Then
+                        If p.Split("=")(0).ToLower = "env" Then
                             env = p.Split("=")(1)
-                        ElseIf p.Split("=")(0).tolower = "code" Then
+                        ElseIf p.Split("=")(0).ToLower = "code" Then
                             code = p.Split("=")(1)
-                        ElseIf p.Split("=")(0).tolower = "guid" Then
+                        ElseIf p.Split("=")(0).ToLower = "guid" Then
                             guid = p.Split("=")(1)
                         Else
                             otherpars &= p.Split("=")(0) & "=" & p.Split("=")(1) & "&"
@@ -284,7 +286,7 @@ Public Class cl_base
     'End Function
 #End Region
 #Region "Form Control"
-   
+
     Function findProperty(ByVal dss As DataSet, ByVal columnName As String, ByVal Prop As String) As String
 
         Dim r As DataRow
@@ -298,7 +300,7 @@ Public Class cl_base
         Return x
     End Function
 
-    Sub setCookie(cookieName As String, cookieValue As String, cookieDay As Long, optional cookieHour as long=0, optional cookieMin as long=0)
+    Sub setCookie(cookieName As String, cookieValue As String, cookieDay As Long, Optional cookieHour As Long = 0, Optional cookieMin As Long = 0)
         'response.Cookies(cookiename)
         If Response.Cookies(cookieName) Is Nothing Then
             Dim MyCookie As New HttpCookie(cookieName)
@@ -346,16 +348,16 @@ Public Class cl_base
         If isOverwrite And File.Exists(path & saveFile) Then
             File.Delete(path & saveFile)
         End If
-		If not File.Exists(path & saveFile) then
-			Try
-				Using w As StreamWriter = File.AppendText(path & saveFile)
-					w.Write(content)
-				End Using
+        If Not File.Exists(path & saveFile) Then
+            Try
+                Using w As StreamWriter = File.AppendText(path & saveFile)
+                    w.Write(content)
+                End Using
 
-			Catch ex As Exception
-				Debug.Write(ex.Message.ToString)
-			End Try
-		End If
+            Catch ex As Exception
+                Debug.Write(ex.Message.ToString)
+            End Try
+        End If
 
     End Sub
 
@@ -693,75 +695,79 @@ Public Class cl_base
         End If
         Return hGUID
     End Function
-    Function loadAccount(Optional env As String = "", Optional code As String = "", Optional GUID As String = "") As String
+    Function loadAccount(Optional env As String = "", Optional code As String = "", Optional GUID As String = "", Optional suba As String = "") As String
         Dim loadStr = ""
         If GUID = "undefined" Then GUID = ""
 
         Dim hguid = getSession()
 
-            If hguid = "" Then hguid = "null" Else hguid = "'" & hguid & "'"
-            Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
-            'dynamic account
-            contentOfsequoiaCon = appSettings.Item("sequoia")
-            Session("sequoia") = contentOfsequoiaCon
+        If hguid = "" Then hguid = "null" Else hguid = "'" & hguid & "'"
+        Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
+        'dynamic account
+        contentOfsequoiaCon = appSettings.Item("sequoia")
+        Session("sequoia") = contentOfsequoiaCon
 
-            Dim urlAddress = Request.Url.Authority & Request.ApplicationPath
-            If urlAddress.Substring(Len(urlAddress) - 1, 1) = "/" Then urlAddress = urlAddress.Substring(0, Len(urlAddress) - 1)
+        Dim urlAddress = Request.Url.Authority & Request.ApplicationPath
+        If urlAddress.Substring(Len(urlAddress) - 1, 1) = "/" Then urlAddress = urlAddress.Substring(0, Len(urlAddress) - 1)
 
-            Dim autouserloginid = Request.ServerVariables(5)
-            If env = "" Then env = "" Else env = ", @env='" & env & "'"
-            If code = "" Then code = "" Else code = ", @code='" & code & "'"
-            If GUID = "" Then GUID = "" Else GUID = ", @GUID='" & GUID & "'"
+        Dim autouserloginid = Request.ServerVariables(5)
+        If env = "" Then env = "" Else env = ", @env='" & env & "'"
+        If code = "" Then code = "" Else code = ", @code='" & code & "'"
+        If GUID = "" Then GUID = "" Else GUID = ", @GUID='" & GUID & "'"
+        If suba = "" Then suba = "" Else suba = ", @suba='" & suba & "'"
 
-            Dim sqlstr = "exec api.loadAccount " & hguid & ", '" & urlAddress & "'" & env & code & GUID & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "")
-            'Dim sqlstr = "exec api.loadAccount " & hGUID & ", '" & urlAddress & "', " & env & ", " & code & ""
-            writeLog("loadaccount: " & sqlstr)
-            'writeLog(contentOfsequoiaCon)
-            Dim r1 As DataSet = SelectSqlSrvRows(sqlstr, contentOfsequoiaCon)
-            If r1.Tables.Count > 0 AndAlso r1.Tables(0).Rows.Count > 0 Then
-                contentOfaccountId = r1.Tables(0).Rows(0).Item(0).ToString
-                Session(urlAddress.Replace("/", "_")) = contentOfaccountId
-                setCookie(urlAddress.Replace("/", "_"), contentOfaccountId, 1)
-                setCookie("baseAccount", contentOfaccountId, 1)
-                Session("baseAccount") = contentOfaccountId
-                'contentOfsqDB = 
-                Session("sqDB") = r1.Tables(0).Rows(0).Item(1).ToString
+        Dim sqlstr = "exec api.loadAccount " & hguid & ", '" & urlAddress & "'" & env & code & GUID & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "") '& suba
+        'Dim sqlstr = "exec api.loadAccount " & hGUID & ", '" & urlAddress & "', " & env & ", " & code & ""
+        writeLog("loadaccount: " & sqlstr)
+        'writeLog(contentOfsequoiaCon)
+        Dim r1 As DataSet = SelectSqlSrvRows(sqlstr, contentOfsequoiaCon)
+        If r1.Tables.Count > 0 AndAlso r1.Tables(0).Rows.Count > 0 Then
+            contentOfaccountId = r1.Tables(0).Rows(0).Item(0).ToString
+            Session(urlAddress.Replace("/", "_")) = contentOfaccountId
+            setCookie(urlAddress.Replace("/", "_"), contentOfaccountId, 1)
+            setCookie("baseAccount", contentOfaccountId, 1)
+            Session("baseAccount") = contentOfaccountId
+            'contentOfsqDB = 
+            Session("sqDB") = r1.Tables(0).Rows(0).Item(1).ToString
 
-                'session("ODBC") = 
-                Session("ODBC") = r1.Tables(0).Rows(0).Item(2).ToString
-                'Session("odbc") = session("ODBC")
-                contentOfthemeFolder = r1.Tables(0).Rows(0).Item(3).ToString
-                'Session("themeFolder") = contentOfthemeFolder
-                contentOfthemePage = r1.Tables(0).Rows(0).Item(4).ToString
-                'Session("themePage") = contentOfthemePage
-                contentOfEnv = r1.Tables(0).Rows(0).Item(5).ToString
-                contentOfCode = r1.Tables(0).Rows(0).Item(6).ToString
-                'Session("code") = r1.Tables(0).Rows(0).Item(6).ToString
+            'session("ODBC") = 
+            Session("ODBC") = r1.Tables(0).Rows(0).Item(2).ToString
+            'Session("odbc") = session("ODBC")
+            contentOfthemeFolder = r1.Tables(0).Rows(0).Item(3).ToString
+            'Session("themeFolder") = contentOfthemeFolder
+            contentOfthemePage = r1.Tables(0).Rows(0).Item(4).ToString
+            'Session("themePage") = contentOfthemePage
+            contentOfEnv = r1.Tables(0).Rows(0).Item(5).ToString
+            contentOfCode = r1.Tables(0).Rows(0).Item(6).ToString
+            'Session("code") = r1.Tables(0).Rows(0).Item(6).ToString
 
-                contentofNeedLogin = r1.Tables(0).Rows(0).Item(9).ToString
-                contentofsignInPage = r1.Tables(0).Rows(0).Item(10).ToString
-                contentofwhiteAddress = r1.Tables(0).Rows(0).Item(11)
-                'contentofOfflineCode = r1.Tables(0).Rows(0).Item(13)
+            contentofNeedLogin = r1.Tables(0).Rows(0).Item(9).ToString
+            contentofsignInPage = r1.Tables(0).Rows(0).Item(10).ToString
+            contentofwhiteAddress = r1.Tables(0).Rows(0).Item(11)
+            'contentofOfflineCode = r1.Tables(0).Rows(0).Item(13)
 
-                Session(contentOfaccountId & "_hostGUID") = r1.Tables(0).Rows(0).Item(7).ToString
-                setCookie(contentOfaccountId & "_hostGUID", Session("hostGUID"), 1)
-                Session("userGUID") = r1.Tables(0).Rows(0).Item(8).ToString
+            Session(contentOfaccountId & "_hostGUID") = r1.Tables(0).Rows(0).Item(7).ToString
+            setCookie(contentOfaccountId & "_hostGUID", Session("hostGUID"), 1)
+            Session("userGUID") = r1.Tables(0).Rows(0).Item(8).ToString
 
-                setCookie("isWhiteAddress", IIf(contentofwhiteAddress, 1, 0), 1)
-                setCookie("skinColor", r1.Tables(0).Rows(0).Item(12).ToString, 1)
-                contentOfGUID = r1.Tables(0).Rows(0).Item(13).ToString
-                contentofMultiAccount = r1.Tables(0).Rows(0).Item(15).ToString
-                setCookie(contentOfaccountId & "_multiAccount", contentofMultiAccount, 365)
-                If contentofMultiAccount = "0" Then
-                    setCookie(contentOfaccountId + "_accountid", contentOfaccountId, 365)
-                End If
+            setCookie("isWhiteAddress", IIf(contentofwhiteAddress, 1, 0), 1)
+            setCookie("skinColor", r1.Tables(0).Rows(0).Item(12).ToString, 1)
+            contentOfGUID = r1.Tables(0).Rows(0).Item(13).ToString
+            contentofMultiAccount = r1.Tables(0).Rows(0).Item(15).ToString
+            contentofCartID = r1.Tables(0).Rows(0).Item(16).ToString
+            contentofSuba = r1.Tables(0).Rows(0).Item(17).ToString
 
-                loadStr = contentOfCode & ";" & contentOfthemeFolder & ";" & contentOfthemePage & ";" & contentofNeedLogin & ";" & contentofsignInPage & ";" & contentOfGUID & ";" & contentofwhiteAddress
-                Session(contentOfCode.ToLower() & GUID.ToLower()) = loadStr
-                setCookie(contentOfCode.ToLower(), loadStr, 1)
-            Else
-                loadStr = ";;;;;;"
+            setCookie(contentOfaccountId & "_multiAccount", contentofMultiAccount, 365)
+            If contentofMultiAccount = "0" Then
+                setCookie(contentOfaccountId + "_accountid", contentOfaccountId, 365)
             End If
+
+            loadStr = contentOfCode & ";" & contentOfthemeFolder & ";" & contentOfthemePage & ";" & contentofNeedLogin & ";" & contentofsignInPage & ";" & contentOfGUID & ";" & contentofwhiteAddress & ";" & contentofCartID & ";" & contentofSuba
+            Session(contentOfCode.ToLower() & GUID.ToLower()) = loadStr
+            setCookie(contentOfCode.ToLower(), loadStr, 1)
+        Else
+            loadStr = ";;;;;;;;"
+        End If
 
         'End If
         Return loadStr

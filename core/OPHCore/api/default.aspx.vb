@@ -31,9 +31,9 @@ Partial Class OPHCore_API_default
         Dim xmlstr = ""
         Dim xmlstr1 = ""
 
-        Dim mode = getQueryVar("mode")
-        If mode = "" Then
-            mode = Request.Form("mode")
+        Dim mode = getQueryVar("mode").ToString()
+        If mode = "" And Not Request.Form("mode") Is Nothing Then
+            mode = Request.Form("mode").ToString()
         End If
 
         Dim code = ""
@@ -61,7 +61,8 @@ Partial Class OPHCore_API_default
 
                 xmlstr = "<sqroot><hostGUID>" & curHostGUID & "</hostGUID><code>" & contentOfCode & "</code><env>" & contentOfEnv & "</env>" &
                         "<themeFolder>" & contentOfthemeFolder & "</themeFolder><themePage>" & contentOfthemePage & "</themePage><needLogin>" &
-                        contentofNeedLogin & "</needLogin><signInPage>" & contentofsignInPage & "</signInPage><GUID>" & contentOfGUID & "</GUID><userName>" & contentofUserName & "</userName></sqroot>"
+                        contentofNeedLogin & "</needLogin><signInPage>" & contentofsignInPage & "</signInPage><GUID>" & contentOfGUID & 
+						"</GUID><userName>" & contentofUserName & "</userName><cartID>" & contentofCartID & "</cartID></sqroot>"
 
             Case "master"
                 sqlstr = "exec [api].[theme] '" & curHostGUID & "', '" & code & "', " & GUID

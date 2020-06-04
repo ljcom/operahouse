@@ -1537,7 +1537,7 @@ function searchTextChild(e, searchvalue, code, isClear) {
         var pageNo = (pageNo == undefined) ? 1 : pageNo;
 
         var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + sqlfilter + '&bPageNo=' + pageNo + '&bSearchText=' + bSearchText + '&date=' + getUnique();
-        var divName = ['child' + String(code).toLowerCase() + getGUID()];
+        var divName = ['child' + String(code).toLowerCase() + getGUID().toLowerCase()];
         //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
         if (mode == 'inline')
             //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];
