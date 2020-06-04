@@ -5,30 +5,21 @@
 	<openTypeFont name="bwrp36" path="\\caprianno\vsonline\operahouse\fonts\eanbwrp36tt.ttf"/>
 	<openTypeFont name="bwrp72" path="\\caprianno\vsonline\operahouse\fonts\eanbwrp72tt.ttf"/>
 	<openTypeFont name="c39" path="\\caprianno\vsonline\operahouse\fonts\IDAutomationHC39M Code 39 Barcode.ttf"/>
-	<report id="Report1" topMargin="0" bottomMargin="0" rightMargin="14" leftMargin="14" pageSize="a4" pageOrientation="landscape">
+	<report id="Report1" topMargin="0" bottomMargin="0" rightMargin="14" leftMargin="14" pageSize="a4">
 		<query id="Query1">
 			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoBarcode_report">
-				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/><parameter type="uniqueIdentifier" name="@kuantitas" value="#Parameters[&quot;kuantitas&quot;]#"/><parameter name="@StartDate" type="dateTime" value="#Parameters[&quot;StartDate&quot;]#"/><parameter name="@EndDate" type="dateTime" value="#Parameters[&quot;EndDate&quot;]#"/></storedProcedure>
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+				<parameter name="@totalPrint" type="uniqueIdentifier" value="#Parameters[&quot;totalPrint&quot;]#"/>
+				<parameter name="@skuname" type="uniqueIdentifier" value="#Parameters[&quot;skuname&quot;]#"/>
+			</storedProcedure>
 		</query>
 		<template id="Template1"/>
 		<header id="Header1"/>
-		<detail id="Detail1" autoSplit="true" height="329.5">
-			<recordBox dataFormat="" id="RecordBox2" width="144" x="12" y="12" field="skucode" fontSize="65" font="bc128" height="72"/>
-			<label id="Label1" height="14" text="Kode Produk" width="78" y="24" x="170"/>
-			<label height="14" id="Label2" text="Nama Produk" width="84" y="54" x="170"/>
-			<label id="Label3" height="14" text=":" width="12" y="54" x="254"/>
-			<label height="14" text=":" width="12" id="Label4" y="24" x="254"/>
-			<recordBox id="RecordBox1" dataFormat="" height="14" field="skucode" y="24" x="266" width="103"/>
-			<recordBox dataFormat="" height="14" id="RecordBox3" field="skuname" x="266" width="101" y="54"/>
-			<recordBox dataFormat="" field="skucode" id="RecordBox4" align="center" x="12" width="144" fontSize="15" height="18" y="78"/>
-			<recordBox dataFormat="" width="144" y="12" field="skucode" font="bc128" fontSize="65" height="72" id="RecordBox5" x="393"/>
-			<label height="14" text="Kode Produk" width="78" y="24" id="Label5" x="551"/>
-			<label height="14" text="Nama Produk" width="84" y="54" id="Label6" x="551"/>
-			<label height="14" text=":" width="12" y="54" id="Label7" x="635"/>
-			<label height="14" text=":" width="12" y="24" id="Label8" x="635"/>
-			<recordBox dataFormat="" height="14" field="skucode" y="24" width="103" id="RecordBox6" x="647"/>
-			<recordBox dataFormat="" height="14" y="54" field="skuname" width="101" id="RecordBox7" x="647"/>
-			<recordBox dataFormat="" field="skucode" align="center" y="78" width="144" fontSize="15" height="18" id="RecordBox8" x="393"/>
+		<detail id="Detail1" autoSplit="true" height="107.5">
+			<recordBox dataFormat="" id="RecordBox2" font="c39" fontSize="20" width="144" height="84" x="12" y="12" field="SKUname"/>
+			<recordBox dataFormat="" font="c39" fontSize="20" width="144" height="84" y="12" field="SKUname" id="RecordBox1" x="174"/>
+			<recordBox dataFormat="" font="c39" fontSize="20" width="144" height="84" y="12" field="SKUname" id="RecordBox3" x="336"/>
 		</detail>
 		<footer id="Footer1"/>
 	</report>

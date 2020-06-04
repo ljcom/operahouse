@@ -83,9 +83,11 @@ Partial Class OPHCore_api_msg_rptDialog
 
             'store dplx to folder temp
             'If contentOfaccountId <> "" Then contentOfaccountId = Session("baseAccount")
+			
             Dim path As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/")
-            writeFile(path, reportName & ".dplx", queryDPLX, False)
-
+            if queryDPLX<>"" then
+				writeFile(path, reportName & ".dplx", queryDPLX, False)
+			end if
             Dim pathDPLX As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/" & reportName & ".dplx")
 
             parameterid = parameterid.Replace(":", "=").Replace(":null", "=null").Replace("''", "")
@@ -417,7 +419,6 @@ Partial Class OPHCore_api_msg_rptDialog
                             Dim totalrow As Int32 = ds.Tables(0).Rows.Count
                             If totalrow > 1 Then
                                 ws.Rows(rows).InsertCopy(totalrow - 1, ws.Rows(rows))
-
                             End If
 
                             Dim cl = ds.Tables(0).Columns.Count

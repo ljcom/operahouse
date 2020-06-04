@@ -20,6 +20,7 @@
         Dim GUID = getQueryVar("GUID")
         Dim needLogin As Boolean = False
         Dim loginPage As String = ""
+        Dim suba As String = ""
 
         'Dim old = True
         'If old Then
@@ -40,6 +41,8 @@
             If x(3) <> "" Then needLogin = x(3) = True
             loginPage = x(4)
             GUID = x(5)
+            'CartID = x(7)
+            suba = x(8)
         Catch exc As Exception
             Stop
         End Try
@@ -83,9 +86,11 @@
         '    End Using
         'End If
 
-
+		dim err as boolean=false
         If code = "" Then 'And getQueryVar("code") <> "404" Then
-            reloadURL("index.aspx?code=404")
+            Response.Write("LoadAccount: code is empty")
+			err=true
+			'Stop
         ElseIf (getQueryVar("code") = "") Then 'And getQueryVar("code") <> "404" Then
 
             Dim reloadStr = Request.RawUrl & IIf(InStr(Request.RawUrl, "?") = 0, "?", IIf(Right(Request.RawUrl, 1) = "&", "", "&"))
@@ -98,7 +103,7 @@
             reloadURL(reloadStr)
         ElseIf code <> "" And needLogin And getQueryVar("code") <> loginPage Then
             reloadURL("index.aspx?code=" & loginPage)
-        ElseIf GUID.tolower <> getQueryVar("GUID").tolower Then 'reload for onedataonly
+        ElseIf GUID.ToLower <> getQueryVar("GUID").ToLower Then 'reload for onedataonly
             Dim url1 = "?"
             For Each u In Request.Url.Query.Replace("?", "").Split("&")
                 If u.Split("=")(0) = "code" Then
@@ -120,7 +125,7 @@
         ElseIf Request.QueryString("guid") <> "" Then  'change to post
             setCookie("GUID", getQueryVar("guid"), 0, 1)
             reloadURL(Request.Url.OriginalString)
-        ElseIf Request.form("guid") = "" Then   'no guid - browse mode
+        ElseIf Request.Form("guid") = "" Then   'no guid - browse mode
             setCookie("GUID", "", 0, 1)
         End If
 
@@ -133,36 +138,40 @@
         '    'Response.Cookies("cartID").Value = ""
         'End If
 
-        Dim appSet As NameValueCollection = ConfigurationManager.AppSettings
-        'dynamic account
-        Dim cdnLocation = appSet.Item("cdnLocation")
-        Dim getseqcon = appSet.Item("sequoia")
+		if not err then
+			Dim appSet As NameValueCollection = ConfigurationManager.AppSettings
+			'dynamic account
+			Dim cdnLocation = appSet.Item("cdnLocation")
+			Dim getseqcon = appSet.Item("sequoia")
 
-        'If cartID = "" Then
-            'Response.Cookies("cartID").Value = runSQLwithResult("exec api.createNewid")
+			'If cartID = "" Then
+			'Response.Cookies("cartID").Value = runSQLwithResult("exec api.createNewid")
 			Dim newid As String
 
-            'newid = runSQLwithResult("exec api.createNewid", getseqcon) '//tidak boleh ada, taruh di atas, kalau masih dipakai
-            newid=curHostGUID
+			'newid = runSQLwithResult("exec api.createNewid", getseqcon) '//tidak boleh ada, taruh di atas, kalau masih dipakai
+			newid = curHostGUID
 			setCookie("cartID", newid, 7)
-        'Else
-            'Response.Cookies("cartID").Value = Request.Cookies("cartID").Value
-        'End If
-        If code <> loginPage And code <> "lockscreen" And code <> "home" Then  'And code <> "404" Then
-            If Request.ApplicationPath.Replace("/", "") = "" Then
-                setCookie(Request.Url.Authority.Replace(": ", "") & "_lastPar", Request.Url.PathAndQuery, 1)
-            Else
-                setCookie(Request.ApplicationPath.Replace("/", "") & "_lastPar", Request.Url.PathAndQuery, 1)
-            End If
-        End If
+			'Else
+			'Response.Cookies("cartID").Value = Request.Cookies("cartID").Value
+			'End If
+			If code <> loginPage And code <> "lockscreen" And code <> "home" Then  'And code <> "404" Then
+				If Request.ApplicationPath.Replace("/", "") = "" Then
+					setCookie(Request.Url.Authority.Replace(": ", "") & "_lastPar", Request.Url.PathAndQuery, 1)
+				Else
+					setCookie(Request.ApplicationPath.Replace("/", "") & "_lastPar", Request.Url.PathAndQuery, 1)
+				End If
+			End If
 
+			If suba <> "" And Session("baseAccount") & "_accountid" <> suba Then
+				setCookie(Session("baseAccount") & "_accountid", suba, "1")
+			End If
 
-        'loadaccount in trouble, please check
+			'loadaccount in trouble, please check
 
-        WindowOnLoad = "initTheme('" & code.ToLower & "', null, '" & curHostGUID & "', '" & pageURL & "');"
-        Response.Cookies("themeFolder").Value = themeFolder
-        loadManifest(themeFolder, cdnLocation, isOfflineMode)
-        setCookie("page", pageURL, "1")
-
+			WindowOnLoad = "initTheme('" & code.ToLower & "', null, '" & curHostGUID & "', '" & pageURL & "');"
+			Response.Cookies("themeFolder").Value = themeFolder
+			loadManifest(themeFolder, cdnLocation, isOfflineMode)
+			setCookie("page", pageURL, "1")
+		end if
     End Sub
 End Class
