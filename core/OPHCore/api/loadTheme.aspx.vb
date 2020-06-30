@@ -99,16 +99,6 @@ Partial Class OPHCore_api_loadTheme
         'writeLog(js)
         'End If
 
-        'save
-        If Not System.IO.File.Exists(themetemp) = True Then
-            Dim file As System.IO.FileStream
-            file = System.IO.File.Create(themetemp)
-            file.Close()
-        My.Computer.FileSystem.WriteAllText(themetemp, doc, False)															 
-        End If
-
-
-
         'insert gpskey
         '##gpskey##
         Dim gpskey = runSQLwithResult("select infovalue from acctinfo where infokey='gpskey'")
@@ -119,6 +109,23 @@ Partial Class OPHCore_api_loadTheme
 		'##recaptchakey##
 		Dim recaptchakey=runSQLwithResult("select infovalue from acctinfo where infokey='recaptchakey'")
 		If recaptchakey <> "" Then doc = doc.Replace("##recaptchakey##", recaptchakey)
+
+		'insert gsigninclientid
+		'##gsigninclientid##
+		Dim gsigninclientid=runSQLwithResult("select infovalue from acctinfo where infokey='gsigninclientid'")
+		If gsigninclientid <> "" Then doc = doc.Replace("##gsigninclientid##", gsigninclientid)
+
+        'save
+        If Not System.IO.File.Exists(themetemp) = True Then
+            Dim file As System.IO.FileStream
+            file = System.IO.File.Create(themetemp)
+            file.Close()
+        My.Computer.FileSystem.WriteAllText(themetemp, doc, False)															 
+        End If
+
+
+
+
 
         'flush the result
 

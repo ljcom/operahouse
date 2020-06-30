@@ -154,7 +154,7 @@
 			'Else
 			'Response.Cookies("cartID").Value = Request.Cookies("cartID").Value
 			'End If
-			If code <> loginPage And code <> "lockscreen" And code <> "home" Then  'And code <> "404" Then
+			If code <> loginPage And code <> "lockscreen" And code <> "home" And code <> "login2" And code <> "login" Then  'And code <> "404" Then
 				If Request.ApplicationPath.Replace("/", "") = "" Then
 					setCookie(Request.Url.Authority.Replace(": ", "") & "_lastPar", Request.Url.PathAndQuery, 1)
 				Else

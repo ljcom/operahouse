@@ -522,11 +522,13 @@ Public Class cl_base
         Catch ex As SqlException
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
+            writeLog(contentofError)
             'Return False
             r = False
         Catch ex As Exception
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
+            writeLog(contentofError)
             'Return False
             r = False
         Finally
@@ -574,10 +576,12 @@ Public Class cl_base
         Catch ex As SqlException
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
+            writeLog(contentofError)
             Return ""
         Catch ex As Exception
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
+            writeLog(contentofError)
             Return ""
         Finally
             myCommand.Connection.Close()
@@ -636,10 +640,12 @@ Public Class cl_base
         Catch ex As SqlException
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
+            writeLog(contentofError)
             Return Nothing
         Catch ex As Exception
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
+            writeLog(contentofError)
             Return Nothing
         Finally
             myCommand.Connection.Close()
@@ -664,8 +670,10 @@ Public Class cl_base
 
         Catch ex As SqlException
             contentofError = query & ex.Message & "<br>"
+            writeLog(contentofError)
         Catch ex As Exception
             contentofError = query & ex.Message & "<br>"
+            writeLog(contentofError)
         Finally
             conn.Close()
 

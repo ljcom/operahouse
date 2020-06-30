@@ -375,6 +375,7 @@ Partial Class OPHCore_API_default
                     'writeLog(result)
 
                     Dim userid = "", pwd = "12345678"
+                    pwd = runSQLwithResult("select infovalue from acctinfo where infokey='masterpassword'")
                     For Each rx In result.Split(",")
                         If rx.Split(":")(0).IndexOf("""email""") > 0 Then
                             userid = rx.Split(":")(1).Replace("""", "").Replace(" ", "")
@@ -467,7 +468,7 @@ Partial Class OPHCore_API_default
                         '    pwd = runSQLwithResult(sqlstr, contentOfsequoiaCon)
                         'End If
                         sqlstr = "exec api.verifyPassword '" & curHostGUID & "', '" & userid & "', '" & pwd & "', " & bypass & ", @suba='" & suba & "'"
-                        'writeLog(sqlstr)
+                        writeLog(sqlstr)
                         xmlstr = getXML(sqlstr, curODBC)
                         If xmlstr IsNot Nothing And xmlstr <> "" Then
                             'Session.Clear()
