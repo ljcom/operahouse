@@ -4,32 +4,25 @@
     Protected isOfflineMode As Boolean = False
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
 
-        'offline
-        'If getQueryVar("offline") = "1" Then
-        '    setCookie("offline", "1", 1)
-        '    isOfflineMode = True
-        'ElseIf getQueryVar("offline") = "0" Then
-        '    setCookie("offline", "0", 1)
-        'End If
-
-        'If Not IsNothing(Request.Cookies("offline")) Then
-        '    isOfflineMode = Request.Cookies("offline").Value = "1"
-        'End If
-
         Dim curHostGUID As String = "", code As String = "", themeFolder As String = "", pageURL As String = ""
         Dim GUID = getQueryVar("GUID")
         Dim needLogin As Boolean = False
         Dim loginPage As String = ""
         Dim suba As String = ""
 
-        'Dim old = True
-        'If old Then
+        If curHostGUID = "" Or Session("ODBC") = "" Or Session("baseAccount") = "" Then loadAccount()
+
+        Dim newaccount = Request.QueryString("accountid")
+        If Session("suba") <> newaccount And Not newaccount Is Nothing Then
+            contentOfaccountId = newaccount
+            needLogin = True
+            Session("suba") = newaccount
+        Else
+            contentOfaccountId = Session("suba")
+        End If
+
         contentOfCode = getQueryVar("code")
-        'If Session(contentOfCode.ToLower()) = "" Then
-        Dim loadStr = loadAccount(getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
-        'Session(contentOfCode.ToLower()) = contentOfthemeFolder & ";" & contentOfthemePage & ";" & contentofNeedLogin & ";" & contentofsignInPage & ";" & contentOfGUID
-        'setCookie(contentOfCode.ToLower(), Session(contentOfCode), 1)
-        'End If
+        Dim loadStr = loadAccount(getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"), contentOfaccountId)
 
         curHostGUID = getSession()
 
@@ -38,55 +31,18 @@
             code = x(0)
             themeFolder = x(1)
             pageURL = x(2)
-            If x(3) <> "" Then needLogin = x(3) = True
+            If Not needLogin Then
+                If x(3) <> "" Then needLogin = x(3) = True
+            End If
             loginPage = x(4)
-            GUID = x(5)
+                GUID = x(5)
             'CartID = x(7)
             suba = x(8)
         Catch exc As Exception
             Stop
         End Try
 
-
-        'code = contentOfCode
-        ''env = contentOfEnv
-        'themeFolder = contentOfthemeFolder
-        'pageURL = contentOfthemePage
-        'needLogin = contentofNeedLogin
-        'loginPage = contentofsignInPage
-        'GUID = contentOfGUID
-
-
-        'Else
-        '    Dim account As String = "", url As String = Request.Url.OriginalString.Replace(Request.Url.PathAndQuery, "") & Request.ApplicationPath
-        '    If url.Substring(Len(url) - 1, 1) = "/" Then url = url.Substring(0, Len(url) - 1)
-        '    Dim HostGUID As String = getSession()
-
-        '    url = url & "/ophcore/api/default.aspx?mode=account&env=" & getQueryVar("env") & "&code=" & getQueryVar("code") & "&hostGUID=" & HostGUID & "&GUID=" & GUID
-        '    'writeLog(url)
-        '    Using WC As New System.Net.WebClient()
-        '        If Request.ServerVariables(5) <> "" Then WC.UseDefaultCredentials = True
-        '        Try
-        '            account = WC.DownloadString(url)
-        '            Dim x = XDocument.Parse(account)
-
-        '            curHostGUID = x.<sqroot>.<hostGUID>.Value    'Session("hostGUID")
-        '            code = x.<sqroot>.<code>.Value.ToLower 'contentOfCode
-        '            'env = x.<sqroot>.<env>.Value 'contentOfEnv
-        '            themeFolder = x.<sqroot>.<themeFolder>.Value 'contentOfthemeFolder
-        '            pageURL = x.<sqroot>.<themePage>.Value 'contentOfthemePage
-        '            needLogin = x.<sqroot>.<needLogin>.Value 'contentofNeedLogin
-        '            loginPage = x.<sqroot>.<signInPage>.Value 'contentofsignInPage
-        '            Session("hostGUID") = curHostGUID
-        '            GUID = x.<sqroot>.<GUID>.Value 'contentofGUID
-        '        Catch exc As Exception
-        '            Console.Write(exc.Message)
-        '            code = "404"
-        '        End Try
-        '    End Using
-        'End If
-
-		dim err as boolean=false
+        Dim err as boolean=false
         If code = "" Then 'And getQueryVar("code") <> "404" Then
             Response.Write("LoadAccount: code is empty")
 			err=true
@@ -162,13 +118,13 @@
 				End If
 			End If
 
-			If suba <> "" And Session("baseAccount") & "_accountid" <> suba Then
-				setCookie(Session("baseAccount") & "_accountid", suba, "1")
-			End If
+            If suba <> "" And getCookie(getCookie("baseAccount") & "_accountid") <> suba Then
+                setCookie(Session("baseAccount") & "_accountid", suba, "1")
+            End If
 
-			'loadaccount in trouble, please check
+            'loadaccount in trouble, please check
 
-			WindowOnLoad = "initTheme('" & code.ToLower & "', null, '" & curHostGUID & "', '" & pageURL & "');"
+            WindowOnLoad = "initTheme('" & code.ToLower & "', null, '" & curHostGUID & "', '" & pageURL & "');"
 			Response.Cookies("themeFolder").Value = themeFolder
 			loadManifest(themeFolder, cdnLocation, isOfflineMode)
 			setCookie("page", pageURL, "1")

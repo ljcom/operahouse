@@ -317,7 +317,10 @@ Public Class cl_base
     Sub writeLog(logMessage As String) ', ByVal Optional accountName As String = "")
         'Dim w As TextWriter
         Dim accountName = ""
-        If contentOfaccountId <> "" Then accountName = Session("baseAccount")
+        If contentOfaccountId <> "" Or IsNothing(contentOfaccountId) Then
+            accountName = Session("baseAccount")
+            accountName = getCookie(accountName & "_accountid")
+        End If
         If logMessage <> "" Then
             Dim path = Server.MapPath("~/OPHContent/log")
             path = path & "\" '& "OPHContent\log\"
@@ -330,7 +333,7 @@ Public Class cl_base
             Try
                 Using w As StreamWriter = File.AppendText(logFilepath)
                     w.Write(vbCrLf + "Log Entry : ")
-                    w.WriteLine("{0} {1}: " + vbCrLf + "{2}", DateTime.Now.ToLongTimeString(), DateTime.Now.ToLongDateString(), logMessage)
+                    w.WriteLine("{0} {1} {2}: " + vbCrLf + "{3}", DateTime.Now.ToLongTimeString(), DateTime.Now.ToLongDateString(), GetIPAddress(), logMessage)
                     'w.WriteLine("  :{0}", logMessage)
                 End Using
 
@@ -724,7 +727,7 @@ Public Class cl_base
         If GUID = "" Then GUID = "" Else GUID = ", @GUID='" & GUID & "'"
         If suba = "" Then suba = "" Else suba = ", @suba='" & suba & "'"
 
-        Dim sqlstr = "exec api.loadAccount " & hguid & ", '" & urlAddress & "'" & env & code & GUID & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "") '& suba
+        Dim sqlstr = "exec api.loadAccount " & hguid & ", '" & urlAddress & "'" & env & code & GUID & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "") & suba
         'Dim sqlstr = "exec api.loadAccount " & hGUID & ", '" & urlAddress & "', " & env & ", " & code & ""
         writeLog("loadaccount: " & sqlstr)
         'writeLog(contentOfsequoiaCon)
@@ -780,7 +783,17 @@ Public Class cl_base
         'End If
         Return loadStr
     End Function
-    
+
+    Public Shared Function GetIPAddress() As String
+        Dim context As System.Web.HttpContext = System.Web.HttpContext.Current
+        Dim sIPAddress As String = context.Request.ServerVariables("HTTP_X_FORWARDED_FOR")
+        If String.IsNullOrEmpty(sIPAddress) Then
+            Return context.Request.ServerVariables("REMOTE_ADDR")
+        Else
+            Dim ipArray As String() = sIPAddress.Split(New [Char]() {","c})
+            Return ipArray(0)
+        End If
+    End Function
 #End Region
 
     'Private Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.PreRender
