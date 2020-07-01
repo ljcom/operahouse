@@ -15,15 +15,16 @@ Partial Class OPHCore_api_msg_rptDialog
         Dim curHostGUID = getSession() 'Session("hostGUID")
 
         If curHostGUID = "" Or Session("ODBC") = "" Or Session("baseAccount") = "" Then loadAccount()
-        If contentOfaccountId Is Nothing Or contentOfaccountId = "" Then 
-			contentOfaccountId = Session("baseAccount")
-			contentOfaccountId = getCookie(contentOfaccountId & "_accountid")
-		end if
+        'If contentOfaccountId Is Nothing Or contentOfaccountId = "" Then 
+        'contentOfaccountId = Session("baseAccount")
+        'contentOfaccountId = getCookie(contentOfaccountId & "_accountid")
+        'End if
         Dim curUserGUID = Session("userGUID")
         If IsNothing(curHostGUID) Then
             curHostGUID = "null"
         Else
             curHostGUID = "'" & curHostGUID & "'"
+            contentOfaccountId = runSQLwithResult("select suba from userhost where hostguid=" & curHostGUID)
         End If
 
         If getQueryVar("hostguid") <> "" Then curHostGUID = getQueryVar("hostguid")

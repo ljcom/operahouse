@@ -245,7 +245,7 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
 			setCookie(code.toLowerCase() + '_browseMode', mode);
 		}
 		if (GUID==null) GUID=$('#cid').val();
-		d = '<div><div class="box box-solid box-default child" data-code="+code+" data-parentKey="+parentKey+" data-guid="+GUID+" data-mode="+mode+" style="box-shadow:0px;border:none" id="child' + code + GUID.toLowerCase() + '"></div></div>';
+		d = '<div><div class="box box-solid box-default child" data-code="'+code+'" data-parentKey="'+parentKey+'" data-guid="'+GUID+'" data-mode="'+mode+'" style="box-shadow:0px;border:none" id="child' + code + GUID.toLowerCase() + '"></div></div>';
 		if ($('#child' + code + GUID.toLowerCase()).length == 0) {
 			$('#tr2_' + pcode + GUID.toLowerCase()).children("td").append(d);
 		}
@@ -1134,7 +1134,8 @@ function downloadChild(code, t) {
     //var titleName = '';
     //var subtitleName = '';
 
-    ParentGUID = $(t).parent().parent().parent().parent().parent().parent().parent().data("parentguid");
+    ParentGUID = $(t).parent().parent().parent().parent().parent().parent().parent().data("guid");
+
     if (ParentGUID == undefined) ParentGUID = getQueryVariable('GUID');
 
     //window.open('OPHCore/api/msg_rptDialog.aspx?gbox=1&code=' + code + '&parameter=&outputType=3&' + ParentGUID + '&titleName=' + titleName + '&subtitleName=' + subtitleName + ' ' + Date());
