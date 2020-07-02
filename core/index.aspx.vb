@@ -6,6 +6,20 @@
 
         Dim curHostGUID As String = "", code As String = "", themeFolder As String = "", pageURL As String = ""
         Dim GUID = getQueryVar("GUID")
+        Dim no = getQueryVar("no")
+        Dim refno = getQueryVar("refno")
+        Dim id = getQueryVar("id")
+        Dim hasGUID = True
+        If (GUID Is Nothing Or GUID = "") Then
+            If (no Is Nothing Or no = "") Then
+                If (refno Is Nothing Or refno = "") Then
+                    If (id Is Nothing Or id = "") Then
+                        hasGUID = False
+                    End If
+                End If
+            End If
+        End If
+
         Dim needLogin As Boolean = False
         Dim loginPage As String = ""
         Dim suba As String = ""
@@ -22,7 +36,9 @@
         End If
 
         contentOfCode = getQueryVar("code")
-        Dim loadStr = loadAccount(getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"), contentOfaccountId)
+        Dim loadStr = loadAccount(getQueryVar("env"), getQueryVar("code"),
+                                  getQueryVar("GUID"), getQueryVar("no"), getQueryVar("refno"), getQueryVar("id"),
+                                  contentOfaccountId)
 
         curHostGUID = getSession()
 
@@ -42,11 +58,16 @@
             Stop
         End Try
 
-        Dim err as boolean=false
+        Dim err as boolean=False
         If code = "" Then 'And getQueryVar("code") <> "404" Then
             Response.Write("LoadAccount: code is empty")
-			err=true
-			'Stop
+            err = True
+            'Stop
+        ElseIf getQueryVar("guid") = "" And (no <> "" Or refno <> "" Or id <> "") And GUID <> "" Then
+            Dim reloadStr = Request.RawUrl & IIf(InStr(Request.RawUrl, "?") = 0, "?", IIf(Right(Request.RawUrl, 1) = "&", "", "&"))
+            reloadStr &= "guid=" & GUID
+            setCookie("GUID", GUID, 0, 1)
+            reloadURL(reloadStr)
         ElseIf (getQueryVar("code") = "") Then 'And getQueryVar("code") <> "404" Then
 
             Dim reloadStr = Request.RawUrl & IIf(InStr(Request.RawUrl, "?") = 0, "?", IIf(Right(Request.RawUrl, 1) = "&", "", "&"))
@@ -56,6 +77,7 @@
             Else
                 reloadStr = reloadStr.replace(getQueryVar("code"), code)
             End If
+
             reloadURL(reloadStr)
         ElseIf code <> "" And needLogin And getQueryVar("code") <> loginPage Then
             reloadURL("index.aspx?code=" & loginPage)
@@ -78,6 +100,8 @@
             If url1.IndexOf("GUID=") < 0 Then url1 &= IIf(GUID <> "", "guid=" & GUID, "")   'jika guid nya kosong, harus dipasang
             'If Request.QueryString("guid") <> "" Then setCookie("GUID", getQueryVar("guid"), 0, 1)
             reloadURL(url1)
+
+
         ElseIf Request.QueryString("guid") <> "" Then  'change to post
             setCookie("GUID", getQueryVar("guid"), 0, 1)
             reloadURL(Request.Url.OriginalString)

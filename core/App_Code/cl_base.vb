@@ -91,6 +91,13 @@ Public Class cl_base
                             code = p.Split("=")(1)
                         ElseIf p.Split("=")(0).ToLower = "guid" Then
                             guid = p.Split("=")(1)
+                        ElseIf p.Split("=")(0).ToLower = "no" Then
+                            'guid = p.Split("=")(1)
+                        ElseIf p.Split("=")(0).ToLower = "refno" Then
+                            'guid = p.Split("=")(1)
+                        ElseIf p.Split("=")(0).ToLower = "id" Then
+                            'guid = p.Split("=")(1)
+
                         Else
                             otherpars &= p.Split("=")(0) & "=" & p.Split("=")(1) & "&"
                         End If
@@ -706,7 +713,9 @@ Public Class cl_base
         End If
         Return hGUID
     End Function
-    Function loadAccount(Optional env As String = "", Optional code As String = "", Optional GUID As String = "", Optional suba As String = "") As String
+    Function loadAccount(Optional env As String = "", Optional code As String = "",
+                         Optional GUID As String = "", Optional no As String = "", Optional refno As String = "", Optional id As String = "",
+                         Optional suba As String = "") As String
         Dim loadStr = ""
         If GUID = "undefined" Then GUID = ""
 
@@ -725,9 +734,12 @@ Public Class cl_base
         If env = "" Then env = "" Else env = ", @env='" & env & "'"
         If code = "" Then code = "" Else code = ", @code='" & code & "'"
         If GUID = "" Then GUID = "" Else GUID = ", @GUID='" & GUID & "'"
+        If no = "" Then no = "" Else no = ", @no='" & no & "'"
+        If refno = "" Then refno = "" Else refno = ", @refno='" & refno & "'"
+        If id = "" Then id = "" Else id = ", @id='" & id & "'"
         If suba = "" Then suba = "" Else suba = ", @suba='" & suba & "'"
 
-        Dim sqlstr = "exec api.loadAccount " & hguid & ", '" & urlAddress & "'" & env & code & GUID & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "") & suba
+        Dim sqlstr = "exec api.loadAccount " & hguid & ", '" & urlAddress & "'" & env & code & GUID & no & refno & id & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "") & suba
         'Dim sqlstr = "exec api.loadAccount " & hGUID & ", '" & urlAddress & "', " & env & ", " & code & ""
         writeLog("loadaccount: " & sqlstr)
         'writeLog(contentOfsequoiaCon)
