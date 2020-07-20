@@ -388,6 +388,8 @@ Public Class cl_base
                 r = r.Replace("--", "").Replace("+", "").Replace(";", "").Replace("<", "").Replace(">", "")
             ElseIf key.ToLower = "bsearchtext" Or key.ToLower = "search" Or key.ToLower = "q" Then
                 r = r.Replace("--", "").Replace(";", "").Replace("<", "").Replace(">", "")
+			else if key.ToLower = "gid" then
+				r=r
             Else
                 r = r.Replace(" Then ", "").Replace("'", "").Replace("--", "").Replace("+", "").Replace(";", "").Replace("""", "").Replace("<", "").Replace(">", "")
                 If r <> old_r Then
