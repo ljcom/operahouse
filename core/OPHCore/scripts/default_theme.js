@@ -260,6 +260,8 @@ function loadChild(code, parentKey, GUID, pageNo, mode, pcode) {
 			xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + mode+(getMode()=='studio'?'_studio':'')];
 		else if (mode != undefined && mode != '')
 			xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_child' + mode+(getMode()=='studio'?'_studio':'')];
+		else if (mode === 'tree')
+			xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_tree' + mode+(getMode()=='studio'?'_studio':'')];
 		else
 			xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + code + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_childBrowse'+(getMode()=='studio'?'_studio':'')];
 
@@ -525,8 +527,11 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess, befo
                         }
                         else
                             console.log(input.name);
-
-                        data.append(input.name, newVal);
+						
+						if (input.name == "cid" && $("#PK" + code.toLowerCase()).val() != undefined)
+							data.append("cid", $("#PK" + code.toLowerCase()).val());
+						else
+							data.append(input.name, newVal);
                     });
                 });
             }
@@ -544,7 +549,10 @@ function saveFunction1(code, guid, location, formId, dataFrm, afterSuccess, befo
                 data.append(d[0], newVal);
             });
         }
-
+		
+		
+        
+		
         data.append('mode', 'save');
         data.append('cfunctionlist', guid);
         data.append('unique', $("#unique").val());
@@ -1149,6 +1157,7 @@ function storeHash(code, anchor) {
 }
 function getHash(code) {
     hash = getCookie('hash_' + code);
+	
     if (hash !== '') {
         //alert(hash);
         $('a[href*="' + hash + '"]').trigger('click');

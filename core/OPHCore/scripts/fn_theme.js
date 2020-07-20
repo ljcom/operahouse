@@ -82,7 +82,12 @@ function pushTheme(divname, xmldoc, xltdoc, clearBefore, f) {
                 else if (document.implementation && document.implementation.createDocument) {
                     xsl = checkXSLInclude(xsl);
                     xsltProcessor = new XSLTProcessor();
-                    xsltProcessor.importStylesheet(xsl);
+					try {
+						xsltProcessor.importStylesheet(xsl);
+					} catch (e) {
+						console.log(e.message);
+					}
+					
                     resultDocument = xsltProcessor.transformToFragment(xml, document);
                     ex = xmlToString(resultDocument);
                     // added 2016 09 30
