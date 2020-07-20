@@ -46,6 +46,7 @@ Public Class cl_base
     Protected contentofMultiAccount As String = "0"
     Protected contentofCartID As String = ""
     Protected contentofSuba As String = ""
+	protected contentofExpired as string = ""
 
 #Region "Properties Section"
 
@@ -326,7 +327,7 @@ Public Class cl_base
         Dim accountName = ""
         If contentOfaccountId <> "" Or IsNothing(contentOfaccountId) Then
             accountName = Session("baseAccount")
-            accountName = getCookie(accountName & "_accountid")
+            'accountName = getCookie(accountName & "_accountid")
         End If
         If logMessage <> "" Then
             Dim path = Server.MapPath("~/OPHContent/log")
@@ -781,14 +782,17 @@ Public Class cl_base
             contentofMultiAccount = r1.Tables(0).Rows(0).Item(15).ToString
             contentofCartID = r1.Tables(0).Rows(0).Item(16).ToString
             contentofSuba = r1.Tables(0).Rows(0).Item(17).ToString
+            contentofExpired = r1.Tables(0).Rows(0).Item(18).ToString
 
             setCookie(contentOfaccountId & "_multiAccount", contentofMultiAccount, 365)
             If contentofMultiAccount = "0" Then
                 setCookie(contentOfaccountId + "_accountid", contentOfaccountId, 365)
             End If
 
-            loadStr = contentOfCode & ";" & contentOfthemeFolder & ";" & contentOfthemePage & ";" & contentofNeedLogin & ";" & contentofsignInPage & ";" & contentOfGUID & ";" & contentofwhiteAddress & ";" & contentofCartID & ";" & contentofSuba
-            Session(contentOfCode.ToLower() & GUID.ToLower()) = loadStr
+            loadStr = contentOfCode & ";" & contentOfthemeFolder & ";" & contentOfthemePage & ";" & contentofNeedLogin & ";" & contentofsignInPage 
+            loadStr = loadStr & ";" & contentOfGUID & ";" & contentofwhiteAddress & ";" & contentofCartID & ";" & contentofSuba & ";" & contentofExpired
+
+			Session(contentOfCode.ToLower() & GUID.ToLower()) = loadStr
             setCookie(contentOfCode.ToLower(), loadStr, 1)
         Else
             loadStr = ";;;;;;;;"

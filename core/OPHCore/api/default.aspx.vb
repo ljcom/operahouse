@@ -206,7 +206,7 @@ Partial Class OPHCore_API_default
                 Dim pwd = IIf(String.IsNullOrWhiteSpace(Request.Form("pwd")), getQueryVar("pwd"), Request.Form("pwd"))
                 Dim comment = getQueryVar("comment")
 
-                If approvaluserguid = "undefined" Or approvaluserguid = "null" Then approvaluserguid = "NULL" Else approvaluserguid = "'" & approvaluserguid & "'"
+                If approvaluserguid = "undefined" Or approvaluserguid = "null" Or approvaluserguid = "" Then approvaluserguid = "NULL" Else approvaluserguid = "'" & approvaluserguid & "'"
                 If pwd = "undefined" Then pwd = "NULL" Else pwd = "'" & pwd & "'"
 
                 Dim fl = functionlist.Split(",")
@@ -344,16 +344,24 @@ Partial Class OPHCore_API_default
                     isSingle = False
                 End If
             Case "resetpwd"
-                Dim email = getQueryVar("email")
+                dim uguid = curUserGUID 
+                dim hguid = "'" & curHostGUID & "'"
+				Dim email = getQueryVar("email")
                 Dim suba = getQueryVar("suba")
                 Dim verifycode = getQueryVar("secret")
                 Dim newpwd = getQueryVar("newpwd")
                 Dim confirmpwd = getQueryVar("confirmpwd")
+				
+				if uguid="undefined" or uguid="" then uguid="null" else uguid = "'" & uguid & "'"
+				if email="undefined" or email="" then email="null" else email = "'" & email & "'"
+				if suba="undefined" or suba="" then suba="null" else suba = "'" & suba & "'"
+				if verifycode="undefined" or verifycode="" then verifycode="null" else verifycode = "'" & verifycode & "'"
+				
                 If newpwd = confirmpwd Then
-
-                    sqlstr = "exec gen.resetPassword null, '" & email & "', null, @password='" & newpwd & "' , @accountid='" & suba & "', @secretCode='" & verifycode & "'"
+                    sqlstr = "exec gen.resetPassword " & hguid & ", " & email & ", " & uguid & ", @password='" & newpwd & "' , @accountid=" & suba & ", @secretCode=" & verifycode & ""
+					writeLog(sqlstr)
                 Else
-                    xmlstr = "<sqroot><message>Not match and strong enough password.</message></sqroot>"
+                    xmlstr = "<sqroot><message>Not match password.</message></sqroot>"
                 End If
             Case "checkaccount"
                 Dim accountid = contentOfaccountId

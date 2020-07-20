@@ -5,7 +5,7 @@
 	<openTypeFont name="bwrp36" path="\\caprianno\vsonline\operahouse\fonts\eanbwrp36tt.ttf"/>
 	<openTypeFont name="bwrp72" path="\\caprianno\vsonline\operahouse\fonts\eanbwrp72tt.ttf"/>
 	<openTypeFont name="c39" path="\\caprianno\vsonline\operahouse\fonts\IDAutomationHC39M Code 39 Barcode.ttf"/>
-	<report id="Report1" topMargin="0" bottomMargin="0" pageSize="custom" leftMargin="5" pageHeight="300" pageWidth="100" rightMargin="5">
+	<report id="Report1" topMargin="0" bottomMargin="0" pageSize="custom" pageHeight="85.05" pageWidth="170.1" rightMargin="0" leftMargin="0">
 		<query id="Query1">
 			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeLabelRes_report">
 				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
@@ -15,10 +15,10 @@
 		<template id="Template1"/>
 		<header id="Header1"/>
 		<detail id="Detail1" autoSplit="true" height="102.5">
-			<label id="Label1" font="TimesRoman" align="center" fontSize="5" text="NOFANDRA KHANZA DARMAWAN" width="71" height="15.5" x="-3.5" y="0.5"/>
-			<label id="Label2" font="TimesRoman" fontSize="5" text="Tgl. Lahir/Umur : 10/07/2018 / 1th/11bl/2hr" x="1" height="15" align="fullJustify" y="19" width="62"/>
-			<label id="Label3" font="TimesRoman" align="justify" height="10" fontSize="5" width="73.5" text="12/06/2020 08.56" x="1.5" y="62"/>
-			<label font="TimesRoman" align="justify" id="Label6" height="10" fontSize="5" text="No. RM : 00.15.56.09" width="59.1" x="2" y="35.5"/>
+			<label id="Label1" font="TimesRoman" text="NOFANDRA KHANZA DARMAWAN" height="10" x="5.5" y="11.25" width="159" fontSize="8"/>
+			<label id="Label2" font="TimesRoman" text="Tgl. Lahir/Umur : 10/07/2018 / 1th/11bl/2hr" align="fullJustify" fontSize="7" height="12.25" y="29.75" x="11.25" width="147.75"/>
+			<label id="Label3" font="TimesRoman" align="justify" height="10" width="73.5" text="12/06/2020 08.56" fontSize="7" x="10.75" y="62"/>
+			<label font="TimesRoman" align="justify" id="Label6" height="10" text="No. RM : 00.15.56.09" fontSize="7" x="11" y="45.25" width="148.1"/>
 		</detail>
 		<footer id="Footer1"/>
 	</report>

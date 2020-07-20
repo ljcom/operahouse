@@ -5,7 +5,7 @@
 	<openTypeFont name="bwrp36" path="\\caprianno\vsonline\operahouse\fonts\eanbwrp36tt.ttf"/>
 	<openTypeFont name="bwrp72" path="\\caprianno\vsonline\operahouse\fonts\eanbwrp72tt.ttf"/>
 	<openTypeFont name="c39" path="\\caprianno\vsonline\operahouse\fonts\IDAutomationHC39M Code 39 Barcode.ttf"/>
-	<report id="Report1" topMargin="0" bottomMargin="0" pageSize="custom" leftMargin="0" pageHeight="141.75" pageWidth="198.45" rightMargin="0">
+	<report id="Report1" topMargin="0" bottomMargin="0" pageSize="custom" leftMargin="0" rightMargin="0" pageWidth="170.1" pageHeight="85.05">
 		<query id="Query1">
 			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeLabelObat_report">
 				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
@@ -14,18 +14,18 @@
 		</query>
 		<template id="Template1"/>
 		<header id="Header1"/>
-		<detail id="Detail1" autoSplit="true" height="102.5">
-			<label id="Label1" align="center" height="9" text="RENATA MEDICAL" width="139.75" font="TimesBold" fontSize="6" x="23" y="0.5"/>
-			<label id="Label2" font="TimesRoman" align="center" fontSize="5" width="126.75" height="19.5" x="32.25" y="6" text="JL. Bangbarung Raya/H.Achmad Sobana&#xA; No.39, Bogor&#xA;Telp : (0251) 8348386"/>
+		<detail id="Detail1" autoSplit="true" height="85.05">
+			<label id="Label1" align="center" height="9" text="RENATA MEDICAL" width="139.75" font="TimesBold" fontSize="6" y="0.5" x="15"/>
+			<label id="Label2" font="TimesRoman" align="center" fontSize="5" width="126.75" height="19.5" y="6" text="JL. Bangbarung Raya/H.Achmad Sobana&#xA; No.39, Bogor&#xA;Telp : (0251) 8348386" x="24.25"/>
 			<line id="Line1" y1="24.5" y2="24.5" x1="0.5" x2="198"/>
 			<label id="Label3" font="TimesRoman" fontSize="5" width="188.5" height="10.25" x="4.5" y="26.5" text="NAMA: RAFIKA PUTRI"/>
-			<label font="TimesRoman" id="Label4" fontSize="5" width="189.85" x="4.5" height="7.5" y="35.5" text="RM/ TGL. LAHIR : 00187165 / 29/05/1999"/>
-			<label font="TimesRoman" height="10" id="Label5" fontSize="5" width="188.6" x="4.4" y="45.25" text="R. RAWAT/POLI : UMUM"/>
-			<label font="TimesRoman" id="Label6" fontSize="5" width="190.35" x="4.75" height="8" y="56.5" text="NAMA OBAT / QTY : Paracetamol @ 50mg 01/10"/>
-			<label font="TimesRoman" fontSize="5" width="190.35" id="Label7" text="ED :" height="7.75" y="67.75" x="4.75"/>
-			<label font="TimesRoman" id="Label8" text="1 X SEHARI 1 Tablet" align="center" height="7" y="71.5" fontSize="6" width="55.6" x="65.5"/>
-			<label fontSize="5" height="14.5" id="Label9" width="117.6" align="center" x="34.5" y="81" font="TimesBold" text="SESUDAH MAKAN&#xA;TIDAK BOLEH DIULANG TANPA RESEP DOKTER"/>
-			<label font="TimesRoman" fontSize="5" width="47.6" align="center" height="7" id="Label10" x="146.5" y="93.75" text="Tgl Cetak : 29/06/2020"/>
+			<label font="TimesRoman" id="Label4" fontSize="5" width="189.85" height="7.5" text="RM/ TGL. LAHIR : 00187165 / 29/05/1999" x="4.5" y="33.5"/>
+			<label font="TimesRoman" height="10" id="Label5" fontSize="5" width="188.6" x="4.4" text="R. RAWAT/POLI : UMUM" y="40"/>
+			<label font="TimesRoman" id="Label6" fontSize="5" width="190.35" x="4.75" height="8" text="NAMA OBAT / QTY : Paracetamol @ 50mg 01/10" y="46.5"/>
+			<label font="TimesRoman" fontSize="5" width="190.35" id="Label7" text="ED :" height="7.75" x="4.75" y="52.5"/>
+			<label font="TimesRoman" id="Label8" text="1 X SEHARI 1 Tablet" align="center" height="7" width="55.6" x="53.5" fontSize="5" y="58.5"/>
+			<label fontSize="5" height="14.5" id="Label9" width="117.6" align="center" font="TimesBold" x="22" y="64.5" text="SESUDAH MAKANs&#xA;TIDAK BOLEH DIULANG TANPA RESEP DOKTER"/>
+			<label font="TimesRoman" fontSize="5" width="47.6" align="center" height="7" id="Label10" text="Tgl Cetak : 29/06/2020" x="121.5" y="77.75"/>
 		</detail>
 		<footer id="Footer1"/>
 	</report>
