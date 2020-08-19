@@ -75,11 +75,13 @@ Public Class cl_base
             Return obj
         End If
     End Function
-    Sub reloadURL(url As String, Optional ispost As Boolean = True)
+    Sub reloadURL(url As String, Optional ispost As Boolean = True, optional mode as long=0)
         Response.Clear()
-        Dim newURL = url.Substring(InStr(url, "?"))
+        Dim newURL = url.Split("?")(0)
+		Dim parURL = url.Split("?")(1)
 
-        Dim par = newURL.Split("&")
+
+        Dim par = parURL.Split("&")
         Dim env As String = "", code As String = "", guid As String = "", otherpars As String = ""
         If par.Count > 0 Then
             For Each p In par
@@ -108,22 +110,25 @@ Public Class cl_base
         End If
         'rewrite
         'newURL = "index.aspx" & IIf(env <> "", env & "/", "") & IIf(code <> "", code & "/", "") & IIf(guid <> "", guid & "/", "") & otherpars
-        newURL = "index.aspx?" & IIf(env <> "", "env=" & env & "&", "") & IIf(code <> "", "code=" & code & "&", "") & otherpars '& IIf(guid <> "", "guid=" & guid & "&", "") & otherpars
-        newURL = IIf(Right(newURL, 2) = "/?", Replace(newURL, "/?", ""), newURL)
-        newURL = IIf(Right(newURL, 1) = "&", newURL.Substring(0, Len(newURL) - 1), newURL)
-
-        Dim sb As StringBuilder = New StringBuilder()
-        sb.Append("<html>")
-        sb.AppendFormat("<body onload='document.forms[""form""].submit()'>")
-        sb.AppendFormat("<form name='form' action='{0}' method='post'>", newURL)
-        sb.AppendFormat("<input type='hidden' name='guid' value='{0}'>", guid)
-        'For Each t In otherpars.Split("&")
-        'If t <> "" Then
-        'sb.AppendFormat("<input type='hidden' name='{0}' value='{1}'>", t.Split("=")(0), t.Split("=")(1))
-        'End If
-        'Next
-
-        If ispost Then
+        if mode=0
+			newURL = "index.aspx?" & IIf(env <> "", "env=" & env & "&", "") & IIf(code <> "", "code=" & code & "&", "") & otherpars '& IIf(guid <> "", "guid=" & guid & "&", "") & otherpars
+			newURL = IIf(Right(newURL, 2) = "/?", Replace(newURL, "/?", ""), newURL)
+			newURL = IIf(Right(newURL, 1) = "&", newURL.Substring(0, Len(newURL) - 1), newURL)
+		end if
+		
+		If ispost Then
+			'response.write(newURL)
+			Dim sb As StringBuilder = New StringBuilder()
+			sb.Append("<html>")
+			sb.AppendFormat("<body onload='document.forms[""form""].submit()'>")
+			sb.AppendFormat("<form name='form' action='{0}' method='post'>", newURL)
+			sb.AppendFormat("<input type='hidden' name='guid' value='{0}'>", guid)
+			For Each t In otherpars.Split("&")
+				If t <> "" Then
+					sb.AppendFormat("<input type='hidden' name='{0}' value='{1}'>", t.Split("=")(0), t.Split("=")(1))
+				End If
+			Next
+        
             sb.Append("</form>")
             sb.Append("</body>")
             sb.Append("</html>")

@@ -49,7 +49,7 @@
             themeFolder = x(1)
             pageURL = x(2)
             If Not needLogin Then
-                If x(3) <> "" Then needLogin = x(3) = True
+                If x(3) <> "" Then needLogin = x(3) = "True"
             End If
             loginPage = x(4)
             GUID = x(5)
@@ -145,7 +145,7 @@
             'Else
             'Response.Cookies("cartID").Value = Request.Cookies("cartID").Value
             'End If
-            If code <> loginPage And code <> "lockscreen" And code <> "home" And code <> "login2" And code <> "login" Then  'And code <> "404" Then
+            If code <> loginPage And code <> "lockscreen" And code <> "home" And code <> "login2" And code <> "login" And code <> "verifycode" Then  'And code <> "404" Then
                 If Request.ApplicationPath.Replace("/", "") = "" Then
                     setCookie(Request.Url.Authority.Replace(": ", "") & "_lastPar", Request.Url.PathAndQuery, 1)
                 Else
