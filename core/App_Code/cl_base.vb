@@ -485,7 +485,7 @@ Public Class cl_base
 
         'Tablename = Left(Tablename, 1) & "o" & Mid(Tablename, 3, Len(Tablename) - 2)
         Dim saveXML = writeXMLFromRequestForm("sqroot", fieldattachment, randGUID, Tablename)
-        saveXML = saveXML.Replace("&amp;lt;", "&lt;").Replace("&amp;gt;", "&gt;").Replace("&amp;#39;", "&#39;")
+        saveXML = saveXML.Replace("&amp;lt;", "&lt;").Replace("&amp;gt;", "&gt;").Replace("&amp;#39;", "&#39;").replace("%40","@").replace("%20"," ")
         Dim contentofSaveString As String = ""
         'Dim hostGUID As String
 
