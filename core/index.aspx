@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html> <!--manifest="manifest.aspx?mode=cache"-->
 <head>
-    <title>OPERAHOUSE</title>
+    <title><%=appName%></title>
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 	<meta charset="utf-8" /> 
     <link rel="manifest" href="manifest.aspx?mode=json">

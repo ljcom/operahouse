@@ -1138,17 +1138,18 @@ function downloadModule(code, exportMode, withData) {
     window.open('OPHCore/api/msg_rptDialog.aspx?code=' + code + '&mode=parent&exportMode=' + exportMode + '&withdata=' + withData);
 }
 
+
 function downloadChild(code, t) {
     //var titleName = '';
     //var subtitleName = '';
-
-    ParentGUID = $(t).parent().parent().parent().parent().parent().parent().parent().data("guid");
-
-    if (ParentGUID == undefined) ParentGUID = getQueryVariable('GUID');
+	ParentGUID=$('#filter'+code.toLowerCase()).val().split('=')[1].split('\'').join('');
+    //ParentGUID = $(t).parent().parent().parent().parent().parent().parent().parent().data("parentguid");
+    if (ParentGUID == undefined) ParentGUID = getGUID();
 
     //window.open('OPHCore/api/msg_rptDialog.aspx?gbox=1&code=' + code + '&parameter=&outputType=3&' + ParentGUID + '&titleName=' + titleName + '&subtitleName=' + subtitleName + ' ' + Date());
     window.open('OPHCore/api/msg_rptDialog.aspx?mode=child&code=' + code + '&parentGUID=' + ParentGUID);
 }
+
 
 //other
 

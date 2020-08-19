@@ -169,6 +169,7 @@ Partial Class OPHCore_api_msg_rptDialog
             SpreadsheetInfo.SetLicense(appSettings.Item("gBox.LicenseKey").ToString)
 
             Dim g = System.Guid.NewGuid().ToString
+            Dim d = Format(Date.Now, "yyyyMMddhhmm").ToString()
             Dim Parameters As ParameterDictionary = New ParameterDictionary
             Dim gfile As String = "", gext As String = ""
             Dim gpath As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/")
@@ -205,14 +206,14 @@ Partial Class OPHCore_api_msg_rptDialog
 
                 sqlstr = "exec gen.downloadChild " & curHostGUID & ", '" & code & "','" & ParentGUID & "'"
             Else
-                If InStr(reportName, ".") = 0 Then reportName = reportName & ".xlsx"
+                If InStr(reportName, ".") = 0 Then reportName = reportName & "_" & d & ".xlsx"
                 gext = LCase(Right(reportName, reportName.Length - InStr(reportName, ".")))
 
                 Select Case gext
                     Case "txt"
                         gfile = g & "_" & reportName & ".csv"
                     Case Else
-                        gfile = g & "_" & reportName
+                        gfile = reportName 'gfile = g & "_" & reportName
                 End Select
 
                 parameterid = parameterid.Replace(":", "=").Replace("''", "")
