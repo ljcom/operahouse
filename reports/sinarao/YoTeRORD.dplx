@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <report id="Report1">
+    <query id="Query1">
+      <storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeRord_report">
+        <parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+        <parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+      </storedProcedure>
+    </query>
+    <template id="Template1"/>
+    <header id="Header1" height="412.5">
+      <label id="Label1" height="14" font="TimesBold" width="156.1" text="PT. KADUJAYA PERKASA" x="5" y="4.5"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox2" field="startdate" y="81" width="100" x="92.5"/>
+      <label height="14" id="Label24" font="TimesRoman" fontSize="8" x="208.5" y="55.5" text="No :" width="16.5"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" id="RecordBox4" field="Nomor" fontSize="8" x="228.25" width="108" y="55.5"/>
+      <label height="14" id="Label31" fontSize="10" text="Start" x="6" y="81" width="75"/>
+      <label height="14" text=":" align="center" width="11" id="Label33" fontSize="10" y="81" x="80.5"/>
+      <label height="14" x="5" id="Label14" text="Purchasing Dept." font="TimesBold" width="85.1" y="19.5" fontSize="9"/>
+      <label height="14" id="Label15" x="167" y="41.5" fontSize="11" text="VOUCHER INSTRUKSI PRODUKSI" underline="true" font="TimesBold" width="188.1"/>
+      <line id="Line3" x1="4" y1="18" y2="18" x2="153"/>
+      <label height="14" fontSize="10" id="Label16" text="s/d" width="15" y="81" x="194"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox1" field="enddate" width="100" x="209" y="81"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="102" id="RecordBox21" field="production" y="97" x="92.5"/>
+      <label height="14" fontSize="10" x="6" id="Label17" y="97" text="Untuk Produksi" width="75"/>
+      <label height="14" text=":" align="center" width="11" fontSize="10" id="Label28" y="97" x="80.5"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox22" field="color" y="124" width="100" x="92"/>
+      <label height="14" fontSize="10" x="6" id="Label41" y="124" text="Warna" width="75"/>
+      <label height="14" text=":" align="center" width="11" fontSize="10" id="Label42" y="124" x="80"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox23" y="152" width="100" x="92" field="jmlhproduksi"/>
+      <label height="14" fontSize="10" x="6" id="Label43" text="Jumlah Produksi" width="75" y="152"/>
+      <label height="14" text=":" align="center" width="11" fontSize="10" id="Label44" y="152" x="80"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox24" y="168" width="100" x="92" field="berat"/>
+      <label height="14" fontSize="10" x="6" width="75" id="Label45" y="168" text="Berat"/>
+      <label height="14" text=":" align="center" width="11" fontSize="10" id="Label46" y="168" x="80"/>
+      <label height="14" fontSize="10" id="Label47" y="168" text="±" width="6.1" x="194"/>
+      <label height="14" fontSize="10" y="168" id="Label48" text="Gr.CAV :" width="40.1" x="244"/>
+      <label height="14" fontSize="10" x="6" width="75" id="Label49" y="184" text="Jenis Bahan"/>
+      <label height="14" text=":" align="center" width="11" fontSize="10" id="Label50" y="184" x="80"/>
+      <label height="14" fontSize="10" width="75" y="184" id="Label51" text="1    HDPE" x="92"/>
+      <label height="14" fontSize="10" width="75" id="Label52" text="2    MB" y="200" x="92"/>
+      <label height="14" fontSize="10" width="75" id="Label53" text="3    CA" y="216" x="92"/>
+      <label height="14" fontSize="10" id="Label54" text="Kg" width="14.5" y="184" x="307"/>
+      <label height="14" fontSize="10" width="14.5" id="Label55" y="200" text="%" x="307"/>
+      <label height="14" fontSize="10" width="14.5" text="%" id="Label56" y="216" x="307"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox30" y="152" field="machine" x="442" width="65"/>
+      <label height="14" fontSize="10" id="Label57" y="152" text="Mesin" width="50" x="357"/>
+      <label height="14" text=":" align="center" width="11" fontSize="10" id="Label58" y="152" x="428"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox31" y="168" x="442" width="65" field="pengiriman"/>
+      <label height="14" fontSize="10" id="Label59" text="Delivery to" width="50" y="168" x="357"/>
+      <label height="14" text=":" align="center" width="11" fontSize="10" id="Label60" y="168" x="428"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox32" y="184" x="442" width="65" field="orderoi"/>
+      <label height="14" fontSize="10" id="Label61" text="Voucher OI NO" y="184" width="70" x="357"/>
+      <label height="14" text=":" align="center" width="11" fontSize="10" id="Label62" y="184" x="428"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" x="92" id="RecordBox33" y="232" width="64" field="cycletime"/>
+      <label height="14" fontSize="10" x="6" width="75" id="Label63" y="232" text="Cycle Time"/>
+      <label height="14" text=":" align="center" width="11" fontSize="10" x="80" id="Label64" y="232"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="100" x="92" id="RecordBox34" field="pack" y="248"/>
+      <label height="14" fontSize="10" x="6" width="75" id="Label65" y="248" text="Packaging"/>
+      <label height="14" text=":" align="center" width="11" fontSize="10" id="Label66" y="248" x="80"/>
+      <label height="14" fontSize="10" id="Label67" text="Output/Hari" y="232" width="53" x="160"/>
+      <label height="14" fontSize="10" id="Label68" y="232" x="284" text="Pcs" width="15"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="100" x="92" field="pack" id="RecordBox36" y="264"/>
+      <label height="14" fontSize="10" text="Pcs" width="15" id="Label69" y="248" x="196"/>
+      <label height="14" fontSize="10" text="Pcs" width="15" x="196" id="Label70" y="264"/>
+      <label height="14" fontSize="10" y="248" id="Label71" x="227" text="Uk. Box" width="36.5"/>
+      <label height="14" fontSize="10" x="227" width="36.5" id="Label72" y="264" text="Uk. Zak"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" y="248" id="RecordBox37" x="266.5" width="82.1" field="box1"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" x="266.5" width="82.1" id="RecordBox38" y="264" field="zak1"/>
+      <recordBox dataFormat="" font="TimesRoman" fontSize="10" id="RecordBox39" y="281" field="datailkomponen" height="43" x="90" width="114"/>
+      <label height="14" fontSize="10" x="6" width="75" id="Label73" text="Data Komponen" y="281"/>
+      <label height="14" text=":" align="center" width="11" fontSize="10" x="80" id="Label74" y="281"/>
+      <label height="14" fontSize="10" x="6" width="75" id="Label78" y="330" text="Jatah Produksi"/>
+      <label height="14" text=":" align="center" width="11" fontSize="10" id="Label79" y="330" x="146"/>
+      <label height="14" fontSize="10" y="330" id="Label80" text="Murni" x="117.5" width="28"/>
+      <label height="14" text=":" align="center" width="11" fontSize="10" id="Label81" y="346" x="146"/>
+      <label height="14" fontSize="10" x="117.5" id="Label82" text="CA" y="346" width="28"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox42" y="330" width="105.5" field="murni" x="157.5"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="105.5" id="RecordBox43" y="346" x="157.5" field="CA"/>
+      <label height="14" text=":" align="center" width="11" fontSize="10" x="146" id="Label83" y="362"/>
+      <label height="14" fontSize="10" x="117.5" width="28" id="Label84" y="362" text="MB"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="105.5" x="157.5" id="RecordBox44" y="362" field="MB"/>
+      <label height="14" text=":" align="center" width="11" fontSize="10" x="146" id="Label85" y="378"/>
+      <label height="14" fontSize="10" x="117.5" width="28" id="Label86" y="378" text="Box"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="105.5" x="157.5" id="RecordBox45" y="378" field="box"/>
+      <label height="14" text=":" align="center" width="11" fontSize="10" x="146" id="Label87" y="394"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="105.5" x="157.5" id="RecordBox46" y="394" field="zak"/>
+      <label height="14" fontSize="10" x="117.5" width="28" id="Label88" y="394" text="Zak"/>
+      <label height="14" fontSize="10" id="Label89" text="Production Notes" y="232" x="364" width="143" align="center"/>
+      <label height="14" fontSize="10" width="15" id="Label90" y="330" x="265" text="Kg"/>
+      <label height="14" fontSize="10" width="15" x="265" id="Label91" y="346" text="Kg"/>
+      <label height="14" fontSize="10" width="15" x="265" id="Label92" y="362" text="Kg"/>
+      <label height="14" fontSize="10" text="Pcs" width="15" x="265" id="Label93" y="378"/>
+      <label height="14" fontSize="10" text="Pcs" width="15" x="265" id="Label94" y="394"/>
+      <rectangle id="Rectangle8" y="247.5" x="370.5" width="136" height="88.5"/>
+      <recordBox dataFormat="" font="TimesRoman" fontSize="10" id="RecordBox47" field="notes" x="373.5" width="128.5" y="251" height="81.5"/>
+      <label height="14" fontSize="10" width="50" x="357" id="Label95" y="97" text="Blow"/>
+      <label height="14" fontSize="10" width="50" x="357" id="Label96" text="Injection" y="117"/>
+      <rectangle id="Rectangle9" x="407" width="42" height="14" y="97"/>
+      <rectangle x="407" width="42" id="Rectangle10" height="14" y="117"/>
+      <label height="14" x="5" font="TimesBold" id="Label2" y="38.5" fontSize="8" text="PIC Dept." width="46.6"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" y="232" width="64" id="RecordBox35" x="215" field="pcs"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" y="168" id="RecordBox26" width="44" x="287" field="cav"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" y="168" id="RecordBox25" width="36.5" x="203" field="berat2"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="102" id="RecordBox27" y="184" x="203" field="hdpe"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="102" id="RecordBox28" y="200" x="203" field="mb1"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="102" id="RecordBox29" y="216" x="203" field="ca1"/>
+    </header>
+    <detail id="Detail1" autoSplit="true" height="320">
+      <rectangle id="Rectangle1" width="499.1" y="5" x="6" height="37"/>
+      <rectangle id="Rectangle2" y="5" x="96.5" width="341.1" height="37"/>
+      <label font="TimesRoman" id="Label4" align="center" fontSize="10" text="Tgl" y="8" x="9.5" height="12" width="82.5"/>
+      <label font="TimesRoman" id="Label5" align="center" fontSize="10" text="Nama Produk" height="12" y="8" x="100" width="268.5"/>
+      <line id="Line1" x1="6" y1="22" x2="505" y2="22"/>
+      <subReport id="SubReport2" x="6.1" width="498.001" y="24">
+        <query id="Query2">
+          <storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeRord_report_sub1">
+            <parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+            <parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+          </storedProcedure>
+        </query>
+        <header height="1" id="Header3"/>
+        <detail id="Detail3" height="16">
+          <recordBox dataFormat="" height="14" font="TimesRoman" id="RecordBox9" y="0" x="3" fontSize="9" field="tgl" width="83.5"/>
+          <recordBox dataFormat="" height="14" font="TimesRoman" field="skuname" id="RecordBox10" fontSize="9" y="-1" x="95.5" width="267.5"/>
+          <recordBox dataFormat="" height="14" font="TimesRoman" id="RecordBox11" y="0" fontSize="9" field="unit" x="370" width="58.6"/>
+          <recordBox dataFormat="" height="14" font="TimesRoman" id="RecordBox8" fontSize="9" y="0" field="qty" x="436" width="59.6"/>
+        </detail>
+        <footer height="1" id="Footer3"/>
+      </subReport>
+      <label font="TimesRoman" align="center" id="Label21" fontSize="10" text="Unit" height="12" y="6.75" x="376" width="57.5"/>
+      <label font="TimesRoman" align="center" id="Label22" fontSize="10" text="Qty" y="8.25" height="12" x="441" width="60.5"/>
+      <rectangle id="Rectangle3" y="5" x="372.1" width="65.6" height="36.1"/>
+    </detail>
+    <footer id="Footer1" height="1"/>
+  </report>
+</document>

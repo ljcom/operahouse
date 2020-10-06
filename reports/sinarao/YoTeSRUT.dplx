@@ -9,11 +9,10 @@
 		</query>
 		<template id="Template1"/>
 		<header id="Header1" height="113">
-			<label id="Label1" height="14" font="TimesBold" text="PT. KADUJAYA PERKASA" x="6" width="156" underline="true" y="4"/>
+			<label id="Label1" height="14" font="TimesBold" x="6" width="156" underline="true" y="4" text="PT. Sinar Alfa Omega"/>
 			<recordBox dataFormat="" height="14" font="TimesRoman" id="RecordBox2" width="100" field="RefNo" x="92" y="75" fontSize="9"/>
 			<label height="14" id="Label31" x="6" width="75" y="75" text="NO. POL" fontSize="9"/>
 			<label height="14" text=":" align="center" width="11" id="Label33" x="80" y="75" fontSize="9"/>
-			<label id="Label14" font="TimesBold" text="PLASTIC CONTAINER MANUFACTURER" fontSize="7" x="6" y="19" width="146" height="9"/>
 			<recordBox dataFormat="" height="14" font="TimesRoman" id="RecordBox21" width="100" x="92" y="91" fontSize="9" field="Supir"/>
 			<label height="14" x="6" id="Label17" width="75" text="DRIVER" fontSize="9" y="90"/>
 			<label height="14" text=":" align="center" width="11" id="Label28" x="80" y="91" fontSize="9"/>

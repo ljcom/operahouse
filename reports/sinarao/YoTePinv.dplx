@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <report id="Report1">
+    <query id="Query1">
+      <storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTepinv_report">
+        <parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+        <parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+      </storedProcedure>
+    </query>
+    <template id="Template1"/>
+    <header id="Header1" height="97">
+      <label height="14" width="138" text="Print - Purchase Invoice" id="Label1" x="6" y="6" font="TimesBold"/>
+      <label id="Label2" height="14" text="Purchase Invoice" x="6" width="498" align="center" font="TimesBold" y="30"/>
+      <recordBox id="RecordBox1" dataFormat="" y="48" field="docNo" x="6" width="498" height="12" font="TimesRoman" fontSize="10" align="center"/>
+      <label id="Label3" font="TimesBold" x="6" text="SUPPLIER :" width="72" fontSize="10" height="12" y="72"/>
+      <label font="TimesBold" id="Label4" text="TGL INVOICE :" fontSize="10" width="76.5" y="72" height="12" x="346"/>
+      <recordBox id="RecordBox2" dataFormat="" field="spplName" font="TimesRoman" fontSize="10" width="144" x="65" height="12" y="73"/>
+      <recordBox dataFormat="" font="TimesRoman" fontSize="10" id="RecordBox3" field="docDate" height="12" x="427" width="77" y="73"/>
+    </header>
+    <detail id="Detail1" height="149" autoSplit="true">
+      <line id="Line1" x1="6" x2="504" y1="6" y2="6"/>
+      <line x1="6" x2="504" id="Line2" y1="30" y2="30"/>
+      <label id="Label5" text="No" width="24" height="14" x="12" font="TimesRoman" y="12" fontSize="11"/>
+      <label y="12" id="Label6" text="PRCP NO" width="59.1" height="12" font="TimesRoman" x="42" fontSize="11"/>
+      <label height="14" y="12" id="Label7" text="Jumlah" x="408" width="96" font="TimesRoman"/>
+      <subReport id="SubReport1" width="510" x="0" y="36">
+        <query id="Query2">
+          <storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTepinv_report_sub1">
+            <parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+            <parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+          </storedProcedure>
+        </query>
+        <header id="Header2" height="1"/>
+        <detail id="Detail2" height="25">
+          <recordBox id="RecordBox4" dataFormat="" height="14" field="no" y="6" width="18" font="TimesRoman" fontSize="10" x="12"/>
+          <recordBox dataFormat="" height="14" y="6" font="TimesRoman" fontSize="10" id="RecordBox5" x="43" width="137" field="prcprefno"/>
+          <recordBox dataFormat="" height="14" y="6" font="TimesRoman" fontSize="10" id="RecordBox6" field="jumlah" x="408" width="90"/>
+        </detail>
+        <footer id="Footer2" height="1"/>
+      </subReport>
+      <label height="14" font="TimesBold" x="12" text="Ket :" fontSize="10" width="26" id="Label8" y="79"/>
+      <line x1="6" x2="504" id="Line3" y1="73" y2="73"/>
+      <label height="14" font="TimesBold" x="330" width="71.1" text="SUB TOTAL" fontSize="10" id="Label9" y="79"/>
+      <label height="14" font="TimesBold" width="71.1" text="PPN" x="330" fontSize="10" id="Label10" y="97"/>
+      <label height="14" font="TimesBold" x="330" width="71.1" text="TOTAL" fontSize="10" id="Label11" y="115"/>
+      <recordBox dataFormat="" x="408" height="14" font="TimesRoman" field="subtotal" fontSize="10" width="90" id="RecordBox7" y="79"/>
+      <recordBox dataFormat="" x="408" height="14" font="TimesRoman" fontSize="10" field="ppn" width="90" id="RecordBox8" y="97"/>
+      <recordBox dataFormat="" x="408" height="14" font="TimesRoman" fontSize="10" width="90" field="grandtotal" id="RecordBox9" y="115"/>
+      <label height="14" font="TimesBold" width="71.1" fontSize="10" x="45" text="Penerima," id="Label12" y="115"/>
+      <label height="14" font="TimesBold" width="71.1" fontSize="10" text="Hormat Kami," x="211" id="Label13" y="115"/>
+      <recordBox dataFormat="" x="42" field="note" font="TimesRoman" width="168" height="29.1" expandable="true" fontSize="10" id="RecordBox10" y="79"/>
+    </detail>
+    <footer id="Footer1" height="1">
+    </footer>
+  </report>
+</document>

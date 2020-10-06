@@ -536,3 +536,6 @@ function eventFire(el, etype){
     el.dispatchEvent(evObj);
   }
 }
+
+function isBigger(a,b) {return a>b;}
+function isSmaller(a,b) {return a<b;}

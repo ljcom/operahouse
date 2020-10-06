@@ -49,7 +49,7 @@
 			<label height="14" font="TimesBold" width="90" y="90" text="TANGGAL :" x="324" id="Label4"/>
 			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="11" x="90" y="90" width="144" field="customer" id="RecordBox2"/>
 			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="11" y="90" x="396" width="108" field="docDate" id="RecordBox3"/>
-			<label height="14" font="TimesBold" width="78" x="21" y="143" text="Type Payment" id="Label5"/>
+			<label height="14" font="TimesBold" width="78" x="21" y="143" id="Label5" text="Payment Type"/>
 			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="11" field="paymentType" width="96" x="105" y="143" id="RecordBox4"/>
 			<rectangle height="41" width="499" x="6" y="132" id="Rectangle1"/>
 		</detail>
