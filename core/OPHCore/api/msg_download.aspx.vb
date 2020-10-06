@@ -2,6 +2,7 @@
 Imports System.Drawing
 Imports System.Drawing.Imaging
 Imports System.IO
+Imports System.Security.AccessControl
 
 Partial Class OPHCore_api_msg_download
     Inherits cl_base
@@ -23,6 +24,8 @@ Partial Class OPHCore_api_msg_download
 
         Dim tGUID As String = getQueryVar("GUID")
         Dim code As String = getQueryVar("code")
+        Dim mode As String = getQueryVar("mode")
+        Dim filepath As String = getQueryVar("file")
         Dim fieldAttachment As String = getQueryVar("fieldAttachment")
         Dim imageName As String = getQueryVar("imageName")
 
@@ -59,6 +62,8 @@ Partial Class OPHCore_api_msg_download
         'End If
 
 
+
+
         If fieldAttachment <> "" Or imageName <> "" Then
             'Dim con = Session("odbc")
             Dim filename = ""
@@ -90,9 +95,14 @@ Partial Class OPHCore_api_msg_download
                 path = Left(filename, Len(filename) - lengthfile)
                 filename = Right(filename, lengthfile)
             End If
-
+            'Dim fSecurity As FileSecurity = File.GetAccessControl(path & filename)
             If File.Exists(path & filename) Then
-                download(path, filename)
+                If mode = "range" Then
+                    RangeDownload(path & filename, Context)
+                Else
+                    download(path, filename)
+                End If
+
             Else
                 'Response.Write("File is not exists.")
                 Response.TrySkipIisCustomErrors = True
@@ -113,6 +123,7 @@ Partial Class OPHCore_api_msg_download
             Response.StatusCode = 404
             Response.StatusDescription = "Page not found"
         End If
+
     End Sub
 
     Protected Function download(ByVal path As String, ByVal filename As String) As Boolean
@@ -150,7 +161,7 @@ Partial Class OPHCore_api_msg_download
 
                             Dim target As New Bitmap(nw, nh, PixelFormat.Format24bppRgb)
 
-                            Using graphics As Graphics = graphics.FromImage(target)
+                            Using graphics As Graphics = Graphics.FromImage(target)
                                 'graphics.Clear(Color.Transparent)
                                 'graphics.InterpolationMode = InterpolationMode.HighQualityBicubic
 
@@ -209,4 +220,64 @@ Partial Class OPHCore_api_msg_download
 
     End Function
 
+    Protected Sub RangeDownload(ByVal fullpath As String, ByVal context As HttpContext)
+        Dim size, start, [end], length As Long, fp As Long = 0
+
+        Using reader As StreamReader = New StreamReader(fullpath)
+            size = reader.BaseStream.Length
+            'size = 200000
+            start = 0
+            [end] = size - 1
+            length = size
+            context.Response.AddHeader("Accept-Ranges", "0-" & size)
+
+            If Not String.IsNullOrEmpty(context.Request.ServerVariables("HTTP_RANGE")) Then
+                Dim anotherStart As Long = start
+                Dim anotherEnd As Long = [end]
+                Dim arr_split As String() = context.Request.ServerVariables("HTTP_RANGE").Split(New Char() {Convert.ToChar("=")})
+                Dim range As String = arr_split(1)
+
+                If range.IndexOf(",") > -1 Then
+                    context.Response.AddHeader("Content-Range", "bytes " & start & "-" & [end] & "/" & size)
+                    Throw New HttpException(416, "Requested Range Not Satisfiable")
+                End If
+
+                If range.StartsWith("-") Then
+                    anotherStart = size - Convert.ToInt64(range.Substring(1))
+                Else
+                    arr_split = range.Split(New Char() {Convert.ToChar("-")})
+                    anotherStart = Convert.ToInt64(arr_split(0))
+                    Dim temp As Long = 0
+                    anotherEnd = If((arr_split.Length > 1 AndAlso Int64.TryParse(arr_split(1).ToString(), temp)), Convert.ToInt64(arr_split(1)), size)
+                End If
+
+                anotherEnd = If((anotherEnd > [end]), [end], anotherEnd)
+
+                If anotherStart > anotherEnd OrElse anotherStart > size - 1 OrElse anotherEnd >= size Then
+                    context.Response.AddHeader("Content-Range", "bytes " & start & "-" & [end] & "/" & size)
+                    Throw New HttpException(416, "Requested Range Not Satisfiable")
+                End If
+
+                start = anotherStart
+                If (anotherEnd > anotherStart + 100000) Then
+                    [end] = anotherStart + 100000
+                Else
+                    [end] = anotherEnd
+
+                End If
+                length = [end] - start + 1
+                fp = reader.BaseStream.Seek(start, SeekOrigin.Begin)
+                context.Response.StatusCode = 206
+
+                context.Response.AddHeader("Content-Range", "bytes " & start & "-" & [end] & "/" & size)
+                context.Response.AddHeader("Content-Length", length.ToString())
+                context.Response.WriteFile(fullpath, fp, length)
+                context.Response.[End]()
+            Else
+                context.Response.StatusCode = 404
+            End If
+        End Using
+
+
+    End Sub
 End Class

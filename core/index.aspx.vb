@@ -2,8 +2,8 @@
     'Inherits System.Web.UI.Page
     Inherits cl_base
     Protected isOfflineMode As Boolean = False
-	Protected appName as String="OPH"
-	
+    Protected appName As String = "OPH"
+
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
 
         Dim curHostGUID As String = "", code As String = "", themeFolder As String = "", pageURL As String = ""
@@ -136,8 +136,8 @@
             'dynamic account
             Dim cdnLocation = appSet.Item("cdnLocation")
             Dim getseqcon = appSet.Item("sequoia")
-			appName=appSet.Item("Application Name")
-			
+            appName = appSet.Item("Application Name")
+
             'If cartID = "" Then
             'Response.Cookies("cartID").Value = runSQLwithResult("exec api.createNewid")
             Dim newid As String

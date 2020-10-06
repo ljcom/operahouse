@@ -746,8 +746,9 @@ Public Class cl_base
         If refno = "" Then refno = "" Else refno = ", @refno='" & refno & "'"
         If id = "" Then id = "" Else id = ", @id='" & id & "'"
         If suba = "" Then suba = "" Else suba = ", @suba='" & suba & "'"
+        Dim ipaddress = ", @ipaddress='" & GetIPAddress() & "'"
 
-        Dim sqlstr = "exec api.loadAccount " & hguid & ", '" & urlAddress & "'" & env & code & GUID & no & refno & id & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "") & suba
+        Dim sqlstr = "exec api.loadAccount " & hguid & ", '" & urlAddress & "'" & env & code & GUID & no & refno & id & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "") & suba & ipaddress
         'Dim sqlstr = "exec api.loadAccount " & hGUID & ", '" & urlAddress & "', " & env & ", " & code & ""
         writeLog("loadaccount: " & sqlstr)
         'writeLog(contentOfsequoiaCon)
