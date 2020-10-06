@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTesmpl_report">
+				<parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="50"/>
+		<detail id="Detail1" height="436">
+			<label height="14" text="SAMPLE" x="6" y="6" font="TimesBold" width="54" id="Label1"/>
+			<recordBox dataFormat="" height="14" field="DocDate" font="TimesRoman" x="342" y="54" width="155.1" id="RecordBox1"/>
+			<label height="12" font="TimesRoman" y="90" text="Sample No  :" width="66" x="24" id="Label2"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" width="108" y="90" field="refNo" x="90" id="RecordBox2"/>
+			<label height="12" font="TimesRoman" y="90" text="Notes :" width="42" x="294" id="Label3"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" y="90" width="155.1" field="notes" x="342" id="RecordBox3"/>
+			<subReport width="438" x="36" id="SubReport1" y="149">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" name="doc.YoTesmpl_report_sub1" connectionString="#Global.AppSettings[&quot;connection&quot;]#">
+						<parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]"/>
+						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]"/>
+					</storedProcedure>
+				</query>
+				<header height="1" id="Header2"/>
+				<detail height="27" id="Detail2">
+					<recordBox dataFormat="" align="center" width="22.1" x="6" y="6" height="18" id="RecordBox4" field="numb"/>
+					<recordBox dataFormat="" field="SKU" align="center" x="42" y="6" height="18" width="168" id="RecordBox5"/>
+					<recordBox dataFormat="" field="unit" align="center" width="56" y="6" height="18" x="222" id="RecordBox6"/>
+					<recordBox dataFormat="" field="Qty" width="33.6" height="18" y="6" x="390" id="RecordBox7"/>
+					<recordBox dataFormat="" height="18" y="6" field="Type" x="300" width="72" id="RecordBox8"/>
+				</detail>
+				<footer id="Footer2" height="14">
+					<line x1="0" y1="6" y2="6" x2="438" id="Line1"/>
+				</footer>
+			</subReport>
+			<line x1="36" x2="474" y1="124" y2="124" id="Line2"/>
+			<label height="14" text="Hormat Kami," fontSize="10" width="64.5" x="24" y="264" id="Label5"/>
+			<label height="14" fontSize="10" text="(______________)" width="85.5" x="18" y="336" id="Label6"/>
+			<label height="14" fontSize="10" text="(______________)" width="85.5" x="228" y="336" id="Label7"/>
+			<line x1="36" x2="474" y1="150" y2="150" id="Line3"/>
+			<label height="14" text="No" width="24" font="TimesRoman" y="129" x="41" id="Label8"/>
+			<label font="TimesRoman" text="Item" height="11.1" width="168" y="130" x="79" align="center" id="Label9"/>
+			<label font="TimesRoman" height="11.1" width="54" align="center" text="Unit" x="258" y="130" id="Label10"/>
+			<label font="TimesRoman" align="center" text="Qty" width="42" height="17.1" x="419" y="129" id="Label11"/>
+			<label font="TimesRoman" align="center" width="42" height="17.1" text="Type" y="129" x="347" id="Label12"/>
+			<label id="Label13" height="14" text="Total" width="45.1" x="357" y="191"/>
+			<recordBox id="RecordBox10" dataFormat="" height="14" field="total" width="57" x="413" y="192" align="center"/>
+		</detail>
+		<footer id="Footer1" height="50"/>
+	</report>
+</document>

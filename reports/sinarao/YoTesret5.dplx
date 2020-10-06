@@ -2,7 +2,7 @@
 <document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <report id="Report1" pageSize="custom" pageWidth="620" pageHeight="600">
     <query id="Query1">
-      <storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTesret2_report">
+      <storedProcedure dataProvider="msSql" referenceParameter="" name="doc.YoTesret_report" connectionString="#Global.AppSettings[&quot;connection&quot;]#">
         <parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
         <parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
       </storedProcedure>
@@ -30,7 +30,7 @@
       <line id="Line1" y1="18" y2="18" x1="6" x2="504"/>
       <subReport id="SubReport2" y="22" width="498" x="6">
         <query id="Query2">
-          <storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTesret2_report_sub1">
+          <storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTesret_report_sub1">
             <parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
             <parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
           </storedProcedure>

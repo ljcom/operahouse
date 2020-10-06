@@ -15,14 +15,12 @@
 		<template id="Template1"/>
 		<header id="Header1"/>
 		<detail id="Detail1" autoSplit="true" height="102.5">
-			<label id="Label2" height="12.25" align="justify" font="HelveticaBold" width="198" fontSize="7" x="4.5" y="20.25" text="Tgl. Lahir/Umur : "/>
+			<label id="Label2" height="12.25" align="justify" font="HelveticaBold" text="Tgl. Lahir/Umur : 30/12/1997 / 22 thn/9 bl/2 hr" width="198" fontSize="7" x="4.5" y="20.25"/>
 			<label align="justify" id="Label6" height="10" text="No. RM :" width="43.35" font="HelveticaBold" fontSize="7" x="4.25" y="34.75"/>
 			<recordBox id="RecordBox1" dataFormat="" height="14" width="127.25" field="name" font="HelveticaBold" fontSize="14" x="2.5" y="0.5"/>
-			<recordBox id="RecordBox2" dataFormat="" field="dob" height="11.5" font="HelveticaBold" fontSize="7" x="63.5" y="20.25" width="38.25"/>
+			<recordBox id="RecordBox2" dataFormat="" field="dob" height="11.5" font="HelveticaBold" fontSize="7" width="93.25" x="63.5" y="20.25"/>
 			<recordBox id="RecordBox3" dataFormat="" width="100" field="rm" height="12.25" font="HelveticaBold" fontSize="7" x="37.5" y="34.75"/>
 			<recordBox id="RecordBox4" dataFormat="" width="100" height="12.25" field="date2" font="HelveticaBold" fontSize="7" x="4.25" y="52.25"/>
-			<recordBox id="RecordBox5" dataFormat="" field="age" font="HelveticaBold" fontSize="7" width="45.1" y="20.25" x="106" height="11.75"/>
-			<label id="Label1" height="14" font="HelveticaBold" text="/" fontSize="7" width="21.75" y="20.25" x="103.5"/>
 		</detail>
 		<footer id="Footer1"/>
 	</report>

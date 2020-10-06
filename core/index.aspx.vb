@@ -93,7 +93,13 @@
 
             reloadURL(reloadStr)
         ElseIf code <> "" And needLogin And getQueryVar("code") <> loginPage Then
-            reloadURL("index.aspx?code=" & loginPage)
+			If Request.ApplicationPath.Replace("/", "") = "" Then
+				setCookie(Request.Url.Authority.Replace(": ", "").ToLower() & "_lastPar", Request.Url.PathAndQuery, 1)
+			Else
+				setCookie(Request.ApplicationPath.Replace("/", "").ToLower() & "_lastPar", Request.Url.PathAndQuery, 1)
+			End If
+            
+			reloadURL("index.aspx?code=" & loginPage)
         ElseIf GUID.ToLower <> getQueryVar("GUID").ToLower Then 'reload for onedataonly
             Dim url1 = "?"
             For Each u In Request.Url.Query.Replace("?", "").Split("&")
@@ -150,9 +156,9 @@
             'End If
             If code <> loginPage And code <> "lockscreen" And code <> "home" And code <> "login2" And code <> "login" And code <> "verifycode" Then  'And code <> "404" Then
                 If Request.ApplicationPath.Replace("/", "") = "" Then
-                    setCookie(Request.Url.Authority.Replace(": ", "") & "_lastPar", Request.Url.PathAndQuery, 1)
+                    setCookie(Request.Url.Authority.Replace(": ", "").ToLower() & "_lastPar", Request.Url.PathAndQuery, 1)
                 Else
-                    setCookie(Request.ApplicationPath.Replace("/", "") & "_lastPar", Request.Url.PathAndQuery, 1)
+                    setCookie(Request.ApplicationPath.Replace("/", "").ToLower() & "_lastPar", Request.Url.PathAndQuery, 1)
                 End If
             End If
 

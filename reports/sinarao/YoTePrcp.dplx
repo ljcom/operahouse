@@ -10,7 +10,7 @@
 		<template id="Template1"/>
 		<header id="Header1" height="181">
 			<label id="Label1" height="14" text="Print - Purchase Reception" font="TimesBold" width="144" y="0" x="6"/>
-			<label id="Label2" x="6" height="14" text="PT  KADUJAYA PERKASA" width="156" font="TimesRoman" y="24"/>
+			<label id="Label2" x="6" height="14" width="156" font="TimesRoman" y="24" text="PT. SINAR ALFA OMEGA"/>
 			<label height="14" font="TimesRoman" id="Label4" x="6" width="504" align="center" text="BUKTI PENERIMAAN BARANG" y="84"/>
 			<recordBox id="RecordBox1" dataFormat="" height="14" width="100" field="DocNo" x="408" y="24" font="TimesRoman" fontSize="10"/>
 			<recordBox dataFormat="" height="14" width="100" x="408" id="RecordBox2" y="48" field="DocDate" font="TimesRoman" fontSize="10"/>
@@ -34,8 +34,6 @@
 			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox9" x="318" y="135" width="84" field="RefNo"/>
 			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" x="318" width="84" id="RecordBox10" y="153" field="DocDate"/>
 			<recordBox id="RecordBox11" dataFormat="" x="6" y="48" height="14" font="TimesRoman" width="228" field="spplname"/>
-			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="84" id="RecordBox12" x="413" y="135" field="PoRefNo"/>
-			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="84" id="RecordBox13" x="413" y="153" field="PODate"/>
 		</header>
 		<detail id="Detail1" height="313" autoSplit="true">
 			<rectangle id="Rectangle9" x="6" y="6" width="498" height="306"/>
@@ -46,7 +44,7 @@
 			<line id="Line1" x2="504" x1="6" y1="42" y2="42"/>
 			<label align="center" font="TimesRoman" fontSize="10" height="12" id="Label16" text="Satuan" y="19" x="210" width="84"/>
 			<label align="center" font="TimesRoman" fontSize="10" height="12" id="Label17" text="Jumlah" y="19" x="306" width="90"/>
-			<label align="center" font="TimesRoman" fontSize="10" height="12" id="Label18" x="396" width="101.1" y="19" text="Catatan"/>
+			<label align="center" font="TimesRoman" fontSize="10" height="12" id="Label18" x="396" y="19" text="Catatan" width="101"/>
 			<subReport id="SubReport1" width="498" x="6" y="48">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeprcp_report_sub1">
@@ -75,7 +73,7 @@
 			<label font="TimesRoman" fontSize="10" height="12" width="84" align="center" id="Label21" x="411" text="DITEIRMA OLEH" y="4"/>
 			<label font="TimesRoman" fontSize="10" height="12" width="84" align="center" x="411" id="Label22" y="58" text="BAG. GUDANG"/>
 			<label id="Label3" height="14" text="Form No.      : KP-F-S2. 1-2005-001" width="156" font="TimesRoman" fontSize="10" x="6" y="6"/>
-			<label height="14" width="156" font="TimesRoman" fontSize="10" x="6" id="Label23" y="24" text="Issued date      : 10 Oktober 2005"/>
+			<label height="14" width="156" font="TimesRoman" fontSize="10" x="6" id="Label23" y="24" text="Issued date    : 10 Oktober 2005"/>
 			<label height="14" width="156" font="TimesRoman" fontSize="10" x="6" id="Label24" y="42" text="Revisi            : 00"/>
 		</footer>
 	</report>

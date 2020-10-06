@@ -15,17 +15,27 @@
 		<template id="Template1"/>
 		<header id="Header1"/>
 		<detail id="Detail1" autoSplit="true" height="85.05">
-			<label id="Label1" align="center" height="9" text="RENATA MEDICAL" width="139.75" font="TimesBold" fontSize="6" y="0.5" x="15"/>
-			<label id="Label2" font="TimesRoman" align="center" fontSize="5" width="126.75" height="19.5" y="6" text="JL. Bangbarung Raya/H.Achmad Sobana&#xA; No.39, Bogor&#xA;Telp : (0251) 8348386" x="24.25"/>
+			<label id="Label1" align="center" height="9" text="RENATA MEDICAL" width="139.75" fontSize="6" x="15" font="HelveticaBold" y="-0.5"/>
+			<label id="Label2" align="center" fontSize="5" width="126.75" height="19.5" text="JL. Bangbarung Raya/H.Achmad Sobana&#xA; No.39, Bogor&#xA;Telp : (0251) 8348386" x="24.25" font="HelveticaBold" y="5"/>
 			<line id="Line1" y1="24.5" y2="24.5" x1="0.5" x2="198"/>
-			<label id="Label3" font="TimesRoman" fontSize="5" width="188.5" height="10.25" x="4.5" y="26.5" text="NAMA: RAFIKA PUTRI"/>
-			<label font="TimesRoman" id="Label4" fontSize="5" width="189.85" height="7.5" text="RM/ TGL. LAHIR : 00187165 / 29/05/1999" x="4.5" y="33.5"/>
-			<label font="TimesRoman" height="10" id="Label5" fontSize="5" width="188.6" x="4.4" text="R. RAWAT/POLI : UMUM" y="40"/>
-			<label font="TimesRoman" id="Label6" fontSize="5" width="190.35" x="4.75" height="8" text="NAMA OBAT / QTY : Paracetamol @ 50mg 01/10" y="46.5"/>
-			<label font="TimesRoman" fontSize="5" width="190.35" id="Label7" text="ED :" height="7.75" x="4.75" y="52.5"/>
-			<label font="TimesRoman" id="Label8" text="1 X SEHARI 1 Tablet" align="center" height="7" width="55.6" x="53.5" fontSize="5" y="58.5"/>
-			<label fontSize="5" height="14.5" id="Label9" width="117.6" align="center" font="TimesBold" x="22" y="64.5" text="SESUDAH MAKANs&#xA;TIDAK BOLEH DIULANG TANPA RESEP DOKTER"/>
-			<label font="TimesRoman" fontSize="5" width="47.6" align="center" height="7" id="Label10" text="Tgl Cetak : 29/06/2020" x="121.5" y="77.75"/>
+			<label id="Label3" fontSize="5" width="188.5" height="10.25" x="4.5" y="26.5" font="HelveticaBold" text="NAMA:"/>
+			<label id="Label4" fontSize="5" width="189.85" height="7.5" x="4.5" y="33.5" font="HelveticaBold" text="RM/ TGL. LAHIR :"/>
+			<label height="10" id="Label5" fontSize="5" width="188.6" x="4.4" y="40" font="HelveticaBold" text="R. RAWAT/POLI :"/>
+			<label id="Label6" fontSize="5" width="190.35" x="4.75" height="8" y="46.5" font="HelveticaBold" text="NAMA OBAT / QTY :"/>
+			<label fontSize="5" width="190.35" id="Label7" text="ED :" height="7.75" x="4.75" y="52.5" font="HelveticaBold"/>
+			<label fontSize="5" height="14.5" id="Label9" width="117.6" align="center" y="64.5" text="SESUDAH MAKANs&#xA;TIDAK BOLEH DIULANG TANPA RESEP DOKTER" font="HelveticaBold" x="21.75"/>
+			<label fontSize="5" height="7" id="Label10" font="HelveticaBold" width="63.1" x="111.25" y="77.5" align="justify" text="Tgl Cetak :"/>
+			<recordBox id="RecordBox1" dataFormat="" width="100" field="name" fontSize="5" font="HelveticaBold" height="8.5" y="26.5" x="22.25"/>
+			<recordBox id="RecordBox2" dataFormat="" fontSize="5" field="rm" font="HelveticaBold" height="8.25" y="33.5" x="47.75" width="30.5"/>
+			<recordBox id="RecordBox3" dataFormat="" fontSize="5" field="dob" font="HelveticaBold" width="71.75" height="8.1" y="33.5" x="74.25"/>
+			<label id="Label11" fontSize="5" text="/" font="HelveticaBold" width="21.5" height="7.1" y="33.5" x="72"/>
+			<recordBox id="RecordBox4" dataFormat="" width="100" fontSize="5" field="poli" font="HelveticaBold" height="10" y="40" x="47.25"/>
+			<recordBox id="RecordBox5" dataFormat="" width="100" font="HelveticaBold" field="medname" fontSize="5" height="8.75" y="46.5" x="54.25"/>
+			<recordBox id="RecordBox6" dataFormat="" field="qty" font="HelveticaBold" fontSize="5" height="10.5" width="94.5" y="45.5" x="112"/>
+			<label id="Label12" fontSize="5" text="/" font="HelveticaBold" width="23.5" height="8.75" x="111.5" y="46.5"/>
+			<recordBox id="RecordBox7" dataFormat="" width="100" fontSize="5" field="ed" font="HelveticaBold" height="9" y="52.5" x="16.75"/>
+			<recordBox id="RecordBox8" dataFormat="" height="14" width="100" font="HelveticaBold" field="date2" fontSize="5" y="77.5" x="138.25"/>
+			<recordBox id="RecordBox9" dataFormat="" font="HelveticaBold" field="dosage" fontSize="5" align="center" y="57" height="10.5" width="55.25" x="53.5"/>
 		</detail>
 		<footer id="Footer1"/>
 	</report>

@@ -330,10 +330,7 @@ Public Class cl_base
     Sub writeLog(logMessage As String) ', ByVal Optional accountName As String = "")
         'Dim w As TextWriter
         Dim accountName = ""
-        If contentOfaccountId <> "" Or IsNothing(contentOfaccountId) Then
-            accountName = Session("baseAccount")
-            'accountName = getCookie(accountName & "_accountid")
-        End If
+        If contentOfaccountId <> "" Then accountName = Session("baseAccount")
         If logMessage <> "" Then
             Dim path = Server.MapPath("~/OPHContent/log")
             path = path & "\" '& "OPHContent\log\"

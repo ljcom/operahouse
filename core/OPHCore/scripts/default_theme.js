@@ -1528,7 +1528,7 @@ function searchText(e, searchvalue, location) {
 				
 				var divname = ['contentWrapper'];
                     var xsldoc = ['OPHCore/api/loadtheme.aspx?code=' + getCode() + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_' + getMode()];
-                    var xmldoc = 'OPHCore/api/default.aspx?mode=' + getMode() + '&code=' + getCode() + '&GUID=' + getGUID() + '&stateid=' + getState() + '&bPageNo=' + 1 + '&bSearchText=' + getSearchText() + '&sqlFilter=' + getFilter() + '&sortOrder=' + getOrder() + unique;
+                    var xmldoc = 'OPHCore/api/default.aspx?mode=' + getMode() + '&code=' + getCode() + '&GUID=' + getGUID() + '&stateid=&bPageNo=' + 1 + '&bSearchText=' + getSearchText() + '&sqlFilter=' + getFilter() + '&sortOrder=' + getOrder() + unique;
                     pushTheme(divname, xmldoc, xsldoc, true, function() {
                         setCookie(getCode().toLowerCase()+'_curPage', 1, 1, 0, 0);
                         //scrollLoad=false;
