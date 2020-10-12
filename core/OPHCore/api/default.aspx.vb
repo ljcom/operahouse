@@ -382,11 +382,15 @@ Partial Class OPHCore_API_default
                     Dim result As String = client.DownloadString(url)
                     'writeLog(result)
 
-                    Dim userid = "", pwd = "12345678"
-                    pwd = runSQLwithResult("select infovalue from acctinfo where infokey='masterpassword'")
+                    Dim userid as string= "", pwd as string= "12345678"
+                    Dim username as string = ""
+					pwd = runSQLwithResult("select infovalue from acctinfo where infokey='masterpassword'")
                     For Each rx In result.Split(",")
                         If rx.Split(":")(0).IndexOf("""email""") > 0 Then
                             userid = rx.Split(":")(1).Replace("""", "").Replace(" ", "")
+                        End If
+						If rx.Split(":")(0).IndexOf("""name""") > 0 Then
+                            username = rx.Split(":")(1).Replace("""", "").Replace(" ", "")
                         End If
                     Next
                     sqlstr = "exec api.verifyPassword '" & curHostGUID & "', '" & userid & "', '" & pwd & "',2 , '" & suba & "'"
@@ -394,6 +398,8 @@ Partial Class OPHCore_API_default
                     writeLog(curODBC)
                     xmlstr = getXML(sqlstr, curODBC)
                     writeLog(xmlstr)
+					sqlstr="update [user] set username='" & username & "' where userid='" & userid & "'"
+					dim r = runSQL(sqlstr, curODBC)
                     If xmlstr IsNot Nothing And xmlstr <> "" Then
                         curUserGUID = XDocument.Parse(xmlstr).Element("sqroot").Element("userGUID").Value
                         Session("userGUID") = curUserGUID

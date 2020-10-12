@@ -9,6 +9,7 @@ Partial Class OPHCore_API_doku
     Inherits cl_base
 
     Protected Sub Page_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+        if getQueryVar("hostguid")<>"" then Session("hostGUID")=getQueryVar("hostguid")
         writeLog(Session("hostGUID"))
         loadAccount()
 
@@ -39,7 +40,7 @@ Partial Class OPHCore_API_doku
                 Dim GUID = getQueryVar("GUID")
 				sqlstr = "exec api.[function] @hostguid='" & curHostGUID & "', @mode='payment', @code='" & code & "', @guid='" & GUID & "', @comment=''"
 				writeLog(sqlstr)
-				 Dim url=""
+				Dim url=""
 				dim ds as DataSet = SelectSqlSrvRows(sqlstr)
 				if ds.tables.count>0 AndAlso ds.Tables(0).Rows.Count > 0 Then
 					dim basket="BASKET="+ds.Tables(0).Rows(0).Item(0).ToString
