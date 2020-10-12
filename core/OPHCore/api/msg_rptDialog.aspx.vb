@@ -190,9 +190,9 @@ Partial Class OPHCore_api_msg_rptDialog
                 If reportName = "" Then reportName = code
                 gext = Right(reportName, reportName.Length - InStr(reportName, "."))
                 If gext = "txt" Then
-                    gfile = g & "_" & reportName & ".csv"
+                    gfile = g & "_" & reportName & "_" & d & ".csv"
                 Else
-                    gfile = g & "_" & reportName & ".xlsx"
+                    gfile = g & "_" & reportName & "_" & d & ".xlsx"
                 End If
                 Dim withdata = getQueryVar("withdata")
                 sqlstr = "exec gen.downloadModule " & curHostGUID & ", '" & code & "', " & exportMode.ToString & ", " + IIf(withdata = "1", "1", "0")
@@ -202,9 +202,9 @@ Partial Class OPHCore_api_msg_rptDialog
                 If reportName = "" Then reportName = code
                 gext = Right(reportName, reportName.Length - InStr(reportName, "."))
                 If gext = "txt" Then
-                    gfile = g & "_" & reportName & ".csv"
+                    gfile = g & "_" & reportName & "_" & d & ".csv"
                 Else
-                    gfile = g & "_" & reportName & ".xlsx"
+                    gfile = g & "_" & reportName & "_" & d & ".xlsx"
                 End If
 
                 sqlstr = "exec gen.downloadChild " & curHostGUID & ", '" & code & "','" & ParentGUID & "'"
@@ -360,7 +360,7 @@ Partial Class OPHCore_api_msg_rptDialog
             'default exportMode=1
             exportMode = IIf(Not exportMode = "0", "1", "0")
 
-            If InStr(reportName, ".") = 0 Then reportName = reportName & ".xlsx"
+            If InStr(reportName, ".") = 0 Then reportName = reportName & "_" & d & ".xlsx"
             gext = LCase(Right(reportName, reportName.Length - InStr(reportName, ".")))
 
             gfile = g & "_" & reportName
