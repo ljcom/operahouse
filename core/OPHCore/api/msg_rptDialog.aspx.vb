@@ -15,19 +15,12 @@ Partial Class OPHCore_api_msg_rptDialog
         Dim curHostGUID = getSession() 'Session("hostGUID")
 
         If curHostGUID = "" Or Session("ODBC") = "" Or Session("baseAccount") = "" Then loadAccount()
-        If contentOfaccountId Is Nothing Or contentOfaccountId = "" Then
-            contentOfaccountId = Session("baseAccount")
-            'contentOfaccountId = getCookie(contentOfaccountId & "_accountid")
-        End If
+        If contentOfaccountId Is Nothing Or contentOfaccountId = "" Then contentOfaccountId = Session("baseAccount")
         Dim curUserGUID = Session("userGUID")
         If IsNothing(curHostGUID) Then
             curHostGUID = "null"
-        ElseIf contentOfaccountId <> "" Then
-            curHostGUID = "'" & curHostGUID & "'"
-            contentOfaccountId = contentOfaccountId
         Else
             curHostGUID = "'" & curHostGUID & "'"
-            contentOfaccountId = runSQLwithResult("select suba from userhost where hostguid=" & curHostGUID)
         End If
 
         If getQueryVar("hostguid") <> "" Then curHostGUID = getQueryVar("hostguid")
@@ -48,7 +41,7 @@ Partial Class OPHCore_api_msg_rptDialog
         Dim fieldattachment As List(Of String) = Nothing
 
         Dim sqlstr = ""
-        If mode = "xls" Or mode = "pdf" Or mode = "xlstemplate" Then
+        If mode = "htm" or mode = "xls" Or mode = "pdf" Or mode = "xlstemplate" Then
             Dim parXML = writeXMLFromRequestForm("sqroot", fieldattachment, "")
             sqlstr = "exec [api].[getReport] " & curHostGUID & ", '" & code & "', '" & parXML & "'"
             writeLog("getReport : " & sqlstr)
@@ -117,7 +110,7 @@ Partial Class OPHCore_api_msg_rptDialog
 
                 Do While True
                     query = runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='" & code & "' and InfoKey='querysql_" & q & "'")
-
+					writeLog (query)
                     Dim rpQuery As ceTe.DynamicPDF.ReportWriter.Data.StoredProcedureQuery = CType(reportDocument.GetQueryById("Query" & q), ceTe.DynamicPDF.ReportWriter.Data.StoredProcedureQuery)
                     If Not rpQuery Is Nothing Then
                         If query IsNot Nothing And query <> "" Then
@@ -166,13 +159,13 @@ Partial Class OPHCore_api_msg_rptDialog
 
 
             End Try
-        ElseIf mode = "xls" Or mode = "child" Or mode = "parent" Then
+        ElseIf mode = "xls" Or mode = "htm" Or mode = "child" Or mode = "parent" Then
 
             Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
             SpreadsheetInfo.SetLicense(appSettings.Item("gBox.LicenseKey").ToString)
 
             Dim g = System.Guid.NewGuid().ToString
-            Dim d = Format(Date.Now, "yyyyMMddhhmm").ToString()
+			Dim d = Format(Date.Now, "yyyyMMddhhmm").ToString()
             Dim Parameters As ParameterDictionary = New ParameterDictionary
             Dim gfile As String = "", gext As String = ""
             Dim gpath As String = Server.MapPath("~/OPHContent/reports/" & contentOfaccountId & "/temp/")
@@ -190,9 +183,9 @@ Partial Class OPHCore_api_msg_rptDialog
                 If reportName = "" Then reportName = code
                 gext = Right(reportName, reportName.Length - InStr(reportName, "."))
                 If gext = "txt" Then
-                    gfile = g & "_" & reportName & "_" & d & ".csv"
+                    gfile = g & "_" & reportName & ".csv"
                 Else
-                    gfile = g & "_" & reportName & "_" & d & ".xlsx"
+                    gfile = g & "_" & reportName & ".xlsx"
                 End If
                 Dim withdata = getQueryVar("withdata")
                 sqlstr = "exec gen.downloadModule " & curHostGUID & ", '" & code & "', " & exportMode.ToString & ", " + IIf(withdata = "1", "1", "0")
@@ -202,9 +195,9 @@ Partial Class OPHCore_api_msg_rptDialog
                 If reportName = "" Then reportName = code
                 gext = Right(reportName, reportName.Length - InStr(reportName, "."))
                 If gext = "txt" Then
-                    gfile = g & "_" & reportName & "_" & d & ".csv"
+                    gfile = g & "_" & reportName & ".csv"
                 Else
-                    gfile = g & "_" & reportName & "_" & d & ".xlsx"
+                    gfile = g & "_" & reportName & ".xlsx"
                 End If
 
                 sqlstr = "exec gen.downloadChild " & curHostGUID & ", '" & code & "','" & ParentGUID & "'"
@@ -216,7 +209,7 @@ Partial Class OPHCore_api_msg_rptDialog
                     Case "txt"
                         gfile = g & "_" & reportName & ".csv"
                     Case Else
-                        gfile = reportName 'gfile = g & "_" & reportName
+                        gfile = g & "_" & reportName
                 End Select
 
                 parameterid = parameterid.Replace(":", "=").Replace("''", "")
@@ -252,13 +245,19 @@ Partial Class OPHCore_api_msg_rptDialog
                 Dim ws As ExcelWorksheet = ef.Worksheets.Add(code)
                 Dim rows As Integer = 0
                 Dim ds = SelectSqlSrvRows(sqlstr, Connections)
-
+                Dim json As String
+                Dim jsonCols As String = ""
+                Dim jsonAlign As String = ""
                 If ds.Tables.Count > 0 And ds.Tables(0).Rows.Count > 0 Then
                     Dim cols As Integer = 0
                     If gext <> "txt" Then
                         If gext <> "csv" Then
                             For Each head In ds.Tables(0).Columns
                                 ws.Cells(rows, cols).Value = head.ToString
+                                Dim type = "text"
+                                If head.ToString.IndexOf("#num#") Then type="numeric"
+                                jsonCols &= "{type:'" & type & "',title:'" & head.ToString.Replace("#num#", "") & "',width:200},"
+                                jsonAlign &= iif(jsonAlign = "", "", ",") & "'left'"
                                 cols = cols + 1
                             Next
                             ws.Rows(rows).Hidden = IIf(mode = "xls" Or exportMode = 0, False, True)
@@ -267,11 +266,15 @@ Partial Class OPHCore_api_msg_rptDialog
                     End If
                     Dim cl = ds.Tables(0).Columns.Count
                     For Each r In ds.Tables(0).Rows
+                        '    ['Civic', 'Honda', '2018-07-11', '', true, '$ 4.000,01', '#007777'],
+                        Dim jsonRow = "[#content#,]"
                         Dim rx = DirectCast(r, DataRow)
                         For n = 0 To cl - 1
                             ws.Cells(rows, n).Value = rx.Item(n).ToString
+                            jsonRow = Replace(jsonRow, "#content#,", "'" & rx.Item(n).ToString & "',#content#,")
                         Next
                         rows = rows + 1
+                        json = json & iif(json = "", "", ",") & Replace(jsonRow, "#content#,", "")
                     Next
 
                     For n = 0 To ds.Tables(0).Columns.Count - 1
@@ -290,12 +293,26 @@ Partial Class OPHCore_api_msg_rptDialog
                             FileCopy(pathGBOX, getQueryVar("output"))
                         End If
                     End If
-                    If gext = "txt" Then
+                    If mode = "htm" Then
+                        'writeLog("html:")
+                        'ConvertToHTML(pathGBOX, replace(pathGBOX, ".xlsx", ".html"))
+                        pathGBOX = replace(pathGBOX, ".xlsx", ".html")
+                        'pathGBOX=replace(pathGBOX, ".html","_files/sheet001.html")
+                        gfile = replace(gfile, "xlsx", "html")
+                        Dim html = ConvertToJSONXLS(jsonCols, json, jsonAlign)
+                        'If File.Exists(gfile) Then
+                        'File.AppendAllText(gfile, html)
+                        'Else
+                        File.AppendAllText(pathGBOX, html)
+                        'End If
+                    ElseIf gext = "txt" Then
                         Rename(pathGBOX, Left(pathGBOX, pathGBOX.Length - 4))
                         gfile = Left(gfile, Len(gfile) - 4)
                         pathGBOX = Left(pathGBOX, Len(pathGBOX) - 4)
                     End If
 
+                    'If mode = "htm" Then
+                    'response.write(ConvertToJSONXLS(jsonCols, json))
                     If getQueryVar("dontdelete") = "1" Then
                         If getQueryVar("outputType") = "0" Then
                             Response.Write(pathGBOX)
@@ -305,6 +322,7 @@ Partial Class OPHCore_api_msg_rptDialog
                             Response.Write(pathGBOX)
                         End If
                     Else
+
                         Dim bytes() As Byte
                         Dim finfo As New FileInfo(pathGBOX)
                         Dim numBytes As Long = finfo.Length
@@ -312,6 +330,7 @@ Partial Class OPHCore_api_msg_rptDialog
                         writeLog(pathGBOX)
                         Dim br As New BinaryReader(fstream)
                         bytes = br.ReadBytes(CInt(numBytes))
+
 
                         Dim context1 As HttpContext = HttpContext.Current
                         context1.Response.Cache.SetCacheability(HttpCacheability.NoCache)
@@ -321,17 +340,25 @@ Partial Class OPHCore_api_msg_rptDialog
                             context1.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                         ElseIf Right(pathGBOX, 3) = "txt" Then
                             context1.Response.ContentType = "text/plain"
+                        ElseIf mode = "htm" Then
+                            context1.Response.ContentType = "text/html"
                         End If
 
                         context1.Response.ClearHeaders()
-                        context1.Response.AddHeader("content-disposition", "attachment;filename=" & gfile)
+                        Dim disposition = iif(mode = "htm", "inline", "attachment") & ";filename=" & gfile
+                        context1.Response.AddHeader("content-disposition", disposition)
                         context1.Response.BinaryWrite(bytes)
                         context1.Response.Flush()
                         fstream.Close()
                         fstream.Dispose()
+
+
+
                         'finfo.Delete()
 
                         pathGBOX = pathGBOX.Replace(Server.MapPath("~/OPHContent/reports"), "OPHContent/reports").Replace("\", "/")
+                        writeLog(pathGBOX)
+
                         sqlstr = "exec gen.evnt_save " & curHostGUID & ", '" & code & "', null, @comment='<strong>Parameters:</strong> " & parTxt & ". <strong>Result:</strong> Please click <a href=''" & pathGBOX & "''>here</a>.', @type=5"
                         runSQLwithResult(sqlstr)
                     End If
@@ -360,7 +387,7 @@ Partial Class OPHCore_api_msg_rptDialog
             'default exportMode=1
             exportMode = IIf(Not exportMode = "0", "1", "0")
 
-            If InStr(reportName, ".") = 0 Then reportName = reportName & "_" & d & ".xlsx"
+            If InStr(reportName, ".") = 0 Then reportName = reportName & ".xlsx"
             gext = LCase(Right(reportName, reportName.Length - InStr(reportName, ".")))
 
             gfile = g & "_" & reportName
@@ -438,7 +465,7 @@ Partial Class OPHCore_api_msg_rptDialog
                                     'ws.Cells(rows, n).Value = rx.Item(n).ToString
                                     If IsDBNull(rx.Item(n)) Then
                                     ElseIf Double.TryParse(rx.Item(n), number) Then
-                                        ws.Cells(rows, cols).Value = CDbl(Val(rx.Item(n)))
+                                        ws.Cells(rows, cols).SetValue(CDbl(Val(rx.Item(n))))
                                     Else
                                         ws.Cells(rows, cols).Value = rx.Item(n).ToString
                                     End If
@@ -496,6 +523,9 @@ Partial Class OPHCore_api_msg_rptDialog
                         context1.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                     ElseIf Right(pathGBOX, 3) = "txt" Then
                         context1.Response.ContentType = "text/plain"
+                    ElseIf Right(pathGBOX, 3) = "html" Then
+                        context1.Response.ContentType = "text/html"
+
                     End If
 
                     context1.Response.ClearHeaders()
@@ -554,4 +584,56 @@ Partial Class OPHCore_api_msg_rptDialog
         Response.End()
         Return True
     End Function
+	Sub ConvertToHTML(xls, html)
+
+        ' If using Professional version, put your serial key below.
+		Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
+		SpreadsheetInfo.SetLicense(appSettings.Item("gBox.LicenseKey").ToString)
+
+        Dim workbook = ExcelFile.Load(xls)
+        Dim worksheet = workbook.Worksheets(0)
+
+        ' Set some ExcelPrintOptions properties for HTML export.
+        worksheet.PrintOptions.PrintHeadings = True
+        worksheet.PrintOptions.PrintGridlines = True
+
+        ' Specify cell range which should be exported to HTML.
+        'worksheet.NamedRanges.SetPrintArea(worksheet.Cells.GetSubrange("A1", "J42"))
+
+        Dim options = New HtmlSaveOptions() With
+        {
+            .HtmlType = HtmlType.Html,
+            .SelectionType = SelectionType.EntireFile
+        }
+
+        workbook.Save(html, options)
+    End Sub
+    Function ConvertToJSONXLS(col As String, json As String, jsonAlign As String)
+
+        Dim html As String = "<html>" &
+            "<script src=""https://bossanova.uk/jexcel/v3/jexcel.js""></script>" &
+            "<link rel=""stylesheet"" href=""https://bossanova.uk/jexcel/v3/jexcel.css"" type=""text/css"" />" &
+            "<script src=""https://bossanova.uk/jsuites/v2/jsuites.js""></script>" &
+            "<link rel=""stylesheet"" href=""https://bossanova.uk/jsuites/v2/jsuites.css"" type=""text/css"" />" &
+            "<style>" &
+                "body {margin:0 0 0 0;}" &
+            "</style>" &
+            "<div id=""spreadsheet"" style=""overflow:scroll;height:100%;width:100%;overflow:auto""></div>" &
+            "<script>" &
+            "var data = [" & json & "];" &
+            "jexcel(document.getElementById('spreadsheet'), {" &
+            "   tableOverflow : true," &
+            "   tableWidth: ""100%""," &
+            "   tableHeight: ""100%""," &
+            "   defaultColWidth: [" & jsonAlign & "]," &
+            "	data:data," &
+            "	columns: [" & col & "" &
+            "	 ]" &
+            "});" &
+            "</script>" &
+            "</html>"
+        writeLog(html)
+        Return html
+    End Function
+
 End Class
