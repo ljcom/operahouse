@@ -444,13 +444,14 @@ Public Class cl_base
         End Try
         Return False
     End Function
-    Function writeXMLFromRequestForm(root As String, Optional fieldattachment As List(Of String) = Nothing, Optional randGUID As String = "", Optional code As String = "") As String
+    Function writeXMLFromRequestForm(root As String, Optional fieldattachment As List(Of String) = Nothing, Optional randGUID As String = "", Optional code As String = "", Optional ByVal attachmentfield As String = "", Optional ByVal attachmentname As String = "") As String
         Dim info = "<" & root & ">#element#</" & root & ">"
         Dim theDate As DateTime = DateTime.Now
         Dim szFilename = Year(theDate) & "/" & Month(theDate)
 
         For x = 0 To Request.Form.Count - 1
             Dim colName As String = Request.Form.Keys(x)
+
             'Dim ix As Integer
 
             'for Radio Button
@@ -459,6 +460,11 @@ Public Class cl_base
 
             If Not fieldattachment Is Nothing AndAlso fieldattachment.Contains(Request.Form.Keys(x)) Then
                 info = info.Replace("#element#", "<field id=""" & colName & """><value>" & code & "_" & colName & "/" & szFilename & "/" & randGUID & "_" & Trim(Request.Form(x).Split(",")(0)).Replace("NULL", "").Replace("&", "&amp;") & "</value></field>#element#")
+            ElseIf attachmentfield = colName Then
+                Dim reqForm As String = IIf(Request.Form(x) = "NULL", "", Request.Form(x).Replace("'", "&#39;").Replace("&", "&amp;"))
+                If reqForm.Length > 0 AndAlso reqForm.ToString.Substring(0, 1) = "," Then reqForm = reqForm.ToString.Substring(1, reqForm.Length - 1)
+                info = info.Replace("#element#", "<field id=""" & colName & """><value>" & IIf(reqForm = "NULL", "", attachmentname) & "</value></field>#element#")
+
             Else
                 Dim reqForm As String = IIf(Request.Form(x) = "NULL", "", Request.Form(x).Replace("'", "&#39;").Replace("&", "&amp;"))
                 If reqForm.Length > 0 AndAlso reqForm.ToString.Substring(0, 1) = "," Then reqForm = reqForm.ToString.Substring(1, reqForm.Length - 1)
@@ -471,7 +477,7 @@ Public Class cl_base
         Return info
 
     End Function
-    Function populateSaveXML(ByVal vp As Long, ByVal Tablename As String, Optional ispreview As String = "", Optional fieldattachment As List(Of String) = Nothing, Optional ByVal randGUID As String = "") As String
+    Function populateSaveXML(ByVal vp As Long, ByVal Tablename As String, Optional ispreview As String = "", Optional fieldattachment As List(Of String) = Nothing, Optional ByVal randGUID As String = "",  Optional ByVal attachmentfield As String = "", Optional ByVal attachmentname As String = "") As String
         'loadAccount()
         Dim DBCore = Session("sqDB")    'contentOfsqDB
         Dim curHostGUID = getSession()  'Session("hostGUID")
@@ -481,7 +487,7 @@ Public Class cl_base
         Dim mainguid = getQueryVar("cfunctionlist")
 
         'Tablename = Left(Tablename, 1) & "o" & Mid(Tablename, 3, Len(Tablename) - 2)
-        Dim saveXML = writeXMLFromRequestForm("sqroot", fieldattachment, randGUID, Tablename)
+        Dim saveXML = writeXMLFromRequestForm("sqroot", fieldattachment, randGUID, Tablename, attachmentfield, attachmentname)
         saveXML = saveXML.Replace("&amp;lt;", "&lt;").Replace("&amp;gt;", "&gt;").Replace("&amp;#39;", "&#39;").replace("%40","@").replace("%20"," ")
         Dim contentofSaveString As String = ""
         'Dim hostGUID As String
@@ -743,7 +749,7 @@ Public Class cl_base
         If refno = "" Then refno = "" Else refno = ", @refno='" & refno & "'"
         If id = "" Then id = "" Else id = ", @id='" & id & "'"
         If suba = "" Then suba = "" Else suba = ", @suba='" & suba & "'"
-        Dim ipaddress = ", @ipaddress='" & GetIPAddress() & "'"
+		Dim ipaddress = ", @ipaddress='" & GetIPAddress() & "'"
 
         Dim sqlstr = "exec api.loadAccount " & hguid & ", '" & urlAddress & "'" & env & code & GUID & no & refno & id & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "") & suba & ipaddress
         'Dim sqlstr = "exec api.loadAccount " & hGUID & ", '" & urlAddress & "', " & env & ", " & code & ""
@@ -783,9 +789,9 @@ Public Class cl_base
             setCookie("skinColor", r1.Tables(0).Rows(0).Item(12).ToString, 1)
             contentOfGUID = r1.Tables(0).Rows(0).Item(13).ToString
             contentofMultiAccount = r1.Tables(0).Rows(0).Item(15).ToString
-            contentofCartID = r1.Tables(0).Rows(0).Item(16).ToString
-            contentofSuba = r1.Tables(0).Rows(0).Item(17).ToString
-            contentofExpired = r1.Tables(0).Rows(0).Item(18).ToString
+            'contentofCartID = r1.Tables(0).Rows(0).Item(16).ToString
+            'contentofSuba = r1.Tables(0).Rows(0).Item(17).ToString
+            'contentofExpired = r1.Tables(0).Rows(0).Item(18).ToString
 
             setCookie(contentOfaccountId & "_multiAccount", contentofMultiAccount, 365)
             If contentofMultiAccount = "0" Then

@@ -146,6 +146,10 @@ Partial Class OPHCore_API_default
                 'GUID = System.Guid.NewGuid().ToString()
                 GUID = Request.Form("cfunctionlist")
                 Dim randGUID = ""
+                Dim multiupload = ""
+
+                sqlstr = "select 1 from modl a inner join modlinfo b on b.ModuleGUID = a.ModuleGUID where a.moduleid = '" & code & "' and infokey = 'multiupload'"
+                multiupload = runSQLwithResult(sqlstr)
 
                 Dim fieldAttachment As New List(Of String)
                 'Dim fileAttachment As New List(Of String)
@@ -156,18 +160,26 @@ Partial Class OPHCore_API_default
                     Dim szFilename = Year(theDate) & "\" & Month(theDate)
                     Dim curField = "", fileName = ""
                     For Each n In Request.Form
-                        'If Request.Form(n) = Request.Files(f).FileName Or Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then
-                        If Request.Form(n) = Request.Files(f).FileName Then
+                        If Request.Form(n) = Request.Files(f).FileName Or Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then
+                            Dim attachmentfield = ""
+                            Dim attachmentname = ""
+
+                            'If Request.Form(n) = Request.Files(f).FileName Then
                             'Or Request.Files(f).FileName.IndexOf(Request.Form(n).ToString()) > 0 Or    -- tidk bisa sebagian isinya saja
                             'Request.Form(n).indexof(Request.Files(f).FileName) > 0 Then    -- demikian juga kebalikannya
                             curField = n
                             randGUID = System.Guid.NewGuid().ToString()
 
-                            fileName = Trim(IIf(Request.Form(n).Equals(""), Request.Files(f).FileName, Request.Form(n).split(",")(0)))
-                            fieldAttachment.Add(curField)
-                            'fileAttachment.Add(fileName)
+                            'fileName = Trim(IIf(Request.Form(n).Equals(""), Request.Files(f).FileName, Request.Form(n).split(",")(0)))
+                            fileName = "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & randGUID.Replace("'", "") & "_" & Request.Files(f).FileName
+                            'fieldAttachment.Add(curField)
+                            'fieldAttachment.Add(fileName)
+                            attachmentfield = curField
+                            attachmentname = fileName
 
-                            Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & randGUID.Replace("'", "") & "_" & fileName
+                            'Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & fileName
+                            Dim fxn As String = path & fileName
+
                             Dim checkDir = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\"
                             If Not Directory.Exists(checkDir) Then Directory.CreateDirectory(checkDir)
                             If Directory.Exists(checkDir) Then
@@ -179,18 +191,28 @@ Partial Class OPHCore_API_default
                                 End If
                             End If
                             'Exit For
+                            If multiupload = "1" Then
+                                sqlstr = populateSaveXML(1, code, preview, fieldAttachment, randGUID, attachmentfield, attachmentname)
+                                sqlstr = sqlstr.Replace("#95#", "_").Replace("%2F", "/").Replace("%2C", "")
+                                sqlstr = sqlstr & ", @preview=" & IIf(preview = "", 0, preview)
+                                writeLog(sqlstr)
+
+                                xmlstr = runSQLwithResult(sqlstr, curODBC)
+                            End If
                         End If
                     Next
 
 
                 Next
 
-                sqlstr = populateSaveXML(1, code, preview, fieldAttachment, randGUID)
-                sqlstr = sqlstr.Replace("#95#", "_").Replace("%2F", "/").Replace("%2C", "")
-                sqlstr = sqlstr & ", @preview=" & IIf(preview = "", 0, preview)
-                writeLog(sqlstr)
+                If multiupload <> "1" Then
+                    sqlstr = populateSaveXML(1, code, preview, fieldAttachment, randGUID)
+                    sqlstr = sqlstr.Replace("#95#", "_").Replace("%2F", "/").Replace("%2C", "")
+                    sqlstr = sqlstr & ", @preview=" & IIf(preview = "", 0, preview)
+                    writeLog(sqlstr)
 
-                xmlstr = runSQLwithResult(sqlstr, curODBC)
+                    xmlstr = runSQLwithResult(sqlstr, curODBC)
+                End If
 
                 If Not xmlstr.Contains("<sqroot>") And Not xmlstr.Contains("<root>") Then
                     xmlstr = xmlstr.Replace("<root>", "")
@@ -382,15 +404,11 @@ Partial Class OPHCore_API_default
                     Dim result As String = client.DownloadString(url)
                     'writeLog(result)
 
-                    Dim userid as string= "", pwd as string= "12345678"
-                    Dim username as string = ""
-					pwd = runSQLwithResult("select infovalue from acctinfo where infokey='masterpassword'")
+                    Dim userid = "", pwd = "12345678"
+                    pwd = runSQLwithResult("select infovalue from acctinfo where infokey='masterpassword'")
                     For Each rx In result.Split(",")
                         If rx.Split(":")(0).IndexOf("""email""") > 0 Then
                             userid = rx.Split(":")(1).Replace("""", "").Replace(" ", "")
-                        End If
-						If rx.Split(":")(0).IndexOf("""name""") > 0 Then
-                            username = rx.Split(":")(1).Replace("""", "").Replace(" ", "")
                         End If
                     Next
                     sqlstr = "exec api.verifyPassword '" & curHostGUID & "', '" & userid & "', '" & pwd & "',2 , '" & suba & "'"
@@ -398,8 +416,6 @@ Partial Class OPHCore_API_default
                     writeLog(curODBC)
                     xmlstr = getXML(sqlstr, curODBC)
                     writeLog(xmlstr)
-					sqlstr="update [user] set username='" & username & "' where userid='" & userid & "'"
-					dim r = runSQL(sqlstr, curODBC)
                     If xmlstr IsNot Nothing And xmlstr <> "" Then
                         curUserGUID = XDocument.Parse(xmlstr).Element("sqroot").Element("userGUID").Value
                         Session("userGUID") = curUserGUID
