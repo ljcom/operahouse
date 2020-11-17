@@ -22,7 +22,7 @@
 			<line x1="6" x2="504" id="Line2" y1="30" y2="30"/>
 			<label id="Label5" text="No" width="24" height="14" x="12" font="TimesRoman" y="12" fontSize="11"/>
 			<label y="12" id="Label6" height="12" font="TimesRoman" x="42" fontSize="11" text="Nama Barang" width="84"/>
-			<label height="14" y="12" id="Label7" text="Jumlah" x="408" width="96" font="TimesRoman"/>
+			<label height="14" y="12" id="Label7" x="408" width="96" font="TimesRoman" text="Jumlah (         )"/>
 			<subReport id="SubReport1" width="510" x="0" y="34">
 				<query id="Query2">
 					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTepret2_report_sub1">
@@ -41,7 +41,9 @@
 				<footer id="Footer2" height="1"/>
 			</subReport>
 			<label y="12" height="12" font="TimesRoman" fontSize="11" id="Label14" text="Qty" width="42" x="216"/>
-			<label y="12" height="12" font="TimesRoman" fontSize="11" id="Label15" text="Harga @" width="60" x="294"/>
+			<label y="12" height="12" font="TimesRoman" fontSize="11" id="Label15" text="Harga (         )" width="74.5" x="283.5"/>
+			<recordBox id="RecordBox8" dataFormat="" height="14" width="100" font="TimesRoman" field="curr" fontSize="11" y="12.5" x="317.5"/>
+			<recordBox dataFormat="" height="14" width="100" font="TimesRoman" fontSize="11" y="12.5" id="RecordBox9" field="curr1" x="450.5"/>
 		</detail>
 		<footer id="Footer1" height="148">
 			<label id="Label8" height="14" width="100" font="TimesBold" y="12" x="12" text="Ket :"/>

@@ -9,12 +9,10 @@
 		</query>
 		<template id="Template1"/>
 		<header id="Header1" height="103">
-			<label id="Label1" height="14" text="PT. KADUJAYA PERKASA" font="TimesBold" width="168" y="6" x="6"/>
-			<label x="6" height="14" font="TimesBold" id="Label2" text="PRODUCTION DEPARTEMENT" width="192" fontSize="10" y="24"/>
-			<line id="Line1" x1="3" x2="159" y1="22" y2="22"/>
+			<label id="Label1" height="14" font="TimesBold" width="168" x="6" text="PT. SINAR ALFA OMEGA" y="9"/>
+			<line id="Line1" x1="3" x2="159" y1="25" y2="25"/>
 			<label height="14" font="TimesBold" id="Label3" y="54" text="LAPORAN HASIL PRODUKSI" x="0" width="510" align="center"/>
 			<label height="14" font="TimesBold" fontSize="10" id="Label4" text="DIST : PPIC &amp; FILE" width="102" x="6" y="84"/>
-			<rectangle id="Rectangle16" x="399" y="30" height="14" width="100" fillColor="seaShell"/>
 		</header>
 		<detail id="Detail1" height="855">
 			<rectangle id="Rectangle1" width="498" height="18" x="6" y="1"/>
@@ -41,21 +39,21 @@
 			<label height="14" font="TimesRoman" id="Label13" y="70" text="Cavity STD :" width="60" fontSize="10" x="10"/>
 			<label height="14" font="TimesRoman" width="60" id="Label14" y="88" text="Berat STD :" fontSize="10" x="10"/>
 			<label height="14" font="TimesRoman" width="60" id="Label15" y="105" text="CT STD :" fontSize="10" x="10"/>
-			<label height="14" font="TimesRoman" y="70" id="Label16" text="ACT :" width="30.1" fontSize="10" x="154"/>
-			<label height="14" font="TimesRoman" text="ACT :" width="30.1" id="Label17" y="88" fontSize="10" x="154"/>
-			<label height="14" font="TimesRoman" text="ACT :" width="30.1" id="Label18" y="105" fontSize="10" x="154"/>
+			<label height="14" font="TimesRoman" y="70" id="Label16" text="ACT :" fontSize="10" x="154" width="30"/>
+			<label height="14" font="TimesRoman" text="ACT :" id="Label17" y="88" fontSize="10" x="154" width="30"/>
+			<label height="14" font="TimesRoman" text="ACT :" id="Label18" y="105" fontSize="10" x="154" width="30"/>
 			<label height="14" font="TimesRoman" id="Label19" text="gr" width="12" y="87" fontSize="10" x="230"/>
 			<label height="14" font="TimesRoman" id="Label20" width="24" y="105" text="Detik" fontSize="10" x="218"/>
 			<label height="14" font="TimesRoman" width="24" y="105" text="Detik" id="Label21" fontSize="10" x="313"/>
 			<label height="14" font="TimesRoman" text="gr" width="12" y="87" id="Label22" fontSize="10" x="325"/>
-			<label height="14" font="TimesRoman" text="ACT :" width="30.1" y="105" id="Label23" fontSize="10" x="243"/>
-			<label height="14" font="TimesRoman" text="ACT :" width="30.1" y="88" id="Label24" fontSize="10" x="243"/>
-			<label height="14" font="TimesRoman" y="70" text="ACT :" width="30.1" id="Label25" fontSize="10" x="243"/>
+			<label height="14" font="TimesRoman" text="ACT :" y="105" id="Label23" fontSize="10" x="243" width="30"/>
+			<label height="14" font="TimesRoman" text="ACT :" y="88" id="Label24" fontSize="10" x="243" width="30"/>
+			<label height="14" font="TimesRoman" y="70" text="ACT :" id="Label25" fontSize="10" x="243" width="30"/>
 			<label height="14" font="TimesRoman" width="24" text="Detik" id="Label26" y="105" fontSize="10" x="404"/>
 			<label height="14" font="TimesRoman" text="gr" width="12" id="Label27" y="87" fontSize="10" x="417"/>
-			<label height="14" font="TimesRoman" text="ACT :" width="30.1" id="Label28" y="105" fontSize="10" x="339"/>
-			<label height="14" font="TimesRoman" text="ACT :" width="30.1" id="Label29" y="88" fontSize="10" x="339"/>
-			<label height="14" font="TimesRoman" text="ACT :" width="30.1" id="Label30" y="70" fontSize="10" x="339"/>
+			<label height="14" font="TimesRoman" text="ACT :" id="Label28" y="105" fontSize="10" x="339" width="30"/>
+			<label height="14" font="TimesRoman" text="ACT :" id="Label29" y="88" fontSize="10" x="339" width="30"/>
+			<label height="14" font="TimesRoman" text="ACT :" id="Label30" y="70" fontSize="10" x="339" width="30"/>
 			<line id="Line3" x1="6" x2="426" y1="66" y2="66"/>
 			<line x1="6" x2="426" id="Line4" y1="85" y2="85"/>
 			<line x1="6" x2="426" id="Line5" y1="103" y2="103"/>
@@ -95,10 +93,10 @@
 			<line id="Line32" x1="400" x2="400" y1="228" y2="246"/>
 			<line id="Line33" x1="364" x2="364" y1="228" y2="246"/>
 			<label id="Label43" align="center" x="6" width="42" fontSize="7" font="TimesRoman" y="180" height="66" text="M&#xA;A&#xA;T&#xA;E&#xA;R&#xA;I&#xA;A&#xA;L"/>
-			<rectangle width="498" x="6" id="Rectangle8" y="156" height="17.1"/>
+			<rectangle width="498" x="6" id="Rectangle8" y="156" height="17"/>
 			<label font="TimesRoman" fontSize="11" height="12" id="Label44" x="9" text="Hasil Pass/Sisa/Hold" width="147" y="158"/>
-			<rectangle height="17.1" id="Rectangle9" y="156" x="150" width="276"/>
-			<rectangle height="17.1" y="156" id="Rectangle10" x="240" width="96"/>
+			<rectangle id="Rectangle9" y="156" x="150" width="276" height="17"/>
+			<rectangle y="156" id="Rectangle10" x="240" width="96" height="17"/>
 			<rectangle width="498" id="Rectangle11" y="282" x="6" height="342"/>
 			<rectangle id="Rectangle12" y="282" height="342" x="150" width="276"/>
 			<rectangle y="282" id="Rectangle13" x="240" width="96" height="342"/>
@@ -140,21 +138,21 @@
 			<label height="14" font="TimesRoman" fontSize="9" id="Label62" y="330" width="24" text="Run in" x="65"/>
 			<label height="14" font="TimesRoman" width="76" id="Label63" y="356" x="64" text="Proccess" fontSize="9"/>
 			<label height="14" font="TimesRoman" width="76" x="64" id="Label64" y="375" text="Mold &amp; Toll" fontSize="9"/>
-			<label height="14" font="TimesRoman" x="64" id="Label65" y="392" text="Mesin &amp; Perlengkapan" width="85.1" fontSize="9"/>
+			<label height="14" font="TimesRoman" x="64" id="Label65" y="392" text="Mesin &amp; Perlengkapan" fontSize="9" width="85"/>
 			<label font="TimesRoman" fontSize="9" id="Label66" y="410" text="Man Power" width="80" height="16" x="65"/>
-			<label font="TimesRoman" fontSize="9" width="80" id="Label67" y="428" height="9.1" text="Preventive Mesin" x="65"/>
+			<label font="TimesRoman" fontSize="9" width="80" id="Label67" y="428" text="Preventive Mesin" x="65" height="9"/>
 			<label height="14" font="TimesRoman" fontSize="10" align="center" width="18" x="46" id="Label68" y="428" text="8"/>
 			<line id="Line54" y1="480" y2="534" x1="89" x2="89"/>
 			<line x2="426" x1="90" id="Line45" y1="498" y2="498"/>
 			<line x2="426" x1="90" id="Line46" y1="516" y2="516"/>
-			<label font="TimesRoman" fontSize="9" width="80" height="9.1" x="65" id="Label69" text="Breakdwon" y="448"/>
-			<label font="TimesRoman" fontSize="9" width="80" height="9.1" x="65" id="Label70" y="466" text="PLN"/>
-			<label font="TimesRoman" fontSize="9" height="9.1" id="Label71" text="Trial" width="19" y="502" x="66"/>
-			<label height="14" font="TimesRoman" fontSize="10" text="Proccess" id="Label72" y="518" x="92" width="45.1"/>
+			<label font="TimesRoman" fontSize="9" width="80" x="65" id="Label69" text="Breakdwon" y="448" height="9"/>
+			<label font="TimesRoman" fontSize="9" width="80" x="65" id="Label70" y="466" text="PLN" height="9"/>
+			<label font="TimesRoman" fontSize="9" id="Label71" text="Trial" width="19" y="502" x="66" height="9"/>
+			<label height="14" font="TimesRoman" fontSize="10" text="Proccess" id="Label72" y="518" x="92" width="45"/>
 			<label height="14" font="TimesRoman" text="Mold &amp; Toll" id="Label73" y="483" fontSize="9" x="93" width="45"/>
-			<label height="14" font="TimesRoman" fontSize="10" text="Material" id="Label74" y="498" x="92" width="45.1"/>
-			<label font="TimesRoman" fontSize="9" width="80" height="9.1" id="Label75" text="Pending Order" y="537" x="65"/>
-			<label font="TimesRoman" fontSize="9" width="80" height="9.1" x="65" id="Label76" y="556" text="No Order"/>
+			<label height="14" font="TimesRoman" fontSize="10" text="Material" id="Label74" y="498" x="92" width="45"/>
+			<label font="TimesRoman" fontSize="9" width="80" id="Label75" text="Pending Order" y="537" x="65" height="9"/>
+			<label font="TimesRoman" fontSize="9" width="80" x="65" id="Label76" y="556" text="No Order" height="9"/>
 			<label font="TimesRoman" fontSize="9" id="Label77" y="573" text="Other" width="72" height="9" x="65"/>
 			<line x1="6" x2="504" id="Line55" y1="606" y2="606"/>
 			<label font="TimesRoman" fontSize="9" id="Label78" x="6" height="12" width="138" align="center" text="Operator" y="591"/>
@@ -218,7 +216,7 @@
 			<label font="TimesRoman" fontSize="9" align="center" id="Label131" y="654" height="18" x="48" width="42" text="Shift 1"/>
 			<label font="TimesRoman" fontSize="9" align="center" height="18" x="48" width="42" id="Label132" text="Shift 2" y="726"/>
 			<label font="TimesRoman" fontSize="9" align="center" height="18" x="48" width="42" id="Label133" y="792" text="Shift 3"/>
-			<label font="TimesRoman" fontSize="9" align="center" width="42" id="Label134" x="6" height="191.1" y="636" text="K&#xA;E&#xA;T&#xA;E&#xA;R&#xA;A&#xA;N&#xA;G&#xA;A&#xA;N&#xA;&#xA;P&#xA;R&#xA;O&#xA;B&#xA;L&#xA;E&#xA;M"/>
+			<label font="TimesRoman" fontSize="9" align="center" width="42" id="Label134" x="6" y="636" text="K&#xA;E&#xA;T&#xA;E&#xA;R&#xA;A&#xA;N&#xA;G&#xA;A&#xA;N&#xA;&#xA;P&#xA;R&#xA;O&#xA;B&#xA;L&#xA;E&#xA;M" height="191"/>
 			<label font="TimesRoman" height="18" id="Label135" text="Check By Shift Leader" fontSize="8" x="430" y="627" width="74"/>
 			<label font="TimesRoman" height="18" text="Check By Shift Leader" fontSize="8" width="74" id="Label136" y="696" x="430"/>
 			<label font="TimesRoman" height="18" text="Check By Shift Leader" fontSize="8" width="74" id="Label137" y="768" x="430"/>
@@ -254,7 +252,7 @@
 					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="9" width="61" field="runInStartProd" id="RecordBox39" y="317" x="150"/>
 					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="9" width="61" field="runIncuciEx" id="RecordBox40" y="336" x="150"/>
 					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="9" width="61" field="proccess" id="RecordBox41" y="354" x="150"/>
-					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="9" width="61" id="RecordBox42" x="150" y="372.5" field="moldtoll"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="9" width="61" id="RecordBox42" x="150" field="moldtoll" y="372"/>
 					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="9" width="61" id="RecordBox43" y="391" x="150" field="mesinperlengkapan"/>
 					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="9" width="61" field="manPower" id="RecordBox44" y="409" x="150"/>
 					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="9" width="61" field="Preventive Mesin" id="RecordBox45" y="426" x="150"/>
@@ -313,7 +311,7 @@
 			</subReport>
 			<label height="14" font="TimesRoman" y="123" fontSize="10" id="Label138" x="54" width="66" text="CounterPieceEnd"/>
 			<label height="14" font="TimesRoman" fontSize="10" x="54" width="66" id="Label140" y="141" text="CounterPieceFrst"/>
-			<label height="14" font="TimesRoman" y="70" width="30.1" fontSize="10" id="Label141" x="184" text="ACT"/>
+			<label height="14" font="TimesRoman" y="70" fontSize="10" id="Label141" x="184" text="ACT" width="30"/>
 		</detail>
 		<footer id="Footer1" height="86">
 			<rectangle width="78" height="72" id="Rectangle17" x="426" y="0"/>

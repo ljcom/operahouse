@@ -11,10 +11,10 @@
     <header id="Header1" height="124">
       <label id="Label1" height="14" text="Purchase Order" y="0" width="114" font="TimesBold" x="6"/>
       <recordBox id="RecordBox1" dataFormat="" height="14" width="100" font="TimesRoman" x="6" y="18" field="docNo" fontSize="10"/>
-      <recordBox id="RecordBox2" dataFormat="" x="6" height="14" width="100" font="TimesRoman" field="pordDate" fontSize="10" y="42"/>
-      <label id="Label2" height="14" width="100" text="Kepada Yth," font="TimesRoman" x="6" y="62"/>
-      <recordBox dataFormat="" height="14" font="TimesRoman" id="RecordBox3" field="pemasok" width="144" x="126" fontSize="10" y="62"/>
-      <recordBox dataFormat="" font="TimesRoman" id="RecordBox4" field="address" height="36" width="144" x="126" fontSize="10" y="80"/>
+      <recordBox id="RecordBox2" dataFormat="" x="6" height="14" width="100" font="TimesRoman" field="pordDate" fontSize="10" y="35"/>
+      <label id="Label2" height="14" width="100" text="Kepada Yth," font="TimesRoman" x="6" y="55"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" id="RecordBox3" field="pemasok" width="144" fontSize="10" x="6" y="71"/>
+      <recordBox dataFormat="" font="TimesRoman" id="RecordBox4" field="address" height="36" width="144" fontSize="10" y="87" x="6"/>
       <recordBox dataFormat="" height="14" width="100" font="TimesRoman" id="RecordBox5" field="fax" x="289" fontSize="10" y="102"/>
       <recordBox dataFormat="" height="14" width="100" font="TimesRoman" id="RecordBox6" field="email" x="405" fontSize="10" y="102"/>
     </header>
@@ -26,7 +26,7 @@
       <label font="TimesRoman" id="Label4" x="12" text="No" height="18" width="18" align="center" y="41"/>
       <label font="TimesRoman" height="18" id="Label5" x="42" align="center" text="Item" width="144" y="41"/>
       <label font="TimesRoman" height="18" align="center" id="Label6" x="198" width="72" text="Kuantitas (Kg)" y="41"/>
-      <label font="TimesRoman" height="18" align="center" id="Label7" x="282" text="Harga/Kg (Rp)" width="101.1" y="41"/>
+      <label font="TimesRoman" height="18" align="center" id="Label7" x="282" text="Harga/Kg (Rp)" y="41" width="101"/>
       <label font="TimesRoman" height="18" align="center" id="Label8" x="414" width="84" text="Total (Rp)" y="41"/>
       <line id="Line1" x1="6" x2="504" y1="59" y2="59"/>
       <subReport x="12" width="486" id="SubReport2" y="66">
@@ -40,7 +40,7 @@
         <detail id="Detail3" height="16">
           <recordBox dataFormat="" height="14" field="no" x="0" width="18" align="center" font="TimesRoman" fontSize="10" y="0" id="RecordBox9"/>
           <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="144" field="skuname" id="RecordBox10" x="30" y="0"/>
-          <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" y="0" id="RecordBox11" x="186" width="71.1" field="kuantitas"/>
+          <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" y="0" id="RecordBox11" x="186" field="kuantitas" width="71"/>
           <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" y="0" id="RecordBox12" x="270" field="harga" width="102" align="right"/>
           <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" y="0" id="RecordBox13" field="total" x="384" width="102" align="right"/>
         </detail>
@@ -68,10 +68,10 @@
       <label x="6" font="TimesRoman" width="432" height="18" id="Label19" y="186" text="6) Hari SABTU tidak ada pengiriman barang"/>
       <label id="Label20" text="Hormat kami," height="18" y="234" font="TimesRoman" width="72" x="8"/>
       <label width="84" height="18" y="234" id="Label21" text="Menyetujui" x="336" font="TimesRoman"/>
-      <recordBox id="RecordBox15" dataFormat="" x="336" height="14" field="pemasok" font="TimesRoman" fontSize="10" y="252" width="119.1"/>
-      <label height="18" font="TimesRoman" fontSize="11" y="324" id="Label23" x="345" width="105" text="(                                )"/>
-      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="119.1" id="RecordBox16" x="132" y="84" field="docdate"/>
-      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox17" x="120" y="102" field="address" width="270.6"/>
+      <recordBox id="RecordBox15" dataFormat="" x="336" height="14" field="pemasok" font="TimesRoman" fontSize="10" y="252" width="119"/>
+      <label height="18" font="TimesRoman" fontSize="11" y="324" id="Label23" text="(                                )" width="117" x="338"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox16" x="132" y="84" field="docdate" width="119"/>
+      <recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" id="RecordBox17" x="120" y="102" field="address" width="270"/>
     </footer>
   </report>
 </document>

@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeSord_report">
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="1">
+		</header>
+		<detail id="Detail1" height="570">
+			<subReport width="452.1" x="14" y="110.5" id="SubReport1">
+				<query id="Query2">
+					<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeSord_report_sub1">
+						<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+						<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header id="Header3" height="1"/>
+				<detail id="Detail3" height="437">
+					<rectangle height="220" id="Rectangle1" y="5" width="428.1" x="7"/>
+					<label font="TimesRoman" text="No" height="18" width="18" align="center" id="Label4" x="12" y="11.25"/>
+					<label font="TimesRoman" height="18" align="center" text="Item" id="Label5" x="42" y="11.25" width="105"/>
+					<label font="TimesRoman" height="18" align="center" text="Qty" id="Label6" x="148.25" y="9.25" width="35.5"/>
+					<label font="TimesRoman" height="18" align="center" text="Bahan" width="107.1" id="Label7" x="176.75" y="10"/>
+					<label font="TimesRoman" height="18" align="center" text="Warna" width="78.5" id="Label8" x="277.5" y="8.75"/>
+					<label font="TimesRoman" align="center" text="PR" id="Label9" x="349" y="9.75" width="79.5" height="19"/>
+					<line id="Line1" x1="7" y1="27.25" x2="435" y2="27.25"/>
+					<rectangle id="Rectangle2" width="76.5" x="358.5" y="4.1" height="220.1"/>
+					<rectangle height="220" id="Rectangle3" y="5" x="149.1" width="36.5"/>
+					<rectangle height="220" id="Rectangle4" x="37.5" y="5" width="247"/>
+					<recordBox dataFormat="" height="14" field="no" width="18" align="center" font="TimesRoman" fontSize="10" id="RecordBox9" x="9" y="35"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" field="skuname" id="RecordBox10" y="35" x="42" width="102"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" field="kuantitas" id="RecordBox11" y="35" x="155.5" width="27.6"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" align="right" field="bahan" id="RecordBox12" y="35" x="192.5" width="85.5"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" align="right" field="warna" id="RecordBox13" y="35" x="289.5" width="62.5"/>
+					<rectangle width="9.5" height="9.5" id="Rectangle5" x="391" y="36.5"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" field="TglKirim" width="150" x="93" y="244" id="RecordBox6"/>
+					<label height="14" fontSize="11" text="Tgl Kirim" width="70" x="6" y="244" id="Label3"/>
+					<label height="14" fontSize="11" text="Pesan Sales" width="70" x="6" y="261" id="Label10"/>
+					<label height="14" fontSize="11" text="Pesan PPIC" width="70" x="6" y="278" id="Label11"/>
+					<label height="14" fontSize="11" text="Catatan" width="70" x="7" y="315" id="Label12"/>
+					<label height="14" fontSize="11" text=":" align="center" width="11" x="78" y="244" id="Label13"/>
+					<label height="14" fontSize="11" text=":" align="center" width="11" x="78" y="261" id="Label14"/>
+					<label height="14" fontSize="11" text=":" align="center" width="11" x="78" y="278" id="Label15"/>
+					<label height="14" fontSize="11" text=":" align="center" width="11" x="78" y="315" id="Label16"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="300" x="93" field="salesmsg" y="261" id="RecordBox7"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="300" x="93" field="ppicmsg" y="277.5" id="RecordBox8"/>
+					<recordBox dataFormat="" font="TimesRoman" fontSize="10" height="45" width="300" x="93" field="note" y="315" id="RecordBox14"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="150" field="TglJawab" x="93" y="395" id="RecordBox15"/>
+					<label height="14" fontSize="11" text="Tgl Jawab" width="65" x="6" y="395" id="Label17"/>
+					<label height="14" fontSize="11" text=":" align="center" width="11" x="78" y="395" id="Label18"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" width="150" field="NoForm" x="93" y="412" id="RecordBox16"/>
+					<label height="14" fontSize="11" text="Form No" width="65" x="6" y="412" id="Label19"/>
+					<label height="14" fontSize="11" text=":" align="center" width="11" x="78" y="412" id="Label20"/>
+					<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="10" field="TglCetak" id="RecordBox17" x="354.75" y="398" width="75"/>
+					<label height="14" fontSize="11" text="Tgl Cetak" width="65" x="275" y="395" id="Label21"/>
+					<label height="14" fontSize="11" text=":" align="center" width="11" x="342" y="395" id="Label22"/>
+				</detail>
+				<footer id="Footer3" height="1"/>
+			</subReport>
+			<label height="14" y="0" width="114" font="TimesBold" x="6" text="Sales Order" id="Label1"/>
+			<recordBox dataFormat="" height="14" width="100" font="TimesRoman" fontSize="10" x="65.75" y="29" field="DocNo" id="RecordBox1"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" width="144" fontSize="10" x="325" y="29" field="pelanggan" id="RecordBox2"/>
+			<recordBox dataFormat="" font="TimesRoman" field="address" width="144" fontSize="10" height="44.5" id="RecordBox3" x="325" y="46"/>
+			<label height="14" fontSize="11" x="6" y="29" text="No OI" width="45" id="Label2"/>
+			<label height="14" fontSize="11" x="6" text="Tgl" width="45" y="46" id="Label23"/>
+			<label height="14" fontSize="11" x="6" text="No PO" width="45" y="63" id="Label24"/>
+			<label height="14" fontSize="11" x="6" width="45" text="TTL Del" y="79" id="Label25"/>
+			<label height="14" fontSize="11" text=":" align="center" y="29" x="53" width="11" id="Label26"/>
+			<label height="14" fontSize="11" text=":" align="center" y="46" x="53" width="11" id="Label27"/>
+			<label height="14" fontSize="11" text=":" align="center" y="63" x="53" width="11" id="Label28"/>
+			<label height="14" fontSize="11" text=":" align="center" y="79" x="53" width="11" id="Label29"/>
+			<recordBox dataFormat="" height="14" width="100" font="TimesRoman" fontSize="10" x="65.75" field="DocDate" y="46" id="RecordBox4"/>
+			<recordBox dataFormat="" height="14" width="100" font="TimesRoman" fontSize="10" x="65.75" field="PONo" y="63" id="RecordBox5"/>
+			<label height="14" fontSize="11" y="29" x="250" text="Pelanggan" width="55" id="Label30"/>
+			<label height="14" fontSize="11" y="46" x="250" text="Alamat" width="55" id="Label31"/>
+			<label height="14" fontSize="11" text=":" align="center" width="11" y="28.5" x="310" id="Label32"/>
+			<label height="14" fontSize="11" text=":" align="center" y="46" width="11" x="310" id="Label33"/>
+		</detail>
+		<footer id="Footer1" height="1">
+		</footer>
+	</report>
+</document>

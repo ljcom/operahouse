@@ -46,9 +46,9 @@
 			</subReport>
 			<label font="TimesRoman" align="center" fontSize="10" height="12" id="Label7" text="TUJUAN" y="8" x="356" width="146"/>
 			<rectangle id="Rectangle5" x="228" width="277" y="225" height="18"/>
-			<rectangle id="Rectangle6" x="228" y="243" height="57" width="277"/>
+			<rectangle id="Rectangle6" height="57" width="277" x="228" y="243"/>
 			<label font="TimesRoman" fontSize="10" height="12" id="Label10" y="229" text="Dimuat oleh," x="231" width="112"/>
-			<rectangle id="Rectangle3" x="365" height="75" y="225" width="140"/>
+			<rectangle id="Rectangle3" height="75" y="225" x="354" width="151"/>
 			<label font="TimesRoman" fontSize="10" height="12" id="Label3" width="112" y="229" x="369" text="Dibuat oleh,"/>
 			<label id="Label6" height="14" fontSize="8" text="Form No." x="13" width="50" y="235"/>
 			<label x="13" height="14" fontSize="8" id="Label8" text="Issued date" width="50" y="250"/>

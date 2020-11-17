@@ -3,7 +3,9 @@
 	<report id="Report1">
 		<query id="Query1">
 			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTepord_report">
-				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
+				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
+				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+			</storedProcedure>
 		</query>
 		<template id="Template1"/>
 		<header id="Header1" height="124">
@@ -19,13 +21,13 @@
 		<detail id="Detail1" height="228" autoSplit="true">
 			<rectangle id="Rectangle1" x="6" width="498" height="192" y="35"/>
 			<label font="TimesRoman" x="6" id="Label3" width="186" height="30" y="-1" text="Dengan hormat,&#xA;Mohon dikirim barang-barang sbb:"/>
-			<rectangle id="Rectangle2" x="36" height="192" width="354" y="35"/>
+			<rectangle id="Rectangle2" height="192" width="354" x="36" y="35"/>
 			<rectangle height="192" id="Rectangle3" x="192" width="84" y="35"/>
 			<label font="TimesRoman" id="Label4" x="12" text="No" height="18" width="18" align="center" y="41"/>
 			<label font="TimesRoman" height="18" id="Label5" x="42" align="center" text="Item" width="144" y="41"/>
 			<label font="TimesRoman" height="18" align="center" id="Label6" x="198" width="72" text="Kuantitas (Kg)" y="41"/>
-			<label font="TimesRoman" height="18" align="center" id="Label7" x="282" text="Harga/Kg (Rp)" width="101.1" y="41"/>
-			<label font="TimesRoman" height="18" align="center" id="Label8" x="414" width="84" text="Total (Rp)" y="41"/>
+			<label font="TimesRoman" height="18" align="center" id="Label7" x="282" width="101.1" y="41" text="Harga/Kg (        )"/>
+			<label font="TimesRoman" height="18" align="center" id="Label8" x="414" width="84" y="41" text="Total (        )"/>
 			<line id="Line1" x1="6" x2="504" y1="59" y2="59"/>
 			<subReport x="12" width="486" id="SubReport2" y="66">
 				<query id="Query2">
@@ -44,6 +46,8 @@
 				</detail>
 				<footer height="1" id="Footer3"/>
 			</subReport>
+			<recordBox id="RecordBox18" dataFormat="" height="14" font="TimesRoman" y="41.5" field="curr" width="43.5" x="345.5"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" y="41.5" width="43.5" id="RecordBox19" field="curr1" x="458.5"/>
 		</detail>
 		<footer id="Footer1" height="344">
 			<rectangle id="Rectangle4" height="60" width="114" x="276" y="1"/>
