@@ -1,15 +1,10 @@
 <sqroot>
   <manifest>
-    <jsFile>OPHContent/cdn/jQuery/jquery-3.4.1.min.js</jsFile>
+    <jsFile>OPHContent/cdn/jQuery/jquery-3.4.1.js?v=1</jsFile>
     <jsFile>OPHCore/scripts/fn_general.js</jsFile>
     <jsFile>OPHCore/scripts/fn_theme.js</jsFile>
     <jsFile>OPHCore/scripts/default_theme.js?v=4</jsFile>
     <jsFile>OPHCore/scripts/default_theme_3.js</jsFile>
-    <jsFile>OPHContent/cdn/ophelements/autosuggest/autosuggest.js</jsFile>
-    <jsFile>OPHContent/cdn/ophelements/dashboard/dashboard.js</jsFile>
-    <jsFile>OPHContent/cdn/ophelements/ophconnect/ophconnect.js?v=29</jsFile>
-    <jsFile>OPHContent/cdn/ophelements/doctalk/doctalk.js</jsFile> 
-	<jsFile>OPHContent/cdn/ophelements/studio/studio.js</jsFile> 
-	<jsFile>https://apis.google.com/js/platform.js?onload=init</jsFile>
+
   </manifest>
 </sqroot>

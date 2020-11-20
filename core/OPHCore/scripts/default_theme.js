@@ -206,10 +206,11 @@ function loadContent(nbpage, isLoadSidebar, f) {
             
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight*0.8 && !scrollLoad) {
                 // you're at the bottom of the page
-                scrollLoad=true;
+                
                 var nbpage=getCookie(getCode().toLowerCase()+'_curPage');
                 var totalPages=getCookie(getCode().toLowerCase()+'_TotalPages');
                 if (parseInt(nbpage)<parseInt(totalPages)) {
+					scrollLoad=true;
                     nbpage++;
                     console.log('load '+nbpage);
                     var divname = ['browseContent'];

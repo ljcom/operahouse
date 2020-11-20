@@ -10,7 +10,7 @@ Partial Class OPHCore_api_msg_rptDialog
     Protected pdfFile As String = ""
 
     Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
+        Page.Server.ScriptTimeout = 30 * 60 '30 minutes
 
         Dim curHostGUID = getSession() 'Session("hostGUID")
 
@@ -241,10 +241,15 @@ Partial Class OPHCore_api_msg_rptDialog
 
             Dim pathGBOX As String = gpath & gfile
             Try
+
+                Dim sqlstr3 = "exec gen.evnt_save " & curHostGUID & ", '" & code & "', null, @comment='<strong>Parameters:</strong> " & parTxt & ". Generating... Please wait.', @type=5"
+                Dim rguid = runSQLwithResult(sqlstr3)
+
                 Dim ef As ExcelFile = New ExcelFile
                 Dim ws As ExcelWorksheet = ef.Worksheets.Add(code)
                 Dim rows As Integer = 0
                 Dim ds = SelectSqlSrvRows(sqlstr, Connections)
+                writeLog(sqlstr)
                 Dim json As String
                 Dim jsonCols As String = ""
                 Dim jsonAlign As String = ""
@@ -253,11 +258,13 @@ Partial Class OPHCore_api_msg_rptDialog
                     If gext <> "txt" Then
                         If gext <> "csv" Then
                             For Each head In ds.Tables(0).Columns
-                                ws.Cells(rows, cols).Value = head.ToString
+                                If mode = "xls" Then
+                                    ws.Cells(rows, cols).SetValue(head.ToString)
+                                End If
                                 Dim type = "text"
-                                If head.ToString.IndexOf("#num#") Then type="numeric"
+                                If head.ToString.IndexOf("#num#") Then type = "numeric"
                                 jsonCols &= "{type:'" & type & "',title:'" & head.ToString.Replace("#num#", "") & "',width:200},"
-                                jsonAlign &= iif(jsonAlign = "", "", ",") & "'left'"
+                                jsonAlign &= IIf(jsonAlign = "", "", ",") & "'left'"
                                 cols = cols + 1
                             Next
                             ws.Rows(rows).Hidden = IIf(mode = "xls" Or exportMode = 0, False, True)
@@ -269,12 +276,24 @@ Partial Class OPHCore_api_msg_rptDialog
                         '    ['Civic', 'Honda', '2018-07-11', '', true, '$ 4.000,01', '#007777'],
                         Dim jsonRow = "[#content#,]"
                         Dim rx = DirectCast(r, DataRow)
+                        Dim number As Double
                         For n = 0 To cl - 1
-                            ws.Cells(rows, n).Value = rx.Item(n).ToString
+                            If mode = "xls" Then
+                                If IsDBNull(rx.Item(n)) Then
+                                ElseIf Double.TryParse(rx.Item(n).ToString, number) Then
+                                    ws.Cells(rows, n).SetValue(number)
+                                    'writeLog("excel set value")
+                                    'isvisited=true
+                                Else
+                                    ws.Cells(rows, n).SetValue(rx.Item(n).ToString)
+                                    'writeLog("excel string")
+                                End If
+                            End If
+                            'ws.Cells(rows, n).Value = rx.Item(n).ToString
                             jsonRow = Replace(jsonRow, "#content#,", "'" & rx.Item(n).ToString & "',#content#,")
                         Next
                         rows = rows + 1
-                        json = json & iif(json = "", "", ",") & Replace(jsonRow, "#content#,", "")
+                        json = json & IIf(json = "", "", ",") & Replace(jsonRow, "#content#,", "")
                     Next
 
                     For n = 0 To ds.Tables(0).Columns.Count - 1
@@ -296,9 +315,9 @@ Partial Class OPHCore_api_msg_rptDialog
                     If mode = "htm" Then
                         'writeLog("html:")
                         'ConvertToHTML(pathGBOX, replace(pathGBOX, ".xlsx", ".html"))
-                        pathGBOX = replace(pathGBOX, ".xlsx", ".html")
+                        pathGBOX = Replace(pathGBOX, ".xlsx", ".html")
                         'pathGBOX=replace(pathGBOX, ".html","_files/sheet001.html")
-                        gfile = replace(gfile, "xlsx", "html")
+                        gfile = Replace(gfile, "xlsx", "html")
                         Dim html = ConvertToJSONXLS(jsonCols, json, jsonAlign)
                         'If File.Exists(gfile) Then
                         'File.AppendAllText(gfile, html)
@@ -345,7 +364,7 @@ Partial Class OPHCore_api_msg_rptDialog
                         End If
 
                         context1.Response.ClearHeaders()
-                        Dim disposition = iif(mode = "htm", "inline", "attachment") & ";filename=" & gfile
+                        Dim disposition = IIf(mode = "htm", "inline", "attachment") & ";filename=" & gfile
                         context1.Response.AddHeader("content-disposition", disposition)
                         context1.Response.BinaryWrite(bytes)
                         context1.Response.Flush()
@@ -358,8 +377,9 @@ Partial Class OPHCore_api_msg_rptDialog
 
                         pathGBOX = pathGBOX.Replace(Server.MapPath("~/OPHContent/reports"), "OPHContent/reports").Replace("\", "/")
                         writeLog(pathGBOX)
-
-                        sqlstr = "exec gen.evnt_save " & curHostGUID & ", '" & code & "', null, @comment='<strong>Parameters:</strong> " & parTxt & ". <strong>Result:</strong> Please click <a href=''" & pathGBOX & "''>here</a>.', @type=5"
+                        'xls lwt
+                        sqlstr = "update evnt set comment='<strong>Parameters:</strong> " & parTxt & ". <strong>Result:</strong> Please click <a href=''" & pathGBOX & "''>here</a>.' where eventguid='" & rguid & "'"
+                        'sqlstr = "exec gen.evnt_save " & curHostGUID & ", '" & code & "', null, @comment='<strong>Parameters:</strong> " & parTxt & ". <strong>Result:</strong> Please click <a href=''" & pathGBOX & "''>here</a>.', @type=5"
                         runSQLwithResult(sqlstr)
                     End If
                 Else
@@ -400,6 +420,7 @@ Partial Class OPHCore_api_msg_rptDialog
             Try
                 Dim ef As ExcelFile = ExcelFile.Load(template)
                 Dim ws As ExcelWorksheet = ef.Worksheets(0)
+                Dim isvisited As Boolean = False
 
                 Do While True
                     Dim query = runSQLwithResult("select infovalue from modl a inner join modlinfo b on a.moduleguid=b.moduleguid where moduleid='" & code & "' and InfoKey='querysql_" & q & "'")
@@ -461,13 +482,17 @@ Partial Class OPHCore_api_msg_rptDialog
                                 cols = col
                                 Dim rx = DirectCast(r, DataRow)
                                 Dim number As Double
+
                                 For n = 1 To cl - 1
                                     'ws.Cells(rows, n).Value = rx.Item(n).ToString
                                     If IsDBNull(rx.Item(n)) Then
                                     ElseIf Double.TryParse(rx.Item(n), number) Then
-                                        ws.Cells(rows, cols).SetValue(CDbl(Val(rx.Item(n))))
+                                        ws.Cells(rows, cols).SetValue(number)
+                                        'writeLog("excel set value")
+                                        isvisited = True
                                     Else
-                                        ws.Cells(rows, cols).Value = rx.Item(n).ToString
+                                        ws.Cells(rows, cols).SetValue(rx.Item(n).ToString)
+                                        'writeLog("excel string")
                                     End If
                                     cols = cols + 1
                                 Next
@@ -482,7 +507,11 @@ Partial Class OPHCore_api_msg_rptDialog
                     q += 1
 
                 Loop
-
+				if isvisited then
+					writeLog("visited")
+				else
+					writeLog("notvisited")
+				end if
                 ef.Save(pathGBOX)
                 If getQueryVar("output") <> "" Then
                     If Dir(getQueryVar("output")) <> "" Then Kill(getQueryVar("output"))
@@ -584,30 +613,7 @@ Partial Class OPHCore_api_msg_rptDialog
         Response.End()
         Return True
     End Function
-	Sub ConvertToHTML(xls, html)
 
-        ' If using Professional version, put your serial key below.
-		Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
-		SpreadsheetInfo.SetLicense(appSettings.Item("gBox.LicenseKey").ToString)
-
-        Dim workbook = ExcelFile.Load(xls)
-        Dim worksheet = workbook.Worksheets(0)
-
-        ' Set some ExcelPrintOptions properties for HTML export.
-        worksheet.PrintOptions.PrintHeadings = True
-        worksheet.PrintOptions.PrintGridlines = True
-
-        ' Specify cell range which should be exported to HTML.
-        'worksheet.NamedRanges.SetPrintArea(worksheet.Cells.GetSubrange("A1", "J42"))
-
-        Dim options = New HtmlSaveOptions() With
-        {
-            .HtmlType = HtmlType.Html,
-            .SelectionType = SelectionType.EntireFile
-        }
-
-        workbook.Save(html, options)
-    End Sub
     Function ConvertToJSONXLS(col As String, json As String, jsonAlign As String)
 
         Dim html As String = "<html>" &
@@ -632,7 +638,7 @@ Partial Class OPHCore_api_msg_rptDialog
             "});" &
             "</script>" &
             "</html>"
-        writeLog(html)
+        'writeLog(html)
         Return html
     End Function
 

@@ -389,6 +389,13 @@ Partial Class OPHCore_API_default
                 Dim accountid = contentOfaccountId
                 Dim suba = getQueryVar("suba")
                 sqlstr = "exec api.checkAccount '" & accountid & "', '" & suba & "'"
+            case "verifyhost"
+				dim g=getQueryVar("guid")
+				sqlstr = "exec api.verifyHost '" & g & "'"
+				
+				xmlstr = runSQLwithResult(sqlstr)
+				xmlstr="<sqroot><message>" & xmlstr & "</message></sqroot>"
+                isSingle = False				
             Case "gconnect"
                 Dim tokenid = getQueryVar("gid")
                 Dim suba As String = ""
@@ -401,16 +408,22 @@ Partial Class OPHCore_API_default
                     Dim client As WebClient = New WebClient()
                     Dim url = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" & tokenid
                     writeLog(url)
-                    Dim result As String = client.DownloadString(url)
+                    Dim userid = ""
+                    Try
+                        Dim result As String = client.DownloadString(url)
+                        For Each rx In result.Split(",")
+                            If rx.Split(":")(0).IndexOf("""email""") > 0 Then
+                                userid = rx.Split(":")(1).Replace("""", "").Replace(" ", "")
+                            End If
+                        Next
+                    Catch ex As Exception
+                        userid = getQueryVar("email")
+                    End Try
+
                     'writeLog(result)
 
-                    Dim userid = "", pwd = "12345678"
+                    Dim pwd = "12345678"
                     pwd = runSQLwithResult("select infovalue from acctinfo where infokey='masterpassword'")
-                    For Each rx In result.Split(",")
-                        If rx.Split(":")(0).IndexOf("""email""") > 0 Then
-                            userid = rx.Split(":")(1).Replace("""", "").Replace(" ", "")
-                        End If
-                    Next
                     sqlstr = "exec api.verifyPassword '" & curHostGUID & "', '" & userid & "', '" & pwd & "',2 , '" & suba & "'"
                     writeLog(sqlstr)
                     writeLog(curODBC)

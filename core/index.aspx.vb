@@ -57,7 +57,7 @@
             GUID = x(5)
             'CartID = x(7)
             suba = x(8)
-            isExpired = x(9) = "True"
+            'isExpired = x(9) = "True"
         Catch exc As Exception
             Stop
         End Try
