@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" keywords="" author="" subject="" title="" id="Yojour" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1" bottomMargin="30" leftMargin="30" rightMargin="30" topMargin="30" pageSize="a4">
+		<query id="Query1">
+			<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTejour_report">
+				<parameter name="hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+				<parameter name="GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+			</storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="1"/>
+		<detail id="Detail1" autoSplit="true" height="378">
+			<label align="center" font="HelveticaBold" text="JOURNAL" id="Label1" width="218" x="158" y="11" height="24" fontSize="15"/>
+			<label height="14" x="5" font="HelveticaBold" y="81" width="101" id="Label2" fontSize="9" text="TYPE JOURNAL"/>
+			<recordBox dataFormat="" width="148" height="16" field="refno" x="193" y="43" align="center" id="RecordBox1" fontSize="14"/>
+			<label font="HelveticaBold" text="TANGGAL :" height="15" y="80" x="351" width="69" id="Label3" fontSize="9"/>
+			<recordBox dataFormat="" font="HelveticaBold" width="92" y="81" x="426" height="13" id="RecordBox2" fontSize="9" field="Docdate"/>
+			<label width="100" text="Dibuat Oleh" align="center" height="15" id="Label4" x="22" y="238" fontSize="9"/>
+			<label width="100" text="Diperiksa Oleh" align="center" height="15" id="Label5" x="194" y="238" fontSize="9"/>
+			<label width="100" align="center" text="Disetujui Oleh" height="15" id="Label6" x="394" y="238" fontSize="9"/>
+			<label height="14" width="100" text="(_____________)" align="center" x="20" id="Label7" y="282" fontSize="10"/>
+			<label height="14" width="100" text="(_____________)" align="center" x="194" id="Label8" y="282" fontSize="10"/>
+			<label height="14" width="100" text="(_____________)" align="center" x="395" id="Label9" y="282" fontSize="10"/>
+			<recordBox dataFormat="" height="14" font="HelveticaBold" x="116" y="80" field="journaltype" width="112" id="RecordBox3" fontSize="9"/>
+			<subReport width="532" x="1" id="SubReport1" y="112.5">
+				<query id="Query2">
+					<storedProcedure connectionString="" dataProvider="msSql" referenceParameter="" name="doc.YoTejour_report_sub1">
+						<parameter name="HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;hostGUID&quot;]#"/>
+						<parameter name="GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
+					</storedProcedure>
+				</query>
+				<header height="32" id="Header2">
+					<rectangle width="28" y="0" x="5" height="32" id="Rectangle1"/>
+					<rectangle width="177" y="0" x="33" height="32" id="Rectangle2"/>
+					<rectangle width="153" height="33" y="0" x="210" id="Rectangle3"/>
+					<rectangle width="164" y="0" x="363" height="15" id="Rectangle4"/>
+					<rectangle width="164" y="15" x="363" height="18" id="Rectangle5"/>
+					<line y1="16" x1="445" x2="445" y2="32" id="Line1"/>
+					<label align="center" text="No." width="19" x="10" y="5" height="19" id="Label10" fontSize="9"/>
+					<label align="center" text="Akun GL" x="68" width="108" y="5" height="22" id="Label11" fontSize="9"/>
+					<label align="center" text="Description" x="232" y="5" width="108" height="22" id="Label12" fontSize="9"/>
+					<label align="center" text="Jumlah" width="108" x="391" y="1" height="14" id="Label13" fontSize="9"/>
+					<label y="17" align="center" text="Debit" x="368" width="71" height="16" id="Label14" fontSize="9"/>
+					<label align="center" text="Kredit" x="450" y="17" width="71" height="16" id="Label15" fontSize="9"/>
+				</header>
+				<detail id="Detail2" height="18">
+					<rectangle id="Rectangle6" width="28" x="5" y="0" height="18.5"/>
+					<rectangle width="177" x="33" id="Rectangle7" y="0.5" height="17.5"/>
+					<rectangle width="153" id="Rectangle8" x="210" y="0" height="18"/>
+					<rectangle width="164" id="Rectangle9" y="0.5" x="363.5" height="17.6"/>
+					<line x1="445" id="Line2" y1="-7.5" x2="445" y2="23"/>
+					<recordBox dataFormat="" align="center" width="21" id="RecordBox4" fontSize="9" field="No" height="13.5" x="8.5" y="2.5"/>
+					<recordBox dataFormat="" width="166" id="RecordBox5" fontSize="9" field="GLAccount&#xA;GLAccount&#xA;GLAccount" x="38.5" y="4" height="11.5"/>
+					<recordBox dataFormat="" field="Description" width="142" id="RecordBox6" fontSize="9" x="216" y="2.5" height="12.5"/>
+					<recordBox dataFormat="" align="right" field="dbvalue" width="74" id="RecordBox7" fontSize="9" x="367" y="2" height="11.5"/>
+					<recordBox dataFormat="" align="right" field="crvalue" width="74" id="RecordBox8" fontSize="9" x="452" y="2.5" height="9.5"/>
+				</detail>
+				<footer id="Footer2" height="23.5">
+					<rectangle height="23" x="363" y="0" id="Rectangle10" width="82"/>
+					<rectangle height="23" x="445" y="0" width="82" id="Rectangle11"/>
+					<recordBox dataFormat="" align="right" field="totaldebit" y="1" x="368" width="74" height="21" id="RecordBox9" fontSize="9"/>
+					<recordBox dataFormat="" align="right" field="totalcredit" x="450" y="0" width="74" height="23" id="RecordBox10" fontSize="9"/>
+				</footer>
+			</subReport>
+			<label height="14" text=":" font="HelveticaBold" align="center" width="14" y="78" id="Label16" x="96" fontSize="9"/>
+			<label id="Label17" x="9" text="Note :" y="204" width="37" height="17" fontSize="9"/>
+			<recordBox id="RecordBox11" dataFormat="" field="Notes" y="204" x="48" width="270" height="17" fontSize="9"/>
+			<label id="Label18" height="14" width="100" x="6" y="95" font="HelveticaBold" text="NO JOURNAL" fontSize="9"/>
+			<recordBox id="RecordBox12" dataFormat="" height="14" width="100" field="journalno" font="HelveticaBold" x="116" y="95.5" fontSize="9"/>
+			<label id="Label19" height="14" font="HelveticaBold" text=":" width="14" align="center" x="96" y="94.5" fontSize="9"/>
+		</detail>
+		<footer id="Footer1" height="19"/>
+	</report>
+</document>

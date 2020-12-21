@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<report id="Report1">
+		<query id="Query1">
+			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTebntr_report">
+				<parameter name="@hostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/><parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/></storedProcedure>
+		</query>
+		<template id="Template1"/>
+		<header id="Header1" height="116">
+			<label x="6" y="6" height="14" width="144" font="TimesBold" id="Label1" text="Print - Bank Transfer"/>
+			<label font="TimesBold" x="6" height="18" width="498" align="center" id="Label2" y="33" text="BANK TRANSFER"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" align="center" x="180" width="150" fontSize="11" field="refNo" id="RecordBox1" y="51"/>
+			<label font="TimesBold" x="6" y="90" id="Label3" text="TRANSFER DATE :" width="114" height="18"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="11" y="90" width="108" field="docDate" id="RecordBox3" x="120"/>
+		</header>
+		<detail id="Detail1" height="175">
+			<label height="14" width="144" font="TimesBold" id="Label4" text="Bank From Account" y="6" x="84"/>
+			<label height="14" width="144" font="TimesBold" text="Bank From Account" id="Label5" y="6" x="294"/>
+			<label height="14" id="Label6" text="Bank Name" font="TimesRoman" width="60" y="24" x="84"/>
+			<label height="14" font="TimesRoman" width="60" id="Label7" text="Value" y="42" x="84"/>
+			<label height="14" font="TimesRoman" id="Label8" text="Conversion" width="60" y="60" x="84"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="11" id="RecordBox2" field="bankname" width="54" y="24" x="162"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="11" width="54" id="RecordBox4" field="value" y="42" x="162"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="11" width="54" id="RecordBox5" field="conversion" y="60" x="162"/>
+			<label height="14" text="Bank Name" font="TimesRoman" width="60" id="Label9" y="24" x="294"/>
+			<label height="14" font="TimesRoman" width="60" text="Value" id="Label10" y="42" x="294"/>
+			<label height="14" font="TimesRoman" text="Conversion" width="60" id="Label11" y="60" x="294"/>
+			<line id="Line1" x1="258" y1="0" x2="258" y2="84"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="11" width="54" id="RecordBox6" field="bankname2" y="24" x="372"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="11" width="54" id="RecordBox7" field="value2" y="42" x="372"/>
+			<recordBox dataFormat="" height="14" font="TimesRoman" fontSize="11" id="RecordBox8" field="conversion2" width="54" y="60" x="372"/>
+			<rectangle height="60" id="Rectangle1" x="72" y="102" width="372"/>
+			<label height="14" width="100" font="TimesRoman" text="Total Cost" id="Label12" y="108" x="84"/>
+			<label height="14" width="100" font="TimesRoman" text="Transfer Value" id="Label13" y="126" x="84"/>
+			<label height="14" width="100" font="TimesRoman" text="Transfered" id="Label14" y="144" x="84"/>
+			<line id="Line2" x1="258" y1="102" x2="258" y2="162"/>
+			<label height="14" width="100" font="TimesRoman" text="Notes" id="Label15" y="108" x="294"/>
+			<recordBox dataFormat="" font="TimesRoman" field="note" fontSize="11" height="48" id="RecordBox9" y="108" x="330" width="96"/>
+			<recordBox dataFormat="" font="TimesRoman" width="66" height="11.1" field="transfervalue" id="RecordBox11" y="126" x="162"/>
+			<recordBox dataFormat="" font="TimesRoman" width="66" height="11.1" x="162" id="RecordBox10" y="145" field="Total"/>
+			<recordBox dataFormat="" font="TimesRoman" width="66" height="11.1" x="162" id="RecordBox12" y="108.5" field="TotalCost"/>
+		</detail>
+		<footer id="Footer1" height="1"/>
+	</report>
+</document>

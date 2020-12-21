@@ -1,41 +1,46 @@
 <?xml version="1.0"?>
 <document xsi:schemaLocation="http://www.cete.com http://www.cete.com/schemas/DPLX60.xsd" version="6.0" id="Document1" author="" keywords="" title="" subject="" xmlns="http://www.cete.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<openTypeFont name="bc39" path="\\caprianno\vsonline\operahouse\fonts\code39r.ttf"/>
-	<openTypeFont name="bc128" path="\\caprianno\vsonline\operahouse\fonts\code128.ttf"/>
-	<openTypeFont name="bwrp36" path="\\caprianno\vsonline\operahouse\fonts\eanbwrp36tt.ttf"/>
-	<openTypeFont name="bwrp72" path="\\caprianno\vsonline\operahouse\fonts\eanbwrp72tt.ttf"/>
-	<openTypeFont name="c39" path="\\caprianno\vsonline\operahouse\fonts\IDAutomationHC39M Code 39 Barcode.ttf"/>
-	<report id="Report1" topMargin="0" bottomMargin="0" pageSize="custom" leftMargin="0" rightMargin="0" pageWidth="170.1" pageHeight="85.05">
+	<report id="Report1" bottomMargin="0" leftMargin="0" pageHeight="85.05" pageSize="custom" pageWidth="170.1" rightMargin="0" topMargin="0">
 		<query id="Query1">
-			<storedProcedure dataProvider="msSql" referenceParameter="" connectionString="#Global.AppSettings[&quot;connection&quot;]#" name="doc.YoTeLabelObat_report">
+			<storedProcedure dataProvider="msSql" referenceParameter="" name="doc.YoTeLabelObat_report" connectionString="#Global.AppSettings[&quot;connection&quot;]#">
 				<parameter name="@HostGUID" type="uniqueIdentifier" value="#Parameters[&quot;HostGUID&quot;]#"/>
 				<parameter name="@GUID" type="uniqueIdentifier" value="#Parameters[&quot;GUID&quot;]#"/>
 			</storedProcedure>
 		</query>
 		<template id="Template1"/>
 		<header id="Header1"/>
-		<detail id="Detail1" autoSplit="true" height="85.05">
-			<label id="Label1" align="center" height="9" text="RENATA MEDICAL" width="139.75" fontSize="6" x="15" font="HelveticaBold" y="-0.5"/>
-			<label id="Label2" align="center" fontSize="5" width="126.75" height="19.5" text="JL. Bangbarung Raya/H.Achmad Sobana&#xA; No.39, Bogor&#xA;Telp : (0251) 8348386" x="24.25" font="HelveticaBold" y="5"/>
-			<line id="Line1" y1="24.5" y2="24.5" x1="0.5" x2="198"/>
-			<label id="Label3" fontSize="5" width="188.5" height="10.25" x="4.5" y="26.5" font="HelveticaBold" text="NAMA:"/>
-			<label id="Label4" fontSize="5" width="189.85" height="7.5" x="4.5" y="33.5" font="HelveticaBold" text="RM/ TGL. LAHIR :"/>
-			<label height="10" id="Label5" fontSize="5" width="188.6" x="4.4" y="40" font="HelveticaBold" text="R. RAWAT/POLI :"/>
-			<label id="Label6" fontSize="5" width="190.35" x="4.75" height="8" y="46.5" font="HelveticaBold" text="NAMA OBAT / QTY :"/>
-			<label fontSize="5" width="190.35" id="Label7" text="ED :" height="7.75" x="4.75" y="52.5" font="HelveticaBold"/>
-			<label fontSize="5" height="14.5" id="Label9" width="117.6" align="center" y="64.5" text="SESUDAH MAKANs&#xA;TIDAK BOLEH DIULANG TANPA RESEP DOKTER" font="HelveticaBold" x="21.75"/>
-			<label fontSize="5" height="7" id="Label10" font="HelveticaBold" width="63.1" x="111.25" y="77.5" align="justify" text="Tgl Cetak :"/>
-			<recordBox id="RecordBox1" dataFormat="" width="100" field="name" fontSize="5" font="HelveticaBold" height="8.5" y="26.5" x="22.25"/>
-			<recordBox id="RecordBox2" dataFormat="" fontSize="5" field="rm" font="HelveticaBold" height="8.25" y="33.5" x="47.75" width="30.5"/>
-			<recordBox id="RecordBox3" dataFormat="" fontSize="5" field="dob" font="HelveticaBold" width="71.75" height="8.1" y="33.5" x="74.25"/>
-			<label id="Label11" fontSize="5" text="/" font="HelveticaBold" width="21.5" height="7.1" y="33.5" x="72"/>
-			<recordBox id="RecordBox4" dataFormat="" width="100" fontSize="5" field="poli" font="HelveticaBold" height="10" y="40" x="47.25"/>
-			<recordBox id="RecordBox5" dataFormat="" width="100" font="HelveticaBold" field="medname" fontSize="5" height="8.75" y="46.5" x="54.25"/>
-			<recordBox id="RecordBox6" dataFormat="" field="qty" font="HelveticaBold" fontSize="5" height="10.5" width="94.5" y="45.5" x="112"/>
-			<label id="Label12" fontSize="5" text="/" font="HelveticaBold" width="23.5" height="8.75" x="111.5" y="46.5"/>
-			<recordBox id="RecordBox7" dataFormat="" width="100" fontSize="5" field="ed" font="HelveticaBold" height="9" y="52.5" x="16.75"/>
-			<recordBox id="RecordBox8" dataFormat="" height="14" width="100" font="HelveticaBold" field="date2" fontSize="5" y="77.5" x="138.25"/>
-			<recordBox id="RecordBox9" dataFormat="" font="HelveticaBold" field="dosage" fontSize="5" align="center" y="57" height="10.5" width="55.25" x="53.5"/>
+		<detail id="Detail1" height="85.05">
+			<label align="center" height="9" text="RENATA MEDICAL" width="139.75" font="HelveticaBold" y="-0.5" x="13" id="Label1" fontSize="5"/>
+			<label align="center" width="126.75" text="JL. Bangbarung Raya/H.Achmad Sobana&#xA; No.39, Bogor&#xA;Telp : (0251) 8348386" font="HelveticaBold" id="Label2" fontSize="4" height="19.5" x="21.25" y="4.75"/>
+			<line x1="0.5" x2="198" id="Line1" y1="20" y2="20"/>
+			<label font="HelveticaBold" id="Label3" x="4.25" width="18" fontSize="4" y="22.25" text="NAMA" height="6.75"/>
+			<label height="7.5" font="HelveticaBold" id="Label4" fontSize="4" y="29.25" x="4.25" text="RM/ TGL. LAHIR" width="31.1"/>
+			<label height="10" font="HelveticaBold" id="Label5" fontSize="4" x="4.15" y="36" text="R. RAWAT/POLI" width="32.6"/>
+			<label font="HelveticaBold" id="Label6" fontSize="4" x="4" y="42.75" text="NAMA OBAT / QTY" width="36.35" height="6.75"/>
+			<label height="7.75" font="HelveticaBold" id="Label7" fontSize="4" x="4" y="56.75" text="ED" width="6.1"/>
+			<label width="117.6" align="center" font="HelveticaBold" x="21.75" id="Label8" text="TIDAK BOLEH DIULANG TANPA RESEP DOKTER" fontSize="4" height="6.5" y="74.5"/>
+			<label height="7" font="HelveticaBold" align="justify" text="Tgl Cetak :" id="Label9" fontSize="4" width="21.1" x="104.25" y="79.25"/>
+			<recordBox dataFormat="" width="100" field="name" font="HelveticaBold" id="RecordBox1" fontSize="4" height="7" y="22" x="42.25"/>
+			<recordBox dataFormat="" field="rm" font="HelveticaBold" id="RecordBox2" width="25.75" fontSize="4" height="7.25" x="42.25" y="29"/>
+			<recordBox dataFormat="" field="dob" font="HelveticaBold" id="RecordBox3" width="69.25" fontSize="4" y="29.25" height="6.85" x="72.75"/>
+			<label fontSize="5" text="/" font="HelveticaBold" height="7.1" id="Label10" width="3.25" y="29" x="70.5"/>
+			<recordBox dataFormat="" field="poli" font="HelveticaBold" id="RecordBox4" width="72.5" fontSize="4" height="6.5" y="36" x="42.25"/>
+			<recordBox dataFormat="" font="HelveticaBold" field="medname" id="RecordBox5" expandable="true" width="82.25" fontSize="4" y="42.5" height="7.25" x="42.25"/>
+			<recordBox dataFormat="" field="qty" font="HelveticaBold" id="RecordBox6" width="25" fontSize="4" height="6.5" y="43.25" x="130.25"/>
+			<label fontSize="5" text="/" font="HelveticaBold" height="8.75" id="Label11" width="5.25" x="127.5" y="42.75"/>
+			<recordBox dataFormat="" field="ed" font="HelveticaBold" id="RecordBox7" height="6.5" width="36.25" y="56.25" x="42.25" fontSize="4"/>
+			<recordBox dataFormat="" font="HelveticaBold" field="date2" id="RecordBox8" width="43.25" fontSize="4" height="6.25" x="126" y="79.25"/>
+			<recordBox dataFormat="" font="HelveticaBold" field="dosage" id="RecordBox9" vAlign="center" fontSize="4" x="55.75" width="19.25" height="7.1" y="62.5" align="right"/>
+			<recordBox dataFormat="" font="HelveticaBold" id="RecordBox10" field="aturan" vAlign="center" fontSize="4" align="center" height="6.5" x="4.1" width="153.75" y="68.75"/>
+			<label height="7.75" font="HelveticaBold" fontSize="4" x="4" id="Label13" y="49.75" width="32.35" text="Kegunaan Obat"/>
+			<recordBox dataFormat="" font="HelveticaBold" width="48.25" id="RecordBox11" field="fungsiobat" y="49.25" height="7.25" x="42.25" fontSize="4"/>
+			<recordBox dataFormat="" font="HelveticaBold" vAlign="center" fontSize="4" id="RecordBox12" height="7.1" field="carapakai" width="63.5" y="62.5" x="76"/>
+			<label font="HelveticaBold" fontSize="4" y="22.25" height="6.75" id="Label12" text=":" width="2.1" x="40.5"/>
+			<label font="HelveticaBold" fontSize="4" height="6.75" text=":" width="2.1" x="40.5" id="Label14" y="29.25"/>
+			<label font="HelveticaBold" fontSize="4" height="6.75" text=":" width="2.1" x="40.5" id="Label15" y="36.25"/>
+			<label font="HelveticaBold" fontSize="4" height="6.75" text=":" width="2.1" x="40.5" id="Label16" y="42.25"/>
+			<label font="HelveticaBold" fontSize="4" height="6.75" text=":" width="2.1" x="40.5" id="Label17" y="49.25"/>
+			<label font="HelveticaBold" fontSize="4" height="6.75" text=":" width="2.1" x="40.5" id="Label18" y="56.25"/>
 		</detail>
 		<footer id="Footer1"/>
 	</report>
