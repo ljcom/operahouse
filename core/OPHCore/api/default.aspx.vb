@@ -175,7 +175,7 @@ Partial Class OPHCore_API_default
                             'fieldAttachment.Add(curField)
                             'fieldAttachment.Add(fileName)
                             attachmentfield = curField
-                            attachmentname = fileName
+                            attachmentname = ".."+replace(fileName, "\", "/")
 
                             'Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & fileName
                             Dim fxn As String = path & fileName
@@ -186,33 +186,42 @@ Partial Class OPHCore_API_default
                                 writeLog("upload_attachment: " & fxn)
                                 If fxn <> "" Then
                                     Request.Files(f).SaveAs(fxn)
-                                    sqlstr = "exec gen.addFile '" & curHostGUID & "', '" & fxn & "'"
-                                    Dim newFile = runSQLwithResult(sqlstr)
+                                    'sqlstr = "exec gen.addFile '" & curHostGUID & "', '" & fxn & "'"
+                                    'Dim newFile = runSQLwithResult(sqlstr)
                                 End If
                             End If
                             'Exit For
-                            If multiupload = "1" Then
+                            'If multiupload = "1" Then
                                 sqlstr = populateSaveXML(1, code, preview, fieldAttachment, randGUID, attachmentfield, attachmentname)
                                 sqlstr = sqlstr.Replace("#95#", "_").Replace("%2F", "/").Replace("%2C", "")
                                 sqlstr = sqlstr & ", @preview=" & IIf(preview = "", 0, preview)
                                 writeLog(sqlstr)
 
                                 xmlstr = runSQLwithResult(sqlstr, curODBC)
-                            End If
+                            'else
+								'writeLog(fieldAttachment)
+								'sqlstr = populateSaveXML(1, code, preview, fieldAttachment, randGUID, attachmentfield, attachmentname)
+								'sqlstr = sqlstr.Replace("#95#", "_").Replace("%2F", "/").Replace("%2C", "")
+								'sqlstr = sqlstr & ", @preview=" & IIf(preview = "", 0, preview)
+								'writeLog(sqlstr)
+
+								'xmlstr = runSQLwithResult(sqlstr, curODBC)
+							
+							'End If
+							
                         End If
                     Next
 
 
                 Next
-
-                If multiupload <> "1" Then
-                    sqlstr = populateSaveXML(1, code, preview, fieldAttachment, randGUID)
+                'If Request.Files.Count = 0 Then
+                sqlstr = populateSaveXML(1, code, preview, fieldAttachment, randGUID)
                     sqlstr = sqlstr.Replace("#95#", "_").Replace("%2F", "/").Replace("%2C", "")
                     sqlstr = sqlstr & ", @preview=" & IIf(preview = "", 0, preview)
                     writeLog(sqlstr)
 
                     xmlstr = runSQLwithResult(sqlstr, curODBC)
-                End If
+                'End If
 
                 If Not xmlstr.Contains("<sqroot>") And Not xmlstr.Contains("<root>") Then
                     xmlstr = xmlstr.Replace("<root>", "")
@@ -407,7 +416,7 @@ Partial Class OPHCore_API_default
                 If tokenid <> "" Then
                     Dim client As WebClient = New WebClient()
                     Dim url = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" & tokenid
-                    writeLog(url)
+                    'writeLog(url)
                     Dim userid = ""
                     Try
                         Dim result As String = client.DownloadString(url)
@@ -417,6 +426,7 @@ Partial Class OPHCore_API_default
                             End If
                         Next
                     Catch ex As Exception
+						writeLog("Error:" & url)
                         userid = getQueryVar("email")
                     End Try
 
@@ -424,7 +434,7 @@ Partial Class OPHCore_API_default
 
                     Dim pwd = "12345678"
                     pwd = runSQLwithResult("select infovalue from acctinfo where infokey='masterpassword'")
-                    sqlstr = "exec api.verifyPassword '" & curHostGUID & "', '" & userid & "', '" & pwd & "',2 , '" & suba & "'"
+                    sqlstr = "exec api.verifyPassword '" & curHostGUID & "', '" & userid & "', '" & pwd & "',2 , '" & suba & "','" & tokenid & "','" & GetIPAddress() & "'"
                     writeLog(sqlstr)
                     writeLog(curODBC)
                     xmlstr = getXML(sqlstr, curODBC)
@@ -486,7 +496,7 @@ Partial Class OPHCore_API_default
                 Dim userid As String = ""
                 Dim pwd As String = ""
                 Dim suba As String = ""
-                suba = Request.Form("suba")
+                suba = getQueryVar("suba")
 
                 If Request.Form("autologin") = "1" And Request.ServerVariables(5) <> "" Then
                     bypass = 1

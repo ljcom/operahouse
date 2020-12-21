@@ -440,7 +440,8 @@ Public Class cl_base
             End If
         Catch ex As Exception
             errorCaptcha = "Your Server is unable to connect Internet | " + ex.Message.ToString
-            'Dont show the error
+            writeLog("Error " & ex.Message.ToString)
+			'Dont show the error
         End Try
         Return False
     End Function
@@ -543,13 +544,13 @@ Public Class cl_base
         Catch ex As SqlException
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
-            writeLog(contentofError)
+            writeLog("Error: " & contentofError)
             'Return False
             r = False
         Catch ex As Exception
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
-            writeLog(contentofError)
+            writeLog("Error: " & contentofError)
             'Return False
             r = False
         Finally
@@ -597,12 +598,12 @@ Public Class cl_base
         Catch ex As SqlException
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
-            writeLog(contentofError)
+            writeLog("Error: " & contentofError)
             Return ""
         Catch ex As Exception
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
-            writeLog(contentofError)
+            writeLog("Error: " & contentofError)
             Return ""
         Finally
             myCommand.Connection.Close()
@@ -661,12 +662,12 @@ Public Class cl_base
         Catch ex As SqlException
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
-            writeLog(contentofError)
+            writeLog("Error: " & contentofError)
             Return Nothing
         Catch ex As Exception
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
-            writeLog(contentofError)
+            writeLog("Error: " & contentofError)
             Return Nothing
         Finally
             myCommand.Connection.Close()
@@ -691,10 +692,10 @@ Public Class cl_base
 
         Catch ex As SqlException
             contentofError = query & ex.Message & "<br>"
-            writeLog(contentofError)
+            writeLog("Error: " & contentofError)
         Catch ex As Exception
             contentofError = query & ex.Message & "<br>"
-            writeLog(contentofError)
+            writeLog("Error: " & contentofError)
         Finally
             conn.Close()
 

@@ -118,9 +118,13 @@ Partial Class OPHCore_api_loadTheme
         'save
         If Not System.IO.File.Exists(themetemp) = True Then
             Dim file As System.IO.FileStream
-            file = System.IO.File.Create(themetemp)
-            file.Close()
-        My.Computer.FileSystem.WriteAllText(themetemp, doc, False)															 
+            Try 
+				file = System.IO.File.Create(themetemp)
+				file.Close()
+				My.Computer.FileSystem.WriteAllText(themetemp, doc, False)															 
+            Catch ex As Exception
+
+            End Try
         End If
 
 

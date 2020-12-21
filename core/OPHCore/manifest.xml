@@ -1,6 +1,6 @@
 <sqroot>
   <manifest>
-    <jsFile>OPHContent/cdn/jQuery/jquery-3.4.1.js?v=1</jsFile>
+    <jsFile>OPHContent/cdn/jQuery/jquery-3.5.1.min.js?v=1</jsFile>
     <jsFile>OPHCore/scripts/fn_general.js</jsFile>
     <jsFile>OPHCore/scripts/fn_theme.js</jsFile>
     <jsFile>OPHCore/scripts/default_theme.js?v=4</jsFile>
