@@ -1,11 +1,12 @@
 ﻿var form_added = false, form_edited = false;
 var themeXML;
 
-function initTheme(bCode, bGUID, guestID, pageURL, f) { //bmode, bcode, bguid hanya dipakai kalau mau pindah lokasi saja
+function initTheme(bCode, bGUID, guestID, theme, pageURL, f) { //bmode, bcode, bguid hanya dipakai kalau mau pindah lokasi saja
     var unique = getCookie("offline") == 1 ? '' : '&unique=' + getUnique();
     if (bCode != undefined) setCookie('code', bCode, 0, 1, 0);
     if (bGUID != undefined && bGUID != null) setCookie('GUID', bGUID, 0, 1, 0);
 	if (pageURL != undefined && pageURL!=null) setCookie('page', pageURL, 0, 1, 0);
+	if (theme != undefined && theme!=null) setCookie('themeFolder', theme, 0, 1, 0);
     var tcode = getQueryVariable('tcode');
     setCookie('guestID', guestID, 7, 0, 0);
 
@@ -1432,6 +1433,7 @@ function genReport(code, outputType, otherPar, isPop) {
 		  success: function(data) {
 			$('#btnPDF').button('reset');
 			$('#btnXLS').button('reset');
+			$('#btnXML').button('reset');
 			// callback code here
 			var s=findScript(data);
 			if (s) eval(s);

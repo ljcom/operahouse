@@ -12,7 +12,7 @@ Partial Class OPHCore_api_msg_rptDialog
     Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         ''parameter: hostguid, code 
-        '' mode=xls;pdf;txt;csv;htm, job=1, dontdelete=1, parameter, pop=1, outputtype=0, output?
+        '' mode=xls;pdf;txt;csv;htm;xml, job=1, dontdelete=1, parameter, pop=1, outputtype=0, output?
         '' mode xlstemplate: exportmode=1;0, 
         '' mode parent: withdata=1;0, exportmode=1;0, 
         '' mode child: parentguid
@@ -51,7 +51,7 @@ Partial Class OPHCore_api_msg_rptDialog
 
         Dim sqlstr = ""
 
-        If mode = "htm" Or mode = "xls" Or mode = "pdf" Or mode = "xlstemplate" Then
+        If mode = "xml" Or mode = "htm" Or mode = "xls" Or mode = "pdf" Or mode = "xlstemplate" Then
             sqlstr = "exec [api].[getReport] " & curHostGUID & ", '" & code & "', '" & parXML & "'"
             writeLog("getReport : " & sqlstr)
             Dim ds1 = SelectSqlSrvRows(sqlstr)
@@ -176,12 +176,12 @@ Partial Class OPHCore_api_msg_rptDialog
                     If pop = "1" Then
                         Response.Write("<script>alert('" & ex.Message.Replace("'", "\'").Replace("\", "\\") & "')</script>")
                     End If
-                    writeLog(ex.Message.Replace("'", "\'").Replace("\", "\\"))
+                    writeLog(ex.Message.Replace("'", "\'").Replace("\", "\\"), True)
                 Finally
 
 
                 End Try
-            ElseIf mode = "xls" Or mode = "htm" Or mode = "child" Or mode = "parent" Then
+            ElseIf mode = "xml" Or mode = "xls" Or mode = "htm" Or mode = "child" Or mode = "parent" Then
 
                 Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
                 SpreadsheetInfo.SetLicense(appSettings.Item("gBox.LicenseKey").ToString)
@@ -263,170 +263,202 @@ Partial Class OPHCore_api_msg_rptDialog
 
                 Dim pathGBOX As String = gpath & gfile
                 Dim pathGBOX1 = pathGBOX.Replace(Server.MapPath("~/OPHContent/reports"), "OPHContent/reports").Replace("\", "/")
+                If mode <> "xml" Then
+                    Try
 
-                Try
+                        Dim ef As ExcelFile = New ExcelFile
+                        Dim ws As ExcelWorksheet = ef.Worksheets.Add(code)
+                        Dim rows As Integer = 0
+                        writeLog(sqlstr)
+                        Dim ds = SelectSqlSrvRows(sqlstr, Connections)
+                        Dim json As String = ""
+                        Dim jsonCols As String = ""
+                        Dim jsonAlign As String = ""
+                        If ds.Tables.Count > 0 And ds.Tables(0).Rows.Count > 0 Then
 
-                    'Dim sqlstr3 = "exec gen.evnt_save " & curHostGUID & ", '" & code & "', null, @comment='<strong>Parameters:</strong> " & parTxt & ". Generating... Please wait.', @type=5"
-                    If mode = "xls" Then
-                        Dim sqlstr3 = "exec gen.evnt_save " & curHostGUID & ", '" & code & "', null, @comment='<strong>Parameters:</strong> " & parTxt & ". <strong>Result:</strong> Please click <a href=''" & pathGBOX1 & "''>here</a>.', @type=5"
-                        'writeLog(sqlstr3)
-                        runSQLwithResult(sqlstr3)
-                    End If
-
-                    Dim ef As ExcelFile = New ExcelFile
-                    Dim ws As ExcelWorksheet = ef.Worksheets.Add(code)
-                    Dim rows As Integer = 0
-                    writeLog(sqlstr)
-                    Dim ds = SelectSqlSrvRows(sqlstr, Connections)
-                    Dim json As String = ""
-                    Dim jsonCols As String = ""
-                    Dim jsonAlign As String = ""
-                    If ds.Tables.Count > 0 And ds.Tables(0).Rows.Count > 0 Then
-                        Dim cols As Integer = 0
-                        If gext <> "txt" Then
-                            If gext <> "csv" Then
-                                For Each head In ds.Tables(0).Columns
-                                    If mode = "xls" Or mode = "parent" Or mode = "child" Then
-                                        ws.Cells(rows, cols).SetValue(head.ToString)
-                                    End If
-                                    Dim type = "text"
-                                    If head.ToString.IndexOf("#num#") Then type = "numeric"
-                                    jsonCols &= "{type:'" & type & "',title:'" & head.ToString.Replace("#num#", "") & "',width:200},"
-                                    jsonAlign &= IIf(jsonAlign = "", "", ",") & "'left'"
-                                    cols = cols + 1
-                                Next
-                                ws.Rows(rows).Hidden = IIf(mode = "xls" Or exportMode = 0, False, True)
-                                rows = rows + 1
+                            If mode = "xls" Then
+                                'Dim sqlstr3 = "exec gen.evnt_save " & curHostGUID & ", '" & code & "', null, @comment='<strong>Parameters:</strong> " & parTxt & ". Generating... Please wait.', @type=5"
+                                Dim sqlstr3 = "exec gen.evnt_save " & curHostGUID & ", '" & code & "', null, @comment='<strong>Parameters:</strong> " & parTxt & ". <strong>Result:</strong> Please click <a href=''" & pathGBOX1 & "''>here</a>.', @type=5"
+                                'writeLog(sqlstr3)
+                                runSQLwithResult(sqlstr3)
                             End If
-                        End If
-                        Dim cl = ds.Tables(0).Columns.Count
-                        Dim rc = 0
-                        For rc = 0 To ds.Tables(0).Rows.Count - 1
-                            'For Each r In ds.Tables(0).Rows
-                            '    ['Civic', 'Honda', '2018-07-11', '', true, '$ 4.000,01', '#007777'],
 
-                            Dim jsonRow = "[#content#,]"
-                            Dim rx = DirectCast(ds.Tables(0).Rows(rc), DataRow)
-                            Dim number As Double
-                            For n = 0 To cl - 1
-                                If mode = "xls" Or mode = "parent" Or mode = "child" Then
-                                    If IsDBNull(rx.Item(n)) Then
-                                    ElseIf Double.TryParse(rx.Item(n).ToString, number) Then
-                                        ws.Cells(rows + rc, n).SetValue(number)
-                                        'writeLog("excel set value")
-                                        'isvisited=true
-                                    Else
-                                        ws.Cells(rows + rc, n).SetValue(rx.Item(n).ToString)
-                                        'writeLog("excel string")
-                                    End If
+                            Dim cols As Integer = 0
+                            If gext <> "txt" Then
+                                If gext <> "csv" Then
+                                    For Each head In ds.Tables(0).Columns
+                                        If mode = "xls" Or mode = "parent" Or mode = "child" Then
+                                            ws.Cells(rows, cols).SetValue(head.ToString)
+                                        End If
+                                        Dim type = "text"
+                                        If head.ToString.IndexOf("#num#") Then type = "numeric"
+                                        jsonCols &= "{type:'" & type & "',title:'" & head.ToString.Replace("#num#", "") & "',width:200},"
+                                        jsonAlign &= IIf(jsonAlign = "", "", ",") & "'left'"
+                                        cols = cols + 1
+                                    Next
+                                    ws.Rows(rows).Hidden = IIf(mode = "xls" Or exportMode = 0, False, True)
+                                    rows = rows + 1
                                 End If
-                                'ws.Cells(rows, n).Value = rx.Item(n).ToString
-                                jsonRow = Replace(jsonRow, "#content#,", "'" & rx.Item(n).ToString & "',#content#,")
-                            Next
-                            'rows = rows + 1
-                            json = json & IIf(json = "", "", ",") & Replace(jsonRow, "#content#,", "")
-                        Next
-
-                        'For n = 0 To ds.Tables(0).Columns.Count - 1
-                        'ws.Columns.Item(n).AutoFit()
-                        'Next
-                        ws.Columns(0).Hidden = IIf(mode = "xls" Or exportMode = 0, False, True)
-                        'ws.Columns.Item(0).AutoFit()
-                        ef.Save(pathGBOX)
-                        'kok bisa tahu pathnya?
-                        If getQueryVar("output") <> "" Then
-                            If Dir(getQueryVar("output")) <> "" Then Kill(getQueryVar("output"))
-                            If gext = "txt" Then
-                                Dim latin1 As Encoding = Encoding.GetEncoding(28591)
-                                Dim text As String = File.ReadAllText(pathGBOX, latin1)
-                                File.WriteAllText(getQueryVar("output"), text, Encoding.ASCII)
-                            Else
-                                FileCopy(pathGBOX, getQueryVar("output"))
                             End If
-                        End If
-                        If mode = "htm" Then
-                            'writeLog("html:")
-                            'ConvertToHTML(pathGBOX, replace(pathGBOX, ".xlsx", ".html"))
-                            pathGBOX = Replace(pathGBOX, ".xlsx", ".html")
-                            'pathGBOX=replace(pathGBOX, ".html","_files/sheet001.html")
-                            gfile = Replace(gfile, "xlsx", "html")
-                            Dim html = ConvertToJSONXLS(jsonCols, json, jsonAlign)
-                            'If File.Exists(gfile) Then
-                            'File.AppendAllText(gfile, html)
-                            'Else
-                            File.AppendAllText(pathGBOX, html)
-                            'End If
-                        ElseIf gext = "txt" Then
-                            Rename(pathGBOX, Left(pathGBOX, pathGBOX.Length - 4))
-                            gfile = Left(gfile, Len(gfile) - 4)
-                            pathGBOX = Left(pathGBOX, Len(pathGBOX) - 4)
-                        End If
+                            Dim cl = ds.Tables(0).Columns.Count
+                            Dim rc = 0
+                            For rc = 0 To ds.Tables(0).Rows.Count - 1
+                                'For Each r In ds.Tables(0).Rows
+                                '    ['Civic', 'Honda', '2018-07-11', '', true, '$ 4.000,01', '#007777'],
 
-                        'If mode = "htm" Then
-                        'response.write(ConvertToJSONXLS(jsonCols, json))
-                        If dontdel = "1" Then
-                            If getQueryVar("outputType") = "0" Then 'file
-                                Response.Write(pathGBOX)
-                            ElseIf getQueryVar("outputType") = "1" Then 'http
-                                Response.Write(pathGBOX1)
-                            ElseIf Not getQueryVar("output") Is Nothing Then
-                                Response.Write(getQueryVar("output"))
+                                Dim jsonRow = "[#content#,]"
+                                Dim rx = DirectCast(ds.Tables(0).Rows(rc), DataRow)
+                                Dim number As Double
+                                For n = 0 To cl - 1
+                                    If mode = "xls" Or mode = "parent" Or mode = "child" Then
+                                        If IsDBNull(rx.Item(n)) Then
+                                        ElseIf Double.TryParse(rx.Item(n).ToString, number) Then
+                                            ws.Cells(rows + rc, n).SetValue(number)
+                                            'writeLog("excel set value")
+                                            'isvisited=true
+                                        Else
+                                            ws.Cells(rows + rc, n).SetValue(rx.Item(n).ToString)
+                                            'writeLog("excel string")
+                                        End If
+                                    End If
+                                    'ws.Cells(rows, n).Value = rx.Item(n).ToString
+                                    jsonRow = Replace(jsonRow, "#content#,", "'" & rx.Item(n).ToString & "',#content#,")
+                                Next
+                                'rows = rows + 1
+                                json = json & IIf(json = "", "", ",") & Replace(jsonRow, "#content#,", "")
+                            Next
+
+                            'For n = 0 To ds.Tables(0).Columns.Count - 1
+                            'ws.Columns.Item(n).AutoFit()
+                            'Next
+                            ws.Columns(0).Hidden = IIf(mode = "xls" Or exportMode = 0, False, True)
+                            'ws.Columns.Item(0).AutoFit()
+                            ef.Save(pathGBOX)
+                            'kok bisa tahu pathnya?
+                            If getQueryVar("output") <> "" Then
+                                If Dir(getQueryVar("output")) <> "" Then Kill(getQueryVar("output"))
+                                If gext = "txt" Then
+                                    Dim latin1 As Encoding = Encoding.GetEncoding(28591)
+                                    Dim text As String = File.ReadAllText(pathGBOX, latin1)
+                                    File.WriteAllText(getQueryVar("output"), text, Encoding.ASCII)
+                                Else
+                                    FileCopy(pathGBOX, getQueryVar("output"))
+                                End If
+                            End If
+                            If mode = "htm" Then
+                                'writeLog("html:")
+                                'ConvertToHTML(pathGBOX, replace(pathGBOX, ".xlsx", ".html"))
+                                pathGBOX = Replace(pathGBOX, ".xlsx", ".html")
+                                'pathGBOX=replace(pathGBOX, ".html","_files/sheet001.html")
+                                gfile = Replace(gfile, "xlsx", "html")
+                                Dim html = ConvertToJSONXLS(jsonCols, json, jsonAlign)
+                                'If File.Exists(gfile) Then
+                                'File.AppendAllText(gfile, html)
+                                'Else
+                                File.AppendAllText(pathGBOX, html)
+                                'End If
+                            ElseIf gext = "txt" Then
+                                Rename(pathGBOX, Left(pathGBOX, pathGBOX.Length - 4))
+                                gfile = Left(gfile, Len(gfile) - 4)
+                                pathGBOX = Left(pathGBOX, Len(pathGBOX) - 4)
+                            End If
+
+                            'If mode = "htm" Then
+                            'response.write(ConvertToJSONXLS(jsonCols, json))
+                            If dontdel = "1" Then
+                                If getQueryVar("outputType") = "0" Then 'file
+                                    Response.Write(pathGBOX)
+                                ElseIf getQueryVar("outputType") = "1" Then 'http
+                                    Response.Write(pathGBOX1)
+                                ElseIf Not getQueryVar("output") Is Nothing Then
+                                    Response.Write(getQueryVar("output"))
+                                Else
+                                    Response.Write(pathGBOX)
+                                End If
                             Else
-                                Response.Write(pathGBOX)
+
+                                Dim bytes() As Byte
+                                Dim finfo As New FileInfo(pathGBOX)
+                                Dim numBytes As Long = finfo.Length
+                                Dim fstream As New FileStream(pathGBOX, FileMode.Open, FileAccess.Read)
+                                writeLog(pathGBOX)
+                                Dim br As New BinaryReader(fstream)
+                                bytes = br.ReadBytes(CInt(numBytes))
+
+
+                                Dim context1 As HttpContext = HttpContext.Current
+                                context1.Response.Cache.SetCacheability(HttpCacheability.NoCache)
+                                If Right(pathGBOX, 3) = "xls" Then
+                                    context1.Response.ContentType = "application/vnd.ms-excel"
+                                ElseIf Right(pathGBOX, 4) = "xlsx" Then
+                                    context1.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                ElseIf Right(pathGBOX, 3) = "txt" Then
+                                    context1.Response.ContentType = "text/plain"
+                                ElseIf mode = "htm" Then
+                                    context1.Response.ContentType = "text/html"
+                                End If
+
+                                context1.Response.ClearHeaders()
+                                Dim disposition = IIf(mode = "htm", "inline", "attachment") & ";filename=" & gfile
+                                context1.Response.AddHeader("content-disposition", disposition)
+                                context1.Response.BinaryWrite(bytes)
+                                context1.Response.Flush()
+                                fstream.Close()
+                                fstream.Dispose()
+
+
+
+                                'finfo.Delete()
+
+                                pathGBOX = pathGBOX.Replace(Server.MapPath("~/OPHContent/reports"), "OPHContent/reports").Replace("\", "/")
+                                writeLog(pathGBOX)
+                                'xls lwt
+                                'sqlstr = "update evnt set comment='<strong>Parameters:</strong> " & parTxt & ". <strong>Result:</strong> Please click <a href=''" & pathGBOX & "''>here</a>.' where eventguid='" & rguid & "'"
+                                'sqlstr = "exec gen.evnt_save " & curHostGUID & ", '" & code & "', null, @comment='<strong>Parameters:</strong> " & parTxt & ". <strong>Result:</strong> Please click <a href=''" & pathGBOX & "''>here</a>.', @type=5"
+                                'runSQLwithResult(sqlstr)
                             End If
                         Else
+                            If pop = "1" Then
+                                Response.Write("<script>alert('Theres is No Data to be Shown!');window.close();</script>")
+                            Else
 
-                            Dim bytes() As Byte
-                            Dim finfo As New FileInfo(pathGBOX)
-                            Dim numBytes As Long = finfo.Length
-                            Dim fstream As New FileStream(pathGBOX, FileMode.Open, FileAccess.Read)
-                            writeLog(pathGBOX)
-                            Dim br As New BinaryReader(fstream)
-                            bytes = br.ReadBytes(CInt(numBytes))
-
-
-                            Dim context1 As HttpContext = HttpContext.Current
-                            context1.Response.Cache.SetCacheability(HttpCacheability.NoCache)
-                            If Right(pathGBOX, 3) = "xls" Then
-                                context1.Response.ContentType = "application/vnd.ms-excel"
-                            ElseIf Right(pathGBOX, 4) = "xlsx" Then
-                                context1.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                            ElseIf Right(pathGBOX, 3) = "txt" Then
-                                context1.Response.ContentType = "text/plain"
-                            ElseIf mode = "htm" Then
-                                context1.Response.ContentType = "text/html"
+                                'If mode = "xls" Then
+                                'Dim sqlstr3 = "exec gen.evnt_save " & curHostGUID & ", '" & code & "', null, @comment='<strong>Parameters:</strong> " & parTxt & ". Generating... Please wait.', @type=5"
+                                Dim sqlstr4 = "exec gen.evnt_save " & curHostGUID & ", '" & code & "', null, @comment='<strong>Parameters:</strong> " & parTxt & ". <strong>Result:</strong> Theres is No Data to be Shown!', @type=5"
+                                'writeLog(sqlstr3)
+                                runSQLwithResult(sqlstr4)
+                                'End If							
                             End If
-
-                            context1.Response.ClearHeaders()
-                            Dim disposition = IIf(mode = "htm", "inline", "attachment") & ";filename=" & gfile
-                            context1.Response.AddHeader("content-disposition", disposition)
-                            context1.Response.BinaryWrite(bytes)
-                            context1.Response.Flush()
-                            fstream.Close()
-                            fstream.Dispose()
-
-
-
-                            'finfo.Delete()
-
-                            pathGBOX = pathGBOX.Replace(Server.MapPath("~/OPHContent/reports"), "OPHContent/reports").Replace("\", "/")
-                            writeLog(pathGBOX)
-                            'xls lwt
-                            'sqlstr = "update evnt set comment='<strong>Parameters:</strong> " & parTxt & ". <strong>Result:</strong> Please click <a href=''" & pathGBOX & "''>here</a>.' where eventguid='" & rguid & "'"
-                            'sqlstr = "exec gen.evnt_save " & curHostGUID & ", '" & code & "', null, @comment='<strong>Parameters:</strong> " & parTxt & ". <strong>Result:</strong> Please click <a href=''" & pathGBOX & "''>here</a>.', @type=5"
-                            'runSQLwithResult(sqlstr)
                         End If
-                    Else
+                    Catch ex As Exception
+                        writeLog(ex.Message, True)
                         If pop = "1" Then
-                            Response.Write("<script>alert('Theres is No Data to be Shown!');window.close();</script>")
+                            Response.Write("<script>alert('" & ex.Message.Replace("'", "\'") & "')</script>")
                         End If
-                    End If
-                Catch ex As Exception
-                    writeLog(ex.Message)
+                    End Try
+                Else
+
+
+
+                    Dim xmlstr As String
+                    xmlstr = getXML(sqlstr, Connections)
                     If pop = "1" Then
-                        Response.Write("<script>alert('" & ex.Message.Replace("'", "\'") & "')</script>")
+                       Dim context1 As HttpContext = HttpContext.Current
+                        context1.Response.Cache.SetCacheability(HttpCacheability.NoCache)
+                        context1.Response.ContentType = "text/xml"
+
+
+                        context1.Response.ClearHeaders()
+                        Dim disposition = "attachment;filename=" & gfile
+                        context1.Response.AddHeader("content-disposition", disposition)
+                        'context1.Response.BinaryWrite(bytes)
+                        context1.Response.Write(xmlstr)
+                        context1.Response.Flush()
+                    Else
+                        File.WriteAllText(pathGBOX, xmlstr, Encoding.ASCII)
+                        runSQLwithResult("exec gen.evnt_save " & curHostGUID & ", '" & code & "', null, @comment='<strong>Parameters:</strong> " & parTxt & ". <strong>Result:</strong> Please click <a href=''" & pathGBOX1 & "''>here</a>.', @type=5")
                     End If
-                End Try
+                End If
             ElseIf mode = "xlstemplate" Then
 
                 Dim appSettings As NameValueCollection = ConfigurationManager.AppSettings
@@ -611,7 +643,7 @@ Partial Class OPHCore_api_msg_rptDialog
 
 
                 Catch ex As Exception
-                    writeLog(ex.Message)
+                    writeLog(ex.Message, True)
                     If pop = "1" Then
                         Response.Write("<script>alert('" & ex.Message.Replace("'", "\'") & "')</script>")
                     End If
@@ -655,7 +687,7 @@ Partial Class OPHCore_api_msg_rptDialog
         Return True
     End Function
 
-    Function ConvertToJSONXLS(col As String, json As String, jsonAlign As String)
+    Function ConvertToJSONXLS(col As String, json As String, jsonAlign As String) As String
 
         Dim html As String = "<html>" &
             "<script src=""https://bossanova.uk/jexcel/v3/jexcel.js""></script>" &

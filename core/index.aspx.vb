@@ -121,7 +121,7 @@
             reloadURL(url1)
 
 
-        ElseIf Request.QueryString("guid") <> "" Then  'change to post
+        ElseIf Request.QueryString("guid") <> "" and Request.Form("guid") = "" Then  'change to post
             setCookie("GUID", getQueryVar("guid"), 0, 1)
             reloadURL(Request.Url.OriginalString)
         ElseIf Request.Form("guid") = "" Then   'no guid - browse mode
@@ -168,7 +168,7 @@
 
             'loadaccount in trouble, please check
 
-            WindowOnLoad = "initTheme('" & code.ToLower & "', null, '" & curHostGUID & "', '" & pageURL & "');"
+            WindowOnLoad = "initTheme('" & code.ToLower & "', null, '" & curHostGUID & "', '" & themeFolder & "', '" & pageURL & "');"
             Response.Cookies("themeFolder").Value = themeFolder
             loadManifest(themeFolder, cdnLocation, isOfflineMode)
             setCookie("page", pageURL, "1")

@@ -123,7 +123,7 @@ Partial Class OPHCore_api_loadTheme
 				file.Close()
 				My.Computer.FileSystem.WriteAllText(themetemp, doc, False)															 
             Catch ex As Exception
-
+				writelog(ex.message, true)
             End Try
         End If
 

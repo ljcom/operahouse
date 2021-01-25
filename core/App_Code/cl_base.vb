@@ -111,7 +111,7 @@ Public Class cl_base
         'rewrite
         'newURL = "index.aspx" & IIf(env <> "", env & "/", "") & IIf(code <> "", code & "/", "") & IIf(guid <> "", guid & "/", "") & otherpars
         if mode=0
-			newURL = "index.aspx?" & IIf(env <> "", "env=" & env & "&", "") & IIf(code <> "", "code=" & code & "&", "") & otherpars '& IIf(guid <> "", "guid=" & guid & "&", "") & otherpars
+			newURL = "index.aspx?" & IIf(env <> "", "env=" & env & "&", "") & IIf(code <> "", "code=" & code & "&", "") & IIf(guid <> "", "guid=" & guid & "&", "") & otherpars
 			newURL = IIf(Right(newURL, 2) = "/?", Replace(newURL, "/?", ""), newURL)
 			newURL = IIf(Right(newURL, 1) = "&", newURL.Substring(0, Len(newURL) - 1), newURL)
 		end if
@@ -327,14 +327,20 @@ Public Class cl_base
     Function getCookie(cookieName As String) As String
         Return Response.Cookies(cookieName).Value
     End Function
-    Sub writeLog(logMessage As String) ', ByVal Optional accountName As String = "")
+    Sub writeLog(logMessage As String, Optional isErr As Boolean = False) ', ByVal Optional accountName As String = "")
+		'update 20201222 
+		'handle suba file and error
         'Dim w As TextWriter
         Dim accountName = ""
-        If contentOfaccountId <> "" Then accountName = Session("baseAccount")
+        Dim filetag = Session("baseAccount")
+        If contentOfaccountId <> "" Then
+            accountName = Session("baseAccount")
+            filetag = contentOfaccountId
+        End If
         If logMessage <> "" Then
             Dim path = Server.MapPath("~/OPHContent/log")
             path = path & "\" '& "OPHContent\log\"
-            Dim logFilepath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\" & IIf(accountName <> "", accountName & "_", "") & Right("0" & DateTime.Now().Day, 2) & ".txt"
+            Dim logFilepath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\" & IIf(filetag <> "", filetag & "_", "") & IIf(isErr, "error_", "") & Right("0" & DateTime.Now().Day, 2) & ".txt"
             Dim logPath = path & DateTime.Now().Year & "\" & Right("0" & DateTime.Now().Month, 2) & "\"
 
             If (Not System.IO.Directory.Exists(logPath)) Then
@@ -544,13 +550,15 @@ Public Class cl_base
         Catch ex As SqlException
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
-            writeLog("Error: " & contentofError)
+			writeLog("Error: " & sqlstr, true)
+            writeLog("Error: " & contentofError, true)
             'Return False
             r = False
         Catch ex As Exception
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
-            writeLog("Error: " & contentofError)
+			writeLog("Error: " & sqlstr, true)
+            writeLog("Error: " & contentofError, true)
             'Return False
             r = False
         Finally
@@ -598,12 +606,14 @@ Public Class cl_base
         Catch ex As SqlException
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
-            writeLog("Error: " & contentofError)
+			writeLog("Error: " & sqlstr, true)
+            writeLog("Error: " & contentofError, true)
             Return ""
         Catch ex As Exception
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
-            writeLog("Error: " & contentofError)
+            writeLog("Error: " & sqlstr, true)
+			writeLog("Error: " & contentofError, true)
             Return ""
         Finally
             myCommand.Connection.Close()
@@ -662,12 +672,14 @@ Public Class cl_base
         Catch ex As SqlException
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
-            writeLog("Error: " & contentofError)
+			writeLog("Error: " & sqlstr, true)
+            writeLog("Error: " & contentofError, true)
             Return Nothing
         Catch ex As Exception
             'Response.Write(ex.Message)
             contentofError = ex.Message & "<br>"
-            writeLog("Error: " & contentofError)
+			writeLog("Error: " & sqlstr, true)
+            writeLog("Error: " & contentofError, true)
             Return Nothing
         Finally
             myCommand.Connection.Close()
@@ -692,10 +704,12 @@ Public Class cl_base
 
         Catch ex As SqlException
             contentofError = query & ex.Message & "<br>"
-            writeLog("Error: " & contentofError)
+			writeLog("Error: " & query, true)
+            writeLog("Error: " & contentofError, true)
         Catch ex As Exception
             contentofError = query & ex.Message & "<br>"
-            writeLog("Error: " & contentofError)
+			writeLog("Error: " & query, true)
+            writeLog("Error: " & contentofError, true)
         Finally
             conn.Close()
 

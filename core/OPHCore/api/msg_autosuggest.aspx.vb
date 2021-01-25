@@ -59,7 +59,7 @@ Partial Class OPHCore_api_msg_autosuggest
                 Dim OptionList As New List(Of optiToken)
 
 
-                If xmlstr IsNot Nothing Or xmlstr <> "" Then
+                If xmlstr IsNot Nothing and xmlstr <> "" Then
 
                     For Each opt In XDocument.Parse(xmlstr).Element("sqroot").Elements("options").Elements("option")
                         OptionList.Add(New optiToken With {.id = opt.Element("value").Value, .name = opt.Element("caption").Value})
