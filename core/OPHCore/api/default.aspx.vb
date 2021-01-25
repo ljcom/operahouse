@@ -155,7 +155,7 @@ Partial Class OPHCore_API_default
                 'Dim fileAttachment As New List(Of String)
                 Dim f As String
                 For Each f In Request.Files
-                    Dim path As String = Server.MapPath("~/OPHContent/documents")
+                    Dim path As String = Server.MapPath("~/OPHContent/documents")	'harus ditambahkan contentofaccountid
                     Dim theDate As DateTime = DateTime.Now
                     Dim szFilename = Year(theDate) & "\" & Month(theDate)
                     Dim curField = "", fileName = ""
@@ -171,7 +171,8 @@ Partial Class OPHCore_API_default
                             randGUID = System.Guid.NewGuid().ToString()
 
                             'fileName = Trim(IIf(Request.Form(n).Equals(""), Request.Files(f).FileName, Request.Form(n).split(",")(0)))
-                            fileName = "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & randGUID.Replace("'", "") & "_" & Request.Files(f).FileName
+							'harus tambahkan contentofsuba ganti accountid
+							fileName = "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & randGUID.Replace("'", "") & "_" & Request.Files(f).FileName
                             'fieldAttachment.Add(curField)
                             'fieldAttachment.Add(fileName)
                             attachmentfield = curField
@@ -180,6 +181,7 @@ Partial Class OPHCore_API_default
                             'Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & fileName
                             Dim fxn As String = path & fileName
 
+							'harus tambahkan contentofsuba ganti accountid
                             Dim checkDir = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\"
                             If Not Directory.Exists(checkDir) Then Directory.CreateDirectory(checkDir)
                             If Directory.Exists(checkDir) Then
@@ -214,14 +216,14 @@ Partial Class OPHCore_API_default
 
 
                 Next
-                'If Request.Files.Count = 0 Then
-                sqlstr = populateSaveXML(1, code, preview, fieldAttachment, randGUID)
+                if Request.Files.Count = 0 Then 'harus diberikan supaya tidak tersave dua kali dan salah di attachment -- mx4resto
+					sqlstr = populateSaveXML(1, code, preview, fieldAttachment, randGUID)	'harusnya fieldattachment tidak perlu karena pasti kosong.
                     sqlstr = sqlstr.Replace("#95#", "_").Replace("%2F", "/").Replace("%2C", "")
                     sqlstr = sqlstr & ", @preview=" & IIf(preview = "", 0, preview)
                     writeLog(sqlstr)
 
                     xmlstr = runSQLwithResult(sqlstr, curODBC)
-                'End If
+                End If
 
                 If Not xmlstr.Contains("<sqroot>") And Not xmlstr.Contains("<root>") Then
                     xmlstr = xmlstr.Replace("<root>", "")
@@ -270,6 +272,8 @@ Partial Class OPHCore_API_default
                 sqlstr = "exec [api].[theme_export] '" & curHostGUID & "', '" & code & "'"
                 xmlstr &= runSQLwithResult(sqlstr, curODBC)
             Case "upload"
+                Dim uploadPath = runSQLwithResult("select infovalue from acctinfo where infokey='uploadPath'")
+                Dim path = Server.MapPath("~/OPHContent/documents/temp")
                 Dim fieldattachment As New List(Of String)
                 Dim header As Boolean
                 If getQueryVar("header") <> "" Then
@@ -278,10 +282,11 @@ Partial Class OPHCore_API_default
 
                 Dim f As String
                 For Each f In Request.Files
-                    Dim path = Server.MapPath("~/OPHContent/documents/temp")
+
                     Dim ranGUID = System.Guid.NewGuid().ToString()
                     Dim ParentGUID = getQueryVar("parentGUID")
                     Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & ranGUID.Replace("'", "") & "_" & Request.Files(f).FileName
+                    Dim fxn1 As String = IIf(uploadPath <> "", uploadPath, path) & "\" & contentOfaccountId & "\" & code & "_" & ranGUID.Replace("'", "") & "_" & Request.Files(f).FileName
                     Dim checkDir = path & "\" & contentOfaccountId & "\"
                     If Not Directory.Exists(checkDir) Then Directory.CreateDirectory(checkDir)
                     If Directory.Exists(checkDir) Then
@@ -292,9 +297,9 @@ Partial Class OPHCore_API_default
                         Dim exportMode = getQueryVar("exportMode")
                         Dim xmlParameter = getQueryVar("xmlParameter")
                         xmlParameter = xmlParameter.Replace("ss3css", "<").Replace("ss3ess", ">").Replace("ss3dss", "=").Replace("ss2fss", "/").Replace("ss84ss", """")
-                        sqlstr = "exec gen.uploadModule '" & curHostGUID & "', '" & code & "', " & exportMode & ", '" & fxn & "', '" & xmlParameter & "'"
+                        sqlstr = "exec gen.uploadModule '" & curHostGUID & "', '" & code & "', " & exportMode & ", '" & fxn1 & "', '" & xmlParameter & "'"
                     Else
-                        sqlstr = "exec gen.uploadChild '" & curHostGUID & "', '" & code & "', '" & ParentGUID & "', '" & fxn & "'"
+                        sqlstr = "exec gen.uploadChild '" & curHostGUID & "', '" & code & "', '" & ParentGUID & "', '" & fxn1 & "'"
                     End If
                     writeLog(sqlstr)
                     xmlstr = getXML(sqlstr, curODBC)
@@ -321,7 +326,7 @@ Partial Class OPHCore_API_default
                 Dim f As String
                 For Each f In Request.Files
                     Dim path As String
-                    path = Server.MapPath("~/OPHContent/documents")
+                    path = Server.MapPath("~/OPHContent/documents") 'harus ditambahkan contentofaccountid
 
                     Dim curField = ""
                     For Each n In Request.Form
@@ -336,8 +341,10 @@ Partial Class OPHCore_API_default
                     Dim szFilename = Year(theDate) & "\" & Month(theDate)
                     GUID = System.Guid.NewGuid().ToString()
                     GUID = Left(GUID, 8)
+					'harus tambahkan contentofsuba
                     Dim fxn As String = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\" & GUID.Replace("'", "") & "_" & Request.Files(f).FileName
-
+					
+					'harus tambahkan contentofsuba ganti accountid
                     Dim checkDir = path & "\" & contentOfaccountId & "\" & code & "_" & curField & "\" & szFilename & "\"
                     If Not Directory.Exists(checkDir) Then Directory.CreateDirectory(checkDir)
                     If Directory.Exists(checkDir) Then
@@ -426,7 +433,7 @@ Partial Class OPHCore_API_default
                             End If
                         Next
                     Catch ex As Exception
-						writeLog("Error:" & url)
+						writeLog("Error:" & url, true)
                         userid = getQueryVar("email")
                     End Try
 
