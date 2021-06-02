@@ -12,7 +12,9 @@ Partial Class OPHCore_api_msg_download
 
 
         Dim curHostGUID = getSession() 'Session("hostGUID")
-        If curHostGUID = "" Or Session("ODBC") = "" Or Session("baseAccount") = "" Then loadAccount()
+        'If curHostGUID = "" Or Session("ODBC") = "" Or Session("baseAccount") = "" Then 
+		loadAccount()
+		'end if
         If contentOfaccountId Is Nothing Or contentOfaccountId = "" Then
             contentOfaccountId = Session("baseAccount")
             contentOfaccountId = getCookie(contentOfaccountId & "_accountid")
@@ -28,6 +30,7 @@ Partial Class OPHCore_api_msg_download
         Dim filepath As String = getQueryVar("file")
         Dim fieldAttachment As String = getQueryVar("fieldAttachment")
         Dim imageName As String = getQueryVar("imageName")
+		di pagepdf as string= getQueryVar("page")
 
         'Dim fieldKey As String = getQueryVar("fieldKey")
 
@@ -99,9 +102,17 @@ Partial Class OPHCore_api_msg_download
             If File.Exists(path & filename) Then
                 If mode = "range" Then
                     RangeDownload(path & filename, Context)
-                Else
+                else if mode="pdf" then
+					Dim addsplit As String = filename.Replace(Mid$(filename, InStrRev(filename, "/") + 1), "split/" & Mid$(filename, InStrRev(filename, "/") + 1))
+                    Dim finale As String = addsplit.Replace(".pdf", "_" & pagepdf & ".pdf")
+                    download(path, finale)
+				Else
                     download(path, filename)
                 End If
+				'after	
+				Dim sqlstr = "exec api.download_after null, ''"& ocode &"'', ''"& tGUID &"''"
+				'Select " & fieldAttachment & " From doc." & ocode & " Where " & fieldKey & " ='" & tGUID & "'"
+                Dim dt = run(sqlstr, con)
 
             Else
                 'Response.Write("File is not exists.")

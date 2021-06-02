@@ -73,6 +73,8 @@ Partial Class OPHCore_API_default
                 Dim sortOrder = getQueryVar("sortOrder")
                 Dim stateid = getQueryVar("stateid")
                 Dim bpage = getQueryVar("bPageNo")
+                Dim output = getQueryVar("output")
+                If output = "" Then output = "xml"
                 Dim nbRows = getQueryVar("bRows")
                 Dim searchText = getQueryVar("bSearchText")
 
@@ -94,11 +96,15 @@ Partial Class OPHCore_API_default
                         rpp = showpage
                     End If
 
-                    sqlstr = "exec [api].[theme_browse] '" & curHostGUID & "', '" & code & "', '" & sqlfilter.Replace("'", "''") & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", " & rpp & ", '" & sortOrder & "', '" & stateid & "'"
+                    sqlstr = "exec [api].[theme_browse] '" & curHostGUID & "', '" & code & "', '" & sqlfilter.Replace("'", "''") & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", " & rpp & ", '" & sortOrder & "', '" & stateid & "', @output='" & output & "'"
                     writeLog("mode browse: " & sqlstr)
                     'writeLog("mode browse: " & curODBC)
                     'isSingle = False
                     'xmlstr = getXML(sqlstr, curODBC)
+                End If
+                If output = "json" Then
+                    isSingle = False
+                    xmlstr = getXML(sqlstr, curODBC, False)
                 End If
             Case "query"
                 Dim sortOrder = getQueryVar("o")
@@ -129,11 +135,26 @@ Partial Class OPHCore_API_default
                 
 				If bpage = "" Then bpage = 1
                 If code <> "" Then
-                    sqlstr = "exec [api].[query] '" & curHostGUID & "', '" & code & "'" & parent & searchText & ", " & bpage & ", '" & sortOrder & "', '" & stateid & "'"
+					sqlstr = "exec [api].[query] '" & curHostGUID & "', '" & code & "'" & parent & searchText & ", '" & bpage & "', '" & sortOrder & "', '" & stateid & "'"
+
                     writeLog("mode query: " & sqlstr)
                 End If
 
+			Case "get"	'userinfo
+				Dim keyx = getQueryVar("key")
+                If keyx <> "" Then
+					sqlstr = "exec [gen].[userinfo_load] '" & curUserGUID & "', '" & keyx & "', @issilent=0" 
+				End If
+			Case "set"	'userinfo
+				Dim keyx = getQueryVar("key")
+				Dim val = getQueryVar("val")
+                If keyx <> "" and val <> "" Then
+					sqlstr = "exec [gen].[userinfo_save] '" & curUserGUID & "', '" & keyx & "', '" & val & "', @issilent=0" 
+				else 
+					xmlstr="<message>No key or value set</message>"
+				End If
 
+				
             Case "view", "form", "studio"
                 If GUID = "null" Then GUID = "'00000000-0000-0000-0000-000000000000'"
                 sqlstr = "exec [api].[theme_form] '" & curHostGUID & "', '" & code & "', " & GUID '& ", " & editMode
@@ -576,7 +597,10 @@ Partial Class OPHCore_API_default
             'If Len(xmlstr) > 50 Then
             If xmlstr <> "" Then
                 Dim type = getQueryVar("type")
-                If type = "json" Then
+                If getQueryVar("output") = "json" Then
+                    Response.ContentType = "application/json"
+                    Response.Write(xmlstr)
+                ElseIf type = "json" Then
                     Dim xmlDoc As New XmlDocument
                     xmlDoc.LoadXml(xmlstr)
                     Dim jsonStr = JsonConvert.SerializeXmlNode(xmlDoc)
@@ -584,11 +608,11 @@ Partial Class OPHCore_API_default
                     Response.Write(jsonStr)
                 Else
                     Response.ContentType = "text/xml"
-                    Response.Write("<?xml version=""1.0"" encoding=""utf-8""?>")
-                    Response.Write(xmlstr)
-                End If
-            Else
-                writeLog("mode " & mode & " : " & sqlstr)
+                        Response.Write("<?xml version=""1.0"" encoding=""utf-8""?>")
+                        Response.Write(xmlstr)
+                    End If
+                Else
+                    writeLog("mode " & mode & " : " & sqlstr)
             End If
         Else
             Response.Write("ok")
