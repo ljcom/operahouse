@@ -253,7 +253,7 @@ Partial Class OPHCore_API_default
                     xmlstr = xmlstr.Replace("</row>", "")
                     xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
                 End If
-            Case "function"
+             Case "function"
                 Dim functionName = IIf(String.IsNullOrWhiteSpace(Request.Form("cfunction")), getQueryVar("cfunction"), Request.Form("cfunction"))
                 Dim functionlist = IIf(String.IsNullOrWhiteSpace(Request.Form("cfunctionlist")), getQueryVar("cfunctionlist"), Request.Form("cfunctionlist"))
                 Dim approvaluserguid = IIf(String.IsNullOrWhiteSpace(Request.Form("approvaluserguid")), getQueryVar("approvaluserguid"), Request.Form("approvaluserguid"))
@@ -271,6 +271,8 @@ Partial Class OPHCore_API_default
                     xmlstr &= runSQLwithResult(sqlstr, curODBC)
                     writeLog("function " & functionName & " : " & sqlstr)
                 Next
+				xmlstr=replace(xmlstr,"</sqroot><sqroot>","")
+				writeLog(xmlstr)
                 Dim msg = xmlstr
                 If Not xmlstr.Contains("<sqroot>") And Not xmlstr.Contains("<root>") Then
                     xmlstr = "<messages><message>" & xmlstr & "</message></messages>"
