@@ -762,16 +762,17 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
                     var otherTag = "#tr1_" + code.toLowerCase() + GUID + " > td[data-field$='" + this.tagName + "']";
                     var val = this.textContent;
                     if ($(select2Tag).length > 0) {
-
+						var wf1dv, wf2dv;
                         var selectID = this.tagName + "_" + GUID;
                         if ($('#' + selectID).parent().parent().data("wf1") != undefined) {
                             wf1x = $('#' + selectID).parent().parent().data("wf1")
+							wf1dv = $(data).find("message").children(wf1x)[0]?.textContent;
                         } else wf1x = ''
                         if ($('#' + selectID).parent().parent().data("wf2") != undefined) {
                             wf2x = $('#' + selectID).parent().parent().data("wf2")
                         } else wf2x = ''
 
-                        if (val) autosuggest_setValue(undefined, selectID, code, this.tagName, val, wf1x, wf2x);
+                        if (val) autosuggest_setValue(undefined, selectID, code, this.tagName, val, wf1x, wf2x, wf1dv, wf2dv);
 
                         if (this.getAttribute('readonly') == "true") {
                             $(select2Tag).prop("disabled", true);
@@ -815,7 +816,7 @@ function previewFunction(flag, code, GUID, formid, dataFrm, t, afterSuccess) {
         checkChanges(t);
     }
 }
-function checkChanges(t, force) {
+function checkChanges(t, force, type) {
     if (t) {
         var curdata = '';
         var olddata = $(t).data("old") == undefined ? "" : $(t).data("old");
@@ -1264,7 +1265,7 @@ function sortBrowse(ini, loc, code, orderBy) {
     } else {
         var sqlfilter = document.getElementById("filter" + code.toLowerCase()).value;
         var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + sqlfilter + '&sortOrder=' + sortOrder + '&bPageNo=1' + unique;
-        var divName = ['child' + String(code).toLowerCase() + getGUID().toLowerCase()];
+        var divName = ['child' + String(code).toLowerCase() + getGUID()];
         //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
         var xsldoc = 'OPHCore/api/loadtheme.aspx?code=' + getCode() + '&theme=' + loadThemeFolder() + '&page=' + getPage() + '_childBrowse';
         pushTheme(divName, xmldoc, xsldoc, true);
@@ -1550,8 +1551,7 @@ function searchText(e, searchvalue, location) {
     }
 }
 
-function searchTextChild(e, searchvalue, code, guid, isClear) {
-	//note: guid datanya tidak selalu ada isinyam jika tidak ada harus ambil dari getguid. tunggu ada case. 
+function searchTextChild(e, searchvalue, code, isClear) {
     var xsldoc;
     if (e.keyCode == 13 || isClear) {
         var bSearchText = searchvalue;
@@ -1560,7 +1560,7 @@ function searchTextChild(e, searchvalue, code, guid, isClear) {
         var pageNo = (pageNo == undefined) ? 1 : pageNo;
 
         var xmldoc = 'OPHCORE/api/default.aspx?code=' + code + '&mode=browse&sqlFilter=' + sqlfilter + '&bPageNo=' + pageNo + '&bSearchText=' + bSearchText + '&date=' + getUnique();
-        var divName = ['child' + String(code).toLowerCase() + guid.toLowerCase()];
+        var divName = ['child' + String(code).toLowerCase() + getGUID().toLowerCase()];
         //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childBrowse.xslt"];
         if (mode == 'inline')
             //var xsldoc = ['OPHContent/themes/' + loadThemeFolder() + '/xslt/' + getPage() + "_childInline.xslt"];

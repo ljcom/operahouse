@@ -44,12 +44,13 @@
     </script>
     <div class="row">
       <div class="col-md-12">
-        <div class="box-header with-border" style="background:white">
+        <div class="box-header with-border" style="padding-bottom:10px">
           <h5 class="dashboard-title" style="text-align:center; margin-bottom:20px;">
             <xsl:value-of select="sqroot/body/bodyContent/browse/info/description"/>
           </h5>
-          <div style=" margin-bottom:20px;">
-            <input style="width:200px; border-radius:2px;" type="text" id="searchBox_{$lowerCode}" name="searchBox_{$lowerCode}"
+          <div style="border-top:2px #DDDDDD solid; padding-top:10px; position:relative;">
+          
+            <input style="width:20%; border-radius:2px; padding:0px 10px;" type="text" id="searchBox_{$lowerCode}" name="searchBox_{$lowerCode}"
             class="" placeholder="Enter search key..." value="{sqroot/body/bodyContent/browse/info/search}"
               onkeypress="searchTextChild(event, this.value, '{$lowerCode}');" />
           </div>

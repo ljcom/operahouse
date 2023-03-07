@@ -82,7 +82,7 @@ Public Class cl_base
 
 
         Dim par = parURL.Split("&")
-        Dim env As String = "", code As String = "", guid As String = "", otherpars As String = ""
+        Dim env As String = "", code As String = "", guid As String = "", otherpars As String = "", accountid as String = ""
         If par.Count > 0 Then
             For Each p In par
                 If p.Split("=").Length > 1 Then
@@ -94,6 +94,8 @@ Public Class cl_base
                             code = p.Split("=")(1)
                         ElseIf p.Split("=")(0).ToLower = "guid" Then
                             guid = p.Split("=")(1)
+                        ElseIf p.Split("=")(0).ToLower = "accountid" Then
+                            accountid = p.Split("=")(1)
                         ElseIf p.Split("=")(0).ToLower = "no" Then
                             'guid = p.Split("=")(1)
                         ElseIf p.Split("=")(0).ToLower = "refno" Then
@@ -107,11 +109,12 @@ Public Class cl_base
                     End If
                 End If
             Next
+            
         End If
         'rewrite
         'newURL = "index.aspx" & IIf(env <> "", env & "/", "") & IIf(code <> "", code & "/", "") & IIf(guid <> "", guid & "/", "") & otherpars
         if mode=0
-			newURL = "index.aspx?" & IIf(env <> "", "env=" & env & "&", "") & IIf(code <> "", "code=" & code & "&", "") & IIf(guid <> "", "guid=" & guid & "&", "") & otherpars
+			newURL = "index.aspx?" & IIf(env <> "", "env=" & env & "&", "") & IIf(code <> "", "code=" & code & "&", "") & IIf(guid <> "", "guid=" & guid & "&", "") & IIf(accountid <> "", "accountid=" & accountid & "&", "") & otherpars
 			newURL = IIf(Right(newURL, 2) = "/?", Replace(newURL, "/?", ""), newURL)
 			newURL = IIf(Right(newURL, 1) = "&", newURL.Substring(0, Len(newURL) - 1), newURL)
 		end if
@@ -137,7 +140,7 @@ Public Class cl_base
 
             Response.End()
         Else
-            newURL = "index.aspx?" & IIf(env <> "", "env=" & env & "&", "") & IIf(code <> "", "code=" & code & "&", "") & IIf(guid <> "", "guid=" & guid & "&", "") & otherpars
+            newURL = "index.aspx?" & IIf(env <> "", "env=" & env & "&", "") & IIf(code <> "", "code=" & code & "&", "") & IIf(guid <> "", "guid=" & guid & "&", "") & IIf(accountid <> "", "accountid=" & accountid & "&", "") & otherpars
             newURL = IIf(Right(newURL, 2) = "/?", Replace(newURL, "/?", ""), newURL)
             newURL = IIf(Right(newURL, 1) = "&", newURL.Substring(0, Len(newURL) - 1), newURL)
 
@@ -725,6 +728,7 @@ Public Class cl_base
 
         If getQueryVar("hostGUID") <> "" Then
             hGUID = getQueryVar("hostGUID")
+			
         Else
             Dim urlAddress = Request.Url.Authority & Request.ApplicationPath
             If urlAddress.Substring(Len(urlAddress) - 1, 1) = "/" Then urlAddress = urlAddress.Substring(0, Len(urlAddress) - 1)
@@ -739,8 +743,8 @@ Public Class cl_base
         End If
         Return hGUID
     End Function
-    Function loadAccount(Optional env As String = "", Optional code As String = "",
-                         Optional GUID As String = "", Optional no As String = "", Optional refno As String = "", Optional id As String = "",
+    Function loadAccount(Optional env As String = "", Optional code As String = "", _
+                         Optional GUID As String = "", Optional no As String = "", Optional refno As String = "", Optional id As String = "", _
                          Optional suba As String = "") As String
         Dim loadStr = ""
         If GUID = "undefined" Then GUID = ""
@@ -763,7 +767,7 @@ Public Class cl_base
         If no = "" Then no = "" Else no = ", @no='" & no & "'"
         If refno = "" Then refno = "" Else refno = ", @refno='" & refno & "'"
         If id = "" Then id = "" Else id = ", @id='" & id & "'"
-        If suba = "" Then suba = "" Else suba = ", @suba='" & suba & "'"
+        If suba = "" or suba="null" Then suba = "" Else suba = ", @suba='" & suba & "'"
         Dim ipaddress = ", @ipaddress='" & GetIPAddress() & "'"
 
         Dim sqlstr = "exec api.loadAccount " & hguid & ", '" & urlAddress & "'" & env & code & GUID & no & refno & id & IIf(autouserloginid <> "", ", @userid='" & autouserloginid & "'", "") & suba & ipaddress
@@ -813,10 +817,10 @@ Public Class cl_base
                 setCookie(contentOfaccountId + "_accountid", contentOfaccountId, 365)
             End If
 
-            loadStr = contentOfCode & ";" & contentOfthemeFolder & ";" & contentOfthemePage & ";" & contentofNeedLogin & ";" & contentofsignInPage 
+            loadStr = contentOfCode & ";" & contentOfthemeFolder & ";" & contentOfthemePage & ";" & contentofNeedLogin & ";" & contentofsignInPage
             loadStr = loadStr & ";" & contentOfGUID & ";" & contentofwhiteAddress & ";" & contentofCartID & ";" & contentofSuba & ";" & contentofExpired
 
-			Session(contentOfCode.ToLower() & GUID.ToLower()) = loadStr
+            Session(contentOfCode.ToLower() & GUID.ToLower()) = loadStr
             setCookie(contentOfCode.ToLower(), loadStr, 1)
         Else
             loadStr = ";;;;;;;;"

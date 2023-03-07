@@ -52,17 +52,7 @@
         loadExtraButton(buttons, 'browse-action-button');
       </xsl:if>
       
-      //checkbox pinned
-      $("#pinnedAll").click(function () {
-        $('input:checkbox').not(this).prop('checked', this.checked);        
-        if(this.checked &amp;&amp; $("input:checked").not(this).length > 0 ) {
-          $("#actionHeader span").hide();
-          $("#actionHeader div").show();
-        } else {
-          $("#actionHeader span").show();
-          $("#actionHeader div").hide();
-        }
-      });
+     
       
       $("input:checkbox").not("#pinnedAll").click(function() {
         var odd = $(this).parents(".odd-tr");
@@ -161,7 +151,7 @@
               <!--<div class="text-right">
                 <xsl:if test="sqroot/body/bodyContent/browse/info/permission/allowExport = 1">
                   <button id="btnExport" class="btn btn-success" data-clicked="0" onclick="window.location='?code={sqroot/header/info/code/id}&amp;mode=export'">
-                    <strong>EXPORT DATA</strong>
+                    <strong>UPLOAD SECTION</strong>
                   </button>
                 </xsl:if>
                 <button id="newdoc" class="btn btn-warning" onclick="window.location='?code={sqroot/header/info/code/id}&amp;guid=00000000-0000-0000-0000-000000000000'">
@@ -190,6 +180,13 @@
                   <a href="?code={sqroot/header/info/code/id}&amp;guid=00000000-0000-0000-0000-000000000000"  style="background:#1490d7; color:white; padding:10px; border-radius:2px;">NEW DOCUMENT</a>
                 </div>
               </xsl:if>
+             <!--  <xsl:if test="sqroot/body/bodyContent/browse/info/permission/allowExport = 1">
+                <div style="text-align:center; margin-top:20px">
+                  <button id="btnExport" class="flat-button-form border-radius-2" data-clicked="0" onclick="window.location='?code={sqroot/header/info/code/id}&amp;mode=export'">
+                    UPLOAD SECTION
+                  </button>
+                </div>
+              </xsl:if> -->
               <div class="browse-dropdown-status">
                 <div class="dropdown">
                   <ul class="menu flat-unstyled" style="margin-right:0; padding-right:0; text-align:center;">
@@ -220,8 +217,14 @@
                 </div>
               </div>
 
-              <div style="border-top:2px #DDDDDD solid; padding-top:10px;">
-                <input style="width:20%; border-radius:2px; padding:0px 10px" type="text" id="searchBox" name="searchBox" class="form-control" placeholder="Search..." onkeypress="return searchText(event,this.value);" value=""/>
+              <div style="border-top:2px #DDDDDD solid; padding-top:10px; position:relative;">
+
+                <input style="width:20%; border-radius:2px; padding:0px 10px; " type="text" id="searchBox" name="searchBox" class="form-control" placeholder="Search..." onkeypress="return searchText(event,this.value);" value=""/>
+                 <xsl:if test="sqroot/body/bodyContent/browse/info/permission/allowExport = 1">
+                <button id="btnExport" style="position:absolute; right:0; top:10px;" class="flat-button-form border-radius-2" data-clicked="0" onclick="window.location='?code={sqroot/header/info/code/id}&amp;mode=export'">
+                    Upload Section
+                  </button>
+              </xsl:if>
               </div>
             </div>
       

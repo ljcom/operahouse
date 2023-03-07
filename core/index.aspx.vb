@@ -27,21 +27,24 @@
         Dim suba As String = ""
         Dim isExpired As Boolean = False
 
-        If curHostGUID = "" Or Session("ODBC") = "" Or Session("baseAccount") = "" Then loadAccount()
+        If curHostGUID = "" Or Session("ODBC") = "" Or Session("baseAccount") = "" Then
+            writeLog("load account blank")
+            loadAccount()
+        End If
 
         Dim newaccount = Request.QueryString("accountid")
+        writeLog("change subay: " & newaccount)
+
         If Session("suba") <> newaccount And Not newaccount Is Nothing Then
             contentOfaccountId = newaccount
-            needLogin = True
+            'needLogin = True
             Session("suba") = newaccount
         Else
             contentOfaccountId = Session("suba")
         End If
-
+        writeLog("change subaz: " & contentOfaccountId)
         contentOfCode = getQueryVar("code")
-        Dim loadStr = loadAccount(getQueryVar("env"), getQueryVar("code"),
-                                  getQueryVar("GUID"), getQueryVar("no"), getQueryVar("refno"), getQueryVar("id"),
-                                  contentOfaccountId)
+        Dim loadStr = loadAccount(getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"), getQueryVar("no"), getQueryVar("refno"), getQueryVar("id"), contentOfaccountId)
 
         curHostGUID = getSession()
 
@@ -57,10 +60,18 @@
             GUID = x(5)
             'CartID = x(7)
             suba = x(8)
+            writeLog("change subax: " & suba)
+
             'isExpired = x(9) = "True"
         Catch exc As Exception
+            writeLog("stop")
             Stop
         End Try
+
+        If suba <> "" And getCookie(getCookie("baseAccount") & "_accountid") <> suba Then
+            setCookie(Session("baseAccount") & "_accountid", suba, "1")
+        End If
+        writeLog("change suba: " & suba)
 
         Dim err As Boolean = False
         If code = "" Then 'And getQueryVar("code") <> "404" Then
@@ -68,35 +79,37 @@
             err = True
         ElseIf isExpired And (code <> "login" Or getQueryVar("mode") <> "5" Or getQueryVar("expired") <> "1") Then
             'Dim reloadStr = Request.RawUrl & IIf(InStr(Request.RawUrl, "?") = 0, "?", IIf(Right(Request.RawUrl, 1) = "&", "", "&"))
-            Dim reloadStr = "index.aspx?code=" & code & "&mode=5&expired=1"
+            Dim reloadStr = "index.aspx?code=" & code & "&mode=5&expired=1&accountid=" & suba
             writeLog(reloadStr)
             reloadURL(reloadStr)
         ElseIf isExpired = "False" And getQueryVar("expired") = "1" Then
             'Dim reloadStr = Request.RawUrl & IIf(InStr(Request.RawUrl, "?") = 0, "?", IIf(Right(Request.RawUrl, 1) = "&", "", "&"))
-            Dim reloadStr = "index.aspx?code=" & code
+            Dim reloadStr = "index.aspx?code=" & code & "&accountid=" & suba
             writeLog(reloadStr)
             reloadURL(reloadStr)
         ElseIf getQueryVar("guid") = "" And (no <> "" Or refno <> "" Or id <> "") And GUID <> "" Then
+            'get guid
             Dim reloadStr = Request.RawUrl & IIf(InStr(Request.RawUrl, "?") = 0, "?", IIf(Right(Request.RawUrl, 1) = "&", "", "&"))
-            reloadStr &= "guid=" & GUID
+            reloadStr &= "guid=" & GUID & "&accountid=" & suba
             setCookie("GUID", GUID, 0, 1)
             reloadURL(reloadStr)
-        ElseIf (getQueryVar("code") = "") Then 'And getQueryVar("code") <> "404" Then
+            'ElseIf (getQueryVar("code") = "") Then 'And getQueryVar("code") <> "404" Then
+            'no need reload?
+            'Dim reloadStr = Request.RawUrl & IIf(InStr(Request.RawUrl, "?") = 0, "?", IIf(Right(Request.RawUrl, 1) = "&", "", "&"))
 
-            Dim reloadStr = Request.RawUrl & IIf(InStr(Request.RawUrl, "?") = 0, "?", IIf(Right(Request.RawUrl, 1) = "&", "", "&"))
+            'If getQueryVar("code") = "" Then
+            'reloadStr &= "code=" & code & "&"
+            'Else
+            ' reloadStr = reloadStr.replace(getQueryVar("code"), code)
+            'End If
 
-            If getQueryVar("code") = "" Then
-                reloadStr &= "code=" & code & "&"
-            Else
-                reloadStr = reloadStr.replace(getQueryVar("code"), code)
-            End If
-
-            reloadURL(reloadStr)
+            'reloadURL(reloadStr)
         ElseIf code <> "" And needLogin And getQueryVar("code") <> loginPage Then
-			If Request.ApplicationPath.Replace("/", "") = "" Then
-				setCookie(Request.Url.Authority.Replace(": ", "").ToLower() & "_lastPar", Request.Url.PathAndQuery, 1)
-			Else
-				setCookie(Request.ApplicationPath.Replace("/", "").ToLower() & "_lastPar", Request.Url.PathAndQuery, 1)
+            'login
+            If Request.ApplicationPath.Replace("/", "") = "" Then
+                setCookie(Request.Url.Authority.Replace(": ", "").ToLower() & "_lastPar", Request.Url.PathAndQuery, 1)
+            Else
+                setCookie(Request.ApplicationPath.Replace("/", "").ToLower() & "_lastPar", Request.Url.PathAndQuery, 1)
 			End If
             
 			reloadURL("index.aspx?code=" & loginPage)
@@ -162,9 +175,6 @@
                 End If
             End If
 
-            If suba <> "" And getCookie(getCookie("baseAccount") & "_accountid") <> suba Then
-                setCookie(Session("baseAccount") & "_accountid", suba, "1")
-            End If
 
             'loadaccount in trouble, please check
 

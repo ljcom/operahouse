@@ -1,40 +1,49 @@
 <sqroot>
-  <manifest>
-    <cssFile>OPHContent/cdn/bootstrap/css/bootstrap.min.css</cssFile>
-      
-    <cssFile>OPHContent/cdn/font-awesome-4.7.0/css/font-awesome.min.css</cssFile>
-    <cssFile>OPHContent/themes/themeSIX/styles/style.css</cssFile>
-    <cssFile>OPHContent/themes/themeSIX/styles/responsive.css</cssFile>
-    <cssFile>OPHContent/themes/themeSIX/styles/colors/color1.css</cssFile>
-    <cssFile>OPHContent/cdn/select2/select2.min.css</cssFile>
-    <cssFile>OPHContent/cdn/datepicker/datepicker3.css</cssFile>
-    <cssFile>OPHContent/cdn/ophelements/celljs/cell.css</cssFile>
-    <cssFile>OPHContent/cdn/revolution/css/layers.css</cssFile>
-    <cssFile>OPHContent/cdn/revolution/css/settings.css</cssFile>
-    
-    <cssFile>OPHContent/themes/themeSIX/custom-me.css</cssFile>
-    <cssFile>OPHContent/cdn/w3/w3.css</cssFile>
-    
-    <!--jsFile>OPHContent/cdn/jQuery/jquery-1.12.4.min.js</jsFile-->
-    <!--<jsFile>OPHContent/cdn/yolo/js/jquery.min.js</jsFile>-->
-    <jsFile>OPHContent/cdn/tether/tether.min.js</jsFile>
-    <jsFile>OPHContent/cdn/ophelements/celljs/cell.js</jsFile>
-    <jsFile>OPHContent/cdn/ophelements/ophupload/ophupload.js</jsFile>
-    <!--<jsFile>OPHContent/cdn/bootstrap/js/bootstrap4.0.0-a6.min.js</jsFile>-->
-    <jsFile>OPHContent/cdn/bootstrap/js/bootstrap.min.js</jsFile>
-    <jsFile>OPHContent/cdn/jquery-validate/jquery-validate.js</jsFile>
-    <jsFile>OPHContent/cdn/waypoints/waypoints.min.js</jsFile>
-    <jsFile>OPHContent/cdn/easing/easing.js</jsFile>
-    <jsFile>OPHContent/cdn/jquery-flexslider/jquery.flexslider-min.js</jsFile>
-    <jsFile>OPHContent/cdn/owl-carousel/owl.carousel.js</jsFile>
-    <jsFile>OPHContent/cdn/parallax/parallax.js</jsFile>
-    <jsFile>OPHContent/cdn/jquery-final-countdown/jquery.final-countdown.js</jsFile>
-    <jsFile>OPHContent/cdn/jquery-cookie/jquery.cookie.js</jsFile>
-    <jsFile>OPHContent/cdn/ckeditor/ckeditor.js</jsFile>
-    <jsFile>OPHContent/themes/themeSIX/custom-me.js</jsFile>
-    <jsFile>OPHContent/cdn/datepicker/bootstrap-datepicker.js</jsFile>
-    
-  </manifest>
+	<manifest>
+		<cssFile>OPHContent/cdn/bootstrap/css/bootstrap.min.css</cssFile>
+		<!--cssFile>OPHContent/cdn/font-awesome-4.7.0/css/font-awesome.min.css</cssFile-->
+		<cssFile>OPHContent/cdn/fontawesome-pro-5.3.1-web/css/all.min.css</cssFile>
+		<cssFile>OPHContent/themes/themeSIX/styles/style.css?v=1.3</cssFile>
+		<cssFile>OPHContent/themes/themeSIX/styles/responsive.css?v=3</cssFile>
+		<cssFile>OPHContent/themes/themeSIX/styles/colors/color1.css</cssFile>
+		<cssFile>OPHContent/cdn/select2/select2.min.css</cssFile>
+		<cssFile>OPHContent/cdn/datepicker/datepicker3.css</cssFile>
+		<cssFile>OPHContent/cdn/revolution/css/layers.css</cssFile>
+		<cssFile>OPHContent/cdn/revolution/css/settings.css</cssFile>
+		<cssFile>OPHContent/cdn/ophelements/celljs/cell.css</cssFile>
+		<cssFile>OPHContent/themes/themeSIX/custom-me.css?v=7.2</cssFile>
+		<cssFile>OPHContent/themes/themeSIX/themeONE.css?v=2</cssFile>
+		<!--jsFile>OPHContent/cdn/jQuery/jquery-1.12.4.min.js</jsFile-->
+		<!--<jsFile>OPHContent/cdn/yolo/js/jquery.min.js</jsFile>-->
+		<jsFile>OPHContent/cdn/tether/tether.min.js</jsFile>
+		<!--<jsFile>OPHContent/cdn/bootstrap/js/bootstrap4.0.0-a6.min.js</jsFile>-->
+		<jsFile>OPHContent/cdn/bootstrap/js/bootstrap.min.js</jsFile>
+		<jsFile>OPHContent/cdn/jquery-validate/jquery-validate.js</jsFile>
+		<jsFile>OPHContent/cdn/waypoints/waypoints.min.js</jsFile>
+		<jsFile>OPHContent/cdn/easing/easing.js</jsFile>
+		<jsFile>OPHContent/cdn/jquery-flexslider/jquery.flexslider-min.js</jsFile>
+		<jsFile>OPHContent/cdn/owl-carousel/owl.carousel.js</jsFile>
+		<jsFile>OPHContent/cdn/parallax/parallax.js</jsFile>
+		<jsFile>OPHContent/cdn/jquery-final-countdown/jquery.final-countdown.js</jsFile>
+		<jsFile>OPHContent/cdn/jquery-cookie/jquery.cookie.js</jsFile>
+		<jsFile>OPHContent/cdn/datepicker/bootstrap-datepicker.js</jsFile>
+		<jsFile>OPHContent/cdn/bootstrap-strength-meter/password-score/dist/js/password-score.js</jsFile>
+		<jsFile>OPHContent/cdn/bootstrap-strength-meter/password-score/dist/js/password-score-options.js</jsFile>
+		<jsFile>OPHContent/cdn/bootstrap-strength-meter/dist/js/bootstrap-strength-meter.js</jsFile>
+		<jsFile>OPHContent/cdn/ckeditor/ckeditor.js</jsFile>
+		<jsFile>OPHContent/cdn/select2/select2.full.min.js</jsFile>
+		<jsFile>OPHContent/cdn/daterangepicker/moment.js</jsFile>
+		<jsFile>OPHContent/cdn/daterangepicker/moment.min.js</jsFile>
+		<jsFile>OPHContent/cdn/daterangepicker/daterangepicker.js</jsFile>
+		<jsFile>OPHContent/cdn/CodeSeven-toastr/build/toastr.min.js</jsFile>
+		<cssFile>OPHContent/cdn/CodeSeven-toastr/build/toastr.min.css</cssFile>
+		<jsFile>OPHContent/cdn/ophelements/autosuggest/autosuggest.js</jsFile>
+		<jsFile>OPHContent/cdn/ophelements/celljs/cell.js</jsFile>
+		<jsFile>OPHContent/cdn/ophelements/ophupload/ophupload.js</jsFile>
+		<jsFile>OPHContent/cdn/ophelements/doctalk/doctalk.js</jsFile>
+		<jsFile>OPHContent/cdn/ophelements/ophconnect/ophconnect.js</jsFile>
+		<jsFile>OPHContent/cdn/ophelements/studio/studio.js</jsFile>
+		<jsFile>OPHContent/cdn/ophelements/dashboard/dashboard.js</jsFile>
+		<jsFile>OPHContent/themes/themeSIX/custom-me.js?v=3.4</jsFile>
+	</manifest>
 </sqroot>
-
-

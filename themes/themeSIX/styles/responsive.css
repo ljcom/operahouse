@@ -507,7 +507,9 @@
 
 	.submenu > ul > li:hover > a {
 	    color: #cccccc;
-	    padding-left: 36px;
+	    /*padding-left: 36px;*/
+		background-color:gray;
+
 	}
 
 	.submenu > ul > li:hover > .submenu-child {

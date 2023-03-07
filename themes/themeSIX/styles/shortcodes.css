@@ -138,7 +138,7 @@
 }
 
 .flat-row {
-	padding: 2px 182px 4px;
+	padding: 100px 0;
 }
 
 /* Flat Title
@@ -2379,7 +2379,7 @@ article.box-price.style1.v1 .content-price .btn-price a {
 }
 
 .iconbox.style1 .box-header .icon span {
-	color: #000;
+	color: #1490d7;
 	margin-bottom: 26px;
 	display: inline-block;
 	padding-top: 3px;
@@ -3392,7 +3392,7 @@ article.box-price.style1.v1 .content-price .btn-price a {
 }
 
 .tab-about.style2 ul.tab-list-about li {
-	width: 20%;
+	width: 25%;
 	height: 100%;
 	padding-right: 21px;
 	padding-left: 21px;
@@ -10054,9 +10054,9 @@ label.error {
 }
 
 .parallax1 { background-image: url('../images/parallax/bg-01.png'); }
-.parallax2 { background-image: url('../images/parallax/bg-04.jpg'); }
+.parallax2 { background-image: url('../images/parallax/bg-02.png'); }
 .parallax3 { background-image: url('../images/parallax/bg-03.png'); }
-.parallax4 { background-image: url('../images/parallax/bg-04.jpg'); }
+.parallax4 { background-image: url('../images/parallax/bg-04.png'); }
 .parallax5 { background-image: url('../images/parallax/bg-05.png'); }
 .parallax6 { background-image: url('../images/parallax/bg-06.png'); }
 .parallax7 { background-image: url('../images/parallax/bg-07.png'); }

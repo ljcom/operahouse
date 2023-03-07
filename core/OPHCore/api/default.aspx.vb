@@ -10,20 +10,23 @@ Partial Class OPHCore_API_default
         'If getQueryVar("hostGUID") <> "" Then
         'getAccount(getQueryVar("hostGUID"), getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
         'Else
-        Dim loadStr = loadAccount(getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"))
-
+		
+        'If getQueryVar("hostGUID") <> "" Then
+			loadAccount(getQueryVar("env"), getQueryVar("code"), getQueryVar("GUID"), "", "", "", Session("suba"))
         'End If
 
 
         'contentOfdbODBC = 
         'contentOfsqDB = 
-        Dim curODBC = Session("odbc")
-        Dim DBCore = Session("sqDB")
         Dim curHostGUID = getSession()
+        Dim DBCore = Session("sqDB")
+        Dim curODBC = Session("odbc")
         Dim curUserGUID = Session("userGUID")
 
         Dim sqlstr = ""
         Dim noxml = False
+		Dim jsonOut = False
+		Dim jsonStr=""
         'Dim isValid = False
         Dim appSettings = ConfigurationManager.AppSettings
 
@@ -79,12 +82,13 @@ Partial Class OPHCore_API_default
                 Dim searchText = getQueryVar("bSearchText")
 
                 If sortOrder = "" Or sortOrder = "," Then sortOrder = ""
-                If stateid = "" Or stateid = "" Or stateid = "," Or stateid = "null" Then
+				If searchText = "null" Or searchText = "search" Then searchText = ""
+                If (stateid = "" Or stateid = "" Or stateid = "," Or stateid = "null") and searchText="" Then
                     sqlstr = "select c.StateID from modl a inner join msta b on a.ModuleStatusGUID=b.ModuleStatusGUID inner join mstastat c on b.ModuleStatusGUID=c.ModuleStatusGUID and c.isDefault=1 where moduleid='" & code & "'"
                     stateid = runSQLwithResult(sqlstr, curODBC)
                 End If
 
-                If searchText = "null" Or searchText = "search" Then searchText = ""
+                
                 searchText = searchText.Replace("%2B", "+")
                 If bpage = "" Then bpage = 1
                 If code <> "" Then
@@ -98,6 +102,7 @@ Partial Class OPHCore_API_default
 
                     sqlstr = "exec [api].[theme_browse] '" & curHostGUID & "', '" & code & "', '" & sqlfilter.Replace("'", "''") & "', '" & searchText.Replace("'", "''") & "', " & bpage & ", " & rpp & ", '" & sortOrder & "', '" & stateid & "', @output='" & output & "'"
                     writeLog("mode browse: " & sqlstr)
+
                     'writeLog("mode browse: " & curODBC)
                     'isSingle = False
                     'xmlstr = getXML(sqlstr, curODBC)
@@ -106,6 +111,7 @@ Partial Class OPHCore_API_default
                     isSingle = False
                     xmlstr = getXML(sqlstr, curODBC, False)
                 End If
+
             Case "query"
                 Dim sortOrder = getQueryVar("o")
                 Dim stateid = getQueryVar("s")
@@ -159,7 +165,17 @@ Partial Class OPHCore_API_default
                 If GUID = "null" Then GUID = "'00000000-0000-0000-0000-000000000000'"
                 sqlstr = "exec [api].[theme_form] '" & curHostGUID & "', '" & code & "', " & GUID '& ", " & editMode
                 writeLog("mode form : " & sqlstr)
-
+			case "parse"
+				dim key=getQueryVar("key")
+				dim level=getQueryVar("level")
+				if level="" then level="0"
+                sqlstr = "exec [api].[getjson] '" & curHostGUID & "', '" & key & "', " & level
+				isSingle = False
+				jsonStr=runSQLwithResult(sqlstr, curODBC)
+                writeLog("mode json : " & sqlstr)
+				jsonOut=true
+				noxml=true
+			
             Case "save", "preview"
                 isSingle = False
                 Dim preview = getQueryVar("flag")
@@ -522,11 +538,15 @@ Partial Class OPHCore_API_default
                 isSingle = False
 
             Case Else 'signin
+                'loadAccount()
                 Dim bypass = 0
                 Dim userid As String = ""
                 Dim pwd As String = ""
                 Dim suba As String = ""
                 suba = getQueryVar("suba")
+                loadAccount(getQueryVar("env"), getQueryVar("code"), "", "", "", "", suba)
+
+                curHostGUID = getSession()
 
                 If Request.Form("autologin") = "1" And Request.ServerVariables(5) <> "" Then
                     bypass = 1
@@ -536,29 +556,45 @@ Partial Class OPHCore_API_default
                     pwd = Request.Form("pwd")
 
                 End If
+                'Response.Write(curHostGUID)
+                'Response.Write(userid)
                 'Dim withCaptcha = getQueryVar("withCaptcha")
                 Dim withcaptcha = Not contentofwhiteAddress
                 'withcaptcha = IIf(String.IsNullOrWhiteSpace(withCaptcha), 0, withCaptcha)
                 Dim captcha = Request.Form("g-recaptcha-response")
                 Dim source As String = getQueryVar("source")
+                'userid = "imas"
+                'pwd = "nebberhub2021"
                 If userid = "" And (pwd = "" Or bypass = 0) And captcha = "" Then
                     'reloadURL("index.aspx?")
                 Else
+
                     If withcaptcha = 0 Or (withcaptcha = 1 And captcha <> "" And IsGoogleCaptchaValid()) Then 'Or (source.ToLower.IndexOf("localhost") > 0) Then
                         'If checkWinLogin(userid, pwd) Then
                         '    bypass = 1
                         '    sqlstr = "select infovalue from acctinfo a inner join acct b on a.accountguid=b.accountguid where infokey='masterPassword' and accountid='" & contentOfaccountId & "'"
                         '    pwd = runSQLwithResult(sqlstr, contentOfsequoiaCon)
                         'End If
+
                         sqlstr = "exec api.verifyPassword '" & curHostGUID & "', '" & userid & "', '" & pwd & "', " & bypass & ", @suba='" & suba & "'"
                         writeLog(sqlstr)
                         xmlstr = getXML(sqlstr, curODBC)
+
+
                         If xmlstr IsNot Nothing And xmlstr <> "" Then
                             'Session.Clear()
                             curUserGUID = XDocument.Parse(xmlstr).Element("sqroot").Element("userGUID").Value
                             Session("userGUID") = curUserGUID
                             'Response.Cookies("hostGUID").Value = curHostGUID
                             Response.Cookies("isLogin").Value = 1
+							
+							'update sam 20230227
+							Dim cartID = getQueryVar("cartID")
+							If cartID <> "" and Left(cartID)<10 Then
+								sqlstr = "exec dbo.checkToPCSO '" & curHostGUID & "', '" & cartID & "'"
+								Dim xmlstr2 = runSQLwithResult(sqlstr, curODBC)
+							End If
+							
                         Else
                             If bypass = 1 Then
                                 xmlstr = "<sqroot><message>You don't have the authorization.</message></sqroot>"
@@ -568,13 +604,7 @@ Partial Class OPHCore_API_default
                                 xmlstr = "<sqroot><message>" + errorCaptcha + "</message></sqroot>"
                             End If
                         End If
-                        '--!
-                        Dim cartID = getQueryVar("cartID")
-                        If cartID <> "" Then
-                            sqlstr = "exec dbo.checkToPCSO '" & curHostGUID & "', '" & cartID & "'"
-                            Dim xmlstr2 = runSQLwithResult(sqlstr, curODBC)
-                        End If
-                        'RegenerateID()
+ 
                     Else
                         If String.IsNullOrWhiteSpace(errorCaptcha) Then
                             xmlstr = "<sqroot><message>Please authorize CAPTCHA!</message></sqroot>"
@@ -584,17 +614,19 @@ Partial Class OPHCore_API_default
                     End If
                     '--!
                     isSingle = False
+                    'Response.Write(xmlstr)
+                    'Response.End()
 
                 End If
         End Select
         If isSingle Then xmlstr = getXML(sqlstr, curODBC)
-
         If xmlstr <> "" Then
             xmlstr1 = xmlstr.Substring(1, 6)
         End If
         If xmlstr1 <> "sqroot" Then
             isSingle = False
         End If
+
         If Not noxml Then
             'If Len(xmlstr) > 50 Then
             If xmlstr <> "" Then
@@ -605,17 +637,24 @@ Partial Class OPHCore_API_default
                 ElseIf type = "json" Then
                     Dim xmlDoc As New XmlDocument
                     xmlDoc.LoadXml(xmlstr)
-                    Dim jsonStr = JsonConvert.SerializeXmlNode(xmlDoc)
+                    jsonStr = JsonConvert.SerializeXmlNode(xmlDoc)
                     Response.ContentType = "application/json"
                     Response.Write(jsonStr)
                 Else
+                    'Response.Write(sqlstr)
+                    'Response.End()
+
                     Response.ContentType = "text/xml"
-                        Response.Write("<?xml version=""1.0"" encoding=""utf-8""?>")
-                        Response.Write(xmlstr)
-                    End If
-                Else
-                    writeLog("mode " & mode & " : " & sqlstr)
+                    Response.Write("<?xml version=""1.0"" encoding=""utf-8""?>")
+                    Response.Write(xmlstr)
+                End If
+            Else
+                writeLog("mode " & mode & " : " & sqlstr)
             End If
+        ElseIf jsonOut Then
+            Response.ContentType = "application/json"
+            Response.Write(jsonStr)
+
         Else
             Response.Write("ok")
         End If
